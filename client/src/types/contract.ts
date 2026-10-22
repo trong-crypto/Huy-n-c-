@@ -25,11 +25,14 @@ export type CalculationRequest = {
   payload: MaiHoaPayload | TamThePayload;
 };
 
+export type ServerError = { code: ErrorCode; message: string; ruleCode: string | null };
+
+// Only validated, correlatable final responses enter Client state. Raw JSON is unknown.
 export type CalculationResponse = {
-  requestId: string | null;
-  type: CalculationType | null;
-  status: "COMPLETED" | "FAILED";
-  data: unknown | null;
-  error: { code: ErrorCode; message: string; ruleCode: string | null } | null;
-};
+  requestId: string;
+  type: CalculationType;
+} & (
+  | { status: "COMPLETED"; data: NonNullable<unknown>; error: null }
+  | { status: "FAILED"; data: null; error: ServerError }
+);
 
