@@ -1,0 +1,11 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: huyen-co-server
+
+huyenco:
+  allowed-origins: ${ALLOWED_ORIGINS:http://localhost:3000}
+
+
