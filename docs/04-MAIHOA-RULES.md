@@ -17,19 +17,27 @@ Nguồn: *Mai Hoa Dịch Số*, Thiệu Khang Tiết, Ông Văn Tùng dịch/ch�
 3. Hào động = `hao(Y+M+D+H)`.
 4. Ghép hai quái thành quẻ chủ.
 
-**Xung đột bản in:** câu cuối tr. 50 / PDF 45 nói tổng bốn số “trừ đi 8” để lấy hào động, nhưng nguyên văn tr. 48–49 / PDF 43–44 và mục “Hào trừ 6” tr. 46 / PDF 41 đều nói chia 6. Kế hoạch tạm theo chia 6; trạng thái `BLOCKED_SOURCE_CONFLICT` cho đến khi TV2/TV3 đối chiếu ví dụ và ghi quyết định. Chưa phát kết quả thật cho MH-TIME trước khi giải quyết cả xung đột và bộ chuyển lịch.
+**Quyết định triển khai của nhóm ngày 22/10/2026:** TV2 dùng tổng `Y+M+D+H` chia 6 lấy dư để tìm hào động; dư 0 ứng với hào 6. Giữ nguyên chứng cứ bản in: câu cuối tr. 50 / PDF 45 ghi “trừ đi 8”, trái nguyên văn tr. 48–49 / PDF 43–44 và mục “Hào trừ 6” tr. 46 / PDF 41. Quyết định của nhóm giải quyết cách cài đặt, **không sửa bản scan hoặc tự biến câu tr. 50 thành chứng cứ chia 6**. TV2/TV3 vẫn cần ca chuẩn và bộ chuyển lịch được kiểm trước khi đánh dấu toàn tuyến MH-TIME `VERIFIED`.
 
-## MH-NUMBER: số vật đếm được
+## MH-OBJECT-COUNT: số vật đếm được
 
-Mục “Xem bằng số vật” (tr. 51 / PDF 46) dùng số vật `N` để lấy thượng quái, số giờ `H` để lấy hạ quái, rồi cộng “số quái” với giờ và chia 6 để lấy hào động. Dự kiến `upper=quai(N)`, `lower=quai(H)`. Chưa rõ “số quái” ở bước cuối là `N` gốc hay số sau chia 8: để `SOURCE_AMBIGUOUS`, không tự chốt `hao(N+H)` khi chưa kiểm ví dụ.
+Mục “Xem bằng số vật” (tr. 51 / PDF 46) dùng số vật `N` để lấy thượng quái, số giờ `H` để lấy hạ quái, rồi cộng “số quẻ” với giờ và chia 6 để lấy hào động. Nhóm **chốt quy ước triển khai**: `upper=quai(objectCount)`, `lower=quai(hourIndex)`, `movingLine=hao(objectCount+hourIndex)`. `hourIndex` nhận 1–12 theo giờ Chi (Tý=1…Hợi=12), `objectCount` là số nguyên dương; dư 0 khi chia 8 ứng với Khôn (8), dư 0 khi chia 6 ứng với hào 6. Ví dụ `objectCount=12`, `hourIndex=8` → thượng quái 4 (Chấn), hạ quái 8 (Khôn), hào động 2.
 
-Hợp đồng cũ `numbers:[a,b]` là biến thể **chưa tìm thấy căn cứ trong mục số vật của ấn bản**. Giữ mã riêng `MH-TWO-NUMBERS` ở trạng thái DRAFT hoặc trả `RULE_NOT_AVAILABLE`; không gắn nhãn theo sách. Nếu nhóm chọn triển khai số vật, JSON phải đổi thành `objectCount` và `datetime`/giờ đã chuẩn hóa.
+**Giới hạn chứng cứ:** cụm “số quẻ” trên tr. 51 / PDF 46 vẫn có thể chỉ số quái đã rút gọn, thay vì số vật gốc. Công thức `hao(objectCount+hourIndex)` là lựa chọn trực tiếp của chủ dự án để ba thành viên dùng chung, chưa được chứng minh độc lập là cách duy nhất của bản in. Giữ trạng thái quy tắc `SOURCE_AMBIGUOUS` và ghi riêng quyết định nhóm trong `07-DECISION-LOG.md`; TV2 viết test và TV3 đối chiếu ví dụ/nguồn trước khi nâng lên `VERIFIED` hoặc trình bày là thuật toán nguyên bản. Không phát lời luận giải chưa xác minh.
+
+Hợp đồng cũ `method=NUMBER` với `numbers:[a,b]` bị loại bỏ. Hợp đồng mới dùng `method=OBJECT_COUNT`, `objectCount`, `hourIndex` và `question` tùy chọn. `NUMBER` cũ trả `INVALID_METHOD`; không giữ đường tính hai số song song.
 
 ## MH-MUTUAL, MH-CHANGE, MH-THE-DUNG
 
 - Quẻ hỗ: hào 2–3–4 của quẻ chủ thành hạ quái; hào 3–4–5 thành thượng quái (tr. 47–48 / PDF 42–43).
 - Quẻ biến: đảo âm↔dương tại đúng hào động; giữ năm hào khác (tr. 46 / PDF 41).
 - Thể là phía mình/chủ, Dụng là sự việc/khách; xét sinh–khắc giữa Ngũ hành hai quái, đồng hành là hòa. Thể khắc Dụng hoặc Dụng sinh Thể là thuận; Dụng khắc Thể hoặc Thể sinh Dụng là bất lợi (tr. 124–125 / PDF 118–119; tr. 137–139 / PDF 131–133). Sách còn xét quẻ hỗ, quẻ biến, vượng/suy theo mùa. **Chưa xác nhận rõ từ trang đã đối chiếu cách chọn quái nào là Thể theo vị trí hào động**; trả `RULE_NOT_AVAILABLE` cho phần này, không gán theo quy ước ngoài sách.
+
+### P0 LINES — biến đổi cấu trúc quẻ do người dùng nhập
+
+Input `linesBottomUp` gồm đúng sáu boolean; `movingLine` từ 1 đến 6. Quẻ chủ là chính dãy đầu vào. Quẻ hỗ lấy hào 2–3–4 làm ba hào dưới, 3–4–5 làm ba hào trên. Quẻ biến sao chép quẻ chủ và đảo đúng hào `movingLine`. P0 không tự lập quẻ từ ngày giờ, không chọn Thể–Dụng và không tạo lời luận giải. Tên/mã quẻ chỉ thêm khi bảng 64 quẻ được đối chiếu đủ.
+
+Trạng thái của `MH-MUTUAL` và `MH-CHANGE` vẫn là `SOURCE_LOCATED` cho đến khi TV2 viết test, TV3 kiểm độc lập tr. 46–48/PDF 41–43 của bản scan và hai người ghi kết luận trong `07-DECISION-LOG.md`. Test cấu trúc kiểm cả 64 dãy hào × 6 vị trí; ít nhất các ca nguồn phải có ảnh/trang và expected. Nếu một trong hai quy tắc chưa `VERIFIED`, `method=LINES` trả `RULE_NOT_AVAILABLE` cùng `ruleCode`; không trả mock như kết quả thật.
 
 ## Đầu ra và kiểm thử
 

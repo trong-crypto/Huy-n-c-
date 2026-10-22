@@ -14,7 +14,7 @@ Server xác định ngày/tháng/năm âm, Can Chi **năm sinh âm lịch**, hà
 
 “Số 5” quy định mốc bắt đầu ban ngày của giờ Dần theo **tháng âm** (tr. 13–16 / PDF 12–15): tháng 1/9→04:20; 2/8→04:00; 3/7→04:30; 4/6→04:40; 5→05:20; 11→03:40; 10/12→04:00. Sau đó mỗi 120 phút lần lượt Mão, Thìn, Tỵ, Ngọ, Mùi; ban đêm Thân, Dậu, Tuất, Hợi, Tý, Sửu. Khoảng tính `[mốc, mốc+120 phút)`; tất cả 12 khoảng phải phủ kín 24 giờ. Không tái dùng mốc giờ Chi cố định của Mai Hoa.
 
-**Xung đột bản in:** dòng đầu tháng 5 tr. 15 / PDF 14 ghi “giờ Dậu” cho 05:20–07:19, trong khi chuỗi tiếp theo là Mão…Mùi. Lưu cả `sourceText=Dậu` và `proposedCorrection=Dần`, trạng thái `BLOCKED_SOURCE_CONFLICT`; nhóm phải ghi quyết định trước khi triển khai ô này.
+**Quyết định triển khai của nhóm ngày 22/10/2026:** TV3 dùng **Dần** cho ô tháng 5, 05:20–07:19, rồi tiếp Mão, Thìn, Tỵ, Ngọ, Mùi. Bản in tr. 15 / PDF 14 vẫn ghi **Dậu**; lưu `sourceText=Dậu`, `adoptedValue=Dần`, `decisionReason=chuỗi 12 giờ liên tiếp và các tháng lân cận`, `decisionStatus=TEAM_CORRECTION`. Không âm thầm sửa dữ liệu nguồn. Quyết định này chỉ chốt cách xử lý dòng xung đột; toàn bảng giờ vẫn cần nhập đủ, test ranh giới và TV2 kiểm chéo trước `VERIFIED`.
 
 “Số 8” chia mỗi giờ Chi thành đầu/giữa/sau, tổng **36 ô** luận giải (tr. 26–29 / PDF 25–28). Kế hoạch chia mỗi khoảng 120 phút thành ba đoạn 40 phút và tra theo `hourBranch + segment`; cách chia 40 phút là suy luận triển khai từ “một giờ chia ba”, phải đối chiếu ví dụ trước khi VERIFIED. Không xuất lời luận giải chưa nhập/kiểm nguồn.
 

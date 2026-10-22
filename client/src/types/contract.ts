@@ -9,7 +9,8 @@ export type ErrorCode =
 
 export type MaiHoaPayload =
   | { method: "TIME"; datetime: string; question?: string }
-  | { method: "NUMBER"; numbers: [number, number]; question?: string };
+  | { method: "OBJECT_COUNT"; objectCount: number; hourIndex: number; question?: string }
+  | { method: "LINES"; linesBottomUp: [boolean, boolean, boolean, boolean, boolean, boolean]; movingLine: number };
 
 export type TamThePayload = {
   birthDate: string;

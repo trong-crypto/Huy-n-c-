@@ -44,18 +44,34 @@ public final class ContractValidator {
             } catch (DateTimeParseException ex) {
                 throw new ContractException("INVALID_DATE", "datetime phải là ISO 8601 có offset.");
             }
-        } else if ("NUMBER".equals(method)) {
-            JsonNode numbers = payload.get("numbers");
-            if (numbers == null || !numbers.isArray() || numbers.size() != 2) {
-                throw invalidInput("numbers phải có đúng hai số nguyên.");
+        } else if ("OBJECT_COUNT".equals(method)) {
+            JsonNode objectCount = payload.get("objectCount");
+            JsonNode hourIndex = payload.get("hourIndex");
+            if (objectCount == null || !objectCount.isIntegralNumber()
+                    || objectCount.asLong() < 1 || objectCount.asLong() > 999_999) {
+                throw invalidInput("objectCount phải là số nguyên từ 1 đến 999999.");
             }
-            for (JsonNode number : numbers) {
-                if (!number.isIntegralNumber() || number.asLong() < 1 || number.asLong() > 999_999) {
-                    throw invalidInput("Mỗi số phải là số nguyên từ 1 đến 999999.");
+            if (hourIndex == null || !hourIndex.isIntegralNumber()
+                    || hourIndex.asInt() < 1 || hourIndex.asInt() > 12) {
+                throw invalidInput("hourIndex phải là số nguyên từ 1 đến 12.");
+            }
+        } else if ("LINES".equals(method)) {
+            JsonNode lines = payload.get("linesBottomUp");
+            JsonNode movingLine = payload.get("movingLine");
+            if (lines == null || !lines.isArray() || lines.size() != 6) {
+                throw invalidInput("linesBottomUp phải có đúng sáu hào.");
+            }
+            for (JsonNode line : lines) {
+                if (!line.isBoolean()) {
+                    throw invalidInput("Mỗi hào phải là boolean.");
                 }
             }
+            if (movingLine == null || !movingLine.isIntegralNumber()
+                    || movingLine.asInt() < 1 || movingLine.asInt() > 6) {
+                throw invalidInput("movingLine phải là số nguyên từ 1 đến 6.");
+            }
         } else {
-            throw new ContractException("INVALID_METHOD", "method chỉ nhận TIME hoặc NUMBER.");
+            throw new ContractException("INVALID_METHOD", "method chỉ nhận TIME, OBJECT_COUNT hoặc LINES.");
         }
         JsonNode question = payload.get("question");
         if (question != null && (!question.isTextual() || question.asText().length() > 500)) {

@@ -1,0 +1,28 @@
+# Yêu cầu chức năng phía người dùng và điều kiện nghiệm thu
+
+**Quyết định phạm vi ngày 22/10/2026:** chủ dự án yêu cầu đầy đủ các chức năng trong bảng này. Đây là đích nghiệm thu của sản phẩm, không phải tuyên bố rằng mã nguồn hiện đã hoàn thành. `MAI_HOA/LINES` chỉ là lát cắt kỹ thuật làm trước. Quy tắc và dữ liệu sách phải có trang nguồn, người nhập, người kiểm và ca chuẩn trước khi trả kết quả thật.
+
+| Mã | Người dùng làm được gì | Đầu ra/điều kiện nghiệm thu | Chủ trì | Hiện trạng 22/10 |
+| --- | --- | --- | --- | --- |
+| F01 | Chọn ngày/giờ để lập quẻ Mai Hoa | Server chuẩn hóa lịch/múi giờ, tính quẻ chủ, hào động theo tổng chia 6 (0→6), quẻ hỗ, quẻ biến, các bước tính và nguồn | TV2; TV3 lịch/nguồn; TV1 UI | Quyết định chia 6 đã chốt; thuật toán còn bị chặn bởi lịch và test nguồn |
+| F02 | Nhập số vật để lập quẻ Mai Hoa | `OBJECT_COUNT` nhận `objectCount` và `hourIndex`; thượng/hạ quái theo chia 8, hào động theo tổng chia 6; có ca chuẩn và kết quả như F01 | TV2; TV3 nguồn; TV1 UI | Hợp đồng/hàm số học đã cập nhật; cụm “số quẻ” trang 51 cần kiểm độc lập trước VERIFIED |
+| F03 | Xem quẻ chủ, quẻ hỗ, quẻ biến, hào động | Sáu hào đúng thứ tự từ dưới lên, tên/mã nếu bảng 64 quẻ đã kiểm, từng bước biến đổi và `sourceReferences` | TV2 tính; TV3 bảng; TV1 trình bày | Chưa có phép tính thật; hợp đồng LINES v1.1 là điểm khởi đầu |
+| F04 | Xem luận giải Tam Thế về công danh, tài lộc, tình duyên | Ba mục riêng, mỗi mục chỉ xuất nội dung đã nhập/kiểm đúng ô bảng và dẫn trang; không tự tạo văn bản dự đoán | TV3; TV2 tích hợp; TV1 UI | Form Tam Thế có; công danh mới định vị một phần; tài lộc/tình duyên chưa lập bản đồ nguồn |
+| F05 | Tra cứu 64 quẻ | Tìm theo tên/mã, lọc theo thượng/hạ quái, xem sáu hào, nội dung và nguồn; đủ 64 bản ghi được kiểm, không trùng/thiếu | TV3 dữ liệu; TV2 API; TV1 UI | Chỉ có schema nháp, chưa có bộ 64 bản ghi được xác minh |
+| F06 | Đổi lịch Dương–Âm và tính Can Chi | Chuyển hai chiều trong khoảng năm công bố, có tháng nhuận, giờ Việt Nam và Can Chi dùng thống nhất bởi F01/F04; kiểm bằng bộ ngày chuẩn độc lập | TV3; TV2 API; TV1 UI | Module lịch còn trống; phải chốt nguồn thuật toán, phạm vi năm và quy tắc tiết khí |
+| F07 | Theo dõi quá trình lập quẻ và nhận kết quả thời gian thực | Sau khi gửi, Client thấy đang kết nối/đã nhận/đang tính/hoàn tất hoặc thất bại; các bước có thứ tự, cùng `requestId`, đúng phiên; reconnect/timeout rõ ràng | TV2 giao thức; TV1 UI | Có phản hồi cuối qua STOMP; chưa có progress hoặc bước tính |
+| F08 | Lưu và tra cứu lịch sử của mình | Người dùng chủ động lưu/xem/tìm/xóa kết quả; Server bảo vệ quyền đọc theo chủ sở hữu, phân trang và không lộ dữ liệu giữa người dùng; test truy cập chéo | TV3 lưu trữ; TV2 API/bảo mật; TV1 UI | Chưa có bảng lịch sử hoặc API; cần PostgreSQL cài trực tiếp/chung, Docker không bắt buộc |
+
+## Ràng buộc hợp đồng và riêng tư
+
+- Giữ envelope `requestId`, `type`, `status`, `data`, `error` và phản hồi STOMP riêng theo session. Mở rộng hợp đồng lên v1.2 cho `TIME`, phương pháp số được kiểm, Tam Thế theo nhóm luận giải, tra cứu/lịch/lịch sử và `/user/queue/progress`. Tài liệu API phải chứa ví dụ request, response, lỗi cho từng chức năng trước khi tích hợp.
+- Mỗi kết quả có `ruleVersion`, `sourceReferences`, `calculationSteps` khi có phép tính; các mục Tam Thế có `category` phân biệt `CAREER`, `WEALTH`, `LOVE`. Tên/mã quẻ chỉ dùng sau khi bảng 64 quẻ đạt kiểm chứng.
+- Chỉ lưu lịch sử khi người dùng chủ động chọn lưu; không lưu bản rõ ngày sinh/câu hỏi nếu không cần cho việc xem lại. Xác định cơ chế sở hữu lịch sử và xóa dữ liệu trước khi bật F08. Không dùng session WebSocket ngắn hạn làm định danh sở hữu lâu dài.
+- Tính theo Server; Client chỉ kiểm đầu vào sơ bộ và trình bày. Dữ liệu chưa xác minh không được trả như luận giải thật.
+
+## Cổng nghiệm thu
+
+1. TV3 lập ma trận `ruleCode → sách/ấn bản/mục/trang in/trang PDF → input/output → người kiểm` cho TIME, NUMBER, Tam Thế ba nhóm, 64 quẻ và lịch. Mục tài lộc/tình duyên chưa tìm ra trong bản sách phải ghi `SOURCE_NOT_LOCATED`, không suy đoán.
+2. TV2 và TV3 ký ca chuẩn độc lập cho từng phép tính; test đơn vị và test đầu cuối so với sách. Chỉ sau đó bật `COMPLETED`.
+3. TV1 demo từng F01–F08 từ giao diện trên hai trình duyệt; TV2 xác nhận đúng `requestId`/session, xử lý lỗi, quá tải và không rò lịch sử.
+4. Có dữ liệu đo thật cho 1, 5, 20 Client, báo cáo giới hạn và danh sách chức năng chưa đạt nếu còn. Chỉ gọi sản phẩm **đầy đủ** khi cả F01–F08 đạt các điều kiện trên.

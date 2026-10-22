@@ -47,7 +47,7 @@ try {
 
   a.client.publish({
     destination: "/app/mai-hoa/calculate",
-    body: JSON.stringify({ requestId: aId, type: "MAI_HOA", payload: { method: "NUMBER", numbers: [12, 25] } }),
+    body: JSON.stringify({ requestId: aId, type: "MAI_HOA", payload: { method: "OBJECT_COUNT", objectCount: 12, hourIndex: 8 } }),
     headers: { "content-type": "application/json" },
   });
   b.client.publish({
@@ -57,7 +57,7 @@ try {
   });
   a.client.publish({
     destination: "/app/mai-hoa/calculate",
-    body: JSON.stringify({ requestId: invalidId, type: "MAI_HOA", payload: { method: "NUMBER", numbers: [12] } }),
+    body: JSON.stringify({ requestId: invalidId, type: "MAI_HOA", payload: { method: "OBJECT_COUNT", objectCount: 12, hourIndex: 13 } }),
     headers: { "content-type": "application/json" },
   });
 
@@ -67,7 +67,7 @@ try {
   const passed = a.inbox.length === 2 && b.inbox.length === 1
     && aIds.includes(aId) && aIds.includes(invalidId) && bIds[0] === bId
     && a.inbox.find((item) => item.requestId === invalidId)?.error?.code === "INVALID_INPUT"
-    && a.inbox.find((item) => item.requestId === aId)?.error?.ruleCode === "MH-TWO-NUMBERS"
+    && a.inbox.find((item) => item.requestId === aId)?.error?.ruleCode === "MH-OBJECT-COUNT"
     && b.inbox[0]?.error?.ruleCode === "TT-NGU-HANH";
   if (!passed) throw new Error("Phản hồi sai requestId/session hoặc mã lỗi.");
   console.log("STOMP smoke test đạt: hai phiên tách biệt, INVALID_INPUT và ruleCode đúng.");

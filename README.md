@@ -2,6 +2,8 @@
 
 Khung dự án Client–Server cho Mai Hoa Dịch Số và Diễn Cầm Tam Thế. Đây là bộ khung để ba thành viên phát triển song song. Hai bản sách đã được đối chiếu ở mức đặc tả (`SOURCE_LOCATED`), nhưng **chưa có thuật toán luận giải nào đạt `VERIFIED`**. Server nhận yêu cầu hợp lệ rồi trả `RULE_NOT_AVAILABLE` kèm `ruleCode` cho đến khi dữ liệu và kiểm thử được duyệt.
 
+**Phạm vi sản phẩm đã cập nhật:** Mai Hoa theo thời gian và con số; quẻ chủ/hỗ/biến, hào động; Tam Thế công danh/tài lộc/tình duyên; tra cứu 64 quẻ; đổi lịch Âm–Dương/Can Chi; tiến trình theo thời gian thực; lưu và tra cứu lịch sử. Đây là **yêu cầu cần triển khai**, chưa phải các chức năng đã có. Xem `docs/10-FUNCTIONAL-REQUIREMENTS.md` và `docs/01-SCOPE.md`. Docker không bắt buộc; khi làm lịch sử Server và kho dữ liệu, nhóm cần cấu hình PostgreSQL cài trực tiếp hoặc dùng Server chung.
+
 ## Cấu trúc
 
 - `client/`: Next.js, hai màn hình nhập liệu và STOMP WebSocket Client (TV1).
@@ -9,7 +11,7 @@ Khung dự án Client–Server cho Mai Hoa Dịch Số và Diễn Cầm Tam Th�
 - `server/src/main/resources/db/migration/`: bản nháp schema PostgreSQL do TV3 quản lý; chỉ dùng khi bật cấu hình database.
 - `docs/`: hợp đồng chung, quy tắc, kế hoạch kiểm thử và nhật ký quyết định.
 
-Giao diện Mai Hoa hiện chỉ có phương pháp theo thời gian. Mẫu `NUMBER` hai con số được giữ để kiểm tra hợp đồng cũ, chưa được giới thiệu là phép tính theo sách. Xem `docs/04-MAIHOA-RULES.md` và `docs/05-TAMTHE-RULES.md` trước khi cài thuật toán.
+Giao diện Mai Hoa có biểu mẫu theo thời gian và số vật (`OBJECT_COUNT`). Biến thể `NUMBER` với mảng hai số đã bị loại bỏ. TV2 đã có hàm số học chia dư 8/6 theo quyết định nhóm, nhưng Server vẫn trả `RULE_NOT_AVAILABLE` cho đến khi quy tắc và dữ liệu đầu cuối được kiểm chứng; xem `docs/04-MAIHOA-RULES.md` và `docs/05-TAMTHE-RULES.md`.
 
 ## Chạy cục bộ
 
