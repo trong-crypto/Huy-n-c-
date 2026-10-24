@@ -67,7 +67,8 @@ try {
   const passed = a.inbox.length === 2 && b.inbox.length === 1
     && aIds.includes(aId) && aIds.includes(invalidId) && bIds[0] === bId
     && a.inbox.find((item) => item.requestId === invalidId)?.error?.code === "INVALID_INPUT"
-    && a.inbox.find((item) => item.requestId === aId)?.error?.ruleCode === "MH-OBJECT-COUNT"
+    && a.inbox.find((item) => item.requestId === aId)?.status === "COMPLETED"
+    && a.inbox.find((item) => item.requestId === aId)?.data?.ruleBasis === "TEAM_DECISION"
     && b.inbox[0]?.error?.ruleCode === "TT-NGU-HANH";
   if (!passed) throw new Error("Phản hồi sai requestId/session hoặc mã lỗi.");
   console.log("STOMP smoke test đạt: hai phiên tách biệt, INVALID_INPUT và ruleCode đúng.");

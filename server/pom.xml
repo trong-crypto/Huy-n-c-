@@ -36,7 +36,7 @@
       <dependencies>
         <dependency>
           <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-data-jpa</artifactId>
+          <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         <dependency>
           <groupId>org.flywaydb</groupId>
@@ -52,6 +52,37 @@
           <scope>runtime</scope>
         </dependency>
       </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-maven-plugin</artifactId>
+            <version>${flyway.version}</version>
+            <configuration>
+              <url>${env.DB_URL}</url>
+              <user>${env.DB_USERNAME}</user>
+              <password>${env.DB_PASSWORD}</password>
+              <locations>
+                <location>filesystem:${project.basedir}/src/main/resources/db/migration</location>
+              </locations>
+              <cleanDisabled>true</cleanDisabled>
+              <connectRetries>0</connectRetries>
+            </configuration>
+            <dependencies>
+              <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-database-postgresql</artifactId>
+                <version>${flyway.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
   <build>

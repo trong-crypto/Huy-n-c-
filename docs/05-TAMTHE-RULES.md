@@ -1,6 +1,6 @@
 # Diễn Cầm Tam Thế Diễn Nghĩa — logic nghiệp vụ đối chiếu bản scan
 
-Nguồn: *Diễn Cầm Tam Thế Diễn Nghĩa*, soạn giải Dương Công Hầu, hiệu Khương Đức; PDF người dùng cung cấp, 360 trang. Bìa ghi 1952 nhưng thiếu dữ kiện xuất bản đầy đủ, nên chưa khẳng định NXB/năm in của ấn bản. Dẫn trang dạng `trang in / trang PDF` (PDF từ 1). Sách là tư liệu tín ngưỡng truyền thống, không phải dự đoán khoa học. Bảng được định vị là `SOURCE_LOCATED`, chỉ `VERIFIED` khi TV3 nhập đủ, test và TV2 review.
+Nguồn: *Diễn Cầm Tam Thế Diễn Nghĩa*, soạn giải Dương Công Hầu, hiệu Khương Đức; PDF người dùng cung cấp, 360 trang. Bìa ghi 1952 nhưng thiếu dữ kiện xuất bản đầy đủ, nên chưa khẳng định NXB/năm in của ấn bản. Dẫn trang dạng `trang in / trang PDF` (PDF từ 1). Sách là tư liệu tín ngưỡng truyền thống, không phải dự đoán khoa học. Cập nhật S02 ngày 24/10: riêng 60 ánh xạ Can Chi→hành mệnh và TT-NGU-HANH đã VERIFIED theo biên bản 22, reviewer Codex cùng công cụ lượt hai; các bảng và mô tả khác giữ trạng thái riêng.
 
 ## Chuẩn hóa đầu vào
 
@@ -8,7 +8,9 @@ Server xác định ngày/tháng/năm âm, Can Chi **năm sinh âm lịch**, hà
 
 ## TT-NGU-HANH: mệnh theo tuổi
 
-“Số 4” có 60 tổ hợp Can Chi và hành mệnh/nạp âm (tr. 12 / PDF 11). Khóa là `yearStem + yearBranch`, không phải ngày/tháng hay tổng chữ số năm. Chép thành 60 bản ghi, kiểm không trùng/thiếu, mỗi bản ghi có nguồn. Không nhầm mệnh tuổi Tam Thế với hành của quái Mai Hoa.
+“Số 4” có 60 tổ hợp Can Chi và cột hành mệnh (tr. 12 / PDF 11). Khóa là `yearStem + yearBranch`, không phải ngày/tháng hay tổng chữ số năm. **S02 đã chép, nhập và duyệt đủ 60 bản ghi** trong `tam_the_lookup_entries`, gắn rule TT-NGU-HANH 1.0; kiểm chu kỳ/khóa/trang và biên bản lượt hai. Không nhầm mệnh tuổi Tam Thế với hành của quái Mai Hoa.
+
+Phạm vi VERIFIED chỉ gồm mã Can/Chi và giá trị cột mạng. Dòng 28 Mậu Ngọ/Kỷ Mùi ghi Hỏa nhưng phần mô tả “cây lựu đá” bất nhất với hành; giữ chứng cứ ở `22-S02-TAM-THE-YEAR-ELEMENTS.md`, chưa nhập/duyệt mô tả hoặc tên nạp âm thay thế. `description=NULL` cho 60 ô. Chuyển ngày Dương sang năm âm thuộc C01; TamTheService vẫn chưa triển khai các tuyến luận giải D03.
 
 ## TT-GIO-SINH: mốc giờ theo tháng và 36 phần
 

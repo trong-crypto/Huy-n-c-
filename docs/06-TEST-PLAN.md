@@ -5,7 +5,7 @@ Theo phạm vi mới, F01–F08 ở `10-FUNCTIONAL-REQUIREMENTS.md` đều cần
 ## Hợp đồng
 
 - Yêu cầu TIME/OBJECT_COUNT/LINES/TAM_THE hợp lệ và không hợp lệ.
-- UUID và `type` đúng; ngày/giờ, tháng nhuận; `OBJECT_COUNT` hợp lệ nhưng quy tắc chưa VERIFIED trả `RULE_NOT_AVAILABLE`; `NUMBER` cũ trả `INVALID_METHOD`.
+- UUID và `type` đúng; ngày/giờ, tháng nhuận; `OBJECT_COUNT` hợp lệ nhưng thiếu bất kỳ điều kiện nguồn/policy/dữ liệu/implementation bắt buộc trả `RULE_NOT_AVAILABLE`; TEAM_DECISION hợp lệ giữ nguyên trạng thái nguồn và phải có cảnh báo; `NUMBER` cũ trả `INVALID_METHOD`.
 - `COMPLETED`/`FAILED`, `data`/`error` và mã lỗi thống nhất.
 
 ## Thuật toán
@@ -40,3 +40,15 @@ Theo phạm vi mới, F01–F08 ở `10-FUNCTIONAL-REQUIREMENTS.md` đều cần
 - F07: progress có thứ tự, đúng requestId/session; hai Client không nhận nhầm bước hoặc kết quả; timeout/disconnect không hiện thành hoàn tất.
 - F08: lưu theo yêu cầu, liệt kê/tìm/xem/xóa của đúng chủ sở hữu; phân trang, truy cập chéo và dữ liệu nhạy cảm trong log/DB.
 
+
+## A01 đã chạy ngày 23/10/2026
+
+Java 21/21 kiểm thử đạt, TypeScript typecheck đạt, 12 JSON fixtures khớp DTO Client qua `npm run check:contract`. Kiểm registry: thiếu state, version sai, thiếu nguồn/review, DISABLED, TEAM_DECISION giữ SOURCE_AMBIGUOUS và không được dùng cho lời luận giải. Validator chặn policy do Client gửi, số nguyên quá lớn, UUID rút gọn và categories Tam Thế không hợp lệ. Chi tiết ở `16-A01-CONTRACT-HANDOFF.md`; đây không phải kiểm thử đầu cuối phép tính B01.
+
+## B01 đã kiểm đêm 23–24/10/2026
+
+422 test Java có DB, 0 lỗi/0 bỏ qua; gồm ma trận hàm thuần 64 dãy × 6 hào động, kiểm bất biến/đầu vào/gate nguồn/dữ liệu cấu trúc và service nối DB thật. `npm run smoke:lines` kiểm 384 tổ hợp qua hai kết nối STOMP, thêm hai request cùng ID khác input và một lỗi đầu vào: 387 phản hồi đúng, không lẫn phiên. `smoke:stomp` cũ vẫn đạt với OBJECT_COUNT/Tam Thế chưa triển khai. Đây là kiểm chức năng, không phải benchmark, kiểm SUBSCRIBE chéo hay nghiệm thu toàn bộ F01–F08. Cách tái lập và giới hạn ở `18-B01-LINES-HANDOFF.md`.
+
+## B02 đã kiểm ngày 24/10/2026
+
+429 test Java có DB, 0 lỗi/0 bỏ qua; thêm controller JSON lỗi/UTF-8/deadline/disconnect/một terminal, giới hạn transient state và interceptor. Client 10/10 test reducer/guard/render Panel; typecheck, 12 fixtures và production build đạt. STOMP thật: 1.546 progress có thứ tự và 387 terminal đúng; ca JSON lỗi/phục hồi, prefix lỗi, reconnect, chặn queue/SEND và timeout tác vụ DB thật với hạn kiểm tra 1 ms đạt. Test unit giữ handler bằng latch để xác nhận kết quả trả sau timeout/disconnect bị bỏ. Không có sleep trong nghiệp vụ sản phẩm. Xem `20-B02-PROGRESS-HANDOFF.md`; chưa nghiệm thu worker/idempotency, tải hoặc toàn bộ UI F01–F08.

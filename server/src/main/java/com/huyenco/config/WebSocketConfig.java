@@ -1,6 +1,13 @@
 package com.huyenco.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.simp.config.ChannelRegistration;
+import com.huyenco.websocket.CalculationSessions;
+import com.huyenco.websocket.SessionDestinationInterceptor;
+import com.huyenco.websocket.SafeStompErrorHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -12,13 +19,21 @@ import org.springframework.web.socket.config.annotation.WebSocketTransportRegist
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     private final String[] allowedOrigins;
+    private final ObjectProvider<CalculationSessions> sessions;
+    private final ObjectProvider<MessageChannel> outbound;
 
-    public WebSocketConfig(@Value("${huyenco.allowed-origins}") String allowedOrigins) {
+    public WebSocketConfig(@Value("${huyenco.allowed-origins}") String allowedOrigins,
+                           ObjectProvider<CalculationSessions> sessions,
+                           @Qualifier("clientOutboundChannel") ObjectProvider<MessageChannel> outbound) {
         this.allowedOrigins = allowedOrigins.split("\\s*,\\s*");
+        this.sessions = sessions;
+        this.outbound = outbound;
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.setPreserveReceiveOrder(true);
+        registry.setErrorHandler(new SafeStompErrorHandler());
         registry.addEndpoint("/ws").setAllowedOriginPatterns(allowedOrigins);
     }
 
@@ -27,6 +42,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.enableSimpleBroker("/queue");
         registry.setApplicationDestinationPrefixes("/app");
         registry.setUserDestinationPrefix("/user");
+        registry.setPreservePublishOrder(true);
+    }
+
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        registration.interceptors(new SessionDestinationInterceptor(sessions, outbound));
     }
 
     @Override

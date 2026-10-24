@@ -15,7 +15,7 @@ Quyết định của chủ dự án ngày 22/10/2026: **tất cả chức năng
 7. Lưu, tìm, xem lại và xóa lịch sử luận giải của chính người dùng, có kiểm soát truy cập.
 8. Xử lý đầu vào sai, mất kết nối, timeout, nhiều Client đồng thời và bảo vệ dữ liệu riêng.
 
-`MAI_HOA/LINES` là lát cắt kỹ thuật làm trước để chứng minh luồng Client–Server; **không thay thế** TIME, NUMBER hoặc các chức năng còn lại. Một chức năng chỉ hoàn thành khi chạy đầu cuối, có kiểm thử và quy tắc/dữ liệu `VERIFIED` theo đúng ấn bản. Hạn nộp 31/10/2026 với ba thành viên là rủi ro tiến độ lớn; báo cáo phải ghi đúng các chức năng đã chạy và chưa chạy, không gọi bản thiếu chức năng là đầy đủ.
+`MAI_HOA/LINES` là lát cắt kỹ thuật làm trước để chứng minh luồng Client–Server; **không thay thế** TIME, OBJECT_COUNT hoặc các chức năng còn lại. Một chức năng chỉ hoàn thành khi chạy đầu cuối, có kiểm thử và đủ điều kiện theo hợp đồng v1.2: dữ liệu nguồn đã kiểm hoặc phép tính được chủ dự án chốt theo TEAM_DECISION có khai báo căn cứ/giới hạn rõ. Lời luận giải không được mở bằng quyết định nhóm thay cho dữ liệu VERIFIED. Hạn nộp 31/10/2026 với ba thành viên là rủi ro tiến độ lớn; báo cáo phải ghi đúng các chức năng đã chạy và chưa chạy, không gọi bản thiếu chức năng là đầy đủ.
 
 ## Giai đoạn 1 — nền giao tiếp và lát cắt LINES
 
@@ -39,10 +39,12 @@ Thanh toán và chatbot AI không thuộc yêu cầu. Tài khoản chỉ thêm n
 
 | Thành viên | Sở hữu | Bàn giao |
 | --- | --- | --- |
-| TV1 | Next.js, form TIME/NUMBER/Tam Thế, trang 64 quẻ/lịch/lịch sử, STOMP Client | UI từng chức năng, tiến trình/lỗi, hai phiên, README và demo |
+| TV1 | Next.js, form TIME/OBJECT_COUNT/Tam Thế, trang 64 quẻ/lịch/lịch sử, STOMP Client | UI từng chức năng, tiến trình/lỗi, hai phiên, README và demo |
 | TV2 | Spring Boot, STOMP/REST, Mai Hoa, concurrency, message protocol | Thuật toán Mai Hoa đã kiểm nguồn, Server/progress, API an toàn, benchmark |
 | TV3 | Nguồn sách, 64 quẻ, Tam Thế, lịch/Can Chi, lưu trữ | Bộ dữ liệu đã review, module lịch/Tam Thế, schema/migration, test nguồn |
 
 Xem `08-SPRINT-PLAN.md` để biết mốc ngày và hồ sơ nộp.
 Các quyết định để ba thành viên bắt đầu ngay nằm ở `09-DECISIONS-TO-START.md`.
 
+
+**Tổ chức thực hiện 23/10/2026:** chủ dự án hiện đảm nhiệm cả TV2 và TV3; Codex có quyền xử lý kỹ thuật phần Server/dữ liệu theo `15-COMBINED-TV2-TV3-PLAN.md`. Các yêu cầu kiểm nguồn được thực hiện qua hai lượt có chứng cứ, ghi đúng người/công cụ kiểm; không tuyên bố hai người độc lập khi một người kiêm vai trò. Chính sách nguồn và các mốc trong kế hoạch mới có hiệu lực thay các mô tả phân vai cũ.

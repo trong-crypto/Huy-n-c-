@@ -7,5 +7,9 @@ spring:
 
 huyenco:
   allowed-origins: ${ALLOWED_ORIGINS:http://localhost:3000}
+  processing-timeout-ms: ${PROCESSING_TIMEOUT_MS:10000}
+  max-calculation-sessions: ${MAX_CALCULATION_SESSIONS:1024}
+  max-active-calculations: ${MAX_ACTIVE_CALCULATIONS:1000}
+  max-active-per-session: ${MAX_ACTIVE_PER_SESSION:16}
 
 

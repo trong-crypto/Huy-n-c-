@@ -1,6 +1,6 @@
 # Mai Hoa Dịch Số — logic nghiệp vụ đối chiếu bản scan
 
-Nguồn: *Mai Hoa Dịch Số*, Thiệu Khang Tiết, Ông Văn Tùng dịch/chú thích, NXB Văn hóa – Thông tin; PDF người dùng cung cấp, 672 trang. Dẫn trang dạng `trang in / trang PDF`, tính PDF từ 1. Quy tắc đã định vị nguồn có trạng thái `SOURCE_LOCATED`, chưa `VERIFIED` đến khi TV2 viết test và TV3 kiểm chéo.
+Nguồn: *Mai Hoa Dịch Số*, Thiệu Khang Tiết, Ông Văn Tùng dịch/chú thích, NXB Văn hóa – Thông tin; PDF người dùng cung cấp, 672 trang, danh tính ấn bản in chưa xác minh đầy đủ. Dẫn trang dạng `trang in / trang PDF`, tính PDF từ 1. Từ 24/10, MH-TRIGRAM/MH-MUTUAL/MH-CHANGE đã VERIFIED trong đúng phạm vi biên bản; công thức TIME/OBJECT_COUNT giữ trạng thái mâu thuẫn/đa nghĩa tương ứng.
 
 ## Dữ liệu nền
 
@@ -27,6 +27,8 @@ Mục “Xem bằng số vật” (tr. 51 / PDF 46) dùng số vật `N` để l
 
 Hợp đồng cũ `method=NUMBER` với `numbers:[a,b]` bị loại bỏ. Hợp đồng mới dùng `method=OBJECT_COUNT`, `objectCount`, `hourIndex` và `question` tùy chọn. `NUMBER` cũ trả `INVALID_METHOD`; không giữ đường tính hai số song song.
 
+**B03 ngày 24/10 đã triển khai:** bảng quái đối chiếu PDF 39–40/35/23–24 và sơ đồ S01; chỉ MH-TRIGRAM được nâng VERIFIED với reviewer Codex cùng công cụ lượt hai. OBJECT_COUNT được chạy bằng TEAM_DECISION, nguồn vẫn SOURCE_AMBIGUOUS; 12/8 → Dự/hỗ Kiển/biến Giải, hào 2. Không cần chuyển lịch trong tuyến này. Xem manifest `data/trigram_source_review.csv` và `21-B03-OBJECT-COUNT-HANDOFF.md`.
+
 ## MH-MUTUAL, MH-CHANGE, MH-THE-DUNG
 
 - Quẻ hỗ: hào 2–3–4 của quẻ chủ thành hạ quái; hào 3–4–5 thành thượng quái (tr. 47–48 / PDF 42–43).
@@ -35,9 +37,11 @@ Hợp đồng cũ `method=NUMBER` với `numbers:[a,b]` bị loại bỏ. Hợp 
 
 ### P0 LINES — biến đổi cấu trúc quẻ do người dùng nhập
 
-Input `linesBottomUp` gồm đúng sáu boolean; `movingLine` từ 1 đến 6. Quẻ chủ là chính dãy đầu vào. Quẻ hỗ lấy hào 2–3–4 làm ba hào dưới, 3–4–5 làm ba hào trên. Quẻ biến sao chép quẻ chủ và đảo đúng hào `movingLine`. P0 không tự lập quẻ từ ngày giờ, không chọn Thể–Dụng và không tạo lời luận giải. Tên/mã quẻ chỉ thêm khi bảng 64 quẻ được đối chiếu đủ.
+Input `linesBottomUp` gồm đúng sáu boolean; `movingLine` từ 1 đến 6. Quẻ chủ là chính dãy đầu vào. Quẻ hỗ lấy hào 2–3–4 làm ba hào dưới, 3–4–5 làm ba hào trên. Quẻ biến sao chép quẻ chủ và đảo đúng hào `movingLine`. LINES không tự lập quẻ từ ngày giờ, không chọn Thể–Dụng và không tạo lời luận giải. B01 đã kiểm bộ 64 cấu trúc và trả mã nội bộ H_THUONG_HA; tên chỉ thêm khi bản ghi tên đạt VERIFIED với nguồn/người duyệt.
 
-Trạng thái của `MH-MUTUAL` và `MH-CHANGE` vẫn là `SOURCE_LOCATED` cho đến khi TV2 viết test, TV3 kiểm độc lập tr. 46–48/PDF 41–43 của bản scan và hai người ghi kết luận trong `07-DECISION-LOG.md`. Test cấu trúc kiểm cả 64 dãy hào × 6 vị trí; ít nhất các ca nguồn phải có ảnh/trang và expected. Nếu một trong hai quy tắc chưa `VERIFIED`, `method=LINES` trả `RULE_NOT_AVAILABLE` cùng `ruleCode`; không trả mock như kết quả thật.
+Cập nhật 23/10/2026: chủ dự án đã thông báo TV2 xác nhận `MH-MUTUAL` và `MH-CHANGE`; Flyway V4 đã ghi VERIFIED cho hai quy tắc trên database thực tế (xem `07-DECISION-LOG.md`). Bộ tên 64 quẻ nhập sau đó ở SOURCE_LOCATED vẫn cần review riêng (`14-TV3-HEXAGRAM-NAMES.md`). Test cấu trúc kiểm cả 64 dãy hào × 6 vị trí; ít nhất các ca nguồn phải có ảnh/trang và expected. Nếu một trong hai quy tắc chưa `VERIFIED`, `method=LINES` trả `RULE_NOT_AVAILABLE` cùng `ruleCode`; không trả mock như kết quả thật.
+
+B01 đêm 23–24/10 đã triển khai và kiểm 64 × 6 ở hàm thuần và STOMP thật; xem `18-B01-LINES-HANDOFF.md`. Chỉ hai quy tắc biến đổi được dùng cho LINES; không tự duyệt thêm TIME, OBJECT_COUNT, bảng quái hoặc tên quẻ.
 
 ## Đầu ra và kiểm thử
 

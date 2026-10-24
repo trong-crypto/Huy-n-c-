@@ -1,5 +1,7 @@
 # Quyết định khởi động nhóm ngày 22/10/2026
 
+**Cập nhật 23/10/2026:** chủ dự án phụ trách cả TV2 + TV3, đã giao quyền quyết định kỹ thuật cho Codex. Quy trình hai lượt kiểm có bằng chứng thực, chính sách nguồn/quy ước nhóm, ưu tiên và lịch mới ở `15-COMBINED-TV2-TV3-PLAN.md` thay các đoạn phân công/chờ reviewer/mốc chưa cập nhật bên dưới. Đây là quyết định kế hoạch; không tự nâng trạng thái dữ liệu. MH-MUTUAL/MH-CHANGE và mốc tháng 5 đã VERIFIED qua V4. Các phần dưới lưu quyết định khởi đầu để truy vết.
+
 Tài liệu này chốt những lựa chọn triển khai để TV1, TV2, TV3 làm song song ngay. **Cập nhật phạm vi ngày 22/10:** chủ dự án yêu cầu toàn bộ F01–F08 trong `10-FUNCTIONAL-REQUIREMENTS.md`; các chữ P0/P1 bên dưới chỉ mô tả lát cắt làm trước, không còn cho phép bỏ TIME, NUMBER, Tam Thế, 64 quẻ, lịch, progress hoặc lịch sử. Trạng thái `VERIFIED` của quy tắc sách chỉ có hiệu lực sau khi hai người kiểm chéo chứng cứ. Hạn nộp môn học: **23:59 ngày 31/10/2026**.
 
 ## 1. Phạm vi P0 đã chốt

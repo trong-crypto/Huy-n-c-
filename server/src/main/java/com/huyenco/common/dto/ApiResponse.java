@@ -10,7 +10,12 @@ public record ApiResponse(String requestId, String type, String status, Object d
     }
 
     public static ApiResponse failed(String requestId, String type, String code, String message, String ruleCode) {
-        return new ApiResponse(requestId, type, "FAILED", null, new ApiError(code, message, ruleCode));
+        return failed(requestId, type, code, message, ruleCode, null);
+    }
+
+    public static ApiResponse failed(String requestId, String type, String code, String message,
+                                     String ruleCode, String reason) {
+        return new ApiResponse(requestId, type, "FAILED", null, new ApiError(code, message, ruleCode, reason));
     }
 }
 

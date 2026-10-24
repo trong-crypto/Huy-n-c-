@@ -12,4 +12,17 @@ work/
 .vscode/
 *.iml
 .DS_Store
+__pycache__/
+/tmp/pdfs/tamthe-hour-*.png
+scripts/generated/source-review/
+scripts/generated/tv3_audit_report.md
+scripts/generated/tv3_seed_audit_report.md
+scripts/generated/db-backups/
+scripts/generated/a02_*
+scripts/generated/b01_*
+scripts/generated/b02_*
+scripts/generated/b03_*
+scripts/generated/trigram_review.sql
+scripts/generated/s02_*
+scripts/generated/hexagram_title_review.sql
 

@@ -1,5 +1,9 @@
 # Yêu cầu chức năng phía người dùng và điều kiện nghiệm thu
 
+**Hiện trạng 24/10 sau B03:** LINES và OBJECT_COUNT phía Server đã tính quẻ chủ/hỗ/biến thật qua registry/PostgreSQL/STOMP, có bốn bước progress B02; kiểm bằng chương trình Client giao thức. S01 duyệt 64 tên; B03 duyệt riêng MH-TRIGRAM bằng biên bản Codex cùng công cụ lượt hai. Công thức số vật giữ TEAM_DECISION/SOURCE_AMBIGUOUS. Giao diện và tích hợp biểu mẫu/kết quả thuộc TV1/I01; các sửa biểu mẫu B03 đã hoàn tác. TIME/lịch/Tam Thế/lời luận và các REST còn thiếu; chưa nghiệm thu F01–F08 toàn bộ. Cột hiện trạng 22/10 bên dưới là mốc ban đầu. Chi tiết tại `21-B03-OBJECT-COUNT-HANDOFF.md`.
+
+**Bổ sung S02:** 60 Can Chi→hành đã nhập/VERIFIED theo cột mạng PDF11 và biên bản 22; không gồm mô tả nạp âm. Đây là dữ liệu nền cho F04/F06; TamTheService và bộ chuyển lịch vẫn chưa hoàn thành, không nâng F04/F06 thành đạt. Các dữ liệu khác của Tam Thế còn theo S03/D01/D02.
+
 **Quyết định phạm vi ngày 22/10/2026:** chủ dự án yêu cầu đầy đủ các chức năng trong bảng này. Đây là đích nghiệm thu của sản phẩm, không phải tuyên bố rằng mã nguồn hiện đã hoàn thành. `MAI_HOA/LINES` chỉ là lát cắt kỹ thuật làm trước. Quy tắc và dữ liệu sách phải có trang nguồn, người nhập, người kiểm và ca chuẩn trước khi trả kết quả thật.
 
 | Mã | Người dùng làm được gì | Đầu ra/điều kiện nghiệm thu | Chủ trì | Hiện trạng 22/10 |
@@ -16,13 +20,13 @@
 ## Ràng buộc hợp đồng và riêng tư
 
 - Giữ envelope `requestId`, `type`, `status`, `data`, `error` và phản hồi STOMP riêng theo session. Mở rộng hợp đồng lên v1.2 cho `TIME`, phương pháp số được kiểm, Tam Thế theo nhóm luận giải, tra cứu/lịch/lịch sử và `/user/queue/progress`. Tài liệu API phải chứa ví dụ request, response, lỗi cho từng chức năng trước khi tích hợp.
-- Mỗi kết quả có `ruleVersion`, `sourceReferences`, `calculationSteps` khi có phép tính; các mục Tam Thế có `category` phân biệt `CAREER`, `WEALTH`, `LOVE`. Tên/mã quẻ chỉ dùng sau khi bảng 64 quẻ đạt kiểm chứng.
+- Mỗi kết quả có `ruleVersion`, `sourceReferences`, `calculationSteps` khi có phép tính; các mục Tam Thế có `category` phân biệt `CAREER`, `WEALTH`, `LOVE`. Mã cấu trúc nội bộ dùng bộ 64 dãy hào đã kiểm đầy đủ; tên quẻ chỉ hiển thị khi bản ghi tên có nguồn/người duyệt và VERIFIED.
 - Chỉ lưu lịch sử khi người dùng chủ động chọn lưu; không lưu bản rõ ngày sinh/câu hỏi nếu không cần cho việc xem lại. Xác định cơ chế sở hữu lịch sử và xóa dữ liệu trước khi bật F08. Không dùng session WebSocket ngắn hạn làm định danh sở hữu lâu dài.
 - Tính theo Server; Client chỉ kiểm đầu vào sơ bộ và trình bày. Dữ liệu chưa xác minh không được trả như luận giải thật.
 
 ## Cổng nghiệm thu
 
-1. TV3 lập ma trận `ruleCode → sách/ấn bản/mục/trang in/trang PDF → input/output → người kiểm` cho TIME, NUMBER, Tam Thế ba nhóm, 64 quẻ và lịch. Mục tài lộc/tình duyên chưa tìm ra trong bản sách phải ghi `SOURCE_NOT_LOCATED`, không suy đoán.
-2. TV2 và TV3 ký ca chuẩn độc lập cho từng phép tính; test đơn vị và test đầu cuối so với sách. Chỉ sau đó bật `COMPLETED`.
+1. TV3 lập ma trận `ruleCode → sách/ấn bản/mục/trang in/trang PDF → input/output → người kiểm` cho TIME, OBJECT_COUNT, Tam Thế ba nhóm, 64 quẻ và lịch. Mục tài lộc/tình duyên chưa tìm ra trong bản sách phải ghi `SOURCE_NOT_LOCATED`, không suy đoán.
+2. Theo tổ chức mới, đối chiếu hai lượt có chứng cứ cho từng phép tính, ghi đúng người/công cụ thực hiện; test đơn vị và đầu cuối. Chỉ bật COMPLETED khi đủ policy/nguồn/dữ liệu/implementation theo hợp đồng v1.2. Quy ước nhóm phải có decisionReferences và cảnh báo, không biến thành xác minh thuật toán nguyên bản. Lời luận giải vẫn cần nguồn VERIFIED.
 3. TV1 demo từng F01–F08 từ giao diện trên hai trình duyệt; TV2 xác nhận đúng `requestId`/session, xử lý lỗi, quá tải và không rò lịch sử.
 4. Có dữ liệu đo thật cho 1, 5, 20 Client, báo cáo giới hạn và danh sách chức năng chưa đạt nếu còn. Chỉ gọi sản phẩm **đầy đủ** khi cả F01–F08 đạt các điều kiện trên.
