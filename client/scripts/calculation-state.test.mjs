@@ -4,7 +4,12 @@ import test from "node:test";
 import ts from "typescript";
 
 const source = fs.readFileSync(new URL("../src/services/websocket/calculationState.ts", import.meta.url), "utf8");
-const javascript = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
+let javascript = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
+const validation = ts.transpileModule(fs.readFileSync(new URL("../src/types/contractValidation.ts", import.meta.url), "utf8"), {
+  compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
+}).outputText;
+const validationUrl = `data:text/javascript;base64,${Buffer.from(validation).toString("base64")}`;
+javascript = javascript.replaceAll('"@/types/contractValidation"', JSON.stringify(validationUrl));
 const { initialState, reduceCalculation: reduce, parseProgress, parseTerminal, CLIENT_TIMEOUT_MS } =
   await import(`data:text/javascript;base64,${Buffer.from(javascript).toString("base64")}`);
 const success = JSON.parse(fs.readFileSync(new URL("../../docs/examples/mai-hoa-lines.response.json", import.meta.url), "utf8"));
@@ -17,7 +22,7 @@ test("ordered progress and terminal result complete the pending request", () => 
   let state = begin();
   for (let i = 1; i <= 4; i++) state = reduce(state, { kind: "progress", event: parseProgress(event(i)) });
   state = reduce(state, { kind: "terminal", response: parseTerminal(success) });
-  assert.equal(state.requestState, "done"); assert.equal(state.requestId, null);
+  assert.equal(state.requestState, "completed"); assert.equal(state.requestId, null);
   assert.equal(state.progress.length, 4); assert.equal(state.response.data.primaryHexagram.name, "Ký tế");
   assert.equal(reduce(state, { kind: "progress", event: event(1) }), state);
 });
@@ -67,7 +72,7 @@ test("validation failure keeps its actual two progress stages without claiming c
   const failure = { ...success, status: "FAILED", data: null,
     error: { code: "INVALID_INPUT", message: "Invalid input", ruleCode: null, reason: null } };
   state = reduce(state, { kind: "terminal", response: parseTerminal(failure) });
-  assert.equal(state.requestState, "done"); assert.equal(state.response.status, "FAILED");
+  assert.equal(state.requestState, "failed"); assert.equal(state.response.status, "FAILED");
   assert.deepEqual(state.progress.map((e) => e.step), ["ACCEPTED", "VALIDATING"]);
 });
 

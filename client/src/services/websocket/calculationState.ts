@@ -1,7 +1,8 @@
+import { isCalculationResponse } from "@/types/contractValidation";
 import type { CalculationResponse, CalculationType, ProgressEvent } from "@/types/contract";
 
 export const CLIENT_TIMEOUT_MS = 15_000;
-export type RequestState = "idle" | "waiting" | "done" | "timeout" | "failed";
+export type RequestState = "idle" | "waiting" | "completed" | "timeout" | "failed";
 export type CalculationState = {
   requestId: string | null; type: CalculationType | null; requestState: RequestState;
   response: CalculationResponse | null; progress: ProgressEvent[]; localError: string | null;
@@ -31,18 +32,8 @@ export function parseProgress(value: unknown): ProgressEvent {
 }
 
 export function parseTerminal(value: unknown): CalculationResponse {
-  if (!record(value) || !(typeof value.requestId === "string" || value.requestId === null) || !typeIsKnown(value.type))
-    throw new Error("Invalid terminal envelope");
-  if (value.status === "FAILED") {
-    if (value.data !== null || !record(value.error) || typeof value.error.code !== "string" || typeof value.error.message !== "string")
-      throw new Error("Invalid error envelope");
-  } else if (value.status === "COMPLETED") {
-    if (value.error !== null || !record(value.data) || typeof value.data.ruleVersion !== "string"
-        || !["SOURCE_VERIFIED", "TEAM_DECISION"].includes(value.data.ruleBasis as string)
-        || !Array.isArray(value.data.rules) || !Array.isArray(value.data.sourceReferences))
-      throw new Error("Invalid result envelope");
-  } else throw new Error("Invalid terminal status");
-  return value as CalculationResponse;
+  if (!isCalculationResponse(value)) throw new Error("Invalid terminal response");
+  return value;
 }
 
 export function reduceCalculation(state: CalculationState, action: Action): CalculationState {
@@ -66,7 +57,7 @@ export function reduceCalculation(state: CalculationState, action: Action): Calc
   }
   if (action.kind === "terminal") {
     if (action.response.requestId !== state.requestId || action.response.type !== state.type) return state;
-    return { ...state, requestId: null, requestState: "done", response: action.response, localError: null };
+    return { ...state, requestId: null, requestState: action.response.status === "COMPLETED" ? "completed" : "failed", response: action.response, localError: null };
   }
   if (action.kind === "timeout") {
     if (action.requestId !== state.requestId) return state;

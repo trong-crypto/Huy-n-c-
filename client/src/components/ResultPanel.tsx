@@ -1,8 +1,8 @@
 import type { CalculationResponse, ProgressEvent } from "@/types/contract";
-import type { RequestState } from "@/services/websocket/calculationState";
+import type { ConnectionState, RequestState } from "@/services/websocket/useCalculation";
 
 type Props = {
-  connection: "connecting" | "connected" | "disconnected";
+  connection: ConnectionState;
   requestState: RequestState;
   progress: ProgressEvent[];
   response: CalculationResponse | null;
@@ -10,6 +10,8 @@ type Props = {
 };
 
 export function ResultPanel({ connection, requestState, response, progress, localError }: Props) {
+  const completed = requestState === "completed" && response?.status === "COMPLETED";
+  const serverFailed = requestState === "failed" && response?.status === "FAILED";
   return (
     <section aria-live="polite" className="rounded-2xl border border-emerald-950/10 bg-white p-6 shadow-sm">
       <div className="flex items-center justify-between gap-3">
@@ -18,7 +20,7 @@ export function ResultPanel({ connection, requestState, response, progress, loca
           {connection === "connected" ? "Đã kết nối" : connection === "connecting" ? "Đang kết nối" : "Mất kết nối"}
         </span>
       </div>
-      {requestState === "waiting" && <p className="mt-5 text-slate-600">Server đang xử lý yêu cầu…</p>}
+      {requestState === "waiting" && <p className="mt-5 text-slate-600">Đang chờ phản hồi...</p>}
       {progress.length > 0 && (
         <ol aria-label="Tiến trình xử lý" className="mt-5 space-y-2 text-sm text-slate-700">
           {progress.map((event, index) => (
@@ -29,18 +31,18 @@ export function ResultPanel({ connection, requestState, response, progress, loca
         </ol>
       )}
       {localError && <p className="mt-5 rounded-lg bg-rose-50 p-4 text-sm text-rose-800">{localError}</p>}
-      {response && (
+      {response && (completed || serverFailed) && (
         <div className="mt-5">
-          <p className={`font-semibold ${response.status === "FAILED" ? "text-amber-800" : "text-emerald-800"}`}>
-            {response.status === "FAILED" ? `${response.error?.code}: ${response.error?.message}` : "Xử lý thành công"}
+          <p className={`font-semibold ${serverFailed ? "text-amber-800" : "text-emerald-800"}`}>
+            {response.status === "FAILED" ? `Lỗi Server ${response.error.code}: ${response.error.message}` : "Xử lý thành công"}
           </p>
           <p className="mt-2 break-all text-xs text-slate-500">requestId: {response.requestId}</p>
-          {response.status === "COMPLETED" && response.data.ruleBasis === "TEAM_DECISION" && (
+          {completed && response.status === "COMPLETED" && response.data.ruleBasis === "TEAM_DECISION" && (
             <p className="mt-3 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">
               Kết quả tính theo quy ước nhóm. Bản in có điểm chưa được xác minh; xem nguồn và quyết định kèm theo.
             </p>
           )}
-          {response.data !== null && <pre className="mt-4 overflow-x-auto rounded-lg bg-slate-950 p-4 text-xs text-slate-100">{JSON.stringify(response.data, null, 2)}</pre>}
+          {completed && <pre className="mt-4 overflow-x-auto rounded-lg bg-slate-950 p-4 text-xs text-slate-100">{JSON.stringify(response.data, null, 2)}</pre>}
         </div>
       )}
       {!localError && !response && requestState === "idle" && <p className="mt-5 text-slate-600">Gửi một yêu cầu để kiểm tra hợp đồng giao tiếp.</p>}

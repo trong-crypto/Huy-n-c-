@@ -1,89 +1,184 @@
 "use client";
 
-import { Client } from "@stomp/stompjs";
+import { Client, type StompSubscription } from "@stomp/stompjs";
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { MaiHoaPayload, TamThePayload } from "@/types/contract";
-import { CLIENT_TIMEOUT_MS, initialState, parseProgress, parseTerminal, reduceCalculation } from "./calculationState";
-import type { Action } from "./calculationState";
+import { CLIENT_CONFIG } from "@/config/client";
+import type { CalculationRequest, CalculationType, MaiHoaPayload, TamThePayload } from "@/types/contract";
+import { isCalculationResponse, isRecord } from "@/types/contractValidation";
+import { initialState, parseProgress, reduceCalculation, type Action } from "./calculationState";
+export type { RequestState } from "./calculationState";
 
-type Connection = "connecting" | "connected" | "disconnected";
+export type ConnectionState = "connecting" | "connected" | "disconnected";
+type PendingRequest = Readonly<{
+  requestId: string;
+  expectedType: CalculationType;
+  client: Client;
+  generation: number;
+  body: string;
+}>;
+
+const SEND_FAILURE = "Lỗi Client: Không xác nhận được việc gửi yêu cầu. Server có thể đã nhận; không tự động gửi lại.";
 
 export function useCalculation() {
   const clientRef = useRef<Client | null>(null);
+  const pendingRef = useRef<PendingRequest | null>(null);
+  const generationRef = useRef(0);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [connection, setConnection] = useState<Connection>("connecting");
+  const [connection, setConnection] = useState<ConnectionState>("connecting");
+  const [request, setRequest] = useState(initialState);
   const stateRef = useRef(initialState);
-  const [state, setState] = useState(initialState);
-  const update = useCallback((action: Action) => {
-    stateRef.current = reduceCalculation(stateRef.current, action);
-    if (stateRef.current.requestState !== "waiting" && timeout.current) {
-      clearTimeout(timeout.current);
-      timeout.current = null;
-    }
-    setState(stateRef.current);
+
+  const clearTimer = useCallback(() => {
+    if (timeout.current !== null) clearTimeout(timeout.current);
+    timeout.current = null;
   }, []);
 
+  const update = useCallback((action: Action) => {
+    const next = reduceCalculation(stateRef.current, action);
+    stateRef.current = next;
+    if (next.requestState !== "waiting") {
+      clearTimer();
+      pendingRef.current = null;
+    }
+    setRequest(next);
+  }, [clearTimer]);
+
+  const settle = useCallback((pending: PendingRequest, action: Action) => {
+    if (pendingRef.current === pending) update(action);
+  }, [update]);
+
   useEffect(() => {
-    let mounted = true;
+    let active = true;
+    let connected = false;
+    let subscriptions: StompSubscription[] = [];
+    const isCurrent = () => active && clientRef.current === client;
+
     const client = new Client({
-      brokerURL: process.env.NEXT_PUBLIC_WS_URL ?? "ws://localhost:8080/ws",
-      reconnectDelay: 3000,
+      brokerURL: CLIENT_CONFIG.wsUrl,
+      reconnectDelay: CLIENT_CONFIG.reconnectDelayMs,
       onConnect: () => {
-        if (!mounted) return;
+        if (!isCurrent() || connected) return;
+        connected = true;
+        const generation = ++generationRef.current;
         setConnection("connected");
-        client.subscribe("/user/queue/progress", (message) => {
-          if (!mounted || stateRef.current.requestState !== "waiting") return;
-          try { update({ kind: "progress", event: parseProgress(JSON.parse(message.body)) }); }
-          catch { update({ kind: "error", message: "INVALID_RESPONSE: Không đọc được tiến trình từ Server." }); }
-        });
-        for (const destination of ["/user/queue/results", "/user/queue/errors"]) {
-          client.subscribe(destination, (message) => {
-            if (!mounted || stateRef.current.requestState !== "waiting") return;
+        for (const destination of ["/user/queue/results", "/user/queue/errors", "/user/queue/progress"]) {
+          subscriptions.push(client.subscribe(destination, (message) => {
+            if (!isCurrent() || generationRef.current !== generation) return;
+            const pending = pendingRef.current;
+            if (!pending || pending.client !== client || pending.generation !== generation) return;
+            let incoming: unknown;
             try {
-              update({ kind: "terminal", response: parseTerminal(JSON.parse(message.body)) });
+              incoming = JSON.parse(message.body);
             } catch {
-              update({ kind: "error", message: "INVALID_RESPONSE: Không đọc được phản hồi từ Server." });
+              // Cannot attribute malformed JSON to a request. Keep its bounded timeout.
+              return;
             }
-          });
+            if (!isRecord(incoming)
+              || incoming.requestId !== pending.requestId
+              || incoming.type !== pending.expectedType) return;
+            if (destination === "/user/queue/progress") {
+              try {
+                settle(pending, { kind: "progress", event: parseProgress(incoming) });
+              } catch {
+                settle(pending, { kind: "error", message: "INVALID_RESPONSE: Invalid progress frame." });
+              }
+              return;
+            }
+            if (!isCalculationResponse(incoming)) {
+              settle(pending, { kind: "error", message: "Lỗi giao thức phía Client: Phản hồi không đúng hợp đồng đã thống nhất." });
+              return;
+            }
+            settle(pending, { kind: "terminal", response: incoming });
+          }));
         }
       },
       onWebSocketClose: () => {
-        if (!mounted) return;
+        if (!isCurrent()) return;
+        connected = false;
+        ++generationRef.current;
+        // Subscriptions belong to the closed socket; do not unsubscribe them on a new one.
+        subscriptions = [];
         setConnection("disconnected");
-        update({ kind: "disconnect" });
+        const pending = pendingRef.current;
+        if (pending?.client === client) {
+          settle(pending, { kind: "error", message: "Lỗi Client (DISCONNECTED): Kết nối bị ngắt. Không tự động gửi lại yêu cầu." });
+        }
       },
-      onStompError: () => { if (mounted) update({ kind: "error", message: "Server từ chối thông điệp STOMP." }); },
+      onStompError: () => {
+        if (!isCurrent()) return;
+        const pending = pendingRef.current;
+        if (pending?.client === client) {
+          settle(pending, { kind: "error", message: "Lỗi kết nối STOMP phía Client: Không thể tiếp tục chờ phản hồi cho yêu cầu này." });
+        }
+      },
     });
     clientRef.current = client;
     client.activate();
     return () => {
-      mounted = false;
-      if (timeout.current) clearTimeout(timeout.current);
-      stateRef.current = initialState;
-      void client.deactivate();
-      clientRef.current = null;
+      active = false;
+      if (clientRef.current === client) {
+        ++generationRef.current;
+        clearTimer();
+        pendingRef.current = null;
+        clientRef.current = null;
+      }
+      for (const subscription of subscriptions) {
+        try {
+          if (client.connected) subscription.unsubscribe();
+        } catch {
+          // A concurrent socket close can make unsubscribe unavailable.
+        }
+      }
+      subscriptions = [];
+      // Stop reconnect and close the old socket without waiting for a broker receipt.
+      void client.deactivate({ force: true }).catch(() => {
+        // Teardown must not set React state or produce an unhandled rejection.
+      });
     };
-  }, [update]);
+  }, [clearTimer, settle]);
 
-  const submit = useCallback((...[type, payload]: ["MAI_HOA", MaiHoaPayload] | ["TAM_THE", TamThePayload]) => {
+  const submit = useCallback((...args: [type: "MAI_HOA", payload: MaiHoaPayload] | [type: "TAM_THE", payload: TamThePayload]) => {
+    if (pendingRef.current) return;
     const client = clientRef.current;
-    if (!client?.connected) {
-      update({ kind: "error", message: "DISCONNECTED: Chưa kết nối được với Server." });
+    if (!client) return; // Includes calls retained by a consumer after unmount.
+    if (!client.connected) {
+      update({ kind: "error", message: "Lỗi Client (DISCONNECTED): Chưa kết nối được với Server." });
       return;
     }
-    if (stateRef.current.requestState === "waiting") return;
-    const request = { requestId: crypto.randomUUID(), type, payload };
-    update({ kind: "begin", requestId: request.requestId, type });
-    timeout.current = setTimeout(() => update({ kind: "timeout", requestId: request.requestId }), CLIENT_TIMEOUT_MS);
+    let snapshot: CalculationRequest;
+    let body: string;
+    try {
+      const requestId = crypto.randomUUID();
+      snapshot = args[0] === "MAI_HOA"
+        ? { requestId, type: "MAI_HOA", payload: args[1] }
+        : { requestId, type: "TAM_THE", payload: args[1] };
+      body = JSON.stringify(snapshot);
+    } catch {
+      update({ kind: "error", message: SEND_FAILURE });
+      return;
+    }
+    // The serialized body is an immutable in-memory copy, not a reference to form data.
+    const pending: PendingRequest = Object.freeze({
+      requestId: snapshot.requestId, expectedType: snapshot.type, body,
+      client, generation: generationRef.current,
+    });
+    pendingRef.current = pending;
+    update({ kind: "begin", requestId: pending.requestId, type: pending.expectedType });
+    timeout.current = setTimeout(() => {
+      if (clientRef.current !== client || generationRef.current !== pending.generation) return;
+      settle(pending, { kind: "timeout", requestId: pending.requestId });
+    }, CLIENT_CONFIG.requestTimeoutMs);
     try {
       client.publish({
-        destination: type === "MAI_HOA" ? "/app/mai-hoa/calculate" : "/app/tam-the/calculate",
-        body: JSON.stringify(request), headers: { "content-type": "application/json" },
+        destination: pending.expectedType === "MAI_HOA" ? "/app/mai-hoa/calculate" : "/app/tam-the/calculate",
+        body: pending.body,
+        headers: { "content-type": "application/json" },
       });
-    } catch { update({ kind: "error", message: "DISCONNECTED: Không gửi được yêu cầu." }); }
-  }, [update]);
+    } catch {
+      settle(pending, { kind: "error", message: SEND_FAILURE });
+    }
+  }, [settle, update]);
 
-  return { connection, requestState: state.requestState, response: state.response,
-    progress: state.progress, localError: state.localError, submit };
+  return { connection, ...request, submit };
 }
 
