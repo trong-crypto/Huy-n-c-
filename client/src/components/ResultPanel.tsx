@@ -1,5 +1,7 @@
 import type { CalculationResponse, ProgressEvent } from "@/types/contract";
 import type { ConnectionState, RequestState } from "@/services/websocket/useCalculation";
+import { isCalculationResponse, isKnownServerErrorCode } from "@/types/contractValidation";
+import { MaiHoaResultView } from "@/components/results/MaiHoaResultView";
 
 type Props = {
   connection: ConnectionState;
@@ -7,45 +9,61 @@ type Props = {
   progress: ProgressEvent[];
   response: CalculationResponse | null;
   localError: string | null;
+  protocolNotice?: string | null;
 };
 
-export function ResultPanel({ connection, requestState, response, progress, localError }: Props) {
-  const completed = requestState === "completed" && response?.status === "COMPLETED";
+export function ResultPanel({ connection, requestState, response, progress, localError, protocolNotice }: Props) {
+  const validResponse = response !== null && isCalculationResponse(response);
+  const completed = requestState === "completed" && response?.status === "COMPLETED" && validResponse;
+  const invalidResult = requestState === "completed" && response?.status === "COMPLETED" && !validResponse;
+  const hexagramResult = completed && response.type === "MAI_HOA" && (response.data.method === "LINES" || response.data.method === "OBJECT_COUNT");
   const serverFailed = requestState === "failed" && response?.status === "FAILED";
   return (
-    <section aria-live="polite" className="rounded-2xl border border-emerald-950/10 bg-white p-6 shadow-sm">
-      <div className="flex items-center justify-between gap-3">
-        <h2 className="text-xl font-semibold text-emerald-950">Phản hồi</h2>
-        <span className={`rounded-full px-3 py-1 text-xs font-semibold ${connection === "connected" ? "bg-emerald-100 text-emerald-800" : "bg-slate-100 text-slate-700"}`}>
+    <section aria-live="polite" className="section-card response-panel">
+      <div className="response-heading">
+        <h2>Phản hồi</h2>
+        <span className={`connection-badge${connection === "connected" ? " connection-badge--connected" : ""}`}>
           {connection === "connected" ? "Đã kết nối" : connection === "connecting" ? "Đang kết nối" : "Mất kết nối"}
         </span>
       </div>
-      {requestState === "waiting" && <p className="mt-5 text-slate-600">Đang chờ phản hồi...</p>}
+      {protocolNotice && <aside className="response-warning" role="status" aria-label="Thông báo giao thức chung">{protocolNotice}</aside>}
+      {requestState === "waiting" && <p className="response-copy">Đang chờ phản hồi...</p>}
       {progress.length > 0 && (
-        <ol aria-label="Tiến trình xử lý" className="mt-5 space-y-2 text-sm text-slate-700">
+        <ol aria-label="Tiến trình xử lý" className="response-progress">
           {progress.map((event, index) => (
-            <li key={event.sequence} className={`rounded-lg px-3 py-2 ${requestState === "waiting" && index === progress.length - 1 ? "bg-emerald-50 text-emerald-900" : "bg-slate-50"}`}>
+            <li key={event.sequence} className={requestState === "waiting" && index === progress.length - 1 ? "is-current" : undefined}>
               <span className="mr-2 font-semibold">{event.sequence}.</span>{event.message}
             </li>
           ))}
         </ol>
       )}
-      {localError && <p className="mt-5 rounded-lg bg-rose-50 p-4 text-sm text-rose-800">{localError}</p>}
+      {localError && <p className="response-error">{localError}</p>}
+      {invalidResult && <p className="response-error" role="alert">Lỗi giao thức phía Client: Dữ liệu kết quả không đúng hợp đồng. Không thể hiển thị quẻ.</p>}
       {response && (completed || serverFailed) && (
-        <div className="mt-5">
-          <p className={`font-semibold ${serverFailed ? "text-amber-800" : "text-emerald-800"}`}>
-            {response.status === "FAILED" ? `Lỗi Server ${response.error.code}: ${response.error.message}` : "Xử lý thành công"}
+        <div className="response-result">
+          <p className={`response-result-status${serverFailed ? " response-result-status--failed" : ""}`}>
+            {response.status === "FAILED" ? isKnownServerErrorCode(response.error.code)
+              ? `Lỗi Server ${response.error.code}: ${response.error.message}`
+              : "Lỗi Server: Server trả về lỗi chưa được Client nhận diện. Yêu cầu này chưa hoàn tất thành công."
+              : "Xử lý thành công"}
           </p>
-          <p className="mt-2 break-all text-xs text-slate-500">requestId: {response.requestId}</p>
-          {completed && response.status === "COMPLETED" && response.data.ruleBasis === "TEAM_DECISION" && (
-            <p className="mt-3 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">
+          {!hexagramResult && <p className="response-request-id">requestId: {response.requestId}</p>}
+          {!hexagramResult && completed && response.status === "COMPLETED" && response.data.ruleBasis === "TEAM_DECISION" && (
+            <p className="response-warning">
               Kết quả tính theo quy ước nhóm. Bản in có điểm chưa được xác minh; xem nguồn và quyết định kèm theo.
             </p>
           )}
-          {completed && <pre className="mt-4 overflow-x-auto rounded-lg bg-slate-950 p-4 text-xs text-slate-100">{JSON.stringify(response.data, null, 2)}</pre>}
+          {hexagramResult && response.type === "MAI_HOA" && response.status === "COMPLETED" ? <>
+            <MaiHoaResultView data={response.data} />
+            <details className="result-technical"><summary>Thông tin kỹ thuật</summary>
+              <p className="response-request-id">requestId: {response.requestId}</p>
+              <p className="field-hint">Phiên bản bộ quy tắc: {response.data.ruleVersion}</p>
+              <details><summary>Xem JSON phản hồi</summary><pre className="response-json">{JSON.stringify(response.data, null, 2)}</pre></details>
+            </details>
+          </> : completed && <pre className="response-json">{JSON.stringify(response.data, null, 2)}</pre>}
         </div>
       )}
-      {!localError && !response && requestState === "idle" && <p className="mt-5 text-slate-600">Gửi một yêu cầu để kiểm tra hợp đồng giao tiếp.</p>}
+      {!localError && !response && requestState === "idle" && <p className="response-copy">Gửi một yêu cầu để kiểm tra hợp đồng giao tiếp.</p>}
     </section>
   );
 }

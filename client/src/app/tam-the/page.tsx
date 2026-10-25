@@ -4,6 +4,9 @@ import { FormEvent, useState } from "react";
 import { ResultPanel } from "@/components/ResultPanel";
 import { useCalculation } from "@/services/websocket/useCalculation";
 import type { TamThePayload } from "@/types/contract";
+import { PageContainer, PageHeader } from "@/components/ui/Page";
+import { FieldError, FormField, PrimaryButton, SectionCard, StatusBanner } from "@/components/ui/Controls";
+import { TamTheArt } from "@/components/ui/TamTheArt";
 
 export default function TamThePage() {
   const [birthDate, setBirthDate] = useState("");
@@ -25,35 +28,44 @@ export default function TamThePage() {
   }
 
   return (
-    <main className="mx-auto max-w-5xl px-5 py-12">
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">Module 02</p>
-      <h1 className="mt-3 text-4xl font-semibold text-emerald-950">Diễn Cầm Tam Thế</h1>
-      <p className="mt-3 max-w-2xl text-slate-600">Nhập dữ liệu sinh để kiểm tra luồng giao tiếp. Bảng tra và lời luận giải sẽ chỉ mở sau khi đối chiếu đúng ấn bản sách.</p>
-      <div className="mt-8 grid gap-6 lg:grid-cols-2">
-        <form onSubmit={onSubmit} className="space-y-5 rounded-2xl border border-emerald-950/10 bg-white p-6 shadow-sm">
-          <label className="block space-y-2 text-sm font-medium">Ngày sinh (YYYY-MM-DD)
-            <input type="text" inputMode="numeric" placeholder="2003-08-15" value={birthDate} onChange={(event) => setBirthDate(event.target.value)} required />
-          </label>
-          <label className="block space-y-2 text-sm font-medium">Giờ sinh (HH:mm)
-            <input type="time" value={birthTime} onChange={(event) => setBirthTime(event.target.value)} required />
-          </label>
-          <label className="block space-y-2 text-sm font-medium">Loại lịch
-            <select value={calendarType} onChange={(event) => { setCalendarType(event.target.value as "SOLAR" | "LUNAR"); setIsLeapMonth(false); }}>
+    <PageContainer>
+      <PageHeader eyebrow="02 / DIỄN CẦM TAM THẾ" title="Một khởi đầu, ba chiều thời gian.">
+        <p>Nhập ngày giờ sinh và loại lịch để gửi yêu cầu. Bảng tra và lời luận giải chỉ được mở sau khi dữ liệu nguồn và module đã sẵn sàng.</p>
+      </PageHeader>
+      <div className="input-layout">
+        <SectionCard title="Thông tin đầu vào">
+        <form onSubmit={onSubmit} className="form-stack" aria-label="Thông tin sinh Tam Thế">
+          <FormField id="tamthe-date" label="Ngày sinh (YYYY-MM-DD)">
+            <input id="tamthe-date" type="text" inputMode="numeric" placeholder="2003-08-15" value={birthDate} onChange={(event) => setBirthDate(event.target.value)} required />
+          </FormField>
+          <FormField id="tamthe-time" label="Giờ sinh (HH:mm)">
+            <input id="tamthe-time" type="time" value={birthTime} onChange={(event) => setBirthTime(event.target.value)} required />
+          </FormField>
+          <FormField id="tamthe-calendar" label="Loại lịch">
+            <select id="tamthe-calendar" value={calendarType} onChange={(event) => { setCalendarType(event.target.value as "SOLAR" | "LUNAR"); setIsLeapMonth(false); }}>
               <option value="SOLAR">Dương lịch</option>
               <option value="LUNAR">Âm lịch</option>
             </select>
-          </label>
+          </FormField>
           {calendarType === "LUNAR" && (
-            <label className="flex items-center gap-3 text-sm font-medium">
-              <input type="checkbox" checked={isLeapMonth} onChange={(event) => setIsLeapMonth(event.target.checked)} className="h-4 w-4" />
+            <label className="checkbox-field">
+              <input type="checkbox" checked={isLeapMonth} onChange={(event) => setIsLeapMonth(event.target.checked)} />
               Tháng nhuận
             </label>
           )}
-          {formError && <p role="alert" className="text-sm text-rose-700">{formError}</p>}
-          <button disabled={calculation.connection !== "connected" || calculation.requestState === "waiting"} className="w-full rounded-xl bg-emerald-800 px-5 py-3 font-semibold text-white hover:bg-emerald-900 disabled:cursor-not-allowed disabled:opacity-50">Gửi yêu cầu</button>
+          {formError && <FieldError id="tamthe-error">{formError}</FieldError>}
+          <PrimaryButton type="submit" disabled={calculation.connection !== "connected" || calculation.requestState === "waiting"}>Gửi yêu cầu</PrimaryButton>
         </form>
-        <ResultPanel {...calculation} />
+        </SectionCard>
+        <aside className="input-guide" aria-label="Lưu ý Tam Thế">
+          <TamTheArt />
+          <p className="eyebrow">ĐỐI CHIẾU NGUỒN</p>
+          <h2>Không luận giải<br />khi chưa đủ dữ liệu.</h2>
+          <p>Chọn đúng loại lịch của ngày sinh. Với lịch âm, tháng nhuận được đánh dấu riêng; Client không tự chuyển lịch hoặc tính lời luận.</p>
+          <StatusBanner tone="warning">Module luận giải Tam Thế chưa hoàn thành. Dữ liệu hành mệnh đã được đối chiếu không đồng nghĩa các mục công danh, tài lộc và tình duyên đã sẵn sàng.</StatusBanner>
+        </aside>
       </div>
-    </main>
+      <div className="result-region"><ResultPanel {...calculation} /></div>
+    </PageContainer>
   );
 }
