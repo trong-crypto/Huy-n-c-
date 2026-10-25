@@ -7,7 +7,7 @@ import java.util.*;
 import javax.sql.DataSource;
 
 /** Read-only JDBC access. All user values are bound parameters; every query has a timeout. */
-public final class JdbcKnowledgeRepository implements RuleStateProvider, HexagramRepository, TrigramRepository {
+public final class JdbcKnowledgeRepository implements RuleStateProvider, HexagramRepository, TrigramRepository, TamTheRepository, HexagramLookupRepository {
     private static final String SOURCE_COLUMNS = """
         b.id AS book_id, b.title, b.edition, b.file_sha256,
         s.section_label, s.printed_page_label, s.pdf_page
@@ -18,7 +18,11 @@ public final class JdbcKnowledgeRepository implements RuleStateProvider, Hexagra
         """;
     private static final String RULE_COLUMNS = """
         r.rule_code, r.module, r.rule_version, r.verification_status, r.reviewer, r.reviewed_at,
+        x.source_id AS external_id, x.title AS external_title, x.version AS external_version,
+        x.section AS external_section, x.url AS external_url, x.sha256 AS external_sha,
         """ + SOURCE_COLUMNS;
+    private static final String RULE_SOURCE_JOIN = SOURCE_JOIN
+            + " LEFT JOIN external_sources x ON x.source_id=r.external_source_id ";
     private final DataSource dataSource;
     private final RuleCatalog catalog;
 
@@ -34,7 +38,7 @@ public final class JdbcKnowledgeRepository implements RuleStateProvider, Hexagra
         RuleDefinition rule = definition.get();
         return read(connection -> {
             try (var statement = prepare(connection, "SELECT " + RULE_COLUMNS
-                    + " FROM calculation_rules r " + SOURCE_JOIN
+                    + " FROM calculation_rules r " + RULE_SOURCE_JOIN
                     + " WHERE r.rule_code = ? AND r.module = ? AND r.rule_version = ?")) {
                 statement.setString(1, ruleCode);
                 statement.setString(2, rule.module().name());
@@ -60,6 +64,111 @@ public final class JdbcKnowledgeRepository implements RuleStateProvider, Hexagra
 
     public List<TrigramRecord> trigrams() { return read(JdbcKnowledgeRepository::trigrams); }
     public List<HexagramRecord> hexagrams() { return read(JdbcKnowledgeRepository::hexagrams); }
+
+    @Override
+    public HexagramLookupSnapshot lookupSnapshot() {
+        return read(connection -> {
+            connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+            connection.setAutoCommit(false);
+            try {
+                // At most 64 expected records; detect overfull data without unbounded reads.
+                var hexagrams = new ArrayList<HexagramRecord>();
+                try (var statement = prepare(connection, hexagramSelect() + " ORDER BY r.code LIMIT 65");
+                     var rows = statement.executeQuery()) {
+                    while (rows.next()) hexagrams.add(hexagram(rows));
+                }
+                var glosses = new ArrayList<HexagramLookupSnapshot.Gloss>();
+                try (var statement = prepare(connection, "SELECT i.*, " + SOURCE_COLUMNS + """
+                         FROM interpretations i
+                         LEFT JOIN source_sections s ON s.id=i.source_section_id
+                         LEFT JOIN source_books b ON b.id=s.source_book_id
+                         WHERE i.category='NAME_GLOSS' AND i.verification_status='VERIFIED'
+                         ORDER BY i.hexagram_code LIMIT 65
+                        """); var rows = statement.executeQuery()) {
+                    while (rows.next()) {
+                        var reviewed = rows.getTimestamp("reviewed_at");
+                        glosses.add(new HexagramLookupSnapshot.Gloss(rows.getString("hexagram_code"),
+                                rows.getString("content"), SourceStatus.valueOf(rows.getString("verification_status")),
+                                rows.getString("reviewer"), reviewed == null ? null : reviewed.toInstant(),
+                                rows.getString("verification_note"), rows.getInt("source_order"),
+                                rows.getString("printed_source_label"), source(rows)));
+                    }
+                }
+                connection.commit();
+                return new HexagramLookupSnapshot(hexagrams, glosses);
+            } catch (SQLException | RuntimeException failure) {
+                connection.rollback();
+                throw failure;
+            }
+        });
+    }
+
+    @Override
+    public TamTheSnapshot tamThe(Set<String> ruleCodes) {
+        if (ruleCodes == null || ruleCodes.isEmpty() || !Set.of("TT-NGU-HANH", "TT-CONG-DANH-11",
+                "TT-CONG-DANH-13", "TT-TAI-LOC", "TT-TINH-DUYEN").containsAll(ruleCodes))
+            throw new IllegalArgumentException("Unsupported Tam The snapshot scope");
+        var codes = ruleCodes.stream().sorted().toList();
+        // The identifiers are constants; only code/version values become parameters.
+        String scope = "r.module='TAM_THE' AND (" + String.join(" OR ", codes.stream()
+                .map(code -> "(r.rule_code=? AND r.rule_version=?)").toList()) + ")";
+        return read(connection -> {
+            connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+            connection.setAutoCommit(false);
+            try {
+                Map<String, RuleState> states = new LinkedHashMap<>();
+                try (var statement = scoped(connection, "SELECT " + RULE_COLUMNS + " FROM calculation_rules r "
+                        + RULE_SOURCE_JOIN + " WHERE " + scope, codes); var rows = statement.executeQuery()) {
+                    while (rows.next()) {
+                        var state = ruleState(rows); states.put(state.ruleCode(), state);
+                    }
+                }
+                Map<Long, SourceReference> sources = new HashMap<>();
+                try (var statement = prepare(connection, "SELECT s.id, " + SOURCE_COLUMNS
+                        + " FROM source_sections s JOIN source_books b ON b.id=s.source_book_id");
+                     var rows = statement.executeQuery()) {
+                    while (rows.next()) sources.put(rows.getLong("id"), source(rows));
+                }
+                Map<Long, List<TamTheSnapshot.Page>> pages = new HashMap<>();
+                try (var statement = scoped(connection, """
+                        SELECT p.entry_id,p.page_order,p.source_section_id FROM tam_the_lookup_source_pages p
+                        JOIN tam_the_lookup_entries e ON e.id=p.entry_id JOIN calculation_rules r ON r.id=e.rule_id
+                        WHERE
+                        """ + scope + " ORDER BY p.entry_id,p.page_order", codes); var rows = statement.executeQuery()) {
+                    while (rows.next()) pages.computeIfAbsent(rows.getLong(1), ignored -> new ArrayList<>())
+                            .add(new TamTheSnapshot.Page(rows.getInt(2), sources.get(rows.getLong(3))));
+                }
+                var entries = new ArrayList<TamTheSnapshot.Entry>();
+                try (var statement = scoped(connection, "SELECT e.*,r.rule_code,r.rule_version FROM tam_the_lookup_entries e "
+                        + "JOIN calculation_rules r ON r.id=e.rule_id WHERE " + scope + " ORDER BY r.rule_code,e.lookup_key,e.result_code", codes);
+                     var rows = statement.executeQuery()) {
+                    while (rows.next()) {
+                        var reviewed = rows.getTimestamp("reviewed_at");
+                        entries.add(new TamTheSnapshot.Entry(rows.getString("rule_code"),rows.getString("rule_version"),
+                                rows.getString("lookup_key"),rows.getString("result_code"),rows.getString("title"),rows.getString("description"),
+                                SourceStatus.valueOf(rows.getString("verification_status")),rows.getString("reviewer"),
+                                reviewed == null ? null : reviewed.toInstant(),rows.getString("verification_note"),
+                                sources.get(rows.getLong("source_section_id")),sources.get(rows.getLong("content_source_section_id")),
+                                rows.getString("source_table_label"),rows.getString("source_content_heading"),
+                                pages.getOrDefault(rows.getLong("id"), List.of())));
+                    }
+                }
+                connection.commit();
+                return new TamTheSnapshot(states, entries);
+            } catch (SQLException | RuntimeException failure) {
+                connection.rollback(); throw failure;
+            }
+        });
+    }
+
+    private PreparedStatement scoped(Connection connection, String sql, List<String> codes) throws SQLException {
+        var statement = prepare(connection, sql);
+        for (int i=0; i<codes.size(); i++) {
+            statement.setString(i*2+1,codes.get(i));
+            statement.setString(i*2+2,catalog.find(codes.get(i)).orElseThrow().ruleVersion());
+        }
+        return statement;
+    }
 
     public Optional<HexagramRecord> findHexagram(String upperCode, String lowerCode) {
         return read(connection -> {
@@ -120,7 +229,7 @@ public final class JdbcKnowledgeRepository implements RuleStateProvider, Hexagra
         List<HexagramRecord> hexagrams = hexagrams(connection);
         boolean structure = validStructure(connection, trigrams, hexagrams);
         Map<String, RuleState> states = new HashMap<>();
-        try (var statement = prepare(connection, "SELECT " + RULE_COLUMNS + " FROM calculation_rules r " + SOURCE_JOIN);
+        try (var statement = prepare(connection, "SELECT " + RULE_COLUMNS + " FROM calculation_rules r " + RULE_SOURCE_JOIN);
              var rows = statement.executeQuery()) {
             while (rows.next()) {
                 var state = ruleState(rows);
@@ -227,6 +336,11 @@ public final class JdbcKnowledgeRepository implements RuleStateProvider, Hexagra
 
     private static RuleState ruleState(ResultSet rows) throws SQLException {
         var reference = source(rows);
+        if (reference == null && rows.getString("external_id") != null) {
+            reference = new SourceReference(rows.getString("external_id"), rows.getString("external_title"),
+                    rows.getString("external_version"), rows.getString("external_section"), null, null,
+                    rows.getString("external_sha"), rows.getString("external_url"));
+        }
         var reviewedAt = rows.getTimestamp("reviewed_at");
         return new RuleState(rows.getString("rule_code"), RuleModule.valueOf(rows.getString("module")),
                 rows.getString("rule_version"), SourceStatus.valueOf(rows.getString("verification_status")),

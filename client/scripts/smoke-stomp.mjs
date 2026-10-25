@@ -52,7 +52,7 @@ try {
   });
   b.client.publish({
     destination: "/app/tam-the/calculate",
-    body: JSON.stringify({ requestId: bId, type: "TAM_THE", payload: { birthDate: "2003-08-15", birthTime: "08:30", calendarType: "SOLAR", isLeapMonth: false } }),
+    body: JSON.stringify({ requestId: bId, type: "TAM_THE", payload: { birthDate: "2024-02-10", birthTime: "08:30", calendarType: "SOLAR", isLeapMonth: false } }),
     headers: { "content-type": "application/json" },
   });
   a.client.publish({
@@ -69,7 +69,7 @@ try {
     && a.inbox.find((item) => item.requestId === invalidId)?.error?.code === "INVALID_INPUT"
     && a.inbox.find((item) => item.requestId === aId)?.status === "COMPLETED"
     && a.inbox.find((item) => item.requestId === aId)?.data?.ruleBasis === "TEAM_DECISION"
-    && b.inbox[0]?.error?.ruleCode === "TT-NGU-HANH";
+    && b.inbox[0]?.status === "COMPLETED" && b.inbox[0]?.data?.categories?.length === 3;
   if (!passed) throw new Error("Phản hồi sai requestId/session hoặc mã lỗi.");
   console.log("STOMP smoke test đạt: hai phiên tách biệt, INVALID_INPUT và ruleCode đúng.");
 } finally {

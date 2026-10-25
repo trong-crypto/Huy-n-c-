@@ -1,5 +1,7 @@
 # Mai Hoa Dịch Số — logic nghiệp vụ đối chiếu bản scan
 
+**Cập nhật theo xác nhận của chủ dự án:** MH-TIME đã được duyệt **VERIFIED cho quy tắc dự án dùng chia6**; không còn chờ xác nhận lại. TIME trả TEAM_DECISION/VERIFIED; câu chữ bản in được giữ trong ghi chú nguồn. Biên bản `docs/28-TIME-OWNER-APPROVAL.md` thay các ghi nhận BLOCKED/chưa duyệt của MH-TIME ở mốc trước.
+
 Nguồn: *Mai Hoa Dịch Số*, Thiệu Khang Tiết, Ông Văn Tùng dịch/chú thích, NXB Văn hóa – Thông tin; PDF người dùng cung cấp, 672 trang, danh tính ấn bản in chưa xác minh đầy đủ. Dẫn trang dạng `trang in / trang PDF`, tính PDF từ 1. Từ 24/10, MH-TRIGRAM/MH-MUTUAL/MH-CHANGE đã VERIFIED trong đúng phạm vi biên bản; công thức TIME/OBJECT_COUNT giữ trạng thái mâu thuẫn/đa nghĩa tương ứng.
 
 ## Dữ liệu nền
@@ -9,6 +11,8 @@ Nguồn: *Mai Hoa Dịch Số*, Thiệu Khang Tiết, Ông Văn Tùng dịch/ch�
 - Càn/Đoài→Kim, Chấn/Tốn→Mộc, Khảm→Thủy, Ly→Hỏa, Cấn/Khôn→Thổ (tr. 40 / PDF 35; tr. 28–29 / PDF 23–24). Tra tên 64 quẻ bằng cặp thượng/hạ quái, gắn trang nguồn.
 
 ## MH-TIME: năm–tháng–ngày–giờ
+
+**B04 đã triển khai/kiểm ngày 24/10:** TIME nối C01, chạy qua registry/DB/STOMP và trả ba quẻ cùng nguồn. Quy ước thực thi là UTC+7 cố định, năm đổi tại Tết/ngày đổi 00:00, Tý23:00–00:59; tháng nhuận giữ cùng số tháng và cờ nhuận. Các phần chưa được bản in đặc tả đầy đủ được ghi riêng là quyết định nhóm, không nâng MH-TIME thành VERIFIED. Trạng thái tổng vẫn **TEAM_DECISION/VERIFIED**. Chi tiết/fixture tại `27-B04-TIME-HANDOFF.md`.
 
 Đầu vào `datetime` có offset; chuẩn hóa về `Asia/Ho_Chi_Minh`, rồi lấy `Y` = số Chi của **năm âm lịch** (Tý=1…Hợi=12), `M` = tháng âm 1…12, `D` = ngày âm 1…30, `H` = số Chi giờ (Tý=1…Hợi=12). Năm, tháng, ngày và giờ phải theo âm lịch (tr. 48–50 / PDF 43–45). Thuật toán chuyển lịch, ranh giới giờ Chi và xử lý tháng nhuận cần nguồn/ca kiểm thử riêng; sách chưa đặc tả đủ để tự cài.
 
@@ -45,4 +49,4 @@ B01 đêm 23–24/10 đã triển khai và kiểm 64 × 6 ở hàm thuần và S
 
 ## Đầu ra và kiểm thử
 
-Đầu ra có `method`, `lunarDate`, `yearBranch`, `hourBranch`, tổng số trung gian, thượng/hạ quái, quẻ chủ/hỗ/biến, hào động, `ruleVersion`, `sourceReferences`. Chỉ có `body/use` khi quy tắc đã VERIFIED. Kiểm thử: 9→Càn, 25→Càn, tổng 69→hào 3; chia hết 8→Khôn, chia hết 6→hào 6; hào 1 và 6; quẻ hỗ 2–4/3–5; ranh ngày âm, tháng nhuận và giờ Chi. TV2 làm test, TV3 đối chiếu ảnh trang.
+Đầu ra có `method`, `lunarDate`, quẻ chủ/hỗ/biến, hào động, `ruleVersion`, `sourceReferences`. Chỉ số Chi năm/giờ và tổng trung gian nằm trong `calculationSteps.TIME_NUMBERS.values` với tên `yearBranchIndex/hourIndex/dateSum/timeSum`, không có `yearBranch/hourBranch` top-level ngoài DTO. Chỉ có `body/use` khi quy tắc đã VERIFIED. Kiểm thử: 9→Càn, 25→Càn, tổng 69→hào 3; chia hết 8→Khôn, chia hết 6→hào 6; hào 1 và 6; quẻ hỗ 2–4/3–5; ranh ngày âm, tháng nhuận và giờ Chi. B04 đã kiểm 51.840 tổ hợp số học và STOMP ca ngày thật; không gọi miền số học là tập ngày lịch hợp lệ.

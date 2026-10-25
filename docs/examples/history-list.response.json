@@ -1,0 +1,27 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440001",
+  "status": "COMPLETED",
+  "data": {
+    "items": [
+      {
+        "id": "d71c436f-0fbb-4164-9858-e6e3eea33864",
+        "type": "TAM_THE",
+        "title": "Luận giải Tam Thế",
+        "createdAt": "2026-10-25T08:51:41.680430Z",
+        "ruleBasis": "SOURCE_VERIFIED"
+      },
+      {
+        "id": "905b2f9f-c230-4887-9369-7b5500964f59",
+        "type": "MAI_HOA",
+        "title": "Tra cứu Mai Hoa %_",
+        "createdAt": "2026-10-25T08:51:41.418883Z",
+        "ruleBasis": "SOURCE_VERIFIED"
+      }
+    ],
+    "page": 0,
+    "size": 20,
+    "totalElements": 2,
+    "totalPages": 1
+  },
+  "error": null
+}

@@ -24,5 +24,12 @@ scripts/generated/b02_*
 scripts/generated/b03_*
 scripts/generated/trigram_review.sql
 scripts/generated/s02_*
+scripts/generated/d01_*
+scripts/generated/c01_*
+scripts/generated/b04_*
+scripts/generated/d02_*
+scripts/generated/d03_*
+scripts/generated/e02_*
+scripts/generated/h01_*
 scripts/generated/hexagram_title_review.sql
 

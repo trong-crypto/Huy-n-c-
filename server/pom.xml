@@ -16,6 +16,13 @@
     <java.version>17</java.version>
   </properties>
   <dependencies>
+    <!-- Pinned C01 astronomy generation and calendar cross-check; not needed at runtime. -->
+    <dependency>
+      <groupId>net.time4j</groupId>
+      <artifactId>time4j-base</artifactId>
+      <version>5.9.4</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>

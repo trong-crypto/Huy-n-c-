@@ -6,7 +6,7 @@
   "error": {
     "code": "RULE_NOT_AVAILABLE",
     "message": "Quy tắc hoặc dữ liệu chưa sẵn sàng để xử lý yêu cầu.",
-    "ruleCode": "TT-NGU-HANH",
-    "reason": "IMPLEMENTATION_UNAVAILABLE"
+    "ruleCode": "TT-TAI-LOC",
+    "reason": "LOOKUP_NOT_AVAILABLE"
   }
 }

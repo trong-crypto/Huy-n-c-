@@ -19,7 +19,8 @@ class LinesDatabaseIntegrationTest {
             context.getEnvironment().setActiveProfiles("db");
             context.registerBean(ObjectMapper.class, () -> new ObjectMapper());
             context.registerBean(DataSource.class, () -> new JdbcKnowledgeRepositoryTest.Connections(false));
-            context.register(RuleRegistryConfig.class, KnowledgeDatabaseConfig.class, MaiHoaService.class);
+            context.register(RuleRegistryConfig.class, KnowledgeDatabaseConfig.class, MaiHoaService.class,
+                    com.huyenco.calendar.CalendarService.class, com.huyenco.calendar.VietnameseLunarCalendar.class);
             context.refresh();
             assertEquals(1, context.getBeansOfType(HexagramRepository.class).size());
             var result = context.getBean(MaiHoaService.class).calculate(new ObjectMapper().readTree("""
@@ -52,6 +53,20 @@ class LinesDatabaseIntegrationTest {
             var fixture = mapper.readTree(java.nio.file.Path.of("..", "docs", "examples",
                     "mai-hoa-object-count.response.json").toFile());
             assertEquals(fixture.get("data"), mapper.valueToTree(counted));
+            var timed = context.getBean(MaiHoaService.class).calculate(mapper.readTree("""
+                {"method":"TIME","datetime":"2024-02-10T00:00:00+07:00"}
+                """));
+            assertEquals("Bác",timed.primaryHexagram().name());
+            assertEquals("Khôn",timed.mutualHexagram().name());
+            assertEquals("Mông",timed.changedHexagram().name());
+            assertEquals(2,timed.movingLine());
+            assertEquals(new com.huyenco.common.dto.LunarDate(2024,1,1,false),timed.lunarDate());
+            assertEquals(RuleBasis.TEAM_DECISION,timed.ruleBasis());
+            assertEquals(SourceStatus.VERIFIED,timed.sourceStatus());
+            assertEquals(List.of("LUNAR-CONVERSION","MH-TIME","MH-TRIGRAM","MH-MUTUAL","MH-CHANGE"),
+                    timed.rules().stream().map(r->r.ruleCode()).toList());
+            var timeFixture = mapper.readTree(java.nio.file.Path.of("..","docs","examples","mai-hoa-time.response.json").toFile());
+            assertEquals(timeFixture.get("data"),mapper.valueToTree(timed));
         }
     }
 }

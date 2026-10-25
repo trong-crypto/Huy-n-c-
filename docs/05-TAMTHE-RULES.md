@@ -16,9 +16,9 @@ Phạm vi VERIFIED chỉ gồm mã Can/Chi và giá trị cột mạng. Dòng 28
 
 “Số 5” quy định mốc bắt đầu ban ngày của giờ Dần theo **tháng âm** (tr. 13–16 / PDF 12–15): tháng 1/9→04:20; 2/8→04:00; 3/7→04:30; 4/6→04:40; 5→05:20; 11→03:40; 10/12→04:00. Sau đó mỗi 120 phút lần lượt Mão, Thìn, Tỵ, Ngọ, Mùi; ban đêm Thân, Dậu, Tuất, Hợi, Tý, Sửu. Khoảng tính `[mốc, mốc+120 phút)`; tất cả 12 khoảng phải phủ kín 24 giờ. Không tái dùng mốc giờ Chi cố định của Mai Hoa.
 
-**Quyết định triển khai của nhóm ngày 22/10/2026:** TV3 dùng **Dần** cho ô tháng 5, 05:20–07:19, rồi tiếp Mão, Thìn, Tỵ, Ngọ, Mùi. Bản in tr. 15 / PDF 14 vẫn ghi **Dậu**; lưu `sourceText=Dậu`, `adoptedValue=Dần`, `decisionReason=chuỗi 12 giờ liên tiếp và các tháng lân cận`, `decisionStatus=TEAM_CORRECTION`. Không âm thầm sửa dữ liệu nguồn. Quyết định này chỉ chốt cách xử lý dòng xung đột; toàn bảng giờ vẫn cần nhập đủ, test ranh giới và TV2 kiểm chéo trước `VERIFIED`.
+**Quyết định triển khai của nhóm ngày 22/10/2026:** TV3 dùng **Dần** cho ô tháng 5, 05:20–07:19, rồi tiếp Mão, Thìn, Tỵ, Ngọ, Mùi. Bản in tr. 15 / PDF 14 vẫn ghi **Dậu**; lưu `source_branch=DAU`, `adopted_branch=DAN`, lý do và `decision_status=TEAM_CORRECTION`. **D02 ngày 25/10 đã kiểm đủ 12 mốc/chuỗi ngày đêm và VERIFIED toàn bộ**, hai lượt cùng Codex theo ủy quyền mới; giữ nguyên reviewer/ngày TV2 của tháng 5. PDF15 in điểm cuối dòng đầu đêm tháng 11 là 5:30; triển khai 5:39 để tiếp dòng 5:40, có dấu vết hiệu chỉnh.
 
-“Số 8” chia mỗi giờ Chi thành đầu/giữa/sau, tổng **36 ô** luận giải (tr. 26–29 / PDF 25–28). Kế hoạch chia mỗi khoảng 120 phút thành ba đoạn 40 phút và tra theo `hourBranch + segment`; cách chia 40 phút là suy luận triển khai từ “một giờ chia ba”, phải đối chiếu ví dụ trước khi VERIFIED. Không xuất lời luận giải chưa nhập/kiểm nguồn.
+“Số 8” chia mỗi giờ Chi thành đầu/giữa/sau, tổng **36 ô** luận giải (tr. 26–29 / PDF 25–28). **D02 đã nhập/VERIFIED 36 bản chép**, giữ chữ/tuổi lạ theo scan. Ba đoạn `[0,40)`, `[40,80)`, `[80,120)` phút là **TEAM_DECISION DEC-20261025-D02-HOUR-PARTS**, không phải sách ghi 40 phút. TT-GIO-SINH mang policy TEAM_DECISION; TT-36-PHAN duyệt nội dung SOURCE_VERIFIED. Xem biên bản 29 về ranh giờ và phạm vi chứng cứ.
 
 ## TT-CONG-DANH: nghề nghiệp
 
@@ -27,10 +27,25 @@ Phạm vi VERIFIED chỉ gồm mã Can/Chi và giá trị cột mạng. Dòng 28
 | Loại | Kim | Mộc | Thủy | Hỏa | Thổ |
 | --- | --- | --- | --- | --- | --- |
 | Mua bán | 4,5,8,10 | 2,4,6,10 | 4,8,12 | 5,11 | 7,8,10 |
-| Câu/chài lưới/đáy rọ/mua thủy lợi | 1,3,9,10 | 4,5,6,12 | 2,4,6,9,11 | 2,6,7,11 | 1,2,3,6,8,9 |
+| Câu/chài lưới/đáy rọ/mua thủy lợi | 1,3,9,10 | 4,5,6,12 | 2,4,6,8,11 | 2,6,7,11 | 1,2,3,6,8,9 |
 | Làm thợ | 8,10 | 6,10 | 7,11,12 | 1 | 1,3,7,10 |
 
-“Số 13” (tr. 36–38 / PDF 35–37) tra `Thiên Can năm sinh + tháng sinh âm`, nam nữ chung, ra một nhãn nghề và đoạn giải nghĩa. Cột tr. 36 theo thứ tự: Quan Nhơn, Trúng Tế, Tú Tài, Đã Thất, Sự Thoát, Sanh Quan, Âm Nhạc, Tiêm Dược, Tăng Đạo, Tài Phong, Hoàng Quí, Thứ Tác. Hàng Giáp tháng 1 bắt đầu cột 0; mỗi Can sau và mỗi tháng sau dịch một cột, vòng 12. Công thức rút từ bảng: `index=(stemIndex+lunarMonth-1)%12`, Giáp=0…Quý=9. **Kiểm đủ 120 ô bảng gốc** trước VERIFIED; không lấy công thức rút gọn làm căn cứ duy nhất. Các mục học/thi cử “Số 16–17” (tr. 52–56 / PDF 51–55) là phạm vi khác, chưa nhập MVP.
+**D01 đã đối chiếu và VERIFIED 51 giao điểm Số 11.** Thủy câu/chài đúng là **2,4,6,8,11**; tháng 9 trong seed cũ là lỗi nhập đã sửa theo ảnh PDF32 phóng lớn. Giữ nhiều nghề cùng khóa; không có giao điểm không được hiểu là không có nghề nghiệp.
+
+“Số 13” phần nghề nghiệp (tr. 36–37 / PDF 35–36) tra `Thiên Can năm sinh + tháng sinh âm`, nam nữ chung, ra nhãn nghề và đoạn giải nghĩa. Thứ tự cột PDF 35: Quan nhơn, Trùng Tổ, Tú Tài, Đã Thết, Sự Thoát, Sanh Quan, Âm nhạc, Tiêm Dược, Tăng đạo, Tài Phùng, Hoàng Quí, Thứ Tác. **D01 đã đối chiếu đủ 120 ô theo hàng/cột và 12 đoạn, nhập/VERIFIED đúng phạm vi.** Dùng bản chép bảng tường minh; phép kiểm rút gọn `floorMod(lunarMonth-1-stemIndex,12)`, Giáp=0…Quý=9, khớp cả 120 ô. Không dùng công thức dấu cộng cũ. Ví dụ Ất tháng 1→cột 12, Ất tháng 2→cột 1. Các bảng PDF 37 trở đi và mục học/thi cử Số 16–17 là phạm vi riêng.
+
+Bốn cặp khác nhãn Trùng Tổ/Trùng Tế, Đã Thết/Đã Thiết, Sự Thoát/Sư Thuật, Thứ Tác/Thủ Tất được giữ nguyên ở `source_table_label` và `source_content_heading`, liên kết biên tập theo thứ tự 12 cột/12 đoạn nguồn (`POSITIONAL_EDITORIAL_LINK`). Không khẳng định đã phục dựng chữ trước lỗi in. V7 lưu nguồn riêng từng đoạn; D03/TV1 cần hiển thị cả hai nhãn khi khác nhau. Review hai lượt cùng Codex, không phải hai người độc lập. Chi tiết `25-D01-CAREER-DATA.md`; TamTheService/lịch và toàn F04 chưa hoàn tất.
+
+## S03: hiệu chỉnh theo lượt đọc ảnh ngày 24/10/2026
+
+Chi tiết và ca nguồn ở `24-S03-SOURCE-MAP.md`; ma trận máy đọc được ở `data/s03_source_matrix.csv`. Các nhận xét mới dưới đây thay mô tả sơ bộ tương ứng ở phần trên; chưa đổi seed/database hoặc duyệt runtime.
+
+- **Số 13 nghề nghiệp:** công thức dấu cộng trong tài liệu trước S03 bị đảo chiều tra. PDF 35/in36 có Ất tháng 1 ở cột cuối Thứ Tác, Ất tháng 2 ở Quan nhơn. D01 dùng bảng chép tường minh; phép rút gọn ứng viên là `floorMod(lunarMonth - 1 - stemIndex, 12)`, cần so đủ 120 ô. Bảng nghề và 12 đoạn nằm PDF 35-36; PDF 37 trở đi là các bảng phụ khác. Không tự gộp chúng vào bảng nghề. Có khác nhãn giữa cột và đoạn: Trùng Tổ/Trùng Tế, Đã Thết/Đã Thiết, Sự Thoát/Sư Thuật, Thứ Tác/Thủ Tất; cần quyết định alias có nguồn.
+- **TT-TAI-LOC/D02:** 120 giao điểm và 12 đoạn PDF41–42 đã nhập/VERIFIED có phạm vi. Can năm âm + tháng âm, trả mọi giao điểm theo thứ tự cột. Chỉ 60/120 khóa có trong bảng, mỗi khóa hai kết quả; Giáp/tháng 2 không có giao điểm. Giữ Bất lộc/Bối Lộc và Bịch lộc/Bịnh Lộc, liên kết biên tập theo vị trí. Một chữ mờ Hưởng Lộc lưu `[CHU_MO]`. Không dùng bảng phụ PDF43–46/49–50 làm fallback.
+- **TT-TINH-DUYEN/D02:** 60 ô và 12 bài tám câu đã nhập/VERIFIED. Dẫn cách coi PDF63, bảng64, thơ64–67, đủ trang nối cho Quan Đài/Suy/Tuyệt. Input hành mệnh năm âm + tháng âm; không cần giới tính/người thứ hai. Không nhập tóm tắt in nghiêng hoặc chương nam/nữ riêng; không trộn các phép năm–giờ/năm–tháng.
+- **TT-36-PHAN/D02:** giữ dẫn “Số 4” ở PDF25 và chốt dùng bảng Số 5 PDF12–15; 40 phút có quyết định nhóm riêng, chưa phải xác minh nguyên văn hay ví dụ độc lập.
+
+Ma trận S03 giữ nguyên hồ sơ khảo sát lịch sử. D01/D02 hoàn tất dữ liệu theo biên bản 25/29; **D03 ngày 25/10 đã triển khai TamTheService cả ba nhóm**, mở WEALTH/LOVE bằng SOURCE_VERIFIED. CAREER giữ mọi nghề Số11 + một đoạn Số13, WEALTH giữ hai kết quả hoặc lỗi thiếu khóa, LOVE dùng bài tám câu và đủ trang nối. Không cần giờ theo mùa để tra ba bảng chung này; birthTime chỉ được kiểm hợp lệ theo hợp đồng. Xem biên bản 30; F04 còn nghiệm thu giao diện TV1 và công bố giới hạn khóa Lộc.
 
 ## Bản ghi và kiểm thử
 

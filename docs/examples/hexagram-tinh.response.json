@@ -1,0 +1,57 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440002",
+  "status": "COMPLETED",
+  "data": {
+    "code": "H_KHAM_TON",
+    "name": "Tỉnh",
+    "nameKind": "CANONICAL_TITLE",
+    "verificationStatus": "VERIFIED",
+    "upperTrigramCode": "KHAM",
+    "lowerTrigramCode": "TON",
+    "linesBottomUp": [
+      false,
+      true,
+      true,
+      false,
+      true,
+      false
+    ],
+    "sourceReferences": [
+      {
+        "sourceId": "MH",
+        "title": "Mai Hoa Dịch Số",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "MH-64-QUE-NAMES-278",
+        "printedPage": "278",
+        "pdfPage": 271,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      }
+    ],
+    "interpretations": [
+      {
+        "resultCode": "NAME_GLOSS",
+        "title": "Nghĩa tên quẻ Tỉnh",
+        "content": "Giếng nước",
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-64-QUE-NAMES-278",
+            "printedPage": "278",
+            "pdfPage": 271,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "verificationStatus": "VERIFIED",
+        "category": "NAME_GLOSS",
+        "sourceOrder": 48,
+        "printedSourceLabel": "Ích",
+        "verificationNote": "E01 2026-10-25; PDF Mai Hoa 269-271 / printed 276-278; 64 short NAME_GLOSS entries only. Two visual checks with same Codex; not independently human-reviewed; no prediction or line reading. PRINTED_ICH_AT_TINH_POSITION; identity normalized to verified Tỉnh (48); book literally prints Ích: Giếng nước, but canonical order 48 between Khốn/Cách and verified S01 identity establish Tỉnh; original label preserved in printed_source_label."
+      }
+    ]
+  },
+  "error": null
+}

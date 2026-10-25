@@ -1,21 +1,26 @@
-# Hợp đồng Huyền Cơ v1.2 — cập nhật A02/B01/S01/B02/B03
+# Hợp đồng Huyền Cơ v1.2 — cập nhật đến C01/B04
+
+**Cập nhật theo xác nhận của chủ dự án:** MH-TIME đã được duyệt **VERIFIED cho quy tắc dự án dùng chia6**; không còn chờ xác nhận lại. TIME trả TEAM_DECISION/VERIFIED; câu chữ bản in được giữ trong ghi chú nguồn. Biên bản `docs/28-TIME-OWNER-APPROVAL.md` thay các ghi nhận BLOCKED/chưa duyệt của MH-TIME ở mốc trước.
 
 ## 1. Phạm vi và trạng thái triển khai
 
 Đây là hợp đồng dùng chung cho TV1 và phần TV2 + TV3. Giữ envelope v1.1, bổ sung metadata nguồn/quyết định và `error.reason`; Client cũ vẫn đọc được envelope. Các kiểu TypeScript ở `client/src/types/contract.ts`; DTO Java ở `common/dto`; catalog chính sách ở `server/src/main/resources/rules/execution-catalog.json`.
 
-| Thành phần | Trạng thái sau B03 |
+| Thành phần | Trạng thái sau B04 |
 | --- | --- |
 | STOMP endpoint, results/errors, validator và lỗi có reason | Có trong mã |
 | Catalog, registry, kiểm chính sách, DTO kết quả/progress | Có trong mã và kiểm thử; profile db đã nối provider PostgreSQL |
 | Health/readiness | Đã có controller; readiness kiểm kho dữ liệu, chưa xác nhận nghiệp vụ hoàn tất |
 | LINES trả quẻ chủ/hỗ/biến | B01 đã triển khai, có registry/DB và kiểm qua hai Client STOMP |
 | OBJECT_COUNT trả quẻ chủ/hỗ/biến | B03 đã triển khai/kiểm STOMP, bốn rule phụ thuộc; giữ TEAM_DECISION/SOURCE_AMBIGUOUS |
-| TIME/Tam Thế trả kết quả thật | Chưa triển khai; B04/D03 |
+| TIME trả quẻ chủ/hỗ/biến | B04 đã nối lịch C01 và kiểm STOMP; TEAM_DECISION/VERIFIED |
+| Tam Thế trả kết quả thật | Chưa triển khai service; D03 |
 | Progress và vòng đời request | B02 đã phát bước thật, dọn theo disconnect/deadline; hook/Panel nhận tiến trình, chưa có worker/idempotency N01 |
-| REST tra quẻ/lịch/session/lịch sử | Chốt hợp đồng dưới đây; chưa có controller, không coi URL đã chạy |
+| REST lịch/Can Chi | C01 đã triển khai hai POST /calendar/convert và /calendar/can-chi; cần DB V8/biên bản nguồn C01 |
+| REST tra quẻ | E02: danh sách/tìm/lọc/phân trang và chi tiết với nghĩa tên VERIFIED |
+| REST session/lịch sử | H01: cookie owner,CSRF,save/list/search/detail/delete đã chạy với DB và qua restart |
 
-Các file `.response.json` là **fixtures hợp đồng**, không thay cho biên bản duyệt dữ liệu. LINES và OBJECT_COUNT đã cập nhật từ phản hồi runtime, chỉ cố định requestId. Nguồn/tên được duyệt theo biên bản riêng; không dùng fixtures làm chứng nhận VERIFIED hay luận giải sách.
+Các file `.response.json` là **fixtures hợp đồng**, không thay cho biên bản duyệt dữ liệu. LINES/OBJECT_COUNT/TIME và lịch C01 đã cập nhật từ phản hồi runtime, chỉ cố định requestId. Nguồn/tên được duyệt theo biên bản riêng; không dùng fixtures làm chứng nhận VERIFIED hay luận giải sách.
 
 ### Probe sức khỏe và kho dữ liệu (A02 đã triển khai)
 
@@ -64,6 +69,12 @@ Quy ước nhóm đã chốt cho OBJECT_COUNT: thượng=`objectCount % 8`, hạ
 
 B03 đã mở OBJECT_COUNT với MH-TRIGRAM VERIFIED theo biên bản 21. `calculationSteps` gồm OBJECT_COUNT_NUMBERS/MUTUAL/CHANGE; bước đầu có objectCount, hourIndex, **movingLineSum là tổng hai số gốc**, upperTrigram/lowerTrigram/movingLine. Ca 12/8 trả Dự → Kiển → Giải, hào 2; sourceStatus tổng vẫn SOURCE_AMBIGUOUS. Không trả lại câu hỏi hoặc tự tạo lời luận.
 
+**B04 đã mở TIME**: chuẩn hóa instant sang **UTC+07:00 cố định**, kiểm ngày Dương 1900-01-01…2099-12-31 sau chuẩn hóa, rồi đổi lịch bằng C01. Y là số Chi năm âm (đổi tại Tết); M/D lấy ngày âm thật; giờ Chi Tý 23:00–00:59, ngày đổi 00:00. Tháng nhuận lấy cùng số tháng, giữ cờ nhuận. `dateSum=Y+M+D`, `timeSum=dateSum+H`; thượng/hạ chia8, hào chia6, dư0→8/8/6. Quy ước dân sự/nhuận ghi `DEC-20261024-B04-CIVIL-TIME`, không tự sửa chứng cứ nguồn MH-TIME.
+
+TIME trả `lunarDate` khác null, `calculationSteps=[TIME_NUMBERS,MUTUAL,CHANGE]`. Bước TIME_NUMBERS có lunarYear/lunarMonth/lunarDay/isLeapMonth, yearBranchIndex/hourIndex (Tý=1…Hợi=12), dateSum/timeSum, upperTrigram/lowerTrigram/movingLine, utcOffset/dayBoundary/leapMonthPolicy. Không thêm top-level ngoài DTO, không echo datetime thô/question. Sai ngày/offset/tràn/phạm vi → INVALID_DATE; missing/type/trường lạ → INVALID_INPUT; thiếu gate/snapshot C01 sai → RULE_NOT_AVAILABLE. Thiếu bảng quái/quẻ → KNOWLEDGE_DATA_INCOMPLETE.
+
+Kết quả TIME tổng `ruleBasis=TEAM_DECISION`, `sourceStatus=BLOCKED_SOURCE_CONFLICT`; năm rule theo thứ tự LUNAR-CONVERSION/MH-TIME/MH-TRIGRAM/MH-MUTUAL/MH-CHANGE. `MH-TIME` giữ xung đột bản in; UI phải hiển thị cảnh báo quy ước nhóm. Ca 10/2/2024 00:00+07:00 → âm1/1 Giáp Thìn, Bác/hỗ Khôn/biến Mông, hào2. Fixture chụp từ runtime ở `examples/mai-hoa-time.response.json`; giới hạn/kiểm ở `27-B04-TIME-HANDOFF.md`.
+
 Quy tắc cần cấp quyền trước phép tính:
 
 | Tuyến | Bộ quy tắc tối thiểu |
@@ -86,7 +97,7 @@ Hai trục khác nhau:
 
 Registry chỉ cấp quyền khi ruleCode/module/version khớp trạng thái từ repository và có nguồn truy vết. DISABLED luôn từ chối. SOURCE_VERIFIED cần status VERIFIED, reviewer không rỗng và reviewedAt. TEAM_DECISION cần quyết định đầy đủ/ngày/tài liệu, nguồn có vị trí, status khác DRAFT; chỉ áp dụng phép tính quy ước, **không cấp quyền phát lời luận giải chưa xác minh**. Không có state từ DB → RULE_STATE_UNAVAILABLE; không lấy trạng thái từ file catalog hoặc từ Client làm thay thế.
 
-Catalog hiện có 14 mã quy tắc. MH-TIME/MH-OBJECT-COUNT dùng TEAM_DECISION theo quyết định 22/10; MH-THE-DUNG/TT-TAI-LOC/TT-TINH-DUYEN DISABLED; các mã khác yêu cầu SOURCE_VERIFIED. Được cấu hình policy không có nghĩa module đã có code, bảng tra đã đủ hoặc endpoint đã sẵn sàng. Tên 64 quẻ và từng ô Tam Thế phải kiểm trạng thái riêng, không suy trạng thái từ một rule chung.
+Catalog hiện có 14 mã quy tắc. MH-TIME/MH-OBJECT-COUNT dùng TEAM_DECISION theo quyết định 22/10; TT-GIO-SINH dùng TEAM_DECISION theo DEC-20261025-D02-HOUR-PARTS (mốc có hiệu chỉnh và ba phần 40 phút). MH-THE-DUNG DISABLED; **D03 đã mở TT-TAI-LOC/TT-TINH-DUYEN bằng SOURCE_VERIFIED**; các mã còn lại yêu cầu SOURCE_VERIFIED. TT-36-PHAN duyệt nội dung, không duyệt 40 phút là nguyên văn sách; khi dùng phải kèm bằng chứng TT-GIO-SINH. Được cấu hình policy không có nghĩa mọi module đã có code hoặc mọi endpoint đã sẵn sàng. Tên 64 quẻ và từng ô Tam Thế phải kiểm trạng thái riêng, không suy trạng thái từ một rule chung. Dữ liệu D02 ở `29-D02-TAM-THE-DATA.md`; service ở `30-D03-TAM-THE-HANDOFF.md`.
 
 A01 có provider mặc định không trả state để đóng quyền khi chưa nối DB. A02 đã nối provider PostgreSQL ở profile `db`, đọc đúng module/mã/phiên bản; profile mặc định vẫn không cấp state. B01 trở đi phải gọi registry cho **tất cả** rule bắt buộc trước khi phát kết quả; còn phải kiểm tính đầy đủ của dữ liệu bảng và bản thân implementation. Việc duyệt dữ liệu chỉ thực hiện bằng đợt cập nhật có bằng chứng như nhật ký nguồn, không bằng request API.
 
@@ -112,7 +123,9 @@ Với request LINES mẫu, quẻ hỗ `[false,true,false,true,false,true]`, qu�
 
 Payload: `birthDate` YYYY-MM-DD, `birthTime` HH:mm, `calendarType` SOLAR hoặc LUNAR, `isLeapMonth` boolean bắt buộc, `categories?` là mảng 1–3 giá trị CAREER/WEALTH/LOVE không trùng. Bỏ categories nghĩa là yêu cầu cả ba. SOLAR buộc isLeapMonth=false. Validator kiểm định dạng và ranh cơ bản; C01/D03 phải kiểm ngày âm thực sự tồn tại/tháng nhuận/phạm vi lịch.
 
-TamTheResult thêm `categories:[{category,entries:[{resultCode,title,content,sourceReferences}]}]`. Giữ thứ tự category được yêu cầu; mỗi mục phải có dữ liệu đã kiểm. Không có đủ nguồn cho bất kỳ mục yêu cầu nào → FAILED/RULE_NOT_AVAILABLE với ruleCode tương ứng. Không trả một CAREER như kết quả đầy đủ cả ba. Chưa có fixture thành công lời luận Tam Thế vì chưa có đủ nội dung xác minh; dùng fixture lỗi có thật về trạng thái implementation.
+TamTheResult thêm `categories:[{category,entries:[{resultCode,title,content,sourceReferences}]}]`. **D03 đã triển khai cả ba nhóm phía Server**, giữ thứ tự category được yêu cầu. CAREER trả mọi nghề Số11 theo thứ tự Mua bán/Câu chài/Làm thợ rồi một đoạn Số13; WEALTH trả mọi giao điểm theo thứ tự cột; LOVE trả một bài tám câu. Mỗi mục phải có dữ liệu VERIFIED riêng và đủ trang nguồn. Bảng Lộc chỉ phủ 60/120 khóa: nếu không có khóa WEALTH thì FAILED/RULE_NOT_AVAILABLE, ruleCode TT-TAI-LOC, reason **LOOKUP_NOT_AVAILABLE**, data=null cho cả request. Không trả CAREER/LOVE như thể đủ ba mục. Bản ghi chưa duyệt → SOURCE_UNVERIFIED; bảng thiếu/sai cấu trúc hoặc mất trang nối → KNOWLEDGE_DATA_INCOMPLETE.
+
+D03 dùng C01 → Can Chi năm âm → hành S02 → Can/hành + tháng âm. `birthTime` được kiểm nhưng không chi phối ba bảng chung này; không gọi TT-GIO-SINH/TT-36-PHAN cho ba category. Tháng nhuận tra theo cùng số tháng C01 trả. Mỗi response có C01/TT-NGU-HANH và các rule của đúng category yêu cầu, ruleBasis SOURCE_VERIFIED/sourceStatus VERIFIED. Mỗi entry có cả trang bảng và trang đoạn; metadata rule/toàn kết quả cũng hợp đầy đủ các nguồn đã dùng. Số11 có content tóm tắt được ghi rõ “Bảng Số 11 ghi nghề: ….”; các đoạn còn lại dùng bản chép đã duyệt. Nhãn bảng khác tiêu đề đoạn được giữ trong title `(đoạn: …)`, chữ mờ giữ `[CHU_MO]`. Không echo ngày/giờ sinh trong kết quả. Fixture thật và giới hạn ở biên bản 30.
 
 ## 7. Progress (B02)
 
@@ -120,13 +133,15 @@ JSON riêng: `{requestId,type,sequence,step,message}`. sequence nguyên >=1, tă
 
 B02 đã triển khai: LINES thành công có sequence 1–4 theo thứ tự trên. ACCEPTED nghĩa đã nhận request có ID chuẩn, chưa khẳng định input hợp lệ; VALIDATING bao gồm gate nguồn. CALCULATING phát sau authorize, LOOKUP ngay trước repository. Sai payload hoặc method chưa triển khai chỉ có tiền tố 1–2 rồi FAILED. ID không chuẩn không phát progress; timeout có thể kết thúc ở bất kỳ tiền tố nào.
 
+B04: TIME thành công cũng có sequence1–4; chuẩn hóa/kiểm lịch và gate nguồn thuộc VALIDATING, phần số học/quẻ thuộc CALCULATING. Lỗi ngày/phạm vi hoặc nguồn chưa được cấp quyền không phát CALCULATING/LOOKUP. D03 Tam Thế kiểm lịch/quyền/snapshot bảng trong VALIDATING, tính hành/khóa trong CALCULATING, tra/ghép nội dung trong LOOKUP; snapshot JDBC được đọc trước để bảo đảm nguồn nhất quán. Thiếu khóa Lộc hợp lệ phát đủ 1–4 rồi FAILED/LOOKUP_NOT_AVAILABLE. Script hồi quy đã cập nhật cả TIME và Tam Thế thật.
+
 Server mặc định đóng Run sau 10 giây từ khi bắt đầu xử lý sau parse; trả PROCESSING_TIMEOUT và bỏ mọi progress/kết quả muộn. Disconnect hủy Run/timer; không gửi sang phiên mới. Chưa bảo đảm ngắt tức thì truy vấn đang chạy và chưa tính hàng đợi inbound vào hạn Run. Client chờ tổng 15 giây, không gia hạn theo progress, không tự gửi lại khi reconnect. B02 bảo đảm một terminal cho mỗi lần xử lý, chưa dedup các SEND trùng requestId; N01 làm idempotency/worker/queue.
 
 Client nhận cùng requestId + type; bỏ progress lặp/cũ, báo INVALID_RESPONSE nếu sequence bị hổng/step sai thứ tự; lỗi parse, ngắt kết nối hoặc timeout đều dọn trạng thái chờ. Chi tiết cấu hình/giới hạn và bằng chứng tại `20-B02-PROGRESS-HANDOFF.md`.
 
 Chốt bàn giao TV1 ngày 24/10 tại `23-TV2-CONTRACT-REPLIES-TO-TV1.md`: hạn connect STOMP riêng 10 giây/lần là cấu hình TV1 cần thêm (hook hiện tại chưa đặt); reconnect delay 3 giây. Không tự resend; retry thủ công dùng UUID mới trong bản chưa có dedup. N01 giữ thiết kế TTL 60 giây theo session/ID, tính TTL kết quả từ terminal và giữ khóa đang chạy đến kết thúc; không cache SERVER_BUSY do chưa được tiếp nhận. Các chính sách N01 chưa được coi là implementation hiện có.
 
-## 8. REST đã dành cho các task tiếp theo
+## 8. REST: lịch C01,tra quẻ E02 và session/lịch sử H01 đã triển khai
 
 Envelope REST: `{requestId,status,data,error}`, cùng cấu trúc error với STOMP; requestId do Server tạo. HTTP và status phải nhất quán. 400 INVALID_INPUT/INVALID_DATE/INVALID_METHOD; 401 INVALID_SESSION; 403 CSRF_REJECTED; 404 NOT_FOUND (kể cả history của owner khác); 422 RULE_NOT_AVAILABLE; 503 DATABASE_UNAVAILABLE/SERVER_BUSY; 504 PROCESSING_TIMEOUT; 500 INTERNAL_ERROR.
 
@@ -146,13 +161,25 @@ Page<T>: `{items,page,size,totalElements,totalPages}`; số trang từ 0; ngoài
 
 HexagramRecord: code, name, nameKind STRUCTURAL_LABEL/CANONICAL_TITLE, verificationStatus, upperTrigramCode, lowerTrigramCode, linesBottomUp, sourceReferences. Dữ liệu tra cứu chưa duyệt có thể trả như bản chép nguồn với trạng thái rõ; UI không trình bày như kết quả luận giải. HexagramDetail thêm interpretations: mỗi đoạn có resultCode/title/content/sourceReferences/verificationStatus; bản đầu chỉ phát nội dung interpretations VERIFIED, phần chưa có trả mảng rỗng, không chèn câu dự đoán.
 
+**E02 chốt hành vi:** Hai GET `/api/v1/hexagrams` và `/api/v1/hexagrams/{code}` trả envelope nêu trên. `q` mặc định rỗng, bỏ khoảng trắng đầu/cuối, so không phân biệt hoa/thường và chuẩn hóa Unicode NFC. Có dấu thì tìm chuỗi con giữ dấu (phân biệt Bĩ/Bí, Càn/Cấn); không dấu thì bỏ dấu tên và đ→d (ví dụ `bi` trả Bĩ/Bí, `ly` trả Ly/Lý). Truy vấn bắt đầu bằng `H_` (không phân biệt hoa/thường) tìm chuỗi con mã; `q=H_` khớp mọi mã. `%`, `_` là ký tự thường, không phải wildcard SQL. Bộ lọc quái nhận đúng mã viết hoa `CAN,DOAI,LY,CHAN,TON,KHAM,CAN2,KHON`; `CAN2` là Cấn. Kết hợp q/thượng/hạ bằng AND. Sắp code tăng, size mặc định20/tối đa100, page mặc định0; số nguyên quá lớn/âm/thập phân, tham số rỗng không hợp lệ, tham số lạ hoặc lặp trả 400 INVALID_INPUT. `q=` hợp lệ. Page đến 2147483647 hợp lệ và trả rỗng nếu vượt cuối, không tràn phép nhân offset.
+
+E02 chỉ phát đoạn `category=resultCode="NAME_GLOSS"`, có thêm `sourceOrder` (1–64), `printedSourceLabel`, `verificationNote`, `verificationStatus="VERIFIED"`. Ngoài trạng thái phải có reviewer, thời điểm duyệt, ghi chú và nguồn truy xuất được; thiếu duyệt thì `interpretations=[]`. Nghĩa tên ngắn không phải lời dự đoán. Tỉnh (`H_KHAM_TON`, mục48) có content="Giếng nước", printedSourceLabel="Ích" và ghi chú giải quyết nhãn in sai; tên chuẩn vẫn Tỉnh. Không phát các category chưa triển khai hoặc lời luận chưa duyệt. SourceReferences của tên và của từng nghĩa được trả riêng.
+
+Mã chi tiết có cú pháp `H_[A-Z0-9]+_[A-Z0-9]+`, tối đa64 ký tự; sai cú pháp trả400, đúng cú pháp nhưng không tồn tại trả404 NOT_FOUND. Không DB/mất kết nối trả503 DATABASE_UNAVAILABLE; dataset thiếu/thừa/trùng mã hoặc sai cấu trúc bắt buộc trả503 KNOWLEDGE_DATA_INCOMPLETE. Exception không lộ SQL/credentials/stack trace. Repository chỉ đọc trong transaction REPEATABLE_READ, timeout SQL3 giây; tải tối đa65 quẻ/65 nghĩa để kiểm bộ cố định64 và phát hiện thừa; tìm/lọc/phân trang thực hiện trên snapshot này, không đọc lịch sử hay dữ liệu người dùng. Không cần PostgreSQL unaccent/extension hoặc migration mới cho E02.
+
 CalendarInput: `{calendarType,year,month,day,isLeapMonth}`; SOLAR buộc false. CalendarResult gồm ResultEvidence và `{solarDate,lunarDate:{year,month,day,isLeapMonth},timezone:"Asia/Ho_Chi_Minh"}`. Phạm vi mục tiêu ngày Dương 1900-01-01…2099-12-31; ngày Âm cần quy đổi ra ngày Dương trong khoảng này. CanChiResult thêm year/month/day cặp stem/branch; hour tương tự hoặc null. Năm/tháng tính theo lịch âm, không khẳng định Bát Tự theo tiết khí. Các ranh năm/giờ phải được C01 chốt trong rule/reference trước khi mở API.
 
-HistoryItem: `{id,type,title,createdAt,ruleBasis}`. HistoryDetail thêm result snapshot đã lọc theo hợp đồng MaiHoaResult/TamTheResult và dữ liệu tối thiểu cho xem lại; không lưu bản thô birthDate/question. Chỉ lưu calculationRequestId thuộc owner/phiên đang giữ; TTL registry kết quả mục tiêu 15 phút, session owner 30 ngày; mặc định tối đa 1000 lịch sử/owner, vượt trả INVALID_INPUT. Client không gửi ownerId, snapshot tùy ý hay policy để nâng quyền. Đọc/xóa history luôn lọc owner từ cookie. Thao tác ghi sau tạo phiên yêu cầu X-CSRF-Token và X-HuyenCo-Request:1; Server kiểm origin. H01 triển khai chính xác lưu trữ/TTL và test chéo trước khi mở.
+**C01 đã mở hai API lịch:** phạm vi Dương **1900-01-01…2099-12-31**, cả hai đầu; một phần năm âm 1899 hợp lệ khi đổi ra ngày Dương trong phạm vi. Không nhận tháng nhuận không tồn tại/ngày 30 của tháng thiếu. Không ép chuỗi/số thực thành int; không nhận trường lạ, thiếu/null cờ nhuận, JSON trùng key/nối nhiều tài liệu hoặc UTF-8 sai; body kiểm tại controller tối đa 16.000 byte. `time` nếu có phải là HH:mm 00:00…23:59, bỏ thì hour=null; gửi null bị từ chối. Can/Chi trả mã `GIAP`…`QUY`, `TY`…`HOI`, `TI` là Tỵ.
 
-Các REST trên là hợp đồng được chốt, không phải các endpoint đã có. Không tạo fixture kết quả lịch/luận giải giả khi C01/D03 chưa có đầu ra đã đối chiếu.
+`timezone` giữ nhãn hợp đồng, **phép tính dùng UTC+07:00 cố định**, kể cả trước 1968; không theo historical offset của ZoneId. Năm đổi tại Tết, ngày đổi 00:00, tháng nhuận giữ Can Chi tháng cùng số; Tý 23:00–00:59, Can giờ tại 23:xx vẫn theo ngày dân sự hiện tại. Đây là lịch tính theo mô hình được pin, không phục dựng lịch sử hoặc Bát Tự tiết khí, không thay bảng giờ sinh Tam Thế. Nguồn thuật toán ngoài sách có version/hash/URL, không tạo trang PDF giả; rule LUNAR-CONVERSION và snapshot phải khớp DB V8. Không DB/chưa duyệt trả 422 RULE_NOT_AVAILABLE, mất DB trả 503 DATABASE_UNAVAILABLE. Chi tiết/giới hạn ở `26-C01-CALENDAR-HANDOFF.md`.
 
-Chốt cấu hình bàn giao TV1: REST qua proxy cùng origin `/api/v1`, đích backend dev `http://localhost:8080`; NEXT_PUBLIC_API_BASE_URL dự kiến `/api/v1`, HUYENCO_API_URL là biến Next.js server-only cho đích nội bộ. next.config hiện chưa có proxy. Cookie owner dự kiến huyenco_session, Path=/; H01 phải xác thực cookie trong handshake và gắn owner vào registry kết quả. Client bootstrap session trước WebSocket khi dùng lưu lịch sử. Đây là thiết kế cho H01/TV1, chưa có session/history/proxy/binding tương ứng.
+HistoryItem: `{id,type,title,createdAt,ruleBasis}`. HistoryDetail thêm result snapshot theo hợp đồng MaiHoaResult/TamTheResult, không lưu payload thô/birthDate/birthTime/question. Chỉ lưu calculationRequestId thành công thuộc owner đã xác thực tại WebSocket handshake. Cache giữ tối đa15 phút,10000 mục/32MiB toàn Server,128KiB/mục; khi đầy loại mục cũ nhất. Phiên owner30 ngày, không trượt thời hạn khi bootstrap lại. Mặc định tối đa1000 lịch sử/owner, vượt trả INVALID_INPUT; khóa owner trong transaction trước đếm/chèn. Client không gửi ownerId,result hoặc policy để nâng quyền. Mọi đọc/xóa history lọc owner từ cookie; owner khác trả404. POST lưu lặp cùng owner/requestId trả bản gốc201, không tạo bản sao; nếu trong cache phát hiện cùng ID có kết quả khác nhau thì400 yêu cầu ID mới. Đã lưu vẫn xem/lưu lặp được sau restart; kết quả chưa lưu mất khi cache hết hạn/restart. GET list tìm title chuỗi con literal không phân biệt hoa/thường,q≤100,không cam kết bỏ dấu; type MAI_HOA/TAM_THE,page/size cùng ranh tra quẻ; sort createdAt DESC,id DESC. title tùy chọn1–100 sau strip,không trắng/không ký tự điều khiển.
+
+**H01 phiên và bảo mật:** POST session nhận đúng `{}`, custom header X-HuyenCo-Request:1; tạo cookie `huyenco_session` HttpOnly,SameSite=Lax,Path=/,Max-Age30 ngày,Secure trên HTTPS hoặc SESSION_SECURE_COOKIE=true. Token32 byte ngẫu nhiên,DB chỉ lưu SHA-256. JSON chỉ trả expiresAt/csrfToken; không trả raw token/ownerId. Gọi lại cookie hợp lệ trả CSRF ổn định; cookie giả/trùng/hết hạn401 INVALID_SESSION. Lưu/xóa cần cả X-CSRF-Token và X-HuyenCo-Request:1; Origin nếu có phải thuộc cấu hình hoặc chính backend,thiếu/sai kiểm tra403 CSRF_REJECTED. Tất cả response session/history có Cache-Control:no-store. Body POST≤16000 byte,UTF-8/JSON nghiêm ngặt; không chấp nhận field lạ/key trùng/null sai kiểu; query lạ/lặp/số xấu trả400. Mã lịch sử UUID canonical; không DB/lỗi JDBC503 DATABASE_UNAVAILABLE,không lộ SQL/secret. Xem `34-H01-SESSION-HISTORY-HANDOFF.md`.
+
+**Lịch C01,tra quẻ E02 và5 endpoint session/history H01 đã có**. Fixtures lịch,tra quẻ,Tam Thế và lịch sử chụp từ Server thật,chỉ cố định requestId; không ghi cookie/CSRF thực vào fixture. Không dùng fixture thay chứng cứ nguồn. Tam Thế tiếp tục dùng STOMP,không tự thêm REST tính toán mới.
+
+Chốt bàn giao TV1: REST qua proxy cùng origin `/api/v1`,backend dev `http://localhost:8080`; NEXT_PUBLIC_API_BASE_URL dự kiến `/api/v1`,HUYENCO_API_URL là biến Next.js server-only cho đích nội bộ. Proxy/UI thuộc TV1. H01 đã xác thực cookie ở handshake và gắn owner vào bộ giữ kết quả; không dùng owner làm Principal để tránh phát kết quả lẫn tab. **Client bootstrap session trước WebSocket**,hoặc kết nối lại nếu socket đã mở vô danh. WebSocket không cookie vẫn tính được nhưng không có kết quả thuộc owner để lưu; không nhận owner từ STOMP header. Sau refresh/bootstrap lại lấy CSRF vào bộ nhớ trang,không cần đọc HttpOnly cookie.
 
 ## 9. Mã lỗi và reason
 
@@ -163,10 +190,10 @@ Chốt cấu hình bàn giao TV1: REST qua proxy cùng origin `/api/v1`, đích 
 - REST owner: INVALID_SESSION, CSRF_REJECTED, NOT_FOUND.
 - REQUEST_TIMEOUT/DISCONNECTED là trạng thái Client, không trộn với PROCESSING_TIMEOUT của Server.
 
-Reason cho RULE_NOT_AVAILABLE: UNKNOWN_RULE, EXECUTION_DISABLED, RULE_STATE_UNAVAILABLE, RULE_VERSION_MISMATCH, SOURCE_UNVERIFIED, MISSING_SOURCE_REFERENCE, MISSING_SOURCE_REVIEW, MISSING_DECISION_REFERENCE, TEAM_DECISION_NOT_ALLOWED, IMPLEMENTATION_UNAVAILABLE. Các lỗi khác reason=null; message cho người dùng, không đưa SQL/stack trace/secret. Nếu client cũ không biết reason mới, vẫn xử lý theo code.
+Reason cho RULE_NOT_AVAILABLE: UNKNOWN_RULE, EXECUTION_DISABLED, RULE_STATE_UNAVAILABLE, RULE_VERSION_MISMATCH, SOURCE_UNVERIFIED, MISSING_SOURCE_REFERENCE, MISSING_SOURCE_REVIEW, MISSING_DECISION_REFERENCE, TEAM_DECISION_NOT_ALLOWED, IMPLEMENTATION_UNAVAILABLE, **LOOKUP_NOT_AVAILABLE** (D03: khóa không có trong một bảng nguồn đã kiểm đủ cấu trúc). Các lỗi khác reason=null; message cho người dùng, không đưa SQL/stack trace/secret. Nếu client cũ không biết reason mới, vẫn xử lý theo code; guard dùng chung hiện đã nhận reason này.
 
 ## 10. Bảo mật và kiểm tra tương thích
 
 Giữ origin allowlist, giới hạn frame/payload và session routing. B02 đã chặn SUBSCRIBE raw broker queue/user queue chỉ định người khác và SEND thẳng broker, có kiểm qua STOMP thật. N01 tiếp tục giới hạn tải/worker/idempotency. REST qua proxy cùng hostname, cookie chỉ Server đọc; H01 bổ sung chống CSRF và test quyền sở hữu. Triển khai Internet cần HTTPS/WSS và kiểm proxy/rate limit trước khi công bố an toàn.
 
-Các fixture success không được phục vụ bằng controller giả. `npm run smoke:lines` kiểm COMPLETED cho 384 tổ hợp qua hai Client trên Server profile db; sau B03, `npm run smoke:stomp` kiểm OBJECT_COUNT thành công, Tam Thế chưa triển khai và lỗi đầu vào. Bằng chứng B01/B03 tại các biên bản 18/21; trả lời chi tiết TV1 tại biên bản 23.
+Các fixture success không được phục vụ bằng controller giả. `npm run smoke:lines` kiểm COMPLETED cho 384 tổ hợp qua hai Client trên Server profile db; `npm run smoke:stomp` kiểm OBJECT_COUNT và Tam Thế đủ ba nhóm, lỗi đầu vào và tách phiên. `npm run smoke:tam-the` kiểm riêng D03; biên bản 30 có bằng chứng và fixture thật. Bằng chứng B01/B03 ở biên bản 18/21; trả lời thiết kế TV1 ở biên bản 23.

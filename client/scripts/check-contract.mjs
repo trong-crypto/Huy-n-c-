@@ -8,7 +8,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const examples = path.resolve(root, "../docs/examples");
 const virtualPath = path.resolve(root, "src/types/__contract_fixtures__.ts");
 const declarations = [
-  'import type { CalculationRequest, CalculationResponse, ProgressEvent, CalendarInput, HistorySaveRequest } from "./contract";',
+  'import type { CalculationRequest, CalculationResponse, ProgressEvent, CalendarInput, CanChiInput, CalendarResult, CanChiResult, RestResponse, HistorySaveRequest, HistoryItem, HistoryDetail, HistoryDeleteResult, Page, HexagramRecord, HexagramDetail } from "./contract";',
 ];
 let count = 0;
 for (const filename of fs.readdirSync(examples).filter((name) => name.endsWith(".json")).sort()) {
@@ -19,7 +19,15 @@ for (const filename of fs.readdirSync(examples).filter((name) => name.endsWith("
   else if (filename.endsWith(".response.json") && value.type) type = "CalculationResponse";
   else if (filename === "calculation.progress.json") type = "ProgressEvent";
   else if (filename === "calendar-convert.request.json") type = "CalendarInput";
+  else if (filename === "calendar-can-chi.request.json") type = "CanChiInput";
+  else if (filename === "calendar-convert.response.json" || filename === "calendar-invalid-date.response.json") type = "RestResponse<CalendarResult>";
+  else if (filename === "calendar-can-chi.response.json") type = "RestResponse<CanChiResult>";
   else if (filename === "history-save.request.json") type = "HistorySaveRequest";
+  else if (filename === "history-list.response.json") type = "RestResponse<Page<HistoryItem>>";
+  else if (filename === "history-deleted.response.json") type = "RestResponse<HistoryDeleteResult>";
+  else if (filename.startsWith("history-") && filename.endsWith(".response.json")) type = "RestResponse<HistoryDetail>";
+  else if (filename === "hexagrams-list.response.json") type = "RestResponse<Page<HexagramRecord>>";
+  else if (filename.startsWith("hexagram-") && filename.endsWith(".response.json")) type = "RestResponse<HexagramDetail>";
   else throw new Error(`Fixture has no contract type: ${filename}`);
   declarations.push(`// ${filename}\nconst fixture${count++}: ${type} = ${body};`);
 }

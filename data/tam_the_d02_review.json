@@ -1,0 +1,30 @@
+{
+  "reviewer": "Codex D02 review 2026-10-25 (same-tool second pass)",
+  "reviewDate": "2026-10-25",
+  "pdfSha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+  "pdfPages": 360,
+  "method": "Manual visual transcription at 1700/2000px; second pass from fresh Poppler renders at 2800/3200px including cropped passages. Same tool, not independent TV2.",
+  "scope": {
+    "wealth": "120 incidences and 12 passages; 60 keys matched twice, 60 missing. One illegible word is [CHU_MO].",
+    "love": "60 keys; 12 eight-line poems only. Italic summaries excluded, including damaged summary of Suy.",
+    "hourPortions": "36 source passages, not scientific claims or category-specific substitutes.",
+    "anchors": "12 anchors and full day/night sequences; month5 TV2 metadata retained."
+  },
+  "decisions": [
+    {
+      "id": "DEC-20261025-D02-EDITORIAL",
+      "basis": "Delegated project authority in chat",
+      "detail": "Keep BAt loc/BOI Loc and BICH loc/BINH Loc as separate raw labels; link columns 3 and 11 to passages by position. Retain unusual wording/ages without correcting predictions."
+    },
+    {
+      "id": "DEC-20261025-D02-HOUR-PARTS",
+      "basis": "Delegated project authority in chat",
+      "detail": "Use three equal half-open 40-minute slots per 120-minute Chi; wrap modulo1440 at minute resolution. So8 PDF25 says So4; use actual So5 PDF12-15. PDF15 month11 night first end printed 5:30; use 5:39 based on next start5:40 and all other120-minute rows. Publisher text is not claimed corrected."
+    }
+  ],
+  "files": {
+    "tam_the_d02_source.json": "91f674f21c539e102434b09def20426d064965ab455623ed452dc1699b12bc24",
+    "tam_the_d02_columns.csv": "704ab8494592e45428ed456bc93d614b14f49418ac693e24f42d6290ef028cb3",
+    "tam_the_d02_anchors.csv": "52f57bd8f5397cd03b4a44b08c2b89a75969c520c23efd13290ed4af8aba1d68"
+  }
+}

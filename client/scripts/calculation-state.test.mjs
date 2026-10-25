@@ -19,6 +19,29 @@ const steps = ["ACCEPTED", "VALIDATING", "CALCULATING", "LOOKUP"];
 const begin = () => reduce(initialState, { kind: "begin", requestId: id, type: "MAI_HOA" });
 const event = (sequence, changes = {}) => ({ requestId: id, type: "MAI_HOA", sequence, step: steps[sequence - 1], message: "Real stage", ...changes });
 
+test("TIME runtime fixture passes the shared terminal guard with calendar and team-decision metadata", () => {
+  const response=JSON.parse(fs.readFileSync(new URL("../../docs/examples/mai-hoa-time.response.json",import.meta.url),"utf8"));
+  const parsed=parseTerminal(response);
+  assert.equal(parsed.data.method,"TIME");
+  assert.equal(parsed.data.lunarDate.year,2024);
+  assert.equal(parsed.data.ruleBasis,"TEAM_DECISION");
+  assert.equal(parsed.data.sourceStatus,"VERIFIED");
+  assert.equal(parsed.data.sourceReferences[0].pdfPage,null);
+});
+
+test("Tam The runtime fixtures pass success and missing-lookup guards without a partial result", () => {
+  for(const name of ["tam-the","tam-the-career","tam-the-wealth","tam-the-love"]) {
+    const response=JSON.parse(fs.readFileSync(new URL(`../../docs/examples/${name}.response.json`,import.meta.url),"utf8"));
+    const parsed=parseTerminal(response);
+    assert.equal(parsed.type,"TAM_THE");assert.equal(parsed.status,"COMPLETED");
+    assert.equal(parsed.data.ruleBasis,"SOURCE_VERIFIED");
+    const state=reduce(reduce(initialState,{kind:"begin",requestId:parsed.requestId,type:"TAM_THE"}),{kind:"terminal",response:parsed});
+    assert.equal(state.requestState,"completed");
+  }
+  const failed=parseTerminal(JSON.parse(fs.readFileSync(new URL("../../docs/examples/tam-the-unavailable.response.json",import.meta.url),"utf8")));
+  assert.equal(failed.error.reason,"LOOKUP_NOT_AVAILABLE");assert.equal(failed.data,null);
+});
+
 test("ordered progress and terminal result complete the pending request", () => {
   let state = begin();
   for (let i = 1; i <= 4; i++) state = reduce(state, { kind: "progress", event: parseProgress(event(i)) });

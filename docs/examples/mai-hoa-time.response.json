@@ -1,0 +1,276 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440000",
+  "type": "MAI_HOA",
+  "status": "COMPLETED",
+  "data": {
+    "method": "TIME",
+    "ruleVersion": "1.0",
+    "ruleBasis": "TEAM_DECISION",
+    "sourceStatus": "VERIFIED",
+    "rules": [
+      {
+        "ruleCode": "LUNAR-CONVERSION",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "C01-VN-FIXED7",
+            "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+            "version": "C01-1.0 / Time4J 5.9.4",
+            "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+            "printedPage": null,
+            "pdfPage": null,
+            "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+            "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+          }
+        ],
+        "decisionReferences": []
+      },
+      {
+        "ruleCode": "MH-TIME",
+        "ruleVersion": "1.0",
+        "executionPolicy": "TEAM_DECISION",
+        "ruleBasis": "TEAM_DECISION",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-TIME-CONFLICT",
+            "printedPage": "50",
+            "pdfPage": 45,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": [
+          {
+            "decisionId": "DEC-20261022-MH-TIME-MOD6",
+            "decidedAt": "2026-10-22",
+            "document": "docs/07-DECISION-LOG.md",
+            "description": "Nhóm chọn tổng năm/tháng/ngày/giờ âm chia 6; bản in PDF 45 còn mâu thuẫn trừ 8/6."
+          },
+          {
+            "decisionId": "DEC-20261024-B04-CIVIL-TIME",
+            "decidedAt": "2026-10-24",
+            "document": "docs/07-DECISION-LOG.md",
+            "description": "TIME dùng UTC+7 cố định, năm âm đổi tại Tết/ngày đổi 00:00, Tý 23:00-00:59; tháng nhuận lấy cùng số tháng và giữ cờ nhuận. Đây là quy ước triển khai, không xác minh bổ sung bản in."
+          }
+        ]
+      },
+      {
+        "ruleCode": "MH-TRIGRAM",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-QUAI-SO",
+            "printedPage": "44",
+            "pdfPage": 39,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      },
+      {
+        "ruleCode": "MH-MUTUAL",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-QUE-HO-BIEN",
+            "printedPage": "47",
+            "pdfPage": 42,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      },
+      {
+        "ruleCode": "MH-CHANGE",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-HAO-6",
+            "printedPage": "46",
+            "pdfPage": 41,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      }
+    ],
+    "sourceReferences": [
+      {
+        "sourceId": "C01-VN-FIXED7",
+        "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+        "version": "C01-1.0 / Time4J 5.9.4",
+        "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+        "printedPage": null,
+        "pdfPage": null,
+        "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+        "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+      },
+      {
+        "sourceId": "MH",
+        "title": "Mai Hoa Dịch Số",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "MH-TIME-CONFLICT",
+        "printedPage": "50",
+        "pdfPage": 45,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH",
+        "title": "Mai Hoa Dịch Số",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "MH-QUAI-SO",
+        "printedPage": "44",
+        "pdfPage": 39,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH",
+        "title": "Mai Hoa Dịch Số",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "MH-QUE-HO-BIEN",
+        "printedPage": "47",
+        "pdfPage": 42,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH",
+        "title": "Mai Hoa Dịch Số",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "MH-HAO-6",
+        "printedPage": "46",
+        "pdfPage": 41,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      }
+    ],
+    "decisionReferences": [
+      {
+        "decisionId": "DEC-20261022-MH-TIME-MOD6",
+        "decidedAt": "2026-10-22",
+        "document": "docs/07-DECISION-LOG.md",
+        "description": "Nhóm chọn tổng năm/tháng/ngày/giờ âm chia 6; bản in PDF 45 còn mâu thuẫn trừ 8/6."
+      },
+      {
+        "decisionId": "DEC-20261024-B04-CIVIL-TIME",
+        "decidedAt": "2026-10-24",
+        "document": "docs/07-DECISION-LOG.md",
+        "description": "TIME dùng UTC+7 cố định, năm âm đổi tại Tết/ngày đổi 00:00, Tý 23:00-00:59; tháng nhuận lấy cùng số tháng và giữ cờ nhuận. Đây là quy ước triển khai, không xác minh bổ sung bản in."
+      }
+    ],
+    "calculationSteps": [
+      {
+        "code": "TIME_NUMBERS",
+        "message": "Theo quy ước nhóm: năm/tháng/ngày âm lấy thượng quái; thêm giờ Chi lấy hạ quái, tổng chia 6 lấy hào.",
+        "values": {
+          "utcOffset": "+07:00",
+          "yearBranchIndex": 5,
+          "movingLine": 2,
+          "lunarDay": 1,
+          "dayBoundary": "00:00",
+          "hourIndex": 1,
+          "isLeapMonth": false,
+          "timeSum": 8,
+          "leapMonthPolicy": "SAME_MONTH_NUMBER",
+          "lowerTrigram": 8,
+          "dateSum": 7,
+          "upperTrigram": 7,
+          "lunarYear": 2024,
+          "lunarMonth": 1
+        }
+      },
+      {
+        "code": "MUTUAL",
+        "message": "Hỗ hạ lấy hào 2–4; hỗ thượng lấy hào 3–5.",
+        "values": {
+          "upperLineStart": 3,
+          "lowerLineStart": 2
+        }
+      },
+      {
+        "code": "CHANGE",
+        "message": "Đảo duy nhất hào động tính từ dưới lên.",
+        "values": {
+          "movingLine": 2
+        }
+      }
+    ],
+    "primaryHexagram": {
+      "code": "H_CAN2_KHON",
+      "name": "Bác",
+      "nameStatus": "VERIFIED",
+      "linesBottomUp": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "mutualHexagram": {
+      "code": "H_KHON_KHON",
+      "name": "Khôn",
+      "nameStatus": "VERIFIED",
+      "linesBottomUp": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    "changedHexagram": {
+      "code": "H_CAN2_KHAM",
+      "name": "Mông",
+      "nameStatus": "VERIFIED",
+      "linesBottomUp": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "movingLine": 2,
+    "lunarDate": {
+      "year": 2024,
+      "month": 1,
+      "day": 1,
+      "isLeapMonth": false
+    }
+  },
+  "error": null
+}

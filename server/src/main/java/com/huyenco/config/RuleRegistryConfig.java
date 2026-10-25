@@ -5,7 +5,11 @@ import com.huyenco.knowledge.RuleCatalog;
 import com.huyenco.knowledge.RuleRegistry;
 import com.huyenco.knowledge.RuleStateProvider;
 import com.huyenco.knowledge.HexagramRepository;
+import com.huyenco.knowledge.HexagramLookupRepository;
+import com.huyenco.knowledge.KnowledgeAccessException;
 import com.huyenco.knowledge.TrigramRepository;
+import com.huyenco.knowledge.TamTheRepository;
+import com.huyenco.knowledge.TamTheSnapshot;
 import java.io.IOException;
 import java.util.Optional;
 import org.springframework.context.annotation.Bean;
@@ -34,8 +38,20 @@ public class RuleRegistryConfig {
 
     @Bean
     @Profile("!db")
+    public HexagramLookupRepository unavailableHexagramLookupRepository() {
+        return () -> { throw new KnowledgeAccessException(); };
+    }
+
+    @Bean
+    @Profile("!db")
     public TrigramRepository unavailableTrigramRepository() {
         return java.util.List::of;
+    }
+
+    @Bean
+    @Profile("!db")
+    public TamTheRepository unavailableTamTheRepository() {
+        return codes -> new TamTheSnapshot(java.util.Map.of(), java.util.List.of());
     }
 
     @Bean

@@ -110,12 +110,12 @@ class MaiHoaServiceTest {
     }
 
     @Test
-    void otherMethodsStayUnimplemented() throws Exception {
+    void timeCannotReuseBookApprovalAsCalendarApproval() throws Exception {
         var service = readyService(MaiHoaServiceTest::records);
         var error = assertThrows(RuleNotAvailableException.class, () -> service.calculate(MAPPER.readTree(
                 "{\"method\":\"TIME\",\"datetime\":\"2026-10-24T08:00:00+07:00\"}")));
-        assertEquals("MH-TIME", error.ruleCode());
-        assertEquals(RuleUnavailableReason.IMPLEMENTATION_UNAVAILABLE, error.reason());
+        assertEquals("LUNAR-CONVERSION", error.ruleCode());
+        assertEquals(RuleUnavailableReason.RULE_VERSION_MISMATCH, error.reason());
     }
 
     @Test

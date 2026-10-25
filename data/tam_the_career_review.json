@@ -1,0 +1,144 @@
+{
+  "task": "D01",
+  "reviewedAt": "2026-10-24",
+  "sourceBook": "TT",
+  "pdfSha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+  "reviewer": "Codex career review 2026-10-24 (same-tool second pass)",
+  "scope": "Printed table cells, literal passage transcription and explicitly recorded ordinal passage links; not full TamTheService, calendar or financial/romance categories.",
+  "method": "First pass reads rows; fresh Poppler render at scale-to 3200 for second-pass columns, element lists and complete passages. Same AI tool, not independent human TV2. Punctuation/whitespace normalized; wording retained.",
+  "files": {
+    "data/tam_the_career11_source.csv": "eac18bc12889b80526470a756afa1427ca2b773b59db0aa0b510196454b1bcff",
+    "data/tam_the_career11_review.csv": "6d6554f1e5236ad92998629e9f8dbacc78a5ea74169f1e7663a95cb1b1cf3450",
+    "data/tam_the_career13_matrix.csv": "8634f043e605d0407992839b760d8f9564e090e920ad52fbd95606a4d74dadc9",
+    "data/tam_the_career13_column_review.csv": "9f68d6768fbee27fece1fe296eb5367d7596b856aae0d07e2c36da7f83391f6f",
+    "data/tam_the_career13_texts.csv": "058c6e79c2430f660262ff24adcb453128dcc9c5ef0b4fa82ad29872a0f67f9b"
+  },
+  "reviewedPdfPages": [
+    32,
+    35,
+    36
+  ],
+  "passages": [
+    {
+      "column": 1,
+      "heading": "Quan Nhơn",
+      "pdfPage": 35,
+      "contentSha256": "1f228ad834a08ffa6c480076821ec698a5f6e275b4ca60d86846429df3a30e79",
+      "linkBasis": "AS_PRINTED"
+    },
+    {
+      "column": 2,
+      "heading": "Trùng Tế",
+      "pdfPage": 35,
+      "contentSha256": "588c3b814760fef1f3cf16aa9db51410dd60d17140e31531daa9391b073d7163",
+      "linkBasis": "POSITIONAL_EDITORIAL_LINK"
+    },
+    {
+      "column": 3,
+      "heading": "Tú Tài",
+      "pdfPage": 35,
+      "contentSha256": "2c1c5d7a5f0531b707bc2033d5b251ba7d09aa657d74202fbde896aafd11aa2c",
+      "linkBasis": "AS_PRINTED"
+    },
+    {
+      "column": 4,
+      "heading": "Đã Thiết",
+      "pdfPage": 36,
+      "contentSha256": "32bed14d9773520850582cb6d76458acbbf5ea0245445ad6ce871d2b2b0b426f",
+      "linkBasis": "POSITIONAL_EDITORIAL_LINK"
+    },
+    {
+      "column": 5,
+      "heading": "Sư Thuật",
+      "pdfPage": 36,
+      "contentSha256": "2c5c2d7fb2b7f6d2d77f0d3f182ac4aa1bdbfbf8eb841e793d06c0d87a28bcfb",
+      "linkBasis": "POSITIONAL_EDITORIAL_LINK"
+    },
+    {
+      "column": 6,
+      "heading": "Sanh Quan",
+      "pdfPage": 36,
+      "contentSha256": "d5465befb886919231d0584c3147f546473b00be486caff446ab99948121a9df",
+      "linkBasis": "AS_PRINTED"
+    },
+    {
+      "column": 7,
+      "heading": "Âm Nhạc",
+      "pdfPage": 36,
+      "contentSha256": "558aa9ed2d8de4ade7dd5302032d9ac446bfe48ffb380a5b9ed51b2ebe298ab2",
+      "linkBasis": "AS_PRINTED"
+    },
+    {
+      "column": 8,
+      "heading": "Tiêm Dược",
+      "pdfPage": 36,
+      "contentSha256": "b439c38767a3dbf93cf78219bf585575a38427d1e5ebed13d1b9ac4148698c36",
+      "linkBasis": "AS_PRINTED"
+    },
+    {
+      "column": 9,
+      "heading": "Tăng Đạo",
+      "pdfPage": 36,
+      "contentSha256": "68222825d0e23592a71fb9058c09d43d31c41381cd3846e1f7720ba05e49bccf",
+      "linkBasis": "AS_PRINTED"
+    },
+    {
+      "column": 10,
+      "heading": "Tài Phùng",
+      "pdfPage": 36,
+      "contentSha256": "42396925761ae2f120e60827c402391de0fba5bd006d0c8e45a47c36da903f86",
+      "linkBasis": "AS_PRINTED"
+    },
+    {
+      "column": 11,
+      "heading": "Hoàng Quý",
+      "pdfPage": 36,
+      "contentSha256": "af9f8059aecbb0c5129d4c9728eee7f1faaa54f32db09d080f7fac1cf366c502",
+      "linkBasis": "AS_PRINTED"
+    },
+    {
+      "column": 12,
+      "heading": "Thủ Tất",
+      "pdfPage": 36,
+      "contentSha256": "7e621c72d1410e8d6b2cdab463ed0a50f4774529af17609e5759973d1f58212f",
+      "linkBasis": "POSITIONAL_EDITORIAL_LINK"
+    }
+  ],
+  "corrections": [
+    {
+      "rule": "TT-CONG-DANH-11",
+      "code": "CAU_CHAI",
+      "element": "THUY",
+      "oldMonth": 9,
+      "printedMonth": 8,
+      "pdfPage": 32,
+      "guard": "Only exact SOURCE_LOCATED AUTO_FROM_DOCS legacy row may be changed; protected/modified rows are rejected."
+    }
+  ],
+  "editorialLinks": [
+    {
+      "column": 2,
+      "tableLabel": "Trùng Tổ",
+      "passageHeading": "Trùng Tế",
+      "basis": "Same ordinal among exactly 12 source columns and 12 immediately following passages; keep both original labels, do not assert identical spelling."
+    },
+    {
+      "column": 4,
+      "tableLabel": "Đã Thết",
+      "passageHeading": "Đã Thiết",
+      "basis": "Same ordinal among exactly 12 source columns and 12 immediately following passages; keep both original labels, do not assert identical spelling."
+    },
+    {
+      "column": 5,
+      "tableLabel": "Sự Thoát",
+      "passageHeading": "Sư Thuật",
+      "basis": "Same ordinal among exactly 12 source columns and 12 immediately following passages; keep both original labels, do not assert identical spelling."
+    },
+    {
+      "column": 12,
+      "tableLabel": "Thứ Tác",
+      "passageHeading": "Thủ Tất",
+      "basis": "Same ordinal among exactly 12 source columns and 12 immediately following passages; keep both original labels, do not assert identical spelling."
+    }
+  ]
+}

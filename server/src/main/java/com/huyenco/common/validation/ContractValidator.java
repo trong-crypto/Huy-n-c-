@@ -97,7 +97,8 @@ public final class ContractValidator {
         }
     }
 
-    private static void validateTamThe(JsonNode payload) {
+    public static void validateTamThe(JsonNode payload) {
+        if (payload == null || !payload.isObject()) throw invalidInput("Thiếu hoặc sai payload Tam Thế.");
         allowOnly(payload, Set.of("birthDate", "birthTime", "calendarType", "isLeapMonth", "categories"));
         String date = text(payload, "birthDate");
         String time = text(payload, "birthTime");

@@ -1,0 +1,69 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440026",
+  "status": "COMPLETED",
+  "data": {
+    "ruleVersion": "1.0",
+    "ruleBasis": "SOURCE_VERIFIED",
+    "sourceStatus": "VERIFIED",
+    "rules": [
+      {
+        "ruleCode": "LUNAR-CONVERSION",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "C01-VN-FIXED7",
+            "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+            "version": "C01-1.0 / Time4J 5.9.4",
+            "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+            "printedPage": null,
+            "pdfPage": null,
+            "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+            "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+          }
+        ],
+        "decisionReferences": []
+      }
+    ],
+    "sourceReferences": [
+      {
+        "sourceId": "C01-VN-FIXED7",
+        "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+        "version": "C01-1.0 / Time4J 5.9.4",
+        "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+        "printedPage": null,
+        "pdfPage": null,
+        "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+        "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+      }
+    ],
+    "decisionReferences": [],
+    "solarDate": "2024-02-10",
+    "lunarDate": {
+      "year": 2024,
+      "month": 1,
+      "day": 1,
+      "isLeapMonth": false
+    },
+    "timezone": "Asia/Ho_Chi_Minh",
+    "year": {
+      "stem": "GIAP",
+      "branch": "THIN"
+    },
+    "month": {
+      "stem": "BINH",
+      "branch": "DAN"
+    },
+    "day": {
+      "stem": "GIAP",
+      "branch": "THIN"
+    },
+    "hour": {
+      "stem": "GIAP",
+      "branch": "TY"
+    }
+  },
+  "error": null
+}
