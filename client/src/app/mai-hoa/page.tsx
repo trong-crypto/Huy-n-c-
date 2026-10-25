@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { ResultPanel } from "@/components/ResultPanel";
 import { useCalculation } from "@/services/websocket/useCalculation";
 import type { MaiHoaPayload } from "@/types/contract";
@@ -8,6 +8,11 @@ import { PageContainer, PageHeader } from "@/components/ui/Page";
 import { FieldError, FormField, PrimaryButton, SectionCard, StatusBanner } from "@/components/ui/Controls";
 import { LinesForm } from "@/components/mai-hoa/LinesForm";
 import { CelestialArt } from "@/components/ui/CelestialArt";
+import { buildObjectCountPayload, buildTimePayload, type InputField } from "@/components/mai-hoa/maiHoaInput";
+
+const fieldIds: Record<InputField, string> = {
+  datetime: "maihoa-datetime", objectCount: "maihoa-count", hourIndex: "maihoa-hour", question: "maihoa-question",
+};
 
 export default function MaiHoaPage() {
   const [method, setMethod] = useState<MaiHoaPayload["method"]>("TIME");
@@ -15,29 +20,32 @@ export default function MaiHoaPage() {
   const [objectCount, setObjectCount] = useState("");
   const [hourIndex, setHourIndex] = useState("1");
   const [question, setQuestion] = useState("");
-  const [formError, setFormError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<{ field: InputField; message: string } | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const calculation = useCalculation();
+
+  function clearFieldError(field: InputField) {
+    setFormError(current => current?.field === field ? null : current);
+  }
+  function fieldError(field: InputField) {
+    return formError?.field === field ? <FieldError id={`${fieldIds[field]}-error`}>{formError.message}</FieldError> : null;
+  }
+  function describedBy(field: InputField) {
+    return [field === "datetime" ? "maihoa-datetime-hint" : null, formError?.field === field ? `${fieldIds[field]}-error` : null].filter(Boolean).join(" ") || undefined;
+  }
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (calculation.connection !== "connected" || calculation.requestState === "waiting") return;
     setFormError(null);
-    let payload: MaiHoaPayload;
-    if (method === "TIME") {
-      if (!datetime) return setFormError("Vui lòng chọn thời điểm lập quẻ.");
-      // datetime-local không mang múi giờ; biểu mẫu này nhập giờ Việt Nam theo hợp đồng.
-      payload = { method: "TIME", datetime: `${datetime}:00+07:00`, question };
-    } else if (method === "OBJECT_COUNT") {
-      const count = Number(objectCount);
-      const hour = Number(hourIndex);
-      if (!Number.isInteger(count) || count < 1 || count > 999_999) {
-        return setFormError("Số vật phải là số nguyên từ 1 đến 999999.");
-      }
-      if (!Number.isInteger(hour) || hour < 1 || hour > 12) {
-        return setFormError("Giờ Chi phải từ Tý (1) đến Hợi (12).");
-      }
-      payload = { method: "OBJECT_COUNT", objectCount: count, hourIndex: hour, question };
-    } else return; // LINES owns its validation and explicit payload whitelist.
-    calculation.submit("MAI_HOA", payload);
+    if (method === "LINES") return; // LINES retains its own input boundary.
+    const result = method === "TIME" ? buildTimePayload(datetime, question) : buildObjectCountPayload(objectCount, hourIndex, question);
+    if (!result.ok) {
+      setFormError(result);
+      formRef.current?.querySelector<HTMLElement>(`#${fieldIds[result.field]}`)?.focus();
+      return;
+    }
+    calculation.submit("MAI_HOA", result.payload);
   }
 
   return (
@@ -61,30 +69,41 @@ export default function MaiHoaPage() {
         <SectionCard title="Dữ liệu lập quẻ">
           {method === "LINES" ? <LinesForm onSubmit={payload => calculation.submit("MAI_HOA", payload)}
             disabled={calculation.connection !== "connected"} busy={calculation.requestState === "waiting"} /> : (
-        <form onSubmit={onSubmit} className="form-stack" aria-label="Lập quẻ theo thời gian hoặc số vật">
+        <form ref={formRef} onSubmit={onSubmit} noValidate className="form-stack" aria-label="Lập quẻ theo thời gian hoặc số vật">
           {method === "TIME" ? (
-            <FormField id="maihoa-datetime" label="Thời điểm lập quẻ (giờ Việt Nam, UTC+07:00)">
-              <input id="maihoa-datetime" type="datetime-local" value={datetime} onChange={(event) => setDatetime(event.target.value)} required />
+            <FormField id="maihoa-datetime" label="Thời điểm lập quẻ (giờ Việt Nam, UTC+07:00)" hint="Ngày giờ theo giờ Việt Nam (UTC+07:00), chính xác đến phút; không theo múi giờ của thiết bị.">
+              <input id="maihoa-datetime" type="datetime-local" step={60} value={datetime}
+                aria-invalid={formError?.field === "datetime" || undefined} aria-describedby={describedBy("datetime")}
+                onChange={(event) => { setDatetime(event.target.value); clearFieldError("datetime"); }} required />
+              {fieldError("datetime")}
             </FormField>
           ) : (
             <>
               <FormField id="maihoa-count" label="Số vật đếm được">
-                <input id="maihoa-count" type="number" min={1} max={999999} step={1} value={objectCount} onChange={(event) => setObjectCount(event.target.value)} required />
+                <input id="maihoa-count" type="number" min={1} max={999999} step={1} value={objectCount}
+                  aria-invalid={formError?.field === "objectCount" || undefined} aria-describedby={describedBy("objectCount")}
+                  onChange={(event) => { setObjectCount(event.target.value); clearFieldError("objectCount"); }} required />
+                {fieldError("objectCount")}
               </FormField>
               <FormField id="maihoa-hour" label="Giờ Chi">
-                <select id="maihoa-hour" value={hourIndex} onChange={(event) => setHourIndex(event.target.value)}>
+                <select id="maihoa-hour" value={hourIndex}
+                  aria-invalid={formError?.field === "hourIndex" || undefined} aria-describedby={describedBy("hourIndex")}
+                  onChange={(event) => { setHourIndex(event.target.value); clearFieldError("hourIndex"); }}>
                   {["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"].map((name, index) => (
                     <option key={name} value={index + 1}>{name} ({index + 1})</option>
                   ))}
                 </select>
+                {fieldError("hourIndex")}
               </FormField>
             </>
           )}
           <FormField id="maihoa-question" label="Câu hỏi (tùy chọn)">
-            <textarea id="maihoa-question" rows={3} maxLength={500} value={question} onChange={(event) => setQuestion(event.target.value)} />
+            <textarea id="maihoa-question" rows={3} maxLength={500} value={question}
+              aria-invalid={formError?.field === "question" || undefined} aria-describedby={describedBy("question")}
+              onChange={(event) => { setQuestion(event.target.value); clearFieldError("question"); }} />
+            {fieldError("question")}
           </FormField>
-          {formError && <FieldError id="maihoa-error">{formError}</FieldError>}
-          <PrimaryButton type="submit" disabled={calculation.connection !== "connected" || calculation.requestState === "waiting"}>Gửi yêu cầu</PrimaryButton>
+          <PrimaryButton type="submit" disabled={calculation.connection !== "connected" || calculation.requestState === "waiting"}>{calculation.requestState === "waiting" ? "Đang chờ phản hồi…" : "Gửi yêu cầu"}</PrimaryButton>
         </form>)}
         </SectionCard>
         <aside className="input-guide" aria-label="Hướng dẫn lập quẻ">

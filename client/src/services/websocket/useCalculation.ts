@@ -108,7 +108,7 @@ export function useCalculation() {
               try {
                 settle(pending, { kind: "progress", event: parseProgress(incoming) });
               } catch {
-                settle(pending, { kind: "error", message: "INVALID_RESPONSE: Invalid progress frame." });
+                settle(pending, { kind: "error", message: "INVALID_RESPONSE: Thông điệp tiến trình không đúng hợp đồng." });
               }
               return;
             }

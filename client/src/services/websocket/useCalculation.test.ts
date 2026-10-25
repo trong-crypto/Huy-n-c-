@@ -96,6 +96,15 @@ beforeEach(() => {
 });
 
 describe("useCalculation safe core", () => {
+  it("T26 localizes a malformed correlated progress frame and releases the request deadline", () => {
+    const { result, client } = mount();
+    act(() => result.current.submit("MAI_HOA", payload));
+    progress(client, 1, { sequence: "invalid" });
+    expect(result.current.localError).toBe("INVALID_RESPONSE: Thông điệp tiến trình không đúng hợp đồng.");
+    expect(result.current.requestState).toBe("failed");
+    expect(result.current.response).toBeNull();
+    expect(vi.getTimerCount()).toBe(0);
+  });
   it("E03 settles a correlated future Server failure without a local protocol error", () => {
     const { result, client } = mount();
     act(() => result.current.submit("MAI_HOA", payload));

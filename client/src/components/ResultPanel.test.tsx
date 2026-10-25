@@ -13,6 +13,34 @@ function fixture(): CalculationResponse {
 const success = fixture();
 
 describe("ResultPanel state presentation", () => {
+  it("T27 announces only the latest progress and identifies its current step without making the history live", () => {
+    const first = { requestId: success.requestId!, type: "MAI_HOA" as const, sequence: 1, step: "ACCEPTED" as const, message: "Server đã nhận yêu cầu." };
+    const second = { ...first, sequence: 2, step: "VALIDATING" as const, message: "Đang kiểm tra đầu vào." };
+    const props = { connection: "connected" as const, requestState: "waiting" as const, response: null, localError: null };
+    const { rerender } = render(<ResultPanel {...props} progress={[first]} />);
+    const announcement = screen.getByRole("status", { name: "Cập nhật yêu cầu" });
+    expect(announcement.textContent).toBe("Bước 1: Server đã nhận yêu cầu.");
+    rerender(<ResultPanel {...props} progress={[first, second]} />);
+    expect(announcement.textContent).toBe("Bước 2: Đang kiểm tra đầu vào.");
+    expect(announcement.textContent).not.toContain(first.message);
+    const history = screen.getByRole("list", { name: "Tiến trình xử lý" });
+    expect(history.getAttribute("aria-live")).toBe("off");
+    expect(history.closest("section")?.hasAttribute("aria-live")).toBe(false);
+    const items = within(history).getAllByRole("listitem");
+    expect(items.map(item => item.getAttribute("aria-current"))).toEqual([null, "step"]);
+    rerender(<ResultPanel connection="connected" requestState="completed" response={success} localError={null} progress={[first, second]} />);
+    expect(announcement.textContent).toBe("Yêu cầu đã xử lý thành công.");
+    expect(announcement.textContent).not.toContain("ruleVersion");
+    expect(within(history).getAllByRole("listitem").every(item => !item.hasAttribute("aria-current"))).toBe(true);
+  });
+  it("LOOKUP is a current progress step, never a successful terminal", () => {
+    render(<ResultPanel connection="connected" requestState="waiting" response={null} localError={null}
+      progress={[{ requestId: success.requestId!, type: "MAI_HOA", sequence: 4, step: "LOOKUP", message: "Đang tra dữ liệu." }]} />);
+    expect(screen.getByRole("status", { name: "Cập nhật yêu cầu" }).textContent).toBe("Bước 4: Đang tra dữ liệu.");
+    expect(screen.getByText("Đang chờ phản hồi...")).toBeTruthy();
+    expect(screen.queryByText("Xử lý thành công")).toBeNull();
+    expect(screen.queryAllByRole("figure")).toHaveLength(0);
+  });
   it("E07 renders a fixed generic error for unknown Server codes, escaping nothing into HTML", () => {
     render(<ResultPanel progress={[]} connection="connected" requestState="failed" localError={null}
       response={{ requestId: success.requestId, type: "MAI_HOA", status: "FAILED", data: null,
