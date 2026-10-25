@@ -183,7 +183,7 @@ describe("page integration through the existing useCalculation hook", () => {
     fireEvent.change(screen.getByLabelText("Loại lịch"), { target: { value: "LUNAR" } });
     fireEvent.click(screen.getByLabelText("Tháng nhuận"));
     fireEvent.change(screen.getByLabelText("Loại lịch"), { target: { value: "SOLAR" } });
-    expect(screen.queryByRole("checkbox")).toBeNull();
+    expect(screen.queryByRole("checkbox", { name: "Tháng nhuận" })).toBeNull();
     fireEvent.submit(screen.getByRole("form", { name: "Thông tin sinh Tam Thế" }));
     expect(published(socket)).toMatchObject({ type: "TAM_THE", payload: { birthDate: "2003-08-15", birthTime: "08:30", calendarType: "SOLAR", isLeapMonth: false } });
   });
@@ -191,7 +191,8 @@ describe("page integration through the existing useCalculation hook", () => {
     const { socket } = mount(TamThePage);
     fireEvent.submit(screen.getByRole("form", { name: "Thông tin sinh Tam Thế" }));
     expect(socket.publish).not.toHaveBeenCalled();
-    expect(screen.getByRole("alert").textContent).toContain("YYYY-MM-DD");
+    expect(document.getElementById("tamthe-date-error")?.textContent).toContain("YYYY-MM-DD");
+    expect(screen.getByLabelText("Ngày sinh (YYYY-MM-DD)").getAttribute("aria-describedby")).toContain("tamthe-date-error");
   });
   it("preserves a LUNAR Tam Thế request with leap month", () => {
     const { socket } = mount(TamThePage);

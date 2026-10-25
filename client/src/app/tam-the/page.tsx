@@ -1,30 +1,61 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { ResultPanel } from "@/components/ResultPanel";
 import { useCalculation } from "@/services/websocket/useCalculation";
-import type { TamThePayload } from "@/types/contract";
 import { PageContainer, PageHeader } from "@/components/ui/Page";
 import { FieldError, FormField, PrimaryButton, SectionCard, StatusBanner } from "@/components/ui/Controls";
 import { TamTheArt } from "@/components/ui/TamTheArt";
+import { buildTamThePayload, TAM_THE_CATEGORIES, type TamTheErrors, type TamTheField, type TamTheInput } from "@/components/tam-the/tamTheInput";
+
+const fieldIds: Record<TamTheField, string> = {
+  birthDate: "tamthe-date", birthTime: "tamthe-time", calendarType: "tamthe-calendar", isLeapMonth: "tamthe-leap", categories: "tamthe-categories",
+};
+const categoryLabels = { CAREER: "Công danh", WEALTH: "Tài lộc", LOVE: "Tình duyên" };
 
 export default function TamThePage() {
-  const [birthDate, setBirthDate] = useState("");
-  const [birthTime, setBirthTime] = useState("");
-  const [calendarType, setCalendarType] = useState<"SOLAR" | "LUNAR">("SOLAR");
-  const [isLeapMonth, setIsLeapMonth] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
+  const [input, setInput] = useState<TamTheInput>({ birthDate: "", birthTime: "", calendarType: "SOLAR", isLeapMonth: false, categories: [...TAM_THE_CATEGORIES] });
+  const [errors, setErrors] = useState<TamTheErrors>({});
+  const formRef = useRef<HTMLFormElement>(null);
   const calculation = useCalculation();
+  const waiting = calculation.requestState === "waiting";
+
+  function edit(patch: Partial<TamTheInput>, affected: TamTheField[]) {
+    const next = { ...input, ...patch };
+    setInput(next);
+    const validation = buildTamThePayload(next);
+    setErrors(current => {
+      const updated = { ...current };
+      for (const field of affected) {
+        if (validation.ok || !validation.errors[field]) delete updated[field];
+        else if (current[field]) updated[field] = validation.errors[field];
+      }
+      return updated;
+    });
+  }
+  function error(field: TamTheField) {
+    return errors[field] ? <FieldError id={`${fieldIds[field]}-error`}>{errors[field]}</FieldError> : null;
+  }
+  function describedBy(field: TamTheField) {
+    return [`${fieldIds[field]}-hint`, errors[field] ? `${fieldIds[field]}-error` : null,
+      field === "calendarType" && input.calendarType !== "LUNAR" && errors.isLeapMonth ? "tamthe-leap-error" : null].filter(Boolean).join(" ");
+  }
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(birthDate) || !/^\d{2}:\d{2}$/.test(birthTime)) {
-      setFormError("Ngày sinh cần YYYY-MM-DD và giờ sinh cần HH:mm.");
+    if (calculation.connection !== "connected" || waiting) return;
+    const result = buildTamThePayload(input);
+    if (!result.ok) {
+      setErrors(result.errors);
+      const first = (Object.keys(fieldIds) as TamTheField[]).find(field => result.errors[field]);
+      if (first) {
+        const id = first === "isLeapMonth" && input.calendarType !== "LUNAR" ? fieldIds.calendarType : fieldIds[first];
+        formRef.current?.querySelector<HTMLElement>(`#${id}`)?.focus();
+      }
       return;
     }
-    setFormError(null);
-    const payload: TamThePayload = { birthDate, birthTime, calendarType, isLeapMonth: calendarType === "LUNAR" && isLeapMonth };
-    calculation.submit("TAM_THE", payload);
+    setErrors({});
+    calculation.submit("TAM_THE", result.payload);
   }
 
   return (
@@ -34,27 +65,57 @@ export default function TamThePage() {
       </PageHeader>
       <div className="input-layout">
         <SectionCard title="Thông tin đầu vào">
-        <form onSubmit={onSubmit} className="form-stack" aria-label="Thông tin sinh Tam Thế">
-          <FormField id="tamthe-date" label="Ngày sinh (YYYY-MM-DD)">
-            <input id="tamthe-date" type="text" inputMode="numeric" placeholder="2003-08-15" value={birthDate} onChange={(event) => setBirthDate(event.target.value)} required />
+        <form ref={formRef} onSubmit={onSubmit} noValidate className="form-stack" aria-label="Thông tin sinh Tam Thế">
+          <FormField id="tamthe-date" label="Ngày sinh (YYYY-MM-DD)" hint={input.calendarType === "LUNAR"
+            ? "Nhập ngày Âm lịch, không đổi sang Dương lịch. Server xác nhận ngày thực tế và tháng nhuận."
+            : "Nhập ngày Dương lịch theo dạng YYYY-MM-DD."}>
+            <input id="tamthe-date" type="text" placeholder="2003-08-15" value={input.birthDate} disabled={waiting}
+              aria-invalid={!!errors.birthDate || undefined} aria-describedby={describedBy("birthDate")}
+              onChange={event => edit({ birthDate: event.target.value }, ["birthDate"])} required />
+            {error("birthDate")}
           </FormField>
-          <FormField id="tamthe-time" label="Giờ sinh (HH:mm)">
-            <input id="tamthe-time" type="time" value={birthTime} onChange={(event) => setBirthTime(event.target.value)} required />
+          <FormField id="tamthe-time" label="Giờ sinh (HH:mm)" hint="Giờ Việt Nam (UTC+07:00), chính xác đến phút; không đổi theo múi giờ thiết bị.">
+            <input id="tamthe-time" type="time" step={60} value={input.birthTime} disabled={waiting}
+              aria-invalid={!!errors.birthTime || undefined} aria-describedby={describedBy("birthTime")}
+              onChange={event => edit({ birthTime: event.target.value }, ["birthTime"])} required />
+            {error("birthTime")}
           </FormField>
-          <FormField id="tamthe-calendar" label="Loại lịch">
-            <select id="tamthe-calendar" value={calendarType} onChange={(event) => { setCalendarType(event.target.value as "SOLAR" | "LUNAR"); setIsLeapMonth(false); }}>
+          <FormField id="tamthe-calendar" label="Loại lịch" hint="Đổi loại lịch không tự chuyển đổi ngày đã nhập.">
+            <select id="tamthe-calendar" value={input.calendarType} disabled={waiting}
+              aria-invalid={!!errors.calendarType || (input.calendarType !== "LUNAR" && !!errors.isLeapMonth) || undefined} aria-describedby={describedBy("calendarType")}
+              onChange={event => edit({ calendarType: event.target.value, isLeapMonth: false }, ["calendarType", "isLeapMonth", "birthDate"])}>
               <option value="SOLAR">Dương lịch</option>
               <option value="LUNAR">Âm lịch</option>
             </select>
+            {error("calendarType")}
+            {input.calendarType !== "LUNAR" && error("isLeapMonth")}
           </FormField>
-          {calendarType === "LUNAR" && (
-            <label className="checkbox-field">
-              <input type="checkbox" checked={isLeapMonth} onChange={(event) => setIsLeapMonth(event.target.checked)} />
-              Tháng nhuận
-            </label>
+          {input.calendarType === "LUNAR" && (
+            <div className="form-field">
+              <label className="checkbox-field">
+                <input id="tamthe-leap" type="checkbox" checked={input.isLeapMonth} disabled={waiting}
+                  aria-invalid={!!errors.isLeapMonth || undefined} aria-describedby={describedBy("isLeapMonth")}
+                  onChange={event => edit({ isLeapMonth: event.target.checked }, ["isLeapMonth"])} />Tháng nhuận
+              </label>
+              <p id="tamthe-leap-hint" className="field-hint">Chỉ đánh dấu nếu tháng sinh Âm lịch là tháng nhuận; Server kiểm tra tính hợp lệ.</p>
+              {error("isLeapMonth")}
+            </div>
           )}
-          {formError && <FieldError id="tamthe-error">{formError}</FieldError>}
-          <PrimaryButton type="submit" disabled={calculation.connection !== "connected" || calculation.requestState === "waiting"}>Gửi yêu cầu</PrimaryButton>
+          <fieldset id="tamthe-categories" tabIndex={-1} className="form-field m-0 min-w-0 border-0 p-0" disabled={waiting}
+            aria-invalid={!!errors.categories || undefined} aria-describedby={describedBy("categories")}>
+            <legend className="text-sm font-semibold">Nội dung muốn xem</legend>
+            <p id="tamthe-categories-hint" className="field-hint">Chọn ít nhất một mục. Chọn cả ba để yêu cầu đầy đủ.</p>
+            {TAM_THE_CATEGORIES.map(category => <label className="checkbox-field" key={category}>
+              <input type="checkbox" value={category} checked={input.categories.includes(category)}
+                aria-invalid={!!errors.categories || undefined} aria-describedby={describedBy("categories")}
+                onChange={event => edit({ categories: event.target.checked ? [...input.categories, event.target.value] : input.categories.filter(value => value !== event.target.value) }, ["categories"])} />
+              {categoryLabels[category]}
+            </label>)}
+            {error("categories")}
+          </fieldset>
+          {calculation.connection !== "connected" && <p id="tamthe-connection" className="field-hint">{calculation.connection === "connecting" ? "Đang kết nối tới Server. Bạn có thể chuẩn bị thông tin; chỉ gửi khi đã kết nối." : "Mất kết nối với Server. Thông tin vẫn được giữ trên trang; chưa thể gửi yêu cầu."}</p>}
+          <PrimaryButton type="submit" disabled={calculation.connection !== "connected" || waiting}
+            aria-describedby={calculation.connection !== "connected" ? "tamthe-connection" : undefined}>{waiting ? "Đang chờ phản hồi…" : "Gửi yêu cầu"}</PrimaryButton>
         </form>
         </SectionCard>
         <aside className="input-guide" aria-label="Lưu ý Tam Thế">
