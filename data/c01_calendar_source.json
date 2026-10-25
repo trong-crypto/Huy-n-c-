@@ -1,0 +1,49 @@
+{
+  "sourceId": "C01-VN-FIXED7",
+  "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+  "version": "C01-1.0 / Time4J 5.9.4",
+  "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html",
+  "resource": "server/src/main/resources/calendar/vn-fixed7-year-codes.csv",
+  "resourceSha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+  "years": [
+    1899,
+    2099
+  ],
+  "publicSolarRange": [
+    "1900-01-01",
+    "2099-12-31"
+  ],
+  "timezone": "UTC+07:00 fixed; Asia/Ho_Chi_Minh is the contract label, not historical zone rules",
+  "license": "Time4J LGPL-2.1 at test/build time; HND Can Chi/packed decoder/reference non-commercial notice retained",
+  "sections": [
+    "MoonPhase.NEW_MOON",
+    "AstronomicalSeason.WINTER_SOLSTICE",
+    "SolarTerm.of",
+    "fixed UTC+7 civil-day rules",
+    "Can Chi formulas: Ho Ngoc Duc 0.8"
+  ],
+  "reviewer": "Codex C01 source and calendar validation 2026-10-24",
+  "hndReference": {
+    "url": "https://www.xemamlich.uhm.vn/JavaScript/amlich-hnd.js",
+    "upstreamSha256": "43f10b64223306c6717d0c07fb5b426e1952dadb047f21592f5bb57f754acced",
+    "license": "personal, non-commercial; retain original copyright notice",
+    "sections": [
+      "TK19[99]",
+      "TK20[0..99]",
+      "TK21[0..99]",
+      "decodeLunarYear",
+      "getCanChi",
+      "getCanHour0"
+    ],
+    "resource": "data/c01_hnd_reference.csv",
+    "sha256": "bd60ccdf7bde2f616a696744a9658e9fc77fa420773fed74846a7bbabded9d1b"
+  },
+  "generator": "server/src/test/java/com/huyenco/calendar/CalendarTableGenerator.java",
+  "dependency": "net.time4j:time4j-base:5.9.4 (test/build time only)",
+  "dependencySha256": "4676119f628d4ee1a11101d369c31bf065ee59541cdda1cd3d6fcbbbcedc193b",
+  "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+  "validationScope": "1900-2099 fixed UTC+7 computed calendar, not historical calendar reconstruction or Bazi solar-term pillars",
+  "generatorSha256": "9d802df2c7d04ec3cdc6c19515ab58c670d748023d708a4a07f4b43376125e97",
+  "controlDates": "data/c01_control_dates.csv",
+  "controlDatesSha256": "cea89100b14deafddd99abadcbb591ec95a7e60ec5d3f4356515426b216cb5eb"
+}

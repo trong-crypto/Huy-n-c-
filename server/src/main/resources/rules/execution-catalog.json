@@ -4,16 +4,16 @@
     {"ruleCode":"MH-TRIGRAM","module":"MAI_HOA","ruleVersion":"1.0","executionPolicy":"SOURCE_VERIFIED","decisionReferences":[]},
     {"ruleCode":"MH-MUTUAL","module":"MAI_HOA","ruleVersion":"1.0","executionPolicy":"SOURCE_VERIFIED","decisionReferences":[]},
     {"ruleCode":"MH-CHANGE","module":"MAI_HOA","ruleVersion":"1.0","executionPolicy":"SOURCE_VERIFIED","decisionReferences":[]},
-    {"ruleCode":"MH-TIME","module":"MAI_HOA","ruleVersion":"1.0","executionPolicy":"TEAM_DECISION","decisionReferences":[{"decisionId":"DEC-20261022-MH-TIME-MOD6","decidedAt":"2026-10-22","document":"docs/07-DECISION-LOG.md","description":"Nhóm chọn tổng năm/tháng/ngày/giờ âm chia 6; bản in PDF 45 còn mâu thuẫn trừ 8/6."}]},
+    {"ruleCode":"MH-TIME","module":"MAI_HOA","ruleVersion":"1.0","executionPolicy":"TEAM_DECISION","decisionReferences":[{"decisionId":"DEC-20261022-MH-TIME-MOD6","decidedAt":"2026-10-22","document":"docs/07-DECISION-LOG.md","description":"Nhóm chọn tổng năm/tháng/ngày/giờ âm chia 6; bản in PDF 45 còn mâu thuẫn trừ 8/6."},{"decisionId":"DEC-20261024-B04-CIVIL-TIME","decidedAt":"2026-10-24","document":"docs/07-DECISION-LOG.md","description":"TIME dùng UTC+7 cố định, năm âm đổi tại Tết/ngày đổi 00:00, Tý 23:00-00:59; tháng nhuận lấy cùng số tháng và giữ cờ nhuận. Đây là quy ước triển khai, không xác minh bổ sung bản in."}]},
     {"ruleCode":"MH-OBJECT-COUNT","module":"MAI_HOA","ruleVersion":"1.0","executionPolicy":"TEAM_DECISION","decisionReferences":[{"decisionId":"DEC-20261022-MH-OBJECT-COUNT","decidedAt":"2026-10-22","document":"docs/07-DECISION-LOG.md","description":"Nhóm dùng objectCount gốc và hourIndex để lấy hào theo tổng chia 6; cụm số quẻ PDF 46 còn đa nghĩa."}]},
     {"ruleCode":"MH-THE-DUNG","module":"MAI_HOA","ruleVersion":"1.0","executionPolicy":"DISABLED","decisionReferences":[]},
     {"ruleCode":"TT-NGU-HANH","module":"TAM_THE","ruleVersion":"1.0","executionPolicy":"SOURCE_VERIFIED","decisionReferences":[]},
-    {"ruleCode":"TT-GIO-SINH","module":"TAM_THE","ruleVersion":"1.0","executionPolicy":"SOURCE_VERIFIED","decisionReferences":[]},
+    {"ruleCode":"TT-GIO-SINH","module":"TAM_THE","ruleVersion":"1.0","executionPolicy":"TEAM_DECISION","decisionReferences":[{"decisionId":"DEC-20261025-D02-HOUR-PARTS","decidedAt":"2026-10-25","document":"docs/07-DECISION-LOG.md","description":"Dùng mốc tháng trong Số 5, giữ xác nhận Dậu→Dần tháng 5; hiệu chỉnh điểm cuối 5:30→5:39 của đêm tháng 11 và chia mỗi Chi thành ba khoảng 40 phút. Đây là quy ước triển khai, không phải đính chính của nhà xuất bản."}]},
     {"ruleCode":"TT-36-PHAN","module":"TAM_THE","ruleVersion":"1.0","executionPolicy":"SOURCE_VERIFIED","decisionReferences":[]},
     {"ruleCode":"TT-CONG-DANH-11","module":"TAM_THE","ruleVersion":"1.0","executionPolicy":"SOURCE_VERIFIED","decisionReferences":[]},
     {"ruleCode":"TT-CONG-DANH-13","module":"TAM_THE","ruleVersion":"1.0","executionPolicy":"SOURCE_VERIFIED","decisionReferences":[]},
-    {"ruleCode":"TT-TAI-LOC","module":"TAM_THE","ruleVersion":"1.0","executionPolicy":"DISABLED","decisionReferences":[]},
-    {"ruleCode":"TT-TINH-DUYEN","module":"TAM_THE","ruleVersion":"1.0","executionPolicy":"DISABLED","decisionReferences":[]},
+    {"ruleCode":"TT-TAI-LOC","module":"TAM_THE","ruleVersion":"1.0","executionPolicy":"SOURCE_VERIFIED","decisionReferences":[]},
+    {"ruleCode":"TT-TINH-DUYEN","module":"TAM_THE","ruleVersion":"1.0","executionPolicy":"SOURCE_VERIFIED","decisionReferences":[]},
     {"ruleCode":"LUNAR-CONVERSION","module":"CALENDAR","ruleVersion":"1.0","executionPolicy":"SOURCE_VERIFIED","decisionReferences":[]}
   ]
 }

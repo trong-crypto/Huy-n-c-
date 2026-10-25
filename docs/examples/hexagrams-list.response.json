@@ -1,0 +1,69 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440002",
+  "status": "COMPLETED",
+  "data": {
+    "items": [
+      {
+        "code": "H_CAN2_CAN",
+        "name": "Đại súc",
+        "nameKind": "CANONICAL_TITLE",
+        "verificationStatus": "VERIFIED",
+        "upperTrigramCode": "CAN2",
+        "lowerTrigramCode": "CAN",
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          true
+        ],
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-64-QUE-NAMES-277",
+            "printedPage": "277",
+            "pdfPage": 270,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ]
+      },
+      {
+        "code": "H_CAN2_CAN2",
+        "name": "Cấn",
+        "nameKind": "CANONICAL_TITLE",
+        "verificationStatus": "VERIFIED",
+        "upperTrigramCode": "CAN2",
+        "lowerTrigramCode": "CAN2",
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          true
+        ],
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-64-QUE-NAMES-278",
+            "printedPage": "278",
+            "pdfPage": 271,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ]
+      }
+    ],
+    "page": 0,
+    "size": 2,
+    "totalElements": 64,
+    "totalPages": 32
+  },
+  "error": null
+}

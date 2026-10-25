@@ -1,0 +1,11 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440026",
+  "status": "FAILED",
+  "data": null,
+  "error": {
+    "code": "INVALID_DATE",
+    "message": "NgÃƒÂ y khÃƒÂ´ng tÃ¡Â»â€œn tÃ¡ÂºÂ¡i hoÃ¡ÂºÂ·c ngoÃƒÂ i phÃ¡ÂºÂ¡m vi DÃ†Â°Ã†Â¡ng lÃ¡Â»â€¹ch 1900-01-01 Ã„â€˜Ã¡ÂºÂ¿n 2099-12-31.",
+    "ruleCode": null,
+    "reason": null
+  }
+}

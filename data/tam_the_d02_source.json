@@ -1,0 +1,93 @@
+{
+  "wealth": {
+    "rule": "TT-TAI-LOC", "tablePage": 41,
+    "rows": {
+      "GIAP": [1,11,9,7,5,3,1,11,9,7,5,3],
+      "AT": [2,12,10,8,6,4,2,12,10,8,6,4],
+      "BINH": [3,1,11,9,7,5,3,1,11,9,7,5],
+      "DINH": [4,2,12,10,8,6,4,2,12,10,8,6],
+      "MAU": [5,3,1,11,9,7,5,3,1,11,9,7],
+      "KY": [6,4,2,12,10,8,6,4,2,12,10,8],
+      "CANH": [7,5,3,1,11,9,7,5,3,1,11,9],
+      "TAN": [8,6,4,2,12,10,8,6,4,2,12,10],
+      "NHAM": [9,7,5,3,1,11,9,7,5,3,1,11],
+      "QUY": [10,8,6,4,2,12,10,8,6,4,2,12]
+    },
+    "passages": [
+      {"label":"Hưởng lộc","heading":"Hưởng Lộc","pages":[41],"text":"Số này có tài lộc thạnh vượng, có ruộng vườn, có tánh tốt, việc ăn mặc đủ, gặp hung hóa hiền, cầu quan có quới nhân [CHU_MO] kính trọng."},
+      {"label":"Khốn lộc","heading":"Khốn Lộc","pages":[41],"text":"Số này phạm Khốn Lộc, anh em bà con không đặng gần, ăn mặc thiếu hẹp, tánh can cường, nhiều người ghét, tuổi nhỏ nghèo, tuổi lớn làm khá."},
+      {"label":"Bất lộc","heading":"Bối Lộc","pages":[41],"text":"Số này phạm Bối Lộc, anh em ở xa cách, đi biệt xứ không trở về, đi có nhiều xứ, đồ lao cực khổ, mà không khá."},
+      {"label":"Chánh lộc","heading":"Chánh Lộc","pages":[42],"text":"Số này đặng Chánh Lộc, tánh cần kiệm, đi lưu lạc xứ khác khi tuổi lớn làm ăn trở nên sự nghiệp, vợ chồng con cháu vui vẻ."},
+      {"label":"Ám lộc","heading":"Ám Lộc","pages":[42],"text":"Số này phạm Ám Lộc, ăn mặc có ít, không nhờ anh em, gần người sang trọng, sự nghiệp không ở xứ cũ, tuổi lớn ăn ở đặng yên, làm ăn mới khá."},
+      {"label":"Tài lộc","heading":"Tài Lộc","pages":[42],"text":"Số này đặng Tài Lộc, làm ăn khá, sự nghiệp lập nên, có trâu ruộng, tôi tớ đủ dùng, trở nên danh tiếng phú gia."},
+      {"label":"Sát lộc","heading":"Sát Lộc","pages":[42],"text":"Số này phạm Sát Lộc, số bôn ba lội lạc, mưu sanh kế mị thường, dễ sanh nhai, đến tuổi gần già làm ăn mới khá."},
+      {"label":"Thiên lộc","heading":"Thiên Lộc","pages":[42],"text":"Số này đặng Thiên Lộc, có số làm quan, lại có số làm giàu tôi tớ nhiều, vợ chồng hòa thuận, hưởng phước lộc nhiều."},
+      {"label":"Hao lộc","heading":"Hao Lộc","pages":[42],"text":"Số này phạm Hao Lộc, tánh hay ăn diện tiệc, hay kén nhơn tình, chơi gần người sang trọng, sự nghiệp phá tan, đến xứ khác mới lập an."},
+      {"label":"Toại lộc","heading":"Toại Lộc","pages":[42],"text":"Số này phạm Toại Lộc, tánh hạnh nhiều mưu kế, có tánh tham, xảo trá, anh em, chồng vợ, con cháu có nhưng không hòa hiệp."},
+      {"label":"Bịch lộc","heading":"Bịnh Lộc","pages":[42],"text":"Số này phạm Bịnh Lộc hay có bịnh hoạn lắm, không ở xứ cũ tu hành không đặng, giữ tiết kiệm đời cực khổ mà cũng nghèo."},
+      {"label":"Vượng lộc","heading":"Vượng Lộc","pages":[42],"text":"Số này đặng Vượng Lộc, tiền tài hưng vượng, sản nghiệp lập thành, tánh hay chơi anh em bạn, trai cỡ vợ, gái có chồng gặp đặng chỗ sang trọng."}
+    ]
+  },
+  "love": {
+    "rule": "TT-TINH-DUYEN", "tablePage": 64,
+    "rows": {
+      "KIM": [4,5,6,7,8,9,10,11,12,1,2,3],
+      "MOC": [10,11,12,1,2,3,4,5,6,7,8,9],
+      "THUY": [7,8,9,10,11,12,1,2,3,4,5,6],
+      "HOA": [1,2,3,4,5,6,7,8,9,10,11,12],
+      "THO": [7,8,9,10,11,12,1,2,3,4,5,6]
+    },
+    "passages": [
+      {"label":"Trường sanh","heading":"Trường Sanh","pages":[64],"text":"Mẹ cha tích đức dày công,\nNên nay con hưởng phước hồng Trường Sanh.\nVợ chồng duyên nợ đặng thành,\nTrăm năm tơ tóc, yến anh giao hòa.\nSống lâu an hưởng một nhà,\nTrọn đời có một, dầu là có hai.\nTôi trai, tớ gái hằng ngày,\nSố này có đức hậu lại đặng nhờ."},
+      {"label":"Mộc dục","heading":"Mộc Dục","pages":[64],"text":"Chẳng may số hệ ở trời,\nSanh nhằm Mộc Dục đổi đời căn duyên.\nHôn nhân trắc trở chớ phiền,\nMột đời thứ nhứt không yên gia đình.\nĐời sau vương vấn linh đinh,\nThứ ba hòa hiệp chung tình trăm năm.\nLo cho huynh đệ nhứt tâm,\nViệc rồi kết oán thù thâm nỡ đành."},
+      {"label":"Quan đài","heading":"Quan Đài","pages":[64,65],"text":"Than ôi! Trong cảnh phòng loan,\nSanh nhằm Quan Đài đeo mang nợ tình.\nHai đời phải chịu linh đinh,\nThình lình gặp mối chung tình thứ ba.\nNgày sau nên cửa nên nhà,\nĐến già trọn đạo gọi là phu thê.\nTrong bề gia đạo đề huề,\nTề gia nội trợ mọi bề đặng an."},
+      {"label":"Lâm quan","heading":"Lâm Quan","pages":[65],"text":"Hỡi thân phận bạc sau này,\nLâm Quan rủi gặp, nỗi này đớn đau.\nVợ chồng ai cũng ước ao,\nTại sao có bạn khác nào như không.\nCác sông các núi vợ chồng,\nÝ tình không hạp loan phòng quạnh hiu.\nNhớ trông buồn tủi bao nhiêu,\nĐến khi gặp mặt khó yêu tình chàng."},
+      {"label":"Đế vượng","heading":"Đế Vượng","pages":[65],"text":"Khá nên tích đức thi công,\nSanh nhằm Đế Vượng phước hồng tương giao.\nHôn nhân gặp chỗ sang giàu,\nMột đời thong thả cùng nhau phỉ nguyền.\nThiên nhiên số định lương duyên,\nThượng hoà hạ lục miên miêng đời đời.\nSố này duyên nợ chẳng dời,\nThảnh thơi lo liệu an nơi gia đình."},
+      {"label":"Suy","heading":"Suy","pages":[65,66],"text":"Thảm thay căn số vô phần,\nGặp duyên bạc phận, sanh nhằm chữ Suy.\nMạng ai nấy tính không tùy,\nGặp nhau hiểm tỵ khác gì tù nhơn.\nĐôi co nhiều tiếng thiệt hơn,\nSâm thương hai ngã như đờn thiếu dây.\nHai đời phải chịu đổi xây,\nThứ ba mới đặng sum vầy nợ duyên."},
+      {"label":"Bịnh","heading":"Bịnh","pages":[66],"text":"Thảm buồn cho cảnh nợ duyên.\nSanh nhằm chữ Bịnh lụy liên gia đình.\nThở than phiền trách phận mình,\nRồi đây thọ lãnh giữ gìn lư hương.\nSanh ly tử biệt hai đường,\nDầu mà không thác tang thương chia lìa.\nTấn tu nhơn đức trau tria,\nThứ nhì mới đặng đó đây sum vầy."},
+      {"label":"Tử","heading":"Tử","pages":[66],"text":"Câu rằng: phu phụ tình thâm,\nPhạm nay chữ Tử vướng nhầm chớ ta.\nVợ chồng không đặng hiệp hòa,\nKhông trùng duyên nợ đâu mà bình an.\nMột đời thứ nhứt lo toan,\nKhông lìa thì thác, hai đàng biệt ly.\nĐời sau trọn nghĩa trọn nghì,\nKết nguyền tơ tóc phải thì bền lâu."},
+      {"label":"Mộ","heading":"Mộ","pages":[66],"text":"Vợ chồng nghĩa trọng tình thâm,\nSanh nhằm chữ Mộ vướng lâm cho chàng.\nCăn duyên mù tịt lỡ làng,\nKhi tan khi hiệp đôi đàng mới xong.\nTrước đời xóm kiến chòm ong,\nĐời sau qui hiệp buổi bồng đa đoan.\nVợ chồng mới đặng bình an,\nĐến sau rồi cũng bình an một mình."},
+      {"label":"Tuyệt","heading":"Tuyệt","pages":[66,67],"text":"Vợ chồng duyên nợ chẳng lành,\nSanh nhằm chữ Tuyệt bao đành sầu đau.\nThêm sầu số phận quằn bao,\nXem trong duyên nợ khắc hào phu thê.\nMảng lo tranh đấu bộn bề,\nTrải qua bao độ gia tề mới an.\nBởi do số hệ chớ than,\nKỳ ba trời định mới an gia đình."},
+      {"label":"Thai","heading":"Thai","pages":[67],"text":"Hồng nhan cốt cách xanh tươi,\nXuê xoa ăn mặc, tiếng cười có duyên.\nDè đâu tình nghĩa ưu phiền,\nLương duyên thứ nhứt vẹn tuyền đặng đâu.\nCủa tiền hao tốn ngõ hầu,\nThứ nhì mới đặng giao đầu phụng loan.\nPhỉ nguyền tình thiếp nghĩa chàng,\nGia đình phát đạt đặng an một nhà."},
+      {"label":"Dưỡng","heading":"Dưỡng","pages":[67],"text":"Số này Trời Đất cho ta,\nVợ chồng phối ngẫu giao hoà bình an.\nPhụng loan kết cánh vầy đoàn,\nMột năm sanh dưỡng phòng loan kịp kỳ.\nĂn mặc đầy đủ số ni,\nVợ chồng một tuổi vậy thời giàu sang.\nChớ lo duyên nợ lỡ làng,\nVợ chồng hoà hiệp hiển hàn thất gia."}
+    ]
+  },
+  "hourPortions": [
+    {"branch":"TY","part":1,"heading":"Đầu giờ Tý","pages":[25],"text":"Khắc mẹ: Làm người tánh lẹ làng, vợ chồng khắc đời thứ nhứt, khắc con đầu lòng, anh em không hòa, tuổi nhỏ làm ăn không khá, tuổi lớn về sau làm ăn khá."},
+    {"branch":"TY","part":2,"heading":"Giữa giờ Tý","pages":[25],"text":"Cha mẹ song toàn, làm người vui vẻ, ăn mặc không thiếu, anh em đều có phận, sanh con đặng nhiều, đi khác xứ làm ăn khá, số có quyền chức."},
+    {"branch":"TY","part":3,"heading":"Sau giờ Tý","pages":[25],"text":"Khắc cha: Tánh rộng rãi, anh em không khá, sanh con khó dạy, thuở nhỏ cực khổ, làm việc gì có đầu không đuôi. Số theo quê vợ, xa cha mẹ."},
+    {"branch":"SUU","part":1,"heading":"Đầu giờ Sửu","pages":[25],"text":"Cha mẹ song toàn, tuổi nhỏ làm ăn trung bình, 20 tuổi sắp lên làm ăn phát đạt, tánh thông minh, gần người sang trọng, có chức phận, anh em khá, hào con tốt."},
+    {"branch":"SUU","part":2,"heading":"Giữa giờ Sửu","pages":[25],"text":"Khắc cha: Việc ăn mặc trung bình, tánh ý công bình, đến 36 tuổi phát tài, anh em không hòa bà con bản lảng, đi xứ khác, hai bàn tay trắng làm đặng nên sự nghiệp."},
+    {"branch":"SUU","part":3,"heading":"Sau giờ Sửu","pages":[25],"text":"Khắc mẹ: tuổi nhỏ chịu tâm khổ, làm việc lớn ra nhỏ, không nhờ anh em, hào con phát đạt khá, đến 40 tuổi làm ăn thịnh vượng, lớn tuổi khá thêm, tay có nghề nghiệp làm ăn."},
+    {"branch":"DAN","part":1,"heading":"Đầu giờ Dần","pages":[25],"text":"Khắc cha: Số gần người sang trọng, việc hung hóa hiền, tuổi nhỏ cực khổ, 37 tuổi sắp lên làm ăn khá, cốt nhục bản lảng, có nhờ con nuôi lúc tuổi già."},
+    {"branch":"DAN","part":2,"heading":"Giữa giờ Dần","pages":[25],"text":"Cha mẹ đặng song toàn, tánh người siêng năng, ăn mặc không thiếu, anh em khá, có con 2,3 đứa tánh tốt, văn chương giỏi sự nghiệp nên."},
+    {"branch":"DAN","part":3,"heading":"Sau giờ Dần","pages":[26],"text":"Khắc mẹ: không nhờ anh em, con đầu lòng khó nuôi, tuổi nhỏ nhiều lần cực khổ. Đến 36 tuổi phát tài, làm ăn khá, làm việc gì hay tính tới tính lui, thường có đau ốm, tật bịnh."},
+    {"branch":"MAO","part":1,"heading":"Đầu giờ Mẹo","pages":[26],"text":"Khắc mẹ: Làm việc gì trước có sau không, không nhờ anh em, tuổi nhỏ bôn ba, lặn lội, cực trí, số khắc con, con không chứng, việc ăn mặc tùy thời có, thời không."},
+    {"branch":"MAO","part":2,"heading":"Giữa giờ Mẹo","pages":[26],"text":"Cha mẹ song toàn, trai sang gái trọng, quí nhơn yêu chuộng, gái ít chồng anh em khá, con nhiều ăn mặc không thiếu, sự nghiệp kinh vinh, cốt nhục hòa, có chức phận."},
+    {"branch":"MAO","part":3,"heading":"Sau giờ Mẹo","pages":[26],"text":"Khắc cha: thuở nhỏ bôn ba, lao khổ, không nhờ anh em, đến 36 tuổi sắp lên dễ làm ăn, chừng ấy mới ít tai, lập sự nghiệp đặng vững bền."},
+    {"branch":"THIN","part":1,"heading":"Đầu giờ Thìn","pages":[26],"text":"Cha mẹ song toàn, tánh ý mau lẹ, anh em khá, con đầu lòng rủi không đặng, cốt nhục bất hòa, tánh hiền từ, tay có nghề nghiệp làm ăn, thuở nhỏ bình thường, đến 12 tuổi phát tài."},
+    {"branch":"THIN","part":2,"heading":"Giữa giờ Thìn","pages":[26],"text":"Khắc cha: Làm người có tánh công bình, lẹ làng, quí nhơn hay giúp đỡ, ở xa xứ lập nên sự nghiệp, tuổi trẻ khó nên. 44 tuổi làm ăn phát đạt, anh em không hạp ý."},
+    {"branch":"THIN","part":3,"heading":"Sau giờ Thìn","pages":[26],"text":"Khắc mẹ: Có tánh thông minh, làm ăn thịnh vượng, hào con tốt, anh em làm ăn khá số có chức phận, có phước lộc, hưởng đầy đủ, có danh tiếng, sang trọng, một đời đặng thảnh thơi."},
+    {"branch":"TI","part":1,"heading":"Đầu giờ Tỵ","pages":[26],"text":"Khắc mẹ: Có lộc ăn mặc, anh em không đặng nhờ, con đầu lòng khó nuôi khắc héo chồng vợ, tuổi nhỏ bôn ba đi nhiều xứ, đến lớn làm ăn phát đạt, có chức phận, có sự nghiệp."},
+    {"branch":"TI","part":2,"heading":"Giữa giờ Tỵ","pages":[26],"text":"Cha mẹ song toàn, gần người sang trọng, ăn mặc đầy đủ, anh em làm đặng nên, hào con đặng giàu, có công danh, tánh hạnh khẳng khái, làm ăn khá, đi khác xứ lập nên."},
+    {"branch":"TI","part":3,"heading":"Sau giờ Tỵ","pages":[27],"text":"Khắc cha: Số gần người sang trọng, làm ăn khi thành khi bại không chừng, tánh anh em lạt lẽo, khó nuôi con, vợ chồng lôi thôi, tuổi nhỏ số lưu lạc cực khổ, lớn tuổi làm ăn phát đạt."},
+    {"branch":"NGO","part":1,"heading":"Đầu giờ Ngọ","pages":[27],"text":"Cha mẹ song toàn, làm người tính tình lợi hại, gần người sang, anh em hòa, hai ba dòng con, ăn mặc không thiếu, số có chức phận, quyền hành, vận số hưng vượng."},
+    {"branch":"NGO","part":2,"heading":"Giữa giờ Ngọ","pages":[27],"text":"Khắc cha: ăn mặc bình thường, tuổi trẻ bôn ba, khổ trí nhiều phen, 30 tuổi sắp lên làm ăn khá, không nhờ anh em, làm ăn khi nên khi hư không chừng, không có tự do."},
+    {"branch":"NGO","part":3,"heading":"Sau giờ Ngọ","pages":[27],"text":"Khắc mẹ: tánh người lẹ làng, không nhờ anh em, con đầu lòng khó nuôi, tánh thông minh, lanh lợi, tuổi nhỏ cực khổ, đến lớn tuổi làm ăn phát đạt, đến cảnh già cũng trở lại cực khổ."},
+    {"branch":"MUI","part":1,"heading":"Đầu giờ Mùi","pages":[27],"text":"Cha mẹ song toàn, số đặng gần người sang trọng, trọn đời yên vui, anh em hòa hợp ý, số có chức phận, gái thì có quyền đặng sang trọng, dễ làm ăn, sự nghiệp kinh vinh."},
+    {"branch":"MUI","part":2,"heading":"Giữa giờ Mùi","pages":[27],"text":"Khắc cha: tính ý rộng rãi, có quý nhơn thương, đặng nhờ anh em, thuở nhỏ làm ăn bình thường, lo lường lặn lội cực trí, vợ chồng khắc đời thứ nhứt, khắc con, lớn tuổi làm ăn khá."},
+    {"branch":"MUI","part":3,"heading":"Sau giờ Mùi","pages":[27],"text":"Khắc mẹ: quí nhơn hay yêu chuộng, ăn mặc bình thường, tuổi nhỏ làm ăn khi hư khi nên, tuổi trẻ cực khổ, anh em không hoà, sanh con cứng cỏi lớn tuổi làm ăn khá hơn thời tuổi trẻ."},
+    {"branch":"THAN","part":1,"heading":"Đầu giờ Thân","pages":[27],"text":"Cha mẹ song toàn, tánh thông minh gần người quí thế, nghề văn, nghiệp võ đều thông, bà con có quyền tước, anh em làm ăn khá hào con, dễ làm ăn, số có ruộng đất, dễ lập gia đình."},
+    {"branch":"THAN","part":2,"heading":"Giữa giờ Thân","pages":[27],"text":"Khắc cha: bà con không hoà, anh em không nhờ, bôn ba cực khổ, cưới vợ chồng sớm, ở đời không đặng, có vợ muộn tốt, làm ăn xa xứ khá, lập tại xứ cha mẹ sanh không khá."},
+    {"branch":"THAN","part":3,"heading":"Sau giờ Thân","pages":[28],"text":"Khắc mẹ: nhơn tình cốt nhục lạt lẽo, thuở nhỏ cực khổ, hình vóc ốm yếu, hào con lôi thôi, đến 30 tuổi vận thời mới bình, đến 40 tuổi làm ăn mới phát đạt."},
+    {"branch":"DAU","part":1,"heading":"Đầu giờ Dậu","pages":[28],"text":"Cha mẹ song toàn, đời sang trọng, văn võ đều thông, anh em phân cách, hào con ít, tài lợi khá, nhà cửa tốt, có quyền tước, tâm tánh tốt."},
+    {"branch":"DAU","part":2,"heading":"Giữa giờ Dậu","pages":[28],"text":"Khắc cha: tánh rộng rãi, anh em bất hoà, con đầu lòng khó nuôi, thuở nhỏ làm ăn không hạp thời, trai khắc vợ, gái khắc chồng, đi khác xứ, không ở chỗ cũ."},
+    {"branch":"DAU","part":3,"heading":"Sau giờ Dậu","pages":[28],"text":"Khắc mẹ: Việc ăn mặc bình thường, không nhờ anh em, thuở nhỏ khổ tâm, đến 37 tuổi trở lên thì phát tài, vợ chồng khắc nhau, trai thì chậm trễ, gái thì dâm loạn, thất hào con."},
+    {"branch":"TUAT","part":1,"heading":"Đầu giờ Tuất","pages":[28],"text":"Khắc mẹ: tánh mau lẹ, lòng hiền lành, không nhờ anh em, làm việc gì đều có quyền, tuổi nhỏ bình thường, cực khổ, đến 37 tuổi sắp lên làm ăn phát đạt, người quí nhơn giúp đỡ."},
+    {"branch":"TUAT","part":2,"heading":"Giữa giờ Tuất","pages":[28],"text":"Khắc cha: Anh em thân tộc khó nhờ, vợ chồng không hòa, con đầu lòng khó nuôi, tuổi nhỏ không đậu tài, đến 42 tuổi làm ăn phát đạt, cảnh muộn khá thêm, ăn nói không chừng."},
+    {"branch":"TUAT","part":3,"heading":"Sau giờ Tuất","pages":[28],"text":"Cha mẹ song toàn, tánh mau lẹ, văn võ đều thông, bà con anh em đều khá có nghề học đặng tinh xảo, vợ chồng bền lâu, số ở xa xứ mới đặng."},
+    {"branch":"HOI","part":1,"heading":"Đầu giờ Hợi","pages":[28],"text":"Khắc mẹ: tánh lẹ làng, rộng rãi, bà con anh em lưu lạc xa nhau, con hai ba đứa, làm ăn thủ thường, đến lớn tuổi làm ăn khá, sắp đặt gia đình đặng an."},
+    {"branch":"HOI","part":2,"heading":"Giữa giờ Hợi","pages":[28],"text":"Cha mẹ song toàn, tánh thông minh, mau lẹ thân tộc anh em hoà thuận, sanh con có quyền tước, lớn tuổi sự nghiệp đặng nên, có mưu kế và công bình."},
+    {"branch":"HOI","part":3,"heading":"Sau giờ Hợi","pages":[28],"text":"Khắc của: tánh nóng mà có ý hiền, bà con anh em không hạp ý, tuổi nhỏ cực khổ, trai thì hai đời vợ, gái ba đời chồng, lớn tuổi khá hơn nhỏ, việc làm ăn rất nhọc ý."}
+  ]
+}

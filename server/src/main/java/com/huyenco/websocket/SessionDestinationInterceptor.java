@@ -1,6 +1,8 @@
 package com.huyenco.websocket;
 
 import java.util.Set;
+import com.huyenco.history.HistoryStore;
+import com.huyenco.history.SessionService;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -33,7 +35,9 @@ public final class SessionDestinationInterceptor implements ChannelInterceptor {
         var headers = StompHeaderAccessor.wrap(message);
         var command = headers.getCommand();
         if (command == StompCommand.CONNECT || command == StompCommand.STOMP) {
-            if (!sessions.getObject().connect(headers.getSessionId()))
+            var attributes=headers.getSessionAttributes();
+            var identity=attributes==null?null:attributes.get(SessionService.WS_OWNER);
+            if (!sessions.getObject().connect(headers.getSessionId(),identity instanceof HistoryStore.Owner owner?owner:null))
                 return denied(headers.getSessionId());
         } else if (command == StompCommand.SUBSCRIBE) {
             if (headers.getDestination() == null || !SUBSCRIPTIONS.contains(headers.getDestination()))

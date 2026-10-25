@@ -12,7 +12,7 @@ export type ErrorCode =
 export type RuleUnavailableReason =
   | "UNKNOWN_RULE" | "EXECUTION_DISABLED" | "RULE_STATE_UNAVAILABLE" | "RULE_VERSION_MISMATCH"
   | "SOURCE_UNVERIFIED" | "MISSING_SOURCE_REFERENCE" | "MISSING_SOURCE_REVIEW"
-  | "MISSING_DECISION_REFERENCE" | "TEAM_DECISION_NOT_ALLOWED" | "IMPLEMENTATION_UNAVAILABLE";
+  | "MISSING_DECISION_REFERENCE" | "TEAM_DECISION_NOT_ALLOWED" | "IMPLEMENTATION_UNAVAILABLE" | "LOOKUP_NOT_AVAILABLE";
 
 export type SourceReference = {
   sourceId: string;
@@ -105,7 +105,7 @@ export type KnowledgeReadiness = {
   pending: string[];
 };
 
-// REST contracts are reserved by A01; controllers arrive in C01/E02/H01.
+// Calendar C01, hexagram lookup E02 and anonymous session/history H01 are implemented.
 export type RestResponse<T> = { requestId: string; status: "COMPLETED"; data: T; error: null }
   | { requestId: string; status: "FAILED"; data: null; error: ApiError };
 export type Page<T> = { items: T[]; page: number; size: number; totalElements: number; totalPages: number };
@@ -118,7 +118,15 @@ export type HexagramRecord = Omit<HexagramView, "nameStatus"> & {
   lowerTrigramCode: string;
   sourceReferences: SourceReference[];
 };
-export type HexagramDetail = HexagramRecord & { interpretations: (InterpretationEntry & { verificationStatus: SourceStatus })[] };
+export type HexagramNameGloss = InterpretationEntry & {
+  resultCode: "NAME_GLOSS";
+  category: "NAME_GLOSS";
+  verificationStatus: "VERIFIED";
+  sourceOrder: number;
+  printedSourceLabel: string;
+  verificationNote: string;
+};
+export type HexagramDetail = HexagramRecord & { interpretations: HexagramNameGloss[] };
 export type CalendarInput = { calendarType: "SOLAR" | "LUNAR"; year: number; month: number; day: number; isLeapMonth: boolean };
 export type CalendarResult = ResultEvidence & {
   solarDate: string;

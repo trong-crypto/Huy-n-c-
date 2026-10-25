@@ -13,6 +13,9 @@
     "test:calculation": "node --test scripts/calculation-state.test.mjs",
     "smoke:progress": "node scripts/smoke-progress-errors.mjs",
     "smoke:object-count": "node scripts/smoke-object-count.mjs",
+    "smoke:time": "node scripts/smoke-time.mjs",
+    "smoke:tam-the": "node scripts/smoke-tam-the.mjs",
+    "smoke:history": "node scripts/smoke-history.mjs",
     "test": "vitest",
     "test:run": "vitest run"
   },

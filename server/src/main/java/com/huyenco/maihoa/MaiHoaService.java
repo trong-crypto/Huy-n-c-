@@ -2,6 +2,14 @@ package com.huyenco.maihoa;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.huyenco.common.exception.RuleNotAvailableException;
+import com.huyenco.common.exception.ContractException;
+import com.huyenco.common.dto.LunarDate;
+import com.huyenco.common.dto.RuleEvidence;
+import com.huyenco.calendar.CalendarInput;
+import com.huyenco.calendar.CalendarService;
+import com.huyenco.calendar.VietnameseLunarCalendar;
+import java.time.DateTimeException;
+import java.time.OffsetDateTime;
 import com.huyenco.common.dto.CalculationStep;
 import com.huyenco.common.dto.CalculationProgress;
 import com.huyenco.common.dto.ProgressEvent.Step;
@@ -25,16 +33,22 @@ public class MaiHoaService {
     private final RuleRegistry registry;
     private final HexagramRepository hexagrams;
     private final TrigramRepository trigrams;
+    private final CalendarService calendar;
 
     public MaiHoaService(RuleRegistry registry, HexagramRepository hexagrams) {
         this(registry, hexagrams, java.util.List::of);
     }
 
-    @Autowired
     public MaiHoaService(RuleRegistry registry, HexagramRepository hexagrams, TrigramRepository trigrams) {
+        this(registry, hexagrams, trigrams, new CalendarService(new VietnameseLunarCalendar(), registry));
+    }
+
+    @Autowired
+    public MaiHoaService(RuleRegistry registry, HexagramRepository hexagrams, TrigramRepository trigrams, CalendarService calendar) {
         this.registry = registry;
         this.hexagrams = hexagrams;
         this.trigrams = trigrams;
+        this.calendar = calendar;
     }
 
     public MaiHoaResult calculate(JsonNode payload) {
@@ -44,18 +58,47 @@ public class MaiHoaService {
     public MaiHoaResult calculate(JsonNode payload, CalculationProgress progress) {
         ContractValidator.validateMaiHoa(payload);
         String method = payload.path("method").asText();
-        if ("LINES".equals(method) || "OBJECT_COUNT".equals(method)) {
+        if ("LINES".equals(method) || "OBJECT_COUNT".equals(method) || "TIME".equals(method)) {
             boolean objectCount = "OBJECT_COUNT".equals(method);
-            var evidence = EvidenceSummary.from(registry.authorizeAll(
-                    objectCount ? List.of("MH-OBJECT-COUNT", "MH-TRIGRAM", "MH-MUTUAL", "MH-CHANGE")
-                            : List.of("MH-MUTUAL", "MH-CHANGE"), RulePurpose.CALCULATION));
-            // Source gates run before any data read or CALCULATING event.
-            var trigramIndex = objectCount ? new TrigramIndex(trigrams.trigrams()) : null;
+            boolean time = "TIME".equals(method);
+            LunarDate lunarDate = null;
+            int hourIndex = 0;
+            var rules = new ArrayList<RuleEvidence>();
+            if (time) {
+                OffsetDateTime local;
+                try { local = OffsetDateTime.parse(payload.get("datetime").textValue()).withOffsetSameInstant(VietnameseLunarCalendar.OFFSET); }
+                catch (DateTimeException failure) { throw new ContractException("INVALID_DATE", "datetime không thể chuẩn hóa về UTC+7."); }
+                var converted = calendar.convert(new CalendarInput("SOLAR", local.getYear(), local.getMonthValue(), local.getDayOfMonth(), false));
+                lunarDate = converted.lunarDate();
+                hourIndex = VietnameseLunarCalendar.hourBranchIndex(local.toLocalTime()) + 1;
+                rules.addAll(converted.rules());
+            }
+            rules.addAll(registry.authorizeAll(time ? List.of("MH-TIME", "MH-TRIGRAM", "MH-MUTUAL", "MH-CHANGE")
+                    : objectCount ? List.of("MH-OBJECT-COUNT", "MH-TRIGRAM", "MH-MUTUAL", "MH-CHANGE")
+                    : List.of("MH-MUTUAL", "MH-CHANGE"), RulePurpose.CALCULATION));
+            var evidence = EvidenceSummary.from(rules);
+            // All five TIME source gates finish before trigram/hexagram reads or CALCULATING.
+            var trigramIndex = objectCount || time ? new TrigramIndex(trigrams.trigrams()) : null;
             var input = new ArrayList<Boolean>();
             var steps = new ArrayList<CalculationStep>();
             int movingLine;
             progress.report(Step.CALCULATING, "Đang tính quẻ chủ, quẻ hỗ và quẻ biến.");
-            if (objectCount) {
+            if (time) {
+                int yearBranchIndex = Math.floorMod(lunarDate.year() + 8, 12) + 1;
+                var numbers = MaiHoaNumbers.fromTime(yearBranchIndex, lunarDate.month(), lunarDate.day(), hourIndex);
+                input.addAll(trigramIndex.find(numbers.lowerTrigram()).linesBottomUp());
+                input.addAll(trigramIndex.find(numbers.upperTrigram()).linesBottomUp());
+                movingLine = numbers.movingLine();
+                steps.add(new CalculationStep("TIME_NUMBERS",
+                        "Theo quy ước nhóm: năm/tháng/ngày âm lấy thượng quái; thêm giờ Chi lấy hạ quái, tổng chia 6 lấy hào.",
+                        Map.ofEntries(Map.entry("lunarYear", lunarDate.year()), Map.entry("lunarMonth", lunarDate.month()),
+                                Map.entry("lunarDay", lunarDate.day()), Map.entry("isLeapMonth", lunarDate.isLeapMonth()),
+                                Map.entry("yearBranchIndex", yearBranchIndex), Map.entry("hourIndex", hourIndex),
+                                Map.entry("dateSum", numbers.dateSum()), Map.entry("timeSum", numbers.timeSum()),
+                                Map.entry("upperTrigram", numbers.upperTrigram()), Map.entry("lowerTrigram", numbers.lowerTrigram()),
+                                Map.entry("movingLine", movingLine), Map.entry("utcOffset", "+07:00"),
+                                Map.entry("dayBoundary", "00:00"), Map.entry("leapMonthPolicy", "SAME_MONTH_NUMBER"))));
+            } else if (objectCount) {
                 int count = payload.get("objectCount").intValue(), hour = payload.get("hourIndex").intValue();
                 var numbers = MaiHoaNumbers.fromObjectCount(count, hour);
                 input.addAll(trigramIndex.find(numbers.lowerTrigram()).linesBottomUp());
@@ -83,14 +126,9 @@ public class MaiHoaService {
             return MaiHoaResult.of(method, evidence, steps,
                     index.find(calculation.primary()).toCalculationView(),
                     index.find(calculation.mutual()).toCalculationView(),
-                    index.find(calculation.changed()).toCalculationView(), calculation.movingLine(), null);
+                    index.find(calculation.changed()).toCalculationView(), calculation.movingLine(), lunarDate);
         }
-        // Remaining methods are deliberately closed until their separate tasks are complete.
-        throw new RuleNotAvailableException(switch (method) {
-            case "TIME" -> "MH-TIME";
-            case "OBJECT_COUNT" -> "MH-OBJECT-COUNT";
-            default -> "MH-UNKNOWN";
-        });
+        throw new RuleNotAvailableException("MH-UNKNOWN");
     }
 }
 

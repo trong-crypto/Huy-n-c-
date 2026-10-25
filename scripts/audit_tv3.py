@@ -21,6 +21,11 @@ from import_book_knowledge import (
 )
 from import_hexagram_names import load_names, SOURCE_SHA
 import import_tam_the_year_elements as year_source
+import import_tam_the_career as career_source
+import verify_calendar_rule as calendar_source
+import verify_time_decision as time_decision
+import import_tam_the_d02 as d02_source
+import import_hexagram_glosses as e01_source
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -150,8 +155,11 @@ SELECT json_build_object(
                 'start', to_char(first_hour_start,'HH24:MI'), 'source',source_branch,
                 'adopted',adopted_branch,'decision',decision_status,
                 'reason',decision_reason,'pdf',s.pdf_page,'status',verification_status,
-                'reviewer',reviewer,'reviewed_at',to_jsonb(a)->>'reviewed_at') ORDER BY lunar_month), '[]'::json)
-                FROM tam_the_hour_anchors a JOIN source_sections s ON a.source_section_id=s.id),
+                'reviewer',reviewer,'reviewed_at',to_jsonb(a)->>'reviewed_at',
+                'verification_note',to_jsonb(a)->>'verification_note','label',s.section_label,
+                'printed',s.printed_page_label,'book_sha',b.file_sha256) ORDER BY lunar_month), '[]'::json)
+                FROM tam_the_hour_anchors a JOIN source_sections s ON a.source_section_id=s.id
+                JOIN source_books b ON b.id=s.source_book_id),
   'jobs', (SELECT coalesce(json_agg(json_build_object('key',e.lookup_key,'code',e.result_code,
                 'status',e.verification_status, 'reviewer',e.reviewer,
                 'pdf',s.pdf_page)), '[]'::json)
@@ -166,15 +174,32 @@ SELECT json_build_object(
                 FROM tam_the_lookup_entries e JOIN calculation_rules r ON r.id=e.rule_id
                 JOIN source_sections s ON s.id=e.source_section_id JOIN source_books b ON b.id=s.source_book_id
                 WHERE r.module='TAM_THE' AND r.rule_code='TT-NGU-HANH' AND r.rule_version='1.0'),
+  'career_entries', (SELECT coalesce(json_agg(json_build_object(
+                'rule',r.rule_code,'key',e.lookup_key,'code',e.result_code,'title',e.title,'content',e.description,
+                'table_page',s.pdf_page,'content_page',cs.pdf_page,
+                'table_label',to_jsonb(e)->>'source_table_label','heading',to_jsonb(e)->>'source_content_heading',
+                'note',to_jsonb(e)->>'verification_note','status',e.verification_status,
+                'editor',e.editor,'reviewer',e.reviewer,'reviewed_at',to_jsonb(e)->>'reviewed_at',
+                'book_sha',b.file_sha256,'printed',s.printed_page_label,'label',s.section_label,
+                'content_book_sha',cb.file_sha256,'content_printed',cs.printed_page_label,'content_label',cs.section_label)), '[]'::json)
+                FROM tam_the_lookup_entries e JOIN calculation_rules r ON r.id=e.rule_id
+                JOIN source_sections s ON s.id=e.source_section_id JOIN source_books b ON b.id=s.source_book_id
+                LEFT JOIN source_sections cs ON cs.id=(to_jsonb(e)->>'content_source_section_id')::bigint
+                LEFT JOIN source_books cb ON cb.id=cs.source_book_id
+                WHERE r.module='TAM_THE' AND r.rule_version='1.0' AND r.rule_code IN('TT-CONG-DANH-11','TT-CONG-DANH-13')),
   'rules', (SELECT coalesce(json_agg(json_build_object('code',rule_code,'module',module,
-                 'status',verification_status,'source',source_section_id,
+                 'status',verification_status,'source',source_section_id,'external_id',to_jsonb(r)->>'external_source_id',
                  'reviewer',to_jsonb(r)->>'reviewer',
                  'reviewed_at',to_jsonb(r)->>'reviewed_at',
                  'verification_note',to_jsonb(r)->>'verification_note',
+                 'description',r.description,
                  'pdf',s.pdf_page,'printed',s.printed_page_label,'label',s.section_label,
                  'book_sha',b.file_sha256)), '[]'::json)
                  FROM calculation_rules r LEFT JOIN source_sections s ON s.id=r.source_section_id
                  LEFT JOIN source_books b ON b.id=s.source_book_id),
+  'external_sources', __C01_EXTERNAL_QUERY__,
+  'd02_entries', __D02_ENTRIES_QUERY__,
+  'e01_glosses', __E01_GLOSSES_QUERY__,
   'migrations', (SELECT coalesce(json_agg(version ORDER BY installed_rank), '[]'::json)
                  FROM flyway_schema_history WHERE success=true)
 )::text;
@@ -186,15 +211,41 @@ def query_database(args: argparse.Namespace) -> dict:
         raise RuntimeError("Chưa có biến PGPASSWORD; dùng scripts/audit_tv3.ps1 để nhập mật khẩu ẩn.")
     command = [find_psql(args.psql), "-X", "-w", "-q", "-A", "-t", "-v", "ON_ERROR_STOP=1",
                "-h", args.host, "-p", str(args.port), "-U", args.user, "-d", args.database]
-    completed = subprocess.run(command, input="BEGIN READ ONLY;\n" + SQL + "\nCOMMIT;\n",
+    probe = subprocess.run(command + ['-c', "SELECT to_regclass('public.external_sources') IS NOT NULL"],
+                           capture_output=True, encoding='utf-8', text=True, timeout=10,
+                           env=dict(os.environ, PGCLIENTENCODING='UTF8'))
+    if probe.returncode: raise RuntimeError('Không đọc được schema nguồn ngoài sách.')
+    external_query = "(SELECT coalesce(json_agg(x),'[]'::json) FROM external_sources x)" if probe.stdout.strip() == 't' else "'[]'::json"
+    probe_d02 = subprocess.run(command + ['-c', "SELECT to_regclass('public.tam_the_lookup_source_pages') IS NOT NULL"],
+                               capture_output=True, encoding='utf-8', text=True, timeout=10,
+                               env=dict(os.environ, PGCLIENTENCODING='UTF8'))
+    if probe_d02.returncode: raise RuntimeError('Không đọc được schema D02.')
+    d02_query = '(SELECT coalesce(json_agg(x),\'[]\'::json) FROM ('+d02_source.ENTRY_QUERY+') x)' if probe_d02.stdout.strip()=='t' else "'[]'::json"
+    probe_e01 = subprocess.run(command + ['-c', "SELECT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='interpretations' AND column_name='printed_source_label')"],
+                               capture_output=True, encoding='utf-8', text=True, timeout=10,
+                               env=dict(os.environ, PGCLIENTENCODING='UTF8'))
+    if probe_e01.returncode: raise RuntimeError('Không đọc được schema E01.')
+    e01_query = """(SELECT coalesce(json_agg(json_build_object(
+        'code',i.hexagram_code,'content',i.content,'status',i.verification_status,
+        'editor',i.editor,'reviewer',i.reviewer,'reviewed_at',i.reviewed_at,
+        'note',i.verification_note,'source_order',i.source_order,
+        'printed_source_label',i.printed_source_label,'rule_id',i.rule_id,
+        'pdf_page',s.pdf_page,'printed_page',s.printed_page_label,
+        'source_label',s.section_label,'source_sha',b.file_sha256)), '[]'::json)
+        FROM interpretations i JOIN source_sections s ON s.id=i.source_section_id
+        JOIN source_books b ON b.id=s.source_book_id
+        WHERE i.category='NAME_GLOSS')""" if probe_e01.stdout.strip() == 't' else "'[]'::json"
+    sql = (SQL.replace('__C01_EXTERNAL_QUERY__', external_query)
+              .replace('__D02_ENTRIES_QUERY__', d02_query)
+              .replace('__E01_GLOSSES_QUERY__', e01_query))
+    completed = subprocess.run(command, input="BEGIN READ ONLY;\n" + sql + "\nCOMMIT;\n",
                                capture_output=True, encoding="utf-8", text=True, timeout=30,
                                env=dict(os.environ, PGCLIENTENCODING="UTF8"))
     if completed.returncode:
         raise RuntimeError("psql trả lỗi: " + completed.stderr.strip()[:600])
-    for line in completed.stdout.splitlines():
-        if line.startswith("{"):
-            return json.loads(line)
-    raise RuntimeError("Không nhận được JSON từ truy vấn kiểm toán.")
+    # json_agg(record) may insert physical newlines between records. Parse the
+    # complete scalar result instead of assuming a one-line JSON document.
+    return json.loads(completed.stdout.strip())
 
 
 def audit_year_elements(audit: Audit, db: dict) -> None:
@@ -218,6 +269,58 @@ def audit_year_elements(audit: Audit, db: dict) -> None:
         and (r.get("pdf"), r.get("printed"), r.get("label"), r.get("book_sha"))
         == (11, "12", "TT-NGU-HANH", year_source.SOURCE_SHA) for r in rules))
     audit.check("S02 migration V6 metadata ô tra cứu", "6" in db["migrations"])
+
+
+def audit_career(audit: Audit, db: dict) -> bool:
+    rows = db.get('career_entries', [])
+    rules = [r for r in db['rules'] if r['module'] == 'TAM_THE' and r['code'] in career_source.CODES]
+    if not any(r.get('status') == 'VERIFIED' for r in rules) and not any(r.get('status') == 'VERIFIED' for r in rows):
+        audit.note('D01 công danh chưa duyệt', 'Cần kiểm 51 giao điểm, 120 ô và 12 đoạn trước VERIFIED.')
+        return False
+    expected = {(e['rule'], e['key'], e['code']): e for e in career_source.load_records()}
+    def matches(row):
+        item = expected.get((row['rule'], row['key'], row['code']))
+        if item is None or any(row.get(k) != v for k, v in item.items()):
+            return False
+        label, printed = career_source.SOURCE_PAGES[item['table_page']]
+        if (row.get('label'), row.get('printed'), row.get('book_sha')) != (label, printed, career_source.SOURCE_SHA):
+            return False
+        page = item['content_page']
+        if page is not None and (row.get('content_label'), row.get('content_printed'), row.get('content_book_sha')) != (
+                career_source.SOURCE_PAGES[page][0], str(page + 1), career_source.SOURCE_SHA):
+            return False
+        return (row.get('status') == 'VERIFIED' and row.get('reviewer') == career_source.REVIEWER
+                and bool(row.get('reviewed_at')) and row.get('editor') in ('AUTO_FROM_DOCS', career_source.EDITOR))
+    complete = (len(rows) == 171 and len({(r['rule'], r['key'], r['code']) for r in rows}) == 171
+                and all(matches(r) for r in rows))
+    audit.check('D01 171 giao điểm/ô nghề và nội dung khớp nguồn đã duyệt', complete)
+    rule_ok = len(rules) == 2 and all(
+        r['status'] == 'VERIFIED' and r.get('reviewer') == career_source.REVIEWER
+        and bool(r.get('reviewed_at')) and r.get('verification_note') == career_source.RULE_NOTES[r['code']]
+        and r.get('description') == career_source.DESCRIPTIONS[r['code']]
+        and (r.get('pdf'), r.get('label'), r.get('book_sha')) == (
+            32 if r['code'] == career_source.CODES[0] else 35,
+            r['code'], career_source.SOURCE_SHA) for r in rules)
+    audit.check('D01 hai rule công danh có phạm vi và metadata duyệt', rule_ok)
+    audit.check('D01 V7 lưu riêng nguồn/nhãn bảng và đoạn', '7' in db['migrations'])
+    return complete and rule_ok and '7' in db['migrations']
+
+
+def audit_calendar(audit: Audit, db: dict) -> None:
+    rules = [r for r in db['rules'] if r['module']=='CALENDAR' and r['code']=='LUNAR-CONVERSION']
+    if not any(r['status']=='VERIFIED' for r in rules):
+        audit.note('C01 lịch chưa duyệt', 'Chưa áp dụng biên bản nguồn/thuật toán lịch.')
+        return
+    m = calendar_source.load_review()
+    sources = [x for x in db.get('external_sources',[]) if x['source_id']==m['sourceId']]
+    expected = {column:m[key] for column,key in zip(('source_id','title','version','section','url','sha256'),
+                ('sourceId','title','version','section','url','resourceSha256'))}
+    audit.check('C01 nguồn ngoài sách khớp phiên bản và hash bảng lịch', sources==[expected])
+    audit.check('C01 LUNAR-CONVERSION VERIFIED đúng phạm vi/biên bản', len(rules)==1 and all(
+        r['status']=='VERIFIED' and r.get('external_id')==m['sourceId'] and r.get('source') is None
+        and r.get('reviewer')==m['reviewer'] and bool(r.get('reviewed_at'))
+        and r.get('verification_note')==calendar_source.NOTE and r.get('description')==calendar_source.DESCRIPTION for r in rules))
+    audit.check('C01 migration V8 nguồn thuật toán ngoài sách', '8' in db['migrations'])
 
 
 def audit_database(audit: Audit, db: dict) -> None:
@@ -273,8 +376,9 @@ def audit_database(audit: Audit, db: dict) -> None:
                     bool(row.get("reviewed_at")) for row in maihoa_rules))
     tam_the_rules = [row for row in db["rules"] if
                      row["module"] == "TAM_THE" and row["code"] == "TT-GIO-SINH"]
-    audit.check("Quy tắc toàn bộ 12 tháng chưa bị nâng VERIFIED",
-                len(tam_the_rules) == 1 and tam_the_rules[0]["status"] == "BLOCKED_SOURCE_CONFLICT")
+    if not db.get('d02_entries'):
+        audit.check("Quy tắc toàn bộ 12 tháng cần biên bản D02 trước VERIFIED",
+                    len(tam_the_rules) == 1 and tam_the_rules[0]["status"] == "BLOCKED_SOURCE_CONFLICT")
     trigram_rules = [r for r in db["rules"] if r["module"] == "MAI_HOA" and r["code"] == "MH-TRIGRAM"]
     if any(r["status"] == "VERIFIED" for r in trigram_rules):
         audit.check("MH-TRIGRAM VERIFIED có metadata và nguồn đúng", len(trigram_rules) == 1 and all(
@@ -282,6 +386,12 @@ def audit_database(audit: Audit, db: dict) -> None:
             and (r.get("pdf"), r.get("printed"), r.get("label"), r.get("book_sha"))
             == (39, "44", "MH-QUAI-SO", SOURCE_SHA) for r in trigram_rules))
     object_rules = [r for r in db["rules"] if r["module"] == "MAI_HOA" and r["code"] == "MH-OBJECT-COUNT"]
+    time_rules = [r for r in db['rules'] if r['module']=='MAI_HOA' and r['code']=='MH-TIME']
+    audit.check('MH-TIME VERIFIED theo xac nhan chia6 cua chu du an', len(time_rules)==1 and all(
+        r['status']=='VERIFIED' and r.get('reviewer')==time_decision.REVIEWER and bool(r.get('reviewed_at'))
+        and r.get('verification_note')==time_decision.NOTE and r.get('description')==time_decision.DESCRIPTION
+        and (r.get('pdf'),r.get('printed'),r.get('label'),r.get('book_sha'))==(45,'50','MH-TIME-CONFLICT',SOURCE_SHA)
+        for r in time_rules))
     audit.check("OBJECT_COUNT vẫn giữ trạng thái nguồn đa nghĩa", len(object_rules) == 1
                 and object_rules[0]["status"] == "SOURCE_AMBIGUOUS")
     audit.check("Flyway V4 đã áp dụng", "4" in db["migrations"])
@@ -333,12 +443,111 @@ def audit_database(audit: Audit, db: dict) -> None:
             details = ("Đã nhập đủ 64 tên có nguồn; chờ TV2 đối chiếu độc lập."
                        if len(named) == 64 else "Đã có cấu trúc hào; còn thiếu tên truyền thống, trang nguồn và review độc lập.")
             audit.note("64 tên quẻ chưa VERIFIED", details)
-    if counts["interpretations"] == 0:
-        audit.note("Chưa có lời giải 64 quẻ", "Bảng interpretations còn trống; không sinh luận giải giả.")
+    audit_e01(audit, db)
     audit_year_elements(audit, db)
+    audit_calendar(audit, db)
     remaining = [] if len(db.get("year_elements", [])) == 60 else ["60 Can Chi"]
-    remaining.extend(["120 ô Số 13", "36 phần giờ", "tài lộc", "tình duyên"])
-    audit.note("Bảng Tam Thế còn thiếu", ", ".join(remaining) + "; cần nhập có trang nguồn và review. 51 ô Số 11 và 11 mốc giờ còn cần kiểm chéo.")
+    career_ready = audit_career(audit, db)
+    if not career_ready:
+        remaining.append('công danh D01')
+    if not audit_d02(audit, db):
+        remaining.extend(["D02: 36 phần giờ, tài lộc, tình duyên và 12 mốc"])
+    if remaining:
+        audit.note("Bảng Tam Thế còn thiếu", ", ".join(remaining) + "; cần nhập có trang nguồn và review.")
+
+
+def audit_e01(audit: Audit, db: dict) -> None:
+    rows = db.get('e01_glosses', [])
+    if not rows:
+        audit.note('E01 chưa nhập 64 nghĩa tên quẻ',
+                   'Chưa có NAME_GLOSS; dữ liệu này khác với lời luận quẻ/hào.')
+        return
+    expected = e01_source.load_review()
+    by_code = {row['hexagram_code']: row for row in expected}
+    unique = len(rows) == 64 and len({r['code'] for r in rows}) == 64
+    audit.check('E01 đủ 64 NAME_GLOSS không trùng mã', unique,
+                'Chỉ là nghĩa tên ngắn, chưa phải lời luận chi tiết.')
+
+    def match(row: dict) -> bool:
+        entry = by_code.get(row['code'])
+        if entry is None:
+            return False
+        return (row['content'] == entry['gloss'] and
+                row['source_order'] == int(entry['order']) and
+                row['printed_source_label'] == entry['printed_source_label'] and
+                row['pdf_page'] == int(entry['pdf_page']) and
+                row['printed_page'] == entry['printed_page'] and
+                row['source_label'] == 'MH-64-QUE-NAMES-' + entry['printed_page'] and
+                row['source_sha'] == SOURCE_SHA and row['rule_id'] is None and
+                row['note'] == e01_source.note(entry))
+
+    audit.check('E01 nghĩa tên và trang nguồn đúng CSV/manifest/PDF',
+                unique and all(match(row) for row in rows))
+    audit.check('E01 64 mục VERIFIED có biên bản cùng công cụ',
+                unique and all(row['status'] == 'VERIFIED' and
+                               row['editor'] == e01_source.EDITOR and
+                               row['reviewer'] == e01_source.REVIEWER and
+                               bool(row['reviewed_at']) for row in rows),
+                'Reviewer là Codex lượt hai, không đại diện xác minh độc lập của con người.')
+    forty_eight = [r for r in rows if r['source_order'] == 48]
+    audit.check('E01 mục 48 giữ chữ in Ích, chuẩn hóa thành Tỉnh',
+                len(forty_eight) == 1 and forty_eight[0]['code'] == 'H_KHAM_TON' and
+                forty_eight[0]['content'] == 'Giếng nước' and
+                forty_eight[0]['printed_source_label'] == 'Ích' and
+                forty_eight[0]['note'] == e01_source.note(by_code['H_KHAM_TON']))
+    audit.check('E01 Flyway V10 đã áp dụng', '10' in db['migrations'])
+
+
+def audit_d02(audit: Audit, db: dict) -> bool:
+    entries, anchors=d02_source.load_records()
+    actual=db.get('d02_entries',[])
+    if not actual: return False
+    expected={(e['rule'],e['key'],e['code']):e for e in entries}
+    content_ok=len(actual)==216 and len({(a['rule'],a['key'],a['code']) for a in actual})==216
+    pages_ok=content_ok
+    for a in actual:
+        e=expected.get((a['rule'],a['key'],a['code']))
+        content_ok = content_ok and e is not None and all(a.get(k)==e[k] for k in (
+            'title','content','table_page','content_page','table_label','heading')) and (
+            a.get('status')=='VERIFIED' and a.get('editor')==d02_source.EDITOR
+            and a.get('reviewer')==d02_source.REVIEWER and bool(a.get('reviewed_at')) and a.get('note')==e['note'])
+        pages_ok = pages_ok and e is not None and (
+            a.get('page_sources')==d02_source.page_sources(e) and a.get('table_sha')==d02_source.SOURCE_SHA
+            and a.get('content_sha')==d02_source.SOURCE_SHA
+            and a.get('table_source')==d02_source.source_label(e['table_page'])
+            and a.get('content_source')==d02_source.source_label(e['content_page'])
+            and a.get('table_printed')==str(e['table_page']+1) and a.get('content_printed')==str(e['content_page']+1))
+    audit.check('D02 216 ô/đoạn khớp nội dung và metadata duyệt',content_ok)
+    audit.check('D02 đủ chuỗi trang nguồn, gồm ba bài thơ qua hai trang',pages_ok)
+    rules_ok=True
+    for code in d02_source.CODES:
+        rows=[r for r in db['rules'] if r['module']=='TAM_THE' and r['code']==code]
+        label,page=d02_source.RULE_LOCATIONS[code]
+        rules_ok=rules_ok and len(rows)==1 and all(r.get('status')=='VERIFIED' and r.get('reviewer')==d02_source.REVIEWER
+            and bool(r.get('reviewed_at')) and r.get('verification_note')==d02_source.RULE_NOTES[code]
+            and r.get('description')==d02_source.DESCRIPTIONS[code]
+            and (r.get('label'),r.get('pdf'),r.get('printed'),r.get('book_sha'))==(label,page,str(page+1),d02_source.SOURCE_SHA) for r in rows)
+    audit.check('D02 bốn quy tắc VERIFIED đúng phạm vi/biên bản',rules_ok)
+    anchors_ok=len(db['anchors'])==12
+    for a in db['anchors']:
+        expected_anchor=next((x for x in anchors if int(x['month'])==a['month']),None)
+        anchors_ok=anchors_ok and expected_anchor is not None and (
+            a['start']==expected_anchor['start'] and a['source']==expected_anchor['source_branch']
+            and a['adopted']==expected_anchor['adopted_branch'] and a['pdf']==int(expected_anchor['primary_page'])
+            and a.get('label')==expected_anchor['primary_label'] and a.get('printed')==str(int(expected_anchor['primary_page'])+1)
+            and a.get('book_sha')==d02_source.SOURCE_SHA
+            and a['status']=='VERIFIED' and bool(a.get('reviewed_at'))
+            and a.get('reviewer')==('TV2 (project owner confirmation)' if a['month']==5 else d02_source.REVIEWER)
+            and a.get('verification_note')==('TV2 confirmation reported by project owner on 2026-10-23; source printed DAU, team adopts DAN only for month 5.' if a['month']==5 else d02_source.anchor_note(expected_anchor)))
+    audit.check('D02 12 mốc đã duyệt, giữ reviewer TV2 tháng 5',anchors_ok)
+    wealth=[a for a in actual if a['rule']==d02_source.CODES[0]]
+    coverage_ok=len(wealth)==120 and len({a['key'] for a in wealth})==60 and all(
+        sum(a['key']==key for a in wealth)==2 for key in {a['key'] for a in wealth})
+    audit.check('D02 tài lộc: 60 khóa có hai kết quả, 60 khóa không có trong nguồn',coverage_ok,
+                'Không diễn giải khóa thiếu thành số xấu; không dùng bảng khác bù tự động.')
+    migration_ok='9' in db['migrations']
+    audit.check('D02 migration V9 lưu đầy đủ nguồn nhiều trang',migration_ok)
+    return bool(content_ok and pages_ok and rules_ok and anchors_ok and coverage_ok and migration_ok)
 
 
 def main() -> int:

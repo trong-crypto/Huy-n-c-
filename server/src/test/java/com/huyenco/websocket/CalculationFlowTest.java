@@ -17,6 +17,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.support.MessageBuilder;
 
 class CalculationFlowTest {
+    static TamTheService unusedTamThe() {return new TamTheService(null,null,null);}
     static final ObjectMapper MAPPER = new ObjectMapper();
     static final String ID = "550e8400-e29b-41d4-a716-446655440002";
     static final String REQUEST = """
@@ -66,7 +67,7 @@ class CalculationFlowTest {
                 progress.report(ProgressEvent.Step.LOOKUP, "Reading");
                 return output;
             });
-            new CalculationController(sessions, MAPPER, service, new TamTheService()).calculateMaiHoa(request(REQUEST), "A");
+            new CalculationController(sessions, MAPPER, service, unusedTamThe()).calculateMaiHoa(request(REQUEST), "A");
             assertEquals(List.of(1,2,3,4), capture.progress().stream().map(ProgressEvent::sequence).toList());
             assertEquals(List.of(ProgressEvent.Step.ACCEPTED, ProgressEvent.Step.VALIDATING,
                     ProgressEvent.Step.CALCULATING, ProgressEvent.Step.LOOKUP), capture.progress().stream().map(ProgressEvent::step).toList());
@@ -84,7 +85,7 @@ class CalculationFlowTest {
         var capture = new Capture(); var output = result();
         try (var sessions = new CalculationSessions(new SimpMessagingTemplate(capture), 60000, 10, 10, 2)) {
             sessions.connect("A");
-            var controller = new CalculationController(sessions, MAPPER, service((p,g) -> output), new TamTheService());
+            var controller = new CalculationController(sessions, MAPPER, service((p,g) -> output), unusedTamThe());
             for (String json : List.of("{", REQUEST + " {}", "{\"requestId\":\"a\",\"requestId\":\"b\"}"))
                 controller.calculateMaiHoa(request(json), "A");
             controller.calculateMaiHoa(MessageBuilder.withPayload(new byte[]{(byte)0xff}).build(), "A");
@@ -105,7 +106,7 @@ class CalculationFlowTest {
         try (var sessions = new CalculationSessions(new SimpMessagingTemplate(capture), 60000, 10, 10, 2)) {
             sessions.connect("A");
             var controller = new CalculationController(sessions, MAPPER,
-                    service((p,g) -> { fail("Must not calculate invalid input"); return null; }), new TamTheService());
+                    service((p,g) -> { fail("Must not calculate invalid input"); return null; }), unusedTamThe());
             controller.calculateMaiHoa(request(REQUEST.replace(":2", ":7")), "A");
             assertEquals(2, capture.progress().size());
             assertEquals("INVALID_INPUT", capture.terminal().get(0).error().code());
@@ -124,7 +125,7 @@ class CalculationFlowTest {
                 try { assertTrue(release.await(3, TimeUnit.SECONDS)); }
                 catch (InterruptedException error) { throw new RuntimeException(error); }
                 return null; // A late success must not be sent, even if the worker ignores cancellation.
-            }), new TamTheService());
+            }), unusedTamThe());
             var future = executor.submit(() -> controller.calculateMaiHoa(request(REQUEST), "A"));
             assertTrue(entered.await(2, TimeUnit.SECONDS));
             assertTrue(capture.timeout.await(2, TimeUnit.SECONDS));
@@ -148,7 +149,7 @@ class CalculationFlowTest {
                 catch (InterruptedException error) { throw new RuntimeException(error); }
                 g.report(ProgressEvent.Step.LOOKUP, "Late progress");
                 return null;
-            }), new TamTheService());
+            }), unusedTamThe());
             var future = executor.submit(() -> controller.calculateMaiHoa(request(REQUEST), "A"));
             assertTrue(entered.await(2, TimeUnit.SECONDS));
             sessions.disconnect("A"); release.countDown(); future.get(2, TimeUnit.SECONDS);

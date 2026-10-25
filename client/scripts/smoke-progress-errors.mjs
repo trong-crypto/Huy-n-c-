@@ -79,10 +79,17 @@ try {
     }
     const invalid = await request(a, { ...linesPayload, movingLine: 7 });
     assert.equal(invalid.response.error.code, "INVALID_INPUT"); prefix(invalid, ["ACCEPTED", "VALIDATING"]);
-    const unavailable = await request(a, { method: "TIME", datetime: "2026-10-24T08:00:00+07:00" });
-    assert.equal(unavailable.response.error.code, "RULE_NOT_AVAILABLE"); prefix(unavailable, ["ACCEPTED", "VALIDATING"]);
+    const timed = await request(a, { method: "TIME", datetime: "2024-02-10T00:00:00+07:00" });
+    assert.equal(timed.response.status, "COMPLETED");
+    assert.equal(timed.response.data.ruleBasis, "TEAM_DECISION");
+    prefix(timed, ["ACCEPTED", "VALIDATING", "CALCULATING", "LOOKUP"]);
+    const invalidTime = await request(a, { method: "TIME", datetime: "2100-01-01T00:00:00+07:00" });
+    assert.equal(invalidTime.response.error.code, "INVALID_DATE"); prefix(invalidTime, ["ACCEPTED", "VALIDATING"]);
     const tamThe = await request(a, { birthDate: "2003-08-15", birthTime: "08:30", calendarType: "SOLAR", isLeapMonth: false }, "TAM_THE");
-    assert.equal(tamThe.response.error.code, "RULE_NOT_AVAILABLE"); prefix(tamThe, ["ACCEPTED", "VALIDATING"]);
+    assert.equal(tamThe.response.error.code, "RULE_NOT_AVAILABLE");
+    assert.equal(tamThe.response.error.ruleCode, "TT-TAI-LOC");
+    assert.equal(tamThe.response.error.reason, "LOOKUP_NOT_AVAILABLE");
+    prefix(tamThe, ["ACCEPTED", "VALIDATING", "CALCULATING", "LOOKUP"]);
     const valid = await request(a, linesPayload);
     assert.equal(valid.response.status, "COMPLETED"); prefix(valid, ["ACCEPTED", "VALIDATING", "CALCULATING", "LOOKUP"]);
     a.client.forceDisconnect();

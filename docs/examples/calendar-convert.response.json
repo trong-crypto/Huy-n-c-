@@ -1,0 +1,53 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440026",
+  "status": "COMPLETED",
+  "data": {
+    "ruleVersion": "1.0",
+    "ruleBasis": "SOURCE_VERIFIED",
+    "sourceStatus": "VERIFIED",
+    "rules": [
+      {
+        "ruleCode": "LUNAR-CONVERSION",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "C01-VN-FIXED7",
+            "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+            "version": "C01-1.0 / Time4J 5.9.4",
+            "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+            "printedPage": null,
+            "pdfPage": null,
+            "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+            "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+          }
+        ],
+        "decisionReferences": []
+      }
+    ],
+    "sourceReferences": [
+      {
+        "sourceId": "C01-VN-FIXED7",
+        "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+        "version": "C01-1.0 / Time4J 5.9.4",
+        "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+        "printedPage": null,
+        "pdfPage": null,
+        "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+        "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+      }
+    ],
+    "decisionReferences": [],
+    "solarDate": "2000-01-01",
+    "lunarDate": {
+      "year": 1999,
+      "month": 11,
+      "day": 25,
+      "isLeapMonth": false
+    },
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "error": null
+}

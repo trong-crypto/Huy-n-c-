@@ -1,5 +1,46 @@
 # Nhật ký quyết định
 
+## Xác nhận chủ dự án — MH-TIME chia6 đã duyệt
+
+Chủ dự án nhắc lại quyết định đã chốt: dùng tổng chia6, dư0→6. Ghi nhận **MH-TIME 1.0 VERIFIED trong phạm vi quy tắc dự án**, giữ bản in/trang nguồn và ghi đúng reviewer là chủ dự án xác nhận qua hội thoại, Codex ghi nhận. Không chờ thêm xác nhận hoặc ấn bản khác. Chính sách TEAM_DECISION giữ căn cứ hiệu chỉnh và quy ước dân sự; trạng thái nguồn phát ra của TIME là VERIFIED khi các rule phụ thuộc đã duyệt. Xem `28-TIME-OWNER-APPROVAL.md`; mục này thay quyết định giữ BLOCKED/chưa VERIFIED trong lịch sử phía dưới.
+
+## Bổ sung B04 - 24/10/2026
+
+**DEC-20261024-B04-CIVIL-TIME:** trong quyền quyết định TV2–TV3 đã giao, chốt TIME dùng UTC+7 cố định của C01; năm âm đổi tại Tết, ngày dân sự đổi00:00, Tý23:00–00:59; tháng nhuận dùng cùng số tháng và giữ cờ nhuận. Quy ước này được ghi riêng trong catalog/decisionReferences; không nhận là sách đã đặc tả đầy đủ múi giờ/lịch sử/nhuận.
+
+- Đã mở lại ảnh PDF43–45/in48–50 của Mai Hoa: công thức năm/tháng/ngày, cộng giờ và bảng chỉ số được giữ, câu cuối PDF45 vẫn xung đột chia8/6. Quyết định chia6 từ22/10 tiếp tục có hiệu lực. **Không nâng MH-TIME VERIFIED**; kết quả tổng TEAM_DECISION/BLOCKED_SOURCE_CONFLICT, có nguồn lịch C01 riêng.
+- Phạm vi kiểm sau chuẩn hóa ngày sang UTC+7, không dựa năm thô trong chuỗi input. Không echo datetime thô/question; lunarDate và các bước số học được trả theo hợp đồng. Tháng nhuận cùng số tháng là quyết định triển khai, không tự sửa trang scan.
+- TIME đã được nối vào service/registry/DB/STOMP; giữ envelope1.2, thêm fixture runtime và TIME_NUMBERS theo DTO đã có. TV1 nhận cảnh báo/cờ nhuận/ba quẻ/nguồn để tích hợp; không sửa giao diện.
+- 454 Java có DB/41 Python/17 fixtures/typecheck/11 test Client đạt; 51.840 tổ hợp số học và TIME66 terminal/248 progress thật; LINES/OBJECT_COUNT/B02 hồi quy đạt. Audit DB thật45/0 FAIL/2 PENDING. B04 không thêm migration hoặc duyệt DB; D02 tiếp theo. Xem `27-B04-TIME-HANDOFF.md`.
+
+## Bổ sung C01 - 24/10/2026
+
+- Chốt lịch tính UTC+7 cố định, Dương 1900-01-01…2099-12-31. Không phục dựng mọi lịch Việt lịch sử. Can Chi năm đổi tại Tết, ngày đổi tại 00:00, tháng nhuận giữ Can Chi tháng cùng số; không là Bát Tự tiết khí hoặc bảng giờ Tam Thế.
+- Bảng HND 0.8 ban đầu có 120 ngày khác Time4J sau 1968, bắt đầu năm 2054, và khác biệt lịch sử trước 1968. Chọn sinh toàn bộ dataset bằng Time4J 5.9.4 astronomy + quy luật UTC+7; giữ bản tham chiếu, không sửa tay để làm test đạt. Ghi rõ giới hạn mô hình thiên văn sát nửa đêm trong tương lai.
+- Time4J ở test/build time, không đưa thư viện vào runtime; source/hash/giấy phép lưu manifest và THIRD_PARTY_NOTICES. Decoder/Can Chi dẫn HND, giữ notice phi thương mại phù hợp bài tập lớn.
+- V8 lưu nguồn thuật toán ngoài sách riêng, không giả PDF. Đã sao lưu rồi duyệt LUNAR-CONVERSION đúng dataset trong huyenco; không thay trạng thái lời luận/quy tắc sách.
+- 447 Java có DB, 41 Python, 18 HTTP và 16 fixtures/typecheck đạt; bootstrap hai lần giữ metadata, 3 guard C01 đạt, audit DB thật 45 kiểm tra/0 FAIL/2 PENDING. Đối chiếu Time4J là cross-check cùng thư viện; 16 ngày HKO là ca nguồn riêng, không dùng HKO UTC+8 cho mọi ngày Việt. B04 tiếp theo. Biên bản `26-C01-CALENDAR-HANDOFF.md`.
+
+## Bổ sung D01 - 24/10/2026
+
+Codex thực hiện hai lượt đọc ảnh trong quyền TV2/TV3 đã được giao; ghi đúng reviewer cùng công cụ, không ghi là hai người kiểm độc lập. Biên bản `25-D01-CAREER-DATA.md` lưu phạm vi, hash và kết quả áp dụng vào huyenco.
+
+- Số 11: ảnh PDF32 ghi Thủy câu/chài **2,4,6,8,11**. Sửa lỗi nhập tháng 9 của seed thành tháng 8; chỉ loại ô legacy chưa duyệt nếu khớp toàn bộ dữ liệu cũ, không ghi đè ô đã duyệt/sửa khác.
+- Số 13: đủ 120 ô bảng và 12 đoạn đã đối chiếu lại; dùng tra bảng tường minh, kiểm dấu trừ khớp toàn bảng. Bốn cặp nhãn khác được giữ riêng và liên kết biên tập theo thứ tự nguồn (`POSITIONAL_EDITORIAL_LINK`), không tự sửa thành cùng một tên.
+- V7 chỉ bổ sung provenance đoạn/nhãn; duyệt qua biên bản/hash riêng. Đã sao lưu rồi nhập/VERIFIED 171 ô và 2 rule; không mở TamTheService hoặc sửa giao diện TV1.
+- Kiểm toán DB thật: 42 kiểm tra, 0 FAIL, 2 PENDING. 434 Java/38 Python đạt; bootstrap hai lần không đổi dữ liệu/giờ duyệt, guard dữ liệu và ca legacy đạt. C01 tiếp theo; tài lộc/tình duyên, 36 phần giờ và nghĩa tên quẻ còn task riêng.
+
+## Bổ sung S03 - 24/10/2026 (mốc khảo sát trước D01)
+
+Codex thực hiện trong phạm vi TV2/TV3 đã được chủ dự án giao quyền quyết định. Đây là chốt hướng triển khai sau khảo sát ảnh, không là duyệt lời luận hoặc bật rule runtime. Chi tiết/ca nguồn tại `24-S03-SOURCE-MAP.md`.
+
+- LOVE ban đầu dùng phần nam nữ chung cuối Tam Thế PDF63 và bảng PDF64, đoạn đến PDF67; hành mệnh + tháng âm, không bổ sung giới tính/người thứ hai. Các bảng riêng giới tính giữ là subrule khác.
+- CAREER Số 13 dùng bản chép 120 ô PDF35; loại công thức dấu cộng cũ vì sai chiều tra. Công thức dấu trừ chỉ là ứng viên rút gọn cần đối chiếu đủ ô.
+- WEALTH giữ tất cả giao điểm theo thứ tự; khóa không có hoặc nhãn chưa giải quyết phải báo chưa sẵn sàng, không tự điền/fallback sang nội dung khác chủ đề.
+- E01 chuẩn bị nội dung NAME_GLOSS cho tra cứu 64 quẻ từ PDF269-271; không coi là 64 bài luận dự đoán. Giữ riêng nhãn Ích tại vị trí quẻ Tỉnh, không đổi mã/tên đã duyệt ở S01.
+
+## Nhật ký trước S03
+
 | Ngày | Quyết định | Lý do | Ảnh hưởng | Người duyệt |
 | --- | --- | --- | --- | --- |
 | 2026-10-22 | Khung JSON/STOMP v1.0 là baseline; hợp đồng P0 v1.1 bổ sung LINES | Cho ba thành viên làm song song, giữ envelope và định tuyến phiên | Client, Server, tài liệu | Quyết định triển khai tại `09-DECISIONS-TO-START.md` |
@@ -36,6 +77,11 @@ Các dòng “chờ duyệt” là việc của nhóm, chưa được coi là qu
 
 
 ## Mã quyết định dùng trong hợp đồng v1.2
+
+**Ghi nhận triển khai D03 ngày 25/10:** TamTheService đã nối C01/S02/D01/D02 cho CAREER/WEALTH/LOVE, mở hai rule WEALTH/LOVE bằng SOURCE_VERIFIED và giữ kiểm từng bản ghi/nguồn. Đây là triển khai các cách tra đã chốt, không duyệt sách lại hoặc thay dữ liệu. CAREER gồm mọi nghề Số11 + một đoạn Số13; Số11 có câu tóm tắt ghi rõ là bảng, các đoạn giữ nguyên bản chép. Khóa Lộc không có trong nguồn trả RULE_NOT_AVAILABLE/LOOKUP_NOT_AVAILABLE cho cả request, không dùng fallback; birthTime kiểm định dạng nhưng không tác động ba bảng năm/tháng chung. Phản hồi thật, kiểm thử và phạm vi UI ở `30-D03-TAM-THE-HANDOFF.md`. Các dòng chưa triển khai D03 tại mốc cũ là lịch sử.
+
+- `DEC-20261025-D02-EDITORIAL` (25/10, Codex theo ủy quyền TV2 + TV3): giữ nhãn bảng Bất lộc/Bịch lộc và tiêu đề Bối Lộc/Bịnh Lộc; liên kết theo thứ tự cột 3/11 trong chuỗi 12 mục. Một chữ mờ Hưởng Lộc lưu `[CHU_MO]`, không đoán. LOVE lấy đúng tám câu, loại tóm tắt in nghiêng. Hồ sơ hai lượt cùng công cụ ở `data/tam_the_d02_review.json`, biên bản 29; không tuyên bố review độc lập.
+- `DEC-20261025-D02-HOUR-PARTS` (25/10, Codex theo quyền quyết định kỹ thuật đã giao): dùng Số 5 để kiểm giờ dù Số 8 dẫn “Số 4”; chia mỗi Chi 120 phút thành ba khoảng nửa kín 40 phút, quấn 24h ở độ chính xác phút. Giữ bản in Dậu và xác nhận TV2 dùng Dần tháng 5; PDF15 đêm tháng 11 in 3:40–5:30, triển khai 3:40–5:39 để tiếp 5:40, ghi rõ hiệu chỉnh. Catalog TT-GIO-SINH TEAM_DECISION; TT-36-PHAN SOURCE_VERIFIED chỉ duyệt nội dung, không duyệt 40 phút là chữ in. **D02 đã VERIFIED đủ bốn quy tắc và 12 mốc theo phạm vi**, thay tình trạng BLOCKED toàn bảng giờ của mốc 23/10 bên trên.
 
 - `DEC-20261022-MH-TIME-MOD6`: quyết định ngày 22/10 chọn tổng chia 6 cho TIME; giữ chữ in trừ 8 ở PDF 45.
 - `DEC-20261022-MH-OBJECT-COUNT`: quyết định ngày 22/10 dùng số vật gốc cộng hourIndex rồi chia 6; giữ ghi chú cụm “số quẻ” PDF 46 đa nghĩa.

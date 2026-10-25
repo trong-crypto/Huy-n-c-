@@ -19,8 +19,44 @@ class ContractExamplesTest {
     }
 
     @Test
+    void capturedCalendarFixturesMatchJavaDtosAndRealInputValidation() throws Exception {
+        var convert = example("calendar-convert.response.json").get("data");
+        var result = MAPPER.treeToValue(convert, com.huyenco.calendar.CalendarResult.class);
+        assertEquals(convert, MAPPER.valueToTree(result));
+        assertEquals("2000-01-01", result.solarDate());
+        assertEquals(1999, result.lunarDate().year());
+        var can = example("calendar-can-chi.response.json").get("data");
+        var canResult = MAPPER.treeToValue(can, com.huyenco.calendar.CanChiResult.class);
+        assertEquals(can, MAPPER.valueToTree(canResult));
+        assertEquals("GIAP", canResult.hour().stem());
+        assertDoesNotThrow(() -> com.huyenco.calendar.CalendarInput.parse(example("calendar-can-chi.request.json").get("date")));
+        assertEquals("INVALID_DATE", example("calendar-invalid-date.response.json").path("error").path("code").asText());
+        for(String name:List.of("tam-the","tam-the-career","tam-the-wealth","tam-the-love")) {
+            var body=example(name+".response.json").get("data");
+            var tamThe=MAPPER.treeToValue(body,com.huyenco.common.dto.TamTheResult.class);
+            assertEquals(body,MAPPER.valueToTree(tamThe));
+            assertEquals(RuleBasis.SOURCE_VERIFIED,tamThe.ruleBasis());
+            assertEquals(SourceStatus.VERIFIED,tamThe.sourceStatus());
+            assertTrue(tamThe.categories().stream().allMatch(c->!c.entries().isEmpty()));
+        }
+    }
+
+    @Test
+    void timeFixtureKeepsCalendarEvidenceAndUnresolvedBookConflict() throws Exception {
+        var response = example("mai-hoa-time.response.json");
+        var result = MAPPER.treeToValue(response.get("data"), MaiHoaResult.class);
+        assertEquals(response.get("data"),MAPPER.valueToTree(result));
+        assertEquals("TIME",result.method());
+        assertEquals(RuleBasis.TEAM_DECISION,result.ruleBasis());
+        assertEquals(SourceStatus.VERIFIED,result.sourceStatus());
+        assertEquals("C01-VN-FIXED7",result.sourceReferences().get(0).sourceId());
+        assertEquals(2024,result.lunarDate().year());
+        assertEquals(2,result.movingLine());
+    }
+
+    @Test
     void allStompRequestsFollowTheActualValidator() throws Exception {
-        for (String name : List.of("mai-hoa-lines", "mai-hoa-object-count", "mai-hoa-time", "tam-the", "tam-the-career")) {
+        for (String name : List.of("mai-hoa-lines", "mai-hoa-object-count", "mai-hoa-time", "tam-the", "tam-the-career", "tam-the-wealth", "tam-the-love", "tam-the-no-match")) {
             JsonNode request = example(name + ".request.json");
             assertDoesNotThrow(() -> ContractValidator.validate(request, request.path("type").asText()), name);
         }
@@ -64,5 +100,7 @@ class ContractExamplesTest {
             assertEquals("RULE_NOT_AVAILABLE", failed.path("error").path("code").asText());
             assertTrue(failed.path("error").path("reason").isTextual());
         }
+        assertEquals("TT-TAI-LOC",example("tam-the-unavailable.response.json").path("error").path("ruleCode").asText());
+        assertEquals("LOOKUP_NOT_AVAILABLE",example("tam-the-unavailable.response.json").path("error").path("reason").asText());
     }
 }

@@ -1,0 +1,141 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440001",
+  "status": "COMPLETED",
+  "data": {
+    "id": "905b2f9f-c230-4887-9369-7b5500964f59",
+    "type": "MAI_HOA",
+    "title": "Tra cứu Mai Hoa %_",
+    "createdAt": "2026-10-25T08:51:41.418883Z",
+    "ruleBasis": "SOURCE_VERIFIED",
+    "result": {
+      "rules": [
+        {
+          "ruleCode": "MH-MUTUAL",
+          "ruleBasis": "SOURCE_VERIFIED",
+          "ruleVersion": "1.0",
+          "sourceStatus": "VERIFIED",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceReferences": [
+            {
+              "url": null,
+              "title": "Mai Hoa Dịch Số",
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "pdfPage": 42,
+              "section": "MH-QUE-HO-BIEN",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "sourceId": "MH",
+              "printedPage": "47"
+            }
+          ],
+          "decisionReferences": []
+        },
+        {
+          "ruleCode": "MH-CHANGE",
+          "ruleBasis": "SOURCE_VERIFIED",
+          "ruleVersion": "1.0",
+          "sourceStatus": "VERIFIED",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceReferences": [
+            {
+              "url": null,
+              "title": "Mai Hoa Dịch Số",
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "pdfPage": 41,
+              "section": "MH-HAO-6",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "sourceId": "MH",
+              "printedPage": "46"
+            }
+          ],
+          "decisionReferences": []
+        }
+      ],
+      "method": "LINES",
+      "lunarDate": null,
+      "ruleBasis": "SOURCE_VERIFIED",
+      "movingLine": 2,
+      "ruleVersion": "1.0",
+      "sourceStatus": "VERIFIED",
+      "mutualHexagram": {
+        "code": "H_LY_KHAM",
+        "name": "Vị tế",
+        "nameStatus": "VERIFIED",
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      },
+      "changedHexagram": {
+        "code": "H_KHAM_CAN",
+        "name": "Nhu",
+        "nameStatus": "VERIFIED",
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          false
+        ]
+      },
+      "primaryHexagram": {
+        "code": "H_KHAM_LY",
+        "name": "Ký tế",
+        "nameStatus": "VERIFIED",
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      },
+      "calculationSteps": [
+        {
+          "code": "MUTUAL",
+          "values": {
+            "lowerLineStart": 2,
+            "upperLineStart": 3
+          },
+          "message": "Hỗ hạ lấy hào 2–4; hỗ thượng lấy hào 3–5."
+        },
+        {
+          "code": "CHANGE",
+          "values": {
+            "movingLine": 2
+          },
+          "message": "Đảo duy nhất hào động tính từ dưới lên."
+        }
+      ],
+      "sourceReferences": [
+        {
+          "url": null,
+          "title": "Mai Hoa Dịch Số",
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "pdfPage": 42,
+          "section": "MH-QUE-HO-BIEN",
+          "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+          "sourceId": "MH",
+          "printedPage": "47"
+        },
+        {
+          "url": null,
+          "title": "Mai Hoa Dịch Số",
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "pdfPage": 41,
+          "section": "MH-HAO-6",
+          "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+          "sourceId": "MH",
+          "printedPage": "46"
+        }
+      ],
+      "decisionReferences": []
+    }
+  },
+  "error": null
+}

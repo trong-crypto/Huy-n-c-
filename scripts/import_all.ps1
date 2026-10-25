@@ -137,6 +137,12 @@ try {
         --port $DbPort --database $DbName --user $DbUser --psql $script:psql --pdf-dir $PdfDir
     if ($LASTEXITCODE -ne 0) { throw 'Chua duyet ten: dung lai de kiem bien ban/nguon/ban ghi duoc bao ve.' }
 
+    Write-Host 'E01: Nhap va duyet dung 64 nghia ten que theo PDF/CSV/manifest...'
+    & python (Join-Path $PSScriptRoot 'import_hexagram_glosses.py') --apply --review `
+        --host $DbHost --port $DbPort --database $DbName --user $DbUser `
+        --psql $script:psql --pdf-dir $PdfDir
+    if ($LASTEXITCODE -ne 0) { throw 'E01 khong duoc xac nhan; da bao ve ban ghi tren DB.' }
+
     Write-Host 'Ap dung bien ban 8 quai ngay 24/10; khong duyet nguon OBJECT_COUNT...'
     & python (Join-Path $PSScriptRoot 'verify_trigram_rule.py') --apply --host $DbHost `
         --port $DbPort --database $DbName --user $DbUser --psql $script:psql --pdf-dir $PdfDir
@@ -151,6 +157,33 @@ try {
         --port $DbPort --database $DbName --user $DbUser --psql $script:psql --pdf-dir $PdfDir
     if ($LASTEXITCODE -ne 0) { throw 'Chua duyet bang 60 Can Chi; kiem bien ban va trang nguon.' }
 
+    Write-Host 'D01: Nhap bang nghe, sua dung o Thuy cau/chai thang 8...'
+    & python (Join-Path $PSScriptRoot 'import_tam_the_career.py') --apply --host $DbHost `
+        --port $DbPort --database $DbName --user $DbUser --psql $script:psql --pdf-dir $PdfDir
+    if ($LASTEXITCODE -ne 0) { throw 'Nhap cong danh D01 that bai; du lieu duoc bao ve khong bi ghi de.' }
+    Write-Host 'D01: Ap dung bien ban 51 giao diem, 120 o nghe va 12 doan...'
+    & python (Join-Path $PSScriptRoot 'import_tam_the_career.py') --apply --review --host $DbHost `
+        --port $DbPort --database $DbName --user $DbUser --psql $script:psql --pdf-dir $PdfDir
+    if ($LASTEXITCODE -ne 0) { throw 'Chua duyet D01; kiem bien ban, nhan nguon va tung o.' }
+
+    Write-Host 'C01: Ap dung bien ban lich UTC+7, nguon thuat toan ngoai sach...'
+    & python (Join-Path $PSScriptRoot 'verify_calendar_rule.py') --apply --host $DbHost `
+        --port $DbPort --database $DbName --user $DbUser --psql $script:psql
+    if ($LASTEXITCODE -ne 0) { throw 'Chua duyet lich C01; kiem nguon/hash/bien ban.' }
+
+    Write-Host 'Ghi nhan chu du an da duyet MH-TIME chia6...'
+    & python (Join-Path $PSScriptRoot 'verify_time_decision.py') --apply --host $DbHost `
+        --port $DbPort --database $DbName --user $DbUser --psql $script:psql
+    if ($LASTEXITCODE -ne 0) { throw 'Khong the ghi nhan quyet dinh MH-TIME; nguon/ban ghi da doi.' }
+
+    Write-Host 'D02: Nhap tai loc, tinh duyen chung, 36 phan gio va nguon nhieu trang...'
+    & python (Join-Path $PSScriptRoot 'import_tam_the_d02.py') --apply --host $DbHost `
+        --port $DbPort --database $DbName --user $DbUser --psql $script:psql --pdf-dir $PdfDir
+    if ($LASTEXITCODE -ne 0) { throw 'Nhap D02 that bai; kiem du lieu/nguon duoc bao ve.' }
+    & python (Join-Path $PSScriptRoot 'import_tam_the_d02.py') --apply --review --host $DbHost `
+        --port $DbPort --database $DbName --user $DbUser --psql $script:psql --pdf-dir $PdfDir
+    if ($LASTEXITCODE -ne 0) { throw 'Chua duyet D02; kiem bien ban va chuoi trang nguon.' }
+
     Write-Host '7/8: Kiem dem ban ghi...'
     $counts = Invoke-Scalar @'
 SELECT 'source_books', count(*) FROM source_books
@@ -159,9 +192,12 @@ UNION ALL SELECT 'calculation_rules', count(*) FROM calculation_rules
 UNION ALL SELECT 'trigrams', count(*) FROM trigrams
 UNION ALL SELECT 'tam_the_hour_anchors', count(*) FROM tam_the_hour_anchors
 UNION ALL SELECT 'tam_the_lookup_entries', count(*) FROM tam_the_lookup_entries
+UNION ALL SELECT 'tam_the_lookup_source_pages', count(*) FROM tam_the_lookup_source_pages
 UNION ALL SELECT 'hexagrams', count(*) FROM hexagrams
 UNION ALL SELECT 'hexagram_lines', count(*) FROM hexagram_lines
 UNION ALL SELECT 'interpretations', count(*) FROM interpretations
+UNION ALL SELECT 'name_gloss_verified', count(*) FROM interpretations
+    WHERE category='NAME_GLOSS' AND verification_status='VERIFIED'
 ORDER BY 1;
 '@
     Write-Host $counts

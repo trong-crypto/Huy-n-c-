@@ -11,5 +11,10 @@ huyenco:
   max-calculation-sessions: ${MAX_CALCULATION_SESSIONS:1024}
   max-active-calculations: ${MAX_ACTIVE_CALCULATIONS:1000}
   max-active-per-session: ${MAX_ACTIVE_PER_SESSION:16}
+  history-result-ttl-seconds: ${HISTORY_RESULT_TTL_SECONDS:900}
+  history-result-max-entries: ${HISTORY_RESULT_MAX_ENTRIES:10000}
+  history-result-max-bytes: ${HISTORY_RESULT_MAX_BYTES:33554432}
+  history-max-per-owner: ${HISTORY_MAX_PER_OWNER:1000}
+  session-secure-cookie: ${SESSION_SECURE_COOKIE:false}
 
 

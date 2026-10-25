@@ -72,7 +72,7 @@ public class CalculationController {
             run.report(Step.VALIDATING, "Đang kiểm tra đầu vào và điều kiện nguồn.");
             ContractValidator.validate(request, type);
             Object result = "MAI_HOA".equals(type) ? maiHoa.calculate(request.get("payload"), run)
-                    : tamThe.calculate(request.get("payload"));
+                    : tamThe.calculate(request.get("payload"), run);
             run.complete(result);
         } catch (CalculationSessions.Stopped ignored) {
             // The deadline/disconnect already ended this request. Never send another terminal result.

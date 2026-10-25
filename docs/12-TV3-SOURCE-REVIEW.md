@@ -2,6 +2,12 @@
 
 ## 1. Phạm vi và cách xác nhận
 
+**Cập nhật D02 ngày 25/10:** đã đối chiếu ảnh hai lượt cùng Codex và nhập/VERIFIED dữ liệu Lộc 120 giao điểm/12 đoạn, tình duyên chung 60 ô/12 bài tám câu, 36 đoạn giờ và đủ 12 mốc + bốn quy tắc. Huyenco V9/447 ô/33 mục nguồn, 231 liên kết trang nội dung D02; audit 0 FAIL/1 PENDING (E01). Giữ reviewer TV2 tháng 5, chữ mờ Hưởng Lộc và nhãn khác; 40 phút là quy ước nhóm, không phải nguyên văn đã xác minh. Những dòng chưa nhập/chưa duyệt của mốc 23/10 dưới đây là lịch sử; trạng thái mới xem `29-D02-TAM-THE-DATA.md`.
+
+**Cập nhật D01 ngày 24/10:** đã đọc lại toàn trang PDF32/35/36 hai lượt cùng Codex, đối chiếu/nhập/VERIFIED 51 giao điểm Số 11, 120 ô Số 13, 12 đoạn và hai quy tắc công danh. Sửa seed Thủy câu/chài tháng 9 thành tháng 8; giữ riêng nhãn cột/đoạn và liên kết biên tập theo thứ tự nguồn. Theo phân quyền mới ở tài liệu 15, reviewer ghi đúng cùng công cụ lượt hai, không giả danh TV2 độc lập. Biên bản 23/10 và mốc S03 bên dưới được giữ làm lịch sử; xem trạng thái hiện tại trong `25-D01-CAREER-DATA.md`.
+
+**Cập nhật S03 ngày 24/10:** đã tìm được tài lộc PDF 41-42/in42-43, tình duyên chung cuối PDF 63 đến PDF 67/in64-68 và nghĩa tên 64 quẻ Mai Hoa PDF 269-271/in276-278. Các dòng SOURCE_NOT_LOCATED và việc chưa nhập/chưa duyệt trong biên bản 23/10 bên dưới là lịch sử; trạng thái nhập/duyệt hiện tại xem S01/S02 và biên bản mới `24-S03-SOURCE-MAP.md`. S03 chưa nhập DB hoặc nâng VERIFIED. Đã phát hiện sai chiều công thức nghề Số 13 và điểm nhãn Tỉnh/Ích ở nguồn nghĩa tên; không dùng số lượng bản ghi để che các vấn đề này.
+
 Nguồn dùng đúng hai PDF trong thư mục Downloads của thành viên 3. Số trang **PDF** tính từ 1, khác với **trang in**. Đã quan sát trực tiếp các ảnh PDF 41–43 của *Mai Hoa Dịch Số* và PDF 12–15 của *Diễn Cầm Tam Thế Diễn Nghĩa*; thông tin nền về bảng nghề Số 11 lấy từ `docs/05-TAMTHE-RULES.md` và bộ seed, **chưa phải kết quả kiểm chéo toàn trang**. Dấu SHA-256 mỗi PDF do `scripts/import_book_knowledge.py` tính để phân biệt ấn bản.
 
 `SOURCE_LOCATED`: đã tìm trang liên quan. `SOURCE_AMBIGUOUS`: có nhiều cách hiểu. `BLOCKED_SOURCE_CONFLICT`: xung đột bản in/quyết định nhóm. Chỉ chuyển thành `VERIFIED` sau khi **TV2 kiểm độc lập, TV3 đối chiếu lại và ghi biên bản**. Chạy code qua test không thay thế việc này.

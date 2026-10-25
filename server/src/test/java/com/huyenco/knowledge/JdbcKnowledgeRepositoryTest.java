@@ -66,11 +66,17 @@ class JdbcKnowledgeRepositoryTest {
             var registry = context.getBean(RuleRegistry.class);
             assertEquals(RuleBasis.SOURCE_VERIFIED, registry.authorize("MH-CHANGE", RulePurpose.CALCULATION).ruleBasis());
             assertEquals(SourceStatus.SOURCE_AMBIGUOUS, registry.authorize("MH-OBJECT-COUNT", RulePurpose.CALCULATION).sourceStatus());
-            assertEquals(SourceStatus.BLOCKED_SOURCE_CONFLICT, registry.authorize("MH-TIME", RulePurpose.CALCULATION).sourceStatus());
+            assertEquals(SourceStatus.VERIFIED, registry.authorize("MH-TIME", RulePurpose.CALCULATION).sourceStatus());
             assertEquals(RuleBasis.SOURCE_VERIFIED, registry.authorize("MH-TRIGRAM", RulePurpose.CALCULATION).ruleBasis());
             assertEquals(39, repository.find("MH-TRIGRAM").orElseThrow().sourceReferences().get(0).pdfPage());
             assertEquals(RuleBasis.SOURCE_VERIFIED, registry.authorize("TT-NGU-HANH", RulePurpose.CALCULATION).ruleBasis());
             assertEquals(11, repository.find("TT-NGU-HANH").orElseThrow().sourceReferences().get(0).pdfPage());
+            var calendarRule = registry.authorize("LUNAR-CONVERSION", RulePurpose.CALCULATION);
+            assertEquals(SourceStatus.VERIFIED, calendarRule.sourceStatus());
+            assertEquals("C01-VN-FIXED7", calendarRule.sourceReferences().get(0).sourceId());
+            assertNull(calendarRule.sourceReferences().get(0).pdfPage());
+            var calendar = new com.huyenco.calendar.CalendarService(new com.huyenco.calendar.VietnameseLunarCalendar(), registry);
+            assertEquals("2023-03-22", calendar.convert(new com.huyenco.calendar.CalendarInput("LUNAR", 2023, 2, 1, true)).solarDate());
             assertTrue(repository.find("unknown' OR 1=1 --").isEmpty());
         }
     }
@@ -116,10 +122,11 @@ class JdbcKnowledgeRepositoryTest {
         var report = repository.readiness();
         assertEquals("READY", report.status(), report.toString());
         assertFalse(report.businessFeaturesReady());
-        assertEquals(4L, report.counts().get("verified_rules"));
+        assertEquals(12L, report.counts().get("verified_rules"));
         assertEquals(64L, report.counts().get("verified_hexagram_names"));
         assertEquals(14, report.rules().size());
-        assertTrue(report.pending().contains("INTERPRETATIONS_MISSING"));
+        assertEquals(64L, report.counts().get("interpretations"));
+        assertFalse(report.pending().contains("INTERPRETATIONS_MISSING"));
         try (var connection = new Connections(false).getConnection(); var statement = connection.createStatement()) {
             String toggle = "UPDATE hexagram_lines SET is_yang=NOT is_yang WHERE hexagram_code='H_CAN_CAN' AND line_number=1";
             assertEquals(1, statement.executeUpdate(toggle));
@@ -129,6 +136,96 @@ class JdbcKnowledgeRepositoryTest {
             } finally { statement.executeUpdate(toggle); }
         }
         assertEquals("READY", repository.readiness().status());
+    }
+
+    @Test
+    @EnabledIfEnvironmentVariable(named="HUYENCO_TEST_DB_URL", matches=".+")
+    void d02KeepsWealthMultiplicityLoveContinuationsAndOriginalMonthFiveReview() throws Exception {
+        try (var connection = new Connections(false).getConnection(); var statement = connection.createStatement()) {
+            try (var rows = statement.executeQuery("""
+                SELECT r.rule_code,count(*) AS n,count(DISTINCT e.lookup_key) AS keys,
+                count(*) FILTER(WHERE e.verification_status='VERIFIED' AND e.reviewed_at IS NOT NULL) AS reviewed
+                FROM tam_the_lookup_entries e JOIN calculation_rules r ON r.id=e.rule_id
+                WHERE r.rule_version='1.0' AND r.rule_code IN('TT-TAI-LOC','TT-TINH-DUYEN','TT-36-PHAN') GROUP BY r.rule_code
+                """)) {
+                int groups=0;
+                while(rows.next()) {
+                    groups++;
+                    int expected=rows.getString(1).equals("TT-TAI-LOC")?120:rows.getString(1).equals("TT-TINH-DUYEN")?60:36;
+                    assertEquals(expected,rows.getInt("n"));assertEquals(expected,rows.getInt("reviewed"));
+                    assertEquals(Math.min(expected,60),rows.getInt("keys"));
+                }
+                assertEquals(3,groups);
+            }
+            try (var rows=statement.executeQuery("""
+                SELECT e.lookup_key,e.result_code,e.description,string_agg(s.pdf_page::text,',' ORDER BY p.page_order) AS pages
+                FROM tam_the_lookup_entries e JOIN calculation_rules r ON r.id=e.rule_id
+                JOIN tam_the_lookup_source_pages p ON p.entry_id=e.id JOIN source_sections s ON s.id=p.source_section_id
+                WHERE r.rule_code='TT-TINH-DUYEN' AND e.result_code='LOVE_C03'
+                GROUP BY e.id
+                """)) {
+                int keys=0;
+                while(rows.next()) {keys++;assertEquals("64,65",rows.getString("pages"));assertEquals(8,rows.getString("description").lines().count());}
+                assertEquals(5,keys);
+            }
+            try (var rows=statement.executeQuery("SELECT source_branch,adopted_branch,reviewer FROM tam_the_hour_anchors WHERE lunar_month=5")) {
+                assertTrue(rows.next());assertEquals("DAU",rows.getString(1));assertEquals("DAN",rows.getString(2));
+                assertEquals("TV2 (project owner confirmation)",rows.getString(3));
+            }
+        }
+    }
+
+    @Test
+    @EnabledIfEnvironmentVariable(named="HUYENCO_TEST_DB_URL", matches=".+")
+    void careerDataPreservesAllMatchesPassageSourcesAndPrintedHeadings() throws Exception {
+        var career13 = new java.util.HashMap<String, String>();
+        var thuy8 = new java.util.HashSet<String>();
+        int career11 = 0;
+        try (var connection = new Connections(false).getConnection(); var statement = connection.createStatement();
+             var rows = statement.executeQuery("""
+                 SELECT e.*,r.rule_code,s.pdf_page,cs.pdf_page AS content_pdf
+                 FROM tam_the_lookup_entries e JOIN calculation_rules r ON r.id=e.rule_id
+                 JOIN source_sections s ON s.id=e.source_section_id
+                 LEFT JOIN source_sections cs ON cs.id=e.content_source_section_id
+                 WHERE r.module='TAM_THE' AND r.rule_version='1.0'
+                 AND r.rule_code IN('TT-CONG-DANH-11','TT-CONG-DANH-13')
+                 """)) {
+            while (rows.next()) {
+                assertEquals("VERIFIED", rows.getString("verification_status"));
+                assertTrue(rows.getString("reviewer").contains("same-tool second pass"));
+                assertNotNull(rows.getTimestamp("reviewed_at"));
+                String key = rows.getString("lookup_key");
+                if (rows.getString("rule_code").equals("TT-CONG-DANH-11")) {
+                    career11++;
+                    assertEquals(32, rows.getInt("pdf_page"));
+                    assertNull(rows.getString("description"));
+                    if (key.equals("ELEMENT:THUY|MONTH:08")) thuy8.add(rows.getString("result_code"));
+                    assertFalse(key.equals("ELEMENT:THUY|MONTH:09") && rows.getString("result_code").equals("CAU_CHAI"));
+                } else {
+                    assertNull(career13.put(key, rows.getString("result_code")));
+                    assertEquals(35, rows.getInt("pdf_page"));
+                    assertTrue(java.util.Set.of(35,36).contains(rows.getInt("content_pdf")));
+                    assertFalse(rows.getString("description").isBlank());
+                    assertFalse(rows.getString("source_table_label").isBlank());
+                    assertFalse(rows.getString("source_content_heading").isBlank());
+                    if (key.equals("STEM:AT|MONTH:01")) {
+                        assertEquals("Thứ Tác", rows.getString("source_table_label"));
+                        assertEquals("Thủ Tất", rows.getString("source_content_heading"));
+                        assertTrue(rows.getString("description").contains("trồng răng"));
+                    }
+                }
+            }
+        }
+        assertEquals(51, career11);
+        assertEquals(java.util.Set.of("MUA_BAN", "CAU_CHAI"), thuy8);
+        assertEquals(120, career13.size());
+        assertEquals("CAREER13_C12", career13.get("STEM:AT|MONTH:01"));
+        assertEquals("CAREER13_C04", career13.get("STEM:QUY|MONTH:01"));
+        var repository = new JdbcKnowledgeRepository(new Connections(false), catalog());
+        for (String code : java.util.List.of("TT-CONG-DANH-11", "TT-CONG-DANH-13"))
+            assertEquals(SourceStatus.VERIFIED, repository.find(code).orElseThrow().sourceStatus());
+        // Source data availability does not implement TamTheService or the calendar.
+        assertFalse(repository.readiness().businessFeaturesReady());
     }
 
     @Test

@@ -51,7 +51,9 @@ class RuleRegistryTest {
                 catalog.all().stream().map(RuleDefinition::ruleCode).collect(java.util.stream.Collectors.toSet()));
         assertEquals(ExecutionPolicy.SOURCE_VERIFIED, catalog.find("MH-MUTUAL").orElseThrow().executionPolicy());
         assertEquals(ExecutionPolicy.TEAM_DECISION, catalog.find("MH-OBJECT-COUNT").orElseThrow().executionPolicy());
-        assertEquals(ExecutionPolicy.DISABLED, catalog.find("TT-TAI-LOC").orElseThrow().executionPolicy());
+        assertEquals(ExecutionPolicy.SOURCE_VERIFIED, catalog.find("TT-TAI-LOC").orElseThrow().executionPolicy());
+        assertEquals(ExecutionPolicy.TEAM_DECISION, catalog.find("TT-GIO-SINH").orElseThrow().executionPolicy());
+        assertEquals("DEC-20261025-D02-HOUR-PARTS", catalog.find("TT-GIO-SINH").orElseThrow().decisionReferences().get(0).decisionId());
     }
 
     @Test

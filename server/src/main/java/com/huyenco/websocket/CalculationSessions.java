@@ -3,6 +3,9 @@ package com.huyenco.websocket;
 import com.huyenco.common.dto.ApiResponse;
 import com.huyenco.common.dto.CalculationProgress;
 import com.huyenco.common.dto.ProgressEvent;
+import com.huyenco.history.CompletedResults;
+import com.huyenco.history.HistoryStore;
+import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.annotation.PreDestroy;
 import java.util.*;
 import java.util.concurrent.ScheduledFuture;
@@ -24,6 +27,8 @@ public class CalculationSessions implements AutoCloseable {
     private final long timeoutMillis;
     private final int maxSessions, maxActive, maxPerSession;
     private final Map<String, Set<Run>> sessions = new HashMap<>();
+    private final Map<String, HistoryStore.Owner> owners = new HashMap<>();
+    private CompletedResults completedResults;
     private int active;
     private boolean closing;
 
@@ -49,10 +54,18 @@ public class CalculationSessions implements AutoCloseable {
     }
 
     public synchronized boolean connect(String sessionId) {
+        return connect(sessionId,null);
+    }
+
+    @Autowired
+    public void historyResults(CompletedResults results) { this.completedResults=results; }
+
+    public synchronized boolean connect(String sessionId,HistoryStore.Owner owner) {
         if (closing || sessionId == null) return false;
         if (sessions.containsKey(sessionId)) return true;
         if (sessions.size() >= maxSessions) return false;
         sessions.put(sessionId, new HashSet<>());
+        if(owner!=null)owners.put(sessionId,owner);
         return true;
     }
 
@@ -61,7 +74,7 @@ public class CalculationSessions implements AutoCloseable {
         var runs = sessions.get(sessionId);
         if (runs == null) return null; // Already disconnected; never recreate a closed session.
         if (active >= maxActive || runs.size() >= maxPerSession) throw new Busy();
-        var run = new Run(sessionId, requestId, type);
+        var run = new Run(sessionId, requestId, type,owners.get(sessionId));
         runs.add(run);
         active++;
         run.deadline = deadlines.schedule(() -> run.fail("PROCESSING_TIMEOUT", "Yêu cầu vượt thời gian xử lý."),
@@ -73,6 +86,7 @@ public class CalculationSessions implements AutoCloseable {
         Set<Run> removed;
         synchronized (this) {
             removed = sessions.remove(sessionId);
+            owners.remove(sessionId);
         }
         if (removed != null) removed.forEach(Run::cancel);
     }
@@ -108,14 +122,16 @@ public class CalculationSessions implements AutoCloseable {
 
     public final class Run implements CalculationProgress {
         private final String sessionId, requestId, type;
+        private final HistoryStore.Owner owner;
         private int sequence;
         private boolean terminal;
         private ScheduledFuture<?> deadline;
 
-        private Run(String sessionId, String requestId, String type) {
+        private Run(String sessionId, String requestId, String type,HistoryStore.Owner owner) {
             this.sessionId = sessionId;
             this.requestId = requestId;
             this.type = type;
+            this.owner = owner;
         }
 
         @Override
@@ -126,6 +142,8 @@ public class CalculationSessions implements AutoCloseable {
         }
 
         public synchronized void complete(Object data) {
+            if(terminal)return;
+            if(completedResults!=null)completedResults.capture(owner,requestId,type,data);
             finish("/queue/results", ApiResponse.completed(requestId, type, data));
         }
 

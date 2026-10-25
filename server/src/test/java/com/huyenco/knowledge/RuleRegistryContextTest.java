@@ -15,7 +15,9 @@ class RuleRegistryContextTest {
     void defaultServerStartsWithCatalogButDoesNotInventDatabaseApprovals() {
         try (var context = new AnnotationConfigApplicationContext()) {
             context.registerBean(ObjectMapper.class, () -> new ObjectMapper());
-            context.register(RuleRegistryConfig.class, MaiHoaService.class);
+            context.register(RuleRegistryConfig.class, MaiHoaService.class,
+                    com.huyenco.calendar.CalendarService.class, com.huyenco.calendar.VietnameseLunarCalendar.class,
+                    com.huyenco.tamthe.TamTheService.class);
             context.refresh();
             assertEquals(14, context.getBean(RuleCatalog.class).all().size());
             RuleRegistry registry = context.getBean(RuleRegistry.class);
@@ -29,6 +31,13 @@ class RuleRegistryContextTest {
                         {"method":"LINES","linesBottomUp":[true,false,true,false,true,false],"movingLine":2}
                         """)));
             assertEquals(RuleUnavailableReason.RULE_STATE_UNAVAILABLE, calculationError.reason());
+            assertEquals(1,context.getBeansOfType(TamTheRepository.class).size());
+            var tamTheError=assertThrows(RuleNotAvailableException.class,()->context.getBean(com.huyenco.tamthe.TamTheService.class)
+                    .calculate(new ObjectMapper().readTree("""
+                        {"birthDate":"2024-02-10","birthTime":"08:30","calendarType":"SOLAR","isLeapMonth":false}
+                        """)));
+            assertEquals("LUNAR-CONVERSION",tamTheError.ruleCode());
+            assertEquals(RuleUnavailableReason.RULE_STATE_UNAVAILABLE,tamTheError.reason());
         }
     }
 }
