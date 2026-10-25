@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
@@ -19,7 +20,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-/** Transient request lifecycle only; worker queues and idempotency belong to N01. */
+/** Session-scoped request lifecycle and deadline management. */
 @Component
 public class CalculationSessions implements AutoCloseable {
     private final SimpMessagingTemplate messages;
@@ -29,6 +30,7 @@ public class CalculationSessions implements AutoCloseable {
     private final Map<String, Set<Run>> sessions = new HashMap<>();
     private final Map<String, HistoryStore.Owner> owners = new HashMap<>();
     private CompletedResults completedResults;
+    private volatile Consumer<String> disconnectListener = ignored -> {};
     private int active;
     private boolean closing;
 
@@ -60,6 +62,8 @@ public class CalculationSessions implements AutoCloseable {
     @Autowired
     public void historyResults(CompletedResults results) { this.completedResults=results; }
 
+    public void onDisconnect(Consumer<String> listener) { this.disconnectListener = Objects.requireNonNull(listener); }
+
     public synchronized boolean connect(String sessionId,HistoryStore.Owner owner) {
         if (closing || sessionId == null) return false;
         if (sessions.containsKey(sessionId)) return true;
@@ -89,6 +93,7 @@ public class CalculationSessions implements AutoCloseable {
             owners.remove(sessionId);
         }
         if (removed != null) removed.forEach(Run::cancel);
+        disconnectListener.accept(sessionId);
     }
 
     @EventListener
@@ -125,6 +130,8 @@ public class CalculationSessions implements AutoCloseable {
         private final HistoryStore.Owner owner;
         private int sequence;
         private boolean terminal;
+        private ApiResponse terminalResponse;
+        private Consumer<ApiResponse> terminalListener;
         private ScheduledFuture<?> deadline;
 
         private Run(String sessionId, String requestId, String type,HistoryStore.Owner owner) {
@@ -132,6 +139,13 @@ public class CalculationSessions implements AutoCloseable {
             this.requestId = requestId;
             this.type = type;
             this.owner = owner;
+        }
+
+        /** Installed before dispatch; also reports a deadline that fired before registration. */
+        public synchronized void onTerminal(Consumer<ApiResponse> listener) {
+            if (terminalListener != null) throw new IllegalStateException("Listener already registered");
+            terminalListener = Objects.requireNonNull(listener);
+            if (terminal) listener.accept(terminalResponse);
         }
 
         @Override
@@ -158,9 +172,13 @@ public class CalculationSessions implements AutoCloseable {
         private void finish(String destination, ApiResponse response) {
             if (terminal) return;
             terminal = true;
+            terminalResponse = response;
             if (deadline != null) deadline.cancel(false);
             try { send(sessionId, destination, response); }
-            finally { release(this); }
+            finally {
+                release(this);
+                if (terminalListener != null) terminalListener.accept(response);
+            }
         }
 
         public synchronized void cancel() {
@@ -168,6 +186,7 @@ public class CalculationSessions implements AutoCloseable {
             terminal = true;
             if (deadline != null) deadline.cancel(false);
             release(this);
+            if (terminalListener != null) terminalListener.accept(null);
         }
     }
 

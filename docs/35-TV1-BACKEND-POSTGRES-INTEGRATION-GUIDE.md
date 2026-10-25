@@ -138,6 +138,8 @@ Mở `http://localhost:3000`; sau khi sửa `.env.local`, **restart** Next.js. S
 
 Không SUBSCRIBE `/queue/...` thẳng hoặc queue của socket khác. Không gửi `method:"NUMBER"` hay `numbers:[12,25]` (đã loại khỏi hợp đồng); method số vật dùng `OBJECT_COUNT`. Mỗi lần người dùng submit tạo UUID mới để dễ ghép progress/terminal và tránh xung đột.
 
+**Cập nhật N01:** Server mặc định có 4 worker, queue 100, idempotency theo `(sessionId,requestId)` với TTL 60 giây/tối đa 10.000 mục. Gửi trùng cùng nội dung khi đang chạy dùng chung một job; gửi lại khi đã xong và còn cache chỉ replay terminal, không phát lại progress. Cùng ID khác nội dung trả `INVALID_INPUT`; đầy queue/registry/giới hạn Run trả `SERVER_BUSY`. Reconnect tạo session mới và không replay cache phiên cũ. Không cần migration hoặc nạp lại DB cho N01. Cấu hình, giới hạn và bằng chứng test ở [biên bản 36](36-N01-CONCURRENCY-IDEMPOTENCY-HANDOFF.md); nghiệm thu STOMP sau N01 và benchmark vẫn cần thực hiện trong T01/X01.
+
 ### 6.1. Fixture LINES
 
 Body SEND:
@@ -277,6 +279,7 @@ Cookie mặc định `SameSite=Lax`; nếu Client/Server khác site, cần same-
 - [17-A02-DATABASE-HANDOFF.md](17-A02-DATABASE-HANDOFF.md): JDBC/Flyway, bootstrap, readiness.
 - [18-B01-LINES-HANDOFF.md](18-B01-LINES-HANDOFF.md), [20-B02-PROGRESS-HANDOFF.md](20-B02-PROGRESS-HANDOFF.md), [21-B03-OBJECT-COUNT-HANDOFF.md](21-B03-OBJECT-COUNT-HANDOFF.md): cách tính và quy tắc tiến trình.
 - [23-TV2-CONTRACT-REPLIES-TO-TV1.md](23-TV2-CONTRACT-REPLIES-TO-TV1.md), [34-H01-SESSION-HISTORY-HANDOFF.md](34-H01-SESSION-HISTORY-HANDOFF.md).
+- [36-N01-CONCURRENCY-IDEMPOTENCY-HANDOFF.md](36-N01-CONCURRENCY-IDEMPOTENCY-HANDOFF.md): worker/queue, retry/replay, TTL, timeout/disconnect và giới hạn nghiệm thu.
 - [examples/README.md](examples/README.md): danh mục fixtures. Khi thông tin trạng thái giữa biên bản cũ và runtime hiện tại khác nhau, ưu tiên hợp đồng và response fixture mới đã được kiểm chứng, giữ nguyên provenance trong từng rule.
 
 **Trước khi bảo TV1 pull GitHub:** TV2/TV3 kiểm `git status`, xác định đúng các thay đổi cần bàn giao rồi commit/push **đủ** code Backend, migrations, scripts, contract, fixtures và tài liệu 35. File tồn tại trên máy chưa đồng nghĩa đã push. **Không dùng `git add -A` vô điều kiện** khi workspace có file đang làm dở; không push `.env.local`, mật khẩu hoặc `scripts/generated/db-backups/`. TV1 phải được cung cấp SHA commit chính xác để hai phía chạy cùng bản.

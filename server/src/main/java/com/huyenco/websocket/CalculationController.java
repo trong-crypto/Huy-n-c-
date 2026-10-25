@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -26,16 +27,25 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class CalculationController {
     private final CalculationSessions sessions;
+    private final CalculationDispatcher dispatcher;
     private final ObjectReader json;
     private final MaiHoaService maiHoa;
     private final TamTheService tamThe;
 
-    public CalculationController(CalculationSessions sessions, ObjectMapper mapper, MaiHoaService maiHoa, TamTheService tamThe) {
+    @Autowired
+    public CalculationController(CalculationSessions sessions, ObjectMapper mapper, MaiHoaService maiHoa,
+            TamTheService tamThe, CalculationDispatcher dispatcher) {
         this.sessions = sessions;
+        this.dispatcher = dispatcher;
         this.json = mapper.copy().enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION)
                 .readerFor(JsonNode.class).with(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
         this.maiHoa = maiHoa;
         this.tamThe = tamThe;
+    }
+
+    /** Compatibility constructor for direct-mode controller tests. */
+    CalculationController(CalculationSessions sessions, ObjectMapper mapper, MaiHoaService maiHoa, TamTheService tamThe) {
+        this(sessions, mapper, maiHoa, tamThe, new CalculationDispatcher(sessions));
     }
 
     @MessageMapping("/mai-hoa/calculate")
@@ -59,14 +69,10 @@ public class CalculationController {
             return;
         }
         String requestId = correlationId(request);
-        CalculationSessions.Run run;
-        try {
-            run = sessions.start(sessionId, requestId, type);
-        } catch (CalculationSessions.Busy failure) {
-            sessions.send(sessionId, "/queue/errors", ApiResponse.failed(requestId, type, "SERVER_BUSY", "Server đang bận, vui lòng thử lại."));
-            return;
-        }
-        if (run == null) return;
+        dispatcher.dispatch(sessionId, requestId, type, request, run -> calculate(request, type, run));
+    }
+
+    private void calculate(JsonNode request, String type, CalculationSessions.Run run) {
         try {
             run.report(Step.ACCEPTED, "Server đã nhận yêu cầu.");
             run.report(Step.VALIDATING, "Đang kiểm tra đầu vào và điều kiện nguồn.");

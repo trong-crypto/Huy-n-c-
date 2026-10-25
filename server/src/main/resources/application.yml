@@ -8,6 +8,11 @@ spring:
 huyenco:
   allowed-origins: ${ALLOWED_ORIGINS:http://localhost:3000}
   processing-timeout-ms: ${PROCESSING_TIMEOUT_MS:10000}
+  calculation-mode: ${CALCULATION_MODE:bounded}
+  calculation-workers: ${CALCULATION_WORKERS:4}
+  calculation-queue-capacity: ${CALCULATION_QUEUE_CAPACITY:100}
+  idempotency-ttl-seconds: ${IDEMPOTENCY_TTL_SECONDS:60}
+  idempotency-max-entries: ${IDEMPOTENCY_MAX_ENTRIES:10000}
   max-calculation-sessions: ${MAX_CALCULATION_SESSIONS:1024}
   max-active-calculations: ${MAX_ACTIVE_CALCULATIONS:1000}
   max-active-per-session: ${MAX_ACTIVE_PER_SESSION:16}

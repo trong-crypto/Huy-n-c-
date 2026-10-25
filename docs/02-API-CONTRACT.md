@@ -1,4 +1,4 @@
-# Hợp đồng Huyền Cơ v1.2 — cập nhật đến C01/B04
+# Hợp đồng Huyền Cơ v1.2 — cập nhật đến N01
 
 **Cập nhật theo xác nhận của chủ dự án:** MH-TIME đã được duyệt **VERIFIED cho quy tắc dự án dùng chia6**; không còn chờ xác nhận lại. TIME trả TEAM_DECISION/VERIFIED; câu chữ bản in được giữ trong ghi chú nguồn. Biên bản `docs/28-TIME-OWNER-APPROVAL.md` thay các ghi nhận BLOCKED/chưa duyệt của MH-TIME ở mốc trước.
 
@@ -6,7 +6,7 @@
 
 Đây là hợp đồng dùng chung cho TV1 và phần TV2 + TV3. Giữ envelope v1.1, bổ sung metadata nguồn/quyết định và `error.reason`; Client cũ vẫn đọc được envelope. Các kiểu TypeScript ở `client/src/types/contract.ts`; DTO Java ở `common/dto`; catalog chính sách ở `server/src/main/resources/rules/execution-catalog.json`.
 
-| Thành phần | Trạng thái sau B04 |
+| Thành phần | Trạng thái sau N01 |
 | --- | --- |
 | STOMP endpoint, results/errors, validator và lỗi có reason | Có trong mã |
 | Catalog, registry, kiểm chính sách, DTO kết quả/progress | Có trong mã và kiểm thử; profile db đã nối provider PostgreSQL |
@@ -14,8 +14,8 @@
 | LINES trả quẻ chủ/hỗ/biến | B01 đã triển khai, có registry/DB và kiểm qua hai Client STOMP |
 | OBJECT_COUNT trả quẻ chủ/hỗ/biến | B03 đã triển khai/kiểm STOMP, bốn rule phụ thuộc; giữ TEAM_DECISION/SOURCE_AMBIGUOUS |
 | TIME trả quẻ chủ/hỗ/biến | B04 đã nối lịch C01 và kiểm STOMP; TEAM_DECISION/VERIFIED |
-| Tam Thế trả kết quả thật | Chưa triển khai service; D03 |
-| Progress và vòng đời request | B02 đã phát bước thật, dọn theo disconnect/deadline; hook/Panel nhận tiến trình, chưa có worker/idempotency N01 |
+| Tam Thế trả kết quả thật | D03 đã triển khai CAREER/WEALTH/LOVE; khóa WEALTH thiếu trả LOOKUP_NOT_AVAILABLE cho toàn request |
+| Progress, concurrency và vòng đời request | B02 đã phát bước thật; N01 đã thêm worker/hàng đợi hữu hạn, idempotency theo phiên và deadline tính cả thời gian chờ; hook/Panel TV1 nhận tiến trình |
 | REST lịch/Can Chi | C01 đã triển khai hai POST /calendar/convert và /calendar/can-chi; cần DB V8/biên bản nguồn C01 |
 | REST tra quẻ | E02: danh sách/tìm/lọc/phân trang và chi tiết với nghĩa tên VERIFIED |
 | REST session/lịch sử | H01: cookie owner,CSRF,save/list/search/detail/delete đã chạy với DB và qua restart |
@@ -135,11 +135,13 @@ B02 đã triển khai: LINES thành công có sequence 1–4 theo thứ tự tr�
 
 B04: TIME thành công cũng có sequence1–4; chuẩn hóa/kiểm lịch và gate nguồn thuộc VALIDATING, phần số học/quẻ thuộc CALCULATING. Lỗi ngày/phạm vi hoặc nguồn chưa được cấp quyền không phát CALCULATING/LOOKUP. D03 Tam Thế kiểm lịch/quyền/snapshot bảng trong VALIDATING, tính hành/khóa trong CALCULATING, tra/ghép nội dung trong LOOKUP; snapshot JDBC được đọc trước để bảo đảm nguồn nhất quán. Thiếu khóa Lộc hợp lệ phát đủ 1–4 rồi FAILED/LOOKUP_NOT_AVAILABLE. Script hồi quy đã cập nhật cả TIME và Tam Thế thật.
 
-Server mặc định đóng Run sau 10 giây từ khi bắt đầu xử lý sau parse; trả PROCESSING_TIMEOUT và bỏ mọi progress/kết quả muộn. Disconnect hủy Run/timer; không gửi sang phiên mới. Chưa bảo đảm ngắt tức thì truy vấn đang chạy và chưa tính hàng đợi inbound vào hạn Run. Client chờ tổng 15 giây, không gia hạn theo progress, không tự gửi lại khi reconnect. B02 bảo đảm một terminal cho mỗi lần xử lý, chưa dedup các SEND trùng requestId; N01 làm idempotency/worker/queue.
+Server mặc định đóng Run sau 10 giây **từ khi được tiếp nhận**, gồm cả thời gian chờ trong hàng đợi N01; trả PROCESSING_TIMEOUT và bỏ mọi progress/kết quả muộn. Disconnect hủy Run/timer, gỡ yêu cầu chưa chạy khỏi queue nếu có thể và xóa registry của phiên; không gửi sang phiên mới. Ngắt công việc đã chạy là best effort (phụ thuộc JDBC/thư viện có đáp ứng interruption hay không), không bảo đảm dừng tức thì truy vấn. Client chờ tổng 15 giây, không gia hạn theo progress, không tự gửi lại khi reconnect. Với requestId hợp lệ, N01 bảo đảm một lần tính cho mỗi khóa `(sessionId, requestId)` khi yêu cầu còn đang chạy hoặc còn cache kết quả.
 
 Client nhận cùng requestId + type; bỏ progress lặp/cũ, báo INVALID_RESPONSE nếu sequence bị hổng/step sai thứ tự; lỗi parse, ngắt kết nối hoặc timeout đều dọn trạng thái chờ. Chi tiết cấu hình/giới hạn và bằng chứng tại `20-B02-PROGRESS-HANDOFF.md`.
 
-Chốt bàn giao TV1 ngày 24/10 tại `23-TV2-CONTRACT-REPLIES-TO-TV1.md`: hạn connect STOMP riêng 10 giây/lần là cấu hình TV1 cần thêm (hook hiện tại chưa đặt); reconnect delay 3 giây. Không tự resend; retry thủ công dùng UUID mới trong bản chưa có dedup. N01 giữ thiết kế TTL 60 giây theo session/ID, tính TTL kết quả từ terminal và giữ khóa đang chạy đến kết thúc; không cache SERVER_BUSY do chưa được tiếp nhận. Các chính sách N01 chưa được coi là implementation hiện có.
+Chốt bàn giao TV1 ngày 24/10 tại `23-TV2-CONTRACT-REPLIES-TO-TV1.md`: hạn connect STOMP riêng 10 giây/lần là cấu hình TV1 cần thêm (hook hiện tại chưa đặt); reconnect delay 3 giây. Không tự resend khi reconnect. **N01 đã triển khai:** cache terminal theo `(sessionId, requestId)` trong 60 giây sau khi kết thúc, mặc định tối đa 10.000 khóa kể cả đang chạy. SEND cùng ID, cùng type/payload (bỏ qua thứ tự key JSON) khi đang chạy cùng chia sẻ một job/terminal; gửi lại sau khi đã xong và còn TTL thì replay terminal về cùng session, không tính lại. Cùng ID nhưng khác type/payload trả `INVALID_INPUT` mà không thay đổi job cũ. Khi queue/registry đầy trả `SERVER_BUSY`, không lưu lỗi quá tải vào idempotency cache. Kết nối mới có sessionId mới, không replay cache phiên cũ; retry thủ công muốn tính mới phải dùng UUID mới. Chi tiết tại `36-N01-CONCURRENCY-IDEMPOTENCY-HANDOFF.md`.
+
+Chế độ Server mặc định `CALCULATION_MODE=bounded`, `CALCULATION_WORKERS=4`, `CALCULATION_QUEUE_CAPACITY=100`, `IDEMPOTENCY_TTL_SECONDS=60`, `IDEMPOTENCY_MAX_ENTRIES=10000`. Có thể đặt `CALCULATION_MODE=direct` để chạy baseline benchmark X01, vẫn dùng vòng đời/idempotency N01. `MAX_ACTIVE_CALCULATIONS` và `MAX_ACTIVE_PER_SESSION` tiếp tục giới hạn lượng Run được nhận; giới hạn queue/registry được xét riêng. Các giá trị có thể chỉnh bằng biến môi trường trước khi khởi động Server; không thay đổi STOMP endpoint/envelope.
 
 ## 8. REST: lịch C01,tra quẻ E02 và session/lịch sử H01 đã triển khai
 
@@ -194,6 +196,6 @@ Reason cho RULE_NOT_AVAILABLE: UNKNOWN_RULE, EXECUTION_DISABLED, RULE_STATE_UNAV
 
 ## 10. Bảo mật và kiểm tra tương thích
 
-Giữ origin allowlist, giới hạn frame/payload và session routing. B02 đã chặn SUBSCRIBE raw broker queue/user queue chỉ định người khác và SEND thẳng broker, có kiểm qua STOMP thật. N01 tiếp tục giới hạn tải/worker/idempotency. REST qua proxy cùng hostname, cookie chỉ Server đọc; H01 bổ sung chống CSRF và test quyền sở hữu. Triển khai Internet cần HTTPS/WSS và kiểm proxy/rate limit trước khi công bố an toàn.
+Giữ origin allowlist, giới hạn frame/payload và session routing. B02 đã chặn SUBSCRIBE raw broker queue/user queue chỉ định người khác và SEND thẳng broker, có kiểm qua STOMP thật. N01 giới hạn worker/queue/registry, cô lập idempotency theo session và trả SERVER_BUSY khi quá tải; chưa thay thế rate limit tầng reverse proxy. REST qua proxy cùng hostname, cookie chỉ Server đọc; H01 bổ sung chống CSRF và test quyền sở hữu. Triển khai Internet cần HTTPS/WSS và kiểm proxy/rate limit trước khi công bố an toàn.
 
 Các fixture success không được phục vụ bằng controller giả. `npm run smoke:lines` kiểm COMPLETED cho 384 tổ hợp qua hai Client trên Server profile db; `npm run smoke:stomp` kiểm OBJECT_COUNT và Tam Thế đủ ba nhóm, lỗi đầu vào và tách phiên. `npm run smoke:tam-the` kiểm riêng D03; biên bản 30 có bằng chứng và fixture thật. Bằng chứng B01/B03 ở biên bản 18/21; trả lời thiết kế TV1 ở biên bản 23.

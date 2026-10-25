@@ -1,5 +1,7 @@
 # Kế hoạch kiểm thử
 
+Kết quả mới nhất: **N01 ngày 25/10/2026** ở cuối tài liệu; các mục D03/H01 và các mốc trước đó là bằng chứng lịch sử theo đúng phạm vi từng đợt.
+
 ## D03 đã kiểm ngày 25/10/2026
 
 - 464 kiểm thử Java có PostgreSQL đạt, gồm chín ca D03; vòng 60 năm × 12 tháng: 360 kết quả đủ ba category, 360 lỗi thiếu khóa Lộc đúng. Kiểm category riêng không bị bảng không yêu cầu chặn, nhiều nghề, nguồn nối trang, Tết/tháng nhuận, dữ liệu chưa duyệt/hỏng và lỗi JDBC an toàn.
@@ -105,3 +107,13 @@ Ghi nhận C01 dưới đây là lịch sử; kết quả E02 mới nhất nằm
 Server thật:54 HTTP H01+8 terminal STOMP,hai owner cùng requestId/hai socket cùng owner,cookie và header spoof,CSRF/Origin,JSON/field sai,query/pagination,TTL cache rút ngắn,lưu lặp,xung đột requestId và riêng tư snapshot đều đạt. Dừng/khởi động lại Server giữa lượt kiểm,cookie/CSRF và lịch sử đã lưu vẫn hợp lệ; cache kết quả chưa lưu không tồn tại lại. Thêm2 HTTP khi không profile db trả503/401 đúng;121 HTTP hồi quy E02 đạt. TypeScript/31 fixtures/54 Python đạt. Script tái lập `verify_h01.py`,bằng chứng `h01_network.json`, `h01_integration.json`,biên bản34.
 
 V11 đã triển khai huyenco sau backup archive được kiểm;11 bảng tri thức có hash trước/sau giống nhau,audit nguồn54 PASS/0 FAIL/0 PENDING. Hai bảng phiên/lịch sử trống khi triển khai,không nạp demo vào DB dùng thật. UI I01,N01,benchmark và giới hạn nguồn ngoài phạm vi H01 còn riêng.
+
+## N01 — kiểm trọng tâm ngày 25/10/2026
+
+Chạy lại bằng JDK 17, từ thư mục `server`: `.\mvnw.cmd -o '-Dtest=CalculationDispatcherTest,CalculationFlowTest' test`. **11 test đạt, 0 failure, 0 error, 0 skipped; BUILD SUCCESS.** Năm test dispatcher kiểm queue hữu hạn/quá tải/giải phóng sau disconnect, dedupe/replay/TTL và xung đột payload, registry đầy không loại ID còn hiệu lực, deadline gồm thời gian chờ, 20 session cùng ID độc lập. Sáu test vòng đời kiểm progress/JSON/UTF-8/đầu vào, timeout, disconnect và giới hạn Run.
+
+Báo cáo: `server/target/surefire-reports/com.huyenco.websocket.CalculationDispatcherTest.txt` và `com.huyenco.websocket.CalculationFlowTest.txt`; thiết kế, cấu hình và cách bàn giao ở [biên bản 36](36-N01-CONCURRENCY-IDEMPOTENCY-HANDOFF.md). Các ca sử dụng worker thật trong JVM và service/transport thử nghiệm có latch; không coi đây là nghiệm thu STOMP/DB/UI thực tế hoặc benchmark. N01 không có migration/import, không tạo bằng chứng VERIFIED mới và không sửa dữ liệu sách.
+
+**Hồi quy bổ sung kết thúc 23:49 ngày 25/10: BUILD SUCCESS, 485 test tổng cộng; 464 đạt, 21 skipped, 0 failure, 0 error.** Lượt này không bật profile/kết nối PostgreSQL nên 21 test cần DB tự bỏ qua. Mockito self-attach mặc định bị vướng quyền pipe JVM trên Windows; chạy sẵn `mockito-core-5.17.0.jar` qua `-DargLine=-javaagent:...` đã cho suite kết thúc. Lệnh tái lập đầy đủ trong mục 5 của biên bản 36. Lượt bị ngắt trước đó không được tính là kết quả thành công; không dùng số 485 để tuyên bố 485 test đã chạy đạt hoặc DB đã được kiểm lại.
+
+Mốc H01/D03 phía trên là lịch sử trước N01. T01 cần kiểm SEND trùng cùng/khác payload, replay không progress, TTL/reconnect, overload và tách phiên qua WebSocket thật. X01 đo direct/bounded với 1/5/20 kết nối, warm-up 10 giây/đo 60 giây, ít nhất ba lần mỗi cấu hình; lưu raw CSV và phân loại lỗi, không suy ra hiệu năng từ số unit test.
