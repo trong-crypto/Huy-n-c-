@@ -35,7 +35,7 @@ function method(value: string) {
 function published(socket: Socket) { return JSON.parse(socket.publish.mock.calls[0][0].body); }
 
 describe("page integration through the existing useCalculation hook", () => {
-  it.each(["", "2026-02-29T10:30", "2026-02-30T10:30", "2026-10-25T24:00", "2026-10-25T10:30:01", "broken"])("T15 rejects raw TIME %j before publish and focuses its associated error", datetime => {
+  it.each(["", "2026-02-29T10:30", "2026-02-30T10:30", "2026-10-25T24:00", "2026-10-25T10:30:01", "broken", "1899-12-31T23:59", "2100-01-01T00:00"])("T15 rejects raw TIME %j before publish and focuses its associated error", datetime => {
     const { socket } = mount();
     const input = screen.getByLabelText("Thời điểm lập quẻ (giờ Việt Nam, UTC+07:00)");
     // Simulate DOM manipulation: the input boundary must not rely on native sanitization.
@@ -48,18 +48,20 @@ describe("page integration through the existing useCalculation hook", () => {
     const error = screen.getByRole("alert");
     expect(input.getAttribute("aria-describedby")?.split(" ")).toContain(error.id);
   });
-  it("clears TIME field feedback after correction and retains minute precision without year-range restrictions", () => {
+  it("clears corrected TIME feedback and exposes the approved local date range at minute precision", () => {
     const { socket } = mount();
     const input = screen.getByLabelText("Thời điểm lập quẻ (giờ Việt Nam, UTC+07:00)");
     fireEvent.submit(screen.getByRole("form", { name: "Lập quẻ theo thời gian hoặc số vật" }));
-    fireEvent.change(input, { target: { value: "2100-01-01T00:00" } });
+    fireEvent.change(input, { target: { value: "2099-12-31T23:59" } });
     expect(screen.queryByRole("alert")).toBeNull();
     expect(input.getAttribute("aria-invalid")).toBeNull();
     expect(input.getAttribute("step")).toBe("60");
-    expect(input.getAttribute("min")).toBeNull(); expect(input.getAttribute("max")).toBeNull();
+    expect(input.getAttribute("min")).toBe("1900-01-01T00:00"); expect(input.getAttribute("max")).toBe("2099-12-31T23:59");
     expect(document.getElementById("maihoa-datetime-hint")?.textContent).toContain("không theo múi giờ của thiết bị");
     fireEvent.click(screen.getByRole("button", { name: "Gửi yêu cầu" }));
-    expect(published(socket).payload).toEqual({ method: "TIME", datetime: "2100-01-01T00:00:00+07:00", question: "" });
+    expect(published(socket).payload).toEqual({ method: "TIME", datetime: "2099-12-31T23:59:00+07:00", question: "" });
+    expect(screen.queryByText(/còn chờ module lịch/)).toBeNull();
+    expect(screen.getByText(/Server đã triển khai LINES, số vật và TIME/)).toBeTruthy();
   });
   it.each([["1", "1"], ["999999", "12"]])("T16/T17/T21 publishes boundary %s/%s and blocks a duplicate while waiting", (count, hour) => {
     const { socket } = mount(); method("OBJECT_COUNT");

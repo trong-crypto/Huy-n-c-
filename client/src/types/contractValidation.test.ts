@@ -91,11 +91,11 @@ describe("isCalculationEnvelope", () => {
 
 import lines from "../../../docs/examples/mai-hoa-lines.response.json";
 import objects from "../../../docs/examples/mai-hoa-object-count.response.json";
+import timeFixture from "../../../docs/examples/mai-hoa-time.response.json";
 describe("complete business response validation", () => {
   it("requires a lunarDate for TIME without performing calendar calculations", () => {
-    const data = { ...lines.data, method: "TIME", lunarDate: null };
-    expect(isCalculationResponse({ ...lines, data })).toBe(false);
-    expect(isCalculationResponse({ ...lines, data: { ...data, lunarDate: { year: 2026, month: 1, day: 1, isLeapMonth: false } } })).toBe(true);
+    expect(isCalculationResponse({ ...timeFixture, data: { ...timeFixture.data, lunarDate: null } })).toBe(false);
+    expect(isCalculationResponse(timeFixture)).toBe(true);
   });
   it.each(["LINES", "OBJECT_COUNT"])("requires null lunarDate for %s", method => {
     expect(isCalculationResponse({ ...lines, data: { ...lines.data, method, lunarDate: { year: 2026, month: 1, day: 1, isLeapMonth: false } } })).toBe(false);
@@ -133,6 +133,80 @@ describe("complete business response validation", () => {
   });
   it("rejects Mai Hoa data labeled as Tam The", () => {
     expect(isCalculationResponse({ ...lines, type: "TAM_THE" })).toBe(false);
+  });
+});
+
+describe("B04 TIME runtime structure from the actual Server fixture", () => {
+  function reject(change: (data: Record<string, unknown>) => void) {
+    const response = structuredClone(timeFixture);
+    change(response.data as unknown as Record<string, unknown>);
+    expect(isCalculationResponse(response)).toBe(false);
+  }
+  const numbers = (data: Record<string, unknown>) => (data.calculationSteps as { values: Record<string, unknown> }[])[0].values;
+  const lunar = (data: Record<string, unknown>) => data.lunarDate as Record<string, unknown>;
+
+  it("accepts the approved TEAM_DECISION/VERIFIED fixture and leaves it unchanged", () => {
+    const original = JSON.stringify(timeFixture);
+    expect(isCalculationResponse(timeFixture)).toBe(true);
+    expect(JSON.stringify(timeFixture)).toBe(original);
+  });
+  it.each([null, undefined])("rejects absent lunarDate %j", lunarDate => reject(data => { data.lunarDate = lunarDate; }));
+  it.each([1898, 2100, 2024.5, NaN, Infinity, "2024", null, undefined])("rejects unsupported/raw lunar year %j", year => reject(data => { lunar(data).year = year; }));
+  it.each([0, 13, 1.5, "1", null])("rejects lunar month %j", month => reject(data => { lunar(data).month = month; }));
+  it.each([0, 31, 99, "1", null])("rejects lunar day %j", day => reject(data => { lunar(data).day = day; }));
+  it.each(["true", 1, null, undefined])("rejects nonboolean leap flag %j", flag => reject(data => { lunar(data).isLeapMonth = flag; }));
+  it.each(["lunarYear", "lunarMonth", "lunarDay", "isLeapMonth"])("rejects contradictory repeated %s", field => reject(data => {
+    numbers(data)[field] = field === "isLeapMonth" ? true : 2;
+  }));
+  it.each([
+    "lunarYear", "lunarMonth", "lunarDay", "isLeapMonth", "yearBranchIndex", "hourIndex", "dateSum", "timeSum",
+    "upperTrigram", "lowerTrigram", "movingLine", "utcOffset", "dayBoundary", "leapMonthPolicy",
+  ])("requires TIME_NUMBERS field %s", field => reject(data => { delete numbers(data)[field]; }));
+  it.each([
+    "lunarYear", "lunarMonth", "lunarDay", "yearBranchIndex", "hourIndex", "dateSum", "timeSum", "upperTrigram", "lowerTrigram", "movingLine",
+  ])("does not coerce numeric field %s", field => reject(data => { numbers(data)[field] = String(numbers(data)[field]); }));
+  it.each([
+    ["yearBranchIndex", 0], ["yearBranchIndex", 13], ["hourIndex", 0], ["hourIndex", 13],
+    ["upperTrigram", 0], ["upperTrigram", 9], ["lowerTrigram", 0], ["lowerTrigram", 9],
+    ["dateSum", 2], ["dateSum", 55], ["timeSum", 3], ["timeSum", 67], ["dateSum", 7.5], ["timeSum", Infinity],
+    ["utcOffset", "+08:00"], ["utcOffset", 7], ["dayBoundary", "23:00"], ["leapMonthPolicy", "NEXT_MONTH"],
+  ])("rejects unsupported TIME value %s=%j", (field, value) => reject(data => { numbers(data)[field] = value; }));
+  it.each([null, undefined, {}, [], "TIME_NUMBERS"])("rejects malformed TIME_NUMBERS values %j", values => reject(data => {
+    (data.calculationSteps as Record<string, unknown>[])[0].values = values;
+  }));
+  it.each([null, undefined, [], [timeFixture.data.calculationSteps[1], timeFixture.data.calculationSteps[2]]])("requires TIME steps %#", steps => reject(data => { data.calculationSteps = steps; }));
+  it.each([0, 1, 2])("rejects missing/duplicate/wrong required step code at index %i", index => reject(data => {
+    (data.calculationSteps as { code: unknown }[])[index].code = index === 0 ? "MUTUAL" : "TIME_NUMBERS";
+  }));
+  it("rejects reordered steps", () => reject(data => { (data.calculationSteps as unknown[]).reverse(); }));
+  it("rejects an extra duplicate required step", () => reject(data => { (data.calculationSteps as unknown[]).push(structuredClone(timeFixture.data.calculationSteps[2])); }));
+  it.each([0, 7, 1.5, "2"])("rejects invalid movingLine %j", movingLine => reject(data => { data.movingLine = movingLine; }));
+  it("rejects a contradictory TIME_NUMBERS moving line", () => reject(data => { numbers(data).movingLine = 3; }));
+  it("rejects a contradictory CHANGE moving line", () => reject(data => { (data.calculationSteps as { values: Record<string, unknown> }[])[2].values.movingLine = 3; }));
+  it.each(["lowerLineStart", "upperLineStart"])("requires MUTUAL field %s", field => reject(data => {
+    delete (data.calculationSteps as { values: Record<string, unknown> }[])[1].values[field];
+  }));
+  it.each(["primaryHexagram", "mutualHexagram", "changedHexagram"])("rejects invalid six-line shape in %s", field => reject(data => {
+    (data[field] as Record<string, unknown>).linesBottomUp = [true, false];
+  }));
+  it.each([{ year: 1899, month: 12, day: 1 }, { year: 2099, month: 11, day: 20 }])("accepts supported lunar-year edge $year without converting a date", ({ year, month, day }) => {
+    const response = structuredClone(timeFixture);
+    Object.assign(response.data.lunarDate, { year, month, day });
+    Object.assign(response.data.calculationSteps[0].values, { lunarYear: year, lunarMonth: month, lunarDay: day });
+    // Alternate DTO shape only: this does not assert a new calculated hexagram result.
+    expect(isCalculationResponse(response)).toBe(true);
+  });
+  it("accepts an alternate leap-month DTO when repeated fields agree", () => {
+    const response = structuredClone(timeFixture);
+    response.data.lunarDate = { year: 2023, month: 2, day: 1, isLeapMonth: true };
+    Object.assign(response.data.calculationSteps[0].values, { lunarYear: 2023, lunarMonth: 2, lunarDay: 1, isLeapMonth: true });
+    expect(isCalculationResponse(response)).toBe(true);
+  });
+  it("keeps safe additional metadata and generic step values forward-compatible", () => {
+    const response = structuredClone(timeFixture);
+    Object.assign(response.data.calculationSteps[0].values, { futureLabel: "safe", futureFlag: true, futureLines: [true, false] });
+    Object.assign(response.data.lunarDate, { futureMetadata: "safe" });
+    expect(isCalculationResponse(response)).toBe(true);
   });
 });
 

@@ -8,7 +8,7 @@ import { PageContainer, PageHeader } from "@/components/ui/Page";
 import { FieldError, FormField, PrimaryButton, SectionCard, StatusBanner } from "@/components/ui/Controls";
 import { LinesForm } from "@/components/mai-hoa/LinesForm";
 import { CelestialArt } from "@/components/ui/CelestialArt";
-import { buildObjectCountPayload, buildTimePayload, type InputField } from "@/components/mai-hoa/maiHoaInput";
+import { buildObjectCountPayload, buildTimePayload, TIME_MIN_DATETIME, TIME_MAX_DATETIME, type InputField } from "@/components/mai-hoa/maiHoaInput";
 
 const fieldIds: Record<InputField, string> = {
   datetime: "maihoa-datetime", objectCount: "maihoa-count", hourIndex: "maihoa-hour", question: "maihoa-question",
@@ -71,8 +71,8 @@ export default function MaiHoaPage() {
             disabled={calculation.connection !== "connected"} busy={calculation.requestState === "waiting"} /> : (
         <form ref={formRef} onSubmit={onSubmit} noValidate className="form-stack" aria-label="Lập quẻ theo thời gian hoặc số vật">
           {method === "TIME" ? (
-            <FormField id="maihoa-datetime" label="Thời điểm lập quẻ (giờ Việt Nam, UTC+07:00)" hint="Ngày giờ theo giờ Việt Nam (UTC+07:00), chính xác đến phút; không theo múi giờ của thiết bị.">
-              <input id="maihoa-datetime" type="datetime-local" step={60} value={datetime}
+            <FormField id="maihoa-datetime" label="Thời điểm lập quẻ (giờ Việt Nam, UTC+07:00)" hint="Ngày từ 1900-01-01 đến 2099-12-31 theo giờ Việt Nam (UTC+07:00), chính xác đến phút; không theo múi giờ của thiết bị.">
+              <input id="maihoa-datetime" type="datetime-local" step={60} min={TIME_MIN_DATETIME} max={TIME_MAX_DATETIME} value={datetime}
                 aria-invalid={formError?.field === "datetime" || undefined} aria-describedby={describedBy("datetime")}
                 onChange={(event) => { setDatetime(event.target.value); clearFieldError("datetime"); }} required />
               {fieldError("datetime")}
@@ -111,7 +111,7 @@ export default function MaiHoaPage() {
           <p className="eyebrow">TRƯỚC KHI BẮT ĐẦU</p>
           <h2>Rõ đầu vào.<br />Giữ đúng căn cứ.</h2>
           <p>Với LINES, bạn chọn sáu hào và một hào động. Hào 1 nằm ở dưới, hào 6 nằm ở trên. Không cần nhập ngày giờ hay câu hỏi.</p>
-          <StatusBanner>LINES và số vật có luồng tính ở Server. Phương pháp thời gian còn chờ module lịch; khi chưa sẵn sàng, Server trả lỗi thay vì kết quả giả.</StatusBanner>
+          <StatusBanner>Server đã triển khai LINES, số vật và TIME. TIME dùng giờ Việt Nam UTC+07:00 cố định, kèm nguồn và quyết định nhóm. Để nhận kết quả cần kết nối Backend hoạt động và dữ liệu đã duyệt.</StatusBanner>
         </aside>
       </div>
       <div className="result-region"><ResultPanel {...calculation} /></div>

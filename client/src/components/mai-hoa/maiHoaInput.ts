@@ -6,6 +6,9 @@ type InputResult<T> = { ok: true; payload: T } | InputError;
 type TimePayload = Extract<MaiHoaPayload, { method: "TIME" }>;
 type ObjectCountPayload = Extract<MaiHoaPayload, { method: "OBJECT_COUNT" }>;
 
+export const TIME_MIN_DATETIME = "1900-01-01T00:00";
+export const TIME_MAX_DATETIME = "2099-12-31T23:59";
+
 function questionError(question: string | undefined): InputError | null {
   return question !== undefined && question.length > 500
     ? { ok: false, field: "question", message: "Câu hỏi chỉ được tối đa 500 ký tự. Vui lòng rút ngắn nội dung trước khi gửi." }
@@ -25,6 +28,10 @@ export function buildTimePayload(datetime: string, question?: string): InputResu
   }
   if (hour > 23 || minute > 59) {
     return { ok: false, field: "datetime", message: "Giờ cần từ 00 đến 23 và phút từ 00 đến 59." };
+  }
+  // This UI accepts fixed UTC+7 civil input, not arbitrary offset API timestamps.
+  if (datetime < TIME_MIN_DATETIME || datetime > TIME_MAX_DATETIME) {
+    return { ok: false, field: "datetime", message: "Ngày lập quẻ cần trong khoảng 1900-01-01 đến 2099-12-31 theo giờ Việt Nam (UTC+07:00)." };
   }
   const error = questionError(question);
   if (error) return error;

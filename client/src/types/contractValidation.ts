@@ -85,13 +85,38 @@ function hexagram(v: unknown): boolean {
     && (v.nameStatus === "VERIFIED" ? nullableText(v.name)
       : (v.nameStatus === null || member(v.nameStatus, STATUSES)) && v.name === null);
 }
+
+const inRange = (v: unknown, min: number, max: number) => integer(v) && v >= min && v <= max;
+
+// C01 covers SOLAR 1900..2099; early 1900 can return lunar year 1899.
+// Check wire structure and repeated fields only, never recompute calendar or hexagrams.
+function timeResult(v: Record<string, unknown>): boolean {
+  const lunar = v.lunarDate;
+  if (!isRecord(lunar) || !inRange(lunar.year, 1899, 2099)
+      || !inRange(lunar.month, 1, 12) || !inRange(lunar.day, 1, 30)
+      || typeof lunar.isLeapMonth !== "boolean" || !Array.isArray(v.calculationSteps)
+      || v.calculationSteps.length !== 3) return false;
+  const [numbers, mutual, change] = v.calculationSteps;
+  if (!isRecord(numbers) || numbers.code !== "TIME_NUMBERS" || !isRecord(numbers.values)
+      || !isRecord(mutual) || mutual.code !== "MUTUAL" || !isRecord(mutual.values)
+      || !isRecord(change) || change.code !== "CHANGE" || !isRecord(change.values)) return false;
+  const values = numbers.values;
+  return values.lunarYear === lunar.year && values.lunarMonth === lunar.month
+    && values.lunarDay === lunar.day && values.isLeapMonth === lunar.isLeapMonth
+    && inRange(values.yearBranchIndex, 1, 12) && inRange(values.hourIndex, 1, 12)
+    && inRange(values.dateSum, 3, 54) && inRange(values.timeSum, 4, 66)
+    && inRange(values.upperTrigram, 1, 8) && inRange(values.lowerTrigram, 1, 8)
+    && values.movingLine === v.movingLine && change.values.movingLine === v.movingLine
+    && mutual.values.lowerLineStart === 2 && mutual.values.upperLineStart === 3
+    && values.utcOffset === "+07:00" && values.dayBoundary === "00:00"
+    && values.leapMonthPolicy === "SAME_MONTH_NUMBER";
+}
+
 function maiHoa(v: Record<string, unknown>): boolean {
   return member(v.method, ["TIME", "OBJECT_COUNT", "LINES"])
     && [v.primaryHexagram, v.mutualHexagram, v.changedHexagram].every(hexagram)
     && integer(v.movingLine) && v.movingLine >= 1 && v.movingLine <= 6
-    && (v.method !== "TIME" ? v.lunarDate === null : (isRecord(v.lunarDate)
-      && integer(v.lunarDate.year) && integer(v.lunarDate.month) && integer(v.lunarDate.day)
-      && typeof v.lunarDate.isLeapMonth === "boolean"))
+    && (v.method !== "TIME" ? v.lunarDate === null : timeResult(v))
     && array(v.calculationSteps, s => isRecord(s) && text(s.code) && text(s.message)
       && isRecord(s.values) && Object.values(s.values).every(x => text(x)
         || (typeof x === "number" && Number.isFinite(x)) || typeof x === "boolean"

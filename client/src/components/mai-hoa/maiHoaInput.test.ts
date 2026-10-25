@@ -7,9 +7,12 @@ describe("TIME civil input boundary", () => {
     "2026-10-25T23:59", "2026-10-26T00:00",
     "2026-10-25T22:59", "2026-10-25T23:00",
     "2026-10-26T00:59", "2026-10-26T01:00",
-    "1899-12-31T23:59", "2100-01-01T00:00", "0001-01-01T00:00", "9999-12-31T23:59",
+    "1900-01-01T00:00", "2099-12-31T23:59",
   ])("T01/T02/T09/T11–T13 preserves %s with explicit Vietnam offset", datetime => {
     expect(buildTimePayload(datetime, "")).toEqual({ ok: true, payload: { method: "TIME", datetime: `${datetime}:00+07:00`, question: "" } });
+  });
+  it.each(["1899-12-31T23:59", "2100-01-01T00:00", "0001-01-01T00:00", "9999-12-31T23:59"])("rejects local UTC+7 input outside the approved C01 range: %s", datetime => {
+    expect(buildTimePayload(datetime)).toEqual({ ok: false, field: "datetime", message: expect.stringContaining("1900-01-01 đến 2099-12-31") });
   });
   it.each([
     "2026-02-29T10:30", "2026-02-30T10:30", "1900-02-29T10:30", "2100-02-29T10:30",

@@ -5,6 +5,7 @@ import type { CalculationResponse } from "@/types/contract";
 
 import lines from "../../../docs/examples/mai-hoa-lines.response.json";
 import objects from "../../../docs/examples/mai-hoa-object-count.response.json";
+import timeFixture from "../../../docs/examples/mai-hoa-time.response.json";
 import { isCalculationResponse } from "@/types/contractValidation";
 function fixture(): CalculationResponse {
   if (!isCalculationResponse(lines)) throw new Error("Invalid business fixture");
@@ -13,6 +14,36 @@ function fixture(): CalculationResponse {
 const success = fixture();
 
 describe("ResultPanel state presentation", () => {
+  it("routes the canonical TIME terminal to three hexagrams with one warning and collapsed technical JSON", () => {
+    if (!isCalculationResponse(timeFixture)) throw new Error("Invalid TIME fixture");
+    render(<ResultPanel connection="connected" requestState="completed" response={timeFixture} progress={[]} localError={null} />);
+    expect(screen.getAllByRole("figure")).toHaveLength(3);
+    expect(screen.getAllByRole("note")).toHaveLength(1);
+    expect(screen.getByRole("note").textContent).toContain("đã được chủ dự án duyệt");
+    const technical = screen.getByText("Thông tin kỹ thuật", { selector: "summary" }).closest("details")!;
+    expect(technical.open).toBe(false);
+    expect(within(technical).getByText(`requestId: ${timeFixture.requestId}`)).toBeTruthy();
+    const json = screen.getByText(/"method": "TIME"/);
+    expect(json.closest("details")?.open).toBe(false);
+    expect(technical.contains(json)).toBe(true);
+    expect(screen.getByText("Xử lý thành công")).toBeTruthy();
+  });
+  it("rejects malformed TIME before rendering any success or lunar summary", () => {
+    const malformed = { ...timeFixture, data: { ...timeFixture.data, lunarDate: null } } as unknown as CalculationResponse;
+    render(<ResultPanel connection="connected" requestState="completed" response={malformed} progress={[]} localError={null} />);
+    expect(screen.getByRole("alert").textContent).toContain("không đúng hợp đồng");
+    expect(screen.queryAllByRole("figure")).toHaveLength(0);
+    expect(screen.queryByRole("region", { name: "Ngày âm từ Server" })).toBeNull();
+    expect(screen.queryByText("Xử lý thành công")).toBeNull();
+  });
+  it("keeps TIME FAILED in the error presentation without a result fallback", () => {
+    render(<ResultPanel connection="connected" requestState="failed" progress={[]} localError={null}
+      response={{ requestId: timeFixture.requestId, type: "MAI_HOA", status: "FAILED", data: null,
+        error: { code: "INVALID_DATE", message: "Ngày ngoài phạm vi hỗ trợ.", ruleCode: null, reason: null } }} />);
+    expect(screen.getByRole("alert").textContent).toContain("INVALID_DATE");
+    expect(screen.queryAllByRole("figure")).toHaveLength(0);
+    expect(screen.queryByText("Xử lý thành công")).toBeNull();
+  });
   it("T27 announces only the latest progress and identifies its current step without making the history live", () => {
     const first = { requestId: success.requestId!, type: "MAI_HOA" as const, sequence: 1, step: "ACCEPTED" as const, message: "Server đã nhận yêu cầu." };
     const second = { ...first, sequence: 2, step: "VALIDATING" as const, message: "Đang kiểm tra đầu vào." };
