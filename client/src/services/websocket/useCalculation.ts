@@ -4,7 +4,7 @@ import { Client, type StompSubscription } from "@stomp/stompjs";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CLIENT_CONFIG } from "@/config/client";
 import type { CalculationRequest, CalculationType, MaiHoaPayload, TamThePayload } from "@/types/contract";
-import { isCalculationResponse, isRecord } from "@/types/contractValidation";
+import { isCalculationResponse, isRecord, isUncorrelatedServerFailure } from "@/types/contractValidation";
 import { initialState, parseProgress, reduceCalculation, type Action } from "./calculationState";
 export type { RequestState } from "./calculationState";
 
@@ -24,9 +24,20 @@ export function useCalculation() {
   const pendingRef = useRef<PendingRequest | null>(null);
   const generationRef = useRef(0);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const noticeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [protocolNotice, setProtocolNotice] = useState<string | null>(null);
   const [connection, setConnection] = useState<ConnectionState>("connecting");
   const [request, setRequest] = useState(initialState);
   const stateRef = useRef(initialState);
+
+  const clearNoticeTimer = useCallback(() => {
+    if (noticeTimeout.current !== null) clearTimeout(noticeTimeout.current);
+    noticeTimeout.current = null;
+  }, []);
+  const clearNotice = useCallback(() => {
+    clearNoticeTimer();
+    setProtocolNotice(null);
+  }, [clearNoticeTimer]);
 
   const clearTimer = useCallback(() => {
     if (timeout.current !== null) clearTimeout(timeout.current);
@@ -36,12 +47,13 @@ export function useCalculation() {
   const update = useCallback((action: Action) => {
     const next = reduceCalculation(stateRef.current, action);
     stateRef.current = next;
+    if (action.kind === "begin" || next.requestState !== "waiting") clearNotice();
     if (next.requestState !== "waiting") {
       clearTimer();
       pendingRef.current = null;
     }
     setRequest(next);
-  }, [clearTimer]);
+  }, [clearTimer, clearNotice]);
 
   const settle = useCallback((pending: PendingRequest, action: Action) => {
     if (pendingRef.current === pending) update(action);
@@ -56,16 +68,16 @@ export function useCalculation() {
     const client = new Client({
       brokerURL: CLIENT_CONFIG.wsUrl,
       reconnectDelay: CLIENT_CONFIG.reconnectDelayMs,
+      connectionTimeout: CLIENT_CONFIG.connectionTimeoutMs,
       onConnect: () => {
         if (!isCurrent() || connected) return;
         connected = true;
         const generation = ++generationRef.current;
         setConnection("connected");
+        clearNotice();
         for (const destination of ["/user/queue/results", "/user/queue/errors", "/user/queue/progress"]) {
           subscriptions.push(client.subscribe(destination, (message) => {
-            if (!isCurrent() || generationRef.current !== generation) return;
-            const pending = pendingRef.current;
-            if (!pending || pending.client !== client || pending.generation !== generation) return;
+            if (!isCurrent() || !connected || generationRef.current !== generation) return;
             let incoming: unknown;
             try {
               incoming = JSON.parse(message.body);
@@ -73,6 +85,22 @@ export function useCalculation() {
               // Cannot attribute malformed JSON to a request. Keep its bounded timeout.
               return;
             }
+            if (destination === "/user/queue/errors" && isUncorrelatedServerFailure(incoming)) {
+              // A bounded connection-level notice, independent of pending/result state.
+              // Repeated frames do not prolong it or allocate more timers.
+              if (noticeTimeout.current === null) {
+                setProtocolNotice("Server gửi một lỗi không có mã yêu cầu hợp lệ. Thông báo này không xác định kết quả của yêu cầu đang chờ.");
+                const noticeTimer = setTimeout(() => {
+                  if (!isCurrent() || generationRef.current !== generation || noticeTimeout.current !== noticeTimer) return;
+                  noticeTimeout.current = null;
+                  setProtocolNotice(null);
+                }, CLIENT_CONFIG.protocolNoticeMs);
+                noticeTimeout.current = noticeTimer;
+              }
+              return;
+            }
+            const pending = pendingRef.current;
+            if (!pending || pending.client !== client || pending.generation !== generation) return;
             if (!isRecord(incoming)
               || incoming.requestId !== pending.requestId
               || incoming.type !== pending.expectedType) return;
@@ -80,7 +108,7 @@ export function useCalculation() {
               try {
                 settle(pending, { kind: "progress", event: parseProgress(incoming) });
               } catch {
-                settle(pending, { kind: "error", message: "INVALID_RESPONSE: Invalid progress frame." });
+                settle(pending, { kind: "error", message: "INVALID_RESPONSE: Thông điệp tiến trình không đúng hợp đồng." });
               }
               return;
             }
@@ -99,6 +127,7 @@ export function useCalculation() {
         // Subscriptions belong to the closed socket; do not unsubscribe them on a new one.
         subscriptions = [];
         setConnection("disconnected");
+        clearNotice();
         const pending = pendingRef.current;
         if (pending?.client === client) {
           settle(pending, { kind: "error", message: "Lỗi Client (DISCONNECTED): Kết nối bị ngắt. Không tự động gửi lại yêu cầu." });
@@ -106,6 +135,7 @@ export function useCalculation() {
       },
       onStompError: () => {
         if (!isCurrent()) return;
+        clearNotice();
         const pending = pendingRef.current;
         if (pending?.client === client) {
           settle(pending, { kind: "error", message: "Lỗi kết nối STOMP phía Client: Không thể tiếp tục chờ phản hồi cho yêu cầu này." });
@@ -119,6 +149,7 @@ export function useCalculation() {
       if (clientRef.current === client) {
         ++generationRef.current;
         clearTimer();
+        clearNoticeTimer();
         pendingRef.current = null;
         clientRef.current = null;
       }
@@ -135,7 +166,7 @@ export function useCalculation() {
         // Teardown must not set React state or produce an unhandled rejection.
       });
     };
-  }, [clearTimer, settle]);
+  }, [clearTimer, clearNotice, clearNoticeTimer, settle]);
 
   const submit = useCallback((...args: [type: "MAI_HOA", payload: MaiHoaPayload] | [type: "TAM_THE", payload: TamThePayload]) => {
     if (pendingRef.current) return;
@@ -179,6 +210,6 @@ export function useCalculation() {
     }
   }, [settle, update]);
 
-  return { connection, ...request, submit };
+  return { connection, protocolNotice, ...request, submit };
 }
 

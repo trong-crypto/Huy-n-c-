@@ -11,6 +11,7 @@ type Subscription = { destination: string; callback: (message: Message) => void;
 type MockConfig = {
   brokerURL: string;
   reconnectDelay: number;
+  connectionTimeout: number;
   onConnect: () => void;
   onWebSocketClose: () => void;
   onStompError: () => void;
@@ -95,6 +96,149 @@ beforeEach(() => {
 });
 
 describe("useCalculation safe core", () => {
+  it("T26 localizes a malformed correlated progress frame and releases the request deadline", () => {
+    const { result, client } = mount();
+    act(() => result.current.submit("MAI_HOA", payload));
+    progress(client, 1, { sequence: "invalid" });
+    expect(result.current.localError).toBe("INVALID_RESPONSE: Thông điệp tiến trình không đúng hợp đồng.");
+    expect(result.current.requestState).toBe("failed");
+    expect(result.current.response).toBeNull();
+    expect(vi.getTimerCount()).toBe(0);
+  });
+  it("E03 settles a correlated future Server failure without a local protocol error", () => {
+    const { result, client } = mount();
+    act(() => result.current.submit("MAI_HOA", payload));
+    const failure = { ...failed(lastId(client), "FUTURE_CODE"), error: { code: "FUTURE_CODE", message: "safe", ruleCode: null, reason: "FUTURE_REASON" } };
+    emit(client, failure, "/user/queue/errors");
+    expect(result.current.response).toEqual(failure);
+    expect(result.current.localError).toBeNull();
+    expect(result.current.requestState).toBe("failed");
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it.each([null, undefined, "not-a-uuid", 4])("E09/E10 notice for ID %j does not clear or extend the request deadline", requestId => {
+    const { result, client } = mount();
+    act(() => result.current.submit("MAI_HOA", payload));
+    act(() => vi.advanceTimersByTime(14_999));
+    emit(client, { ...failed(lastId(client)), requestId }, "/user/queue/errors");
+    expect(result.current.requestState).toBe("waiting");
+    expect(result.current.response).toBeNull();
+    expect(result.current.localError).toBeNull();
+    expect(result.current.protocolNotice).toContain("không có mã yêu cầu hợp lệ");
+    expect(vi.getTimerCount()).toBe(2); // Original request deadline + bounded notice.
+    act(() => vi.advanceTimersByTime(1));
+    expect(result.current.requestState).toBe("timeout");
+    expect(result.current.localError).toContain("REQUEST_TIMEOUT");
+    expect(result.current.protocolNotice).toBeNull();
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it("E11 notices with null ID/type cannot replace an existing completed result", () => {
+    const { result, client } = mount();
+    act(() => result.current.submit("MAI_HOA", payload));
+    emit(client, completed(lastId(client)));
+    const response = result.current.response;
+    emit(client, { ...failed(lastId(client)), requestId: null, type: null }, "/user/queue/errors");
+    expect(result.current.requestState).toBe("completed");
+    expect(result.current.response).toBe(response);
+    expect(result.current.localError).toBeNull();
+    expect(result.current.protocolNotice).not.toBeNull();
+    act(() => vi.advanceTimersByTime(CLIENT_CONFIG.protocolNoticeMs));
+    expect(result.current.protocolNotice).toBeNull();
+    expect(result.current.response).toBe(response);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it("E12 a valid response after a generic notice clears it and completes the original pending request", () => {
+    const { result, client } = mount();
+    act(() => result.current.submit("MAI_HOA", payload));
+    const id = lastId(client);
+    emit(client, { ...failed(id), requestId: null }, "/user/queue/errors");
+    emit(client, completed(id));
+    expect(result.current.requestState).toBe("completed");
+    expect(result.current.response?.requestId).toBe(id);
+    expect(result.current.protocolNotice).toBeNull();
+    expect(result.current.localError).toBeNull();
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it("new manual submission clears idle notices without correlating null with null", () => {
+    const { result, client } = mount();
+    emit(client, { ...failed(foreignId), requestId: null, type: null }, "/user/queue/errors");
+    expect(result.current.requestState).toBe("idle");
+    expect(result.current.response).toBeNull();
+    act(() => result.current.submit("MAI_HOA", payload));
+    expect(result.current.protocolNotice).toBeNull();
+    expect(result.current.requestState).toBe("waiting");
+    expect(vi.getTimerCount()).toBe(1);
+  });
+
+  it("notice bursts cannot extend their lifetime or allocate additional timers", () => {
+    const { result, client } = mount();
+    const value = { ...failed(foreignId), requestId: null };
+    emit(client, value, "/user/queue/errors");
+    act(() => vi.advanceTimersByTime(CLIENT_CONFIG.protocolNoticeMs - 1));
+    emit(client, value, "/user/queue/errors");
+    expect(vi.getTimerCount()).toBe(1);
+    act(() => vi.advanceTimersByTime(1));
+    expect(result.current.protocolNotice).toBeNull();
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it("does not classify malformed or wrong-destination messages as generic Server errors", () => {
+    const { result, client } = mount();
+    act(() => result.current.submit("MAI_HOA", payload));
+    for (const value of [
+      { ...failed(foreignId), requestId: null, error: {} },
+      { ...failed(foreignId), requestId: null, data: {} },
+      { ...failed(foreignId), requestId: null, type: "OTHER" },
+    ]) emit(client, value, "/user/queue/errors");
+    emit(client, { ...failed(foreignId), requestId: null }, "/user/queue/progress");
+    emit(client, failed(foreignId), "/user/queue/errors");
+    expect(result.current.protocolNotice).toBeNull();
+    expect(result.current.requestState).toBe("waiting");
+    expect(vi.getTimerCount()).toBe(1);
+  });
+
+  it("E17 old subscription/notice timer callbacks cannot contaminate a newer connection or notice", () => {
+    const { result, client } = mount();
+    const oldSubscription = client.subscriptions.find(s => s.destination === "/user/queue/errors")!;
+    const timers = vi.spyOn(globalThis, "setTimeout");
+    emit(client, { ...failed(foreignId), requestId: null }, "/user/queue/errors");
+    const oldTimer = timers.mock.calls.at(-1)![0];
+    disconnect(client);
+    expect(result.current.protocolNotice).toBeNull();
+    connect(client);
+    act(() => result.current.submit("MAI_HOA", payload));
+    act(() => oldSubscription.callback({ body: JSON.stringify({ ...failed(foreignId), requestId: null }) }));
+    expect(result.current.protocolNotice).toBeNull();
+    emit(client, { ...failed(foreignId), requestId: null }, "/user/queue/errors");
+    if (typeof oldTimer !== "function") throw new Error("Expected notice timer");
+    act(() => oldTimer());
+    expect(result.current.protocolNotice).not.toBeNull();
+    expect(result.current.requestState).toBe("waiting");
+    expect(vi.getTimerCount()).toBe(2);
+  });
+
+  it("unmount clears notice timers and blocks their retained callbacks", () => {
+    const { result, client, unmount } = mount();
+    const timers = vi.spyOn(globalThis, "setTimeout");
+    emit(client, { ...failed(foreignId), requestId: null }, "/user/queue/errors");
+    const callback = timers.mock.calls.at(-1)![0];
+    unmount();
+    expect(vi.getTimerCount()).toBe(0);
+    if (typeof callback !== "function") throw new Error("Expected notice timer");
+    act(() => callback());
+    expect(result.current.requestState).toBe("idle");
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it("E13/E16 uses three distinct configured timing policies", () => {
+    const { client } = mount();
+    expect(client.config.connectionTimeout).toBe(10_000);
+    expect(client.config.reconnectDelay).toBe(3_000);
+    expect(CLIENT_CONFIG.requestTimeoutMs).toBe(15_000);
+  });
   it("keeps ordered progress and metadata, ignores duplicates and late progress", () => {
     const { result, client } = mount();
     act(() => result.current.submit("MAI_HOA", payload));

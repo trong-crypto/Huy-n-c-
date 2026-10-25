@@ -78,7 +78,8 @@ export type TamTheResult = Omit<ResultEvidence, "ruleBasis" | "sourceStatus"> & 
   sourceStatus: "VERIFIED";
   categories: { category: TamTheCategory; entries: InterpretationEntry[] }[];
 };
-export type ApiError = { code: ErrorCode; message: string; ruleCode: string | null; reason: RuleUnavailableReason | null };
+// Known values remain discoverable; future wire strings are not Client-local errors.
+export type ApiError = { code: ErrorCode | (string & {}); message: string; ruleCode: string | null; reason: RuleUnavailableReason | (string & {}) | null };
 export type CalculationResponse =
   | { requestId: string; type: "MAI_HOA"; status: "COMPLETED"; data: MaiHoaResult; error: null }
   | { requestId: string; type: "TAM_THE"; status: "COMPLETED"; data: TamTheResult; error: null }

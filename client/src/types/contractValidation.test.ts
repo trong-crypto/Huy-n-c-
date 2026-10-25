@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isCalculationResponse, isCalculationEnvelope } from "@/types/contractValidation";
+import { isCalculationResponse, isCalculationEnvelope, isUncorrelatedServerFailure } from "@/types/contractValidation";
 
 // Envelope fixtures only: these are not verified business results.
 const requestId = "550e8400-e29b-41d4-a716-446655440000";
@@ -66,7 +66,7 @@ describe("isCalculationEnvelope", () => {
     expect(isCalculationEnvelope({ ...failed(), error })).toBe(false);
   });
 
-  it("rejects a new or Client-local Server error code", () => {
+  it("rejects a Client-local code used as a Server error code", () => {
     expect(isCalculationEnvelope({ ...failed(), error: { ...failed().error, code: "REQUEST_TIMEOUT" } })).toBe(false);
   });
 
@@ -92,6 +92,26 @@ describe("isCalculationEnvelope", () => {
 import lines from "../../../docs/examples/mai-hoa-lines.response.json";
 import objects from "../../../docs/examples/mai-hoa-object-count.response.json";
 describe("complete business response validation", () => {
+  it("requires a lunarDate for TIME without performing calendar calculations", () => {
+    const data = { ...lines.data, method: "TIME", lunarDate: null };
+    expect(isCalculationResponse({ ...lines, data })).toBe(false);
+    expect(isCalculationResponse({ ...lines, data: { ...data, lunarDate: { year: 2026, month: 1, day: 1, isLeapMonth: false } } })).toBe(true);
+  });
+  it.each(["LINES", "OBJECT_COUNT"])("requires null lunarDate for %s", method => {
+    expect(isCalculationResponse({ ...lines, data: { ...lines.data, method, lunarDate: { year: 2026, month: 1, day: 1, isLeapMonth: false } } })).toBe(false);
+  });
+  it.each([[], [{ category: "CAREER", entries: [] }]].map(categories => [categories]))("rejects empty Tam The success content %#", categories => {
+    const data = { ...lines.data, categories };
+    expect(isCalculationResponse({ ...lines, type: "TAM_THE", data })).toBe(false);
+  });
+  it("allows nonempty Tam The schema but rejects duplicate categories", () => {
+    // Schema-only data, no prediction or approved success fixture.
+    const entry = { resultCode: "TEST_ONLY", title: "Schema test", content: "TEST ONLY", sourceReferences: [] };
+    const category = { category: "CAREER", entries: [entry, entry] };
+    const response = { ...lines, type: "TAM_THE", data: { ...lines.data, categories: [category] } };
+    expect(isCalculationResponse(response)).toBe(true);
+    expect(isCalculationResponse({ ...response, data: { ...response.data, categories: [category, category] } })).toBe(false);
+  });
   it.each([lines, objects])("accepts canonical Server fixture ($data.method)", value => {
     expect(isCalculationResponse(value)).toBe(true);
   });
@@ -108,9 +128,50 @@ describe("complete business response validation", () => {
   it("retains rule failure reason and permits uncorrelatable Server errors for separate routing", () => {
     expect(isCalculationResponse(failed())).toBe(true);
     expect(isCalculationResponse({ ...failed(), requestId: null, type: null })).toBe(true);
-    expect(isCalculationResponse({ ...failed(), error: { ...failed().error, reason: "invented" } })).toBe(false);
+    // Forward-compatible reason strings are intentional; their shape stays mandatory.
+    expect(isCalculationResponse({ ...failed(), error: { ...failed().error, reason: "invented" } })).toBe(true);
   });
   it("rejects Mai Hoa data labeled as Tam The", () => {
     expect(isCalculationResponse({ ...lines, type: "TAM_THE" })).toBe(false);
+  });
+});
+
+describe("v1.2 error compatibility", () => {
+  it.each(["UNKNOWN_RULE", "EXECUTION_DISABLED", "RULE_STATE_UNAVAILABLE", "RULE_VERSION_MISMATCH", "SOURCE_UNVERIFIED", "MISSING_SOURCE_REFERENCE", "MISSING_SOURCE_REVIEW", "MISSING_DECISION_REFERENCE", "TEAM_DECISION_NOT_ALLOWED", "IMPLEMENTATION_UNAVAILABLE", "FUTURE_REASON"])("accepts known/future reason %s", reason => {
+    const value = { ...failed(), error: { ...failed().error, reason } };
+    expect(isCalculationEnvelope(value)).toBe(true);
+    expect(isCalculationResponse(value)).toBe(true);
+  });
+  it("E03 accepts future nonempty codes without promoting failure to success", () => {
+    const value = { ...failed(), error: { ...failed().error, code: "FUTURE_SERVER_CODE", reason: "FUTURE_REASON" } };
+    expect(isCalculationEnvelope(value)).toBe(true);
+    expect(isCalculationResponse(value)).toBe(true);
+  });
+  it.each(["", "  ", null, undefined, 1, false, {}])("E04 rejects invalid code %j", code => {
+    expect(isCalculationResponse({ ...failed(), error: { ...failed().error, code } })).toBe(false);
+  });
+  it.each(["", "  ", undefined, 1, false, {}])("E04 rejects invalid reason %j", reason => {
+    expect(isCalculationResponse({ ...failed(), error: { ...failed().error, reason } })).toBe(false);
+  });
+  it.each(["REQUEST_TIMEOUT", "DISCONNECTED", "INVALID_RESPONSE"])("keeps reserved Client-local code %s out of Server responses", code => {
+    expect(isCalculationResponse({ ...failed(), error: { ...failed().error, code } })).toBe(false);
+  });
+  it.each([null, undefined, "bad-id", "", 17])("E09/E10 classifies ID %j for a notice, never a correlated envelope", requestId => {
+    const value = { ...failed(), requestId };
+    expect(isUncorrelatedServerFailure(value)).toBe(true);
+    expect(isCalculationEnvelope(value)).toBe(false);
+    expect(isCalculationResponse(value)).toBe(requestId === null);
+  });
+  it("allows the documented null ID/type failure only as an uncorrelated notice", () => {
+    expect(isUncorrelatedServerFailure({ ...failed(), requestId: null, type: null })).toBe(true);
+    expect(isUncorrelatedServerFailure(failed())).toBe(false);
+  });
+  it.each([
+    { ...failed(), requestId: null, type: "OTHER" },
+    { ...failed(), requestId: null, data: {} },
+    { ...failed(), requestId: null, error: {} },
+    { ...failed(), requestId: null, status: "COMPLETED" },
+  ])("does not turn a malformed failure into a generic Server notice %#", value => {
+    expect(isUncorrelatedServerFailure(value)).toBe(false);
   });
 });

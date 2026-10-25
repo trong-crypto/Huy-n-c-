@@ -1,4 +1,4 @@
-import type { ApiError, CalculationResponse, CalculationType, ErrorCode, RuleUnavailableReason } from "@/types/contract";
+import type { ApiError, CalculationResponse, CalculationType, ErrorCode } from "@/types/contract";
 
 const SERVER_ERROR_CODES: readonly ErrorCode[] = [
   "INVALID_INPUT", "INVALID_DATE", "INVALID_METHOD",
@@ -6,11 +6,7 @@ const SERVER_ERROR_CODES: readonly ErrorCode[] = [
   "PROCESSING_TIMEOUT", "DATABASE_UNAVAILABLE", "KNOWLEDGE_DATA_INCOMPLETE",
   "NOT_FOUND", "INVALID_SESSION", "CSRF_REJECTED",
 ];
-const REASONS: readonly RuleUnavailableReason[] = [
-  "UNKNOWN_RULE", "EXECUTION_DISABLED", "RULE_STATE_UNAVAILABLE", "RULE_VERSION_MISMATCH",
-  "SOURCE_UNVERIFIED", "MISSING_SOURCE_REFERENCE", "MISSING_SOURCE_REVIEW",
-  "MISSING_DECISION_REFERENCE", "TEAM_DECISION_NOT_ALLOWED", "IMPLEMENTATION_UNAVAILABLE", "LOOKUP_NOT_AVAILABLE",
-];
+const CLIENT_LOCAL_CODES = ["REQUEST_TIMEOUT", "DISCONNECTED", "INVALID_RESPONSE"];
 const STATUSES = ["DRAFT", "SOURCE_LOCATED", "SOURCE_AMBIGUOUS", "BLOCKED_SOURCE_CONFLICT", "VERIFIED"];
 const BASES = ["SOURCE_VERIFIED", "TEAM_DECISION"];
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -21,10 +17,27 @@ export function isRecord(value: unknown): value is Record<string, unknown> {
 
 function isServerError(value: unknown): value is ApiError {
   return isRecord(value)
-    && SERVER_ERROR_CODES.some((code) => code === value.code)
+    && typeof value.code === "string" && value.code.trim().length > 0
+    && !CLIENT_LOCAL_CODES.includes(value.code)
     && typeof value.message === "string"
     && (value.ruleCode === null || typeof value.ruleCode === "string")
-    && (value.reason === null || REASONS.some(reason => reason === value.reason));
+    && (value.reason === null || (typeof value.reason === "string" && value.reason.trim().length > 0));
+}
+
+export function isKnownServerErrorCode(code: string): code is ErrorCode {
+  return SERVER_ERROR_CODES.some(known => known === code);
+}
+
+function hasFailureBody(value: Record<string, unknown>): boolean {
+  return value.status === "FAILED" && value.data === null && isServerError(value.error);
+}
+
+// Notice routing only; never upgrades a malformed ID into a CalculationResponse.
+// Shares the same failure-field checks as the existing envelope/response guards.
+export function isUncorrelatedServerFailure(value: unknown): boolean {
+  return isRecord(value) && hasFailureBody(value)
+    && (value.type === null || value.type === "MAI_HOA" || value.type === "TAM_THE")
+    && (typeof value.requestId !== "string" || !UUID.test(value.requestId));
 }
 
 // Envelope validation keeps success data opaque; it does not assert business types.
@@ -40,7 +53,7 @@ export function isCalculationEnvelope(value: unknown): value is CalculationEnvel
     return value.data !== null && value.data !== undefined && value.error === null;
   }
   if (value.status === "FAILED") {
-    return value.data === null && isServerError(value.error);
+    return hasFailureBody(value);
   }
   return false;
 }
@@ -76,7 +89,7 @@ function maiHoa(v: Record<string, unknown>): boolean {
   return member(v.method, ["TIME", "OBJECT_COUNT", "LINES"])
     && [v.primaryHexagram, v.mutualHexagram, v.changedHexagram].every(hexagram)
     && integer(v.movingLine) && v.movingLine >= 1 && v.movingLine <= 6
-    && (v.lunarDate === null || (isRecord(v.lunarDate)
+    && (v.method !== "TIME" ? v.lunarDate === null : (isRecord(v.lunarDate)
       && integer(v.lunarDate.year) && integer(v.lunarDate.month) && integer(v.lunarDate.day)
       && typeof v.lunarDate.isLeapMonth === "boolean"))
     && array(v.calculationSteps, s => isRecord(s) && text(s.code) && text(s.message)
@@ -86,9 +99,12 @@ function maiHoa(v: Record<string, unknown>): boolean {
 }
 function tamThe(v: Record<string, unknown>): boolean {
   return v.ruleBasis === "SOURCE_VERIFIED" && v.sourceStatus === "VERIFIED"
+    && Array.isArray(v.categories) && v.categories.length >= 1 && v.categories.length <= 3
     && array(v.categories, c => isRecord(c) && member(c.category, ["CAREER", "WEALTH", "LOVE"])
+      && Array.isArray(c.entries) && c.entries.length > 0
       && array(c.entries, e => isRecord(e) && [e.resultCode, e.title, e.content].every(text)
-        && array(e.sourceReferences, source)));
+        && array(e.sourceReferences, source)))
+    && new Set(v.categories.map(c => c.category)).size === v.categories.length;
 }
 // Structural validation only: source verification and calculations belong to the Server.
 export function isCalculationResponse(v: unknown): v is CalculationResponse {
@@ -96,7 +112,7 @@ export function isCalculationResponse(v: unknown): v is CalculationResponse {
   if (v.status === "FAILED") {
     return (v.requestId === null || (text(v.requestId) && UUID.test(v.requestId)))
       && (v.type === null || member(v.type, ["MAI_HOA", "TAM_THE"]))
-      && v.data === null && isServerError(v.error);
+      && hasFailureBody(v);
   }
   return isCalculationEnvelope(v) && v.status === "COMPLETED" && isRecord(v.data)
     && resultEvidence(v.data) && (v.type === "MAI_HOA" ? maiHoa(v.data) : tamThe(v.data));

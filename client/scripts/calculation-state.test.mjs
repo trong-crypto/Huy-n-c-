@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 import ts from "typescript";
+import { loadUiModule } from "./lib/load-ui-module.mjs";
 
 const source = fs.readFileSync(new URL("../src/services/websocket/calculationState.ts", import.meta.url), "utf8");
 let javascript = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
@@ -114,11 +115,7 @@ test("a second submit cannot replace a still pending request", () => {
 });
 
 test("the result panel renders real progress safely and keeps failure visible", async () => {
-  const raw = fs.readFileSync(new URL("../src/components/ResultPanel.tsx", import.meta.url), "utf8");
-  const code = ts.transpileModule(raw, { compilerOptions: {
-    module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX,
-  } }).outputText.replaceAll('"react/jsx-runtime"', JSON.stringify(import.meta.resolve("react/jsx-runtime")));
-  const { ResultPanel } = await import(`data:text/javascript;base64,${Buffer.from(code).toString("base64")}`);
+  const { ResultPanel } = await loadUiModule("components/ResultPanel.tsx");
   const { renderToStaticMarkup } = await import("react-dom/server");
   const { createElement } = await import("react");
   const html = renderToStaticMarkup(createElement(ResultPanel, {
