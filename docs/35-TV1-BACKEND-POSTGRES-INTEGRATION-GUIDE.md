@@ -122,11 +122,15 @@ Nội dung `client/.env.local` trên **cùng máy**:
 
 ```dotenv
 NEXT_PUBLIC_WS_URL=ws://localhost:8080/ws
+NEXT_PUBLIC_API_BASE_URL=/api/v1
+HUYENCO_API_URL=http://127.0.0.1:8080
 ```
 
-Mở `http://localhost:3000`; sau khi sửa `.env.local`, **restart** Next.js. Server không sử dụng SockJS: đây là endpoint WebSocket STOMP trực tiếp.
+`HUYENCO_API_URL` là biến **server-only của Next.js**, dùng cho proxy tra cứu `/api/v1/hexagrams/:path*`; không thêm tiền tố NEXT_PUBLIC cho biến này. `API_SERVER_URL` của nhánh TV1 vẫn được nhận làm alias dự phòng nếu chưa đặt HUYENCO_API_URL. Thứ tự ưu tiên: HUYENCO_API_URL → API_SERVER_URL → http://127.0.0.1:8080. Chỉ đổi NEXT_PUBLIC_WS_URL không thay đích REST proxy. Proxy hiện tại chỉ có đường dẫn tra quẻ; không tự proxy session/history.
 
-**Nếu TV1 và Server ở hai máy:** đặt `NEXT_PUBLIC_WS_URL=ws://<IP-server>:8080/ws` trên máy TV1 và bảo đảm mở được `http://<IP-server>:8080/api/v1/readiness`. Trên Server, đặt `ALLOWED_ORIGINS` theo **Origin thật** của trang Next.js (ví dụ `http://localhost:3000` khi TV1 mở localhost; hoặc `http://<IP-TV1>:3000` khi mở trang theo IP). Danh sách nhiều origin cách nhau bằng dấu phẩy; chỉ thêm origin tin cậy, rồi restart Server. Kiểm firewall/cổng 8080; **localhost luôn chỉ vào chính máy đang chạy lệnh**. Không cần công khai PostgreSQL port 5432 cho TV1 nếu PostgreSQL nằm cùng máy Backend.
+Mở `http://localhost:3000`; sau khi sửa `.env.local`, **restart** Next.js khi dùng dev. Với production, đặt các biến đúng **trước `npm run build`**, rồi chạy lại build/start khi đổi đích Backend. Server không sử dụng SockJS: đây là endpoint WebSocket STOMP trực tiếp.
+
+**Nếu TV1 và Server ở hai máy:** đặt `NEXT_PUBLIC_WS_URL=ws://<IP-server>:8080/ws` và `HUYENCO_API_URL=http://<IP-server>:8080` trên máy chạy Next.js, giữ NEXT_PUBLIC_API_BASE_URL=/api/v1; đổi cả hai URL nếu Backend dùng cổng khác. Bảo đảm mở được `http://<IP-server>:8080/api/v1/readiness`. Trên Server, đặt `ALLOWED_ORIGINS` theo **Origin thật** của trang Next.js (ví dụ `http://localhost:3000` khi TV1 mở localhost; hoặc `http://<IP-TV1>:3000` khi mở trang theo IP). Danh sách nhiều origin cách nhau bằng dấu phẩy; chỉ thêm origin tin cậy, rồi restart Server. Kiểm firewall/cổng 8080; **localhost luôn chỉ vào chính máy đang chạy lệnh**. Không cần công khai PostgreSQL port 5432 cho TV1 nếu PostgreSQL nằm cùng máy Backend.
 
 > Với H01 (cookie + lịch sử), hai hostname/site khác nhau có thể làm cookie `SameSite=Lax` không được gửi trong WebSocket/API. Nên thống nhất cùng hostname và reverse proxy/same-origin trước khi nghiệm thu lịch sử. Không tắt kiểm tra Origin/CSRF để vượt lỗi này. Ngay lúc đầu có thể nghiệm thu **LINES/OBJECT_COUNT công khai** bằng kết nối STOMP giữa hai máy.
 
