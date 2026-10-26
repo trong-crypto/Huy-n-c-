@@ -391,6 +391,39 @@ summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; bo
 .subreading-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
 .subreading-heading h3 { margin: 0; }
 .subreading-heading .evidence-badge { white-space: normal; }
+
+/* REST hexagram lookup shares the existing cards and evidence styles. */
+.lookup-search { display: grid; gap: 20px; align-items: start; }
+.lookup-search-actions { display: flex; flex-wrap: wrap; gap: 12px; align-self: end; }
+.lookup-search-actions > * { min-height: 44px; }
+.lookup-results { margin-top: 32px; min-width: 0; }
+.lookup-count { color: var(--primary-hover); }
+.lookup-grid { display: grid; gap: 20px; padding: 0; list-style: none; }
+.lookup-grid > li { min-width: 0; }
+.lookup-card { height: 100%; padding: 24px; }
+.lookup-card h2 { margin: 0 0 10px; font-family: var(--font-heading); font-size: 28px; color: var(--primary-hover); }
+.lookup-card h2 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.lookup-verification { display: flex; flex-wrap: wrap; gap: 8px; margin-block: 16px; font-size: 13px; }
+.lookup-verification .evidence-badge { white-space: normal; }
+.lookup-trigrams { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-block: 20px; }
+.lookup-trigrams dt { color: var(--muted); font-size: 12px; }
+.lookup-trigrams dd { margin: 4px 0 0; }
+.lookup-trigrams code { color: var(--muted); font-size: 12px; }
+.lookup-pagination { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.lookup-pagination button { min-height: 44px; min-width: 44px; padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--secondary); cursor: pointer; }
+.lookup-pagination button[aria-current="page"], .lookup-pagination button:hover:not(:disabled) { border-color: var(--primary); color: var(--primary-hover); background: var(--soft); }
+.lookup-pagination button:disabled { opacity: .5; cursor: not-allowed; }
+.lookup-detail-grid { display: grid; gap: 24px; align-items: start; margin-top: 24px; }
+.lookup-interpretations { display: grid; gap: 24px; margin-top: 24px; }
+.lookup-back { display: inline-block; margin-bottom: 24px; }
+.lookup-code, .lookup-card, .lookup-failure, .lookup-results .field-hint { overflow-wrap: anywhere; }
+.lookup-code { font-size: 14px; }
+@media (min-width: 768px) {
+  .lookup-search { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lookup-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lookup-detail-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+}
+@media (min-width: 1100px) { .lookup-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 768px) { .reading-role-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 479px) {
   .reading-options, .reading-phase, .wealth-subreading, .reading-role-grid > section, .reading-summary { padding: 14px; }

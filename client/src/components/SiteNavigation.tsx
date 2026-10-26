@@ -15,8 +15,8 @@ export function SiteNavigation() {
           <span>HUYỀN CƠ<span className="brand-caption">DỊCH HỌC & TRI THỨC TRUYỀN THỐNG</span></span>
         </Link>
         <div className="navigation-links">
-          {[{ href: "/", label: "Trang chủ" }, { href: "/mai-hoa", label: "Mai Hoa" }, { href: "/tam-the", label: "Tam Thế" }].map(link => (
-            <Link key={link.href} href={link.href} aria-current={pathname === link.href ? "page" : undefined}>
+          {[{ href: "/", label: "Trang chủ" }, { href: "/mai-hoa", label: "Mai Hoa" }, { href: "/tam-the", label: "Tam Thế" }, { href: "/hexagrams", label: "Tra cứu quẻ" }].map(link => (
+            <Link key={link.href} href={link.href} aria-current={pathname === link.href || pathname.startsWith(`${link.href}/`) ? "page" : undefined}>
               {link.label}
             </Link>
           ))}
