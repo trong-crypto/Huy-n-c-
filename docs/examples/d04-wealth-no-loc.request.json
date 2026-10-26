@@ -1,0 +1,11 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440091",
+  "type": "TAM_THE",
+  "payload": {
+    "birthDate": "1984-02-01",
+    "birthTime": "08:30",
+    "calendarType": "LUNAR",
+    "isLeapMonth": false,
+    "wealthMode": "EXTENDED"
+  }
+}

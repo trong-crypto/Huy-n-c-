@@ -1,0 +1,592 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440092",
+  "type": "TAM_THE",
+  "status": "COMPLETED",
+  "data": {
+    "ruleVersion": "1.0",
+    "ruleBasis": "SOURCE_VERIFIED",
+    "sourceStatus": "VERIFIED",
+    "rules": [
+      {
+        "ruleCode": "LUNAR-CONVERSION",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "C01-VN-FIXED7",
+            "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+            "version": "C01-1.0 / Time4J 5.9.4",
+            "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+            "printedPage": null,
+            "pdfPage": null,
+            "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+            "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+          }
+        ],
+        "decisionReferences": []
+      },
+      {
+        "ruleCode": "TT-NGU-HANH",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "TT",
+            "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "TT-NGU-HANH",
+            "printedPage": "12",
+            "pdfPage": 11,
+            "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      },
+      {
+        "ruleCode": "TT-TAI-LOC",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "TT",
+            "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "D02-TT-P041",
+            "printedPage": "42",
+            "pdfPage": 41,
+            "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      },
+      {
+        "ruleCode": "TT-SANG-HEN",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "TT-M01",
+            "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+            "version": "M01-1.0",
+            "section": "TT-SANG-HEN/TABLE",
+            "printedPage": "44",
+            "pdfPage": 43,
+            "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+            "url": null
+          },
+          {
+            "sourceId": "TT-M01",
+            "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+            "version": "M01-1.0",
+            "section": "TT-SANG-HEN/CONTENT",
+            "printedPage": "44",
+            "pdfPage": 43,
+            "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+            "url": null
+          },
+          {
+            "sourceId": "TT-M01",
+            "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+            "version": "M01-1.0",
+            "section": "TT-SANG-HEN/CONTENT",
+            "printedPage": "45",
+            "pdfPage": 44,
+            "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      },
+      {
+        "ruleCode": "TT-DIEN-SAN",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "TT-M01",
+            "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+            "version": "M01-1.0",
+            "section": "TT-DIEN-SAN/TABLE",
+            "printedPage": "50",
+            "pdfPage": 49,
+            "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+            "url": null
+          },
+          {
+            "sourceId": "TT-M01",
+            "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+            "version": "M01-1.0",
+            "section": "TT-DIEN-SAN/CONTENT",
+            "printedPage": "50",
+            "pdfPage": 49,
+            "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+            "url": null
+          },
+          {
+            "sourceId": "TT-M01",
+            "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+            "version": "M01-1.0",
+            "section": "TT-DIEN-SAN/CONTENT",
+            "printedPage": "51",
+            "pdfPage": 50,
+            "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      }
+    ],
+    "sourceReferences": [
+      {
+        "sourceId": "C01-VN-FIXED7",
+        "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+        "version": "C01-1.0 / Time4J 5.9.4",
+        "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+        "printedPage": null,
+        "pdfPage": null,
+        "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+        "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+      },
+      {
+        "sourceId": "TT",
+        "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "TT-NGU-HANH",
+        "printedPage": "12",
+        "pdfPage": 11,
+        "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+        "url": null
+      },
+      {
+        "sourceId": "TT",
+        "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "D02-TT-P041",
+        "printedPage": "42",
+        "pdfPage": 41,
+        "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+        "url": null
+      },
+      {
+        "sourceId": "TT-M01",
+        "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+        "version": "M01-1.0",
+        "section": "TT-SANG-HEN/TABLE",
+        "printedPage": "44",
+        "pdfPage": 43,
+        "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+        "url": null
+      },
+      {
+        "sourceId": "TT-M01",
+        "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+        "version": "M01-1.0",
+        "section": "TT-SANG-HEN/CONTENT",
+        "printedPage": "44",
+        "pdfPage": 43,
+        "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+        "url": null
+      },
+      {
+        "sourceId": "TT-M01",
+        "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+        "version": "M01-1.0",
+        "section": "TT-SANG-HEN/CONTENT",
+        "printedPage": "45",
+        "pdfPage": 44,
+        "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+        "url": null
+      },
+      {
+        "sourceId": "TT-M01",
+        "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+        "version": "M01-1.0",
+        "section": "TT-DIEN-SAN/TABLE",
+        "printedPage": "50",
+        "pdfPage": 49,
+        "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+        "url": null
+      },
+      {
+        "sourceId": "TT-M01",
+        "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+        "version": "M01-1.0",
+        "section": "TT-DIEN-SAN/CONTENT",
+        "printedPage": "50",
+        "pdfPage": 49,
+        "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+        "url": null
+      },
+      {
+        "sourceId": "TT-M01",
+        "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+        "version": "M01-1.0",
+        "section": "TT-DIEN-SAN/CONTENT",
+        "printedPage": "51",
+        "pdfPage": 50,
+        "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+        "url": null
+      },
+      {
+        "sourceId": "TT-M01",
+        "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+        "version": "M01-1.0",
+        "section": "DEC-20261026-M01-SANG-HEN-LABELS",
+        "printedPage": "44",
+        "pdfPage": 43,
+        "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+        "url": null
+      },
+      {
+        "sourceId": "TT-M01",
+        "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+        "version": "M01-1.0",
+        "section": "DEC-20261026-M01-SANG-HEN-LABELS",
+        "printedPage": "45",
+        "pdfPage": 44,
+        "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+        "url": null
+      },
+      {
+        "sourceId": "TT-M01",
+        "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+        "version": "M01-1.0",
+        "section": "DEC-20261026-M01-DIEN-SAN-REFERENCE",
+        "printedPage": "50",
+        "pdfPage": 49,
+        "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+        "url": null
+      }
+    ],
+    "decisionReferences": [],
+    "categories": [
+      {
+        "category": "WEALTH",
+        "entries": [
+          {
+            "resultCode": "TT-SANG-HEN-12",
+            "title": "Thiên an / Phiên An",
+            "content": "Đoạn có tiêu đề Phiên An nhưng phần thân gọi Thiên An, mô tả tính cương cường, thông minh, có hướng tu niệm và học hành khoa cử. Dự án bảo tồn cả hai nhãn.",
+            "sourceReferences": [
+              {
+                "sourceId": "TT-M01",
+                "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                "version": "M01-1.0",
+                "section": "TT-SANG-HEN/TABLE",
+                "printedPage": "44",
+                "pdfPage": 43,
+                "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                "url": null
+              },
+              {
+                "sourceId": "TT-M01",
+                "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                "version": "M01-1.0",
+                "section": "TT-SANG-HEN/CONTENT",
+                "printedPage": "45",
+                "pdfPage": 44,
+                "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                "url": null
+              }
+            ],
+            "subreadingCode": "SANG_HEN"
+          },
+          {
+            "resultCode": "TT-DIEN-SAN-02",
+            "title": "Bại",
+            "content": "Theo đoạn chữ Bại, điền sản cha mẹ cho hay tự tạo tại quê sinh dễ thất bại; có ý chí đi nơi khác lập điền viên thì được chút ít.",
+            "sourceReferences": [
+              {
+                "sourceId": "TT-M01",
+                "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                "version": "M01-1.0",
+                "section": "TT-DIEN-SAN/TABLE",
+                "printedPage": "50",
+                "pdfPage": 49,
+                "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                "url": null
+              },
+              {
+                "sourceId": "TT-M01",
+                "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                "version": "M01-1.0",
+                "section": "TT-DIEN-SAN/CONTENT",
+                "printedPage": "50",
+                "pdfPage": 49,
+                "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                "url": null
+              }
+            ],
+            "subreadingCode": "DIEN_SAN"
+          }
+        ],
+        "subreadings": [
+          {
+            "code": "LOC",
+            "status": "NO_SOURCE_MATCH",
+            "ruleCode": "TT-TAI-LOC",
+            "lookupKey": "STEM:GIAP|MONTH:12",
+            "entries": [],
+            "reason": "NO_PRINTED_INTERSECTION",
+            "sourceReferences": [
+              {
+                "sourceId": "TT",
+                "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                "section": "D02-TT-P041",
+                "printedPage": "42",
+                "pdfPage": 41,
+                "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                "url": null
+              }
+            ],
+            "decisionReferences": []
+          },
+          {
+            "code": "SANG_HEN",
+            "status": "MATCHED",
+            "ruleCode": "TT-SANG-HEN",
+            "lookupKey": "BRANCH:TY|MONTH:12",
+            "entries": [
+              {
+                "resultCode": "TT-SANG-HEN-12",
+                "title": "Thiên an / Phiên An",
+                "content": "Đoạn có tiêu đề Phiên An nhưng phần thân gọi Thiên An, mô tả tính cương cường, thông minh, có hướng tu niệm và học hành khoa cử. Dự án bảo tồn cả hai nhãn.",
+                "sourceReferences": [
+                  {
+                    "sourceId": "TT-M01",
+                    "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                    "version": "M01-1.0",
+                    "section": "TT-SANG-HEN/TABLE",
+                    "printedPage": "44",
+                    "pdfPage": 43,
+                    "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                    "url": null
+                  },
+                  {
+                    "sourceId": "TT-M01",
+                    "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                    "version": "M01-1.0",
+                    "section": "TT-SANG-HEN/CONTENT",
+                    "printedPage": "45",
+                    "pdfPage": 44,
+                    "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                    "url": null
+                  }
+                ],
+                "subreadingCode": "SANG_HEN"
+              }
+            ],
+            "reason": null,
+            "sourceReferences": [
+              {
+                "sourceId": "TT-M01",
+                "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                "version": "M01-1.0",
+                "section": "TT-SANG-HEN/TABLE",
+                "printedPage": "44",
+                "pdfPage": 43,
+                "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                "url": null
+              },
+              {
+                "sourceId": "TT-M01",
+                "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                "version": "M01-1.0",
+                "section": "TT-SANG-HEN/CONTENT",
+                "printedPage": "45",
+                "pdfPage": 44,
+                "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                "url": null
+              }
+            ],
+            "decisionReferences": [
+              {
+                "decisionId": "DEC-20261026-M01-SANG-HEN-LABELS",
+                "purpose": "EDITORIAL_LINK",
+                "ruleBasis": "TEAM_DECISION",
+                "sourceStatus": "SOURCE_AMBIGUOUS",
+                "policy": "PRESERVE_PRINTED_LABEL_LINK_BY_COLUMN",
+                "description": "Cột 3 Hoa cái -> tiêu đề Hao Cái; cột 10 Vong sát -> Vong Thần; cột 11 Tướng linh -> Tướng Tinh; cột 12 Thiên an -> tiêu đề Phiên An (nội dung Thiên An). Giữ cả hai trường, liên kết theo thứ tự 12 đoạn.",
+                "limitation": "Đây là liên kết biên tập của dự án, không phải đính chính từ nhà xuất bản. Đoạn Hao Cái có token 3 và đoạn Tướng Tinh có chữ khó đọc: bản diễn giải chỉ giữ phần nghĩa đọc rõ.",
+                "sourceReferences": [
+                  {
+                    "sourceId": "TT-M01",
+                    "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                    "version": "M01-1.0",
+                    "section": "DEC-20261026-M01-SANG-HEN-LABELS",
+                    "printedPage": "44",
+                    "pdfPage": 43,
+                    "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                    "url": null
+                  },
+                  {
+                    "sourceId": "TT-M01",
+                    "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                    "version": "M01-1.0",
+                    "section": "DEC-20261026-M01-SANG-HEN-LABELS",
+                    "printedPage": "45",
+                    "pdfPage": 44,
+                    "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                    "url": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "DIEN_SAN",
+            "status": "MATCHED",
+            "ruleCode": "TT-DIEN-SAN",
+            "lookupKey": "ELEMENT:KIM|MONTH:12",
+            "entries": [
+              {
+                "resultCode": "TT-DIEN-SAN-02",
+                "title": "Bại",
+                "content": "Theo đoạn chữ Bại, điền sản cha mẹ cho hay tự tạo tại quê sinh dễ thất bại; có ý chí đi nơi khác lập điền viên thì được chút ít.",
+                "sourceReferences": [
+                  {
+                    "sourceId": "TT-M01",
+                    "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                    "version": "M01-1.0",
+                    "section": "TT-DIEN-SAN/TABLE",
+                    "printedPage": "50",
+                    "pdfPage": 49,
+                    "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                    "url": null
+                  },
+                  {
+                    "sourceId": "TT-M01",
+                    "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                    "version": "M01-1.0",
+                    "section": "TT-DIEN-SAN/CONTENT",
+                    "printedPage": "50",
+                    "pdfPage": 49,
+                    "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                    "url": null
+                  }
+                ],
+                "subreadingCode": "DIEN_SAN"
+              }
+            ],
+            "reason": null,
+            "sourceReferences": [
+              {
+                "sourceId": "TT-M01",
+                "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                "version": "M01-1.0",
+                "section": "TT-DIEN-SAN/TABLE",
+                "printedPage": "50",
+                "pdfPage": 49,
+                "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                "url": null
+              },
+              {
+                "sourceId": "TT-M01",
+                "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                "version": "M01-1.0",
+                "section": "TT-DIEN-SAN/CONTENT",
+                "printedPage": "50",
+                "pdfPage": 49,
+                "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                "url": null
+              }
+            ],
+            "decisionReferences": [
+              {
+                "decisionId": "DEC-20261026-M01-DIEN-SAN-REFERENCE",
+                "purpose": "CALCULATION",
+                "ruleBasis": "TEAM_DECISION",
+                "sourceStatus": "SOURCE_AMBIGUOUS",
+                "policy": "REUSE_REVIEWED_YEAR_ELEMENT",
+                "description": "Hướng dẫn in dẫn Số 6; dự án dùng hành mệnh đã duyệt ở TT-NGU-HANH/Số 4 làm khóa của bảng năm hành này.",
+                "limitation": "Tham chiếu Số 6 được bảo tồn; không coi quyết định nối dữ liệu là câu đã in ở Số 15.",
+                "sourceReferences": [
+                  {
+                    "sourceId": "TT-M01",
+                    "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                    "version": "M01-1.0",
+                    "section": "DEC-20261026-M01-DIEN-SAN-REFERENCE",
+                    "printedPage": "50",
+                    "pdfPage": 49,
+                    "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                    "url": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "coverageMode": "EXTENDED",
+    "bundleId": "M01-READINGS-20261026-V1",
+    "editorialDecisions": [
+      {
+        "decisionId": "DEC-20261026-M01-SANG-HEN-LABELS",
+        "purpose": "EDITORIAL_LINK",
+        "ruleBasis": "TEAM_DECISION",
+        "sourceStatus": "SOURCE_AMBIGUOUS",
+        "policy": "PRESERVE_PRINTED_LABEL_LINK_BY_COLUMN",
+        "description": "Cột 3 Hoa cái -> tiêu đề Hao Cái; cột 10 Vong sát -> Vong Thần; cột 11 Tướng linh -> Tướng Tinh; cột 12 Thiên an -> tiêu đề Phiên An (nội dung Thiên An). Giữ cả hai trường, liên kết theo thứ tự 12 đoạn.",
+        "limitation": "Đây là liên kết biên tập của dự án, không phải đính chính từ nhà xuất bản. Đoạn Hao Cái có token 3 và đoạn Tướng Tinh có chữ khó đọc: bản diễn giải chỉ giữ phần nghĩa đọc rõ.",
+        "sourceReferences": [
+          {
+            "sourceId": "TT-M01",
+            "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+            "version": "M01-1.0",
+            "section": "DEC-20261026-M01-SANG-HEN-LABELS",
+            "printedPage": "44",
+            "pdfPage": 43,
+            "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+            "url": null
+          },
+          {
+            "sourceId": "TT-M01",
+            "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+            "version": "M01-1.0",
+            "section": "DEC-20261026-M01-SANG-HEN-LABELS",
+            "printedPage": "45",
+            "pdfPage": 44,
+            "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+            "url": null
+          }
+        ]
+      },
+      {
+        "decisionId": "DEC-20261026-M01-DIEN-SAN-REFERENCE",
+        "purpose": "CALCULATION",
+        "ruleBasis": "TEAM_DECISION",
+        "sourceStatus": "SOURCE_AMBIGUOUS",
+        "policy": "REUSE_REVIEWED_YEAR_ELEMENT",
+        "description": "Hướng dẫn in dẫn Số 6; dự án dùng hành mệnh đã duyệt ở TT-NGU-HANH/Số 4 làm khóa của bảng năm hành này.",
+        "limitation": "Tham chiếu Số 6 được bảo tồn; không coi quyết định nối dữ liệu là câu đã in ở Số 15.",
+        "sourceReferences": [
+          {
+            "sourceId": "TT-M01",
+            "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+            "version": "M01-1.0",
+            "section": "DEC-20261026-M01-DIEN-SAN-REFERENCE",
+            "printedPage": "50",
+            "pdfPage": 49,
+            "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+            "url": null
+          }
+        ]
+      }
+    ]
+  },
+  "error": null
+}

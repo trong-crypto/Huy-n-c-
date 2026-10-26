@@ -49,6 +49,9 @@ vi.mock("@stomp/stompjs", () => ({
 }));
 
 import objects from "../../../../docs/examples/mai-hoa-object-count.response.json";
+import m03Time from "../../../../docs/examples/m03-time-reading.response.json";
+import d04Matched from "../../../../docs/examples/d04-wealth-matched.response.json";
+import d04NoLoc from "../../../../docs/examples/d04-wealth-no-loc.response.json";
 
 // Canonical Server result fixture; tests do not assert source verification themselves.
 const payload: MaiHoaPayload = { method: "OBJECT_COUNT", objectCount: 12, hourIndex: 8 };
@@ -309,6 +312,63 @@ describe("useCalculation safe core", () => {
     expect(vi.getTimerCount()).toBe(0);
     act(() => vi.advanceTimersByTime(CLIENT_CONFIG.requestTimeoutMs));
     expect(result.current.requestState).toBe("completed");
+  });
+
+  it.each([["M03 TIME", m03Time], ["D04 matched", d04Matched], ["D04 no-match", d04NoLoc]] as const)(
+    "V12 completes %s from a terminal-only replay and ignores duplicate terminals", (_name, response) => {
+      const { result, client } = mount();
+      act(() => {
+        if (response.type === "MAI_HOA") result.current.submit("MAI_HOA", { method: "TIME", datetime: "2024-02-10T00:00:00+07:00", reading: { topic: "GENERAL" } });
+        else result.current.submit("TAM_THE", { birthDate: "1984-01-01", birthTime: "08:30", calendarType: "LUNAR", isLeapMonth: false, wealthMode: "EXTENDED" });
+      });
+      const frame = { ...response, requestId: lastId(client) };
+      emit(client, frame);
+      expect(result.current.requestState).toBe("completed");
+      expect(result.current.response).toEqual(frame);
+      expect(result.current.progress).toEqual([]);
+      expect(vi.getTimerCount()).toBe(0);
+      const settled = result.current.response;
+      emit(client, frame);
+      expect(result.current.response).toBe(settled);
+    },
+  );
+  it("V12 rejects a correlated invalid M03 TIME terminal and releases the deadline", () => {
+    const { result, client } = mount();
+    act(() => result.current.submit("MAI_HOA", { method: "TIME", datetime: "2024-02-10T00:00:00+07:00", reading: { topic: "GENERAL" } }));
+    const response = structuredClone(m03Time);
+    response.requestId = lastId(client);
+    response.data.lunarDate.month = 0;
+    emit(client, response);
+    expect(result.current.requestState).toBe("failed");
+    expect(result.current.localError).toContain("Phản hồi không đúng hợp đồng");
+    expect(result.current.response).toBeNull();
+    expect(vi.getTimerCount()).toBe(0);
+  });
+  it("V12 rejects a correlated D04 terminal with a missing mandatory subreading", () => {
+    const { result, client } = mount();
+    act(() => result.current.submit("TAM_THE", { birthDate: "1984-01-01", birthTime: "08:30", calendarType: "LUNAR", isLeapMonth: false, wealthMode: "EXTENDED" }));
+    const response = structuredClone(d04Matched);
+    response.requestId = lastId(client);
+    response.data.categories.find(category => category.category === "WEALTH")!.subreadings!.pop();
+    emit(client, response);
+    expect(result.current.requestState).toBe("failed");
+    expect(result.current.response).toBeNull();
+    expect(vi.getTimerCount()).toBe(0);
+  });
+  it("V12 preserves requestId/type isolation across separate hook connections", () => {
+    const first = mount();
+    const second = mount();
+    for (const hook of [first, second]) act(() => hook.result.current.submit("MAI_HOA", { method: "TIME", datetime: "2024-02-10T00:00:00+07:00", reading: { topic: "GENERAL" } }));
+    emit(first.client, { ...m03Time, requestId: lastId(second.client) });
+    emit(second.client, { ...d04Matched, requestId: lastId(second.client) });
+    expect(first.result.current.requestState).toBe("waiting");
+    expect(second.result.current.requestState).toBe("waiting");
+    emit(first.client, { ...m03Time, requestId: lastId(first.client) });
+    expect(first.result.current.requestState).toBe("completed");
+    expect(second.result.current.requestState).toBe("waiting");
+    emit(second.client, { ...m03Time, requestId: lastId(second.client) });
+    expect(second.result.current.requestState).toBe("completed");
+    expect(vi.getTimerCount()).toBe(0);
   });
 
   it.each(["INVALID_INPUT", "INVALID_DATE", "INVALID_METHOD", "RULE_NOT_AVAILABLE", "SERVER_BUSY", "INTERNAL_ERROR", "PROCESSING_TIMEOUT", "DATABASE_UNAVAILABLE", "KNOWLEDGE_DATA_INCOMPLETE"])("T02 retains matching Server failure %s", (code) => {

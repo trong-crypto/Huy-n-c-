@@ -31,5 +31,9 @@ scripts/generated/d02_*
 scripts/generated/d03_*
 scripts/generated/e02_*
 scripts/generated/h01_*
+scripts/generated/m02_*
+scripts/generated/m03_*
+scripts/generated/d04_*
+scripts/generated/v12_*
 scripts/generated/hexagram_title_review.sql
 

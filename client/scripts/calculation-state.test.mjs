@@ -1,18 +1,10 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
-import ts from "typescript";
 import { loadUiModule } from "./lib/load-ui-module.mjs";
 
-const source = fs.readFileSync(new URL("../src/services/websocket/calculationState.ts", import.meta.url), "utf8");
-let javascript = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
-const validation = ts.transpileModule(fs.readFileSync(new URL("../src/types/contractValidation.ts", import.meta.url), "utf8"), {
-  compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
-}).outputText;
-const validationUrl = `data:text/javascript;base64,${Buffer.from(validation).toString("base64")}`;
-javascript = javascript.replaceAll('"@/types/contractValidation"', JSON.stringify(validationUrl));
 const { initialState, reduceCalculation: reduce, parseProgress, parseTerminal, CLIENT_TIMEOUT_MS } =
-  await import(`data:text/javascript;base64,${Buffer.from(javascript).toString("base64")}`);
+  await loadUiModule("services/websocket/calculationState.ts");
 const success = JSON.parse(fs.readFileSync(new URL("../../docs/examples/mai-hoa-lines.response.json", import.meta.url), "utf8"));
 const id = success.requestId;
 const steps = ["ACCEPTED", "VALIDATING", "CALCULATING", "LOOKUP"];

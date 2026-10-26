@@ -1,4 +1,10 @@
-# Hợp đồng Huyền Cơ v1.2 — cập nhật đến N01
+# Hợp đồng Huyền Cơ v1.2 — cập nhật đến D04
+
+**D04 ngày26/10:** Tam Thế `wealthMode=EXTENDED` đã hoạt động theo [39](39-DETAILED-READINGS-CONTRACT.md)/[42](42-D04-TAM-THE-EXTENDED-WEALTH-HANDOFF.md). LOC giữ MATCHED/NO_SOURCE_MATCH; Sang hèn/Điền sản có nguồn và quyết định riêng.720 tổ hợp và STOMP/HTTP/history thật đạt,62 fixtures. LEGACY và envelope1.2 giữ nguyên. Các gate chưa mở D04 ở mốc M02/M03 dưới đây là lịch sử; UI/I02 và T02 còn làm.
+
+**M03 ngày26/10:** Mai Hoa có `payload.reading` đã sinh `detailedReading` thật cho LINES/OBJECT_COUNT/TIME từ bundle M01 đã duyệt trên DB V12. Giữ JSON cũ khi không có reading; Tam Thế EXTENDED vẫn chờ D04. Xem [39](39-DETAILED-READINGS-CONTRACT.md) và [41](41-M03-MAI-HOA-INTERPRETATION-HANDOFF.md), bốn capture thật m03-* trong docs/examples. Gate Mai Hoa trong đoạn M02 dưới đây là lịch sử, không còn hành vi của Server M03 đã cấu hình đúng DB.
+
+**M02 ngày26/10:** bổ sung tùy chọn `payload.reading` (Mai Hoa), `payload.wealthMode` (Tam Thế) và DTO đầu ra mở rộng; giữ JSON/envelope cũ. Validator đã nhận field mới; opt-in hợp lệ trả RULE_NOT_AVAILABLE/IMPLEMENTATION_UNAVAILABLE chờ service M03/D04. Chi tiết field/entries/mùa/decision ở [39](39-DETAILED-READINGS-CONTRACT.md), bằng chứng và trạng thái runtime ở [40](40-M02-CONTRACT-HANDOFF.md). Bốn fixture `.schema.response.json` chỉ kiểm kiểu, không phải capture lời luận thành công.
 
 **Cập nhật theo xác nhận của chủ dự án:** MH-TIME đã được duyệt **VERIFIED cho quy tắc dự án dùng chia6**; không còn chờ xác nhận lại. TIME trả TEAM_DECISION/VERIFIED; câu chữ bản in được giữ trong ghi chú nguồn. Biên bản `docs/28-TIME-OWNER-APPROVAL.md` thay các ghi nhận BLOCKED/chưa duyệt của MH-TIME ở mốc trước.
 
@@ -14,7 +20,7 @@
 | LINES trả quẻ chủ/hỗ/biến | B01 đã triển khai, có registry/DB và kiểm qua hai Client STOMP |
 | OBJECT_COUNT trả quẻ chủ/hỗ/biến | B03 đã triển khai/kiểm STOMP, bốn rule phụ thuộc; giữ TEAM_DECISION/SOURCE_AMBIGUOUS |
 | TIME trả quẻ chủ/hỗ/biến | B04 đã nối lịch C01 và kiểm STOMP; TEAM_DECISION/VERIFIED |
-| Tam Thế trả kết quả thật | D03 đã triển khai CAREER/WEALTH/LOVE; khóa WEALTH thiếu trả LOOKUP_NOT_AVAILABLE cho toàn request |
+| Tam Thế trả kết quả thật | D03 LEGACY giữ CAREER/WEALTH/LOVE và lỗi thiếu Lộc; D04 EXTENDED có ba tiểu mục, no-match Lộc vẫn giữ đủ category. Nghiệm thu720 tổ hợp theo42 |
 | Progress, concurrency và vòng đời request | B02 đã phát bước thật; N01 đã thêm worker/hàng đợi hữu hạn, idempotency theo phiên và deadline tính cả thời gian chờ; hook/Panel TV1 nhận tiến trình |
 | REST lịch/Can Chi | C01 đã triển khai hai POST /calendar/convert và /calendar/can-chi; cần DB V8/biên bản nguồn C01 |
 | REST tra quẻ | E02: danh sách/tìm/lọc/phân trang và chi tiết với nghĩa tên VERIFIED |

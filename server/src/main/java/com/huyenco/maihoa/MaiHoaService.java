@@ -34,6 +34,7 @@ public class MaiHoaService {
     private final HexagramRepository hexagrams;
     private final TrigramRepository trigrams;
     private final CalendarService calendar;
+    private final MaiHoaInterpretationService interpretations;
 
     public MaiHoaService(RuleRegistry registry, HexagramRepository hexagrams) {
         this(registry, hexagrams, java.util.List::of);
@@ -43,12 +44,18 @@ public class MaiHoaService {
         this(registry, hexagrams, trigrams, new CalendarService(new VietnameseLunarCalendar(), registry));
     }
 
-    @Autowired
     public MaiHoaService(RuleRegistry registry, HexagramRepository hexagrams, TrigramRepository trigrams, CalendarService calendar) {
+        this(registry,hexagrams,trigrams,calendar,null);
+    }
+
+    @Autowired
+    public MaiHoaService(RuleRegistry registry, HexagramRepository hexagrams, TrigramRepository trigrams,
+                         CalendarService calendar, MaiHoaInterpretationService interpretations) {
         this.registry = registry;
         this.hexagrams = hexagrams;
         this.trigrams = trigrams;
         this.calendar = calendar;
+        this.interpretations=interpretations;
     }
 
     public MaiHoaResult calculate(JsonNode payload) {
@@ -57,6 +64,11 @@ public class MaiHoaService {
 
     public MaiHoaResult calculate(JsonNode payload, CalculationProgress progress) {
         ContractValidator.validateMaiHoa(payload);
+        MaiHoaInterpretationService.Prepared reading=null;
+        if (payload.has("reading")) {
+            if(interpretations==null) throw new RuleNotAvailableException("MH-DETAILED-READING");
+            reading=interpretations.prepare(payload);
+        }
         String method = payload.path("method").asText();
         if ("LINES".equals(method) || "OBJECT_COUNT".equals(method) || "TIME".equals(method)) {
             boolean objectCount = "OBJECT_COUNT".equals(method);
@@ -68,17 +80,27 @@ public class MaiHoaService {
                 OffsetDateTime local;
                 try { local = OffsetDateTime.parse(payload.get("datetime").textValue()).withOffsetSameInstant(VietnameseLunarCalendar.OFFSET); }
                 catch (DateTimeException failure) { throw new ContractException("INVALID_DATE", "datetime không thể chuẩn hóa về UTC+7."); }
-                var converted = calendar.convert(new CalendarInput("SOLAR", local.getYear(), local.getMonthValue(), local.getDayOfMonth(), false));
-                lunarDate = converted.lunarDate();
+                if(reading!=null) {
+                    lunarDate=reading.context().lunarDate();rules.addAll(reading.context().proofs());
+                } else {
+                    var converted = calendar.convert(new CalendarInput("SOLAR", local.getYear(), local.getMonthValue(), local.getDayOfMonth(), false));
+                    lunarDate = converted.lunarDate();rules.addAll(converted.rules());
+                }
                 hourIndex = VietnameseLunarCalendar.hourBranchIndex(local.toLocalTime()) + 1;
-                rules.addAll(converted.rules());
             }
             rules.addAll(registry.authorizeAll(time ? List.of("MH-TIME", "MH-TRIGRAM", "MH-MUTUAL", "MH-CHANGE")
                     : objectCount ? List.of("MH-OBJECT-COUNT", "MH-TRIGRAM", "MH-MUTUAL", "MH-CHANGE")
                     : List.of("MH-MUTUAL", "MH-CHANGE"), RulePurpose.CALCULATION));
+            if(reading!=null) {
+                if(!objectCount && !time) rules.add(registry.authorize("MH-TRIGRAM",RulePurpose.CALCULATION));
+                rules.addAll(reading.authorized().proofs());
+                if(!time && reading.context()!=null) rules.addAll(reading.context().proofs());
+                MaiHoaInterpretationService.validateCoreEvidence(rules);
+            }
             var evidence = EvidenceSummary.from(rules);
             // All five TIME source gates finish before trigram/hexagram reads or CALCULATING.
-            var trigramIndex = objectCount || time ? new TrigramIndex(trigrams.trigrams()) : null;
+            var trigramIndex = objectCount || time || reading!=null ? new TrigramIndex(trigrams.trigrams()) : null;
+            if(reading!=null) MaiHoaInterpretationService.validateTrigrams(trigramIndex);
             var input = new ArrayList<Boolean>();
             var steps = new ArrayList<CalculationStep>();
             int movingLine;
@@ -114,7 +136,7 @@ public class MaiHoaService {
                 movingLine = payload.get("movingLine").intValue();
             }
             var calculation = MaiHoaLines.calculate(input, movingLine);
-            progress.report(Step.LOOKUP, "Đang tra mã quẻ và tên đã duyệt trong dữ liệu nguồn.");
+            progress.report(Step.LOOKUP, reading==null?"Đang tra mã quẻ và tên đã duyệt trong dữ liệu nguồn.":"Đang tra quẻ và áp dụng mẫu luận đã duyệt cho từng giai đoạn.");
             var records = hexagrams.hexagrams();
             var index = new HexagramIndex(records);
             if (trigramIndex != null) trigramIndex.validateHexagrams(records);
@@ -123,10 +145,13 @@ public class MaiHoaService {
                             Map.of("lowerLineStart", 2, "upperLineStart", 3)),
                     new CalculationStep("CHANGE", "Đảo duy nhất hào động tính từ dưới lên.",
                             Map.of("movingLine", calculation.movingLine()))));
-            return MaiHoaResult.of(method, evidence, steps,
+            var detailed=reading==null?null:interpretations.interpret(reading,calculation,trigramIndex);
+            if(detailed!=null) steps.addAll(interpretations.steps(detailed,calculation.movingLine()));
+            var result=MaiHoaResult.of(method, evidence, steps,
                     index.find(calculation.primary()).toCalculationView(),
                     index.find(calculation.mutual()).toCalculationView(),
                     index.find(calculation.changed()).toCalculationView(), calculation.movingLine(), lunarDate);
+            return detailed==null?result:result.withDetailedReading(detailed);
         }
         throw new RuleNotAvailableException("MH-UNKNOWN");
     }

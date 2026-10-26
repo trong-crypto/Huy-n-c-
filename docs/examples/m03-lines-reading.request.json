@@ -1,0 +1,19 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440070",
+  "type": "MAI_HOA",
+  "payload": {
+    "method": "LINES",
+    "linesBottomUp": [
+      true,
+      false,
+      true,
+      true,
+      true,
+      false
+    ],
+    "movingLine": 1,
+    "reading": {
+      "topic": "LOVE"
+    }
+  }
+}

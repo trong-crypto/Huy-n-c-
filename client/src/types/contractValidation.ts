@@ -1,4 +1,5 @@
 import type { ApiError, CalculationResponse, CalculationType, ErrorCode } from "@/types/contract";
+import { hasValidWealthMetadata, isDetailedReading } from "./readingValidation";
 
 const SERVER_ERROR_CODES: readonly ErrorCode[] = [
   "INVALID_INPUT", "INVALID_DATE", "INVALID_METHOD",
@@ -92,14 +93,41 @@ const inRange = (v: unknown, min: number, max: number) => integer(v) && v >= min
 // Check wire structure and repeated fields only, never recompute calendar or hexagrams.
 function timeResult(v: Record<string, unknown>): boolean {
   const lunar = v.lunarDate;
+  const steps = v.calculationSteps;
+  const hasReading = Object.hasOwn(v, "detailedReading");
+  const stepCodes = hasReading
+    ? ["TIME_NUMBERS", "MUTUAL", "CHANGE", "READING_BODY_USE", "READING_PHASES", "READING_SEASON"]
+    : ["TIME_NUMBERS", "MUTUAL", "CHANGE"];
   if (!isRecord(lunar) || !inRange(lunar.year, 1899, 2099)
       || !inRange(lunar.month, 1, 12) || !inRange(lunar.day, 1, 30)
-      || typeof lunar.isLeapMonth !== "boolean" || !Array.isArray(v.calculationSteps)
-      || v.calculationSteps.length !== 3) return false;
-  const [numbers, mutual, change] = v.calculationSteps;
+      || typeof lunar.isLeapMonth !== "boolean" || !Array.isArray(steps)
+      || steps.length !== stepCodes.length
+      || !stepCodes.every((code, index) => isRecord(steps[index])
+        && steps[index].code === code && isRecord(steps[index].values))) return false;
+  const [numbers, mutual, change] = steps;
   if (!isRecord(numbers) || numbers.code !== "TIME_NUMBERS" || !isRecord(numbers.values)
       || !isRecord(mutual) || mutual.code !== "MUTUAL" || !isRecord(mutual.values)
       || !isRecord(change) || change.code !== "CHANGE" || !isRecord(change.values)) return false;
+  if (hasReading) {
+    const reading = v.detailedReading;
+    if (!isDetailedReading(reading) || reading.season.status !== "EVALUATED") return false;
+    const body = steps[3].values;
+    const phases = steps[4].values;
+    const season = steps[5].values;
+    // Compare repeated Server fields only; never derive roles, relations or seasons locally.
+    if (body.movingLine !== v.movingLine || body.bodySide !== reading.body.side
+        || body.bodyTrigram !== reading.body.trigramCode || body.bodyElement !== reading.body.element
+        || body.useTrigram !== reading.use.trigramCode || body.useElement !== reading.use.element
+        || phases.initialRelation !== reading.phases[0].relation
+        || phases.bodyMutualRelation !== reading.phases[1].relation
+        || phases.useMutualRelation !== reading.phases[2].relation
+        || phases.finalRelation !== reading.phases[3].relation
+        || season.status !== "EVALUATED" || season.lunarMonth !== lunar.month
+        || season.isLeapMonth !== lunar.isLeapMonth || season.season !== reading.season.season
+        || season.bodyStrength !== reading.season.bodyStrength || season.ruleBasis !== "TEAM_DECISION"
+        || reading.season.lunarDate.year !== lunar.year || reading.season.lunarDate.month !== lunar.month
+        || reading.season.lunarDate.day !== lunar.day || reading.season.lunarDate.isLeapMonth !== lunar.isLeapMonth) return false;
+  }
   const values = numbers.values;
   return values.lunarYear === lunar.year && values.lunarMonth === lunar.month
     && values.lunarDay === lunar.day && values.isLeapMonth === lunar.isLeapMonth
@@ -114,6 +142,7 @@ function timeResult(v: Record<string, unknown>): boolean {
 
 function maiHoa(v: Record<string, unknown>): boolean {
   return member(v.method, ["TIME", "OBJECT_COUNT", "LINES"])
+    && (!Object.hasOwn(v, "detailedReading") || isDetailedReading(v.detailedReading))
     && [v.primaryHexagram, v.mutualHexagram, v.changedHexagram].every(hexagram)
     && integer(v.movingLine) && v.movingLine >= 1 && v.movingLine <= 6
     && (v.method !== "TIME" ? v.lunarDate === null : timeResult(v))
@@ -124,6 +153,7 @@ function maiHoa(v: Record<string, unknown>): boolean {
 }
 function tamThe(v: Record<string, unknown>): boolean {
   return v.ruleBasis === "SOURCE_VERIFIED" && v.sourceStatus === "VERIFIED"
+    && hasValidWealthMetadata(v)
     && Array.isArray(v.categories) && v.categories.length >= 1 && v.categories.length <= 3
     && array(v.categories, c => isRecord(c) && member(c.category, ["CAREER", "WEALTH", "LOVE"])
       && Array.isArray(c.entries) && c.entries.length > 0

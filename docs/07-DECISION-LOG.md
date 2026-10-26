@@ -1,5 +1,41 @@
 # Nhật ký quyết định
 
+## Triển khai huyenco V12 — 26/10/2026
+
+Chủ dự án yêu cầu rõ sao lưu, áp dụng V12, nhập bộ đã duyệt, kiểm toán và nghiệm thu lại. Đã hoàn thành theo [43](43-HUYENCO-V12-DEPLOYMENT-ACCEPTANCE.md); không lấy DB TEST chép đè database dự án. Bản backup V11 được khôi phục thử vào DB tạm, so dữ liệu rồi dọn DB tạm. Mọi dòng cũ giữ nguyên; chỉ thêm bốn bảng/bộ M01 và một migration V12, không cấp review mới.
+
+Nghiệm thu trên huyenco chỉ dùng GET/STOMP ẩn danh để bảo toàn phiên/history. Các test can thiệp nguồn vẫn giới hạn ở TEST. Khởi động JVM mới phát hiện thứ tự nguồn D04 phụ thuộc Map.copyOf.values(); đã sửa theo result_code, bổ sung test và chỉ cập nhật thứ tự nguồn tổng trong năm capture sau kiểm mọi nội dung/tập nguồn giữ nguyên. Lượt khởi động kế tiếp khớp fixture chính xác. Đây là sửa trình bày metadata, không đổi nguồn sách, hợp đồng hoặc quyết định M01.
+
+Huyenco hiện V12/cùng dữ liệu mở rộng như TEST; các ghi nhận huyenco V11 trước đây là lịch sử. I02/T02 chưa tự hoàn tất vì database đã nâng; chưa commit/push Git.
+
+## D04 — Tam Thế WEALTH mở rộng, 26/10/2026
+
+Chủ dự án yêu cầu hoàn thành D04. Thực thi đúng opt-in EXTENDED đã chốt M01/M02: Lộc, Sang hèn và Điền sản giữ rule/key/nhãn/nguồn riêng; LOC thiếu giao điểm trả NO_SOURCE_MATCH thay vì làm mất toàn request. Không dựng thêm ô Lộc; LEGACY giữ JSON/lỗi cũ. Dữ liệu nền và bổ sung được đọc cùng transaction repeatable-read, đối chiếu pin/review trước khi phát nội dung. Không thêm quy tắc sách hoặc nâng review trong D04.
+
+Quyết định SANG-HEN-LABELS, DIEN-SAN-LABELS và DIEN-SAN-REFERENCE của M01 đi theo đúng tiểu mục thực sự dùng và editorialDecisions gốc, giữ TEAM_DECISION/SOURCE_AMBIGUOUS. Root Tam Thế SOURCE_VERIFIED/VERIFIED nói về nội dung đã duyệt theo hợp đồng39; không coi tham chiếu Số6/Số4 hoặc nhãn khác nhau là đính chính đã được xác minh. Không đổi14 rule catalog nền hoặc cờ lịch sử runtimeEnabled của bundle.
+
+Đã nghiệm thu720 tổ hợp JDBC/STOMP và history/owner/replay thật theo [42](42-D04-TAM-THE-EXTENDED-WEALTH-HANDOFF.md). Database huyenco giữ V11, TEST V12 và snapshot nguyên vẹn. Tiếp theo I02/T02; không tự sửa UI TV1 hoặc push/merge Git.
+
+## M03 — service lời luận Mai Hoa, 26/10/2026
+
+Triển khai theo yêu cầu chủ dự án và quyền TV2/TV3 đã giao. Service kiểm bundle M01, metadata review và20 mẫu DB trong snapshot read-only/repeatable-read trước tính lời luận. Tài nguyên pin trong JAR chỉ là bản đối chiếu; không tự cấp approval khi DB thiếu hoặc nội dung bị đổi. Đoạn luận đi qua SOURCE_VERIFIED/INTERPRETATION; BODY/PHASES và mùa qua TEAM_DECISION/CALCULATION. MH-THE-DUNG1.0 cũ không được mở hoặc nâng trạng thái. Chi tiết nguồn/bằng chứng ở [41](41-M03-MAI-HOA-INTERPRETATION-HANDOFF.md).
+
+`DEC-20261026-M03-SEASON-STRENGTH`: chốt phân loại cấu trúc vượng/suy theo nhóm tháng M01: Xuân Mộc/Thổ, Hạ Hỏa/Kim, Thu Kim/Mộc, Đông Thủy/Hỏa, tháng Thổ Thổ/Thủy, lần lượt vượng/suy; hành khác UNCLASSIFIED. Đây là TEAM_DECISION, purpose CALCULATION, SOURCE_LOCATED, không có reviewer/date nguồn VERIFIED và không phát đoạn luận mùa mới. Thiếu thời điểm trả NOT_EVALUATED, không lấy đồng hồ máy; không cộng điểm, hứa thời điểm hoặc suy sự kiện từ question. Quy ước lịch tháng âm giữ nguyên M01, không tự chuyển sang tiết khí.
+
+M03 đã kiểm1536 tổ hợp logic/DB, STOMP–HTTP–lịch sử thật và giữ JSON cũ. Không sửa bundle/hash/cờ lịch sử runtimeEnabled của M01, không migrate huyenco, không sửa UI TV1 hoặc push/merge Git. Tam Thế EXTENDED chờ D04; I02/T02 là phạm vi tiếp theo.
+
+## Mở rộng lời luận chi tiết - 26/10/2026
+
+`DEC-20261026-DETAILED-READINGS-SCOPE`: chủ dự án yêu cầu lời luận Mai Hoa chi tiết và luận giải cho mọi đầu vào hợp lệ trong phạm vi sản phẩm. Bổ sung F09 và F04 mở rộng theo [kế hoạch37](37-DETAILED-INTERPRETATION-EXPANSION-PLAN.md); Codex triển khai TV2/TV3, TV1 làm UI. S04 giữ trạng thái khảo sát; M01 đã có hồ sơ duyệt riêng trong [biên bản38](38-M01-M02-REVIEWED-KNOWLEDGE-HANDOFF.md), không cấp VERIFIED chỉ vì yêu cầu cần đầy đủ.
+
+**M01 26/10 — các quyết định đã ghi:** `DEC-20261026-M01-BODY` chọn Thể phía không động và giữ Thể gốc; `M01-PHASES` xét riêng hai quái hỗ theo vị trí; `M01-SEASON` dùng nhóm tháng âm rõ ràng, thiếu thời điểm không lấy ngày máy; `M01-RELATIONS` duyệt riêng năm quan hệ có chiều bằng nguyên văn và mục chủ đề; `M01-SANG-HEN-LABELS` giữ nhãn bảng/tiêu đề khác nhau và nối theo cột; `M01-DIEN-SAN-LABELS` giữ Phú/Phá; `M01-DIEN-SAN-REFERENCE` dùng hành mệnh Số4 dù chỉ dẫn in Số6. Mọi mã rút gọn sau mã đầu đều có cùng tiền tố `DEC-20261026-`. Chỉ RELATIONS là SOURCE_VERIFIED/INTERPRETATION; các quyết định còn lại là TEAM_DECISION/CALCULATION hoặc EDITORIAL_LINK, có giới hạn theo bản in. Nguồn đầy đủ và review hai lượt cùng Codex nằm trong `data/m01_reviewed_readings.json`.
+
+**M02 phần dữ liệu 26/10 (mốc trước hợp đồng):** chọn bốn bảng V12 riêng thay vì sửa các bảng Lộc/công danh/tình duyên đang chạy. Importer chỉ nhận đúng bundle đã duyệt, từ chối sửa/thiếu dữ liệu; giữ review timestamp khi lặp. TEST bootstrap/import hai lần đạt,8 chốt dữ liệu và3 CHECK đạt. Catalog/MH-THE-DUNG1.0/UI/DB huyenco giữ mốc trước mở rộng; ở lượt này hợp đồng39 chưa được implement.
+
+**M02 hợp đồng hoàn thành 26/10 theo40:** giữ envelope1.2 và JSON cũ, thêm reading/wealthMode có validator; output dùng detailedReading và **categories[].entries**, subreadings, subreadingCode, coverageMode/bundleId/**editorialDecisions**; không trộn ReadingDecision vào DecisionReference cũ. Tách các fixture schema-only khỏi capture runtime. N01 đã bao gồm topic/context/mode trong fingerprint; H01 giữ typed JSON nguyên vẹn. Request mới hợp lệ phải trả IMPLEMENTATION_UNAVAILABLE tới khi M03/D04 có service, không hạ ngầm về success cũ. Input sai trả lỗi validation trước chốt. M02 đã kiểm thật13 terminal/24 progress, không tự nâng approval hoặc nhập huyenco.
+
+Chốt hướng bổ sung WEALTH bằng các tiểu mục Lộc/Sang hèn/Điền sản, có tên phép tra và nguồn riêng; vẫn giữ sự thật bảng Lộc chỉ phủ 60/120 khóa. Các phép mới chỉ được mở sau M01/D04 và kiểm hợp đồng/nguồn. Cách chọn Thể/Dụng tổng quát và một số nhãn bản in chưa xác minh được ghi rõ trong S04; nếu dùng quy ước tính toán thì phải tách policy khỏi quyền phát lời luận đã kiểm. Đây không phải việc duyệt lại các quyết định TIME chia6, OBJECT_COUNT hoặc tháng5 đã được chủ dự án chốt trước đó.
+
 ## Xác nhận chủ dự án — MH-TIME chia6 đã duyệt
 
 Chủ dự án nhắc lại quyết định đã chốt: dùng tổng chia6, dư0→6. Ghi nhận **MH-TIME 1.0 VERIFIED trong phạm vi quy tắc dự án**, giữ bản in/trang nguồn và ghi đúng reviewer là chủ dự án xác nhận qua hội thoại, Codex ghi nhận. Không chờ thêm xác nhận hoặc ấn bản khác. Chính sách TEAM_DECISION giữ căn cứ hiệu chỉnh và quy ước dân sự; trạng thái nguồn phát ra của TIME là VERIFIED khi các rule phụ thuộc đã duyệt. Xem `28-TIME-OWNER-APPROVAL.md`; mục này thay quyết định giữ BLOCKED/chưa VERIFIED trong lịch sử phía dưới.

@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { isCalculationResponse, isCalculationEnvelope, isUncorrelatedServerFailure } from "@/types/contractValidation";
+import { initialState, parseTerminal, reduceCalculation } from "@/services/websocket/calculationState";
+import m03Time from "../../../docs/examples/m03-time-reading.response.json";
+import m03Lines from "../../../docs/examples/m03-lines-reading.response.json";
+import m03Objects from "../../../docs/examples/m03-object-reading.response.json";
+import legacyObjects from "../../../docs/examples/mai-hoa-object-count.response.json";
+import legacyTamThe from "../../../docs/examples/tam-the.response.json";
+import d04Matched from "../../../docs/examples/d04-wealth-matched.response.json";
+import d04NoLoc from "../../../docs/examples/d04-wealth-no-loc.response.json";
 
 // Envelope fixtures only: these are not verified business results.
 const requestId = "550e8400-e29b-41d4-a716-446655440000";
@@ -207,6 +215,119 @@ describe("B04 TIME runtime structure from the actual Server fixture", () => {
     Object.assign(response.data.calculationSteps[0].values, { futureLabel: "safe", futureFlag: true, futureLines: [true, false] });
     Object.assign(response.data.lunarDate, { futureMetadata: "safe" });
     expect(isCalculationResponse(response)).toBe(true);
+  });
+});
+
+describe("V12 merge preserves strict B04 checks alongside M03 and D04", () => {
+  type MutableTime = {
+    lunarDate: Record<string, unknown>;
+    calculationSteps: { code: string; message: string; values: Record<string, unknown> }[];
+    detailedReading: typeof m03Time.data.detailedReading;
+  };
+  function rejectTime(mutate: (data: MutableTime) => void) {
+    const response = structuredClone(m03Time);
+    mutate(response.data as unknown as MutableTime);
+    expect(isCalculationResponse(response)).toBe(false);
+    expect(() => parseTerminal(response)).toThrow("Invalid terminal response");
+  }
+
+  it.each([
+    ["B04 TIME", timeFixture], ["M03 TIME", m03Time], ["legacy LINES", lines],
+    ["legacy OBJECT_COUNT", legacyObjects], ["M03 LINES", m03Lines], ["M03 OBJECT_COUNT", m03Objects],
+    ["D03 LEGACY", legacyTamThe], ["D04 matched", d04Matched], ["D04 LOC no-match", d04NoLoc],
+  ])("accepts %s through the guard, terminal parser and reducer without progress", (_name, response) => {
+    expect(isCalculationResponse(response)).toBe(true);
+    const terminal = parseTerminal(response);
+    const waiting = reduceCalculation(initialState, { kind: "begin", requestId: response.requestId, type: terminal.type! });
+    const completed = reduceCalculation(waiting, { kind: "terminal", response: terminal });
+    expect(completed.requestState).toBe("completed");
+    expect(completed.progress).toEqual([]);
+    expect(completed.response).toEqual(response);
+    expect(reduceCalculation(completed, { kind: "terminal", response: terminal })).toBe(completed);
+  });
+  it("retains M03 TIME aggregate provenance independently of its verified interpretation phases", () => {
+    expect(parseTerminal(m03Time).data).toMatchObject({ ruleBasis: "TEAM_DECISION", sourceStatus: "SOURCE_AMBIGUOUS" });
+    expect(m03Time.data.detailedReading.phases.every(phase => phase.ruleBasis === "SOURCE_VERIFIED" && phase.sourceStatus === "VERIFIED")).toBe(true);
+  });
+  it.each([1898, 2100, 2024.5, "2024", Number.MAX_SAFE_INTEGER + 1])("M03 rejects invalid lunar year %j", year => rejectTime(data => { data.lunarDate.year = year; }));
+  it.each([0, 13, 1.5, "1"])("M03 rejects invalid lunar month %j", month => rejectTime(data => { data.lunarDate.month = month; }));
+  it.each([0, 31, 1.5, "1"])("M03 rejects invalid lunar day %j", day => rejectTime(data => { data.lunarDate.day = day; }));
+  it.each(["true", 1, null, undefined])("M03 rejects invalid leap flag %j", flag => rejectTime(data => { data.lunarDate.isLeapMonth = flag; }));
+  it.each([
+    "lunarYear", "lunarMonth", "lunarDay", "isLeapMonth", "yearBranchIndex", "hourIndex", "dateSum", "timeSum",
+    "upperTrigram", "lowerTrigram", "movingLine", "utcOffset", "dayBoundary", "leapMonthPolicy",
+  ])("M03 still requires TIME_NUMBERS.%s", field => rejectTime(data => { delete data.calculationSteps[0].values[field]; }));
+  it.each([
+    ["yearBranchIndex", 0], ["hourIndex", 13], ["dateSum", 2], ["timeSum", 67], ["upperTrigram", 9], ["lowerTrigram", 0],
+    ["dateSum", 7.5], ["timeSum", Infinity], ["hourIndex", "1"], ["utcOffset", "+08:00"],
+    ["dayBoundary", "23:00"], ["leapMonthPolicy", "NEXT_MONTH"],
+  ])("M03 rejects malformed B04 value %s=%j", (field, value) => rejectTime(data => { data.calculationSteps[0].values[field as string] = value; }));
+  it.each(["lunarYear", "lunarMonth", "lunarDay", "isLeapMonth", "movingLine"])("M03 rejects contradictory TIME_NUMBERS.%s", field => rejectTime(data => {
+    data.calculationSteps[0].values[field] = field === "isLeapMonth" ? true : 3;
+  }));
+  it("M03 still checks CHANGE movingLine and MUTUAL line starts", () => {
+    rejectTime(data => { data.calculationSteps[2].values.movingLine = 3; });
+    rejectTime(data => { data.calculationSteps[1].values.lowerLineStart = 1; });
+    rejectTime(data => { delete data.calculationSteps[1].values.upperLineStart; });
+  });
+  it.each([0, 1, 2, 3, 4, 5])("rejects a missing step at index %i", index => rejectTime(data => { data.calculationSteps.splice(index, 1); }));
+  it.each([0, 1, 2, 3, 4, 5])("rejects an absent array slot at index %i without throwing", index => rejectTime(data => { delete data.calculationSteps[index]; }));
+  it.each([3, 4, 5])("rejects duplicate/wrong M03 step code at index %i", index => rejectTime(data => { data.calculationSteps[index].code = "READING_BODY_USE" === data.calculationSteps[index].code ? "READING_PHASES" : "READING_BODY_USE"; }));
+  it("rejects reordered M03 steps", () => rejectTime(data => {
+    [data.calculationSteps[3], data.calculationSteps[4]] = [data.calculationSteps[4], data.calculationSteps[3]];
+  }));
+  it("rejects unexpected extra steps", () => rejectTime(data => { data.calculationSteps.push({ code: "EXTRA", message: "Unexpected", values: {} }); }));
+  it.each([0, 1, 2, 3, 4, 5])("rejects malformed values at index %i", index => rejectTime(data => {
+    Object.assign(data.calculationSteps[index], { values: null });
+  }));
+  it.each([
+    [3, "movingLine"], [3, "bodySide"], [3, "bodyTrigram"], [3, "bodyElement"], [3, "useTrigram"], [3, "useElement"],
+    [4, "initialRelation"], [4, "bodyMutualRelation"], [4, "useMutualRelation"], [4, "finalRelation"],
+    [5, "status"], [5, "lunarMonth"], [5, "isLeapMonth"], [5, "season"], [5, "bodyStrength"], [5, "ruleBasis"],
+  ] as const)("requires M03 step %i field %s", (index, field) => rejectTime(data => { delete data.calculationSteps[index].values[field]; }));
+  it("rejects M03 step values that disagree with the validated reading", () => {
+    rejectTime(data => { data.calculationSteps[3].values.bodySide = "LOWER"; });
+    rejectTime(data => { data.calculationSteps[4].values.finalRelation = "SAME_ELEMENT"; });
+    rejectTime(data => { data.calculationSteps[5].values.bodyStrength = "VIGOROUS"; });
+    rejectTime(data => { data.detailedReading.season.lunarDate.day = 2; });
+  });
+  it("rejects explicit null or malformed detailedReading", () => {
+    rejectTime(data => { Object.assign(data, { detailedReading: null }); });
+    rejectTime(data => { Object.assign(data, { detailedReading: {} }); });
+  });
+  it("rejects malformed reading phases, sources and decisions", () => {
+    rejectTime(data => { data.detailedReading.phases[0].kind = "FINAL_USE"; });
+    rejectTime(data => { data.detailedReading.phases[0].sourceReferences[0].sha256 = "invalid"; });
+    rejectTime(data => { data.detailedReading.calculationDecisions[0].limitation = ""; });
+  });
+  it("TIME cannot carry a missing-time season used by context-free LINES", () => rejectTime(data => {
+    Object.assign(data.detailedReading, { season: structuredClone(m03Lines.data.detailedReading.season) });
+  }));
+  it("rejects M03 steps on legacy TIME without a validated reading", () => {
+    const response = structuredClone(m03Time);
+    delete (response.data as Record<string, unknown>).detailedReading;
+    expect(isCalculationResponse(response)).toBe(false);
+  });
+  it("rejects a detailed TIME response containing only legacy steps", () => rejectTime(data => { data.calculationSteps.length = 3; }));
+  it("accepts D04 LOC no-match without fabricating entries or failing the whole request", () => {
+    expect(parseTerminal(d04NoLoc).status).toBe("COMPLETED");
+    const wealth = d04NoLoc.data.categories.find(category => category.category === "WEALTH")!;
+    expect(wealth.subreadings?.[0]).toMatchObject({ code: "LOC", status: "NO_SOURCE_MATCH", reason: "NO_PRINTED_INTERSECTION", entries: [] });
+  });
+  it("rejects a missing D04 subreading and inconsistent flattened entries", () => {
+    const missing = structuredClone(d04Matched);
+    missing.data.categories.find(category => category.category === "WEALTH")!.subreadings!.pop();
+    expect(isCalculationResponse(missing)).toBe(false);
+    const inconsistent = structuredClone(d04Matched);
+    inconsistent.data.categories.find(category => category.category === "WEALTH")!.entries[0].content = "Not the captured content";
+    expect(isCalculationResponse(inconsistent)).toBe(false);
+  });
+  it.each(["INVALID_INPUT", "SERVER_BUSY"])("keeps %s terminal responses as failures without progress", code => {
+    const terminal = parseTerminal({ ...failed(), error: { ...failed().error, code } });
+    const waiting = reduceCalculation(initialState, { kind: "begin", requestId, type: "TAM_THE" });
+    const result = reduceCalculation(waiting, { kind: "terminal", response: terminal });
+    expect(result.requestState).toBe("failed");
+    expect(result.response?.error?.code).toBe(code);
   });
 });
 
