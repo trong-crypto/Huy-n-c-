@@ -1,11 +1,9 @@
-import { CLIENT_CONFIG } from "@/config/client";
 import type { HexagramDetail, HexagramRecord, Page } from "@/types/contract";
-import { isHexagramCode, isHexagramDetail, isHexagramPage, isLookupResponse, TRIGRAMS } from "@/types/hexagramValidation";
+import { isHexagramCode, isHexagramDetail, isHexagramPage, TRIGRAMS } from "@/types/hexagramValidation";
+import { requestJson, RestError as LookupError } from "./transport";
+export { RestError as LookupError } from "./transport";
 
 export type HexagramQuery = { q: string; upper: string; lower: string; page: number; size: number };
-export class LookupError extends Error {
-  constructor(public readonly code: string) { super(code); this.name = "LookupError"; }
-}
 export function lookupErrorMessage(error: unknown): string {
   const messages: Record<string, string> = {
     INVALID_INPUT: "Tham số tra cứu không hợp lệ. Kiểm tra từ khóa, mã quẻ và bộ lọc.",
@@ -30,32 +28,7 @@ export function hexagramQueryString(query: HexagramQuery): string {
   return params.toString();
 }
 async function get<T>(path: string, guard: (v: unknown) => v is T, signal: AbortSignal): Promise<T> {
-  const controller = new AbortController();
-  const abort = () => controller.abort();
-  signal.addEventListener("abort", abort, { once: true });
-  if (signal.aborted) controller.abort();
-  let timedOut = false;
-  const timer = setTimeout(() => { timedOut = true; controller.abort(); }, CLIENT_CONFIG.restTimeoutMs);
-  try {
-    const response = await fetch(`${CLIENT_CONFIG.apiBaseUrl.replace(/\/$/, "")}/hexagrams${path}`, {
-      method: "GET", signal: controller.signal, headers: { Accept: "application/json" }, credentials: "omit", cache: "no-store",
-    });
-    let value: unknown;
-    try { value = await response.json(); } catch { throw new LookupError("INVALID_RESPONSE"); }
-    if (!isLookupResponse(value, guard)) throw new LookupError("INVALID_RESPONSE");
-    if (value.status === "FAILED") {
-      const httpCodes: Record<string, number> = { INVALID_INPUT: 400, NOT_FOUND: 404, DATABASE_UNAVAILABLE: 503, KNOWLEDGE_DATA_INCOMPLETE: 503, INTERNAL_ERROR: 500 };
-      if (response.ok || (Object.hasOwn(httpCodes, value.error.code) && response.status !== httpCodes[value.error.code])) throw new LookupError("INVALID_RESPONSE");
-      throw new LookupError(value.error.code);
-    }
-    if (!response.ok) throw new LookupError("INVALID_RESPONSE");
-    return value.data;
-  } catch (error) {
-    if (signal.aborted) throw new DOMException("Request cancelled", "AbortError");
-    if (timedOut) throw new LookupError("REQUEST_TIMEOUT");
-    if (error instanceof LookupError) throw error;
-    throw new LookupError("NETWORK_ERROR");
-  } finally { clearTimeout(timer); signal.removeEventListener("abort", abort); }
+  return requestJson(`/hexagrams${path}`, guard, signal);
 }
 export async function listHexagrams(query: HexagramQuery, signal: AbortSignal): Promise<Page<HexagramRecord>> {
   const page = await get(`?${hexagramQueryString(query)}`, isHexagramPage, signal);

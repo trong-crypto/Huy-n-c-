@@ -51,7 +51,7 @@ export function isHexagramDetail(v: unknown): v is HexagramDetail {
       && sources(g.sourceReferences) && g.sourceReferences.some(traceable));
 }
 export function isLookupResponse<T>(v: unknown, dataGuard: (data: unknown) => data is T): v is RestResponse<T> {
-  if (!isRecord(v) || typeof v.requestId !== "string" || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v.requestId)) return false;
+  if (!isRecord(v) || typeof v.requestId !== "string" || v.requestId.length !== 36 || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v.requestId)) return false;
   if (v.status === "COMPLETED") return v.error === null && dataGuard(v.data);
   return v.status === "FAILED" && v.data === null && isRecord(v.error)
     && nonempty(v.error.code) && nonempty(v.error.message)

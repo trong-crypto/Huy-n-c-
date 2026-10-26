@@ -1,4 +1,4 @@
-import type { ApiError, CalculationResponse, CalculationType, ErrorCode } from "@/types/contract";
+import type { ApiError, CalculationResponse, CalculationType, ErrorCode, ResultEvidence } from "@/types/contract";
 import { hasValidWealthMetadata, isDetailedReading } from "./readingValidation";
 
 const SERVER_ERROR_CODES: readonly ErrorCode[] = [
@@ -79,6 +79,10 @@ function evidence(v: Record<string, unknown>): boolean {
 function resultEvidence(v: Record<string, unknown>): boolean {
   return evidence(v) && array(v.rules, r => isRecord(r) && evidence(r)
     && text(r.ruleCode) && member(r.executionPolicy, BASES));
+}
+// C01 REST reuses the same evidence structure without changing STOMP validation.
+export function isResultEvidence(value: unknown): value is ResultEvidence {
+  return isRecord(value) && resultEvidence(value);
 }
 function hexagram(v: unknown): boolean {
   return isRecord(v) && nullableText(v.code) && Array.isArray(v.linesBottomUp)

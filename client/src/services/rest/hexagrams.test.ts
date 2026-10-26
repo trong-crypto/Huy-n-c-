@@ -7,7 +7,7 @@ import { getHexagram, hexagramQueryString, listHexagrams, LookupError, lookupErr
 
 const query: HexagramQuery = { q: "", upper: "", lower: "", page: 0, size: 2 };
 function respond(body: unknown, status = 200) {
-  vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: status < 400, status, json: async () => body }));
+  vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: status < 400, status, headers: new Headers({ "Content-Type": "application/json" }), json: async () => body }));
 }
 describe("E02 GET transport", () => {
   it.each(["UNKNOWN_ERROR", "toString", "constructor", "__proto__"])("safely presents unknown error %s", code => {
@@ -53,7 +53,7 @@ describe("E02 GET transport", () => {
     respond(list); await expect(listHexagrams({ ...query, page: 1 }, new AbortController().signal)).rejects.toMatchObject({ code: "INVALID_RESPONSE" });
   });
   it("rejects invalid JSON and network failure clearly", async () => {
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => { throw new SyntaxError(); } }));
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, status: 200, headers: new Headers({ "Content-Type": "application/json" }), json: async () => { throw new SyntaxError(); } }));
     await expect(getHexagram(detail.data.code, new AbortController().signal)).rejects.toMatchObject({ code: "INVALID_RESPONSE" });
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("network")));
     await expect(getHexagram(detail.data.code, new AbortController().signal)).rejects.toMatchObject({ code: "NETWORK_ERROR" });

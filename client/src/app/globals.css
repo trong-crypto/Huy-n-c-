@@ -418,6 +418,23 @@ summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; bo
 .lookup-back { display: inline-block; margin-bottom: 24px; }
 .lookup-code, .lookup-card, .lookup-failure, .lookup-results .field-hint { overflow-wrap: anywhere; }
 .lookup-code { font-size: 14px; }
+.calendar-layout { display: grid; gap: 24px; align-items: start; margin-top: 32px; }
+.calendar-layout > *, .calendar-date-inputs > * { min-width: 0; }
+.calendar-date-inputs { display: grid; gap: 18px; }
+.calendar-feedback { margin-top: 28px; border-top: 1px solid var(--border); padding-top: 16px; }
+.calendar-feedback > [role="status"] { color: var(--muted); font-size: 14px; }
+.calendar-result { overflow-wrap: anywhere; }
+.calendar-result h3 { color: var(--primary-hover); font-size: 23px; }
+.calendar-original { color: var(--secondary); font-size: 14px; }
+.calendar-error-code { font-size: 13px; overflow-wrap: anywhere; }
+.calendar-dates { margin-block: 24px; }
+.can-chi-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.can-chi-grid > div { padding: 16px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 10px; }
+.can-chi-grid dt { font-size: 12px; color: var(--muted); }
+.can-chi-grid dd { font-size: 20px; color: var(--primary-hover); margin: 8px 0 0; }
+.calendar-conventions { margin-top: 32px; color: var(--secondary); }
+@media (min-width: 480px) { .calendar-date-inputs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .calendar-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 768px) {
   .lookup-search { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .lookup-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
