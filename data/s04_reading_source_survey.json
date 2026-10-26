@@ -1,0 +1,178 @@
+{
+  "schemaVersion": 1,
+  "task": "S04",
+  "surveyedAt": "2026-10-26",
+  "editor": "Codex",
+  "reviewStage": "SOURCE_SURVEY_ONLY",
+  "runtimeApproval": false,
+  "scope": "Detailed Mai Hoa readings and additional Tam The coverage. Locations and candidate transcriptions only; no database import or VERIFIED promotion.",
+  "books": {
+    "MH": {
+      "filename": "Mai hoa dich so-Thieu-khang Tiet.pdf",
+      "pages": 672,
+      "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de"
+    },
+    "TT": {
+      "filename": "Diễn Cầm Tam Thế Diễn Nghĩa.pdf",
+      "pages": 360,
+      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d"
+    }
+  },
+  "maiHoa": {
+    "topics": ["GENERAL", "CAREER", "WEALTH", "LOVE"],
+    "relations": ["SAME_ELEMENT", "USE_GENERATES_BODY", "BODY_GENERATES_USE", "BODY_CONTROLS_USE", "USE_CONTROLS_BODY"],
+    "sources": [
+      {
+        "id": "MH-BODY-USE-SELECTION-CANDIDATE",
+        "pdfPages": [224, 225],
+        "printedPages": [231, 232],
+        "status": "SOURCE_LOCATED",
+        "finding": "Ví dụ Cách: thượng Đoài, hạ Ly; hào 1 động, Ly đổi thành Cấn; bản dịch gọi Đoài ở trên là quẻ Thể.",
+        "limitation": "Ví dụ hỗ trợ cách chọn phía không chứa hào động làm Thể, nhưng chưa định vị được câu tổng quát cho cả sáu vị trí. Chưa được dùng ví dụ này làm bằng chứng duyệt thuật toán tổng quát."
+      },
+      {
+        "id": "MH-GENERAL-RELATIONS",
+        "pdfPages": [131, 132, 133, 134, 135],
+        "printedPages": [137, 138, 139, 140, 141],
+        "status": "SOURCE_LOCATED",
+        "finding": "Thể đại diện chủ thể, Dụng đại diện sự việc; sinh, khắc và tỷ hòa có chiều. Quẻ hỗ chỉ quá trình, quẻ biến chỉ kết cục.",
+        "limitation": "Một số câu bản dịch có lỗi hoặc đảo chủ ngữ. Phải đối chiếu nguyên văn và ví dụ trước khi duyệt từng điều kiện."
+      },
+      {
+        "id": "MH-PHASES-MUTUAL-CHANGED",
+        "pdfPages": [227, 228],
+        "printedPages": [234, 235],
+        "status": "SOURCE_LOCATED",
+        "finding": "Phân biệt Dụng ở mở đầu, Hỗ ở giữa và Biến ở cuối; hai quái hỗ được phân theo vị trí của Thể trong quẻ chủ.",
+        "limitation": "Bản dịch đầu đoạn PDF228 có câu không nhất quán với đoạn sau. Cần lưu cả chứng cứ và chính sách vị trí; không tự gộp hai quái hỗ thành một kết luận."
+      },
+      {
+        "id": "MH-SEASON-STRENGTH",
+        "pdfPages": [131, 133],
+        "printedPages": [137, 139],
+        "status": "SOURCE_LOCATED",
+        "finding": "Xuân Mộc, hạ Hỏa, thu Kim, đông Thủy; Thổ vượng ở Thìn/Tuất/Sửu/Mùi. Có bảng riêng về hành suy.",
+        "limitation": "LINES/OBJECT_COUNT hiện không có tháng lập quẻ; không lấy ngày máy hoặc giờ sinh thay cho thời điểm lập quẻ. Quy ước tháng âm/tiết khí cần được ghi riêng."
+      },
+      {
+        "id": "MH-CAREER-READING",
+        "pdfPages": [156, 157],
+        "printedPages": [162, 163],
+        "status": "SOURCE_LOCATED",
+        "finding": "Mục Thứ tám: Xem cầu danh; có đủ năm quan hệ sinh/khắc/tỷ hòa, phân biệt khả năng thành và chậm thành.",
+        "limitation": "Không tự chuyển chỉ dẫn quái khí thành ngày dương cụ thể hoặc chức danh sẽ đạt."
+      },
+      {
+        "id": "MH-WEALTH-READING",
+        "pdfPages": [158],
+        "printedPages": [164],
+        "status": "SOURCE_LOCATED",
+        "finding": "Mục Thứ chín: Xem cầu tài; Thể khắc Dụng/Dụng sinh Thể/tỷ hòa, Thể sinh Dụng/Dụng khắc Thể được luận riêng.",
+        "limitation": "Đây là văn bản luận trong sách, không phải bảng số tiền, tỷ suất hoặc xác suất thực nghiệm."
+      },
+      {
+        "id": "MH-LOVE-READING",
+        "pdfPages": [150, 151],
+        "printedPages": [156, 157],
+        "status": "SOURCE_LOCATED",
+        "finding": "Mục Thứ tư: Xem hôn nhân; có năm quan hệ và phân biệt Dụng sinh Thể, Thể sinh Dụng, Thể khắc Dụng chậm thành.",
+        "limitation": "Phạm vi hôn nhân trong sách; không tự biến thành ngày gặp người yêu, danh tính hoặc sự kiện chắc chắn."
+      }
+    ],
+    "candidateParaphrases": {
+      "GENERAL": {
+        "SAME_ELEMENT": "Theo mục Thể–Dụng, hai quái cùng hành được xét là tỷ hòa, biểu thị sự hòa hợp trong quan hệ chủ–khách.",
+        "USE_GENERATES_BODY": "Quái Dụng sinh cho quái Thể: mục nguồn diễn giải theo hướng chủ thể nhận được sự hỗ trợ hoặc lợi ích từ sự việc.",
+        "BODY_GENERATES_USE": "Quái Thể sinh cho quái Dụng: mục nguồn coi đây là tiết khí, chủ thể phải bỏ sức hoặc hao tổn cho sự việc.",
+        "BODY_CONTROLS_USE": "Quái Thể khắc quái Dụng: theo quan hệ trong mục nguồn, chủ thể có thế chế ngự sự việc.",
+        "USE_CONTROLS_BODY": "Quái Dụng khắc quái Thể: theo mục nguồn, sự việc tạo sức ép hoặc trở ngại đối với chủ thể."
+      },
+      "CAREER": {
+        "SAME_ELEMENT": "Theo mục cầu danh, Thể–Dụng tỷ hòa được luận là công danh có sự thuận hợp.",
+        "USE_GENERATES_BODY": "Theo mục cầu danh, Dụng sinh Thể được luận là dễ thành hoặc nhờ việc cầu danh mà có lợi ích.",
+        "BODY_GENERATES_USE": "Theo mục cầu danh, Thể sinh Dụng được luận là khó đạt điều mong cầu hoặc có hao tổn danh lợi.",
+        "BODY_CONTROLS_USE": "Theo mục cầu danh, Thể khắc Dụng được luận là có thể thành nhưng tiến triển chậm.",
+        "USE_CONTROLS_BODY": "Theo mục cầu danh, Dụng khắc Thể được luận theo chiều trở ngại đối với việc cầu danh."
+      },
+      "WEALTH": {
+        "SAME_ELEMENT": "Theo mục cầu tài, tỷ hòa được luận theo chiều tài lợi thuận ý.",
+        "USE_GENERATES_BODY": "Theo mục cầu tài, Dụng sinh Thể được luận theo chiều tăng ích cho chủ thể.",
+        "BODY_GENERATES_USE": "Theo mục cầu tài, Thể sinh Dụng được luận theo chiều hao tổn khi cầu tài.",
+        "BODY_CONTROLS_USE": "Theo mục cầu tài, Thể khắc Dụng được luận theo chiều có thể đạt điều cầu tài.",
+        "USE_CONTROLS_BODY": "Theo mục cầu tài, Dụng khắc Thể được luận theo chiều bất lợi đối với điều cầu tài."
+      },
+      "LOVE": {
+        "SAME_ELEMENT": "Theo mục hôn nhân, tỷ hòa được luận là hai bên thuận hợp.",
+        "USE_GENERATES_BODY": "Theo mục hôn nhân, Dụng sinh Thể được luận là dễ thành hoặc có lợi ích từ quan hệ hôn nhân.",
+        "BODY_GENERATES_USE": "Theo mục hôn nhân, Thể sinh Dụng được luận là khó thành hoặc có hao tổn trong việc hôn nhân.",
+        "BODY_CONTROLS_USE": "Theo mục hôn nhân, Thể khắc Dụng được luận là có thể thành nhưng chậm.",
+        "USE_CONTROLS_BODY": "Theo mục hôn nhân, Dụng khắc Thể được luận theo chiều bất lợi cho việc kết thành hôn nhân."
+      }
+    },
+    "paraphraseStatus": "SOURCE_LOCATED",
+    "paraphraseKind": "EDITORIAL_PARAPHRASE_CANDIDATE_NOT_LITERAL_BOOK_QUOTE"
+  },
+  "tamThe": {
+    "sangHen": {
+      "candidateRuleCode": "TT-SANG-HEN",
+      "title": "Coi Địa-Chi hiệp tháng sanh sang hèn",
+      "pdfPages": [43, 44],
+      "printedPages": [44, 45],
+      "status": "SOURCE_LOCATED",
+      "keyKind": "YEAR_BRANCH_AND_LUNAR_MONTH",
+      "columns": ["Nhựt mã", "Lục hại", "Hoa cái", "Kiếp sát", "Tai sát", "Thiên sát", "Địa sát", "Niên sát", "Ngoại sát", "Vong sát", "Tướng tinh", "Thiên an"],
+      "monthsByBranch": {
+        "TY": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        "SUU": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1],
+        "DAN": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2],
+        "MAO": [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3],
+        "THIN": [5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4],
+        "TI": [6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5],
+        "NGO": [7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6],
+        "MUI": [8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7],
+        "THAN": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8],
+        "DAU": [10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        "TUAT": [11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "HOI": [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+      },
+      "coverageCandidate": {"keys": 144, "expectedKeys": 144},
+      "reviewIssues": [
+        "Bảng ghi Vong sát nhưng đoạn giải nghĩa ghi Vong Thần; cần lưu hai nhãn và quyết định liên kết.",
+        "Cột Thiên an và tiêu đề đoạn cuối PDF44 có hình chữ khác nhau; cần phóng lớn để chép chính xác trước nhập.",
+        "Một số ô hàng Ngọ/Mùi bị nhạt; bảng hiện là bản chép ứng viên, không dùng tính dịch vòng để tự duyệt ô mờ.",
+        "Đây là phép Địa Chi–tháng riêng, không phải các giao điểm bổ sung của phép Thiên Can–tháng trong bảng Lộc."
+      ]
+    },
+    "dienSan": {
+      "candidateRuleCode": "TT-DIEN-SAN",
+      "title": "Số 15. Coi ruộng đất có không?",
+      "pdfPages": [49, 50],
+      "printedPages": [50, 51],
+      "status": "SOURCE_LOCATED",
+      "keyKind": "YEAR_ELEMENT_AND_LUNAR_MONTH",
+      "columns": ["Không", "Bại", "Hướng", "Kiên", "Giải", "Phú", "Hiệp"],
+      "rowsByElement": {
+        "KIM": [[4, 10, 3, 7, 6, 1, null], [5, 12, 11, null, 9, 2, 8]],
+        "MOC": [[7, 9, 4, 1, 10, null, 11], [null, 12, 5, 2, 3, 8, 6]],
+        "THUY": [[1, 12, 3, null, 10, 4, 7], [2, 6, 9, 11, null, 5, 8]],
+        "HOA": [[6, 7, 8, 4, null, 10, 1], [null, 12, 9, 5, 3, 11, 2]],
+        "THO": [[7, 1, 2, 4, 5, 10, null], [8, 9, null, 12, 3, 11, 6]]
+      },
+      "coverageCandidate": {"keys": 60, "expectedKeys": 60},
+      "reviewIssues": [
+        "Bảng ghi Phú nhưng đoạn PDF50 ghi Chữ Phá; chưa được tự coi là một nhãn đã VERIFIED.",
+        "Phần hướng dẫn dẫn chương số 6; cần đối chiếu liên kết hành mệnh với bảng đang dùng ở Số 4, không âm thầm sửa tham chiếu.",
+        "Phạm vi là ruộng đất/điền sản, không được đổi tên thành toàn bộ lời giải tài lộc.",
+        "null là ô trống có trong bản chép bảng, không được nhập như một tháng hoặc gán ý nghĩa xấu."
+      ]
+    }
+  },
+  "decisionsForImplementation": [
+    "Mọi đầu vào nghĩa là đầu vào hợp lệ trong miền lịch 1900-2099, method và topic được công bố; input sai vẫn phải trả lỗi.",
+    "Mai Hoa có bốn topic GENERAL/CAREER/WEALTH/LOVE. Topic là trường có cấu trúc; không tự đoán nội dung câu hỏi để tạo kết luận ngoài nguồn.",
+    "Nếu chưa định vị được câu tổng quát chọn Thể/Dụng, chỉ triển khai như quy ước tính toán TEAM_DECISION có căn cứ ví dụ và giới hạn rõ; không gán SOURCE_VERIFIED cho phần chưa xác minh.",
+    "Các đoạn luận phải được duyệt riêng; quyết định tính toán không cấp quyền phát văn bản chưa được đối chiếu.",
+    "WEALTH tổng hợp phải phân biệt Lộc/Sang hèn/Điền sản và giữ tình trạng không có giao điểm ở bảng Lộc; không đổi lookup_key của quy tắc cũ.",
+    "Chưa thay contract runtime, schema hoặc database trong S04."
+  ]
+}

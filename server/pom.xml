@@ -93,6 +93,14 @@
     </profile>
   </profiles>
   <build>
+    <resources>
+      <resource><directory>src/main/resources</directory></resource>
+      <resource>
+        <directory>${project.basedir}/../data</directory>
+        <targetPath>readings</targetPath>
+        <includes><include>m01_reviewed_readings.json</include></includes>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>

@@ -1,5 +1,11 @@
 # Huyền Cơ — Kế hoạch hoàn thành phần TV2 + TV3
 
+**Triển khai V12 ngày26/10 hoàn thành theo [43](43-HUYENCO-V12-DEPLOYMENT-ACCEPTANCE.md):** chủ dự án đã yêu cầu nâng database huyenco; backup/khôi phục thử, migration/import, bảo toàn dữ liệu cũ và nghiệm thu M03/D04 trên DB chính đều đạt. Huyenco và TEST đều có V12/bộ M01. Các dòng huyenco V11 bên dưới là lịch sử; I02/T02 vẫn là công việc tiếp theo.
+
+**Cập nhật sau D04 ngày26/10:** M03 và D04 Backend đã hoàn thành theo [41](41-M03-MAI-HOA-INTERPRETATION-HANDOFF.md)/[42](42-D04-TAM-THE-EXTENDED-WEALTH-HANDOFF.md). Tam Thế EXTENDED đủ720 tổ hợp qua DB/STOMP, giữ no-match Lộc; dữ liệu và JSON LEGACY nguyên vẹn. **Tiếp theo I02/T02**, không còn chờ service D04. DB huyenco vẫn V11, TEST V12; các đoạn tiến độ M03 bên dưới là mốc trước D04.
+
+**Mở rộng phạm vi ngày26/10/2026:** F09/F04 theo [kế hoạch37](37-DETAILED-INTERPRETATION-EXPANSION-PLAN.md). **S04/M01/M02/M03 hoàn thành trong phạm vi; tiếp theo D04 service Tam Thế mở rộng.** [41](41-M03-MAI-HOA-INTERPRETATION-HANDOFF.md) bàn giao lời luận Mai Hoa thật ba phương pháp,1536 tổ hợp logic/DB,52 fixtures/445 Client và STOMP–HTTP–lịch sử. BODY/PHASES giữ quy ước có giới hạn nguồn; Tam Thế EXTENDED còn gate IMPLEMENTATION_UNAVAILABLE. N01/H01/E02 giữ tương thích; huyenco vẫn V11, TEST V12. UI thuộc TV1/I02, nghiệm thu toàn sản phẩm ở T01/T02.
+
 **Cập nhật theo xác nhận của chủ dự án:** MH-TIME đã được duyệt **VERIFIED cho quy tắc dự án dùng chia6**; không còn chờ xác nhận lại. TIME trả TEAM_DECISION/VERIFIED; câu chữ bản in được giữ trong ghi chú nguồn. Biên bản `docs/28-TIME-OWNER-APPROVAL.md` thay các ghi nhận BLOCKED/chưa duyệt của MH-TIME ở mốc trước.
 
 Phiên bản 1.0, lập ngày 23/10/2026, múi giờ Asia/Ho_Chi_Minh. Hạn nộp theo `Submission.md`: **23:59 ngày 31/10/2026**. Các ngày dưới đây là mục tiêu thực hiện, chưa phải cam kết rằng chức năng đã hoàn thành.
@@ -115,6 +121,13 @@ Luồng bootstrap phải xử lý được database trống: Flyway V1–V3 → 
 | E02 | DONE | Hai GET tra quẻ, Unicode/tên/mã, lọc thượng/hạ, phân trang và chi tiết có nguồn | 470 Java DB/125 HTTP, TypeScript/27 fixtures đạt; huyenco không đổi, chỉ xuất NAME_GLOSS VERIFIED; xem biên bản32 | S01/E01 |
 | H01 | DONE | V11 đã áp dụng huyenco; cookie owner/CSRF,5 REST,owner handshake và cache kết quả có giới hạn |480 Java DB,54 HTTP+8 terminal STOMP,2 HTTP không DB; restart/cách ly/quota đồng thời đạt; chỉ lưu snapshot thật; biên bản34 | A01/A02/B01 |
 | N01 | DONE (Server/unit/tài liệu) | Dispatcher bounded 4 worker/queue100, registry session+requestId TTL60s/max10000; giữ chế độ direct để so sánh X01 | 5 test dispatcher + 6 test vòng đời pass: queue đầy, dedupe/replay/xung đột, disconnect, deadline kể cả queue, registry cap, 20 phiên cùng ID. Hồi quy 485 tổng/464 đạt/21 skipped cần DB/0 lỗi. STOMP live/benchmark vẫn nằm ở T01/X01; biên bản36 | B01/B02 |
+| S04 | DONE (khảo sát ban đầu) | Định vị nguồn luận Mai Hoa và bảng Sang hèn/Điền sản; chép ứng viên, giữ vấn đề nguồn | 7 mục Mai Hoa, 20 diễn giải ứng viên, 144+60 khóa bảng được kiểm; SOURCE_SURVEY_ONLY, chưa VERIFIED/runtime | S03/yêu cầu 26/10 |
+| M01 | DONE phạm vi38 | Hai lượt cùng Codex; 20 mẫu Mai Hoa/19 đoạn Tam Thế/204 khóa và 7 quyết định | Nguồn và mâu thuẫn theo ấn bản được lưu riêng; xem biên bản38 | S04 |
+| M02 | DONE theo40 | V12/importer, DTO/validation/shared guards/44 fixtures; request mới có chốt lỗi triển khai | Dữ liệu lặp/guard, hợp đồng, snapshot PG và13 terminal STOMP thật đạt; chờ service M03/D04 | M01 |
+| M03 | DONE theo41 | Service lời luận Mai Hoa và provider nguồn, cả ba phương pháp; nối STOMP/lịch sử |1536 tổ hợp đạt qua logic/DB;15 terminal/42 progress/22 HTTP thật, snapshot/owner/replay đạt; không suy sự kiện từ câu hỏi hoặc nâng quy ước thành nguồn VERIFIED | M02 |
+| D04 | DONE theo42 | EXTENDED trả Lộc/Sang hèn/Điền sản từ snapshot nền+bổ sung; giữ nguồn và quyết định biên tập |720 tổ hợp DB/STOMP,737 terminal/2928 progress/27 HTTP/năm history thật đạt;360 no-match Lộc không làm mất ba category, LEGACY giữ nguyên | M01/M02 |
+| I02 | TV1 | Tích hợp UI lời luận và các tiểu mục theo contract mới | DTO/nguồn/coverage và trạng thái xử lý rõ; không tự tính ở Client | M02/M03/D04 |
+| T02 | TODO | Nghiệm thu phạm vi F09/F04 mở rộng và lịch sử/mạng | Ca nguồn, đủ miền khóa, lỗi, Client cũ/mới và bằng chứng STOMP/DB TEST thật | M03/D04/I02 |
 | I01 | TODO | TV2–TV3 bàn giao contract/fixtures/lỗi/progress; TV1 triển khai và tích hợp các màn hình | TV1 demo luồng UI thật sau mỗi module; sau E02/H01 có tra cứu/lịch/lịch sử; cập nhật bảng F01–F08 | Mỗi module tương ứng |
 | T01 | TODO | Kiểm đầu cuối đủ F01–F08, dữ liệu nhạy cảm, reconnect, payload xấu, SQL/DB lỗi, timeout | Bảng đạt/chưa đạt gắn lệnh, kết quả và bằng chứng cụ thể; lỗi một phiên không làm hỏng các phiên khác | B/D/E/H/N/I |
 | X01 | TODO | Benchmark direct/bounded: 1/5/20 Client, đo thật và phân tích | Raw CSV, môi trường, input, cấu hình, median/p95/throughput/lỗi/quá tải/sai phiên, script tái lập | N01/T01 tuyến LINES |

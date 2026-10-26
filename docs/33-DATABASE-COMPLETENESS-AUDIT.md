@@ -1,5 +1,17 @@
 # Kiểm tra độ đầy đủ database huyenco — 25/10/2026
 
+**Triển khai thực tế26/10 theo [43](43-HUYENCO-V12-DEPLOYMENT-ACCEPTANCE.md): huyenco hiện V12**, có1 bundle/20 mẫu Mai Hoa/19 đoạn bổ sung/204 ánh xạ,18 bảng public. Đã backup và khôi phục thử V11 trước nâng cấp; kiểm54 nguồn nền0 FAIL/0 PENDING, audit V12 khớp mọi nội dung/review và không có constraint chưa validated. Mọi dòng V11 giữ nguyên, dữ liệu mới khớp TEST; M03/D04 chạy thật trên huyenco đạt. Các số V10/V11/chưa nhập dưới đây là lịch sử. UI/I02/T02 toàn sản phẩm còn làm, không gọi đã số hóa toàn bộ hai sách.
+
+**Sau D04 ngày26/10:** dữ liệu M01/V12 trên TEST đã được dùng bởi service Mai Hoa M03 và Tam Thế EXTENDED D04;720 tổ hợp năm–tháng qua JDBC/STOMP, metadata nguồn và history thật đạt theo [42](42-D04-TAM-THE-EXTENDED-WEALTH-HANDOFF.md). D04 không có migration/import/review mới; snapshot toàn public TEST giữ nguyên sau dọn phiên, huyenco vẫn V11. Đủ dữ liệu/service trong TEST theo phạm vi đã kiểm chưa có nghĩa DB dự án đã triển khai mở rộng hoặc UI/I02/T02 đã hoàn tất.
+
+**Sau M03 ngày26/10:** service Mai Hoa đã sử dụng bundle/20 mẫu đã duyệt trên TEST V12, chạy1536 tổ hợp và lưu/đọc lịch sử kết quả thật theo [41](41-M03-MAI-HOA-INTERPRETATION-HANDOFF.md). Không thêm schema/seed/review trong M03. TEST sau dọn phiên giữ snapshot toàn bộ dòng public; `huyenco` vẫn V11 và chưa có dữ liệu mở rộng. Tam Thế EXTENDED còn D04, UI/I02 và T02 còn làm; không gọi database triển khai chung hoặc toàn sản phẩm đã đủ chỉ từ kết quả TEST.
+
+**Sau M02 hợp đồng26/10:** schema/DTO/guard/fixtures và snapshot H01 mới đã kiểm trên TEST theo [40](40-M02-CONTRACT-HANDOFF.md). Sau dọn các owner kiểm thử, mọi dòng public TEST khớp snapshot trước; huyenco vẫn V11. Input mở rộng được nhận nhưng service M03/D04 chưa mở. Kiểm hợp đồng không thay ma trận luận giải mọi đầu vào.
+
+**Tiến độ mới 26/10 — tách DB dự án và TEST:** `huyenco` vẫn V11, chưa nhập dữ liệu mở rộng. TEST mới `huyenco_m02_test_20261026` đã bootstrap từ trống đến V12 và nhập 1 bundle, 20 mẫu luận Mai Hoa, 19 đoạn Tam Thế, 204 ánh xạ (144 Sang hèn + 60 Điền sản); kiểm lặp/nguồn/rollback đạt. Đây là hoàn thành M01 và phần dữ liệu M02, chưa phải API lời luận hoặc đủ nghiệp vụ mở rộng. Xem [biên bản38](38-M01-M02-REVIEWED-KNOWLEDGE-HANDOFF.md). Các kiểm kê bên dưới phản ánh DB dự án theo mốc ghi ngày, không tính các bảng chỉ có trên TEST.
+
+**Cập nhật phạm vi 26/10/2026:** kiểm chỉ đọc lúc 00:44 xác nhận V1-V11 đều success, đã có `anonymous_sessions`/`interpretation_history`, 17 khóa ngoại và 0 constraint chưa validated; mục H01 chưa có schema bên dưới là mốc trước H01. Chủ dự án vừa bổ sung F09 và F04 mở rộng theo [kế hoạch37](37-DETAILED-INTERPRETATION-EXPANSION-PLAN.md). Database chưa có mẫu luận chi tiết Mai Hoa hoặc các bảng ứng viên Sang hèn/Điền sản của đợt S04; phải làm M01-M03/D04 trước khi gọi đủ phạm vi mới. Hồ sơ khảo sát không được tính là dữ liệu đã nhập/VERIFIED. Các số liệu/phân tích V10 ở phần còn lại được giữ làm bằng chứng lịch sử.
+
 Thời điểm truy vấn: **15:07:45 UTC+07:00, 25/10/2026**. Kết nối PostgreSQL `127.0.0.1:5432`, database `huyenco`. Chỉ SELECT trong transaction READ ONLY; không nạp lại dữ liệu, đổi trạng thái, chạy migration hoặc sửa schema. Mật khẩu chỉ truyền qua môi trường tiến trình, không lưu trong báo cáo/mã nguồn.
 
 **Kết luận:** đủ dữ liệu theo phạm vi nghiệp vụ đã nhập và duyệt đến **E02**; chưa thể coi database của toàn bộ dự án hoặc nội dung hai sách đã hoàn thành100%.

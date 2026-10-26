@@ -1,4 +1,5 @@
 import type { ApiError, CalculationResponse, CalculationType, ErrorCode } from "@/types/contract";
+import { hasValidWealthMetadata, isDetailedReading } from "./readingValidation";
 
 const SERVER_ERROR_CODES: readonly ErrorCode[] = [
   "INVALID_INPUT", "INVALID_DATE", "INVALID_METHOD",
@@ -87,6 +88,7 @@ function hexagram(v: unknown): boolean {
 }
 function maiHoa(v: Record<string, unknown>): boolean {
   return member(v.method, ["TIME", "OBJECT_COUNT", "LINES"])
+    && (!Object.hasOwn(v, "detailedReading") || isDetailedReading(v.detailedReading))
     && [v.primaryHexagram, v.mutualHexagram, v.changedHexagram].every(hexagram)
     && integer(v.movingLine) && v.movingLine >= 1 && v.movingLine <= 6
     && (v.method !== "TIME" ? v.lunarDate === null : (isRecord(v.lunarDate)
@@ -99,6 +101,7 @@ function maiHoa(v: Record<string, unknown>): boolean {
 }
 function tamThe(v: Record<string, unknown>): boolean {
   return v.ruleBasis === "SOURCE_VERIFIED" && v.sourceStatus === "VERIFIED"
+    && hasValidWealthMetadata(v)
     && Array.isArray(v.categories) && v.categories.length >= 1 && v.categories.length <= 3
     && array(v.categories, c => isRecord(c) && member(c.category, ["CAREER", "WEALTH", "LOVE"])
       && Array.isArray(c.entries) && c.entries.length > 0

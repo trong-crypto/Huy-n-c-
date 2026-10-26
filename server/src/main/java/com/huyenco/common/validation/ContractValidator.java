@@ -5,6 +5,7 @@ import com.huyenco.common.exception.ContractException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeParseException;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
@@ -51,14 +52,14 @@ public final class ContractValidator {
         }
         String method = text(payload, "method");
         if ("TIME".equals(method)) {
-            allowOnly(payload, Set.of("method", "datetime", "question"));
+            allowOnly(payload, Set.of("method", "datetime", "question", "reading"));
             try {
                 OffsetDateTime.parse(text(payload, "datetime"));
             } catch (DateTimeParseException ex) {
                 throw new ContractException("INVALID_DATE", "datetime phải là ISO 8601 có offset.");
             }
         } else if ("OBJECT_COUNT".equals(method)) {
-            allowOnly(payload, Set.of("method", "objectCount", "hourIndex", "question"));
+            allowOnly(payload, Set.of("method", "objectCount", "hourIndex", "question", "reading"));
             JsonNode objectCount = payload.get("objectCount");
             JsonNode hourIndex = payload.get("hourIndex");
             if (objectCount == null || !objectCount.isIntegralNumber()
@@ -72,7 +73,7 @@ public final class ContractValidator {
                 throw invalidInput("hourIndex phải là số nguyên từ 1 đến 12.");
             }
         } else if ("LINES".equals(method)) {
-            allowOnly(payload, Set.of("method", "linesBottomUp", "movingLine"));
+            allowOnly(payload, Set.of("method", "linesBottomUp", "movingLine", "reading"));
             JsonNode lines = payload.get("linesBottomUp");
             JsonNode movingLine = payload.get("movingLine");
             if (lines == null || !lines.isArray() || lines.size() != 6) {
@@ -95,11 +96,28 @@ public final class ContractValidator {
         if (question != null && (!question.isTextual() || question.asText().length() > 500)) {
             throw invalidInput("question phải là chuỗi tối đa 500 ký tự.");
         }
+        if (payload.has("reading")) {
+            JsonNode reading = payload.get("reading");
+            if (!reading.isObject()) throw invalidInput("reading phải là object.");
+            allowOnly(reading, Set.of("topic", "context"));
+            if (!Set.of("GENERAL", "CAREER", "WEALTH", "LOVE").contains(text(reading, "topic"))) {
+                throw invalidInput("Chủ đề lời luận không được hỗ trợ.");
+            }
+            if ("TIME".equals(method)) {
+                if (reading.has("context")) throw invalidInput("TIME dùng datetime lập quẻ, không nhận context khác.");
+                readingDateTime(text(payload, "datetime"));
+            } else if (reading.has("context")) {
+                JsonNode context = reading.get("context");
+                if (!context.isObject()) throw invalidInput("context phải là object.");
+                allowOnly(context, Set.of("datetime"));
+                readingDateTime(text(context, "datetime"));
+            }
+        }
     }
 
     public static void validateTamThe(JsonNode payload) {
         if (payload == null || !payload.isObject()) throw invalidInput("Thiếu hoặc sai payload Tam Thế.");
-        allowOnly(payload, Set.of("birthDate", "birthTime", "calendarType", "isLeapMonth", "categories"));
+        allowOnly(payload, Set.of("birthDate", "birthTime", "calendarType", "isLeapMonth", "categories", "wealthMode"));
         String date = text(payload, "birthDate");
         String time = text(payload, "birthTime");
         String calendarType = text(payload, "calendarType");
@@ -139,6 +157,26 @@ public final class ContractValidator {
                     throw invalidInput("categories có mục không hợp lệ hoặc trùng lặp.");
                 }
             }
+        }
+        if (payload.has("wealthMode")) {
+            String mode = text(payload, "wealthMode");
+            if (!Set.of("LEGACY", "EXTENDED").contains(mode)) throw invalidInput("wealthMode không được hỗ trợ.");
+            if ("EXTENDED".equals(mode) && categories != null) {
+                boolean includesWealth = false;
+                for (JsonNode category : categories) includesWealth |= "WEALTH".equals(category.textValue());
+                if (!includesWealth) throw invalidInput("EXTENDED cần category WEALTH.");
+            }
+        }
+    }
+
+    private static void readingDateTime(String value) {
+        try {
+            var date = OffsetDateTime.parse(value).withOffsetSameInstant(ZoneOffset.ofHours(7)).toLocalDate();
+            if (date.isBefore(LocalDate.of(1900, 1, 1)) || date.isAfter(LocalDate.of(2099, 12, 31))) {
+                throw new ContractException("INVALID_DATE", "Thời điểm luận phải thuộc miền lịch 1900–2099 theo UTC+7.");
+            }
+        } catch (java.time.DateTimeException failure) {
+            throw new ContractException("INVALID_DATE", "Thời điểm luận phải là ISO 8601 có offset và ngày hợp lệ.");
         }
     }
 

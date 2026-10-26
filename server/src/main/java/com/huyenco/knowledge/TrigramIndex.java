@@ -35,6 +35,11 @@ public final class TrigramIndex {
         return record;
     }
 
+    public TrigramRecord find(List<Boolean> linesBottomUp) {
+        return byNumber.values().stream().filter(r->r.linesBottomUp().equals(linesBottomUp)).findFirst()
+                .orElseThrow(KnowledgeDataException::new);
+    }
+
     public void validateHexagrams(List<HexagramRecord> records) {
         for (var r : records) {
             var lower = byCode.get(r.lowerTrigramCode());

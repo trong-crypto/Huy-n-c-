@@ -2,6 +2,12 @@
 
 **Tài liệu 35 · 25/10/2026 · Bàn giao TV2 + TV3 → TV1**
 
+**Triển khai huyenco26/10:** DB trên máy chủ dự án đã V12 và nhập bộ M01 theo [43](43-HUYENCO-V12-DEPLOYMENT-ACCEPTANCE.md), M03/D04 nghiệm thu thật đạt. Máy này không cần bootstrap/import lại; dùng code mới/profile db và DB_URL đúng huyenco. TV1 ở máy khác vẫn cần TEST riêng đã seed hoặc một Server đang chạy được cấp truy cập; Git pull không chuyển database. Server tạm18089 đã dừng. Các dòng huyenco V11/chưa có dữ liệu mở rộng ở mốc cũ bên dưới là lịch sử; các script smoke M03/D04 có ghi history tiếp tục dùng TEST, script smoke-v12-readings chỉ đọc được mô tả ở43.
+
+**Bổ sung D04 ngày26/10:** Backend đã trả Tam Thế EXTENDED thật theo [42](42-D04-TAM-THE-EXTENDED-WEALTH-HANDOFF.md), gồm năm capture và script kiểm720 tổ hợp. Dùng TEST V12/bundle M01 đã seed theo38, contract39; chỉ thêm wealthMode=EXTENDED khi muốn ba tiểu mục mới. Các đoạn chờ D04 ở mốc M03 dưới đây là lịch sử. DB huyenco vẫn V11, không dùng làm TEST; kiểm DB_URL trước khi profile db tự chạy Flyway. UI tích hợp thuộc TV1/I02.
+
+**Bổ sung M03 ngày26/10:** hướng dẫn này vẫn dùng cho luồng bản nền. Muốn nghiệm thu lời luận Mai Hoa mới, dùng TEST V12/bundle đã seed theo [38](38-M01-M02-REVIEWED-KNOWLEDGE-HANDOFF.md), contract [39](39-DETAILED-READINGS-CONTRACT.md) và cách chạy/capture thật ở [41](41-M03-MAI-HOA-INTERPRETATION-HANDOFF.md). Request không có reading giữ tuyến cũ. Database dự án huyenco vẫn V11; không dùng nó làm TEST hoặc coi Server tạm đã dừng là môi trường nhóm đang chạy. Profile db tự chạy Flyway khi khởi động; kiểm đúng DB_URL trước khi chạy. Tam Thế EXTENDED chờ D04.
+
 **Mục tiêu:** TV1 tự chạy Server Spring Boot với PostgreSQL đã nạp dữ liệu, nối Client Next.js bằng STOMP WebSocket, kiểm tra thật `LINES` và `OBJECT_COUNT`, ghi nhận kết quả nghiệm thu. **Không bắt buộc Docker.**
 
 > TV1 sở hữu UI; TV2 + TV3 sở hữu Server, nghiệp vụ và dữ liệu sách. Không sửa `server/src/main/resources/application-db.yml`: file này đã lấy cấu hình từ biến môi trường. Không commit mật khẩu PostgreSQL, cookie, dữ liệu lịch sử cá nhân hoặc file dump lên GitHub.

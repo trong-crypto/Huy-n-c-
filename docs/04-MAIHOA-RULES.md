@@ -1,5 +1,9 @@
 # Mai Hoa Dịch Số — logic nghiệp vụ đối chiếu bản scan
 
+**M03 hoàn thành ngày26/10:** đã có service lời luận ba phương pháp/bốn chủ đề theo [41](41-M03-MAI-HOA-INTERPRETATION-HANDOFF.md),1536 tổ hợp logic/DB đạt. Dùng scoped rules MH-READING-* sau kiểm bundle/approval mới mỗi request; MH-THE-DUNG1.0 cũ vẫn DISABLED. BODY/PHASES giữ TEAM_DECISION/SOURCE_AMBIGUOUS; tháng âm và phân loại mùa giữ TEAM_DECISION/SOURCE_LOCATED, không phát lời luận mùa chưa VERIFIED. M01 có20 đoạn biên tập đã duyệt, không phải384 lời hào nguyên văn. Các dòng chưa mở runtime ở mốc M01 dưới đây là lịch sử.
+
+**Mở rộng ngày 26/10:** F09 bắt buộc có lời luận theo GENERAL/CAREER/WEALTH/LOVE. Sau khảo sát S04, M01 đã đối chiếu lượt hai PDF131-135,150-151,156-158,224-225,227-228, duyệt riêng20 đoạn diễn giải và ghi quy ước chọn Thể/hai quái hỗ/mùa. Dữ liệu đã nhập TEST V12, xem [biên bản38](38-M01-M02-REVIEWED-KNOWLEDGE-HANDOFF.md). Chưa thay policy runtime `MH-THE-DUNG` hoặc mở API lời luận. Không gọi20 đoạn diễn giải là bộ384 lời hào nguyên văn; các thuật toán theo quy ước vẫn mang TEAM_DECISION và giới hạn theo bản in.
+
 **Cập nhật theo xác nhận của chủ dự án:** MH-TIME đã được duyệt **VERIFIED cho quy tắc dự án dùng chia6**; không còn chờ xác nhận lại. TIME trả TEAM_DECISION/VERIFIED; câu chữ bản in được giữ trong ghi chú nguồn. Biên bản `docs/28-TIME-OWNER-APPROVAL.md` thay các ghi nhận BLOCKED/chưa duyệt của MH-TIME ở mốc trước.
 
 Nguồn: *Mai Hoa Dịch Số*, Thiệu Khang Tiết, Ông Văn Tùng dịch/chú thích, NXB Văn hóa – Thông tin; PDF người dùng cung cấp, 672 trang, danh tính ấn bản in chưa xác minh đầy đủ. Dẫn trang dạng `trang in / trang PDF`, tính PDF từ 1. Từ 24/10, MH-TRIGRAM/MH-MUTUAL/MH-CHANGE đã VERIFIED trong đúng phạm vi biên bản; công thức TIME/OBJECT_COUNT giữ trạng thái mâu thuẫn/đa nghĩa tương ứng.

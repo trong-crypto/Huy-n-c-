@@ -1,5 +1,9 @@
 # Diễn Cầm Tam Thế Diễn Nghĩa — logic nghiệp vụ đối chiếu bản scan
 
+**D04 hoàn thành ngày26/10:** EXTENDED đã tra Lộc theo Can–tháng, Sang hèn theo Chi–tháng và Điền sản theo hành–tháng;720 tổ hợp qua JDBC/STOMP đạt theo [42](42-D04-TAM-THE-EXTENDED-WEALTH-HANDOFF.md). Lộc không có giao điểm được ghi riêng, không lấp ô hoặc làm mất các category.19 đoạn bổ sung giữ SOURCE_VERIFIED; liên kết nhãn và tham chiếu Số6/Số4 giữ TEAM_DECISION/SOURCE_AMBIGUOUS ở editorialDecisions. Database huyenco chưa đổi; phần chưa mở D04 trong mốc M01/M02 bên dưới là lịch sử.
+
+**Mở rộng ngày 26/10:** chủ dự án yêu cầu đủ nhóm luận cho mọi đầu vào hợp lệ. M01 đã đối chiếu lượt hai Sang hèn PDF43-44 (144 Chi-tháng) và Điền sản PDF49-50 (60 hành-tháng), duyệt19 đoạn diễn giải và ghi quyết định nối nhãn bảng/tiêu đề. M02 đã nhập bộ bổ sung vào TEST V12 theo [biên bản38](38-M01-M02-REVIEWED-KNOWLEDGE-HANDOFF.md); hồ sơ S04 vẫn giữ trạng thái khảo sát. D04 service chưa mở. WEALTH sẽ có tiểu mục/nguồn riêng, giữ no-match Lộc; bảo tồn Hoa cái/Hao Cái, Vong sát/Vong Thần, Tướng linh/Tướng Tinh, Thiên an/Phiên An và Phú/Phá theo quyết định biên tập, không coi là đính chính của nhà xuất bản hoặc các ô Lộc phục dựng.
+
 Nguồn: *Diễn Cầm Tam Thế Diễn Nghĩa*, soạn giải Dương Công Hầu, hiệu Khương Đức; PDF người dùng cung cấp, 360 trang. Bìa ghi 1952 nhưng thiếu dữ kiện xuất bản đầy đủ, nên chưa khẳng định NXB/năm in của ấn bản. Dẫn trang dạng `trang in / trang PDF` (PDF từ 1). Sách là tư liệu tín ngưỡng truyền thống, không phải dự đoán khoa học. Cập nhật S02 ngày 24/10: riêng 60 ánh xạ Can Chi→hành mệnh và TT-NGU-HANH đã VERIFIED theo biên bản 22, reviewer Codex cùng công cụ lượt hai; các bảng và mô tả khác giữ trạng thái riêng.
 
 ## Chuẩn hóa đầu vào

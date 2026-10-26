@@ -105,60 +105,70 @@ public final class JdbcKnowledgeRepository implements RuleStateProvider, Hexagra
 
     @Override
     public TamTheSnapshot tamThe(Set<String> ruleCodes) {
-        if (ruleCodes == null || ruleCodes.isEmpty() || !Set.of("TT-NGU-HANH", "TT-CONG-DANH-11",
-                "TT-CONG-DANH-13", "TT-TAI-LOC", "TT-TINH-DUYEN").containsAll(ruleCodes))
-            throw new IllegalArgumentException("Unsupported Tam The snapshot scope");
-        var codes = ruleCodes.stream().sorted().toList();
-        // The identifiers are constants; only code/version values become parameters.
-        String scope = "r.module='TAM_THE' AND (" + String.join(" OR ", codes.stream()
-                .map(code -> "(r.rule_code=? AND r.rule_version=?)").toList()) + ")";
+        validateTamTheScope(ruleCodes);
         return read(connection -> {
             connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
             connection.setAutoCommit(false);
             try {
-                Map<String, RuleState> states = new LinkedHashMap<>();
-                try (var statement = scoped(connection, "SELECT " + RULE_COLUMNS + " FROM calculation_rules r "
-                        + RULE_SOURCE_JOIN + " WHERE " + scope, codes); var rows = statement.executeQuery()) {
-                    while (rows.next()) {
-                        var state = ruleState(rows); states.put(state.ruleCode(), state);
-                    }
-                }
-                Map<Long, SourceReference> sources = new HashMap<>();
-                try (var statement = prepare(connection, "SELECT s.id, " + SOURCE_COLUMNS
-                        + " FROM source_sections s JOIN source_books b ON b.id=s.source_book_id");
-                     var rows = statement.executeQuery()) {
-                    while (rows.next()) sources.put(rows.getLong("id"), source(rows));
-                }
-                Map<Long, List<TamTheSnapshot.Page>> pages = new HashMap<>();
-                try (var statement = scoped(connection, """
-                        SELECT p.entry_id,p.page_order,p.source_section_id FROM tam_the_lookup_source_pages p
-                        JOIN tam_the_lookup_entries e ON e.id=p.entry_id JOIN calculation_rules r ON r.id=e.rule_id
-                        WHERE
-                        """ + scope + " ORDER BY p.entry_id,p.page_order", codes); var rows = statement.executeQuery()) {
-                    while (rows.next()) pages.computeIfAbsent(rows.getLong(1), ignored -> new ArrayList<>())
-                            .add(new TamTheSnapshot.Page(rows.getInt(2), sources.get(rows.getLong(3))));
-                }
-                var entries = new ArrayList<TamTheSnapshot.Entry>();
-                try (var statement = scoped(connection, "SELECT e.*,r.rule_code,r.rule_version FROM tam_the_lookup_entries e "
-                        + "JOIN calculation_rules r ON r.id=e.rule_id WHERE " + scope + " ORDER BY r.rule_code,e.lookup_key,e.result_code", codes);
-                     var rows = statement.executeQuery()) {
-                    while (rows.next()) {
-                        var reviewed = rows.getTimestamp("reviewed_at");
-                        entries.add(new TamTheSnapshot.Entry(rows.getString("rule_code"),rows.getString("rule_version"),
-                                rows.getString("lookup_key"),rows.getString("result_code"),rows.getString("title"),rows.getString("description"),
-                                SourceStatus.valueOf(rows.getString("verification_status")),rows.getString("reviewer"),
-                                reviewed == null ? null : reviewed.toInstant(),rows.getString("verification_note"),
-                                sources.get(rows.getLong("source_section_id")),sources.get(rows.getLong("content_source_section_id")),
-                                rows.getString("source_table_label"),rows.getString("source_content_heading"),
-                                pages.getOrDefault(rows.getLong("id"), List.of())));
-                    }
-                }
-                connection.commit();
-                return new TamTheSnapshot(states, entries);
-            } catch (SQLException | RuntimeException failure) {
+                var snapshot=tamThe(connection,ruleCodes);
+                connection.commit(); return snapshot;
+            } catch(SQLException | RuntimeException failure) {
                 connection.rollback(); throw failure;
             }
         });
+    }
+
+    private static void validateTamTheScope(Set<String> ruleCodes) {
+        if (ruleCodes == null || ruleCodes.isEmpty() || !Set.of("TT-NGU-HANH", "TT-CONG-DANH-11",
+                "TT-CONG-DANH-13", "TT-TAI-LOC", "TT-TINH-DUYEN").containsAll(ruleCodes))
+            throw new IllegalArgumentException("Unsupported Tam The snapshot scope");
+    }
+
+    /** Reads on the caller's transaction; D04 uses this to keep base and supplement coherent. */
+    TamTheSnapshot tamThe(Connection connection,Set<String> ruleCodes) throws SQLException {
+        validateTamTheScope(ruleCodes);
+        var codes = ruleCodes.stream().sorted().toList();
+        // The identifiers are constants; only code/version values become parameters.
+        String scope = "r.module='TAM_THE' AND (" + String.join(" OR ", codes.stream()
+                .map(code -> "(r.rule_code=? AND r.rule_version=?)").toList()) + ")";
+        Map<String, RuleState> states = new LinkedHashMap<>();
+        try (var statement = scoped(connection, "SELECT " + RULE_COLUMNS + " FROM calculation_rules r "
+                + RULE_SOURCE_JOIN + " WHERE " + scope, codes); var rows = statement.executeQuery()) {
+            while (rows.next()) {
+                var state = ruleState(rows); states.put(state.ruleCode(), state);
+            }
+        }
+        Map<Long, SourceReference> sources = new HashMap<>();
+        try (var statement = prepare(connection, "SELECT s.id, " + SOURCE_COLUMNS
+                + " FROM source_sections s JOIN source_books b ON b.id=s.source_book_id");
+             var rows = statement.executeQuery()) {
+            while (rows.next()) sources.put(rows.getLong("id"), source(rows));
+        }
+        Map<Long, List<TamTheSnapshot.Page>> pages = new HashMap<>();
+        try (var statement = scoped(connection, """
+                SELECT p.entry_id,p.page_order,p.source_section_id FROM tam_the_lookup_source_pages p
+                JOIN tam_the_lookup_entries e ON e.id=p.entry_id JOIN calculation_rules r ON r.id=e.rule_id
+                WHERE
+                """ + scope + " ORDER BY p.entry_id,p.page_order", codes); var rows = statement.executeQuery()) {
+            while (rows.next()) pages.computeIfAbsent(rows.getLong(1), ignored -> new ArrayList<>())
+                    .add(new TamTheSnapshot.Page(rows.getInt(2), sources.get(rows.getLong(3))));
+        }
+        var entries = new ArrayList<TamTheSnapshot.Entry>();
+        try (var statement = scoped(connection, "SELECT e.*,r.rule_code,r.rule_version FROM tam_the_lookup_entries e "
+                + "JOIN calculation_rules r ON r.id=e.rule_id WHERE " + scope + " ORDER BY r.rule_code,e.lookup_key,e.result_code", codes);
+             var rows = statement.executeQuery()) {
+            while (rows.next()) {
+                var reviewed = rows.getTimestamp("reviewed_at");
+                entries.add(new TamTheSnapshot.Entry(rows.getString("rule_code"),rows.getString("rule_version"),
+                        rows.getString("lookup_key"),rows.getString("result_code"),rows.getString("title"),rows.getString("description"),
+                        SourceStatus.valueOf(rows.getString("verification_status")),rows.getString("reviewer"),
+                        reviewed == null ? null : reviewed.toInstant(),rows.getString("verification_note"),
+                        sources.get(rows.getLong("source_section_id")),sources.get(rows.getLong("content_source_section_id")),
+                        rows.getString("source_table_label"),rows.getString("source_content_heading"),
+                        pages.getOrDefault(rows.getLong("id"), List.of())));
+            }
+        }
+        return new TamTheSnapshot(states, entries);
     }
 
     private PreparedStatement scoped(Connection connection, String sql, List<String> codes) throws SQLException {

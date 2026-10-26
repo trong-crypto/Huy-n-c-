@@ -1,5 +1,15 @@
 # Yêu cầu chức năng phía người dùng và điều kiện nghiệm thu
 
+**Yêu cầu mở rộng bắt buộc ngày 26/10/2026:** chủ dự án yêu cầu lời luận Mai Hoa chi tiết và luận giải cho mọi đầu vào hợp lệ trong phạm vi công bố. Bổ sung **F09** và mở rộng **F04** theo [kế hoạch 37](37-DETAILED-INTERPRETATION-EXPANSION-PLAN.md). Mốc triển khai hiện có của F01-F08 bên dưới vẫn giữ làm lịch sử; NAME_GLOSS và lỗi thiếu khóa Lộc không còn đủ để nghiệm thu phạm vi mở rộng.
+
+| Mã mở rộng | Chức năng phải có | Điều kiện nghiệm thu mới | Trạng thái 26/10 |
+| --- | --- | --- | --- |
+| F09 | Lời luận Mai Hoa cho GENERAL/CAREER/WEALTH/LOVE | Thể/Dụng, hành, quan hệ có chiều, các giai đoạn và lời luận có nguồn; kiểm64 quẻ x6 hào động x4 chủ đề; phần tính theo quy ước được đánh dấu riêng | M03 Server DONE theo41:1536 tổ hợp logic/DB, ba phương pháp và STOMP thật đạt. BODY/PHASES giữ TEAM_DECISION; UI/I02 và T02 toàn sản phẩm còn làm |
+| F04 mở rộng | Tam Thế có đủ ba category cho mọi năm-tháng âm hợp lệ trong miền lịch | WEALTH có tiểu mục Lộc/Sang hèn/Điền sản phân biệt nguồn; giữ no-match Lộc nhưng không làm mất mọi category khi các phép bổ sung hợp lệ đã sẵn sàng | D04 Backend DONE theo42:720 tổ hợp DB/STOMP, nguồn lỗi và LEGACY đạt. UI/I02 và T02 toàn sản phẩm còn làm |
+| F08 bổ sung | Lưu/đọc lại cả kết quả lời luận chi tiết và kết quả cũ | Snapshot có nguồn/version/coverage, tương thích DTO cũ/mới, đúng owner và không replay nhầm topic | M03 bốn result Mai Hoa, D04 năm result Tam Thế thật qua HTTP/history/owner/N01 đạt; còn UI và T02 |
+
+"Mọi đầu vào" là đầu vào hợp lệ của phương pháp/chủ đề và miền lịch 1900-2099 đã công bố. Input sai, mất DB hoặc nguồn chưa được duyệt vẫn trả lỗi. Không suy diễn câu hỏi tự do thành sự kiện hoặc ngày xảy ra khi chưa có quy tắc tương ứng. Không gọi các đoạn diễn giải theo quy tắc là bộ 384 lời hào nguyên văn đã được chép.
+
 **Cập nhật D03 ngày 25/10:** phần Server F04 đã có CAREER/WEALTH/LOVE qua STOMP; tra theo năm/tháng âm thật, giữ nhiều kết quả và đầy đủ nguồn. 263 terminal/1.034 progress D03 và 464 Java có DB đạt; 24 fixtures/typecheck/12 kiểm thử guard Client đạt. **F04 còn nghiệm thu UI TV1**, đồng thời công bố nguồn Lộc chỉ phủ 60/120 khóa: khóa không có trả lỗi toàn request, không tạo lời luận. D03 không thêm migration hay đổi dữ liệu VERIFIED; E01/E02 tiếp theo. Xem `30-D03-TAM-THE-HANDOFF.md`; các mốc TamTheService chưa triển khai bên dưới là lịch sử.
 
 **Cập nhật D02 ngày 25/10:** dữ liệu F04 đã bổ sung 120 giao điểm tài lộc/12 đoạn, 60 ô tình duyên chung/12 bài tám câu, 36 đoạn giờ và đủ 12 mốc, VERIFIED đúng phạm vi. Huyenco V9/447 ô tra; audit 0 FAIL/1 PENDING (E01), 455 Java có DB/50 Python đạt. **F04 vẫn chưa đạt: cần D03/TamTheService và UI TV1**, không phải chờ duyệt lại các mục đã chốt. Lộc chỉ phủ 60/120 khóa; 40 phút là TEAM_DECISION và chữ mờ được đánh dấu. Xem `29-D02-TAM-THE-DATA.md`; các mốc D02 chưa nhập ở dưới là lịch sử.

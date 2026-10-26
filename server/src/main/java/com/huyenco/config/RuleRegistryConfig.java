@@ -10,6 +10,7 @@ import com.huyenco.knowledge.KnowledgeAccessException;
 import com.huyenco.knowledge.TrigramRepository;
 import com.huyenco.knowledge.TamTheRepository;
 import com.huyenco.knowledge.TamTheSnapshot;
+import com.huyenco.knowledge.MaiHoaReadingRepository;
 import java.io.IOException;
 import java.util.Optional;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,17 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
 public class RuleRegistryConfig {
+    @Bean
+    @Profile("!db")
+    public com.huyenco.knowledge.TamTheExtendedRepository unavailableTamTheExtendedRepository() {
+        return codes -> new com.huyenco.knowledge.TamTheExtendedRepository.Snapshot(
+                new TamTheSnapshot(java.util.Map.of(),java.util.List.of()),null,java.util.List.of(),java.util.List.of());
+    }
+    @Bean
+    @Profile("!db")
+    public MaiHoaReadingRepository unavailableMaiHoaReadingRepository() {
+        return () -> new MaiHoaReadingRepository.Snapshot(null, java.util.List.of());
+    }
     @Bean
     public RuleCatalog ruleCatalog(ObjectMapper mapper) throws IOException {
         return RuleCatalog.load(mapper);

@@ -1,3 +1,8 @@
+import type { DetailedReading, ExtendedWealthMetadata, ReadingOptions, TimeReadingOptions,
+  WealthSubreading, WealthSubreadingCode } from "./readingContract";
+export type { DetailedReading, ReadingDecision, ReadingOptions, ReadingPhase, ReadingRelation,
+  ReadingTopic, SeasonReading, TimeReadingOptions, TrigramRole, WealthSubreading, WealthSubreadingCode } from "./readingContract";
+
 export const CONTRACT_VERSION = "1.2" as const;
 export type CalculationType = "MAI_HOA" | "TAM_THE";
 export type SourceStatus = "DRAFT" | "SOURCE_LOCATED" | "SOURCE_AMBIGUOUS" | "BLOCKED_SOURCE_CONFLICT" | "VERIFIED";
@@ -44,9 +49,9 @@ export type ResultEvidence = {
 };
 export type LunarDate = { year: number; month: number; day: number; isLeapMonth: boolean };
 export type MaiHoaPayload =
-  | { method: "TIME"; datetime: string; question?: string }
-  | { method: "OBJECT_COUNT"; objectCount: number; hourIndex: number; question?: string }
-  | { method: "LINES"; linesBottomUp: SixLines; movingLine: number };
+  | { method: "TIME"; datetime: string; question?: string; reading?: TimeReadingOptions }
+  | { method: "OBJECT_COUNT"; objectCount: number; hourIndex: number; question?: string; reading?: ReadingOptions }
+  | { method: "LINES"; linesBottomUp: SixLines; movingLine: number; reading?: ReadingOptions };
 export type TamThePayload = {
   birthDate: string;
   birthTime: string;
@@ -54,6 +59,7 @@ export type TamThePayload = {
   isLeapMonth: boolean;
   /** Omitted means all three; a missing requested category fails the whole request. */
   categories?: TamTheCategory[];
+  wealthMode?: "LEGACY" | "EXTENDED";
 };
 export type CalculationRequest =
   | { requestId: string; type: "MAI_HOA"; payload: MaiHoaPayload }
@@ -71,13 +77,15 @@ export type MaiHoaResult = ResultEvidence & {
   movingLine: number;
   lunarDate: LunarDate | null;
   calculationSteps: CalculationStep[];
+  detailedReading?: DetailedReading;
 };
-export type InterpretationEntry = { resultCode: string; title: string; content: string; sourceReferences: SourceReference[] };
+export type InterpretationEntry = { resultCode: string; title: string; content: string; sourceReferences: SourceReference[];
+  subreadingCode?: WealthSubreadingCode };
 export type TamTheResult = Omit<ResultEvidence, "ruleBasis" | "sourceStatus"> & {
   ruleBasis: "SOURCE_VERIFIED";
   sourceStatus: "VERIFIED";
-  categories: { category: TamTheCategory; entries: InterpretationEntry[] }[];
-};
+  categories: { category: TamTheCategory; entries: InterpretationEntry[]; subreadings?: WealthSubreading[] }[];
+} & ExtendedWealthMetadata;
 // Known values remain discoverable; future wire strings are not Client-local errors.
 export type ApiError = { code: ErrorCode | (string & {}); message: string; ruleCode: string | null; reason: RuleUnavailableReason | (string & {}) | null };
 export type CalculationResponse =
