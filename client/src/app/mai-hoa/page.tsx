@@ -8,7 +8,8 @@ import { PageContainer, PageHeader } from "@/components/ui/Page";
 import { FieldError, FormField, PrimaryButton, SectionCard, StatusBanner } from "@/components/ui/Controls";
 import { LinesForm } from "@/components/mai-hoa/LinesForm";
 import { CelestialArt } from "@/components/ui/CelestialArt";
-import { buildObjectCountPayload, buildTimePayload, TIME_MIN_DATETIME, TIME_MAX_DATETIME, type InputField } from "@/components/mai-hoa/maiHoaInput";
+import { buildObjectCountPayload, buildTimePayload, withReadingOptions, TIME_MIN_DATETIME, TIME_MAX_DATETIME, type InputField, type ReadingSelection, type ReadingInputError } from "@/components/mai-hoa/maiHoaInput";
+import { ReadingOptionsFields, readingFieldIds } from "@/components/mai-hoa/ReadingOptionsFields";
 
 const fieldIds: Record<InputField, string> = {
   datetime: "maihoa-datetime", objectCount: "maihoa-count", hourIndex: "maihoa-hour", question: "maihoa-question",
@@ -22,7 +23,24 @@ export default function MaiHoaPage() {
   const [question, setQuestion] = useState("");
   const [formError, setFormError] = useState<{ field: InputField; message: string } | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const readingRef = useRef<HTMLDivElement>(null);
+  const [reading, setReading] = useState<ReadingSelection>({ enabled: false, topic: "", datetime: "" });
+  const [readingError, setReadingError] = useState<ReadingInputError | null>(null);
   const calculation = useCalculation();
+
+  function submitPayload(payload: MaiHoaPayload) {
+    if (calculation.connection !== "connected" || calculation.requestState === "waiting") return;
+    const result = withReadingOptions(payload, reading);
+    if (!result.ok) {
+      setReadingError(result);
+      readingRef.current?.querySelector<HTMLElement>(`#${readingFieldIds[result.field]}`)?.focus();
+      return;
+    }
+    setReadingError(null);
+    calculation.submit("MAI_HOA", result.payload);
+  }
+  const readingFields = <div ref={readingRef}><ReadingOptionsFields method={method} value={reading} error={readingError}
+    onChange={value => { setReading(value); setReadingError(null); }} disabled={calculation.requestState === "waiting"} /></div>;
 
   function clearFieldError(field: InputField) {
     setFormError(current => current?.field === field ? null : current);
@@ -45,7 +63,7 @@ export default function MaiHoaPage() {
       formRef.current?.querySelector<HTMLElement>(`#${fieldIds[result.field]}`)?.focus();
       return;
     }
-    calculation.submit("MAI_HOA", result.payload);
+    submitPayload(result.payload);
   }
 
   return (
@@ -61,15 +79,16 @@ export default function MaiHoaPage() {
           { value: "LINES", title: "Nhập sáu hào (LINES)", detail: "Tự chọn Âm & Dương", symbol: "☷" },
         ] as const).map(item => <label key={item.value} className="method-option">
           <input type="radio" name="maihoa-method" value={item.value} checked={method === item.value}
-            onChange={() => { setMethod(item.value); setFormError(null); }} />
+            onChange={() => { setMethod(item.value); setFormError(null); setReadingError(null); }} />
           <span className="method-option-content"><span className="method-symbol" aria-hidden="true">{item.symbol}</span><span><strong>{item.title}</strong><span className="method-detail">{item.detail}</span></span><span className="method-check" aria-hidden="true">✓</span></span>
         </label>)}
       </fieldset>
       <div className="input-layout">
         <SectionCard title="Dữ liệu lập quẻ">
-          {method === "LINES" ? <LinesForm onSubmit={payload => calculation.submit("MAI_HOA", payload)}
-            disabled={calculation.connection !== "connected"} busy={calculation.requestState === "waiting"} /> : (
+          {method === "LINES" ? <LinesForm onSubmit={submitPayload}
+            disabled={calculation.connection !== "connected"} busy={calculation.requestState === "waiting"}>{readingFields}</LinesForm> : (
         <form ref={formRef} onSubmit={onSubmit} noValidate className="form-stack" aria-label="Lập quẻ theo thời gian hoặc số vật">
+          {readingFields}
           {method === "TIME" ? (
             <FormField id="maihoa-datetime" label="Thời điểm lập quẻ (giờ Việt Nam, UTC+07:00)" hint="Ngày từ 1900-01-01 đến 2099-12-31 theo giờ Việt Nam (UTC+07:00), chính xác đến phút; không theo múi giờ của thiết bị.">
               <input id="maihoa-datetime" type="datetime-local" step={60} min={TIME_MIN_DATETIME} max={TIME_MAX_DATETIME} value={datetime}
@@ -112,6 +131,7 @@ export default function MaiHoaPage() {
           <h2>Rõ đầu vào.<br />Giữ đúng căn cứ.</h2>
           <p>Với LINES, bạn chọn sáu hào và một hào động. Hào 1 nằm ở dưới, hào 6 nằm ở trên. Không cần nhập ngày giờ hay câu hỏi.</p>
           <StatusBanner>Server đã triển khai LINES, số vật và TIME. TIME dùng giờ Việt Nam UTC+07:00 cố định, kèm nguồn và quyết định nhóm. Để nhận kết quả cần kết nối Backend hoạt động và dữ liệu đã duyệt.</StatusBanner>
+          <p>Luận giải chi tiết hỗ trợ cả ba phương pháp. Nội dung đã đối chiếu nguồn và quy ước chọn Thể, giai đoạn, mùa được trình bày riêng; không quy đổi thành điểm số hoặc xác suất.</p>
         </aside>
       </div>
       <div className="result-region"><ResultPanel {...calculation} /></div>

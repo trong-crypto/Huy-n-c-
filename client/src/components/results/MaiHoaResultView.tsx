@@ -2,6 +2,7 @@ import type { CalculationStep, MaiHoaResult } from "@/types/contract";
 import { HexagramView } from "@/components/hexagrams/HexagramView";
 import { SectionCard } from "@/components/ui/Controls";
 import { DecisionReferences, EvidenceSummary, RuleEvidenceList, SourceReferences } from "./Evidence";
+import { DetailedReadingView } from "./DetailedReadingView";
 
 const methodLabels: Record<MaiHoaResult["method"], string> = {
   LINES: "Nhập sáu hào", OBJECT_COUNT: "Theo số vật", TIME: "Theo thời gian",
@@ -39,7 +40,9 @@ export function MaiHoaResultView({ data }: { data: MaiHoaResult }) {
       <div><p className="eyebrow">MAI HOA DỊCH SỐ · {methodLabels[data.method]}</p><h2>Ba quẻ, một mạch biến hóa.</h2><p>Quẻ chủ · Quẻ hỗ · Quẻ biến</p></div>
       <section aria-label="Căn cứ của phép tính"><EvidenceSummary ruleBasis={data.ruleBasis} sourceStatus={data.sourceStatus} /></section>
     </header>
-    {data.ruleBasis === "TEAM_DECISION" && <p className="response-warning result-team-warning" role="note">{data.method === "TIME"
+    {data.ruleBasis === "TEAM_DECISION" && <p className="response-warning result-team-warning" role="note">{data.detailedReading
+      ? "Kết quả tổng hợp có áp dụng quy ước nhóm để chọn Thể và các giai đoạn. Trạng thái nguồn của từng đoạn luận và từng quyết định được trình bày riêng bên dưới."
+      : data.method === "TIME"
       ? "Kết quả tính theo quy ước nhóm. Quy tắc TIME đã được chủ dự án duyệt trong phạm vi dự án; bản in còn khác biệt về phép chia 6/8. Xem nguồn và quyết định kèm theo."
       : "Kết quả tính theo quy ước nhóm. Phương pháp này áp dụng quy ước đã được nhóm thống nhất; căn cứ trong nguồn vẫn còn điểm cần đối chiếu."}</p>}
     {data.method === "TIME" && data.lunarDate !== null && <section className="moving-line-summary" aria-label="Ngày âm từ Server">
@@ -54,6 +57,7 @@ export function MaiHoaResultView({ data }: { data: MaiHoaResult }) {
       <HexagramView roleLabel="Quẻ biến" {...data.changedHexagram} />
     </section>
     <section className="moving-line-summary" aria-label="Hào động của quẻ chủ"><span aria-hidden="true">↔</span><div><h3>Hào động: {data.movingLine}</h3><p>Vị trí tính từ hào 1 ở dưới cùng của quẻ chủ.</p></div></section>
+    {data.detailedReading && <DetailedReadingView reading={data.detailedReading} />}
     {data.calculationSteps.length > 0 && <SectionCard title="Các bước tính"><CalculationSteps steps={data.calculationSteps} /></SectionCard>}
     <SectionCard title="Nguồn tham chiếu">
       <p className="result-section-note">Nguồn tổng hợp cho phép tính. Các trang quy tắc dưới đây không phải chứng cứ riêng cho tên từng quẻ.</p>

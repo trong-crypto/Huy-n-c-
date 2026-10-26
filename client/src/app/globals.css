@@ -363,3 +363,38 @@ summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; bo
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
 
+/* M03/D04 presentation: source text and calculation conventions retain their own evidence. */
+.reading-options { margin: 0; min-width: 0; padding: 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-secondary); }
+.reading-options legend { padding-inline: 6px; color: var(--primary-hover); font-weight: 600; }
+.reading-mode-options { display: flex; flex-wrap: wrap; column-gap: 24px; row-gap: 8px; }
+.reading-mode-options .checkbox-field { min-height: 44px; }
+.reading-options-fields { display: grid; gap: 18px; margin-top: 16px; }
+.detailed-reading, .tamthe-result { min-width: 0; }
+.tamthe-result { display: grid; gap: 24px; }
+.reading-role-grid { display: grid; gap: 16px; margin-block: 24px; }
+.reading-role-grid > section, .reading-phase, .wealth-subreading { min-width: 0; padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-secondary); }
+.reading-role-grid h3, .reading-phase h3, .reading-season h3, .reading-summary h3, .reading-decisions h3, .wealth-subreading h3 { color: var(--primary-hover); font-size: 20px; margin: 0 0 12px; }
+.role-description { display: flex; flex-wrap: wrap; gap: 12px 24px; font-size: 14px; margin-block: 12px 18px; }
+.role-description dt { color: var(--muted); font-size: 12px; }
+.role-description dd { margin: 4px 0 0; }
+.reading-phases { list-style: none; padding: 0; margin: 24px 0; display: grid; gap: 18px; }
+.reading-phases > li { min-width: 0; }
+.reading-relation { color: var(--primary-hover); font-weight: 600; }
+.interpretation-text { color: var(--secondary); line-height: 1.85; white-space: pre-wrap; overflow-wrap: anywhere; }
+.reading-phase .evidence-summary { margin-top: 20px; }
+.reading-summary, .reading-season, .reading-decisions { margin-top: 28px; }
+.reading-summary { padding: 20px; border-left: 3px solid var(--primary-hover); background: var(--bg-secondary); }
+.reading-decisions h3 { margin-bottom: 18px; }
+.interpretation-entries, .wealth-subreadings { display: grid; gap: 20px; }
+.interpretation-entry { min-width: 0; overflow-wrap: anywhere; }
+.interpretation-entry h4 { color: var(--primary-hover); font-size: 17px; margin: 0 0 12px; }
+.subreading-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.subreading-heading h3 { margin: 0; }
+.subreading-heading .evidence-badge { white-space: normal; }
+@media (min-width: 768px) { .reading-role-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 479px) {
+  .reading-options, .reading-phase, .wealth-subreading, .reading-role-grid > section, .reading-summary { padding: 14px; }
+  .reading-mode-options { flex-direction: column; gap: 4px; }
+  .reading-role-grid h3, .reading-phase h3 { font-size: 18px; }
+}
+

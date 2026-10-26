@@ -2,6 +2,7 @@ import type { CalculationResponse, ProgressEvent } from "@/types/contract";
 import type { ConnectionState, RequestState } from "@/services/websocket/useCalculation";
 import { isCalculationResponse, isKnownServerErrorCode } from "@/types/contractValidation";
 import { MaiHoaResultView } from "@/components/results/MaiHoaResultView";
+import { TamTheResultView } from "@/components/results/TamTheResultView";
 
 type Props = {
   connection: ConnectionState;
@@ -69,7 +70,13 @@ export function ResultPanel({ connection, requestState, response, progress, loca
               <p className="field-hint">Phiên bản bộ quy tắc: {response.data.ruleVersion}</p>
               <details><summary>Xem JSON phản hồi</summary><pre className="response-json">{JSON.stringify(response.data, null, 2)}</pre></details>
             </details>
-          </> : completed && <pre className="response-json">{JSON.stringify(response.data, null, 2)}</pre>}
+          </> : completed && response.type === "TAM_THE" && response.status === "COMPLETED" && <>
+            <TamTheResultView data={response.data} />
+            <details className="result-technical"><summary>Thông tin kỹ thuật</summary>
+              <p className="field-hint">Phiên bản bộ quy tắc: {response.data.ruleVersion}</p>
+              <details><summary>Xem JSON phản hồi</summary><pre className="response-json">{JSON.stringify(response.data, null, 2)}</pre></details>
+            </details>
+          </>}
         </div>
       )}
       {!localError && !response && requestState === "idle" && <p className="response-copy">Gửi một yêu cầu để kiểm tra hợp đồng giao tiếp.</p>}

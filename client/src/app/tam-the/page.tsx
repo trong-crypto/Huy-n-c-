@@ -9,12 +9,12 @@ import { TamTheArt } from "@/components/ui/TamTheArt";
 import { buildTamThePayload, TAM_THE_CATEGORIES, type TamTheErrors, type TamTheField, type TamTheInput } from "@/components/tam-the/tamTheInput";
 
 const fieldIds: Record<TamTheField, string> = {
-  birthDate: "tamthe-date", birthTime: "tamthe-time", calendarType: "tamthe-calendar", isLeapMonth: "tamthe-leap", categories: "tamthe-categories",
+  birthDate: "tamthe-date", birthTime: "tamthe-time", calendarType: "tamthe-calendar", isLeapMonth: "tamthe-leap", categories: "tamthe-categories", wealthMode: "tamthe-wealth-mode",
 };
 const categoryLabels = { CAREER: "Công danh", WEALTH: "Tài lộc", LOVE: "Tình duyên" };
 
 export default function TamThePage() {
-  const [input, setInput] = useState<TamTheInput>({ birthDate: "", birthTime: "", calendarType: "SOLAR", isLeapMonth: false, categories: [...TAM_THE_CATEGORIES] });
+  const [input, setInput] = useState<TamTheInput>({ birthDate: "", birthTime: "", calendarType: "SOLAR", isLeapMonth: false, categories: [...TAM_THE_CATEGORIES], wealthMode: "LEGACY" });
   const [errors, setErrors] = useState<TamTheErrors>({});
   const formRef = useRef<HTMLFormElement>(null);
   const calculation = useCalculation();
@@ -61,7 +61,7 @@ export default function TamThePage() {
   return (
     <PageContainer>
       <PageHeader eyebrow="02 / DIỄN CẦM TAM THẾ" title="Một khởi đầu, ba chiều thời gian.">
-        <p>Nhập ngày giờ sinh và loại lịch để gửi yêu cầu. Bảng tra và lời luận giải chỉ được mở sau khi dữ liệu nguồn và module đã sẵn sàng.</p>
+        <p>Chọn Công danh, Tài lộc, Tình duyên theo bảng nguồn đã đối chiếu. Tài lộc mở rộng trình bày riêng Lộc, Sang hèn và Điền sản.</p>
       </PageHeader>
       <div className="input-layout">
         <SectionCard title="Thông tin đầu vào">
@@ -108,11 +108,20 @@ export default function TamThePage() {
             {TAM_THE_CATEGORIES.map(category => <label className="checkbox-field" key={category}>
               <input type="checkbox" value={category} checked={input.categories.includes(category)}
                 aria-invalid={!!errors.categories || undefined} aria-describedby={describedBy("categories")}
-                onChange={event => edit({ categories: event.target.checked ? [...input.categories, event.target.value] : input.categories.filter(value => value !== event.target.value) }, ["categories"])} />
+                onChange={event => edit({ categories: event.target.checked ? [...input.categories, event.target.value] : input.categories.filter(value => value !== event.target.value) }, ["categories", "wealthMode"])} />
               {categoryLabels[category]}
             </label>)}
             {error("categories")}
           </fieldset>
+          <FormField id="tamthe-wealth-mode" label="Chế độ Tài lộc" hint="Mở rộng cần chọn Tài lộc. Công danh và Tình duyên tiếp tục dùng bảng tra tương ứng; không thay đổi cách chuyển lịch.">
+            <select id="tamthe-wealth-mode" value={input.wealthMode} disabled={waiting}
+              aria-invalid={!!errors.wealthMode || undefined} aria-describedby={describedBy("wealthMode")}
+              onChange={event => edit({ wealthMode: event.target.value }, ["wealthMode"])}>
+              <option value="LEGACY">Cơ bản</option>
+              <option value="EXTENDED">Mở rộng — Lộc, Sang hèn, Điền sản</option>
+            </select>
+            {error("wealthMode")}
+          </FormField>
           {calculation.connection !== "connected" && <p id="tamthe-connection" className="field-hint">{calculation.connection === "connecting" ? "Đang kết nối tới Server. Bạn có thể chuẩn bị thông tin; chỉ gửi khi đã kết nối." : "Mất kết nối với Server. Thông tin vẫn được giữ trên trang; chưa thể gửi yêu cầu."}</p>}
           <PrimaryButton type="submit" disabled={calculation.connection !== "connected" || waiting}
             aria-describedby={calculation.connection !== "connected" ? "tamthe-connection" : undefined}>{waiting ? "Đang chờ phản hồi…" : "Gửi yêu cầu"}</PrimaryButton>
@@ -123,7 +132,8 @@ export default function TamThePage() {
           <p className="eyebrow">ĐỐI CHIẾU NGUỒN</p>
           <h2>Không luận giải<br />khi chưa đủ dữ liệu.</h2>
           <p>Chọn đúng loại lịch của ngày sinh. Với lịch âm, tháng nhuận được đánh dấu riêng; Client không tự chuyển lịch hoặc tính lời luận.</p>
-          <StatusBanner tone="warning">Module luận giải Tam Thế chưa hoàn thành. Dữ liệu hành mệnh đã được đối chiếu không đồng nghĩa các mục công danh, tài lộc và tình duyên đã sẵn sàng.</StatusBanner>
+          <StatusBanner>Công danh, Tài lộc và Tình duyên đã có bảng tra trên Server V12. Cơ bản giữ cách tra cũ; Mở rộng cho phép hiển thị Sang hèn và Điền sản ngay cả khi Lộc không có giao điểm trong bản in.</StatusBanner>
+          <p>Các liên kết nhãn và tham chiếu biên tập vẫn là quyết định nhóm. Xem nguồn và giới hạn áp dụng của từng mục trong kết quả.</p>
         </aside>
       </div>
       <div className="result-region"><ResultPanel {...calculation} /></div>

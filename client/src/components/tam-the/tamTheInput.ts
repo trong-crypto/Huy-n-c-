@@ -1,13 +1,14 @@
 import type { TamThePayload } from "@/types/contract";
 
 export const TAM_THE_CATEGORIES = ["CAREER", "WEALTH", "LOVE"] as const;
-export type TamTheField = "birthDate" | "birthTime" | "calendarType" | "isLeapMonth" | "categories";
+export type TamTheField = "birthDate" | "birthTime" | "calendarType" | "isLeapMonth" | "categories" | "wealthMode";
 export type TamTheInput = Readonly<{
   birthDate: string;
   birthTime: string;
   calendarType: string;
   isLeapMonth: boolean;
   categories: readonly string[];
+  wealthMode?: string;
 }>;
 export type TamTheErrors = Partial<Record<TamTheField, string>>;
 type InputResult = { ok: true; payload: TamThePayload } | { ok: false; errors: TamTheErrors };
@@ -45,6 +46,11 @@ export function buildTamThePayload(input: TamTheInput): InputResult {
       || new Set(categories).size !== categories.length) {
     errors.categories = "Vui lòng chọn từ 1 đến 3 mục Công danh, Tài lộc, Tình duyên, không trùng lặp.";
   }
+  const wealthMode = input.wealthMode ?? "LEGACY";
+  if (wealthMode !== "LEGACY" && wealthMode !== "EXTENDED") errors.wealthMode = "Vui lòng chọn chế độ Tài lộc Cơ bản hoặc Mở rộng.";
+  else if (wealthMode === "EXTENDED" && (!Array.isArray(categories) || !categories.includes("WEALTH"))) {
+    errors.wealthMode = "Chế độ mở rộng cần chọn mục Tài lộc. Hãy chọn Tài lộc hoặc chuyển về Cơ bản.";
+  }
   if (Object.keys(errors).length > 0 || calendarType === null || typeof input.isLeapMonth !== "boolean") return { ok: false, errors };
 
   // Ordering is canonical only after rejecting malformed, duplicate or unknown selections.
@@ -52,5 +58,6 @@ export function buildTamThePayload(input: TamTheInput): InputResult {
   return { ok: true, payload: {
     birthDate: input.birthDate, birthTime: input.birthTime, calendarType, isLeapMonth: input.isLeapMonth,
     ...(ordered.length === 3 ? {} : { categories: ordered }),
+    ...(wealthMode === "EXTENDED" ? { wealthMode: "EXTENDED" as const } : {}),
   } };
 }

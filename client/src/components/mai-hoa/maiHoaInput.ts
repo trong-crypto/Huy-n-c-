@@ -1,4 +1,5 @@
 import type { MaiHoaPayload } from "@/types/contract";
+import type { ReadingTopic } from "@/types/readingContract";
 
 export type InputField = "datetime" | "objectCount" | "hourIndex" | "question";
 type InputError = { ok: false; field: InputField; message: string };
@@ -55,4 +56,25 @@ export function buildObjectCountPayload(objectCount: string, hourIndex: string, 
   const error = questionError(question);
   if (error) return error;
   return { ok: true, payload: { method: "OBJECT_COUNT", objectCount: count, hourIndex: hour, ...(question === undefined ? {} : { question }) } };
+}
+
+export const READING_TOPICS: readonly ReadingTopic[] = ["GENERAL", "CAREER", "WEALTH", "LOVE"];
+export type ReadingSelection = { enabled: boolean; topic: string; datetime: string };
+export type ReadingField = "readingTopic" | "readingDatetime";
+export type ReadingInputError = { ok: false; field: ReadingField; message: string };
+
+// Request options only. The Server selects roles, relations, seasons and interpretation text.
+export function withReadingOptions(payload: MaiHoaPayload, selection: ReadingSelection):
+  { ok: true; payload: MaiHoaPayload } | ReadingInputError {
+  const { reading: previousReading, ...base } = payload;
+  void previousReading;
+  if (!selection.enabled) return { ok: true, payload: base };
+  const topic = READING_TOPICS.find(value => value === selection.topic);
+  if (!topic) return { ok: false, field: "readingTopic", message: "Vui lòng chọn rõ chủ đề luận giải." };
+  // TIME has exactly one clock: payload.datetime. A hidden context from another method is never sent.
+  if (base.method === "TIME") return { ok: true, payload: { ...base, reading: { topic } } };
+  if (selection.datetime === "") return { ok: true, payload: { ...base, reading: { topic } } };
+  const context = buildTimePayload(selection.datetime);
+  if (!context.ok) return { ok: false, field: "readingDatetime", message: context.message };
+  return { ok: true, payload: { ...base, reading: { topic, context: { datetime: context.payload.datetime } } } };
 }

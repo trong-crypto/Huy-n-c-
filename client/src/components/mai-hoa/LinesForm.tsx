@@ -1,13 +1,13 @@
 "use client";
 
-import { useId, useRef, useState, type FormEvent } from "react";
+import { useId, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { LineMark } from "@/components/hexagrams/HexagramView";
 import { FieldError, FormField, PrimaryButton } from "@/components/ui/Controls";
 import { buildLinesPayload, type LinesErrors, type LinesPayload } from "./linesInput";
 
-type Props = { onSubmit: (payload: LinesPayload) => void; disabled?: boolean; busy?: boolean };
+type Props = { onSubmit: (payload: LinesPayload) => void; disabled?: boolean; busy?: boolean; children?: ReactNode };
 
-export function LinesForm({ onSubmit, disabled = false, busy = false }: Props) {
+export function LinesForm({ onSubmit, disabled = false, busy = false, children }: Props) {
   const id = useId();
   const [lines, setLines] = useState<(boolean | null)[]>(() => Array(6).fill(null));
   const [movingLine, setMovingLine] = useState("");
@@ -33,6 +33,7 @@ export function LinesForm({ onSubmit, disabled = false, busy = false }: Props) {
 
   return (
     <form onSubmit={submit} noValidate className="form-stack" aria-label="Nhập sáu hào">
+      {children}
       <p id={`${id}-hint`} className="field-hint">Nhập từ hào 1 ở dưới lên hào 6 ở trên. Dương là nét liền, Âm là nét đứt. Hãy chọn đủ sáu hào trước khi gửi.</p>
       <fieldset disabled={busy} className="lines-editor" aria-describedby={`${id}-hint${errors.lines ? ` ${id}-lines-error` : ""}`}>
         <legend className="sr-only">Sáu hào từ dưới lên</legend>

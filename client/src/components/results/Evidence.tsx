@@ -1,4 +1,5 @@
 import type { DecisionReference, RuleBasis, RuleEvidence, SourceReference, SourceStatus } from "@/types/contract";
+import type { ReadingDecision } from "@/types/readingContract";
 
 const sourceLabels: Record<SourceStatus, string> = {
   DRAFT: "Nguồn đang ở bản nháp",
@@ -59,6 +60,20 @@ export function DecisionReferences({ decisions }: { decisions: readonly Decision
       <div><dt>Tài liệu quyết định</dt><dd><code>{decision.document}</code></dd></div>
     </dl>
   </li>)}</ul>;
+}
+
+// Reading decisions carry purpose, policy, limitations and sources, not legacy document/date fields.
+export function ReadingDecisions({ decisions }: { decisions: readonly ReadingDecision[] }) {
+  return <div className="rule-evidence-list">{decisions.map(decision => <details className="rule-evidence" key={decision.decisionId}>
+    <summary>{decision.purpose === "CALCULATION" ? "Quy ước tính toán" : "Liên kết biên tập"} · <code>{decision.decisionId}</code></summary>
+    <div className="rule-evidence-content">
+      <EvidenceSummary ruleBasis={decision.ruleBasis} sourceStatus={decision.sourceStatus} />
+      <p className="interpretation-text">{decision.description}</p>
+      <h4>Giới hạn áp dụng</h4><p className="interpretation-text">{decision.limitation}</p>
+      <dl className="reference-fields"><div><dt>Chính sách</dt><dd><code>{decision.policy}</code></dd></div></dl>
+      <h4>Nguồn của quyết định</h4><SourceReferences sources={decision.sourceReferences} />
+    </div>
+  </details>)}</div>;
 }
 
 export function RuleEvidenceList({ rules }: { rules: readonly RuleEvidence[] }) {
