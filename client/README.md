@@ -2,7 +2,7 @@
 
 Next.js Client do TV1 phụ trách: biểu mẫu Mai Hoa/Tam Thế, kết quả có nguồn, tra cứu quẻ, lịch/Can Chi và lịch sử H01. Client kiểm đầu vào và trình bày phản hồi; phép tính và quyền truy cập do Backend quyết định.
 
-**Trạng thái:** Phase 0–7 đã có implementation; lịch sử mới được nghiệm thu UI bằng mock. Chưa coi F08 hoặc toàn sản phẩm đã nghiệm thu live. Xem [ma trận Phase 8A](../docs/44-TV1-PHASE8A-ACCEPTANCE.md) và [kịch bản demo](../docs/45-TV1-DEMO-SCRIPT.md).
+**Trạng thái bàn giao TV1 ngày 27/10/2026:** F01–F06 có nghiệm thu UI/network thật theo ca chuẩn; F07 đạt progress/cách ly hai context; F08 H01 đạt hai-owner/save/detail/delete/CSRF và cleanup 2/2 record; F09 M03 đạt hai ca UI đại diện. Đây là phạm vi live 8E/8F trên TEST, chưa phải toàn sản phẩm COMPLETE. Xem [ma trận và handoff Phase 8](../docs/44-TV1-PHASE8A-ACCEPTANCE.md) và [kịch bản demo](../docs/45-TV1-DEMO-SCRIPT.md) để phân biệt LIVE ACCEPTED, mock, bằng chứng Backend và các mục PENDING.
 
 ## Môi trường và cài đặt
 
@@ -18,7 +18,7 @@ npm ci
 if (-not (Test-Path -LiteralPath .env.local)) { Copy-Item .env.example .env.local }
 ```
 
-Chỉ copy nếu chưa có `.env.local`; nếu đã có, đối chiếu và giữ cấu hình của bạn. Không commit `.env.local`, token, cookie hoặc thông tin đăng nhập. Phase 8A sử dụng dependencies đã có, **chưa thực hiện cài/chạy lại trên máy sạch**.
+Chỉ copy nếu chưa có `.env.local`; nếu đã có, đối chiếu và giữ cấu hình của bạn. Không commit `.env.local`, token, cookie hoặc thông tin đăng nhập. Phase 8G kiểm riêng việc restore/build từ checkout committed cô lập trên cùng máy; **không thay thế nghiệm thu trên máy độc lập**. Kết quả và lệnh ở phần handoff của ma trận Phase 8.
 
 ## Cấu hình kết nối
 
@@ -67,7 +67,8 @@ Backend cần code/contract v1.2 hiện tại, dữ liệu V12 đã được TV2
 - Cookie `huyenco_session` là HttpOnly, SameSite=Lax, Path=/; JavaScript không đọc cookie. CSRF chỉ ở React memory, bootstrap lại khi reload.
 - Cookie không phân biệt port nhưng phân biệt hostname: `localhost` và `127.0.0.1` không dùng chung cookie. Client chỉ chuẩn hóa hai alias loopback này cho WebSocket. Với hai máy/hostname khác nhau cần cấu hình cùng hostname/reverse proxy phù hợp; không tắt Origin/CSRF. Socket không tương thích cookie không được coi là kết quả có thể lưu.
 - Socket được tạo sau bootstrap; bootstrap thất bại cho phép tính ẩn danh nhưng không cho lưu. Reconnect không tự resend yêu cầu cũ.
-- Lưu là opt-in sau `COMPLETED` hợp lệ, chỉ gửi requestId và tiêu đề. Kết quả chưa lưu có TTL tối đa 15 phút và có thể bị loại sớm hơn. Chỉ báo lưu sau HTTP 201 hợp lệ; xóa cần xác nhận và HTTP thành công.
+- Lưu là opt-in sau `COMPLETED` hợp lệ, chỉ gửi `calculationRequestId` và `title` tùy chọn. Kết quả chưa lưu có TTL tối đa 15 phút và có thể bị loại sớm hơn. Chỉ báo lưu sau HTTP 201 hợp lệ; xóa cần xác nhận và HTTP thành công.
+- DB URL/username/password chỉ thuộc cấu hình Backend; không đặt credential DB vào bất kỳ biến `NEXT_PUBLIC_*` nào.
 - Không gửi ownerId/snapshot/ngày sinh/câu hỏi trong body lưu. Không lưu token hoặc kết quả vào localStorage/sessionStorage, không log dữ liệu riêng tư. Hết quyền/CSRF bị từ chối sẽ ẩn state riêng tư. Mất cookie không có cơ chế đăng nhập khôi phục lịch sử.
 - Hai tab cùng profile có thể cùng owner; nghiệm thu owner A/B cần **hai browser context độc lập**, kiểm Server từ chối đọc/xóa chéo. UI ẩn bản ghi không chứng minh authorization.
 
@@ -85,6 +86,8 @@ npm run build
 
 `test:run` chạy Vitest/component/mock HTTP/STOMP; `test:calculation` chạy reducer/Panel bằng Node. `check:contract` kiểm 62 JSON fixture, không phải 62 ca live. Kết quả chính xác của lượt cuối ở ma trận Phase 8A.
 
+Baseline hồi quy Client ở 8A: **1213 Vitest + 12 Node = 1225 PASS**, 62 fixtures; không chạy lại toàn suite cho sửa tài liệu 8G. Bằng chứng live riêng: **8E: 22 nhóm**, **8F: 38 nhóm**; các nhóm live không được cộng vào 1225 để tạo tổng test mới. Playwright local của hai lượt dùng Chromium headless đã cài, không có mock HTTP/STOMP; helper/ảnh/JSON được giữ ngoài source release và không chứa cookie/CSRF/password.
+
 Không có `npm run test:e2e` hoặc chế độ mock được bật sẵn trong sản phẩm. Test mock nằm trong các file `.test.*`, fixture chuẩn ở `../docs/examples/`; không ghi đè fixture để khớp UI. Browser mock Phase 8A dùng helper tạm ngoài repo, không phát hành cùng Client. Để trở lại cấu hình thật: dừng preview/helper mock, giữ đúng URL thực trong môi trường cục bộ và build lại; không dùng ảnh fixture làm bằng chứng live.
 
 Các `smoke:*` là script kết nối mạng thật, chỉ chạy sau khi review script và xác nhận môi trường. **Không chạy `smoke:history` trong quy trình chỉ đọc**: script tạo phiên, lưu và xóa lịch sử. Các script E2E mở rộng cũng có thể ghi history. Phase 8A không chạy smoke, V12 739-case E2E hoặc load test.
@@ -93,4 +96,4 @@ Các `smoke:*` là script kết nối mạng thật, chỉ chạy sau khi review
 
 `/`, `/mai-hoa`, `/tam-the`, `/hexagrams`, `/hexagrams/[code]`, `/calendar`, `/history`, `/history/[id]` đều có implementation. Tên quẻ/NAME_GLOSS không phải lời dự đoán; giữ phân biệt SOURCE_VERIFIED với TEAM_DECISION. Lịch dùng UTC+07:00 cố định, Dương 1900–2099, quy ước Can Chi không phải Bát Tự theo tiết khí. Tam Thế LEGACY có thể thất bại cả request khi thiếu khóa Lộc; EXTENDED giữ no-match Lộc riêng và vẫn trình bày các mục bổ sung hợp lệ.
 
-Client chưa được xác nhận DONE toàn trình: còn live H01 hai-owner, nghiệm thu UI/network cuối, kiểm máy sạch và tài liệu demo/bản nộp cần nhóm review. Nội dung thuộc tri thức văn hóa truyền thống, không phải dự đoán khoa học.
+TV1 có thể bàn giao phạm vi đã kiểm trong 8E/8F; H01 không còn chỉ là mock acceptance. **Còn PENDING trước khi tuyên bố hoàn tất mọi cổng nộp:** live reconnect/timeout/fault injection trên TEST được cấp phép; history có nhiều trang thật; máy độc lập/cấu hình sạch có chạy Client nối Server; benchmark 1/5/20 Client và số liệu báo cáo; nhóm review gói nộp/diễn tập. M03/D04 chỉ kiểm UI đại diện, không tuyên bố chạy live đủ 1536/720 tổ hợp. Phân công cụ thể TV1/TV2/TV3 ở phần handoff của ma trận Phase 8. Nội dung thuộc tri thức văn hóa truyền thống, không phải dự đoán khoa học.
