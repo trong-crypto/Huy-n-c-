@@ -6,6 +6,8 @@ import { CLIENT_CONFIG } from "@/config/client";
 import type { CalculationRequest, CalculationType, MaiHoaPayload, TamThePayload } from "@/types/contract";
 import { isCalculationResponse, isRecord, isUncorrelatedServerFailure } from "@/types/contractValidation";
 import { initialState, parseProgress, reduceCalculation, type Action } from "./calculationState";
+import { useSession } from "@/services/session/SessionProvider";
+import { sessionSocketTarget } from "@/services/session/socketIdentity";
 export type { RequestState } from "./calculationState";
 
 export type ConnectionState = "connecting" | "connected" | "disconnected";
@@ -20,6 +22,9 @@ type PendingRequest = Readonly<{
 const SEND_FAILURE = "Lỗi Client: Không xác nhận được việc gửi yêu cầu. Server có thể đã nhận; không tự động gửi lại.";
 
 export function useCalculation() {
+  const session = useSession();
+  const sessionKey = session ? `${session.status}:${session.revision}` : "standalone";
+  const [historyOwnerRevision, setHistoryOwnerRevision] = useState<number | null>(null);
   const clientRef = useRef<Client | null>(null);
   const pendingRef = useRef<PendingRequest | null>(null);
   const generationRef = useRef(0);
@@ -60,13 +65,19 @@ export function useCalculation() {
   }, [update]);
 
   useEffect(() => {
+    if (session) {
+      stateRef.current = initialState; setRequest(initialState); setHistoryOwnerRevision(null);
+      if (session.status === "loading" || session.status === "invalid") { setConnection(session.status === "loading" ? "connecting" : "disconnected"); return; }
+    }
+    const target = session ? sessionSocketTarget(window.location.origin) : { url: CLIENT_CONFIG.wsUrl, cookieCompatible: false };
+    const savingRevision = session?.status === "ready" && target.cookieCompatible ? session.revision : null;
     let active = true;
     let connected = false;
     let subscriptions: StompSubscription[] = [];
     const isCurrent = () => active && clientRef.current === client;
 
     const client = new Client({
-      brokerURL: CLIENT_CONFIG.wsUrl,
+      brokerURL: target.url,
       reconnectDelay: CLIENT_CONFIG.reconnectDelayMs,
       connectionTimeout: CLIENT_CONFIG.connectionTimeoutMs,
       onConnect: () => {
@@ -116,6 +127,7 @@ export function useCalculation() {
               settle(pending, { kind: "error", message: "Lỗi giao thức phía Client: Phản hồi không đúng hợp đồng đã thống nhất." });
               return;
             }
+            if (incoming.status === "COMPLETED") setHistoryOwnerRevision(savingRevision);
             settle(pending, { kind: "terminal", response: incoming });
           }));
         }
@@ -166,7 +178,7 @@ export function useCalculation() {
         // Teardown must not set React state or produce an unhandled rejection.
       });
     };
-  }, [clearTimer, clearNotice, clearNoticeTimer, settle]);
+  }, [clearTimer, clearNotice, clearNoticeTimer, settle, sessionKey]);
 
   const submit = useCallback((...args: [type: "MAI_HOA", payload: MaiHoaPayload] | [type: "TAM_THE", payload: TamThePayload]) => {
     if (pendingRef.current) return;
@@ -194,6 +206,7 @@ export function useCalculation() {
       client, generation: generationRef.current,
     });
     pendingRef.current = pending;
+    setHistoryOwnerRevision(null);
     update({ kind: "begin", requestId: pending.requestId, type: pending.expectedType });
     timeout.current = setTimeout(() => {
       if (clientRef.current !== client || generationRef.current !== pending.generation) return;
@@ -210,6 +223,7 @@ export function useCalculation() {
     }
   }, [settle, update]);
 
-  return { connection, protocolNotice, ...request, submit };
+  const visible = session && (session.status === "loading" || session.status === "invalid") ? initialState : request;
+  return { connection, protocolNotice, ...visible, historyOwnerRevision, submit };
 }
 

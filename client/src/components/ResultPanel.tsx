@@ -3,6 +3,7 @@ import type { ConnectionState, RequestState } from "@/services/websocket/useCalc
 import { isCalculationResponse, isKnownServerErrorCode } from "@/types/contractValidation";
 import { MaiHoaResultView } from "@/components/results/MaiHoaResultView";
 import { TamTheResultView } from "@/components/results/TamTheResultView";
+import { SaveResult } from "@/components/history/SaveResult";
 
 type Props = {
   connection: ConnectionState;
@@ -11,9 +12,10 @@ type Props = {
   response: CalculationResponse | null;
   localError: string | null;
   protocolNotice?: string | null;
+  historyOwnerRevision?: number | null;
 };
 
-export function ResultPanel({ connection, requestState, response, progress, localError, protocolNotice }: Props) {
+export function ResultPanel({ connection, requestState, response, progress, localError, protocolNotice, historyOwnerRevision }: Props) {
   const validResponse = response !== null && isCalculationResponse(response);
   const completed = requestState === "completed" && response?.status === "COMPLETED" && validResponse;
   const invalidResult = requestState === "completed" && response?.status === "COMPLETED" && !validResponse;
@@ -77,6 +79,7 @@ export function ResultPanel({ connection, requestState, response, progress, loca
               <details><summary>Xem JSON phản hồi</summary><pre className="response-json">{JSON.stringify(response.data, null, 2)}</pre></details>
             </details>
           </>}
+          {completed && response.status === "COMPLETED" && <SaveResult requestId={response.requestId} ownerRevision={historyOwnerRevision} type={response.type} />}
         </div>
       )}
       {!localError && !response && requestState === "idle" && <p className="response-copy">Gửi một yêu cầu để kiểm tra hợp đồng giao tiếp.</p>}

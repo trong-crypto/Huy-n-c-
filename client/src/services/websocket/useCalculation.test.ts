@@ -4,6 +4,9 @@ import { beforeEach, describe, expect, it, vi, type Mock } from "vitest";
 import { CLIENT_CONFIG } from "@/config/client";
 import { useCalculation } from "@/services/websocket/useCalculation";
 import type { MaiHoaPayload } from "@/types/contract";
+import { SessionProvider, useSession } from "@/services/session/SessionProvider";
+import { bootstrapSession } from "@/services/rest/history";
+import { RestError } from "@/services/rest/transport";
 
 type Message = { body: string };
 type Publish = { destination: string; body: string; headers: Record<string, string> };
@@ -27,6 +30,7 @@ type MockClient = {
 };
 
 const stomp = vi.hoisted(() => ({ instances: [] as MockClient[] }));
+vi.mock("@/services/rest/history", async original => ({ ...await original<typeof import("@/services/rest/history")>(), bootstrapSession: vi.fn() }));
 vi.mock("@stomp/stompjs", () => ({
   Client: class {
     connected = false;
@@ -56,6 +60,7 @@ import d04NoLoc from "../../../../docs/examples/d04-wealth-no-loc.response.json"
 // Canonical Server result fixture; tests do not assert source verification themselves.
 const payload: MaiHoaPayload = { method: "OBJECT_COUNT", objectCount: 12, hourIndex: 8 };
 const foreignId = "550e8400-e29b-41d4-a716-999999999999";
+const readySession = () => ({ expiresAt: new Date(Date.now() + 60_000).toISOString(), csrfToken: "a".repeat(64) });
 const completed = (requestId: string, data: NonNullable<unknown> = objects.data) => ({ requestId, type: "MAI_HOA", status: "COMPLETED", data, error: null });
 const failed = (requestId: string, code = "RULE_NOT_AVAILABLE") => ({ requestId, type: "MAI_HOA", status: "FAILED", data: null, error: { code, message: "Lỗi thử nghiệm.", ruleCode: null, reason: "IMPLEMENTATION_UNAVAILABLE" } });
 
@@ -99,6 +104,38 @@ beforeEach(() => {
 });
 
 describe("useCalculation safe core", () => {
+  it("H01 waits for bootstrap before creating the WebSocket and binds saved results to that generation", async () => {
+    let ready!: (value: ReturnType<typeof readySession>) => void;
+    vi.mocked(bootstrapSession).mockReset().mockReturnValue(new Promise(yes => { ready = yes; }));
+    const { result } = renderHook(() => useCalculation(), { wrapper: SessionProvider });
+    expect(stomp.instances).toHaveLength(0);
+    await act(async () => ready(readySession()));
+    const client = stomp.instances[0]; expect(client).toBeTruthy(); expect(client.config.brokerURL).toContain(window.location.hostname);
+    connect(client); act(() => result.current.submit("MAI_HOA", payload)); emit(client, completed(lastId(client)));
+    expect(result.current.historyOwnerRevision).toBe(1); expect(result.current.requestState).toBe("completed");
+    expect(JSON.parse(client.publish.mock.calls[0][0].body)).not.toHaveProperty("ownerId");
+  });
+  it("H01 bootstrap failure permits anonymous calculation but never marks it saveable", async () => {
+    vi.mocked(bootstrapSession).mockReset().mockRejectedValue(new RestError("DATABASE_UNAVAILABLE"));
+    const { result } = renderHook(() => useCalculation(), { wrapper: SessionProvider }); await act(async () => {});
+    const client = stomp.instances[0]; connect(client); act(() => result.current.submit("MAI_HOA", payload)); emit(client, completed(lastId(client)));
+    expect(result.current.requestState).toBe("completed"); expect(result.current.historyOwnerRevision).toBeNull();
+  });
+  it("H01 expiration clears sensitive results and stops the authenticated socket without resend", async () => {
+    vi.mocked(bootstrapSession).mockReset().mockResolvedValue(readySession());
+    const { result } = renderHook(() => { const session = useSession(); return { ...useCalculation(), expire: () => session?.handleError(new RestError("INVALID_SESSION")) }; }, { wrapper: SessionProvider });
+    await act(async () => {}); const client = stomp.instances[0]; connect(client);
+    act(() => result.current.submit("MAI_HOA", payload)); emit(client, completed(lastId(client))); expect(result.current.response).not.toBeNull();
+    act(() => result.current.expire()); expect(result.current.response).toBeNull(); expect(result.current.historyOwnerRevision).toBeNull(); expect(client.deactivate).toHaveBeenCalled(); expect(client.publish).toHaveBeenCalledTimes(1);
+  });
+  it("H01 session recovery reconnects a formerly anonymous socket but never replays the old request", async () => {
+    vi.mocked(bootstrapSession).mockReset().mockRejectedValueOnce(new RestError("NETWORK_ERROR")).mockResolvedValueOnce(readySession());
+    const { result } = renderHook(() => { const session = useSession(); return { ...useCalculation(), retrySession: () => session?.retry() }; }, { wrapper: SessionProvider });
+    await act(async () => {}); const anonymous = stomp.instances[0]; connect(anonymous); act(() => result.current.submit("MAI_HOA", payload));
+    await act(async () => result.current.retrySession()); const owned = stomp.instances.at(-1)!;
+    expect(owned).not.toBe(anonymous); expect(anonymous.deactivate).toHaveBeenCalled(); connect(owned);
+    expect(owned.publish).not.toHaveBeenCalled(); expect(anonymous.publish).toHaveBeenCalledTimes(1); expect(result.current.response).toBeNull();
+  });
   it("T26 localizes a malformed correlated progress frame and releases the request deadline", () => {
     const { result, client } = mount();
     act(() => result.current.submit("MAI_HOA", payload));

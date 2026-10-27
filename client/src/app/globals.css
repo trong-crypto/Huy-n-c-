@@ -433,6 +433,22 @@ summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; bo
 .can-chi-grid dt { font-size: 12px; color: var(--muted); }
 .can-chi-grid dd { font-size: 20px; color: var(--primary-hover); margin: 8px 0 0; }
 .calendar-conventions { margin-top: 32px; color: var(--secondary); }
+.history-search { display: grid; gap: 20px; align-items: end; }
+.history-results, .history-save { margin-top: 28px; }
+.history-list { padding: 0; list-style: none; display: grid; gap: 18px; }
+.history-item { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+.history-item > div { min-width: 0; flex: 1 1 220px; overflow-wrap: anywhere; }
+.history-item h2 { font-family: var(--font-heading); font-size: 27px; color: var(--primary-hover); margin: 10px 0; }
+.history-item h2 a { color: inherit; text-underline-offset: 5px; }
+.history-save { border-top: 1px solid var(--border); padding-top: 24px; }
+.history-save h3 { color: var(--primary-hover); }
+.history-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
+.history-actions > * { min-height: 44px; }
+.history-dialog-backdrop { position: fixed; inset: 0; z-index: 100; background: rgb(9 6 23 / 85%); display: grid; place-items: center; padding: 16px; }
+.history-dialog { width: 100%; max-width: 560px; max-height: calc(100dvh - 32px); overflow: auto; overflow-wrap: anywhere; }
+.history-dialog h2 { color: var(--primary-hover); font-family: var(--font-heading); font-size: 30px; margin-top: 0; }
+.session-notice { margin-block: 20px; }
+@media (min-width: 768px) { .history-search { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto; } }
 @media (min-width: 480px) { .calendar-date-inputs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .calendar-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 768px) {
