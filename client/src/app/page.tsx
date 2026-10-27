@@ -9,7 +9,7 @@ const modules = [
     title: "Mai Hoa Dịch Số",
     tag: "SÁU HÀO · THỜI GIAN · SỐ VẬT",
     description: "Khám phá chuyển động Âm Dương qua sáu hào, thời điểm hoặc số vật. Bắt đầu bằng phương pháp phù hợp với bạn.",
-    status: "Sáu hào & số vật đã hỗ trợ · Thời gian đang phát triển",
+    status: "Sáu hào · Thời gian · Số vật đếm được",
     action: "Khám phá Mai Hoa",
   },
   {
@@ -18,7 +18,7 @@ const modules = [
     title: "Diễn Cầm Tam Thế",
     tag: "NGÀY SINH · GIỜ SINH · LỊCH",
     description: "Tiếp cận tri thức Diễn Cầm Tam Thế từ ngày giờ sinh và lịch truyền thống, với căn cứ nguồn được đối chiếu.",
-    status: "Biểu mẫu sẵn sàng · Luận giải đang phát triển",
+    status: "Công danh · Tài lộc · Tình duyên",
     action: "Tìm hiểu Tam Thế",
   },
 ];

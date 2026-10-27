@@ -137,6 +137,6 @@ describe("ResultPanel state presentation", () => {
   it("shows initial connecting and idle presentation", () => {
     render(<ResultPanel progress={[]} connection="connecting" requestState="idle" response={null} localError={null} />);
     expect(screen.getByText("Đang kết nối")).toBeTruthy();
-    expect(screen.getByText(/Gửi một yêu cầu/)).toBeTruthy();
+    expect(screen.getByText("Nhập thông tin và gửi yêu cầu để xem tiến trình cùng kết quả.")).toBeTruthy();
   });
 });

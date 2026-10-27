@@ -82,7 +82,7 @@ export function ResultPanel({ connection, requestState, response, progress, loca
           {completed && response.status === "COMPLETED" && <SaveResult requestId={response.requestId} ownerRevision={historyOwnerRevision} type={response.type} />}
         </div>
       )}
-      {!localError && !response && requestState === "idle" && <p className="response-copy">Gửi một yêu cầu để kiểm tra hợp đồng giao tiếp.</p>}
+      {!localError && !response && requestState === "idle" && <p className="response-copy">Nhập thông tin và gửi yêu cầu để xem tiến trình cùng kết quả.</p>}
     </section>
   );
 }
