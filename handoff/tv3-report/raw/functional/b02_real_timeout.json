@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "evidence": [
+    {
+      "label": "A",
+      "queue": "progress",
+      "body": {
+        "requestId": "b2d39a1d-6123-4540-8d19-9875377df995",
+        "type": "MAI_HOA",
+        "sequence": 1,
+        "step": "ACCEPTED",
+        "message": "Server đã nhận yêu cầu."
+      }
+    },
+    {
+      "label": "A",
+      "queue": "errors",
+      "body": {
+        "requestId": "b2d39a1d-6123-4540-8d19-9875377df995",
+        "type": "MAI_HOA",
+        "status": "FAILED",
+        "data": null,
+        "error": {
+          "code": "PROCESSING_TIMEOUT",
+          "message": "Yêu cầu vượt thời gian xử lý.",
+          "ruleCode": null,
+          "reason": null
+        }
+      }
+    }
+  ]
+}

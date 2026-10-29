@@ -1,0 +1,17 @@
+{
+  "unchanged": true,
+  "tableHashes": {
+    "trigrams": "f763c5b680f36b42f65e484121346645",
+    "hexagrams": "587996fc40338596dc544e7b7c5503d0",
+    "source_books": "b42b2ebf10c31fcffd416190bbb85efe",
+    "hexagram_lines": "f81d5dcfe638957a709c6fe9830e88bb",
+    "interpretations": "d751713988987e9331980363e24189ce",
+    "source_sections": "ee6849b98fdd1acf8e5657d85e83813e",
+    "external_sources": "4e1a47aff586c82637ecbd1d6ae6f3a9",
+    "calculation_rules": "d2e9c4f04eabc8e07c710340b3972387",
+    "tam_the_hour_anchors": "078e0218fdf32e93c5c7bdd5d3fa7a39",
+    "flyway_schema_history": "c7c882ce4ffbe5fa18176b9eaf351ed6",
+    "tam_the_lookup_entries": "38b6fb8bba2c011e578fbcca1fb37290",
+    "tam_the_lookup_source_pages": "2e5f7c7245981438bb42bbdba83d9bc3"
+  }
+}

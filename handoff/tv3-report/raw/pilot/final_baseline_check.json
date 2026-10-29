@@ -1,0 +1,13 @@
+{
+  "capturedAt": "2026-10-29T02:05:27.085333+07:00",
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "knowledgeSha256": "115d9ced12f174341833dbe88ed5a15850a40f63e05a3922244bb6c2d77a01cc",
+  "schemaSha256": "16bc7fcec71e6af200a9f2f80a33da0ac87dd48888b586500dd0361b8b25752a",
+  "schemaVersion": 12,
+  "runtimeCounts": {
+    "anonymous_sessions": 0,
+    "interpretation_history": 0
+  },
+  "matchesX011Baseline": true,
+  "pinnedJarAndSourceUnchanged": true
+}

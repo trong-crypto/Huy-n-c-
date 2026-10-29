@@ -1,0 +1,8 @@
+{
+  "task": "X01.4",
+  "status": "COMPLETE_WITH_DOCUMENTED_WINDOW_DEVIATION",
+  "evidenceDirectory": "scripts/generated/x01_matrix_20261029_022047_427181",
+  "cohortAuditStatus": "COHORT_AUDIT_PASS_WITH_WINDOW_DEVIATION",
+  "strictSendWindowSatisfied": false,
+  "completedRuns": 18
+}

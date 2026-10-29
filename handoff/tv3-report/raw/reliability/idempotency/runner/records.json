@@ -1,0 +1,905 @@
+[
+  {
+    "clientId": "client-1",
+    "requestId": "971c14a0-ae3f-464f-ae9c-ba425786105c",
+    "input": {
+      "pattern": 0,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "49994da2-bf8c-4010-a1e4-5e21dfb2f926",
+    "input": {
+      "pattern": 17,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "d4f3a7e8-347c-4848-94ec-9b408999bb65",
+    "input": {
+      "pattern": 34,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "a5e4cc92-09e0-454a-8b18-7939e1800cdc",
+    "input": {
+      "pattern": 51,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "c28ef740-77e8-48d9-a452-d7e94745c577",
+    "input": {
+      "pattern": 4,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "eaaf9711-97dc-4872-8d9b-6c784cc0daa6",
+    "input": {
+      "pattern": 21,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "3a4de2c4-f535-4042-9ec8-846950d5c02c",
+    "input": {
+      "pattern": 38,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "a2034055-9373-49bc-983f-e14787b8f521",
+    "input": {
+      "pattern": 55,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "a208be29-9d55-473b-8b67-d468f870184f",
+    "input": {
+      "pattern": 8,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "5331870d-c6eb-4b7c-a7c9-d80803ef94f7",
+    "input": {
+      "pattern": 25,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "9b299b92-5e18-459e-8bd9-cb7d7fe37436",
+    "input": {
+      "pattern": 42,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "90a58ae2-7935-4972-92ee-df93c69ac03f",
+    "input": {
+      "pattern": 59,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "902ff506-e07e-4cca-a6bb-8eaec634343c",
+    "input": {
+      "pattern": 12,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "bc268b1b-ffc5-47ab-8385-c5d11bf5f267",
+    "input": {
+      "pattern": 29,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "937ab49a-2abc-4223-a3e0-be5faeb99842",
+    "input": {
+      "pattern": 46,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "93ddac15-efe8-4aa2-b6f0-249e38aa87e8",
+    "input": {
+      "pattern": 63,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "bc8726c1-9ac9-40d2-a3b7-b70890bed4ec",
+    "input": {
+      "pattern": 16,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "1366c43b-5f49-4a01-944b-ae3fe31d74e5",
+    "input": {
+      "pattern": 33,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "804c9947-c319-41d1-af16-0fcfce3a7da0",
+    "input": {
+      "pattern": 50,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "d29f4c04-bfa8-493d-a05d-145a83f041f8",
+    "input": {
+      "pattern": 3,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "1bca5537-b2f8-4ba7-9f12-530cfcfaef4f",
+    "input": {
+      "pattern": 21,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "inflight"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 13,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 30,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 47,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 0,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 17,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 34,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 51,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 4,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 21,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 38,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 55,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 8,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 25,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 42,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 59,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 12,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 29,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 46,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 63,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+    "input": {
+      "pattern": 16,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "same-id-independent"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "28235f1f-f78e-45b9-aed7-954aa2936da0",
+    "input": {
+      "pattern": 44,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "before-reconnect"
+  },
+  {
+    "clientId": "client-2-reconnected",
+    "requestId": "28235f1f-f78e-45b9-aed7-954aa2936da0",
+    "input": {
+      "pattern": 44,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "after-reconnect"
+  }
+]

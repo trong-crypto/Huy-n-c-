@@ -1,0 +1,5 @@
+clients,mode,measurementRequests,allCompleted,medianMs,p95Ms,throughputPerSecond,errors,completedAfterWindow,minThinkGapMs,databaseUnchanged,temporaryServerStopped
+2,direct,46,68,4.803550000000087,7.540199999999913,9.2,0,0,200.26400000000012,True,True
+2,bounded,46,68,4.448099999999613,8.193999999999505,9.2,0,0,200.4930999999999,True,True
+20,direct,460,680,5.021549999999934,9.384799999999814,92.0,0,0,200.17309999999998,True,True
+20,bounded,460,680,5.260849999999664,32.880499999999756,92.0,0,0,200.03409999999985,True,True

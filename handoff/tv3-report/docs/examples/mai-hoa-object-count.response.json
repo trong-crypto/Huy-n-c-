@@ -1,0 +1,221 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440002",
+  "type": "MAI_HOA",
+  "status": "COMPLETED",
+  "data": {
+    "method": "OBJECT_COUNT",
+    "ruleVersion": "1.0",
+    "ruleBasis": "TEAM_DECISION",
+    "sourceStatus": "SOURCE_AMBIGUOUS",
+    "rules": [
+      {
+        "ruleCode": "MH-OBJECT-COUNT",
+        "ruleVersion": "1.0",
+        "executionPolicy": "TEAM_DECISION",
+        "ruleBasis": "TEAM_DECISION",
+        "sourceStatus": "SOURCE_AMBIGUOUS",
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-OBJECT-COUNT",
+            "printedPage": "51",
+            "pdfPage": 46,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": [
+          {
+            "decisionId": "DEC-20261022-MH-OBJECT-COUNT",
+            "decidedAt": "2026-10-22",
+            "document": "docs/07-DECISION-LOG.md",
+            "description": "Nhóm dùng objectCount gốc và hourIndex để lấy hào theo tổng chia 6; cụm số quẻ PDF 46 còn đa nghĩa."
+          }
+        ]
+      },
+      {
+        "ruleCode": "MH-TRIGRAM",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-QUAI-SO",
+            "printedPage": "44",
+            "pdfPage": 39,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      },
+      {
+        "ruleCode": "MH-MUTUAL",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-QUE-HO-BIEN",
+            "printedPage": "47",
+            "pdfPage": 42,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      },
+      {
+        "ruleCode": "MH-CHANGE",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-HAO-6",
+            "printedPage": "46",
+            "pdfPage": 41,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      }
+    ],
+    "sourceReferences": [
+      {
+        "sourceId": "MH",
+        "title": "Mai Hoa Dịch Số",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "MH-OBJECT-COUNT",
+        "printedPage": "51",
+        "pdfPage": 46,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH",
+        "title": "Mai Hoa Dịch Số",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "MH-QUAI-SO",
+        "printedPage": "44",
+        "pdfPage": 39,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH",
+        "title": "Mai Hoa Dịch Số",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "MH-QUE-HO-BIEN",
+        "printedPage": "47",
+        "pdfPage": 42,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH",
+        "title": "Mai Hoa Dịch Số",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "MH-HAO-6",
+        "printedPage": "46",
+        "pdfPage": 41,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      }
+    ],
+    "decisionReferences": [
+      {
+        "decisionId": "DEC-20261022-MH-OBJECT-COUNT",
+        "decidedAt": "2026-10-22",
+        "document": "docs/07-DECISION-LOG.md",
+        "description": "Nhóm dùng objectCount gốc và hourIndex để lấy hào theo tổng chia 6; cụm số quẻ PDF 46 còn đa nghĩa."
+      }
+    ],
+    "calculationSteps": [
+      {
+        "code": "OBJECT_COUNT_NUMBERS",
+        "message": "Số vật lấy thượng quái, chỉ số giờ lấy hạ quái; tổng số gốc chia 6 lấy hào theo quy ước nhóm.",
+        "values": {
+          "movingLine": 2,
+          "lowerTrigram": 8,
+          "movingLineSum": 20,
+          "upperTrigram": 4,
+          "hourIndex": 8,
+          "objectCount": 12
+        }
+      },
+      {
+        "code": "MUTUAL",
+        "message": "Hỗ hạ lấy hào 2–4; hỗ thượng lấy hào 3–5.",
+        "values": {
+          "lowerLineStart": 2,
+          "upperLineStart": 3
+        }
+      },
+      {
+        "code": "CHANGE",
+        "message": "Đảo duy nhất hào động tính từ dưới lên.",
+        "values": {
+          "movingLine": 2
+        }
+      }
+    ],
+    "primaryHexagram": {
+      "code": "H_CHAN_KHON",
+      "name": "Dự",
+      "nameStatus": "VERIFIED",
+      "linesBottomUp": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "mutualHexagram": {
+      "code": "H_KHAM_CAN2",
+      "name": "Kiển",
+      "nameStatus": "VERIFIED",
+      "linesBottomUp": [
+        false,
+        false,
+        true,
+        false,
+        true,
+        false
+      ]
+    },
+    "changedHexagram": {
+      "code": "H_CHAN_KHAM",
+      "name": "Giải",
+      "nameStatus": "VERIFIED",
+      "linesBottomUp": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "movingLine": 2,
+    "lunarDate": null
+  },
+  "error": null
+}

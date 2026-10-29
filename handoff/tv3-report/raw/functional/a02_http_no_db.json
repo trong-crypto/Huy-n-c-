@@ -1,0 +1,24 @@
+{
+  "health": {
+    "httpStatus": 200,
+    "body": {
+      "status": "UP"
+    }
+  },
+  "readiness": {
+    "httpStatus": 503,
+    "body": {
+      "status": "NOT_READY",
+      "scope": "KNOWLEDGE_STORAGE",
+      "database": "DISABLED",
+      "schema": "NOT_CHECKED",
+      "seed": "NOT_CHECKED",
+      "businessFeaturesReady": false,
+      "counts": {},
+      "rules": [],
+      "pending": [
+        "BUSINESS_IMPLEMENTATION_PENDING"
+      ]
+    }
+  }
+}

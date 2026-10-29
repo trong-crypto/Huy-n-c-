@@ -1,0 +1,12 @@
+{
+  "database": "huyenco",
+  "backupPath": "C:\\Users\\abc\\OneDrive\\Documents\\ChatGPT\\BTL_LTM\\scripts\\generated\\db-backups\\before-huyenco-v12-20261026T061624986622Z.dump",
+  "backupBytes": 73980,
+  "backupSha256": "68d81221068f16034d63fef6084abc994544923139288d10e997b2356074ef6a",
+  "archiveListReadable": true,
+  "restoreTrialDatabase": "huyenco_v12_restore_20261026061625_566ce6",
+  "restoredAllPublicRowsMatchV11": true,
+  "restoredTableCount": 14,
+  "status": "PASS",
+  "restoreTrialDatabaseRemoved": true
+}

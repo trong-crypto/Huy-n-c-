@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "task": "X01.2",
+  "kind": "preflight",
+  "passed": true,
+  "startedAt": "2026-10-28T19:53:24.506Z",
+  "endedAt": "2026-10-28T19:53:26.646Z",
+  "runId": "41c31420-3cd5-4003-872e-873f40d7d8c0",
+  "mode": "bounded",
+  "clients": 2,
+  "repeat": 1,
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "endpoint": "ws://127.0.0.1:18091/ws",
+  "origin": "http://127.0.0.1:3173",
+  "config": {
+    "warmupMs": 1000,
+    "durationMs": 1000,
+    "thinkMs": 200,
+    "drainMs": 15000,
+    "requestTimeoutMs": 15000,
+    "maxInFlightPerClient": 1,
+    "automaticReconnect": false,
+    "automaticRetry": false,
+    "cookies": false
+  },
+  "connectionCount": 2,
+  "connectedPeak": 2,
+  "connections": [
+    {
+      "clientId": "client-1",
+      "httpStatus": 101,
+      "upgradeMs": 31.655099999999948,
+      "stompConnectedMs": 54.16559999999998,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-2",
+      "httpStatus": 101,
+      "upgradeMs": 34.10000000000002,
+      "stompConnectedMs": 54.34630000000004,
+      "connectionCount": 1
+    }
+  ],
+  "windows": {
+    "warmup": {
+      "start": 415.8424,
+      "end": 1415.8424,
+      "drainedAt": 1419.1664
+    },
+    "measurement": {
+      "start": 1419.1803,
+      "end": 2419.1803,
+      "drainedAt": 2426.5694
+    }
+  },
+  "metrics": {
+    "sent": 10,
+    "completed": 10,
+    "completedInsideWindow": 10,
+    "completedAfterWindow": 0,
+    "sentRatePerSecond": 10,
+    "throughputPerSecond": 10,
+    "cohortSuccessRate": 1,
+    "sampleCount": 10,
+    "medianLatencyMs": 5.875400000000013,
+    "p95LatencyMs": 6.344100000000026,
+    "errors": {},
+    "categories": {
+      "completed": 10
+    },
+    "reconciled": true,
+    "publishFailures": 0
+  },
+  "eventCount": 0,
+  "scheduledAttemptsSkippedAtBoundary": 0,
+  "allPhases": {
+    "requests": 22,
+    "completed": 22,
+    "progress": 88
+  },
+  "eventLoopDelayMs": {
+    "mean": 26.692335797468353,
+    "p95": 35.061759
+  },
+  "failure": null,
+  "sentDefinition": "STOMP publish returned without throwing; not a delivery acknowledgement",
+  "throughputDefinition": "valid cohort completions received inside the measurement window / duration",
+  "benchmarkResult": false,
+  "observationEndedAt": "2026-10-28T19:53:26.646Z"
+}

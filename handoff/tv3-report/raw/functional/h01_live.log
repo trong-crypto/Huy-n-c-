@@ -1,0 +1,10 @@
+E02 HTTP PASS: 121 requests; C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\scripts\generated\e02_http.json
+{
+  "database": "huyenco_a02_8dc20f0b4f42",
+  "passed": true,
+  "cleanedUp": true,
+  "restartPersistence": true,
+  "remainingHistory": 2,
+  "e02Regression": true,
+  "noDbHttp": 2
+}

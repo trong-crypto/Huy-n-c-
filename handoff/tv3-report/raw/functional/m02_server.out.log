@@ -1,0 +1,34 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-26T02:04:02.935+07:00  INFO 20328 --- [huyen-co-server] [           main] com.huyenco.HuyenCoApplication           : Starting HuyenCoApplication v0.1.0-SNAPSHOT using Java 17.0.12 with PID 20328 (C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server\target\huyen-co-server-0.1.0-SNAPSHOT.jar started by abc in C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server)
+2026-10-26T02:04:02.939+07:00  INFO 20328 --- [huyen-co-server] [           main] com.huyenco.HuyenCoApplication           : The following 1 profile is active: "db"
+2026-10-26T02:04:04.473+07:00  INFO 20328 --- [huyen-co-server] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 18086 (http)
+2026-10-26T02:04:04.491+07:00  INFO 20328 --- [huyen-co-server] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-26T02:04:04.492+07:00  INFO 20328 --- [huyen-co-server] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-10-26T02:04:04.548+07:00  INFO 20328 --- [huyen-co-server] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-26T02:04:04.551+07:00  INFO 20328 --- [huyen-co-server] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1514 ms
+2026-10-26T02:04:05.485+07:00  INFO 20328 --- [huyen-co-server] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-26T02:04:05.757+07:00  INFO 20328 --- [huyen-co-server] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@615b5480
+2026-10-26T02:04:05.763+07:00  INFO 20328 --- [huyen-co-server] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-26T02:04:05.806+07:00  INFO 20328 --- [huyen-co-server] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://127.0.0.1:5432/huyenco_m02_test_20261026 (PostgreSQL 18.6)
+2026-10-26T02:04:05.822+07:00  WARN 20328 --- [huyen-co-server] [           main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: PostgreSQL 18.6 is newer than this version of Flyway and support has not been tested. The latest supported version of PostgreSQL is 17.
+2026-10-26T02:04:05.920+07:00  INFO 20328 --- [huyen-co-server] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 12 migrations (execution time 00:00.073s)
+2026-10-26T02:04:05.948+07:00  INFO 20328 --- [huyen-co-server] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 12
+2026-10-26T02:04:05.958+07:00  INFO 20328 --- [huyen-co-server] [           main] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-10-26T02:04:06.099+07:00  INFO 20328 --- [huyen-co-server] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-10-26T02:04:06.104+07:00  INFO 20328 --- [huyen-co-server] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5a06904]]
+2026-10-26T02:04:06.105+07:00  INFO 20328 --- [huyen-co-server] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-10-26T02:04:06.142+07:00  INFO 20328 --- [huyen-co-server] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 18086 (http) with context path '/'
+2026-10-26T02:04:06.159+07:00  INFO 20328 --- [huyen-co-server] [           main] com.huyenco.HuyenCoApplication           : Started HuyenCoApplication in 3.948 seconds (process running for 4.459)
+2026-10-26T02:05:06.113+07:00  INFO 20328 --- [huyen-co-server] [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2026-10-26T02:05:56.697+07:00  INFO 20328 --- [huyen-co-server] [.1-18086-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-26T02:05:56.699+07:00  INFO 20328 --- [huyen-co-server] [.1-18086-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-26T02:05:56.700+07:00  INFO 20328 --- [huyen-co-server] [.1-18086-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms

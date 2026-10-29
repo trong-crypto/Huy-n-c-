@@ -1,0 +1,13 @@
+runId,mode,clients,repeat,clientId,requestId,inputCase,phase,sendMonoMs,terminalMonoMs,latencyMs,status,errorCode,progressCount,correct,terminalAfterWindow,sent,category,validationMs
+bdd6560c-f4b5-4c54-b191-87f3ee1e8985,bounded,2,1,client-1,f9d4a914-1a35-4dcb-9a02-ec7b6aaf9049,21:2,readiness,347.5117,400.2388,52.72710000000001,COMPLETED,,4,true,false,true,completed,0.9709000000000287
+bdd6560c-f4b5-4c54-b191-87f3ee1e8985,bounded,2,1,client-2,9aeb7da7-0f99-46bb-8b97-88c28a66fef4,21:2,readiness,347.6277,401.59,53.96229999999997,COMPLETED,,4,true,false,true,completed,0.07530000000002701
+bdd6560c-f4b5-4c54-b191-87f3ee1e8985,bounded,2,1,client-1,3077e2e6-4647-4ac9-9383-5e9d67958ef3,0:1,measurement,401.9881,410.9264,8.938300000000027,COMPLETED,,4,true,false,true,completed,0.05889999999999418
+bdd6560c-f4b5-4c54-b191-87f3ee1e8985,bounded,2,1,client-2,d5d74cda-c4ed-4aea-b9f3-d24a9a62f710,17:2,measurement,402.0934,410.2512,8.157800000000009,COMPLETED,,4,true,false,true,completed,0.08120000000002392
+bdd6560c-f4b5-4c54-b191-87f3ee1e8985,bounded,2,1,client-2,8db83f21-0c42-4f98-9513-d4bbe6a8c87a,18:3,measurement,615.0979,625.4909,10.393000000000029,COMPLETED,,4,true,false,true,completed,0.039499999999975444
+bdd6560c-f4b5-4c54-b191-87f3ee1e8985,bounded,2,1,client-1,420858d4-2868-4839-8815-2a6651491334,1:2,measurement,615.2542,625.0137,9.759500000000003,COMPLETED,,4,true,false,true,completed,0.14670000000000982
+bdd6560c-f4b5-4c54-b191-87f3ee1e8985,bounded,2,1,client-1,74c151e9-3d4d-4d25-ae96-0e4dddf638a5,2:3,measurement,838.853,846.5576,7.704600000000028,COMPLETED,,4,true,false,true,completed,0.027000000000043656
+bdd6560c-f4b5-4c54-b191-87f3ee1e8985,bounded,2,1,client-2,434c6e7a-3a74-4460-b6cf-86ef61f20fca,19:4,measurement,839.2015,846.3103,7.108799999999974,COMPLETED,,4,true,false,true,completed,0.06649999999990541
+bdd6560c-f4b5-4c54-b191-87f3ee1e8985,bounded,2,1,client-2,1638014d-1e32-497f-b30c-07f3b9e65b5d,20:5,measurement,1046.1243,1053.065,6.940700000000106,COMPLETED,,4,true,false,true,completed,0.062300000000050204
+bdd6560c-f4b5-4c54-b191-87f3ee1e8985,bounded,2,1,client-1,ef97e8f9-f32b-4f08-9ab7-3114b3124430,3:4,measurement,1046.3601,1053.3342,6.974099999999908,COMPLETED,,4,true,false,true,completed,0.05370000000016262
+bdd6560c-f4b5-4c54-b191-87f3ee1e8985,bounded,2,1,client-2,76c2066c-7d5f-4f02-995d-8419be3cab41,21:6,measurement,1261.1772,1270.2992,9.121999999999844,COMPLETED,,4,true,false,true,completed,0.055499999999938154
+bdd6560c-f4b5-4c54-b191-87f3ee1e8985,bounded,2,1,client-1,dc062ea0-394f-4649-bf48-389641cb15a5,4:5,measurement,1261.9328,1270.5958,8.663000000000011,COMPLETED,,4,true,false,true,completed,0.050200000000131695

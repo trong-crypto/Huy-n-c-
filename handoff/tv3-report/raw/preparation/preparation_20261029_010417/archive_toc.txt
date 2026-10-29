@@ -1,0 +1,132 @@
+;
+; Archive created at 2026-10-29 01:04:17
+;     dbname: huyenco_acceptance_test_20261028_184149
+;     TOC Entries: 121
+;     Compression: gzip
+;     Dump Version: 1.16-0
+;     Format: CUSTOM
+;     Integer: 4 bytes
+;     Offset: 8 bytes
+;     Dumped from database version: 18.6
+;     Dumped by pg_dump version: 18.6
+;
+;
+; Selected TOC Entries:
+;
+5; 2615 35397 SCHEMA - public postgres
+5281; 0 0 COMMENT - SCHEMA public postgres
+219; 1259 35398 TABLE public anonymous_sessions postgres
+220; 1259 35407 TABLE public calculation_rules postgres
+221; 1259 35424 SEQUENCE public calculation_rules_id_seq postgres
+5282; 0 0 SEQUENCE OWNED BY public calculation_rules_id_seq postgres
+222; 1259 35425 TABLE public external_sources postgres
+223; 1259 35441 TABLE public flyway_schema_history postgres
+224; 1259 35455 TABLE public hexagram_lines postgres
+225; 1259 35462 TABLE public hexagrams postgres
+226; 1259 35480 TABLE public interpretation_history postgres
+227; 1259 35497 TABLE public interpretations postgres
+228; 1259 35512 SEQUENCE public interpretations_id_seq postgres
+5283; 0 0 SEQUENCE OWNED BY public interpretations_id_seq postgres
+229; 1259 35513 TABLE public mai_hoa_reading_templates postgres
+230; 1259 35534 TABLE public reading_source_bundles postgres
+231; 1259 35555 TABLE public source_books postgres
+232; 1259 35564 SEQUENCE public source_books_id_seq postgres
+5284; 0 0 SEQUENCE OWNED BY public source_books_id_seq postgres
+233; 1259 35565 TABLE public source_sections postgres
+234; 1259 35575 SEQUENCE public source_sections_id_seq postgres
+5285; 0 0 SEQUENCE OWNED BY public source_sections_id_seq postgres
+235; 1259 35576 TABLE public tam_the_hour_anchors postgres
+236; 1259 35595 TABLE public tam_the_lookup_entries postgres
+237; 1259 35612 SEQUENCE public tam_the_lookup_entries_id_seq postgres
+5286; 0 0 SEQUENCE OWNED BY public tam_the_lookup_entries_id_seq postgres
+238; 1259 35613 TABLE public tam_the_lookup_source_pages postgres
+239; 1259 35620 TABLE public tam_the_supplement_mappings postgres
+240; 1259 35637 TABLE public tam_the_supplement_results postgres
+241; 1259 35665 TABLE public trigrams postgres
+4928; 2604 35678 DEFAULT public calculation_rules id postgres
+4933; 2604 35679 DEFAULT public interpretations id postgres
+4935; 2604 35680 DEFAULT public source_books id postgres
+4936; 2604 35681 DEFAULT public source_sections id postgres
+4939; 2604 35682 DEFAULT public tam_the_lookup_entries id postgres
+5254; 0 35407 TABLE DATA public calculation_rules postgres
+5256; 0 35425 TABLE DATA public external_sources postgres
+5257; 0 35441 TABLE DATA public flyway_schema_history postgres
+5258; 0 35455 TABLE DATA public hexagram_lines postgres
+5259; 0 35462 TABLE DATA public hexagrams postgres
+5260; 0 35497 TABLE DATA public interpretations postgres
+5262; 0 35513 TABLE DATA public mai_hoa_reading_templates postgres
+5263; 0 35534 TABLE DATA public reading_source_bundles postgres
+5264; 0 35555 TABLE DATA public source_books postgres
+5266; 0 35565 TABLE DATA public source_sections postgres
+5268; 0 35576 TABLE DATA public tam_the_hour_anchors postgres
+5269; 0 35595 TABLE DATA public tam_the_lookup_entries postgres
+5271; 0 35613 TABLE DATA public tam_the_lookup_source_pages postgres
+5272; 0 35620 TABLE DATA public tam_the_supplement_mappings postgres
+5273; 0 35637 TABLE DATA public tam_the_supplement_results postgres
+5274; 0 35665 TABLE DATA public trigrams postgres
+5287; 0 0 SEQUENCE SET public calculation_rules_id_seq postgres
+5288; 0 0 SEQUENCE SET public interpretations_id_seq postgres
+5289; 0 0 SEQUENCE SET public source_books_id_seq postgres
+5290; 0 0 SEQUENCE SET public source_sections_id_seq postgres
+5291; 0 0 SEQUENCE SET public tam_the_lookup_entries_id_seq postgres
+5016; 2606 35685 CONSTRAINT public anonymous_sessions anonymous_sessions_pkey postgres
+5018; 2606 35687 CONSTRAINT public anonymous_sessions anonymous_sessions_token_hash_key postgres
+5021; 2606 35689 CONSTRAINT public calculation_rules calculation_rules_module_rule_code_rule_version_key postgres
+5023; 2606 35691 CONSTRAINT public calculation_rules calculation_rules_pkey postgres
+5025; 2606 35693 CONSTRAINT public external_sources external_sources_pkey postgres
+5027; 2606 35695 CONSTRAINT public flyway_schema_history flyway_schema_history_pk postgres
+5030; 2606 35697 CONSTRAINT public hexagram_lines hexagram_lines_pkey postgres
+5032; 2606 35699 CONSTRAINT public hexagrams hexagrams_pkey postgres
+5034; 2606 35701 CONSTRAINT public hexagrams hexagrams_upper_trigram_code_lower_trigram_code_key postgres
+5036; 2606 35703 CONSTRAINT public interpretation_history interpretation_history_owner_id_calculation_request_id_key postgres
+5038; 2606 35705 CONSTRAINT public interpretation_history interpretation_history_pkey postgres
+5042; 2606 35707 CONSTRAINT public interpretations interpretations_pkey postgres
+5045; 2606 35709 CONSTRAINT public mai_hoa_reading_templates mai_hoa_reading_templates_bundle_id_topic_relation_key postgres
+5047; 2606 35711 CONSTRAINT public mai_hoa_reading_templates mai_hoa_reading_templates_pkey postgres
+5049; 2606 35713 CONSTRAINT public reading_source_bundles reading_source_bundles_pkey postgres
+5051; 2606 35715 CONSTRAINT public source_books source_books_file_sha256_key postgres
+5053; 2606 35717 CONSTRAINT public source_books source_books_pkey postgres
+5055; 2606 35719 CONSTRAINT public source_books source_books_title_edition_key postgres
+5057; 2606 35721 CONSTRAINT public source_sections source_sections_pkey postgres
+5059; 2606 35723 CONSTRAINT public source_sections source_sections_source_book_id_section_label_pdf_page_key postgres
+5061; 2606 35725 CONSTRAINT public tam_the_hour_anchors tam_the_hour_anchors_pkey postgres
+5064; 2606 35727 CONSTRAINT public tam_the_lookup_entries tam_the_lookup_entries_pkey postgres
+5066; 2606 35729 CONSTRAINT public tam_the_lookup_entries tam_the_lookup_entries_rule_id_lookup_key_result_code_key postgres
+5069; 2606 35731 CONSTRAINT public tam_the_lookup_source_pages tam_the_lookup_source_pages_entry_id_source_section_id_key postgres
+5071; 2606 35733 CONSTRAINT public tam_the_lookup_source_pages tam_the_lookup_source_pages_pkey postgres
+5073; 2606 35735 CONSTRAINT public tam_the_supplement_mappings tam_the_supplement_mappings_pkey postgres
+5075; 2606 35737 CONSTRAINT public tam_the_supplement_results tam_the_supplement_results_bundle_id_rule_code_column_numbe_key postgres
+5077; 2606 35739 CONSTRAINT public tam_the_supplement_results tam_the_supplement_results_pkey postgres
+5079; 2606 35741 CONSTRAINT public tam_the_supplement_results tam_the_supplement_results_result_code_bundle_id_rule_code_key postgres
+5081; 2606 35743 CONSTRAINT public trigrams trigrams_heaven_number_key postgres
+5083; 2606 35745 CONSTRAINT public trigrams trigrams_pkey postgres
+5028; 1259 35746 INDEX public flyway_schema_history_s_idx postgres
+5040; 1259 35747 INDEX public idx_interpretations_hexagram postgres
+5062; 1259 35748 INDEX public idx_tam_the_lookup_key postgres
+5067; 1259 35749 INDEX public idx_tam_the_lookup_source_pages_source postgres
+5039; 1259 35750 INDEX public ix_history_owner_created postgres
+5019; 1259 35751 INDEX public ix_sessions_expires postgres
+5043; 1259 35752 INDEX public uq_interpretations_name_gloss_code postgres
+5084; 2606 35753 FK CONSTRAINT public calculation_rules calculation_rules_external_source_id_fkey postgres
+5085; 2606 35758 FK CONSTRAINT public calculation_rules calculation_rules_source_section_id_fkey postgres
+5086; 2606 35763 FK CONSTRAINT public hexagram_lines hexagram_lines_hexagram_code_fkey postgres
+5087; 2606 35768 FK CONSTRAINT public hexagrams hexagrams_lower_trigram_code_fkey postgres
+5088; 2606 35773 FK CONSTRAINT public hexagrams hexagrams_source_section_id_fkey postgres
+5089; 2606 35778 FK CONSTRAINT public hexagrams hexagrams_upper_trigram_code_fkey postgres
+5090; 2606 35783 FK CONSTRAINT public interpretation_history interpretation_history_owner_id_fkey postgres
+5091; 2606 35788 FK CONSTRAINT public interpretations interpretations_hexagram_code_fkey postgres
+5092; 2606 35793 FK CONSTRAINT public interpretations interpretations_rule_id_fkey postgres
+5093; 2606 35798 FK CONSTRAINT public interpretations interpretations_source_section_id_fkey postgres
+5094; 2606 35803 FK CONSTRAINT public mai_hoa_reading_templates mai_hoa_reading_templates_bundle_id_fkey postgres
+5095; 2606 35808 FK CONSTRAINT public mai_hoa_reading_templates mai_hoa_reading_templates_source_book_id_fkey postgres
+5096; 2606 35813 FK CONSTRAINT public source_sections source_sections_source_book_id_fkey postgres
+5097; 2606 35818 FK CONSTRAINT public tam_the_hour_anchors tam_the_hour_anchors_source_section_id_fkey postgres
+5098; 2606 35823 FK CONSTRAINT public tam_the_lookup_entries tam_the_lookup_entries_content_source_section_id_fkey postgres
+5099; 2606 35828 FK CONSTRAINT public tam_the_lookup_entries tam_the_lookup_entries_rule_id_fkey postgres
+5100; 2606 35833 FK CONSTRAINT public tam_the_lookup_entries tam_the_lookup_entries_source_section_id_fkey postgres
+5101; 2606 35838 FK CONSTRAINT public tam_the_lookup_source_pages tam_the_lookup_source_pages_entry_id_fkey postgres
+5102; 2606 35843 FK CONSTRAINT public tam_the_lookup_source_pages tam_the_lookup_source_pages_source_section_id_fkey postgres
+5103; 2606 35848 FK CONSTRAINT public tam_the_supplement_mappings tam_the_supplement_mappings_bundle_id_fkey postgres
+5104; 2606 35853 FK CONSTRAINT public tam_the_supplement_mappings tam_the_supplement_mappings_result_code_bundle_id_rule_cod_fkey postgres
+5105; 2606 35858 FK CONSTRAINT public tam_the_supplement_results tam_the_supplement_results_bundle_id_fkey postgres
+5106; 2606 35863 FK CONSTRAINT public tam_the_supplement_results tam_the_supplement_results_source_book_id_fkey postgres

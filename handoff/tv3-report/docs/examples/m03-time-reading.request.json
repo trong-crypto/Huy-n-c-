@@ -1,0 +1,12 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440072",
+  "type": "MAI_HOA",
+  "payload": {
+    "method": "TIME",
+    "datetime": "2024-02-10T00:00:00+07:00",
+    "question": "Công việc sắp tới",
+    "reading": {
+      "topic": "GENERAL"
+    }
+  }
+}

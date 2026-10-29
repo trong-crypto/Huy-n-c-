@@ -1,0 +1,29 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-29T02:28:49.382+07:00  INFO 4820 --- [huyen-co-server] [           main] com.huyenco.HuyenCoApplication           : Starting HuyenCoApplication v0.1.0-SNAPSHOT using Java 17.0.12 with PID 4820 (C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\scripts\generated\x01_backend_20261029_013243_326170\huyen-co-server.jar started by abc in C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM)
+2026-10-29T02:28:49.384+07:00  INFO 4820 --- [huyen-co-server] [           main] com.huyenco.HuyenCoApplication           : The following 1 profile is active: "db"
+2026-10-29T02:28:50.739+07:00  INFO 4820 --- [huyen-co-server] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 18091 (http)
+2026-10-29T02:28:50.748+07:00  INFO 4820 --- [huyen-co-server] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-29T02:28:50.748+07:00  INFO 4820 --- [huyen-co-server] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-10-29T02:28:50.781+07:00  INFO 4820 --- [huyen-co-server] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-29T02:28:50.781+07:00  INFO 4820 --- [huyen-co-server] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1292 ms
+2026-10-29T02:28:51.630+07:00  INFO 4820 --- [huyen-co-server] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-10-29T02:28:51.631+07:00  INFO 4820 --- [huyen-co-server] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3fde2209]]
+2026-10-29T02:28:51.631+07:00  INFO 4820 --- [huyen-co-server] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-10-29T02:28:51.674+07:00  INFO 4820 --- [huyen-co-server] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 18091 (http) with context path '/'
+2026-10-29T02:28:51.695+07:00  INFO 4820 --- [huyen-co-server] [           main] com.huyenco.HuyenCoApplication           : Started HuyenCoApplication in 2.813 seconds (process running for 3.17)
+2026-10-29T02:28:51.901+07:00  INFO 4820 --- [huyen-co-server] [.1-18091-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-29T02:28:51.902+07:00  INFO 4820 --- [huyen-co-server] [.1-18091-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-29T02:28:51.904+07:00  INFO 4820 --- [huyen-co-server] [.1-18091-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-10-29T02:28:51.996+07:00  INFO 4820 --- [huyen-co-server] [.1-18091-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-29T02:28:52.297+07:00  INFO 4820 --- [huyen-co-server] [.1-18091-exec-2] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@61d22a6c
+2026-10-29T02:28:52.306+07:00  INFO 4820 --- [huyen-co-server] [.1-18091-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-29T02:29:51.626+07:00  INFO 4820 --- [huyen-co-server] [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[20 current WS(20)-HttpStream(0)-HttpPoll(0), 20 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(20)-CONNECTED(20)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 32, active threads = 0, queued tasks = 0, completed tasks = 16956], outboundChannel[pool size = 32, active threads = 0, queued tasks = 0, completed tasks = 27880], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]

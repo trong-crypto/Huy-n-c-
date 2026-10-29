@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.huyenco.history.HistorySecurityTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.720 s -- in com.huyenco.history.HistorySecurityTest

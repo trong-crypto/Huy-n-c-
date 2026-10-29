@@ -1,0 +1,16 @@
+{
+  "capturedAt": "2026-10-29T03:01:00.0462241+07:00",
+  "benchmarkPortFree": true,
+  "listeners": [
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 18090,
+      "OwningProcess": 23200
+    },
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 3173,
+      "OwningProcess": 19460
+    }
+  ]
+}

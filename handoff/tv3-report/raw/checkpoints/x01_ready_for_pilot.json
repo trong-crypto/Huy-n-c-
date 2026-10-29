@@ -1,0 +1,76 @@
+{
+  "task": "X01.2",
+  "status": "READY_FOR_PILOT",
+  "createdAt": "2026-10-29T01:45:15.508676+07:00",
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "jarSha256": "71a9d31d11adda8f50330398e87ccad6029fe7782b0a5b6239eaabf1bad0ab39",
+  "preflightDirectory": "scripts/generated/x01_preflight_20261029_014344_633372",
+  "runs": [
+    {
+      "clients": 2,
+      "mode": "direct",
+      "allCompleted": 22,
+      "measurementCompleted": 10,
+      "minThinkGapMs": 202.05809999999997,
+      "resourcesSamples": 6,
+      "passed": true
+    },
+    {
+      "clients": 2,
+      "mode": "bounded",
+      "allCompleted": 22,
+      "measurementCompleted": 10,
+      "minThinkGapMs": 200.40649999999982,
+      "resourcesSamples": 7,
+      "passed": true
+    },
+    {
+      "clients": 5,
+      "mode": "direct",
+      "allCompleted": 55,
+      "measurementCompleted": 25,
+      "minThinkGapMs": 201.30730000000005,
+      "resourcesSamples": 8,
+      "passed": true
+    },
+    {
+      "clients": 5,
+      "mode": "bounded",
+      "allCompleted": 55,
+      "measurementCompleted": 25,
+      "minThinkGapMs": 200.43650000000002,
+      "resourcesSamples": 7,
+      "passed": true
+    },
+    {
+      "clients": 20,
+      "mode": "direct",
+      "allCompleted": 220,
+      "measurementCompleted": 100,
+      "minThinkGapMs": 200.1241,
+      "resourcesSamples": 7,
+      "passed": true
+    },
+    {
+      "clients": 20,
+      "mode": "bounded",
+      "allCompleted": 220,
+      "measurementCompleted": 100,
+      "minThinkGapMs": 200.06420000000003,
+      "resourcesSamples": 7,
+      "passed": true
+    }
+  ],
+  "totals": {
+    "readiness": 54,
+    "warmup": 270,
+    "measurement": 270,
+    "progress": 2376,
+    "events": 0
+  },
+  "allTemporaryServersStopped": true,
+  "databaseUnchanged": true,
+  "warmupMeasurementBoundaryChecked": true,
+  "pilotExecuted": false,
+  "officialBenchmarkExecuted": false
+}

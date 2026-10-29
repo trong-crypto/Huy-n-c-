@@ -1,0 +1,7184 @@
+[
+  {
+    "clientId": "client-1",
+    "requestId": "4e6d1f6b-b438-4fae-bdc2-1da384998d1e",
+    "input": {
+      "pattern": 0,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "07168f75-5970-4cbc-82af-1b6505dd2911",
+    "input": {
+      "pattern": 17,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "a92ebce0-a3e8-42d2-b0f6-e692c72a2ebc",
+    "input": {
+      "pattern": 34,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "adece139-cadf-47bf-b457-b71f237a58b1",
+    "input": {
+      "pattern": 51,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "7fea19e1-b4a9-4406-ba66-2585d030022f",
+    "input": {
+      "pattern": 4,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "df7882af-75c5-4be6-9841-69c3fdae022e",
+    "input": {
+      "pattern": 21,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "81f749d9-8617-40d0-88c0-54a29d09e741",
+    "input": {
+      "pattern": 38,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "d7f06ce2-f2b2-44c4-bfbf-a9019f496607",
+    "input": {
+      "pattern": 55,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "67d8bbc4-794b-4b51-8783-e533ad580076",
+    "input": {
+      "pattern": 8,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "a5c24c19-30ca-47ec-a80c-7d0452fe4776",
+    "input": {
+      "pattern": 25,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "075774cf-5638-49bf-bc5b-dd97f53c9cc6",
+    "input": {
+      "pattern": 42,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "9ade5c83-73de-486b-80cf-3bc0cdd6905b",
+    "input": {
+      "pattern": 59,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "dc6f3593-ebd5-4844-bc23-7d78c8e8dac7",
+    "input": {
+      "pattern": 12,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "b4e3f8f5-9861-4a5c-9b64-443eb95a65a4",
+    "input": {
+      "pattern": 29,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "8bd05be4-2510-49e1-bb59-35985ac92a77",
+    "input": {
+      "pattern": 46,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "70306e75-eba4-4960-af24-f6c6f9f32728",
+    "input": {
+      "pattern": 63,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "ae3ce4f6-5c10-4d5f-8652-4716f96c9fef",
+    "input": {
+      "pattern": 16,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "523419a9-9822-481e-bcb1-223871892a7b",
+    "input": {
+      "pattern": 33,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "0d5a3522-dd76-4c13-b436-36d944cfa39a",
+    "input": {
+      "pattern": 50,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "4b37c646-69df-459a-8f36-90e468b47ba1",
+    "input": {
+      "pattern": 3,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "readiness"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "e092d46d-3cef-4ce0-a7c3-52fe00b09fe1",
+    "input": {
+      "pattern": 36,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "ba31d6cc-b16e-46a7-81bb-1e8283dc89e1",
+    "input": {
+      "pattern": 37,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "f0b5a54e-0346-493c-93e6-f7e99dfaed5b",
+    "input": {
+      "pattern": 38,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "2845d9a3-5804-4e6d-9121-e9e682a953ea",
+    "input": {
+      "pattern": 39,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "1c7978f5-6f47-4b01-b3d2-38d9e763294f",
+    "input": {
+      "pattern": 40,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "c82c6c84-a34a-4376-a760-ababb6414d26",
+    "input": {
+      "pattern": 41,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "c0cdeed9-2b36-4650-8efd-a60b8a7ea9b8",
+    "input": {
+      "pattern": 42,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "31f9133f-f303-41de-8b9e-ed153cbe2ece",
+    "input": {
+      "pattern": 43,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "80008324-2b85-4192-89a8-4d790b9f5d4e",
+    "input": {
+      "pattern": 53,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "a832ba45-ddb0-40c4-a8d5-b19002fd75da",
+    "input": {
+      "pattern": 54,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "f4f12f1e-fea0-4c5a-ab60-61d254e584b7",
+    "input": {
+      "pattern": 55,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "ed193720-e5e4-4989-a588-898142805cb4",
+    "input": {
+      "pattern": 56,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "a61f8231-c0d1-488f-bbd5-4433fd1ee3a3",
+    "input": {
+      "pattern": 57,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "f8067bfa-4f97-42b7-958d-826e98016d78",
+    "input": {
+      "pattern": 58,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "6bb9f384-161b-45b3-a21d-0f9a8d466032",
+    "input": {
+      "pattern": 59,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "d25aad11-a276-4a4f-bfb0-4112505bfad8",
+    "input": {
+      "pattern": 60,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "34f4a9fa-8d6e-4310-a2e2-07d0b5f73476",
+    "input": {
+      "pattern": 6,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "e41406c1-cac8-40c0-9fc0-e164633ba1c3",
+    "input": {
+      "pattern": 7,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "fbc1c480-4354-44ed-b563-b76ab69ae9ad",
+    "input": {
+      "pattern": 8,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "f330b37e-707e-4e37-b815-7bbebefe40f2",
+    "input": {
+      "pattern": 9,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "6e56895c-26fe-40a6-95ba-2461bcc7923f",
+    "input": {
+      "pattern": 10,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "10db9ea6-25d8-43df-89f9-e2d32e777484",
+    "input": {
+      "pattern": 11,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "a4476f25-32fd-4667-80d9-98eaecc7e857",
+    "input": {
+      "pattern": 12,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "b69eaeb6-9925-4bb1-aafd-931c9e29a0b1",
+    "input": {
+      "pattern": 13,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "1e89fdc1-047a-4066-9b7d-cebbbb1f15fd",
+    "input": {
+      "pattern": 23,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "f866380b-680f-46a2-a6d7-a36d0042751b",
+    "input": {
+      "pattern": 24,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "088de500-b708-40ba-a7f6-c3cc421aa74e",
+    "input": {
+      "pattern": 25,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "43a3beb3-1f7c-4b1b-b55c-733c655a2452",
+    "input": {
+      "pattern": 26,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "42617be6-4205-4450-9522-c100bd7f25da",
+    "input": {
+      "pattern": 27,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "44c73d9c-4e2e-419c-86d1-aa8b2a3b1ee3",
+    "input": {
+      "pattern": 28,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "d26597f9-df74-4a82-b2ae-66d89e40eb05",
+    "input": {
+      "pattern": 29,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "6141be3f-33f5-467c-b543-c0f6c571ca15",
+    "input": {
+      "pattern": 30,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "44b4fbe0-d59a-4ca7-95ec-b15db2ae609c",
+    "input": {
+      "pattern": 40,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "f0f83e8b-fb84-41cb-aa76-915e83914aa8",
+    "input": {
+      "pattern": 41,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "4a5e3ec1-f05f-4753-ad3e-196161f20513",
+    "input": {
+      "pattern": 42,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "5349f926-b7f9-457c-ab32-48bd577d24b9",
+    "input": {
+      "pattern": 43,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "8ae2c224-fdd3-403d-9e34-641f910e34ec",
+    "input": {
+      "pattern": 44,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "63a5ed03-41a4-448a-b52d-bf93d952ee2f",
+    "input": {
+      "pattern": 45,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "371fbfc4-bb4d-4915-a306-c8d0df873552",
+    "input": {
+      "pattern": 46,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "9d00cd58-c8ff-4c0f-8860-bc78eec069b7",
+    "input": {
+      "pattern": 47,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "f871651a-f05d-4928-a917-7aa176dfb8e8",
+    "input": {
+      "pattern": 57,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "0cf8a2a0-04e9-4cb3-8a67-948674651837",
+    "input": {
+      "pattern": 58,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "adb6a3b8-aa60-4be7-a20b-d78a7e14d4bc",
+    "input": {
+      "pattern": 59,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "a844fb7a-e691-4132-b990-c7a5a533936b",
+    "input": {
+      "pattern": 60,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "92fec0f3-7396-4399-9c21-40ae30af88a4",
+    "input": {
+      "pattern": 61,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "3b150ea1-a9c4-40a7-8e91-4be7562dcad2",
+    "input": {
+      "pattern": 62,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "bce4cf5e-52f3-41d6-bbb5-f00209552901",
+    "input": {
+      "pattern": 63,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "469ba9e3-1066-452b-a9fe-e896430bff42",
+    "input": {
+      "pattern": 0,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "d455fef6-efb2-44ca-bd4d-fffbc8fcbb82",
+    "input": {
+      "pattern": 10,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "e953363e-f504-432e-9cec-d127159ebc76",
+    "input": {
+      "pattern": 11,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "38a2186f-ffd9-464b-8d68-8dc750ee423e",
+    "input": {
+      "pattern": 12,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "67c836e9-ec1f-460b-a62b-18866ff0f055",
+    "input": {
+      "pattern": 13,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "1d8a3007-d068-455a-9583-86631be5c1a7",
+    "input": {
+      "pattern": 14,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "851e73d5-ab79-41c8-b72e-83c8cca517f2",
+    "input": {
+      "pattern": 15,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "e4b9d176-07b6-4c02-a59b-0880819f5ee6",
+    "input": {
+      "pattern": 16,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "488ad50e-a80d-414e-87bf-6e6b1412ffcc",
+    "input": {
+      "pattern": 17,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "23aeac66-72fe-4e94-b7f5-e0f7b28b558f",
+    "input": {
+      "pattern": 27,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "c8eaf917-9344-4031-ba9f-c3553bca66a3",
+    "input": {
+      "pattern": 28,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "f49eda7d-58b0-4da6-b07e-11f673dde7d7",
+    "input": {
+      "pattern": 29,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "f131b1dc-44ba-4cbf-aa7b-2ad9371a1778",
+    "input": {
+      "pattern": 30,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "0ef49be8-aafa-40b8-bdd9-b510e00ddb58",
+    "input": {
+      "pattern": 31,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "9bd113c6-0d5b-4b86-b775-0745dbe344fe",
+    "input": {
+      "pattern": 32,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "328542f2-957c-4dc6-b8d2-12182a6f9fa8",
+    "input": {
+      "pattern": 33,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "a5622aaf-458c-4f48-ac65-795fa388543f",
+    "input": {
+      "pattern": 34,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "73f8d2ae-a836-4c01-8f32-7e1b74a869a1",
+    "input": {
+      "pattern": 44,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "4ef9c221-4191-48ef-b02d-63ab650b7b02",
+    "input": {
+      "pattern": 45,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "ff5761b0-b1f9-4113-a9c1-882a2d9bdf9c",
+    "input": {
+      "pattern": 46,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "e34fa8ed-7f4c-45fe-a6ab-af41546a864b",
+    "input": {
+      "pattern": 47,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "631c51a3-dc8a-4e65-bc1b-52c33d3aed6d",
+    "input": {
+      "pattern": 48,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "7d3b07b8-d546-4cdb-b200-afe88f39d97f",
+    "input": {
+      "pattern": 49,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "bbbd350c-722f-4663-9a97-e7dbdb60e62f",
+    "input": {
+      "pattern": 50,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "fecebaf6-d563-4b76-a78a-10a94f177778",
+    "input": {
+      "pattern": 51,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "6d14fa0a-d34a-4983-a59d-29589a527083",
+    "input": {
+      "pattern": 61,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "96193b21-797d-447d-aec1-f6a0df908272",
+    "input": {
+      "pattern": 62,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "271a3662-1e71-4432-8532-61eeeeff7a36",
+    "input": {
+      "pattern": 63,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "1c969857-4704-4f7d-8b40-3a5da508d840",
+    "input": {
+      "pattern": 0,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "0dbf9987-b167-40bb-9d77-a57232e6875a",
+    "input": {
+      "pattern": 1,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "2a5dc4cd-ce2d-480b-af39-2caed1362f73",
+    "input": {
+      "pattern": 2,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "d994dc5e-5e8c-4993-acbc-809f2fa7293c",
+    "input": {
+      "pattern": 3,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "539260f8-07c8-4b14-b807-bb48b27492ec",
+    "input": {
+      "pattern": 4,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "2aa703f3-6ab0-4b94-8a79-70da4bc614b0",
+    "input": {
+      "pattern": 14,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "5a33dcf7-fb8a-44c1-bda4-00b1cb6c4b6f",
+    "input": {
+      "pattern": 15,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "ecd2b01d-8b16-4ee4-aae3-78e7f727bfeb",
+    "input": {
+      "pattern": 16,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "eb2e15ac-2049-4894-895a-07692c049464",
+    "input": {
+      "pattern": 17,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "3c882c69-2cc7-473c-9e43-685eb4165aa5",
+    "input": {
+      "pattern": 18,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "65e0e6eb-3e0d-4b80-af67-422f81422fdb",
+    "input": {
+      "pattern": 19,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "60e75cc1-1d2e-4ea9-9e43-08faee92a9d5",
+    "input": {
+      "pattern": 20,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "e2926f18-4cc9-4318-bf51-1a2e29341c12",
+    "input": {
+      "pattern": 21,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "7b77ee88-0a8c-4fa9-b263-d0934896e659",
+    "input": {
+      "pattern": 31,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "d3d9b832-0c95-4397-8e93-2382565abc59",
+    "input": {
+      "pattern": 32,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "7b046487-1c31-4716-8b8b-e677997b96e9",
+    "input": {
+      "pattern": 33,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "3ea3d0e8-fa1d-4810-9225-dc52b53cc26a",
+    "input": {
+      "pattern": 34,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "fd2ae4d0-c94c-4abb-84b3-364ef6099f69",
+    "input": {
+      "pattern": 35,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "4618c634-11cb-4e3e-a947-f7d743eb4f2c",
+    "input": {
+      "pattern": 36,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "1330e06e-609b-464c-871b-5f59c423a811",
+    "input": {
+      "pattern": 37,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "faf5acc9-e0ed-4847-9e84-b98d968fc9fc",
+    "input": {
+      "pattern": 38,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "e9263c3f-c538-48f8-891f-a3ac827b4cb9",
+    "input": {
+      "pattern": 48,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "16100c9d-50d8-4467-9c98-efb291f20944",
+    "input": {
+      "pattern": 49,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "3108e075-6f57-4fd3-8a02-e638e6307efc",
+    "input": {
+      "pattern": 50,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "086efff0-76b9-4727-a7b4-475f57b57293",
+    "input": {
+      "pattern": 51,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "da427fa4-9df9-43e7-87db-167767356aa7",
+    "input": {
+      "pattern": 52,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "5edd759d-cf0c-4a7b-a3d2-8a71008d27f2",
+    "input": {
+      "pattern": 53,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "1d869215-9be7-4dd7-8440-8c4da4c45bf4",
+    "input": {
+      "pattern": 54,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "3f0bc381-a019-42f8-b892-75d61dc605ac",
+    "input": {
+      "pattern": 55,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "5992a098-0022-45a1-978a-48d04c16603f",
+    "input": {
+      "pattern": 1,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "e5fad075-b702-422e-b0eb-2180315a6a6e",
+    "input": {
+      "pattern": 2,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "00f48ac3-9825-4e76-b655-ccb33ce55df7",
+    "input": {
+      "pattern": 3,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "d4bd31dc-deb6-4cbd-b7b7-20b98bcc0cde",
+    "input": {
+      "pattern": 4,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "64b529b3-0757-42b2-a1fc-a0a3e78d8e13",
+    "input": {
+      "pattern": 5,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "208db0bc-0efe-4378-8570-1c774b67b140",
+    "input": {
+      "pattern": 6,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "549aedb4-38fe-4c7a-8dc7-16ef548a7963",
+    "input": {
+      "pattern": 7,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "6ad701ee-6444-4db7-b6ff-fdb544167689",
+    "input": {
+      "pattern": 8,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "8a3074e6-123b-4d62-be61-94f904e3a669",
+    "input": {
+      "pattern": 18,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "c72f6025-5591-4278-bbff-77b14b9fea6b",
+    "input": {
+      "pattern": 19,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "eea44352-ebe6-44f3-afa3-324a64a1564d",
+    "input": {
+      "pattern": 20,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "67cfb3e2-a3c0-4d39-bc45-047e1c206dd0",
+    "input": {
+      "pattern": 21,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "a51f47ab-8391-4f13-b06a-60f0b215fe65",
+    "input": {
+      "pattern": 22,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "bbdb84d8-31ab-493f-815a-0fac6b0fe0b7",
+    "input": {
+      "pattern": 23,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "72c7bf4b-50bd-406a-a434-abd1a1e48c69",
+    "input": {
+      "pattern": 24,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "6fd36214-6709-4463-96dd-d7ae85e24685",
+    "input": {
+      "pattern": 25,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "b96775ad-ba8f-4616-a113-38c28afc90ac",
+    "input": {
+      "pattern": 35,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "8be8e89b-fb7b-4075-9466-628a70f27c22",
+    "input": {
+      "pattern": 36,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "6e9c9561-9d13-47be-8a72-1ca935756239",
+    "input": {
+      "pattern": 37,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "4e223e3a-9c95-47c8-9359-bb83cad533fa",
+    "input": {
+      "pattern": 38,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "152bbb11-433f-44b5-a118-f621ca2ba453",
+    "input": {
+      "pattern": 39,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "b5d92843-5ebe-4c42-859f-3ba5206280db",
+    "input": {
+      "pattern": 40,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "6a2e2aca-dad0-45f3-a109-c92c496d73b7",
+    "input": {
+      "pattern": 41,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "13646cfa-2a4b-4fa2-9cb0-c239e7cf3b12",
+    "input": {
+      "pattern": 42,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "57788c5b-02d7-4b41-adf4-c3176523df8d",
+    "input": {
+      "pattern": 52,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "56a25f11-b47e-4ddf-be28-e09110039dff",
+    "input": {
+      "pattern": 53,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "e3934e3c-544b-40f5-84cd-5df4a65dd2f4",
+    "input": {
+      "pattern": 54,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "42d4b3c4-4b42-48a7-b820-cd6894363d5f",
+    "input": {
+      "pattern": 55,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "d9ac8f89-e32f-4f3d-9b81-760b60d9256c",
+    "input": {
+      "pattern": 56,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "4db236d0-57ad-419d-bd21-6aa505cccd98",
+    "input": {
+      "pattern": 57,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "dc336897-8954-45c7-b4c9-1b43511cb4a5",
+    "input": {
+      "pattern": 58,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "cdfbb439-aca5-4717-8799-37d0725ad225",
+    "input": {
+      "pattern": 59,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "90179ac9-6968-48e0-ae4c-4a12e33d40ad",
+    "input": {
+      "pattern": 5,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "74e5b160-f68c-48af-89b3-4c0293046a19",
+    "input": {
+      "pattern": 6,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "df187db5-49f9-431a-ab4b-d78351fea030",
+    "input": {
+      "pattern": 7,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "e38ead56-9596-4224-bb98-8282e4616f44",
+    "input": {
+      "pattern": 8,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "2a891d8d-8ace-4df4-a4b8-33649ef9b845",
+    "input": {
+      "pattern": 9,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "6ae5193a-7e2f-4580-81ce-6d10d3f7e1b5",
+    "input": {
+      "pattern": 10,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "7c0bbd31-421b-481f-9c76-14ee6ee3c24c",
+    "input": {
+      "pattern": 11,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "700b47b5-450a-4111-8bcb-b072f29fc543",
+    "input": {
+      "pattern": 12,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "1fff6785-ede3-429a-93e7-f3ab14be06db",
+    "input": {
+      "pattern": 22,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "ea85362c-c332-4686-b0a7-81203cb3af16",
+    "input": {
+      "pattern": 23,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "d43c4b82-e8a4-462c-907f-41e1416d3d5f",
+    "input": {
+      "pattern": 24,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "d47abe08-42a1-43d4-81db-f18cb516d722",
+    "input": {
+      "pattern": 25,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "42b8c7fb-5c9e-4069-8696-7fc86251601b",
+    "input": {
+      "pattern": 26,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "91a7f0ac-1253-493d-99e8-4baae6b19ca3",
+    "input": {
+      "pattern": 27,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "3baa405f-1de2-4f93-8348-1ba2a7662e12",
+    "input": {
+      "pattern": 28,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "5bbcc644-6336-4c7a-8d5f-9aa36b7bdd47",
+    "input": {
+      "pattern": 29,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "69e095fe-b2b8-47b1-959e-7bd397c90335",
+    "input": {
+      "pattern": 39,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "9c36340b-7185-474b-acd4-a1fb27f8610e",
+    "input": {
+      "pattern": 40,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "961c583c-ccf2-4f17-8ae4-ad9bf0caf368",
+    "input": {
+      "pattern": 41,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "92826b81-2a24-4bf4-aaf4-b66ce80b560f",
+    "input": {
+      "pattern": 42,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "e2f353d0-9b0d-43c9-a9a8-6914e64e7e32",
+    "input": {
+      "pattern": 43,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "5f5fb8bf-8c11-4095-b826-a69b574e7143",
+    "input": {
+      "pattern": 44,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "5a1840b0-a22c-496c-addc-8c06f7261753",
+    "input": {
+      "pattern": 45,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "b78896c4-e5f3-41cd-b18d-cdcb99d615dc",
+    "input": {
+      "pattern": 46,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "natural-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "13bd0d99-264d-4463-9424-c06b334ed85b",
+    "input": {
+      "pattern": 44,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "fresh-after-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "cd4adfe0-cc56-4ffb-acca-95d78d282e39",
+    "input": {
+      "pattern": 36,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "178b4e6b-6db7-43f3-a356-60c8d10daa65",
+    "input": {
+      "pattern": 37,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "2e17beb0-603d-4b65-a186-fd685cfe1e71",
+    "input": {
+      "pattern": 38,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "97d27209-8a44-43d2-8d56-94652a098567",
+    "input": {
+      "pattern": 39,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "166e68e3-b3fe-4cb6-99f4-700a11c88f6b",
+    "input": {
+      "pattern": 40,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "9a179292-8e31-48ec-8f72-d735b44c3e80",
+    "input": {
+      "pattern": 41,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "d5f8a76a-2cab-4c95-91b3-1ceefd67a407",
+    "input": {
+      "pattern": 42,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "2c4c7f4b-31ea-4d86-823b-2bc4b077f79f",
+    "input": {
+      "pattern": 43,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "f35c332d-49a5-4eac-ba61-bab6fd742cf2",
+    "input": {
+      "pattern": 53,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "cd9631da-c764-4409-94f4-bd5d57887d15",
+    "input": {
+      "pattern": 54,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "3fd29c35-3e6b-44c6-bb0d-88eb8a8c71a8",
+    "input": {
+      "pattern": 55,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "a3c626c6-fc6f-4e67-9d2b-de85b1f18b28",
+    "input": {
+      "pattern": 56,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "151c7e28-1f6b-4815-9aea-17d90a5570e5",
+    "input": {
+      "pattern": 57,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "f55b4153-93e3-4f06-b376-c7745d75f31b",
+    "input": {
+      "pattern": 58,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "81ab052b-8026-401d-9555-dbc817320da9",
+    "input": {
+      "pattern": 59,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-2",
+    "requestId": "1895e53b-784a-4415-b6b6-7a724db90598",
+    "input": {
+      "pattern": 60,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "8b418a34-fdaa-4a4e-bce1-427b4a028cc0",
+    "input": {
+      "pattern": 6,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "50ad31f7-5f7f-40e6-b675-d0df1eb17db7",
+    "input": {
+      "pattern": 7,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "540992c5-5492-466b-baff-2eb9cec71fd4",
+    "input": {
+      "pattern": 8,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "b0b80297-1438-4083-bd63-e410dbdb7fab",
+    "input": {
+      "pattern": 9,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "4a9dea6e-ffb8-4d9f-a9e3-8d5ccc1cb47b",
+    "input": {
+      "pattern": 10,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "3df4262c-0365-493d-9eda-cc936896ae88",
+    "input": {
+      "pattern": 11,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "4300a6b6-734d-4039-9356-e580d3737066",
+    "input": {
+      "pattern": 12,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-3",
+    "requestId": "2b31696b-e764-446e-90c9-011d2d988d28",
+    "input": {
+      "pattern": 13,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "cbf2a887-9294-439d-a034-5321a3290d56",
+    "input": {
+      "pattern": 23,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "bef87644-1b9f-41bf-bb0c-b0e1a7d250a0",
+    "input": {
+      "pattern": 24,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "6e130a43-3206-4d3b-aa5b-91126d84effb",
+    "input": {
+      "pattern": 25,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "63bd5a8a-3730-4eaa-a44e-152afa925e0b",
+    "input": {
+      "pattern": 26,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "fe26f33b-7731-41a3-8271-ea41c4e3d7bc",
+    "input": {
+      "pattern": 27,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "afcfd374-cc4f-42e2-b9ab-ccd99581144c",
+    "input": {
+      "pattern": 28,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "57e9c93c-4399-45a5-b676-620c0d4e3895",
+    "input": {
+      "pattern": 29,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-4",
+    "requestId": "022f4d4d-79ae-4c38-941f-3e21916881e0",
+    "input": {
+      "pattern": 30,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "796ba806-dedf-42ff-82cd-277cf496631b",
+    "input": {
+      "pattern": 40,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "f01d9843-26f5-46b5-9e9e-8f912061fda6",
+    "input": {
+      "pattern": 41,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "5dda7818-b8d0-4ff6-a6a3-f215a7c4db89",
+    "input": {
+      "pattern": 42,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "d90ef613-9f30-4543-aa5e-7f9a1bcc381c",
+    "input": {
+      "pattern": 43,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "c8ea2b71-8d74-49ff-82cd-e1dee9e9ef20",
+    "input": {
+      "pattern": 44,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "c239d4ae-5099-486c-8710-1af470ba42f2",
+    "input": {
+      "pattern": 45,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "95b2502a-c7cf-495b-ab94-460077d9ce4a",
+    "input": {
+      "pattern": 46,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-5",
+    "requestId": "f56cd2ac-d63f-4058-a048-e29e3e8c0cfe",
+    "input": {
+      "pattern": 47,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "bd54ddbf-f16e-4706-9d33-2d275faff7c3",
+    "input": {
+      "pattern": 57,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "655ecbc5-ab15-4e75-a0a9-73f4061bb590",
+    "input": {
+      "pattern": 58,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "44fbcef0-a6d7-4bc9-9f6f-f1f01a90098e",
+    "input": {
+      "pattern": 59,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "21f2d30d-c6c6-4ea6-9e65-0688d36df84b",
+    "input": {
+      "pattern": 60,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "52bb8b7b-eaab-495a-9222-96c635de780a",
+    "input": {
+      "pattern": 61,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "d18d197a-70cd-4350-bb7d-8539ed2c6b21",
+    "input": {
+      "pattern": 62,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "e0167100-f0e6-4b0c-ab46-3664d14ba6c7",
+    "input": {
+      "pattern": 63,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-6",
+    "requestId": "2414d782-8793-4fa1-ab26-e2318909cbb6",
+    "input": {
+      "pattern": 0,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "ac5ab1ee-a03c-45e5-9315-2d1a51f84c88",
+    "input": {
+      "pattern": 10,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "2188786b-c482-4609-acac-ba11e6b6a946",
+    "input": {
+      "pattern": 11,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "a1c8c09d-fd23-47bb-b648-5d1a33be04bc",
+    "input": {
+      "pattern": 12,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "45accb69-5901-49dd-a22e-43faf97b7159",
+    "input": {
+      "pattern": 13,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "653a2a5c-9987-45a8-a68c-7fc72497a06e",
+    "input": {
+      "pattern": 14,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "42c35bbe-b55e-468e-b99d-3c089c59fd67",
+    "input": {
+      "pattern": 15,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "6545323d-1ff6-418b-9e90-8d32b7e3f043",
+    "input": {
+      "pattern": 16,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-7",
+    "requestId": "d56111a9-64cb-4c64-8434-91fe06f2062c",
+    "input": {
+      "pattern": 17,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "08823403-ba82-4885-9430-85bc683be4b4",
+    "input": {
+      "pattern": 27,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "bf10579c-d076-4e9f-9ae5-c314d48f0e48",
+    "input": {
+      "pattern": 28,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "54047f67-2cc4-438b-8484-11d0b1c4c83e",
+    "input": {
+      "pattern": 29,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "8f077f9e-5f38-4d9d-9aa2-c8ab46599627",
+    "input": {
+      "pattern": 30,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "4ae4f208-ff32-4e4a-a339-8653a547ea7e",
+    "input": {
+      "pattern": 31,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "8db1a9ca-87d1-47a3-88d7-b7b65aefb56f",
+    "input": {
+      "pattern": 32,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "983c0dd4-cbdf-4043-bdf8-769b5d8c4cae",
+    "input": {
+      "pattern": 33,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-8",
+    "requestId": "70dc5793-79bf-4507-b91e-ae563519a14d",
+    "input": {
+      "pattern": 34,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "bee7adb1-3013-4de1-89ab-781fa6a1f7f5",
+    "input": {
+      "pattern": 44,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "11397163-cdc3-45c6-b7e2-2e2e7c710634",
+    "input": {
+      "pattern": 45,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "a526982a-1db9-439c-979a-90b74a9fa109",
+    "input": {
+      "pattern": 46,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "74560ced-c692-4d1b-b0f1-37401bf3d29e",
+    "input": {
+      "pattern": 47,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "5870744b-d158-43ae-bbb8-c14636a0ae6f",
+    "input": {
+      "pattern": 48,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "14dd0355-8aaa-4984-8631-609415bbe761",
+    "input": {
+      "pattern": 49,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "47106e54-7ea0-4df6-84cb-83c7cc082027",
+    "input": {
+      "pattern": 50,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-9",
+    "requestId": "2cfab690-63f8-4f35-94a5-3529b4214cc9",
+    "input": {
+      "pattern": 51,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "e02e94f4-8320-4639-bc6e-5163d2cde752",
+    "input": {
+      "pattern": 61,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "d3c17b57-476b-4fdc-9df7-b67eff91d941",
+    "input": {
+      "pattern": 62,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "ead93b15-e9a4-4525-94c9-c0a4a88bb1d3",
+    "input": {
+      "pattern": 63,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "980bc28e-1b07-4198-9395-a63102cb55c1",
+    "input": {
+      "pattern": 0,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "ddbd23ce-286e-4818-bbea-0ccc3c220d11",
+    "input": {
+      "pattern": 1,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "3a4846f7-fce2-4f58-a40b-41ddfd83097a",
+    "input": {
+      "pattern": 2,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "4fb2b557-ceef-4cf2-bf73-30f9f56fe916",
+    "input": {
+      "pattern": 3,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-10",
+    "requestId": "c80edfb0-01ae-4b37-a9fe-d046c8e096ba",
+    "input": {
+      "pattern": 4,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "f078f625-28db-41cd-8602-7e0b76ed18dc",
+    "input": {
+      "pattern": 14,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "b809c3e5-9673-48dc-a390-7c16adebba05",
+    "input": {
+      "pattern": 15,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "fafc92f1-a070-4ab3-a196-6b11afa26a3e",
+    "input": {
+      "pattern": 16,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "ead5d498-e878-41bd-ba47-d6d8bd23b47e",
+    "input": {
+      "pattern": 17,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "c3eff8b9-30e7-4cba-b0d0-8a648ab1f2f3",
+    "input": {
+      "pattern": 18,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "f51cd478-53d2-4ee6-92ed-3404b1b53055",
+    "input": {
+      "pattern": 19,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "0fa6dde7-5619-46e7-a046-40ca84391f8f",
+    "input": {
+      "pattern": 20,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-11",
+    "requestId": "e295e0b9-82f2-4e4a-8ad2-37e33f8d0cce",
+    "input": {
+      "pattern": 21,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "4f20a21c-4b82-4b80-8dd2-b78ba5d92a5a",
+    "input": {
+      "pattern": 31,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "c7cee6ac-d43d-4237-871a-354dc7aef912",
+    "input": {
+      "pattern": 32,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "ac66aa26-a909-4da7-bf27-eaa95b6714bd",
+    "input": {
+      "pattern": 33,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "b7ee7997-5fd4-4138-a89a-a5311b492e15",
+    "input": {
+      "pattern": 34,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "dbee32dd-37ba-444e-a397-aefff6a317a6",
+    "input": {
+      "pattern": 35,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "424515b6-b07f-4492-9956-97eda752ca5c",
+    "input": {
+      "pattern": 36,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "c6406ca6-7626-4964-8418-5aa085854124",
+    "input": {
+      "pattern": 37,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-12",
+    "requestId": "1dc28715-1258-4529-bf0e-8d7ebdb49640",
+    "input": {
+      "pattern": 38,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "1c7746a6-4c86-4888-b1ef-842834f1f219",
+    "input": {
+      "pattern": 48,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "24f90687-b23f-49ed-9ad0-885aba97e7e1",
+    "input": {
+      "pattern": 49,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "e89694ac-d8a9-4cdd-81b4-f407750fd96c",
+    "input": {
+      "pattern": 50,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "9a8911bd-9348-4a45-a1fc-93f0c0e5fd23",
+    "input": {
+      "pattern": 51,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "c646de84-7e96-4179-9aeb-7dfe870ad4a8",
+    "input": {
+      "pattern": 52,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "e41c2cbd-f70c-4646-9099-7c3e653c1a04",
+    "input": {
+      "pattern": 53,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "e80d07ea-00a3-4d2f-9523-ff28b9dfc1fb",
+    "input": {
+      "pattern": 54,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-13",
+    "requestId": "7af0067e-1f33-4bf0-9771-59efbe7d536c",
+    "input": {
+      "pattern": 55,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "00ff4d5d-8387-4296-bbed-67caf3171355",
+    "input": {
+      "pattern": 1,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "cea9a244-eba2-499d-acb4-8fe39452b95b",
+    "input": {
+      "pattern": 2,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "2839e51c-a201-4403-b255-f26139a336ea",
+    "input": {
+      "pattern": 3,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "ef7f32cf-0efe-473a-b243-825a3011141d",
+    "input": {
+      "pattern": 4,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "499519b3-49e0-4f09-b40e-bf74e43dd474",
+    "input": {
+      "pattern": 5,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "68b089d3-4ff2-448f-9183-09d77f3ab8c0",
+    "input": {
+      "pattern": 6,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "2d472dc5-c8a1-43d1-b97d-7fada9eaedda",
+    "input": {
+      "pattern": 7,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-14",
+    "requestId": "70d995ec-7069-47c3-ba85-8a21abb5843f",
+    "input": {
+      "pattern": 8,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "af6c6f14-6c51-4f69-b5a3-19475cde8c82",
+    "input": {
+      "pattern": 18,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "00a9b3ac-c623-4a98-bd6f-a1b964aa99c5",
+    "input": {
+      "pattern": 19,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "63b36eba-f0e0-4f08-aff6-d282e8ad2cc6",
+    "input": {
+      "pattern": 20,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "1674d326-ffde-48b4-8801-3f2415e16fa5",
+    "input": {
+      "pattern": 21,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "79aabf85-e92a-438f-a3df-47ac06a55f61",
+    "input": {
+      "pattern": 22,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "3cc545d7-f957-47e7-98bf-a5150c1dc8b1",
+    "input": {
+      "pattern": 23,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "83ac5ce0-cb3b-4040-8a49-f6fe4d6f58f1",
+    "input": {
+      "pattern": 24,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-15",
+    "requestId": "4dfdffc3-1ec7-4343-8483-136f280a7ef5",
+    "input": {
+      "pattern": 25,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "b1b7281b-798f-4bd6-8d27-0e45ff54a62e",
+    "input": {
+      "pattern": 35,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "b9b611e8-8010-4fd2-8cd9-cf074091377f",
+    "input": {
+      "pattern": 36,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "7fcc9ee2-3f04-48bf-b63e-b5c65d210a46",
+    "input": {
+      "pattern": 37,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "4c4da92f-7272-44fc-9409-d8401974ac80",
+    "input": {
+      "pattern": 38,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "d1f52cc0-ee57-45d0-9f5c-5c9dbeb8dfd6",
+    "input": {
+      "pattern": 39,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "0e31597d-105a-4e8c-9f24-7e89bab878d7",
+    "input": {
+      "pattern": 40,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "74a62802-14b0-4d81-9c91-9a6bec734627",
+    "input": {
+      "pattern": 41,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-16",
+    "requestId": "faf93fa6-0230-4894-9656-ee738ffb0d95",
+    "input": {
+      "pattern": 42,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "eb36c341-5791-4971-ad6d-9d71079b2c1f",
+    "input": {
+      "pattern": 52,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "7209c750-d7ee-4329-8f14-e4a17a5a6845",
+    "input": {
+      "pattern": 53,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "df3d3b32-4fa7-4a53-8c37-36088dc7d117",
+    "input": {
+      "pattern": 54,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "352cb68d-2123-4891-91a6-adbd1fe943d4",
+    "input": {
+      "pattern": 55,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "2d51a6be-d5a6-45fe-98fa-802d1b80c678",
+    "input": {
+      "pattern": 56,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "80401e70-3a3b-4ba4-aba6-d458688b02cc",
+    "input": {
+      "pattern": 57,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "2aa6a933-29c4-4400-9716-6ae37b212aff",
+    "input": {
+      "pattern": 58,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-17",
+    "requestId": "89fb1706-e0c0-411c-a16c-3aaa3893419c",
+    "input": {
+      "pattern": 59,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "69f85a17-7209-4262-92a0-a105cdb00f09",
+    "input": {
+      "pattern": 5,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "93daf213-a7c4-43a7-97fb-7669b488f243",
+    "input": {
+      "pattern": 6,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "4e98795f-7a13-4dbd-8441-ebda09b5a0fd",
+    "input": {
+      "pattern": 7,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "89c6a1fe-b2e8-4cb4-92bd-bc3b9ce82b3b",
+    "input": {
+      "pattern": 8,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "a5a7392b-7038-4edf-9f14-0afb7aa6c199",
+    "input": {
+      "pattern": 9,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "59fca7c4-f7fb-434e-9832-eac7c89917b8",
+    "input": {
+      "pattern": 10,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "727306fd-9e3d-4de6-81a0-d37c5a1589f0",
+    "input": {
+      "pattern": 11,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-18",
+    "requestId": "7e817053-84db-4b21-93f2-a52efd821e1b",
+    "input": {
+      "pattern": 12,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "6c923b20-6b30-439d-b796-cac350a23d6f",
+    "input": {
+      "pattern": 22,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "e0695345-7063-4c1f-a960-2afd58a5f96b",
+    "input": {
+      "pattern": 23,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "94b67dd1-c7c8-49c1-a8d9-720be002427f",
+    "input": {
+      "pattern": 24,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "4fc6b7b2-c8f5-4577-879e-de2a2cea1531",
+    "input": {
+      "pattern": 25,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "7e95ceaa-a24e-4278-8afe-406a15cad562",
+    "input": {
+      "pattern": 26,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "63965b59-f79a-4189-aa7c-6b21a6913ddd",
+    "input": {
+      "pattern": 27,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "d4de7b4a-f7ce-4c36-831f-d78c67647104",
+    "input": {
+      "pattern": 28,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-19",
+    "requestId": "8628090f-b8ba-436b-a890-1b366b75c1a5",
+    "input": {
+      "pattern": 29,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          true,
+          false
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "cfa8b6b3-d6f5-4bbc-865b-76ce8c60d441",
+    "input": {
+      "pattern": 39,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "62a1fa62-d4fc-41d6-bed4-b6c231cd603d",
+    "input": {
+      "pattern": 40,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "8f79e5e1-b328-40cb-9c84-5f7c9e4f1a37",
+    "input": {
+      "pattern": 41,
+      "movingLine": 2,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 2,
+        "linesBottomUp": [
+          true,
+          false,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "8b899d42-2640-4370-89c4-44e818dfdad8",
+    "input": {
+      "pattern": 42,
+      "movingLine": 3,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 3,
+        "linesBottomUp": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "d840b5db-b2bc-4632-8d69-9885da8097b2",
+    "input": {
+      "pattern": 43,
+      "movingLine": 4,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 4,
+        "linesBottomUp": [
+          true,
+          true,
+          false,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "5f902c04-de70-4ecc-9e58-82d78665f9d2",
+    "input": {
+      "pattern": 44,
+      "movingLine": 5,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 5,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "e2362bc3-9f89-4797-bf27-bc0be5d5a098",
+    "input": {
+      "pattern": 45,
+      "movingLine": 6,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 6,
+        "linesBottomUp": [
+          true,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-20",
+    "requestId": "7eb536f4-56fc-4017-829d-c8943b063351",
+    "input": {
+      "pattern": 46,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "controlled-burst"
+  },
+  {
+    "clientId": "client-1",
+    "requestId": "9d65de92-1f3f-40b6-be6a-6f769657e3bc",
+    "input": {
+      "pattern": 44,
+      "movingLine": 1,
+      "payload": {
+        "method": "LINES",
+        "movingLine": 1,
+        "linesBottomUp": [
+          false,
+          false,
+          true,
+          true,
+          false,
+          true
+        ]
+      }
+    },
+    "label": "fresh-after-burst"
+  }
+]

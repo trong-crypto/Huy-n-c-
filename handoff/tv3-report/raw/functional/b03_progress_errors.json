@@ -1,0 +1,548 @@
+{
+  "passed": true,
+  "evidence": [
+    {
+      "label": "A",
+      "queue": "errors",
+      "body": {
+        "requestId": null,
+        "type": "MAI_HOA",
+        "status": "FAILED",
+        "data": null,
+        "error": {
+          "code": "INVALID_INPUT",
+          "message": "JSON không hợp lệ hoặc quá dài.",
+          "ruleCode": null,
+          "reason": null
+        }
+      }
+    },
+    {
+      "label": "A",
+      "queue": "errors",
+      "body": {
+        "requestId": null,
+        "type": "MAI_HOA",
+        "status": "FAILED",
+        "data": null,
+        "error": {
+          "code": "INVALID_INPUT",
+          "message": "JSON không hợp lệ hoặc quá dài.",
+          "ruleCode": null,
+          "reason": null
+        }
+      }
+    },
+    {
+      "label": "A",
+      "queue": "errors",
+      "body": {
+        "requestId": null,
+        "type": "MAI_HOA",
+        "status": "FAILED",
+        "data": null,
+        "error": {
+          "code": "INVALID_INPUT",
+          "message": "JSON không hợp lệ hoặc quá dài.",
+          "ruleCode": null,
+          "reason": null
+        }
+      }
+    },
+    {
+      "label": "A",
+      "queue": "progress",
+      "body": {
+        "requestId": "202e9b18-aef0-4505-9e0f-d68fafe58866",
+        "type": "MAI_HOA",
+        "sequence": 1,
+        "step": "ACCEPTED",
+        "message": "Server đã nhận yêu cầu."
+      }
+    },
+    {
+      "label": "A",
+      "queue": "progress",
+      "body": {
+        "requestId": "202e9b18-aef0-4505-9e0f-d68fafe58866",
+        "type": "MAI_HOA",
+        "sequence": 2,
+        "step": "VALIDATING",
+        "message": "Đang kiểm tra đầu vào và điều kiện nguồn."
+      }
+    },
+    {
+      "label": "A",
+      "queue": "errors",
+      "body": {
+        "requestId": "202e9b18-aef0-4505-9e0f-d68fafe58866",
+        "type": "MAI_HOA",
+        "status": "FAILED",
+        "data": null,
+        "error": {
+          "code": "INVALID_INPUT",
+          "message": "movingLine phải là số nguyên từ 1 đến 6.",
+          "ruleCode": null,
+          "reason": null
+        }
+      }
+    },
+    {
+      "label": "A",
+      "queue": "progress",
+      "body": {
+        "requestId": "61c0cc50-f39b-401a-931a-817c83715fff",
+        "type": "MAI_HOA",
+        "sequence": 1,
+        "step": "ACCEPTED",
+        "message": "Server đã nhận yêu cầu."
+      }
+    },
+    {
+      "label": "A",
+      "queue": "progress",
+      "body": {
+        "requestId": "61c0cc50-f39b-401a-931a-817c83715fff",
+        "type": "MAI_HOA",
+        "sequence": 2,
+        "step": "VALIDATING",
+        "message": "Đang kiểm tra đầu vào và điều kiện nguồn."
+      }
+    },
+    {
+      "label": "A",
+      "queue": "errors",
+      "body": {
+        "requestId": "61c0cc50-f39b-401a-931a-817c83715fff",
+        "type": "MAI_HOA",
+        "status": "FAILED",
+        "data": null,
+        "error": {
+          "code": "RULE_NOT_AVAILABLE",
+          "message": "Quy tắc hoặc dữ liệu chưa sẵn sàng để xử lý yêu cầu.",
+          "ruleCode": "MH-TIME",
+          "reason": "IMPLEMENTATION_UNAVAILABLE"
+        }
+      }
+    },
+    {
+      "label": "A",
+      "queue": "progress",
+      "body": {
+        "requestId": "aefd7a5d-bf4e-416f-85d1-26b23ed64356",
+        "type": "TAM_THE",
+        "sequence": 1,
+        "step": "ACCEPTED",
+        "message": "Server đã nhận yêu cầu."
+      }
+    },
+    {
+      "label": "A",
+      "queue": "progress",
+      "body": {
+        "requestId": "aefd7a5d-bf4e-416f-85d1-26b23ed64356",
+        "type": "TAM_THE",
+        "sequence": 2,
+        "step": "VALIDATING",
+        "message": "Đang kiểm tra đầu vào và điều kiện nguồn."
+      }
+    },
+    {
+      "label": "A",
+      "queue": "errors",
+      "body": {
+        "requestId": "aefd7a5d-bf4e-416f-85d1-26b23ed64356",
+        "type": "TAM_THE",
+        "status": "FAILED",
+        "data": null,
+        "error": {
+          "code": "RULE_NOT_AVAILABLE",
+          "message": "Quy tắc hoặc dữ liệu chưa sẵn sàng để xử lý yêu cầu.",
+          "ruleCode": "TT-NGU-HANH",
+          "reason": "IMPLEMENTATION_UNAVAILABLE"
+        }
+      }
+    },
+    {
+      "label": "A",
+      "queue": "progress",
+      "body": {
+        "requestId": "9f6ce25e-eef7-430a-945f-45aa815b9cfa",
+        "type": "MAI_HOA",
+        "sequence": 1,
+        "step": "ACCEPTED",
+        "message": "Server đã nhận yêu cầu."
+      }
+    },
+    {
+      "label": "A",
+      "queue": "progress",
+      "body": {
+        "requestId": "9f6ce25e-eef7-430a-945f-45aa815b9cfa",
+        "type": "MAI_HOA",
+        "sequence": 2,
+        "step": "VALIDATING",
+        "message": "Đang kiểm tra đầu vào và điều kiện nguồn."
+      }
+    },
+    {
+      "label": "A",
+      "queue": "progress",
+      "body": {
+        "requestId": "9f6ce25e-eef7-430a-945f-45aa815b9cfa",
+        "type": "MAI_HOA",
+        "sequence": 3,
+        "step": "CALCULATING",
+        "message": "Đang tính quẻ chủ, quẻ hỗ và quẻ biến."
+      }
+    },
+    {
+      "label": "A",
+      "queue": "progress",
+      "body": {
+        "requestId": "9f6ce25e-eef7-430a-945f-45aa815b9cfa",
+        "type": "MAI_HOA",
+        "sequence": 4,
+        "step": "LOOKUP",
+        "message": "Đang tra mã quẻ và tên đã duyệt trong dữ liệu nguồn."
+      }
+    },
+    {
+      "label": "A",
+      "queue": "results",
+      "body": {
+        "requestId": "9f6ce25e-eef7-430a-945f-45aa815b9cfa",
+        "type": "MAI_HOA",
+        "status": "COMPLETED",
+        "data": {
+          "method": "LINES",
+          "ruleVersion": "1.0",
+          "ruleBasis": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "rules": [
+            {
+              "ruleCode": "MH-MUTUAL",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "MH",
+                  "title": "Mai Hoa Dịch Số",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "MH-QUE-HO-BIEN",
+                  "printedPage": "47",
+                  "pdfPage": 42,
+                  "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "MH-CHANGE",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "MH",
+                  "title": "Mai Hoa Dịch Số",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "MH-HAO-6",
+                  "printedPage": "46",
+                  "pdfPage": 41,
+                  "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            }
+          ],
+          "sourceReferences": [
+            {
+              "sourceId": "MH",
+              "title": "Mai Hoa Dịch Số",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "MH-QUE-HO-BIEN",
+              "printedPage": "47",
+              "pdfPage": 42,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            },
+            {
+              "sourceId": "MH",
+              "title": "Mai Hoa Dịch Số",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "MH-HAO-6",
+              "printedPage": "46",
+              "pdfPage": 41,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            }
+          ],
+          "decisionReferences": [],
+          "calculationSteps": [
+            {
+              "code": "MUTUAL",
+              "message": "Hỗ hạ lấy hào 2–4; hỗ thượng lấy hào 3–5.",
+              "values": {
+                "lowerLineStart": 2,
+                "upperLineStart": 3
+              }
+            },
+            {
+              "code": "CHANGE",
+              "message": "Đảo duy nhất hào động tính từ dưới lên.",
+              "values": {
+                "movingLine": 2
+              }
+            }
+          ],
+          "primaryHexagram": {
+            "code": "H_KHAM_LY",
+            "name": "Ký tế",
+            "nameStatus": "VERIFIED",
+            "linesBottomUp": [
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          "mutualHexagram": {
+            "code": "H_LY_KHAM",
+            "name": "Vị tế",
+            "nameStatus": "VERIFIED",
+            "linesBottomUp": [
+              false,
+              true,
+              false,
+              true,
+              false,
+              true
+            ]
+          },
+          "changedHexagram": {
+            "code": "H_KHAM_CAN",
+            "name": "Nhu",
+            "nameStatus": "VERIFIED",
+            "linesBottomUp": [
+              true,
+              true,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          "movingLine": 2,
+          "lunarDate": null
+        },
+        "error": null
+      }
+    },
+    {
+      "label": "B",
+      "queue": "progress",
+      "body": {
+        "requestId": "9f6ce25e-eef7-430a-945f-45aa815b9cfa",
+        "type": "MAI_HOA",
+        "sequence": 1,
+        "step": "ACCEPTED",
+        "message": "Server đã nhận yêu cầu."
+      }
+    },
+    {
+      "label": "B",
+      "queue": "progress",
+      "body": {
+        "requestId": "9f6ce25e-eef7-430a-945f-45aa815b9cfa",
+        "type": "MAI_HOA",
+        "sequence": 2,
+        "step": "VALIDATING",
+        "message": "Đang kiểm tra đầu vào và điều kiện nguồn."
+      }
+    },
+    {
+      "label": "B",
+      "queue": "progress",
+      "body": {
+        "requestId": "9f6ce25e-eef7-430a-945f-45aa815b9cfa",
+        "type": "MAI_HOA",
+        "sequence": 3,
+        "step": "CALCULATING",
+        "message": "Đang tính quẻ chủ, quẻ hỗ và quẻ biến."
+      }
+    },
+    {
+      "label": "B",
+      "queue": "progress",
+      "body": {
+        "requestId": "9f6ce25e-eef7-430a-945f-45aa815b9cfa",
+        "type": "MAI_HOA",
+        "sequence": 4,
+        "step": "LOOKUP",
+        "message": "Đang tra mã quẻ và tên đã duyệt trong dữ liệu nguồn."
+      }
+    },
+    {
+      "label": "B",
+      "queue": "results",
+      "body": {
+        "requestId": "9f6ce25e-eef7-430a-945f-45aa815b9cfa",
+        "type": "MAI_HOA",
+        "status": "COMPLETED",
+        "data": {
+          "method": "LINES",
+          "ruleVersion": "1.0",
+          "ruleBasis": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "rules": [
+            {
+              "ruleCode": "MH-MUTUAL",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "MH",
+                  "title": "Mai Hoa Dịch Số",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "MH-QUE-HO-BIEN",
+                  "printedPage": "47",
+                  "pdfPage": 42,
+                  "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "MH-CHANGE",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "MH",
+                  "title": "Mai Hoa Dịch Số",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "MH-HAO-6",
+                  "printedPage": "46",
+                  "pdfPage": 41,
+                  "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            }
+          ],
+          "sourceReferences": [
+            {
+              "sourceId": "MH",
+              "title": "Mai Hoa Dịch Số",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "MH-QUE-HO-BIEN",
+              "printedPage": "47",
+              "pdfPage": 42,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            },
+            {
+              "sourceId": "MH",
+              "title": "Mai Hoa Dịch Số",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "MH-HAO-6",
+              "printedPage": "46",
+              "pdfPage": 41,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            }
+          ],
+          "decisionReferences": [],
+          "calculationSteps": [
+            {
+              "code": "MUTUAL",
+              "message": "Hỗ hạ lấy hào 2–4; hỗ thượng lấy hào 3–5.",
+              "values": {
+                "lowerLineStart": 2,
+                "upperLineStart": 3
+              }
+            },
+            {
+              "code": "CHANGE",
+              "message": "Đảo duy nhất hào động tính từ dưới lên.",
+              "values": {
+                "movingLine": 2
+              }
+            }
+          ],
+          "primaryHexagram": {
+            "code": "H_KHAM_LY",
+            "name": "Ký tế",
+            "nameStatus": "VERIFIED",
+            "linesBottomUp": [
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          "mutualHexagram": {
+            "code": "H_LY_KHAM",
+            "name": "Vị tế",
+            "nameStatus": "VERIFIED",
+            "linesBottomUp": [
+              false,
+              true,
+              false,
+              true,
+              false,
+              true
+            ]
+          },
+          "changedHexagram": {
+            "code": "H_KHAM_CAN",
+            "name": "Nhu",
+            "nameStatus": "VERIFIED",
+            "linesBottomUp": [
+              true,
+              true,
+              true,
+              false,
+              true,
+              false
+            ]
+          },
+          "movingLine": 2,
+          "lunarDate": null
+        },
+        "error": null
+      }
+    },
+    {
+      "label": "denied-subscribe-/queue/progress-userVictim",
+      "protocol": "STOMP_FRAME_REJECTED",
+      "body": "Thông điệp STOMP không hợp lệ hoặc không được phép."
+    },
+    {
+      "label": "denied-subscribe-/user/Victim/queue/results",
+      "protocol": "STOMP_FRAME_REJECTED",
+      "body": "Thông điệp STOMP không hợp lệ hoặc không được phép."
+    },
+    {
+      "label": "denied-send-/queue/results",
+      "protocol": "STOMP_FRAME_REJECTED",
+      "body": "Thông điệp STOMP không hợp lệ hoặc không được phép."
+    }
+  ]
+}

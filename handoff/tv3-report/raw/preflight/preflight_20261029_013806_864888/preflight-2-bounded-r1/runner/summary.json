@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "task": "X01.2",
+  "kind": "preflight",
+  "passed": true,
+  "startedAt": "2026-10-28T18:38:16.844Z",
+  "endedAt": "2026-10-28T18:38:17.961Z",
+  "runId": "bdd6560c-f4b5-4c54-b191-87f3ee1e8985",
+  "mode": "bounded",
+  "clients": 2,
+  "repeat": 1,
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "endpoint": "ws://127.0.0.1:18091/ws",
+  "origin": "http://127.0.0.1:3173",
+  "config": {
+    "warmupMs": 0,
+    "durationMs": 1000,
+    "thinkMs": 200,
+    "drainMs": 15000,
+    "requestTimeoutMs": 15000,
+    "maxInFlightPerClient": 1,
+    "automaticReconnect": false,
+    "automaticRetry": false,
+    "cookies": false
+  },
+  "connectionCount": 2,
+  "connectedPeak": 2,
+  "connections": [
+    {
+      "clientId": "client-1",
+      "httpStatus": 101,
+      "upgradeMs": 28.010700000000043,
+      "stompConnectedMs": 50.15190000000001,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-2",
+      "httpStatus": 101,
+      "upgradeMs": 30.08420000000001,
+      "stompConnectedMs": 50.317499999999995,
+      "connectionCount": 1
+    }
+  ],
+  "windows": {
+    "measurement": {
+      "start": 401.8899,
+      "end": 1401.8899000000001,
+      "drainedAt": 1407.5449
+    }
+  },
+  "metrics": {
+    "sent": 10,
+    "completed": 10,
+    "completedInsideWindow": 10,
+    "completedAfterWindow": 0,
+    "sentRatePerSecond": 10,
+    "throughputPerSecond": 10,
+    "cohortSuccessRate": 1,
+    "sampleCount": 10,
+    "medianLatencyMs": 8.41040000000001,
+    "p95LatencyMs": 10.393000000000029,
+    "errors": {},
+    "categories": {
+      "completed": 10
+    },
+    "reconciled": true,
+    "publishFailures": 0
+  },
+  "eventCount": 0,
+  "allPhases": {
+    "requests": 12,
+    "completed": 12,
+    "progress": 48
+  },
+  "eventLoopDelayMs": {
+    "mean": 28.906118736842107,
+    "p95": 34.996223
+  },
+  "failure": null,
+  "sentDefinition": "STOMP publish returned without throwing; not a delivery acknowledgement",
+  "throughputDefinition": "valid cohort completions received inside the measurement window / duration",
+  "benchmarkResult": false,
+  "observationEndedAt": "2026-10-28T18:38:17.962Z"
+}

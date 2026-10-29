@@ -1,0 +1,11 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440002",
+  "status": "FAILED",
+  "data": null,
+  "error": {
+    "code": "NOT_FOUND",
+    "message": "Không tìm thấy quẻ.",
+    "ruleCode": null,
+    "reason": null
+  }
+}

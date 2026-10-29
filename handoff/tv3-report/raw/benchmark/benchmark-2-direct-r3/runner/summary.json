@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "task": "X01.2",
+  "kind": "benchmark",
+  "passed": true,
+  "startedAt": "2026-10-28T19:39:36.309Z",
+  "endedAt": "2026-10-28T19:40:46.441Z",
+  "runId": "c681832d-44a1-4869-a552-bfbecb65080b",
+  "mode": "direct",
+  "clients": 2,
+  "repeat": 3,
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "endpoint": "ws://127.0.0.1:18091/ws",
+  "origin": "http://127.0.0.1:3173",
+  "config": {
+    "warmupMs": 10000,
+    "durationMs": 60000,
+    "thinkMs": 200,
+    "drainMs": 15000,
+    "requestTimeoutMs": 15000,
+    "maxInFlightPerClient": 1,
+    "automaticReconnect": false,
+    "automaticRetry": false,
+    "cookies": false
+  },
+  "connectionCount": 2,
+  "connectedPeak": 2,
+  "connections": [
+    {
+      "clientId": "client-1",
+      "httpStatus": 101,
+      "upgradeMs": 35.83100000000002,
+      "stompConnectedMs": 53.932000000000016,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-2",
+      "httpStatus": 101,
+      "upgradeMs": 33.18079999999998,
+      "stompConnectedMs": 53.225300000000004,
+      "connectionCount": 1
+    }
+  ],
+  "windows": {
+    "warmup": {
+      "start": 417.4002,
+      "end": 10417.4002,
+      "drainedAt": 10422.8755
+    },
+    "measurement": {
+      "start": 10422.8933,
+      "end": 70422.8933,
+      "drainedAt": 70424.2357
+    }
+  },
+  "metrics": {
+    "sent": 570,
+    "completed": 570,
+    "completedInsideWindow": 570,
+    "completedAfterWindow": 0,
+    "sentRatePerSecond": 9.5,
+    "throughputPerSecond": 9.5,
+    "cohortSuccessRate": 1,
+    "sampleCount": 570,
+    "medianLatencyMs": 3.0363499999984924,
+    "p95LatencyMs": 6.239500000003318,
+    "errors": {},
+    "categories": {
+      "completed": 570
+    },
+    "reconciled": true,
+    "publishFailures": 0
+  },
+  "eventCount": 0,
+  "allPhases": {
+    "requests": 668,
+    "completed": 668,
+    "progress": 2672
+  },
+  "eventLoopDelayMs": {
+    "mean": 27.131888148606812,
+    "p95": 35.028991
+  },
+  "failure": null,
+  "sentDefinition": "STOMP publish returned without throwing; not a delivery acknowledgement",
+  "throughputDefinition": "valid cohort completions received inside the measurement window / duration",
+  "benchmarkResult": true,
+  "observationEndedAt": "2026-10-28T19:40:46.441Z"
+}

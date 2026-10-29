@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "task": "X01.2",
+  "kind": "benchmark",
+  "passed": true,
+  "startedAt": "2026-10-28T19:35:34.322Z",
+  "endedAt": "2026-10-28T19:36:44.486Z",
+  "runId": "b213c48a-6242-460b-8489-99070adfb831",
+  "mode": "direct",
+  "clients": 2,
+  "repeat": 2,
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "endpoint": "ws://127.0.0.1:18091/ws",
+  "origin": "http://127.0.0.1:3173",
+  "config": {
+    "warmupMs": 10000,
+    "durationMs": 60000,
+    "thinkMs": 200,
+    "drainMs": 15000,
+    "requestTimeoutMs": 15000,
+    "maxInFlightPerClient": 1,
+    "automaticReconnect": false,
+    "automaticRetry": false,
+    "cookies": false
+  },
+  "connectionCount": 2,
+  "connectedPeak": 2,
+  "connections": [
+    {
+      "clientId": "client-1",
+      "httpStatus": 101,
+      "upgradeMs": 34.8809,
+      "stompConnectedMs": 63.16179999999997,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-2",
+      "httpStatus": 101,
+      "upgradeMs": 37.8501,
+      "stompConnectedMs": 62.5419,
+      "connectionCount": 1
+    }
+  ],
+  "windows": {
+    "warmup": {
+      "start": 440.5548,
+      "end": 10440.5548,
+      "drainedAt": 10447.8528
+    },
+    "measurement": {
+      "start": 10447.8772,
+      "end": 70447.8772,
+      "drainedAt": 70450.4097
+    }
+  },
+  "metrics": {
+    "sent": 570,
+    "completed": 570,
+    "completedInsideWindow": 570,
+    "completedAfterWindow": 0,
+    "sentRatePerSecond": 9.5,
+    "throughputPerSecond": 9.5,
+    "cohortSuccessRate": 1,
+    "sampleCount": 570,
+    "medianLatencyMs": 2.9627999999993335,
+    "p95LatencyMs": 6.0625,
+    "errors": {},
+    "categories": {
+      "completed": 570
+    },
+    "reconciled": true,
+    "publishFailures": 0
+  },
+  "eventCount": 0,
+  "allPhases": {
+    "requests": 668,
+    "completed": 668,
+    "progress": 2672
+  },
+  "eventLoopDelayMs": {
+    "mean": 27.003080227867592,
+    "p95": 35.061759
+  },
+  "failure": null,
+  "sentDefinition": "STOMP publish returned without throwing; not a delivery acknowledgement",
+  "throughputDefinition": "valid cohort completions received inside the measurement window / duration",
+  "benchmarkResult": true,
+  "observationEndedAt": "2026-10-28T19:36:44.486Z"
+}

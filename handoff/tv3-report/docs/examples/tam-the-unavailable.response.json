@@ -1,0 +1,12 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440001",
+  "type": "TAM_THE",
+  "status": "FAILED",
+  "data": null,
+  "error": {
+    "code": "RULE_NOT_AVAILABLE",
+    "message": "Quy tắc hoặc dữ liệu chưa sẵn sàng để xử lý yêu cầu.",
+    "ruleCode": "TT-TAI-LOC",
+    "reason": "LOOKUP_NOT_AVAILABLE"
+  }
+}

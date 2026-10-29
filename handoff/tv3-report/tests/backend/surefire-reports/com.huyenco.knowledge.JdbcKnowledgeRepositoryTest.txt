@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.huyenco.knowledge.JdbcKnowledgeRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 7, Time elapsed: 0.179 s -- in com.huyenco.knowledge.JdbcKnowledgeRepositoryTest

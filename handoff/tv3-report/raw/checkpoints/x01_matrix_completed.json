@@ -1,0 +1,30 @@
+{
+  "task": "X01.4",
+  "status": "COMPLETE_WITH_DOCUMENTED_WINDOW_DEVIATION",
+  "createdAt": "2026-10-29T02:56:40.903727+07:00",
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "jarSha256": "71a9d31d11adda8f50330398e87ccad6029fe7782b0a5b6239eaabf1bad0ab39",
+  "completedRuns": 18,
+  "evidenceDirectory": "scripts/generated/x01_matrix_20261029_022047_427181",
+  "cohortAuditStatus": "COHORT_AUDIT_PASS_WITH_WINDOW_DEVIATION",
+  "strictSendWindowSatisfied": false,
+  "outOfWindowSends": 1,
+  "totals": {
+    "readiness": 162,
+    "warmup": 7640,
+    "measurement": 46027,
+    "completed": 53830,
+    "progress": 215320,
+    "completedAfterWindow": 0,
+    "labelledMeasurement": 46028,
+    "outOfWindowSends": 1
+  },
+  "originalRawAndSummariesUnchanged": true,
+  "allDatabaseSnapshotsMatchX011": true,
+  "allOwnedServersStopped": true,
+  "publishDeadlineGateFixedAfterMatrix": true,
+  "postfixSmokeRuns": 4,
+  "postfixSmokesPassed": true,
+  "X015OverloadIdempotencyComplete": false,
+  "X016PlotsDiscussionComplete": false
+}

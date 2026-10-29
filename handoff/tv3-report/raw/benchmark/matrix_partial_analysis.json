@@ -1,0 +1,218 @@
+{
+  "task": "X01.4",
+  "status": "PARTIAL_AUDIT",
+  "analyzedAt": "2026-10-29T02:25:22.707950+07:00",
+  "evidenceDirectory": "scripts/generated/x01_matrix_20261029_022047_427181",
+  "completeMatrix": false,
+  "completedRuns": 3,
+  "expectedRuns": 18,
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "jarSha256": "71a9d31d11adda8f50330398e87ccad6029fe7782b0a5b6239eaabf1bad0ab39",
+  "totals": {
+    "readiness": 9,
+    "warmup": 432,
+    "measurement": 2567,
+    "completed": 3008,
+    "progress": 12032,
+    "completedAfterWindow": 0
+  },
+  "runs": [
+    {
+      "clients": 2,
+      "mode": "direct",
+      "repeat": 1,
+      "passed": true,
+      "readinessRequests": 2,
+      "warmupRequests": 96,
+      "measurementRequests": 570,
+      "completedInsideWindow": 570,
+      "completedAfterWindow": 0,
+      "allCompleted": 668,
+      "progress": 2672,
+      "medianMs": 2.953749999998763,
+      "p95Ms": 6.218000000000757,
+      "throughputPerSecond": 9.5,
+      "sentRatePerSecond": 9.5,
+      "errors": 0,
+      "minThinkGapMs": 200.16330000000016,
+      "registryKeyUpperBound": 668,
+      "nodeCpuMeasurement": {
+        "meanPercentOneCore": 1.7117635045636412,
+        "maxSamplePercentOneCore": 6.201601873763979
+      },
+      "nodePeakMeasurementRssBytes": 104321024,
+      "serverCpuWholeLifecycle": {
+        "meanPercentOneCore": 26.83833188225473,
+        "maxSamplePercentOneCore": 422.4610199057487
+      },
+      "serverPeakRssBytesWholeLifecycle": 372699136,
+      "serverPeakOsThreadsWholeLifecycle": 129,
+      "databaseUnchanged": true,
+      "temporaryServerStopped": true
+    },
+    {
+      "clients": 2,
+      "mode": "bounded",
+      "repeat": 1,
+      "passed": true,
+      "readinessRequests": 2,
+      "warmupRequests": 96,
+      "measurementRequests": 571,
+      "completedInsideWindow": 571,
+      "completedAfterWindow": 0,
+      "allCompleted": 669,
+      "progress": 2676,
+      "medianMs": 2.973200000000361,
+      "p95Ms": 5.5689000000002125,
+      "throughputPerSecond": 9.516666666666667,
+      "sentRatePerSecond": 9.516666666666667,
+      "errors": 0,
+      "minThinkGapMs": 200.19850000000224,
+      "registryKeyUpperBound": 669,
+      "nodeCpuMeasurement": {
+        "meanPercentOneCore": 1.8230195333762125,
+        "maxSamplePercentOneCore": 7.897684398934232
+      },
+      "nodePeakMeasurementRssBytes": 102998016,
+      "serverCpuWholeLifecycle": {
+        "meanPercentOneCore": 24.43844882636515,
+        "maxSamplePercentOneCore": 392.9388383528144
+      },
+      "serverPeakRssBytesWholeLifecycle": 381104128,
+      "serverPeakOsThreadsWholeLifecycle": 133,
+      "databaseUnchanged": true,
+      "temporaryServerStopped": true
+    },
+    {
+      "clients": 5,
+      "mode": "bounded",
+      "repeat": 1,
+      "passed": true,
+      "readinessRequests": 5,
+      "warmupRequests": 240,
+      "measurementRequests": 1426,
+      "completedInsideWindow": 1426,
+      "completedAfterWindow": 0,
+      "allCompleted": 1671,
+      "progress": 6684,
+      "medianMs": 3.0472000000008848,
+      "p95Ms": 6.099299999998038,
+      "throughputPerSecond": 23.766666666666666,
+      "sentRatePerSecond": 23.766666666666666,
+      "errors": 0,
+      "minThinkGapMs": 200.06990000000224,
+      "registryKeyUpperBound": 1671,
+      "nodeCpuMeasurement": {
+        "meanPercentOneCore": 3.244274997849509,
+        "maxSamplePercentOneCore": 9.300721736006754
+      },
+      "nodePeakMeasurementRssBytes": 129429504,
+      "serverCpuWholeLifecycle": {
+        "meanPercentOneCore": 31.074911672190346,
+        "maxSamplePercentOneCore": 431.96579715950236
+      },
+      "serverPeakRssBytesWholeLifecycle": 378351616,
+      "serverPeakOsThreadsWholeLifecycle": 134,
+      "databaseUnchanged": true,
+      "temporaryServerStopped": true
+    }
+  ],
+  "aggregate": [
+    {
+      "clients": 2,
+      "mode": "bounded",
+      "runs": 1,
+      "measurementRequests": 571,
+      "throughputPerSecond": {
+        "values": [
+          9.516666666666667
+        ],
+        "median": 9.516666666666667,
+        "min": 9.516666666666667,
+        "max": 9.516666666666667
+      },
+      "medianMs": {
+        "values": [
+          2.973200000000361
+        ],
+        "median": 2.973200000000361,
+        "min": 2.973200000000361,
+        "max": 2.973200000000361
+      },
+      "p95Ms": {
+        "values": [
+          5.5689000000002125
+        ],
+        "median": 5.5689000000002125,
+        "min": 5.5689000000002125,
+        "max": 5.5689000000002125
+      }
+    },
+    {
+      "clients": 2,
+      "mode": "direct",
+      "runs": 1,
+      "measurementRequests": 570,
+      "throughputPerSecond": {
+        "values": [
+          9.5
+        ],
+        "median": 9.5,
+        "min": 9.5,
+        "max": 9.5
+      },
+      "medianMs": {
+        "values": [
+          2.953749999998763
+        ],
+        "median": 2.953749999998763,
+        "min": 2.953749999998763,
+        "max": 2.953749999998763
+      },
+      "p95Ms": {
+        "values": [
+          6.218000000000757
+        ],
+        "median": 6.218000000000757,
+        "min": 6.218000000000757,
+        "max": 6.218000000000757
+      }
+    },
+    {
+      "clients": 5,
+      "mode": "bounded",
+      "runs": 1,
+      "measurementRequests": 1426,
+      "throughputPerSecond": {
+        "values": [
+          23.766666666666666
+        ],
+        "median": 23.766666666666666,
+        "min": 23.766666666666666,
+        "max": 23.766666666666666
+      },
+      "medianMs": {
+        "values": [
+          3.0472000000008848
+        ],
+        "median": 3.0472000000008848,
+        "min": 3.0472000000008848,
+        "max": 3.0472000000008848
+      },
+      "p95Ms": {
+        "values": [
+          6.099299999998038
+        ],
+        "median": 6.099299999998038,
+        "min": 6.099299999998038,
+        "max": 6.099299999998038
+      }
+    }
+  ],
+  "sameLaunchSettingsExceptMode": true,
+  "allDatabaseSnapshotsMatchX011": true,
+  "completedRunServersStopped": true,
+  "allOwnedServersStopped": false,
+  "p95Aggregation": "nearest-rank per run; aggregate median and range across runs, not pooled percentile",
+  "resourceScope": "Node measurement samples; Server whole lifecycle including JVM startup"
+}

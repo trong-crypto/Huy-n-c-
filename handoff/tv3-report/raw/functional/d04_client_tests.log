@@ -1,0 +1,13 @@
+
+> huyen-co-client@0.1.0 test:run
+> vitest run
+
+
+ RUN  v4.1.12 C:/Users/abc/OneDrive/Documents/ChatGPT/BTL_LTM/client
+
+
+ Test Files  15 passed (15)
+      Tests  452 passed (452)
+   Start at  12:58:39
+   Duration  8.12s (transform 4.67s, setup 18.80s, import 6.37s, tests 7.99s, environment 47.27s)
+

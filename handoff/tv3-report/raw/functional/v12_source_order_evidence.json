@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "bundleOrDatabaseContentChanged": false,
+  "fixtures": [
+    {
+      "file": "d04-label-aliases.response.json",
+      "onlyAggregateSourceOrderChanged": true,
+      "paths": [
+        "/data/rules/3/sourceReferences",
+        "/data/rules/4/sourceReferences",
+        "/data/sourceReferences"
+      ]
+    },
+    {
+      "file": "d04-leap-lunar.response.json",
+      "onlyAggregateSourceOrderChanged": true,
+      "paths": [
+        "/data/rules/6/sourceReferences",
+        "/data/rules/7/sourceReferences",
+        "/data/sourceReferences"
+      ]
+    },
+    {
+      "file": "d04-solar-equivalent.response.json",
+      "onlyAggregateSourceOrderChanged": true,
+      "paths": [
+        "/data/rules/6/sourceReferences",
+        "/data/rules/7/sourceReferences",
+        "/data/sourceReferences"
+      ]
+    },
+    {
+      "file": "d04-wealth-matched.response.json",
+      "onlyAggregateSourceOrderChanged": true,
+      "paths": [
+        "/data/rules/3/sourceReferences",
+        "/data/rules/4/sourceReferences",
+        "/data/sourceReferences"
+      ]
+    },
+    {
+      "file": "d04-wealth-no-loc.response.json",
+      "onlyAggregateSourceOrderChanged": true,
+      "paths": [
+        "/data/rules/6/sourceReferences",
+        "/data/rules/7/sourceReferences",
+        "/data/sourceReferences"
+      ]
+    }
+  ]
+}

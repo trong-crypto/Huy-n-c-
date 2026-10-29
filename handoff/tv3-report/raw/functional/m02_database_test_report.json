@@ -1,0 +1,19 @@
+{
+  "database": "huyenco_m02_test_20261026",
+  "startedAt": "2026-10-25T18:30:07.765412+00:00",
+  "bootstrapRuns": 2,
+  "idempotent": true,
+  "protectedBaselineUnchanged": true,
+  "corruptionGuardsPassed": 8,
+  "schemaGuardsPassed": 3,
+  "runtimeEnabled": false,
+  "productionDatabaseChanged": false,
+  "status": "PASS",
+  "tableCounts": {
+    "reading_source_bundles": 1,
+    "mai_hoa_reading_templates": 20,
+    "tam_the_supplement_results": 19,
+    "tam_the_supplement_mappings": 204
+  },
+  "stableSnapshotSha256": "4543343a82c7eefb161b15bd359284c3dae350617a362aa56bcac0d180195f86"
+}

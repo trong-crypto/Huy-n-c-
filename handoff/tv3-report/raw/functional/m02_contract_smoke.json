@@ -1,0 +1,103 @@
+{
+  "task": "M02_CONTRACT",
+  "status": "PASS",
+  "sessions": 2,
+  "terminalResponses": 13,
+  "progressEvents": 34,
+  "maiHoaDetailedReadingEnabled": true,
+  "tamTheExtendedEnabled": true,
+  "scope": "Current D04 contract regression: real Mai Hoa and extended Tam The, old LINES/LEGACY results and session routing",
+  "cases": [
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440031",
+      "type": "MAI_HOA",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440032",
+      "type": "MAI_HOA",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440033",
+      "type": "MAI_HOA",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440034",
+      "type": "TAM_THE",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440031",
+      "type": "MAI_HOA",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440031",
+      "type": "MAI_HOA",
+      "status": "FAILED",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440031",
+      "type": "MAI_HOA",
+      "status": "FAILED",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440036",
+      "type": "MAI_HOA",
+      "status": "FAILED",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440037",
+      "type": "MAI_HOA",
+      "status": "FAILED",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440038",
+      "type": "TAM_THE",
+      "status": "FAILED",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440039",
+      "type": "MAI_HOA",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440035",
+      "type": "TAM_THE",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "B",
+      "requestId": "550e8400-e29b-41d4-a716-446655440031",
+      "type": "MAI_HOA",
+      "status": "COMPLETED",
+      "error": null
+    }
+  ]
+}

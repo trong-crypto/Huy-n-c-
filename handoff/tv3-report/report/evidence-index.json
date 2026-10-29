@@ -1,0 +1,180 @@
+{
+  "task": "X01.7",
+  "status": "COMPLETE_RENDERED_REVIEWED",
+  "createdAt": "2026-10-29T12:22:14.175956+07:00",
+  "report": "report/Nhom12_HuyenCo_Report.docx",
+  "analysisCheckpoint": {
+    "task": "X01.6",
+    "status": "COMPLETE",
+    "completedAt": "2026-10-29T11:31:19.349378+07:00",
+    "analysisDirectory": "scripts/generated/x01_analysis_20261029_112956_819906",
+    "report": "docs/53-X01-BENCHMARK-ANALYSIS.md",
+    "figures": 5,
+    "formats": [
+      "PNG",
+      "SVG"
+    ],
+    "runRows": 18,
+    "groupRows": 6,
+    "cohortRequests": 46027,
+    "originalEvidenceUnchanged": true,
+    "databaseCheckPath": "scripts/generated/x01_analysis_dbcheck_20261029_112128_437678.json",
+    "databaseUnchanged": true,
+    "matrixAuditStatus": "COHORT_AUDIT_PASS_WITH_WINDOW_DEVIATION",
+    "strictSendWindowSatisfied": false,
+    "outOfWindowSends": 1,
+    "x015Complete": true,
+    "x016Complete": true,
+    "x017Complete": false,
+    "publicationManifestSha256": "b850ae064bd0598cac0caf357c444274191d0435d57120ffbbdeab8a11bff532",
+    "reviewSha256": "1520bba3b7a682a2f33c8e2544c4e1f48ac6e70613c70d4405a0af3c20cab081",
+    "nextTask": "X01.7"
+  },
+  "analysisPublicationSha256": "b850ae064bd0598cac0caf357c444274191d0435d57120ffbbdeab8a11bff532",
+  "analysisReportSha256": "fa071386934ef01fb0c2e50b6cdac867d459065786651eb28c7ce7a86f29c3dc",
+  "matrixAuditStatus": "COHORT_AUDIT_PASS_WITH_WINDOW_DEVIATION",
+  "strictSendWindowSatisfied": false,
+  "groupMetadataComplete": true,
+  "compilatioRun": false,
+  "submitted": false,
+  "figures": {
+    "01-latency.png": "d03a7c451eea7e3e4c2122533ff70400c91ecbf4204bf400e1df111da411c4b3",
+    "02-throughput.png": "8a56694254bf4ec0b882ec254d9e03ab267866dbbe7c9e74a5ea1154760251e4",
+    "03-latency-ecdf.png": "66cba9c9e197c44fbffe7a50d1dc0b040be30c6582c6dc43f300d9cec2e1c926",
+    "04-resources.png": "b31c102bc3029d22abc47f1498eca0d88b4f4e5ad5192cd03aa0600c38407161",
+    "05-throughput-timeline.png": "ec8d7ca92e910a736a694e4150fdc0ca8ec995ad65066d327d60dd30e245780e",
+    "architecture.png": "b52827ad2735831d44b09d8e3239a71a30beb977da480b20fc2a2d93fd001601"
+  },
+  "references": [
+    {
+      "number": 1,
+      "text": "I. Fette và A. Melnikov. The WebSocket Protocol. RFC 6455, 2011. https://www.rfc-editor.org/rfc/rfc6455"
+    },
+    {
+      "number": 2,
+      "text": "STOMP. STOMP Protocol Specification Version 1.2. https://stomp.github.io/stomp-specification-1.2.html"
+    },
+    {
+      "number": 3,
+      "text": "Spring. Spring Framework 6.2 Reference, WebSocket STOMP Overview. https://docs.spring.io/spring-framework/reference/6.2/web/websocket/stomp/overview.html"
+    },
+    {
+      "number": 4,
+      "text": "Oracle. Java SE 17 API, ThreadPoolExecutor. https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ThreadPoolExecutor.html"
+    },
+    {
+      "number": 5,
+      "text": "Nhóm Huyền Cơ. X01.4, ma trận 18 lượt và audit cohort. 29/10/2026. docs/51-X01-BENCHMARK-RESULTS.md; artifact matrix trong Phụ lục A."
+    },
+    {
+      "number": 6,
+      "text": "Nhóm Huyền Cơ. X01.5, nghiệm thu quá tải/idempotency. 29/10/2026. docs/52-X01-OVERLOAD-IDEMPOTENCY-ACCEPTANCE.md; raw/control transcript và independent audit."
+    },
+    {
+      "number": 7,
+      "text": "Nhóm Huyền Cơ. X01.6, tổng hợp/phân tích và năm biểu đồ. 29/10/2026. docs/53-X01-BENCHMARK-ANALYSIS.md; docs/assets/x01/per-run.csv và aggregate.csv."
+    },
+    {
+      "number": 8,
+      "text": "Nhóm Huyền Cơ. Thiết kế N01 và mã CalculationDispatcher/CalculationSessions. docs/36-N01-CONCURRENCY-IDEMPOTENCY-HANDOFF.md; server/src/main/java/com/huyenco/websocket/."
+    },
+    {
+      "number": 9,
+      "text": "Nhóm Huyền Cơ. Hợp đồng JSON/STOMP v1.2. docs/02-API-CONTRACT.md; client/src/types/contract.ts; DTO Java và docs/examples/."
+    },
+    {
+      "number": 10,
+      "text": "Mai Hoa Dịch Số, bản scan người dùng cung cấp, 672 trang PDF; chưa xác minh đầy đủ ấn bản in. Hash MH 225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de. Hồ sơ thực thi: docs/04-MAIHOA-RULES.md, 28-TIME-OWNER-APPROVAL.md và 41-M03-MAI-HOA-INTERPRETATION-HANDOFF.md."
+    },
+    {
+      "number": 11,
+      "text": "Nhóm Huyền Cơ. H01, phiên/owner/lịch sử và schema. docs/34-H01-SESSION-HISTORY-HANDOFF.md; migrations V11/V12 và JDBC repositories."
+    },
+    {
+      "number": 12,
+      "text": "Diễn Cầm Tam Thế Diễn Nghĩa, Dương Công Hầu, hiệu Khương Đức, bản scan 360 trang; thông tin ấn bản chưa xác minh đầy đủ. Hồ sơ dự án: docs/05-TAMTHE-RULES.md; 26-C01-CALENDAR-HANDOFF.md; 42-D04-TAM-THE-EXTENDED-WEALTH-HANDOFF.md."
+    },
+    {
+      "number": 13,
+      "text": "Nhóm Huyền Cơ. TV1 Phase 8, bằng chứng UI đại diện 8E/8F. docs/44-TV1-PHASE8A-ACCEPTANCE.md. Đây là hồ sơ nghiệm thu có phạm vi, không thay toàn bộ kiểm sản phẩm."
+    }
+  ],
+  "sourceFiles": {
+    "docs/assets/x01/per-run.csv": "7d9f0863aecc07086f9217b2c1d5fbcb9c1878cb7b0f05a0cdf70eacb19d4f4f",
+    "docs/assets/x01/aggregate.csv": "428e5955774ef6ce0a2c46e60f37dac5644d9f8926800b14f5e73b4cf4cd8aed",
+    "docs/assets/x01/boundary-exclusions.csv": "1503037a9deb0e52566eaa359a2c233d776136e539ab7e53d6338f5dbe498e28",
+    "scripts/build_x01_report.py": "c00d4dd1d4b7257678f74545148cae3411ec5207e06e13be2108694a422f5ab5"
+  },
+  "completedAt": "2026-10-29T12:38:54.043898+07:00",
+  "reportSha256": "9a59fe58b6ebffed427b99c3016fc52cf4d8a492c2c765a2553bf28a7109eeee",
+  "pageCount": 19,
+  "authors": {
+    "groupNumber": 12,
+    "members": [
+      {
+        "name": "Đào Viết Trọng",
+        "studentId": "B23DCCN846"
+      },
+      {
+        "name": "Doãn Duy Linh",
+        "studentId": "B23DCCN482"
+      },
+      {
+        "name": "Bùi Ngọc Mạnh",
+        "studentId": "B23DCCN526"
+      }
+    ]
+  },
+  "evidencePackage": "report/evidence/X01-Evidence.zip",
+  "verification": {
+    "status": "PASS",
+    "checkedAt": "2026-10-29T12:38:54.043898+07:00",
+    "pages": 19,
+    "landscapePages": [
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "tables": 11,
+    "drawingsWithAltText": 6,
+    "numberedSections": 15,
+    "referencesPresentAndCited": 13,
+    "groupNumber": 12,
+    "authorsChecked": 3,
+    "aggregateRowsMatched": 6,
+    "perRunRowsMatched": 18,
+    "rangeRowsMatched": 6,
+    "cohortRequests": 46027,
+    "outOfWindowSends": 1,
+    "originalPublicationAndToolSourcePinsUnchanged": true,
+    "originalMatrixFilesChecked": 233,
+    "originalReliabilityFilesChecked": 43,
+    "allPagesVisuallyReviewed": true,
+    "reviewMethod": "Pages 1-19 reviewed; final pages 7 and 15-19 re-inspected; other 13 final page PNGs byte-identical to reviewed version",
+    "reportSha256": "9a59fe58b6ebffed427b99c3016fc52cf4d8a492c2c765a2553bf28a7109eeee",
+    "qaPdfSha256": "8cd0f1dbeb4d3d56611b1e2c505b2062adb2b466e37a42e8fe7d58048e2c6a38",
+    "pagePngSha256": {
+      "page-1.png": "ef27b50749725a5c3f614b0a14ae47dc93d262f6996dea0714a0e54737a47124",
+      "page-2.png": "b00960d0fb6d5e72aa5e83269159c983c655df7523e76194a1017768d12eabef",
+      "page-3.png": "b05e2534cb570b6749dd3cd40aa055cd9d169c97a7edf9ee5b1f61142cb93ae9",
+      "page-4.png": "733b0bae2fe547e63ead89cab36626ea76648f83b8b9072277678233ade562f9",
+      "page-5.png": "0ea9877e4e5896a19df1b619ed7aca058f10d7c874b410b2bce09478be22a4de",
+      "page-6.png": "e3da747b9c084e089e5aaec2aba28349b3691e20f52d1cc8bdcb1962b574af44",
+      "page-7.png": "584319a888abae3f404f04bd28e00d008491fac6bc1effaf6a0692841df6c9a6",
+      "page-8.png": "2d0e84e4d67c0714e623a4cbcd28218d06150ff0e31a070bb377a6d45233b334",
+      "page-9.png": "8557b55671e43bd97ac1bd94cfe277d71a0a823b69affce106386f243be5acc6",
+      "page-10.png": "2cda917cc15f63f7ec6b14d5bc87641e0af040c5f51e7124c0cc3389dced868a",
+      "page-11.png": "fe452af5dafa6d7471b41d318fff29d7b75b3adf194455f11c5c06e9844f1ea8",
+      "page-12.png": "34123cefa61e63ee1f9f1bb38b7520f572eb74810d18a599d5a0e2969ec664dc",
+      "page-13.png": "62b45d239229bfe5184d626ac49cd42d97bf0bbcbb8d5a9f893da0d539dba4b1",
+      "page-14.png": "4144301aef75ec8f7a0a2b1b0d1f12a3f78e2ef04c069a5b6faa5282f12ac83b",
+      "page-15.png": "f691e30c6ee0ebfecf801ff826cf0106ecc98f2aefa8650ff594521c9b1a8da8",
+      "page-16.png": "647f983ab5ed710727b9f4e75eaa5dd93b885e4522cbfd7178c2a6f87fe68d67",
+      "page-17.png": "1528b671edbc1865a79e04552a3b77155b377e9efe25ab161efd59a1e8401563",
+      "page-18.png": "9cd0303c6edd6a9caa20041420a45401ff1edcc0570d5aefb5fe441b78a4985c",
+      "page-19.png": "b6b979134103b399043f9bf14c74f982c9d3096f24a7245b530247994f3dbb32"
+    }
+  }
+}

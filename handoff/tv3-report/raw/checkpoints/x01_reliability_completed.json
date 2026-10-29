@@ -1,0 +1,20 @@
+{
+  "task": "X01.5",
+  "status": "COMPLETE",
+  "completedAt": "2026-10-29T10:44:19.333644+07:00",
+  "casesPassed": 7,
+  "casesFailed": 0,
+  "casesPending": 0,
+  "toolTestsPassed": 7,
+  "evidenceDirectory": "scripts/generated/x01_reliability_20261029_103446_353616",
+  "independentAuditSha256": "dfcdbec8276a3f024681d2b9b245a7966b8f203ae7b3437f7c0079e3621ab3ce",
+  "evidenceManifestSha256": "3861e6e6e666428ee54c56672d0ea8139056130697111f627ff4a8dd7bf297f2",
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "jarSha256": "71a9d31d11adda8f50330398e87ccad6029fe7782b0a5b6239eaabf1bad0ab39",
+  "databaseUnchanged": true,
+  "temporaryProcessesStopped": true,
+  "contentionLocksReleased": true,
+  "officialPerformanceArtifactsModified": false,
+  "x014WindowDeviationRemainsDisclosed": true,
+  "nextTask": "X01.6"
+}

@@ -1,0 +1,780 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440041",
+  "type": "MAI_HOA",
+  "status": "COMPLETED",
+  "data": {
+    "method": "LINES",
+    "ruleVersion": "1.0",
+    "ruleBasis": "TEAM_DECISION",
+    "sourceStatus": "SOURCE_AMBIGUOUS",
+    "rules": [
+      {
+        "ruleCode": "MH-MUTUAL",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-QUE-HO-BIEN",
+            "printedPage": "47",
+            "pdfPage": 42,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      },
+      {
+        "ruleCode": "MH-CHANGE",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-HAO-6",
+            "printedPage": "46",
+            "pdfPage": 41,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      },
+      {
+        "ruleCode": "MH-READING-BODY",
+        "ruleVersion": "1.0",
+        "executionPolicy": "TEAM_DECISION",
+        "ruleBasis": "TEAM_DECISION",
+        "sourceStatus": "SOURCE_AMBIGUOUS",
+        "sourceReferences": [
+          {
+            "sourceId": "MH-M01",
+            "title": "Mai Hoa Dịch Số",
+            "version": "M01-1.0",
+            "section": "DEC-20261026-M01-BODY",
+            "printedPage": "231",
+            "pdfPage": 224,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          },
+          {
+            "sourceId": "MH-M01",
+            "title": "Mai Hoa Dịch Số",
+            "version": "M01-1.0",
+            "section": "DEC-20261026-M01-BODY",
+            "printedPage": "232",
+            "pdfPage": 225,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": [
+          {
+            "decisionId": "DEC-20261026-M01-BODY",
+            "decidedAt": "2026-10-26",
+            "document": "docs/38-M01-M02-REVIEWED-KNOWLEDGE-HANDOFF.md",
+            "description": "Hào 1-3 động: Thể là thượng quái; hào 4-6 động: Thể là hạ quái. Dụng ở phía còn lại. Giữ Thể gốc khi so quái Dụng đã biến."
+          }
+        ]
+      },
+      {
+        "ruleCode": "MH-READING-PHASES",
+        "ruleVersion": "1.0",
+        "executionPolicy": "TEAM_DECISION",
+        "ruleBasis": "TEAM_DECISION",
+        "sourceStatus": "SOURCE_AMBIGUOUS",
+        "sourceReferences": [
+          {
+            "sourceId": "MH-M01",
+            "title": "Mai Hoa Dịch Số",
+            "version": "M01-1.0",
+            "section": "DEC-20261026-M01-PHASES",
+            "printedPage": "137",
+            "pdfPage": 131,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          },
+          {
+            "sourceId": "MH-M01",
+            "title": "Mai Hoa Dịch Số",
+            "version": "M01-1.0",
+            "section": "DEC-20261026-M01-PHASES",
+            "printedPage": "138",
+            "pdfPage": 132,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          },
+          {
+            "sourceId": "MH-M01",
+            "title": "Mai Hoa Dịch Số",
+            "version": "M01-1.0",
+            "section": "DEC-20261026-M01-PHASES",
+            "printedPage": "234",
+            "pdfPage": 227,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          },
+          {
+            "sourceId": "MH-M01",
+            "title": "Mai Hoa Dịch Số",
+            "version": "M01-1.0",
+            "section": "DEC-20261026-M01-PHASES",
+            "printedPage": "235",
+            "pdfPage": 228,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": [
+          {
+            "decisionId": "DEC-20261026-M01-PHASES",
+            "decidedAt": "2026-10-26",
+            "document": "docs/38-M01-M02-REVIEWED-KNOWLEDGE-HANDOFF.md",
+            "description": "Đầu: Dụng gốc so Thể gốc. Giữa: cả hai quái hỗ so Thể gốc; cùng phía Thể mang vai trò BODY_MUTUAL. Cuối: quái ở phía Dụng trong quẻ biến so Thể gốc. Không cộng điểm hoặc gộp hai quan hệ giữa thành một kết luận."
+          }
+        ]
+      }
+    ],
+    "sourceReferences": [
+      {
+        "sourceId": "MH",
+        "title": "Mai Hoa Dịch Số",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "MH-QUE-HO-BIEN",
+        "printedPage": "47",
+        "pdfPage": 42,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH",
+        "title": "Mai Hoa Dịch Số",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "MH-HAO-6",
+        "printedPage": "46",
+        "pdfPage": 41,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "MH-LOVE-USE_CONTROLS_BODY",
+        "printedPage": "156",
+        "pdfPage": 150,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "MH-LOVE-USE_CONTROLS_BODY",
+        "printedPage": "157",
+        "pdfPage": 151,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "MH-LOVE-SAME_ELEMENT",
+        "printedPage": "156",
+        "pdfPage": 150,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "MH-LOVE-SAME_ELEMENT",
+        "printedPage": "157",
+        "pdfPage": 151,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "MH-LOVE-BODY_CONTROLS_USE",
+        "printedPage": "156",
+        "pdfPage": 150,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "MH-LOVE-BODY_CONTROLS_USE",
+        "printedPage": "157",
+        "pdfPage": 151,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "MH-LOVE-USE_GENERATES_BODY",
+        "printedPage": "156",
+        "pdfPage": 150,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "MH-LOVE-USE_GENERATES_BODY",
+        "printedPage": "157",
+        "pdfPage": 151,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "DEC-20261026-M01-BODY",
+        "printedPage": "231",
+        "pdfPage": 224,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "DEC-20261026-M01-BODY",
+        "printedPage": "232",
+        "pdfPage": 225,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "DEC-20261026-M01-PHASES",
+        "printedPage": "137",
+        "pdfPage": 131,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "DEC-20261026-M01-PHASES",
+        "printedPage": "138",
+        "pdfPage": 132,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "DEC-20261026-M01-PHASES",
+        "printedPage": "234",
+        "pdfPage": 227,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH-M01",
+        "title": "Mai Hoa Dịch Số",
+        "version": "M01-1.0",
+        "section": "DEC-20261026-M01-PHASES",
+        "printedPage": "235",
+        "pdfPage": 228,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      }
+    ],
+    "decisionReferences": [
+      {
+        "decisionId": "DEC-20261026-M01-BODY",
+        "decidedAt": "2026-10-26",
+        "document": "docs/38-M01-M02-REVIEWED-KNOWLEDGE-HANDOFF.md",
+        "description": "Hào 1-3 động: Thể là thượng quái; hào 4-6 động: Thể là hạ quái. Dụng ở phía còn lại. Giữ Thể gốc khi so quái Dụng đã biến."
+      },
+      {
+        "decisionId": "DEC-20261026-M01-PHASES",
+        "decidedAt": "2026-10-26",
+        "document": "docs/38-M01-M02-REVIEWED-KNOWLEDGE-HANDOFF.md",
+        "description": "Đầu: Dụng gốc so Thể gốc. Giữa: cả hai quái hỗ so Thể gốc; cùng phía Thể mang vai trò BODY_MUTUAL. Cuối: quái ở phía Dụng trong quẻ biến so Thể gốc. Không cộng điểm hoặc gộp hai quan hệ giữa thành một kết luận."
+      }
+    ],
+    "calculationSteps": [
+      {
+        "code": "MUTUAL",
+        "message": "Hỗ hạ lấy hào 2–4; hỗ thượng lấy hào 3–5.",
+        "values": {
+          "upperLineStart": 3,
+          "lowerLineStart": 2
+        }
+      },
+      {
+        "code": "CHANGE",
+        "message": "Đảo duy nhất hào động tính từ dưới lên.",
+        "values": {
+          "movingLine": 1
+        }
+      }
+    ],
+    "primaryHexagram": {
+      "code": "H_DOAI_LY",
+      "name": "Cách",
+      "nameStatus": "VERIFIED",
+      "linesBottomUp": [
+        true,
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    "mutualHexagram": {
+      "code": "H_CAN_TON",
+      "name": "Tiểu súc",
+      "nameStatus": "VERIFIED",
+      "linesBottomUp": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "changedHexagram": {
+      "code": "H_DOAI_CAN2",
+      "name": "Hàm",
+      "nameStatus": "VERIFIED",
+      "linesBottomUp": [
+        false,
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    "movingLine": 1,
+    "lunarDate": null,
+    "detailedReading": {
+      "schemaVersion": "1.0",
+      "bundleId": "M01-READINGS-20261026-V1",
+      "topic": "LOVE",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "body": {
+        "side": "UPPER",
+        "trigramCode": "DOAI",
+        "element": "KIM"
+      },
+      "use": {
+        "side": "LOWER",
+        "trigramCode": "LY",
+        "element": "HOA"
+      },
+      "phases": [
+        {
+          "kind": "INITIAL_USE",
+          "comparator": {
+            "side": "LOWER",
+            "trigramCode": "LY",
+            "element": "HOA"
+          },
+          "relation": "USE_CONTROLS_BODY",
+          "templateCode": "MH-LOVE-USE_CONTROLS_BODY",
+          "content": "Theo mục hôn nhân, Dụng khắc Thể được luận theo chiều bất lợi cho việc kết thành hôn nhân.",
+          "textKind": "EDITORIAL_PARAPHRASE",
+          "ruleBasis": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "sourceReferences": [
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "MH-LOVE-USE_CONTROLS_BODY",
+              "printedPage": "156",
+              "pdfPage": 150,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            },
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "MH-LOVE-USE_CONTROLS_BODY",
+              "printedPage": "157",
+              "pdfPage": 151,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            }
+          ]
+        },
+        {
+          "kind": "MIDDLE_BODY_MUTUAL",
+          "comparator": {
+            "side": "UPPER",
+            "trigramCode": "CAN",
+            "element": "KIM"
+          },
+          "relation": "SAME_ELEMENT",
+          "templateCode": "MH-LOVE-SAME_ELEMENT",
+          "content": "Theo mục hôn nhân, tỷ hòa được luận là hai bên thuận hợp.",
+          "textKind": "EDITORIAL_PARAPHRASE",
+          "ruleBasis": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "sourceReferences": [
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "MH-LOVE-SAME_ELEMENT",
+              "printedPage": "156",
+              "pdfPage": 150,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            },
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "MH-LOVE-SAME_ELEMENT",
+              "printedPage": "157",
+              "pdfPage": 151,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            }
+          ]
+        },
+        {
+          "kind": "MIDDLE_USE_MUTUAL",
+          "comparator": {
+            "side": "LOWER",
+            "trigramCode": "TON",
+            "element": "MOC"
+          },
+          "relation": "BODY_CONTROLS_USE",
+          "templateCode": "MH-LOVE-BODY_CONTROLS_USE",
+          "content": "Theo mục hôn nhân, Thể khắc Dụng được luận là có thể thành nhưng chậm.",
+          "textKind": "EDITORIAL_PARAPHRASE",
+          "ruleBasis": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "sourceReferences": [
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "MH-LOVE-BODY_CONTROLS_USE",
+              "printedPage": "156",
+              "pdfPage": 150,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            },
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "MH-LOVE-BODY_CONTROLS_USE",
+              "printedPage": "157",
+              "pdfPage": 151,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            }
+          ]
+        },
+        {
+          "kind": "FINAL_USE",
+          "comparator": {
+            "side": "LOWER",
+            "trigramCode": "CAN2",
+            "element": "THO"
+          },
+          "relation": "USE_GENERATES_BODY",
+          "templateCode": "MH-LOVE-USE_GENERATES_BODY",
+          "content": "Theo mục hôn nhân, Dụng sinh Thể được luận là dễ thành hoặc có lợi ích từ quan hệ hôn nhân.",
+          "textKind": "EDITORIAL_PARAPHRASE",
+          "ruleBasis": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "sourceReferences": [
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "MH-LOVE-USE_GENERATES_BODY",
+              "printedPage": "156",
+              "pdfPage": 150,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            },
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "MH-LOVE-USE_GENERATES_BODY",
+              "printedPage": "157",
+              "pdfPage": 151,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            }
+          ]
+        }
+      ],
+      "season": {
+        "status": "NOT_EVALUATED",
+        "reason": "MISSING_READING_TIME",
+        "datetime": null,
+        "lunarDate": null,
+        "season": null,
+        "bodyStrength": null,
+        "sourceReferences": []
+      },
+      "summary": "Ban đầu Dụng khắc Thể; hai quan hệ giữa lần lượt tỷ hòa và Thể khắc Dụng; cuối Dụng sinh Thể. Giữ riêng các chiều luận theo nguồn, không quy thành một điểm số.",
+      "calculationDecisions": [
+        {
+          "decisionId": "DEC-20261026-M01-BODY",
+          "purpose": "CALCULATION",
+          "ruleBasis": "TEAM_DECISION",
+          "sourceStatus": "SOURCE_AMBIGUOUS",
+          "policy": "NON_MOVING_TRIGRAM_IS_BODY",
+          "description": "Hào 1-3 động: Thể là thượng quái; hào 4-6 động: Thể là hạ quái. Dụng ở phía còn lại. Giữ Thể gốc khi so quái Dụng đã biến.",
+          "limitation": "Ví dụ Cách hỗ trợ trường hợp hào 1; chưa định vị câu tổng quát bao phủ sáu vị trí theo ấn bản. Không duyệt lại MH-THE-DUNG 1.0.",
+          "sourceReferences": [
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "DEC-20261026-M01-BODY",
+              "printedPage": "231",
+              "pdfPage": 224,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            },
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "DEC-20261026-M01-BODY",
+              "printedPage": "232",
+              "pdfPage": 225,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            }
+          ]
+        },
+        {
+          "decisionId": "DEC-20261026-M01-PHASES",
+          "purpose": "CALCULATION",
+          "ruleBasis": "TEAM_DECISION",
+          "sourceStatus": "SOURCE_AMBIGUOUS",
+          "policy": "ORIGINAL_BODY_SEPARATE_MUTUAL_SIDES",
+          "description": "Đầu: Dụng gốc so Thể gốc. Giữa: cả hai quái hỗ so Thể gốc; cùng phía Thể mang vai trò BODY_MUTUAL. Cuối: quái ở phía Dụng trong quẻ biến so Thể gốc. Không cộng điểm hoặc gộp hai quan hệ giữa thành một kết luận.",
+          "limitation": "PDF228 mở đầu gọi hạ hỗ là hỗ Dụng rồi có trường hợp Thể dưới gọi hạ hỗ là hỗ Thể. Dùng quy ước vị trí công khai dựa nguyên văn PDF227; không sửa bản dịch.",
+          "sourceReferences": [
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "DEC-20261026-M01-PHASES",
+              "printedPage": "137",
+              "pdfPage": 131,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            },
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "DEC-20261026-M01-PHASES",
+              "printedPage": "138",
+              "pdfPage": 132,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            },
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "DEC-20261026-M01-PHASES",
+              "printedPage": "234",
+              "pdfPage": 227,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            },
+            {
+              "sourceId": "MH-M01",
+              "title": "Mai Hoa Dịch Số",
+              "version": "M01-1.0",
+              "section": "DEC-20261026-M01-PHASES",
+              "printedPage": "235",
+              "pdfPage": 228,
+              "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+              "url": null
+            }
+          ]
+        }
+      ],
+      "sourceReferences": [
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "MH-LOVE-USE_CONTROLS_BODY",
+          "printedPage": "156",
+          "pdfPage": 150,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        },
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "MH-LOVE-USE_CONTROLS_BODY",
+          "printedPage": "157",
+          "pdfPage": 151,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        },
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "MH-LOVE-SAME_ELEMENT",
+          "printedPage": "156",
+          "pdfPage": 150,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        },
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "MH-LOVE-SAME_ELEMENT",
+          "printedPage": "157",
+          "pdfPage": 151,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        },
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "MH-LOVE-BODY_CONTROLS_USE",
+          "printedPage": "156",
+          "pdfPage": 150,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        },
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "MH-LOVE-BODY_CONTROLS_USE",
+          "printedPage": "157",
+          "pdfPage": 151,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        },
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "MH-LOVE-USE_GENERATES_BODY",
+          "printedPage": "156",
+          "pdfPage": 150,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        },
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "MH-LOVE-USE_GENERATES_BODY",
+          "printedPage": "157",
+          "pdfPage": 151,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        },
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "DEC-20261026-M01-BODY",
+          "printedPage": "231",
+          "pdfPage": 224,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        },
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "DEC-20261026-M01-BODY",
+          "printedPage": "232",
+          "pdfPage": 225,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        },
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "DEC-20261026-M01-PHASES",
+          "printedPage": "137",
+          "pdfPage": 131,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        },
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "DEC-20261026-M01-PHASES",
+          "printedPage": "138",
+          "pdfPage": 132,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        },
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "DEC-20261026-M01-PHASES",
+          "printedPage": "234",
+          "pdfPage": 227,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        },
+        {
+          "sourceId": "MH-M01",
+          "title": "Mai Hoa Dịch Số",
+          "version": "M01-1.0",
+          "section": "DEC-20261026-M01-PHASES",
+          "printedPage": "235",
+          "pdfPage": 228,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+          "url": null
+        }
+      ]
+    }
+  },
+  "error": null
+}

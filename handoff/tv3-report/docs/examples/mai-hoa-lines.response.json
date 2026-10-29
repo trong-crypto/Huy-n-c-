@@ -1,0 +1,135 @@
+{
+  "requestId": "550e8400-e29b-41d4-a716-446655440002",
+  "type": "MAI_HOA",
+  "status": "COMPLETED",
+  "data": {
+    "method": "LINES",
+    "ruleVersion": "1.0",
+    "ruleBasis": "SOURCE_VERIFIED",
+    "sourceStatus": "VERIFIED",
+    "rules": [
+      {
+        "ruleCode": "MH-MUTUAL",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-QUE-HO-BIEN",
+            "printedPage": "47",
+            "pdfPage": 42,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      },
+      {
+        "ruleCode": "MH-CHANGE",
+        "ruleVersion": "1.0",
+        "executionPolicy": "SOURCE_VERIFIED",
+        "ruleBasis": "SOURCE_VERIFIED",
+        "sourceStatus": "VERIFIED",
+        "sourceReferences": [
+          {
+            "sourceId": "MH",
+            "title": "Mai Hoa Dịch Số",
+            "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+            "section": "MH-HAO-6",
+            "printedPage": "46",
+            "pdfPage": 41,
+            "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+            "url": null
+          }
+        ],
+        "decisionReferences": []
+      }
+    ],
+    "sourceReferences": [
+      {
+        "sourceId": "MH",
+        "title": "Mai Hoa Dịch Số",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "MH-QUE-HO-BIEN",
+        "printedPage": "47",
+        "pdfPage": 42,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      },
+      {
+        "sourceId": "MH",
+        "title": "Mai Hoa Dịch Số",
+        "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+        "section": "MH-HAO-6",
+        "printedPage": "46",
+        "pdfPage": 41,
+        "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+        "url": null
+      }
+    ],
+    "decisionReferences": [],
+    "calculationSteps": [
+      {
+        "code": "MUTUAL",
+        "message": "Hỗ hạ lấy hào 2–4; hỗ thượng lấy hào 3–5.",
+        "values": {
+          "upperLineStart": 3,
+          "lowerLineStart": 2
+        }
+      },
+      {
+        "code": "CHANGE",
+        "message": "Đảo duy nhất hào động tính từ dưới lên.",
+        "values": {
+          "movingLine": 2
+        }
+      }
+    ],
+    "primaryHexagram": {
+      "code": "H_KHAM_LY",
+      "name": "Ký tế",
+      "nameStatus": "VERIFIED",
+      "linesBottomUp": [
+        true,
+        false,
+        true,
+        false,
+        true,
+        false
+      ]
+    },
+    "mutualHexagram": {
+      "code": "H_LY_KHAM",
+      "name": "Vị tế",
+      "nameStatus": "VERIFIED",
+      "linesBottomUp": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        true
+      ]
+    },
+    "changedHexagram": {
+      "code": "H_KHAM_CAN",
+      "name": "Nhu",
+      "nameStatus": "VERIFIED",
+      "linesBottomUp": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        false
+      ]
+    },
+    "movingLine": 2,
+    "lunarDate": null
+  },
+  "error": null
+}

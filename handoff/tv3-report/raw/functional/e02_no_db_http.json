@@ -1,0 +1,17 @@
+{
+  "url": "http://127.0.0.1:18083",
+  "requests": 2,
+  "passed": true,
+  "calls": [
+    {
+      "path": "",
+      "query": null,
+      "http": 503
+    },
+    {
+      "path": "/H_CAN_CAN",
+      "query": null,
+      "http": 503
+    }
+  ]
+}

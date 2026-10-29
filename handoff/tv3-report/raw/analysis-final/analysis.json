@@ -1,0 +1,2087 @@
+{
+  "task": "X01.6",
+  "status": "ANALYSIS_READY_FOR_REVIEW",
+  "createdAt": "2026-10-29T11:29:56.817906+07:00",
+  "evidenceDirectory": "scripts/generated/x01_matrix_20261029_022047_427181",
+  "reliabilityDirectory": "scripts/generated/x01_reliability_20261029_103446_353616",
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "jarSha256": "71a9d31d11adda8f50330398e87ccad6029fe7782b0a5b6239eaabf1bad0ab39",
+  "matrixAuditStatus": "COHORT_AUDIT_PASS_WITH_WINDOW_DEVIATION",
+  "strictSendWindowSatisfied": false,
+  "totals": {
+    "readiness": 162,
+    "warmup": 7640,
+    "measurement": 46027,
+    "completed": 53830,
+    "progress": 215320,
+    "completedAfterWindow": 0,
+    "labelledMeasurement": 46028,
+    "outOfWindowSends": 1
+  },
+  "runs": [
+    {
+      "clients": 2,
+      "mode": "direct",
+      "repeat": 1,
+      "cohortRequests": 570,
+      "labelledRequests": 570,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 570,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 2.953749999998763,
+      "p95Ms": 6.218000000000757,
+      "p99Ms": 18.450400000001537,
+      "meanMs": 3.7490407017545166,
+      "maxMs": 34.29660000000149,
+      "throughputPerSecond": 9.5,
+      "sentRatePerSecond": 9.5,
+      "nodeCpuMeanPercentOneCore": 1.7117635045636412,
+      "nodeCpuPeakIntervalPercentOneCore": 6.201601873763979,
+      "nodePeakRssMiB": 99.48828125,
+      "nodeSampleSpanSeconds": 58.3608657,
+      "serverCpuLifecycleMeanPercentOneCore": 26.83833188225473,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 422.4610199057487,
+      "serverLifecyclePeakWorkingSetMiB": 355.43359375,
+      "serverLifecyclePeakOsThreads": 129,
+      "serverSampleSpanSeconds": 73.8798711,
+      "nodeWholeRunEventLoopP95Ms": 35.127295,
+      "validationP95Ms": 0.058700000001408625,
+      "stompConnectP95Ms": 71.53099999999995,
+      "paceCeilingPercent": 95.0,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 2,
+      "mode": "bounded",
+      "repeat": 1,
+      "cohortRequests": 571,
+      "labelledRequests": 571,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 571,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 2.973200000000361,
+      "p95Ms": 5.5689000000002125,
+      "p99Ms": 7.675600000000486,
+      "meanMs": 3.4454211908931653,
+      "maxMs": 47.18509999999878,
+      "throughputPerSecond": 9.516666666666667,
+      "sentRatePerSecond": 9.516666666666667,
+      "nodeCpuMeanPercentOneCore": 1.8230195333762125,
+      "nodeCpuPeakIntervalPercentOneCore": 7.897684398934232,
+      "nodePeakRssMiB": 98.2265625,
+      "nodeSampleSpanSeconds": 58.2549984,
+      "serverCpuLifecycleMeanPercentOneCore": 24.43844882636515,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 392.9388383528144,
+      "serverLifecyclePeakWorkingSetMiB": 363.44921875,
+      "serverLifecyclePeakOsThreads": 133,
+      "serverSampleSpanSeconds": 72.6953872,
+      "nodeWholeRunEventLoopP95Ms": 34.996223,
+      "validationP95Ms": 0.05979999999544816,
+      "stompConnectP95Ms": 53.117399999999975,
+      "paceCeilingPercent": 95.16666666666667,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 5,
+      "mode": "bounded",
+      "repeat": 1,
+      "cohortRequests": 1426,
+      "labelledRequests": 1426,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 1426,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 3.0472000000008848,
+      "p95Ms": 6.099299999998038,
+      "p99Ms": 16.211999999999534,
+      "meanMs": 3.6639124123422255,
+      "maxMs": 39.17079999999987,
+      "throughputPerSecond": 23.766666666666666,
+      "sentRatePerSecond": 23.766666666666666,
+      "nodeCpuMeanPercentOneCore": 3.244274997849509,
+      "nodeCpuPeakIntervalPercentOneCore": 9.300721736006754,
+      "nodePeakRssMiB": 123.43359375,
+      "nodeSampleSpanSeconds": 58.256467199999996,
+      "serverCpuLifecycleMeanPercentOneCore": 31.074911672190346,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 431.96579715950236,
+      "serverLifecyclePeakWorkingSetMiB": 360.82421875,
+      "serverLifecyclePeakOsThreads": 134,
+      "serverSampleSpanSeconds": 72.8079302,
+      "nodeWholeRunEventLoopP95Ms": 35.061759,
+      "validationP95Ms": 0.04899999999906868,
+      "stompConnectP95Ms": 55.12130000000002,
+      "paceCeilingPercent": 95.06666666666666,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 5,
+      "mode": "direct",
+      "repeat": 1,
+      "cohortRequests": 1425,
+      "labelledRequests": 1425,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 1425,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 3.3194000000003143,
+      "p95Ms": 6.708800000000338,
+      "p99Ms": 8.547500000000582,
+      "meanMs": 3.957312000000075,
+      "maxMs": 27.40269999999873,
+      "throughputPerSecond": 23.75,
+      "sentRatePerSecond": 23.75,
+      "nodeCpuMeanPercentOneCore": 2.837153889133802,
+      "nodeCpuPeakIntervalPercentOneCore": 6.295115619790601,
+      "nodePeakRssMiB": 109.62890625,
+      "nodeSampleSpanSeconds": 58.3683531,
+      "serverCpuLifecycleMeanPercentOneCore": 30.316660971894617,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 417.12830949288303,
+      "serverLifecyclePeakWorkingSetMiB": 355.640625,
+      "serverLifecyclePeakOsThreads": 130,
+      "serverSampleSpanSeconds": 73.7012233,
+      "nodeWholeRunEventLoopP95Ms": 35.192831,
+      "validationP95Ms": 0.04869999999937136,
+      "stompConnectP95Ms": 70.72489999999999,
+      "paceCeilingPercent": 95.0,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 20,
+      "mode": "direct",
+      "repeat": 1,
+      "cohortRequests": 5661,
+      "labelledRequests": 5661,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 5661,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 6.521899999999732,
+      "p95Ms": 12.146800000002258,
+      "p99Ms": 33.90899999999965,
+      "meanMs": 7.089957057057137,
+      "maxMs": 52.74850000000151,
+      "throughputPerSecond": 94.35,
+      "sentRatePerSecond": 94.35,
+      "nodeCpuMeanPercentOneCore": 5.900066344341133,
+      "nodeCpuPeakIntervalPercentOneCore": 14.012007395954829,
+      "nodePeakRssMiB": 167.5859375,
+      "nodeSampleSpanSeconds": 58.27053120000001,
+      "serverCpuLifecycleMeanPercentOneCore": 48.56991269320087,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 440.5185759858557,
+      "serverLifecyclePeakWorkingSetMiB": 396.4296875,
+      "serverLifecyclePeakOsThreads": 145,
+      "serverSampleSpanSeconds": 72.8009853,
+      "nodeWholeRunEventLoopP95Ms": 35.061759,
+      "validationP95Ms": 0.03930000000400469,
+      "stompConnectP95Ms": 86.27470000000005,
+      "paceCeilingPercent": 94.35,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 20,
+      "mode": "bounded",
+      "repeat": 1,
+      "cohortRequests": 5683,
+      "labelledRequests": 5684,
+      "outOfWindowSends": 1,
+      "completedInsideWindow": 5683,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 5.5143000000025495,
+      "p95Ms": 11.908799999999246,
+      "p99Ms": 23.04320000000007,
+      "meanMs": 6.459214376209758,
+      "maxMs": 52.30479999999079,
+      "throughputPerSecond": 94.71666666666667,
+      "sentRatePerSecond": 94.71666666666667,
+      "nodeCpuMeanPercentOneCore": 6.112843869878296,
+      "nodeCpuPeakIntervalPercentOneCore": 17.19665353122278,
+      "nodePeakRssMiB": 170.65234375,
+      "nodeSampleSpanSeconds": 58.2871095,
+      "serverCpuLifecycleMeanPercentOneCore": 46.44656783949744,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 501.459459955873,
+      "serverLifecyclePeakWorkingSetMiB": 396.640625,
+      "serverLifecyclePeakOsThreads": 149,
+      "serverSampleSpanSeconds": 72.7650644,
+      "nodeWholeRunEventLoopP95Ms": 35.061759,
+      "validationP95Ms": 0.0407000000050175,
+      "stompConnectP95Ms": 105.40880000000004,
+      "paceCeilingPercent": 94.71666666666665,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": false
+    },
+    {
+      "clients": 20,
+      "mode": "bounded",
+      "repeat": 2,
+      "cohortRequests": 5692,
+      "labelledRequests": 5692,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 5692,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 4.661900000000969,
+      "p95Ms": 10.753399999999601,
+      "p99Ms": 41.92450000000099,
+      "meanMs": 5.788645730850381,
+      "maxMs": 60.75220000000263,
+      "throughputPerSecond": 94.86666666666666,
+      "sentRatePerSecond": 94.86666666666666,
+      "nodeCpuMeanPercentOneCore": 7.158844448266614,
+      "nodeCpuPeakIntervalPercentOneCore": 21.807560681288084,
+      "nodePeakRssMiB": 168.87890625,
+      "nodeSampleSpanSeconds": 58.2635931,
+      "serverCpuLifecycleMeanPercentOneCore": 51.76854658067306,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 561.1781795817666,
+      "serverLifecyclePeakWorkingSetMiB": 397.640625,
+      "serverLifecyclePeakOsThreads": 147,
+      "serverSampleSpanSeconds": 73.70546890000001,
+      "nodeWholeRunEventLoopP95Ms": 35.028991,
+      "validationP95Ms": 0.043099999995320104,
+      "stompConnectP95Ms": 87.757,
+      "paceCeilingPercent": 94.86666666666666,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 20,
+      "mode": "direct",
+      "repeat": 2,
+      "cohortRequests": 5680,
+      "labelledRequests": 5680,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 5680,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 5.362349999999424,
+      "p95Ms": 11.204900000004272,
+      "p99Ms": 20.743999999998778,
+      "meanMs": 6.134775017605647,
+      "maxMs": 45.7986000000019,
+      "throughputPerSecond": 94.66666666666667,
+      "sentRatePerSecond": 94.66666666666667,
+      "nodeCpuMeanPercentOneCore": 6.735641073878815,
+      "nodeCpuPeakIntervalPercentOneCore": 12.539855093017339,
+      "nodePeakRssMiB": 168.49609375,
+      "nodeSampleSpanSeconds": 58.22756820000001,
+      "serverCpuLifecycleMeanPercentOneCore": 49.20824878373865,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 543.0917931706421,
+      "serverLifecyclePeakWorkingSetMiB": 397.3359375,
+      "serverLifecyclePeakOsThreads": 145,
+      "serverSampleSpanSeconds": 73.6982638,
+      "nodeWholeRunEventLoopP95Ms": 35.028991,
+      "validationP95Ms": 0.0437000000019907,
+      "stompConnectP95Ms": 86.19079999999997,
+      "paceCeilingPercent": 94.66666666666669,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 5,
+      "mode": "direct",
+      "repeat": 2,
+      "cohortRequests": 1425,
+      "labelledRequests": 1425,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 1425,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 3.0080999999991036,
+      "p95Ms": 6.116799999996147,
+      "p99Ms": 14.556200000006356,
+      "meanMs": 3.76724350877192,
+      "maxMs": 54.82879999999568,
+      "throughputPerSecond": 23.75,
+      "sentRatePerSecond": 23.75,
+      "nodeCpuMeanPercentOneCore": 3.0278269382933756,
+      "nodeCpuPeakIntervalPercentOneCore": 10.902114276754705,
+      "nodePeakRssMiB": 109.40234375,
+      "nodeSampleSpanSeconds": 58.325658499999996,
+      "serverCpuLifecycleMeanPercentOneCore": 33.25835622639888,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 485.4454427593903,
+      "serverLifecyclePeakWorkingSetMiB": 359.15625,
+      "serverLifecyclePeakOsThreads": 133,
+      "serverSampleSpanSeconds": 73.71267789999999,
+      "nodeWholeRunEventLoopP95Ms": 35.028991,
+      "validationP95Ms": 0.05679999999847496,
+      "stompConnectP95Ms": 64.74180000000001,
+      "paceCeilingPercent": 95.0,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 5,
+      "mode": "bounded",
+      "repeat": 2,
+      "cohortRequests": 1430,
+      "labelledRequests": 1430,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 1430,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 3.2961000000022977,
+      "p95Ms": 6.443600000000515,
+      "p99Ms": 7.486400000001595,
+      "meanMs": 3.869340769230724,
+      "maxMs": 41.676199999994424,
+      "throughputPerSecond": 23.833333333333332,
+      "sentRatePerSecond": 23.833333333333332,
+      "nodeCpuMeanPercentOneCore": 3.083308324562891,
+      "nodeCpuPeakIntervalPercentOneCore": 9.435584210155687,
+      "nodePeakRssMiB": 121.66796875,
+      "nodeSampleSpanSeconds": 58.281553800000005,
+      "serverCpuLifecycleMeanPercentOneCore": 33.82602674697555,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 440.74784604665314,
+      "serverLifecyclePeakWorkingSetMiB": 369.0859375,
+      "serverLifecyclePeakOsThreads": 134,
+      "serverSampleSpanSeconds": 73.72281760000001,
+      "nodeWholeRunEventLoopP95Ms": 35.028991,
+      "validationP95Ms": 0.04959999999846332,
+      "stompConnectP95Ms": 74.02589999999998,
+      "paceCeilingPercent": 95.33333333333331,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 2,
+      "mode": "bounded",
+      "repeat": 2,
+      "cohortRequests": 571,
+      "labelledRequests": 571,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 571,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 3.018899999999121,
+      "p95Ms": 6.233800000001793,
+      "p99Ms": 8.114999999999782,
+      "meanMs": 3.633645534150573,
+      "maxMs": 19.36410000000069,
+      "throughputPerSecond": 9.516666666666667,
+      "sentRatePerSecond": 9.516666666666667,
+      "nodeCpuMeanPercentOneCore": 1.8236021570520142,
+      "nodeCpuPeakIntervalPercentOneCore": 7.79531189942369,
+      "nodePeakRssMiB": 100.49609375,
+      "nodeSampleSpanSeconds": 58.291223,
+      "serverCpuLifecycleMeanPercentOneCore": 25.39488155651927,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 418.8782204712784,
+      "serverLifecyclePeakWorkingSetMiB": 355.46875,
+      "serverLifecyclePeakOsThreads": 134,
+      "serverSampleSpanSeconds": 72.72626950000002,
+      "nodeWholeRunEventLoopP95Ms": 35.028991,
+      "validationP95Ms": 0.0635000000038417,
+      "stompConnectP95Ms": 53.79060000000004,
+      "paceCeilingPercent": 95.16666666666667,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 2,
+      "mode": "direct",
+      "repeat": 2,
+      "cohortRequests": 570,
+      "labelledRequests": 570,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 570,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 2.9627999999993335,
+      "p95Ms": 6.0625,
+      "p99Ms": 16.664600000000064,
+      "meanMs": 3.744128947368492,
+      "maxMs": 50.140299999999115,
+      "throughputPerSecond": 9.5,
+      "sentRatePerSecond": 9.5,
+      "nodeCpuMeanPercentOneCore": 1.2848322526613258,
+      "nodeCpuPeakIntervalPercentOneCore": 4.700025850142173,
+      "nodePeakRssMiB": 104.48046875,
+      "nodeSampleSpanSeconds": 58.2955478,
+      "serverCpuLifecycleMeanPercentOneCore": 31.12109304298025,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 604.3876535219027,
+      "serverLifecyclePeakWorkingSetMiB": 402.265625,
+      "serverLifecyclePeakOsThreads": 131,
+      "serverSampleSpanSeconds": 73.75423789999999,
+      "nodeWholeRunEventLoopP95Ms": 35.061759,
+      "validationP95Ms": 0.058700000001408625,
+      "stompConnectP95Ms": 63.16179999999997,
+      "paceCeilingPercent": 95.0,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 5,
+      "mode": "bounded",
+      "repeat": 3,
+      "cohortRequests": 1429,
+      "labelledRequests": 1429,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 1429,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 2.8817999999992026,
+      "p95Ms": 6.21730000000025,
+      "p99Ms": 17.592599999999948,
+      "meanMs": 3.6712018194542106,
+      "maxMs": 46.1307000000088,
+      "throughputPerSecond": 23.816666666666666,
+      "sentRatePerSecond": 23.816666666666666,
+      "nodeCpuMeanPercentOneCore": 3.510826322438704,
+      "nodeCpuPeakIntervalPercentOneCore": 10.90497484952636,
+      "nodePeakRssMiB": 108.05859375,
+      "nodeSampleSpanSeconds": 58.3053621,
+      "serverCpuLifecycleMeanPercentOneCore": 30.39080522679993,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 399.8204970688216,
+      "serverLifecyclePeakWorkingSetMiB": 349.296875,
+      "serverLifecyclePeakOsThreads": 135,
+      "serverSampleSpanSeconds": 73.7270692,
+      "nodeWholeRunEventLoopP95Ms": 35.094527,
+      "validationP95Ms": 0.054799999998067506,
+      "stompConnectP95Ms": 69.10989999999998,
+      "paceCeilingPercent": 95.26666666666667,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 5,
+      "mode": "direct",
+      "repeat": 3,
+      "cohortRequests": 1428,
+      "labelledRequests": 1428,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 1428,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 3.1097499999996217,
+      "p95Ms": 5.766600000000835,
+      "p99Ms": 16.953300000001036,
+      "meanMs": 3.6570605742296394,
+      "maxMs": 46.22070000000531,
+      "throughputPerSecond": 23.8,
+      "sentRatePerSecond": 23.8,
+      "nodeCpuMeanPercentOneCore": 2.8958089749279177,
+      "nodeCpuPeakIntervalPercentOneCore": 10.763580231430787,
+      "nodePeakRssMiB": 109.56640625,
+      "nodeSampleSpanSeconds": 58.2911378,
+      "serverCpuLifecycleMeanPercentOneCore": 31.094255482874637,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 409.73853234886326,
+      "serverLifecyclePeakWorkingSetMiB": 362.3125,
+      "serverLifecyclePeakOsThreads": 130,
+      "serverSampleSpanSeconds": 73.767645,
+      "nodeWholeRunEventLoopP95Ms": 35.028991,
+      "validationP95Ms": 0.053899999998975545,
+      "stompConnectP95Ms": 77.10950000000003,
+      "paceCeilingPercent": 95.2,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 2,
+      "mode": "direct",
+      "repeat": 3,
+      "cohortRequests": 570,
+      "labelledRequests": 570,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 570,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 3.0363499999984924,
+      "p95Ms": 6.239500000003318,
+      "p99Ms": 13.931000000004133,
+      "meanMs": 3.70402157894737,
+      "maxMs": 39.13310000000274,
+      "throughputPerSecond": 9.5,
+      "sentRatePerSecond": 9.5,
+      "nodeCpuMeanPercentOneCore": 1.6619601008556286,
+      "nodeCpuPeakIntervalPercentOneCore": 9.3402105104594,
+      "nodePeakRssMiB": 100.4375,
+      "nodeSampleSpanSeconds": 58.304648799999995,
+      "serverCpuLifecycleMeanPercentOneCore": 27.971273934291855,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 430.1707446188259,
+      "serverLifecyclePeakWorkingSetMiB": 380.0390625,
+      "serverLifecyclePeakOsThreads": 129,
+      "serverSampleSpanSeconds": 73.7363627,
+      "nodeWholeRunEventLoopP95Ms": 35.028991,
+      "validationP95Ms": 0.05429999999614665,
+      "stompConnectP95Ms": 53.932000000000016,
+      "paceCeilingPercent": 95.0,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 2,
+      "mode": "bounded",
+      "repeat": 3,
+      "cohortRequests": 570,
+      "labelledRequests": 570,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 570,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 2.8989500000006956,
+      "p95Ms": 6.581699999998818,
+      "p99Ms": 7.39770000000135,
+      "meanMs": 3.6687387719297413,
+      "maxMs": 55.24059999999736,
+      "throughputPerSecond": 9.5,
+      "sentRatePerSecond": 9.5,
+      "nodeCpuMeanPercentOneCore": 2.227327115534743,
+      "nodeCpuPeakIntervalPercentOneCore": 6.300554448791492,
+      "nodePeakRssMiB": 105.41796875,
+      "nodeSampleSpanSeconds": 58.231231099999995,
+      "serverCpuLifecycleMeanPercentOneCore": 25.81816596151911,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 411.4835217519896,
+      "serverLifecyclePeakWorkingSetMiB": 352.78125,
+      "serverLifecyclePeakOsThreads": 134,
+      "serverSampleSpanSeconds": 73.71263330000001,
+      "nodeWholeRunEventLoopP95Ms": 35.094527,
+      "validationP95Ms": 0.06120000000009895,
+      "stompConnectP95Ms": 55.44509999999997,
+      "paceCeilingPercent": 95.0,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 20,
+      "mode": "bounded",
+      "repeat": 3,
+      "cohortRequests": 5682,
+      "labelledRequests": 5682,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 5682,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 5.745600000002014,
+      "p95Ms": 11.99040000000059,
+      "p99Ms": 36.41350000000239,
+      "meanMs": 6.769952340725132,
+      "maxMs": 50.402399999999034,
+      "throughputPerSecond": 94.7,
+      "sentRatePerSecond": 94.7,
+      "nodeCpuMeanPercentOneCore": 6.915908161879789,
+      "nodeCpuPeakIntervalPercentOneCore": 17.20162039264098,
+      "nodePeakRssMiB": 168.1953125,
+      "nodeSampleSpanSeconds": 58.28590990000001,
+      "serverCpuLifecycleMeanPercentOneCore": 44.00200524073073,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 415.0664512715455,
+      "serverLifecyclePeakWorkingSetMiB": 392.59375,
+      "serverLifecyclePeakOsThreads": 149,
+      "serverSampleSpanSeconds": 73.7182313,
+      "nodeWholeRunEventLoopP95Ms": 35.028991,
+      "validationP95Ms": 0.039700000001175795,
+      "stompConnectP95Ms": 89.5978,
+      "paceCeilingPercent": 94.7,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    },
+    {
+      "clients": 20,
+      "mode": "direct",
+      "repeat": 3,
+      "cohortRequests": 5644,
+      "labelledRequests": 5644,
+      "outOfWindowSends": 0,
+      "completedInsideWindow": 5644,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "successRate": 1.0,
+      "medianMs": 6.465100000001257,
+      "p95Ms": 12.296399999999267,
+      "p99Ms": 22.90100000000166,
+      "meanMs": 7.112907937632876,
+      "maxMs": 47.24680000000808,
+      "throughputPerSecond": 94.06666666666666,
+      "sentRatePerSecond": 94.06666666666666,
+      "nodeCpuMeanPercentOneCore": 6.001241406509508,
+      "nodeCpuPeakIntervalPercentOneCore": 15.575537061491236,
+      "nodePeakRssMiB": 167.80859375,
+      "nodeSampleSpanSeconds": 58.3212666,
+      "serverCpuLifecycleMeanPercentOneCore": 47.80611220285623,
+      "serverCpuLifecyclePeakIntervalPercentOneCore": 441.5665072085687,
+      "serverLifecyclePeakWorkingSetMiB": 390.47265625,
+      "serverLifecyclePeakOsThreads": 145,
+      "serverSampleSpanSeconds": 73.6699731,
+      "nodeWholeRunEventLoopP95Ms": 35.127295,
+      "validationP95Ms": 0.03940000000875443,
+      "stompConnectP95Ms": 100.51310000000001,
+      "paceCeilingPercent": 94.06666666666666,
+      "distinctInputCases": 192,
+      "databaseUnchanged": true,
+      "strictSendWindowSatisfied": true
+    }
+  ],
+  "groups": [
+    {
+      "clients": 2,
+      "mode": "direct",
+      "runs": 3,
+      "cohortRequests": 1710,
+      "errors": 0,
+      "metrics": {
+        "medianMs": {
+          "values": [
+            2.953749999998763,
+            2.9627999999993335,
+            3.0363499999984924
+          ],
+          "median": 2.9627999999993335,
+          "min": 2.953749999998763,
+          "max": 3.0363499999984924
+        },
+        "p95Ms": {
+          "values": [
+            6.218000000000757,
+            6.0625,
+            6.239500000003318
+          ],
+          "median": 6.218000000000757,
+          "min": 6.0625,
+          "max": 6.239500000003318
+        },
+        "p99Ms": {
+          "values": [
+            18.450400000001537,
+            16.664600000000064,
+            13.931000000004133
+          ],
+          "median": 16.664600000000064,
+          "min": 13.931000000004133,
+          "max": 18.450400000001537
+        },
+        "meanMs": {
+          "values": [
+            3.7490407017545166,
+            3.744128947368492,
+            3.70402157894737
+          ],
+          "median": 3.744128947368492,
+          "min": 3.70402157894737,
+          "max": 3.7490407017545166
+        },
+        "maxMs": {
+          "values": [
+            34.29660000000149,
+            50.140299999999115,
+            39.13310000000274
+          ],
+          "median": 39.13310000000274,
+          "min": 34.29660000000149,
+          "max": 50.140299999999115
+        },
+        "throughputPerSecond": {
+          "values": [
+            9.5,
+            9.5,
+            9.5
+          ],
+          "median": 9.5,
+          "min": 9.5,
+          "max": 9.5
+        },
+        "sentRatePerSecond": {
+          "values": [
+            9.5,
+            9.5,
+            9.5
+          ],
+          "median": 9.5,
+          "min": 9.5,
+          "max": 9.5
+        },
+        "nodeCpuMeanPercentOneCore": {
+          "values": [
+            1.7117635045636412,
+            1.2848322526613258,
+            1.6619601008556286
+          ],
+          "median": 1.6619601008556286,
+          "min": 1.2848322526613258,
+          "max": 1.7117635045636412
+        },
+        "nodeCpuPeakIntervalPercentOneCore": {
+          "values": [
+            6.201601873763979,
+            4.700025850142173,
+            9.3402105104594
+          ],
+          "median": 6.201601873763979,
+          "min": 4.700025850142173,
+          "max": 9.3402105104594
+        },
+        "nodePeakRssMiB": {
+          "values": [
+            99.48828125,
+            104.48046875,
+            100.4375
+          ],
+          "median": 100.4375,
+          "min": 99.48828125,
+          "max": 104.48046875
+        },
+        "nodeSampleSpanSeconds": {
+          "values": [
+            58.3608657,
+            58.2955478,
+            58.304648799999995
+          ],
+          "median": 58.304648799999995,
+          "min": 58.2955478,
+          "max": 58.3608657
+        },
+        "serverCpuLifecycleMeanPercentOneCore": {
+          "values": [
+            26.83833188225473,
+            31.12109304298025,
+            27.971273934291855
+          ],
+          "median": 27.971273934291855,
+          "min": 26.83833188225473,
+          "max": 31.12109304298025
+        },
+        "serverCpuLifecyclePeakIntervalPercentOneCore": {
+          "values": [
+            422.4610199057487,
+            604.3876535219027,
+            430.1707446188259
+          ],
+          "median": 430.1707446188259,
+          "min": 422.4610199057487,
+          "max": 604.3876535219027
+        },
+        "serverLifecyclePeakWorkingSetMiB": {
+          "values": [
+            355.43359375,
+            402.265625,
+            380.0390625
+          ],
+          "median": 380.0390625,
+          "min": 355.43359375,
+          "max": 402.265625
+        },
+        "serverLifecyclePeakOsThreads": {
+          "values": [
+            129,
+            131,
+            129
+          ],
+          "median": 129,
+          "min": 129,
+          "max": 131
+        },
+        "serverSampleSpanSeconds": {
+          "values": [
+            73.8798711,
+            73.75423789999999,
+            73.7363627
+          ],
+          "median": 73.75423789999999,
+          "min": 73.7363627,
+          "max": 73.8798711
+        },
+        "nodeWholeRunEventLoopP95Ms": {
+          "values": [
+            35.127295,
+            35.061759,
+            35.028991
+          ],
+          "median": 35.061759,
+          "min": 35.028991,
+          "max": 35.127295
+        },
+        "validationP95Ms": {
+          "values": [
+            0.058700000001408625,
+            0.058700000001408625,
+            0.05429999999614665
+          ],
+          "median": 0.058700000001408625,
+          "min": 0.05429999999614665,
+          "max": 0.058700000001408625
+        },
+        "stompConnectP95Ms": {
+          "values": [
+            71.53099999999995,
+            63.16179999999997,
+            53.932000000000016
+          ],
+          "median": 63.16179999999997,
+          "min": 53.932000000000016,
+          "max": 71.53099999999995
+        },
+        "paceCeilingPercent": {
+          "values": [
+            95.0,
+            95.0,
+            95.0
+          ],
+          "median": 95.0,
+          "min": 95.0,
+          "max": 95.0
+        }
+      }
+    },
+    {
+      "clients": 2,
+      "mode": "bounded",
+      "runs": 3,
+      "cohortRequests": 1712,
+      "errors": 0,
+      "metrics": {
+        "medianMs": {
+          "values": [
+            2.973200000000361,
+            3.018899999999121,
+            2.8989500000006956
+          ],
+          "median": 2.973200000000361,
+          "min": 2.8989500000006956,
+          "max": 3.018899999999121
+        },
+        "p95Ms": {
+          "values": [
+            5.5689000000002125,
+            6.233800000001793,
+            6.581699999998818
+          ],
+          "median": 6.233800000001793,
+          "min": 5.5689000000002125,
+          "max": 6.581699999998818
+        },
+        "p99Ms": {
+          "values": [
+            7.675600000000486,
+            8.114999999999782,
+            7.39770000000135
+          ],
+          "median": 7.675600000000486,
+          "min": 7.39770000000135,
+          "max": 8.114999999999782
+        },
+        "meanMs": {
+          "values": [
+            3.4454211908931653,
+            3.633645534150573,
+            3.6687387719297413
+          ],
+          "median": 3.633645534150573,
+          "min": 3.4454211908931653,
+          "max": 3.6687387719297413
+        },
+        "maxMs": {
+          "values": [
+            47.18509999999878,
+            19.36410000000069,
+            55.24059999999736
+          ],
+          "median": 47.18509999999878,
+          "min": 19.36410000000069,
+          "max": 55.24059999999736
+        },
+        "throughputPerSecond": {
+          "values": [
+            9.516666666666667,
+            9.516666666666667,
+            9.5
+          ],
+          "median": 9.516666666666667,
+          "min": 9.5,
+          "max": 9.516666666666667
+        },
+        "sentRatePerSecond": {
+          "values": [
+            9.516666666666667,
+            9.516666666666667,
+            9.5
+          ],
+          "median": 9.516666666666667,
+          "min": 9.5,
+          "max": 9.516666666666667
+        },
+        "nodeCpuMeanPercentOneCore": {
+          "values": [
+            1.8230195333762125,
+            1.8236021570520142,
+            2.227327115534743
+          ],
+          "median": 1.8236021570520142,
+          "min": 1.8230195333762125,
+          "max": 2.227327115534743
+        },
+        "nodeCpuPeakIntervalPercentOneCore": {
+          "values": [
+            7.897684398934232,
+            7.79531189942369,
+            6.300554448791492
+          ],
+          "median": 7.79531189942369,
+          "min": 6.300554448791492,
+          "max": 7.897684398934232
+        },
+        "nodePeakRssMiB": {
+          "values": [
+            98.2265625,
+            100.49609375,
+            105.41796875
+          ],
+          "median": 100.49609375,
+          "min": 98.2265625,
+          "max": 105.41796875
+        },
+        "nodeSampleSpanSeconds": {
+          "values": [
+            58.2549984,
+            58.291223,
+            58.231231099999995
+          ],
+          "median": 58.2549984,
+          "min": 58.231231099999995,
+          "max": 58.291223
+        },
+        "serverCpuLifecycleMeanPercentOneCore": {
+          "values": [
+            24.43844882636515,
+            25.39488155651927,
+            25.81816596151911
+          ],
+          "median": 25.39488155651927,
+          "min": 24.43844882636515,
+          "max": 25.81816596151911
+        },
+        "serverCpuLifecyclePeakIntervalPercentOneCore": {
+          "values": [
+            392.9388383528144,
+            418.8782204712784,
+            411.4835217519896
+          ],
+          "median": 411.4835217519896,
+          "min": 392.9388383528144,
+          "max": 418.8782204712784
+        },
+        "serverLifecyclePeakWorkingSetMiB": {
+          "values": [
+            363.44921875,
+            355.46875,
+            352.78125
+          ],
+          "median": 355.46875,
+          "min": 352.78125,
+          "max": 363.44921875
+        },
+        "serverLifecyclePeakOsThreads": {
+          "values": [
+            133,
+            134,
+            134
+          ],
+          "median": 134,
+          "min": 133,
+          "max": 134
+        },
+        "serverSampleSpanSeconds": {
+          "values": [
+            72.6953872,
+            72.72626950000002,
+            73.71263330000001
+          ],
+          "median": 72.72626950000002,
+          "min": 72.6953872,
+          "max": 73.71263330000001
+        },
+        "nodeWholeRunEventLoopP95Ms": {
+          "values": [
+            34.996223,
+            35.028991,
+            35.094527
+          ],
+          "median": 35.028991,
+          "min": 34.996223,
+          "max": 35.094527
+        },
+        "validationP95Ms": {
+          "values": [
+            0.05979999999544816,
+            0.0635000000038417,
+            0.06120000000009895
+          ],
+          "median": 0.06120000000009895,
+          "min": 0.05979999999544816,
+          "max": 0.0635000000038417
+        },
+        "stompConnectP95Ms": {
+          "values": [
+            53.117399999999975,
+            53.79060000000004,
+            55.44509999999997
+          ],
+          "median": 53.79060000000004,
+          "min": 53.117399999999975,
+          "max": 55.44509999999997
+        },
+        "paceCeilingPercent": {
+          "values": [
+            95.16666666666667,
+            95.16666666666667,
+            95.0
+          ],
+          "median": 95.16666666666667,
+          "min": 95.0,
+          "max": 95.16666666666667
+        }
+      }
+    },
+    {
+      "clients": 5,
+      "mode": "direct",
+      "runs": 3,
+      "cohortRequests": 4278,
+      "errors": 0,
+      "metrics": {
+        "medianMs": {
+          "values": [
+            3.3194000000003143,
+            3.0080999999991036,
+            3.1097499999996217
+          ],
+          "median": 3.1097499999996217,
+          "min": 3.0080999999991036,
+          "max": 3.3194000000003143
+        },
+        "p95Ms": {
+          "values": [
+            6.708800000000338,
+            6.116799999996147,
+            5.766600000000835
+          ],
+          "median": 6.116799999996147,
+          "min": 5.766600000000835,
+          "max": 6.708800000000338
+        },
+        "p99Ms": {
+          "values": [
+            8.547500000000582,
+            14.556200000006356,
+            16.953300000001036
+          ],
+          "median": 14.556200000006356,
+          "min": 8.547500000000582,
+          "max": 16.953300000001036
+        },
+        "meanMs": {
+          "values": [
+            3.957312000000075,
+            3.76724350877192,
+            3.6570605742296394
+          ],
+          "median": 3.76724350877192,
+          "min": 3.6570605742296394,
+          "max": 3.957312000000075
+        },
+        "maxMs": {
+          "values": [
+            27.40269999999873,
+            54.82879999999568,
+            46.22070000000531
+          ],
+          "median": 46.22070000000531,
+          "min": 27.40269999999873,
+          "max": 54.82879999999568
+        },
+        "throughputPerSecond": {
+          "values": [
+            23.75,
+            23.75,
+            23.8
+          ],
+          "median": 23.75,
+          "min": 23.75,
+          "max": 23.8
+        },
+        "sentRatePerSecond": {
+          "values": [
+            23.75,
+            23.75,
+            23.8
+          ],
+          "median": 23.75,
+          "min": 23.75,
+          "max": 23.8
+        },
+        "nodeCpuMeanPercentOneCore": {
+          "values": [
+            2.837153889133802,
+            3.0278269382933756,
+            2.8958089749279177
+          ],
+          "median": 2.8958089749279177,
+          "min": 2.837153889133802,
+          "max": 3.0278269382933756
+        },
+        "nodeCpuPeakIntervalPercentOneCore": {
+          "values": [
+            6.295115619790601,
+            10.902114276754705,
+            10.763580231430787
+          ],
+          "median": 10.763580231430787,
+          "min": 6.295115619790601,
+          "max": 10.902114276754705
+        },
+        "nodePeakRssMiB": {
+          "values": [
+            109.62890625,
+            109.40234375,
+            109.56640625
+          ],
+          "median": 109.56640625,
+          "min": 109.40234375,
+          "max": 109.62890625
+        },
+        "nodeSampleSpanSeconds": {
+          "values": [
+            58.3683531,
+            58.325658499999996,
+            58.2911378
+          ],
+          "median": 58.325658499999996,
+          "min": 58.2911378,
+          "max": 58.3683531
+        },
+        "serverCpuLifecycleMeanPercentOneCore": {
+          "values": [
+            30.316660971894617,
+            33.25835622639888,
+            31.094255482874637
+          ],
+          "median": 31.094255482874637,
+          "min": 30.316660971894617,
+          "max": 33.25835622639888
+        },
+        "serverCpuLifecyclePeakIntervalPercentOneCore": {
+          "values": [
+            417.12830949288303,
+            485.4454427593903,
+            409.73853234886326
+          ],
+          "median": 417.12830949288303,
+          "min": 409.73853234886326,
+          "max": 485.4454427593903
+        },
+        "serverLifecyclePeakWorkingSetMiB": {
+          "values": [
+            355.640625,
+            359.15625,
+            362.3125
+          ],
+          "median": 359.15625,
+          "min": 355.640625,
+          "max": 362.3125
+        },
+        "serverLifecyclePeakOsThreads": {
+          "values": [
+            130,
+            133,
+            130
+          ],
+          "median": 130,
+          "min": 130,
+          "max": 133
+        },
+        "serverSampleSpanSeconds": {
+          "values": [
+            73.7012233,
+            73.71267789999999,
+            73.767645
+          ],
+          "median": 73.71267789999999,
+          "min": 73.7012233,
+          "max": 73.767645
+        },
+        "nodeWholeRunEventLoopP95Ms": {
+          "values": [
+            35.192831,
+            35.028991,
+            35.028991
+          ],
+          "median": 35.028991,
+          "min": 35.028991,
+          "max": 35.192831
+        },
+        "validationP95Ms": {
+          "values": [
+            0.04869999999937136,
+            0.05679999999847496,
+            0.053899999998975545
+          ],
+          "median": 0.053899999998975545,
+          "min": 0.04869999999937136,
+          "max": 0.05679999999847496
+        },
+        "stompConnectP95Ms": {
+          "values": [
+            70.72489999999999,
+            64.74180000000001,
+            77.10950000000003
+          ],
+          "median": 70.72489999999999,
+          "min": 64.74180000000001,
+          "max": 77.10950000000003
+        },
+        "paceCeilingPercent": {
+          "values": [
+            95.0,
+            95.0,
+            95.2
+          ],
+          "median": 95.0,
+          "min": 95.0,
+          "max": 95.2
+        }
+      }
+    },
+    {
+      "clients": 5,
+      "mode": "bounded",
+      "runs": 3,
+      "cohortRequests": 4285,
+      "errors": 0,
+      "metrics": {
+        "medianMs": {
+          "values": [
+            3.0472000000008848,
+            3.2961000000022977,
+            2.8817999999992026
+          ],
+          "median": 3.0472000000008848,
+          "min": 2.8817999999992026,
+          "max": 3.2961000000022977
+        },
+        "p95Ms": {
+          "values": [
+            6.099299999998038,
+            6.443600000000515,
+            6.21730000000025
+          ],
+          "median": 6.21730000000025,
+          "min": 6.099299999998038,
+          "max": 6.443600000000515
+        },
+        "p99Ms": {
+          "values": [
+            16.211999999999534,
+            7.486400000001595,
+            17.592599999999948
+          ],
+          "median": 16.211999999999534,
+          "min": 7.486400000001595,
+          "max": 17.592599999999948
+        },
+        "meanMs": {
+          "values": [
+            3.6639124123422255,
+            3.869340769230724,
+            3.6712018194542106
+          ],
+          "median": 3.6712018194542106,
+          "min": 3.6639124123422255,
+          "max": 3.869340769230724
+        },
+        "maxMs": {
+          "values": [
+            39.17079999999987,
+            41.676199999994424,
+            46.1307000000088
+          ],
+          "median": 41.676199999994424,
+          "min": 39.17079999999987,
+          "max": 46.1307000000088
+        },
+        "throughputPerSecond": {
+          "values": [
+            23.766666666666666,
+            23.833333333333332,
+            23.816666666666666
+          ],
+          "median": 23.816666666666666,
+          "min": 23.766666666666666,
+          "max": 23.833333333333332
+        },
+        "sentRatePerSecond": {
+          "values": [
+            23.766666666666666,
+            23.833333333333332,
+            23.816666666666666
+          ],
+          "median": 23.816666666666666,
+          "min": 23.766666666666666,
+          "max": 23.833333333333332
+        },
+        "nodeCpuMeanPercentOneCore": {
+          "values": [
+            3.244274997849509,
+            3.083308324562891,
+            3.510826322438704
+          ],
+          "median": 3.244274997849509,
+          "min": 3.083308324562891,
+          "max": 3.510826322438704
+        },
+        "nodeCpuPeakIntervalPercentOneCore": {
+          "values": [
+            9.300721736006754,
+            9.435584210155687,
+            10.90497484952636
+          ],
+          "median": 9.435584210155687,
+          "min": 9.300721736006754,
+          "max": 10.90497484952636
+        },
+        "nodePeakRssMiB": {
+          "values": [
+            123.43359375,
+            121.66796875,
+            108.05859375
+          ],
+          "median": 121.66796875,
+          "min": 108.05859375,
+          "max": 123.43359375
+        },
+        "nodeSampleSpanSeconds": {
+          "values": [
+            58.256467199999996,
+            58.281553800000005,
+            58.3053621
+          ],
+          "median": 58.281553800000005,
+          "min": 58.256467199999996,
+          "max": 58.3053621
+        },
+        "serverCpuLifecycleMeanPercentOneCore": {
+          "values": [
+            31.074911672190346,
+            33.82602674697555,
+            30.39080522679993
+          ],
+          "median": 31.074911672190346,
+          "min": 30.39080522679993,
+          "max": 33.82602674697555
+        },
+        "serverCpuLifecyclePeakIntervalPercentOneCore": {
+          "values": [
+            431.96579715950236,
+            440.74784604665314,
+            399.8204970688216
+          ],
+          "median": 431.96579715950236,
+          "min": 399.8204970688216,
+          "max": 440.74784604665314
+        },
+        "serverLifecyclePeakWorkingSetMiB": {
+          "values": [
+            360.82421875,
+            369.0859375,
+            349.296875
+          ],
+          "median": 360.82421875,
+          "min": 349.296875,
+          "max": 369.0859375
+        },
+        "serverLifecyclePeakOsThreads": {
+          "values": [
+            134,
+            134,
+            135
+          ],
+          "median": 134,
+          "min": 134,
+          "max": 135
+        },
+        "serverSampleSpanSeconds": {
+          "values": [
+            72.8079302,
+            73.72281760000001,
+            73.7270692
+          ],
+          "median": 73.72281760000001,
+          "min": 72.8079302,
+          "max": 73.7270692
+        },
+        "nodeWholeRunEventLoopP95Ms": {
+          "values": [
+            35.061759,
+            35.028991,
+            35.094527
+          ],
+          "median": 35.061759,
+          "min": 35.028991,
+          "max": 35.094527
+        },
+        "validationP95Ms": {
+          "values": [
+            0.04899999999906868,
+            0.04959999999846332,
+            0.054799999998067506
+          ],
+          "median": 0.04959999999846332,
+          "min": 0.04899999999906868,
+          "max": 0.054799999998067506
+        },
+        "stompConnectP95Ms": {
+          "values": [
+            55.12130000000002,
+            74.02589999999998,
+            69.10989999999998
+          ],
+          "median": 69.10989999999998,
+          "min": 55.12130000000002,
+          "max": 74.02589999999998
+        },
+        "paceCeilingPercent": {
+          "values": [
+            95.06666666666666,
+            95.33333333333331,
+            95.26666666666667
+          ],
+          "median": 95.26666666666667,
+          "min": 95.06666666666666,
+          "max": 95.33333333333331
+        }
+      }
+    },
+    {
+      "clients": 20,
+      "mode": "direct",
+      "runs": 3,
+      "cohortRequests": 16985,
+      "errors": 0,
+      "metrics": {
+        "medianMs": {
+          "values": [
+            6.521899999999732,
+            5.362349999999424,
+            6.465100000001257
+          ],
+          "median": 6.465100000001257,
+          "min": 5.362349999999424,
+          "max": 6.521899999999732
+        },
+        "p95Ms": {
+          "values": [
+            12.146800000002258,
+            11.204900000004272,
+            12.296399999999267
+          ],
+          "median": 12.146800000002258,
+          "min": 11.204900000004272,
+          "max": 12.296399999999267
+        },
+        "p99Ms": {
+          "values": [
+            33.90899999999965,
+            20.743999999998778,
+            22.90100000000166
+          ],
+          "median": 22.90100000000166,
+          "min": 20.743999999998778,
+          "max": 33.90899999999965
+        },
+        "meanMs": {
+          "values": [
+            7.089957057057137,
+            6.134775017605647,
+            7.112907937632876
+          ],
+          "median": 7.089957057057137,
+          "min": 6.134775017605647,
+          "max": 7.112907937632876
+        },
+        "maxMs": {
+          "values": [
+            52.74850000000151,
+            45.7986000000019,
+            47.24680000000808
+          ],
+          "median": 47.24680000000808,
+          "min": 45.7986000000019,
+          "max": 52.74850000000151
+        },
+        "throughputPerSecond": {
+          "values": [
+            94.35,
+            94.66666666666667,
+            94.06666666666666
+          ],
+          "median": 94.35,
+          "min": 94.06666666666666,
+          "max": 94.66666666666667
+        },
+        "sentRatePerSecond": {
+          "values": [
+            94.35,
+            94.66666666666667,
+            94.06666666666666
+          ],
+          "median": 94.35,
+          "min": 94.06666666666666,
+          "max": 94.66666666666667
+        },
+        "nodeCpuMeanPercentOneCore": {
+          "values": [
+            5.900066344341133,
+            6.735641073878815,
+            6.001241406509508
+          ],
+          "median": 6.001241406509508,
+          "min": 5.900066344341133,
+          "max": 6.735641073878815
+        },
+        "nodeCpuPeakIntervalPercentOneCore": {
+          "values": [
+            14.012007395954829,
+            12.539855093017339,
+            15.575537061491236
+          ],
+          "median": 14.012007395954829,
+          "min": 12.539855093017339,
+          "max": 15.575537061491236
+        },
+        "nodePeakRssMiB": {
+          "values": [
+            167.5859375,
+            168.49609375,
+            167.80859375
+          ],
+          "median": 167.80859375,
+          "min": 167.5859375,
+          "max": 168.49609375
+        },
+        "nodeSampleSpanSeconds": {
+          "values": [
+            58.27053120000001,
+            58.22756820000001,
+            58.3212666
+          ],
+          "median": 58.27053120000001,
+          "min": 58.22756820000001,
+          "max": 58.3212666
+        },
+        "serverCpuLifecycleMeanPercentOneCore": {
+          "values": [
+            48.56991269320087,
+            49.20824878373865,
+            47.80611220285623
+          ],
+          "median": 48.56991269320087,
+          "min": 47.80611220285623,
+          "max": 49.20824878373865
+        },
+        "serverCpuLifecyclePeakIntervalPercentOneCore": {
+          "values": [
+            440.5185759858557,
+            543.0917931706421,
+            441.5665072085687
+          ],
+          "median": 441.5665072085687,
+          "min": 440.5185759858557,
+          "max": 543.0917931706421
+        },
+        "serverLifecyclePeakWorkingSetMiB": {
+          "values": [
+            396.4296875,
+            397.3359375,
+            390.47265625
+          ],
+          "median": 396.4296875,
+          "min": 390.47265625,
+          "max": 397.3359375
+        },
+        "serverLifecyclePeakOsThreads": {
+          "values": [
+            145,
+            145,
+            145
+          ],
+          "median": 145,
+          "min": 145,
+          "max": 145
+        },
+        "serverSampleSpanSeconds": {
+          "values": [
+            72.8009853,
+            73.6982638,
+            73.6699731
+          ],
+          "median": 73.6699731,
+          "min": 72.8009853,
+          "max": 73.6982638
+        },
+        "nodeWholeRunEventLoopP95Ms": {
+          "values": [
+            35.061759,
+            35.028991,
+            35.127295
+          ],
+          "median": 35.061759,
+          "min": 35.028991,
+          "max": 35.127295
+        },
+        "validationP95Ms": {
+          "values": [
+            0.03930000000400469,
+            0.0437000000019907,
+            0.03940000000875443
+          ],
+          "median": 0.03940000000875443,
+          "min": 0.03930000000400469,
+          "max": 0.0437000000019907
+        },
+        "stompConnectP95Ms": {
+          "values": [
+            86.27470000000005,
+            86.19079999999997,
+            100.51310000000001
+          ],
+          "median": 86.27470000000005,
+          "min": 86.19079999999997,
+          "max": 100.51310000000001
+        },
+        "paceCeilingPercent": {
+          "values": [
+            94.35,
+            94.66666666666669,
+            94.06666666666666
+          ],
+          "median": 94.35,
+          "min": 94.06666666666666,
+          "max": 94.66666666666669
+        }
+      }
+    },
+    {
+      "clients": 20,
+      "mode": "bounded",
+      "runs": 3,
+      "cohortRequests": 17057,
+      "errors": 0,
+      "metrics": {
+        "medianMs": {
+          "values": [
+            5.5143000000025495,
+            4.661900000000969,
+            5.745600000002014
+          ],
+          "median": 5.5143000000025495,
+          "min": 4.661900000000969,
+          "max": 5.745600000002014
+        },
+        "p95Ms": {
+          "values": [
+            11.908799999999246,
+            10.753399999999601,
+            11.99040000000059
+          ],
+          "median": 11.908799999999246,
+          "min": 10.753399999999601,
+          "max": 11.99040000000059
+        },
+        "p99Ms": {
+          "values": [
+            23.04320000000007,
+            41.92450000000099,
+            36.41350000000239
+          ],
+          "median": 36.41350000000239,
+          "min": 23.04320000000007,
+          "max": 41.92450000000099
+        },
+        "meanMs": {
+          "values": [
+            6.459214376209758,
+            5.788645730850381,
+            6.769952340725132
+          ],
+          "median": 6.459214376209758,
+          "min": 5.788645730850381,
+          "max": 6.769952340725132
+        },
+        "maxMs": {
+          "values": [
+            52.30479999999079,
+            60.75220000000263,
+            50.402399999999034
+          ],
+          "median": 52.30479999999079,
+          "min": 50.402399999999034,
+          "max": 60.75220000000263
+        },
+        "throughputPerSecond": {
+          "values": [
+            94.71666666666667,
+            94.86666666666666,
+            94.7
+          ],
+          "median": 94.71666666666667,
+          "min": 94.7,
+          "max": 94.86666666666666
+        },
+        "sentRatePerSecond": {
+          "values": [
+            94.71666666666667,
+            94.86666666666666,
+            94.7
+          ],
+          "median": 94.71666666666667,
+          "min": 94.7,
+          "max": 94.86666666666666
+        },
+        "nodeCpuMeanPercentOneCore": {
+          "values": [
+            6.112843869878296,
+            7.158844448266614,
+            6.915908161879789
+          ],
+          "median": 6.915908161879789,
+          "min": 6.112843869878296,
+          "max": 7.158844448266614
+        },
+        "nodeCpuPeakIntervalPercentOneCore": {
+          "values": [
+            17.19665353122278,
+            21.807560681288084,
+            17.20162039264098
+          ],
+          "median": 17.20162039264098,
+          "min": 17.19665353122278,
+          "max": 21.807560681288084
+        },
+        "nodePeakRssMiB": {
+          "values": [
+            170.65234375,
+            168.87890625,
+            168.1953125
+          ],
+          "median": 168.87890625,
+          "min": 168.1953125,
+          "max": 170.65234375
+        },
+        "nodeSampleSpanSeconds": {
+          "values": [
+            58.2871095,
+            58.2635931,
+            58.28590990000001
+          ],
+          "median": 58.28590990000001,
+          "min": 58.2635931,
+          "max": 58.2871095
+        },
+        "serverCpuLifecycleMeanPercentOneCore": {
+          "values": [
+            46.44656783949744,
+            51.76854658067306,
+            44.00200524073073
+          ],
+          "median": 46.44656783949744,
+          "min": 44.00200524073073,
+          "max": 51.76854658067306
+        },
+        "serverCpuLifecyclePeakIntervalPercentOneCore": {
+          "values": [
+            501.459459955873,
+            561.1781795817666,
+            415.0664512715455
+          ],
+          "median": 501.459459955873,
+          "min": 415.0664512715455,
+          "max": 561.1781795817666
+        },
+        "serverLifecyclePeakWorkingSetMiB": {
+          "values": [
+            396.640625,
+            397.640625,
+            392.59375
+          ],
+          "median": 396.640625,
+          "min": 392.59375,
+          "max": 397.640625
+        },
+        "serverLifecyclePeakOsThreads": {
+          "values": [
+            149,
+            147,
+            149
+          ],
+          "median": 149,
+          "min": 147,
+          "max": 149
+        },
+        "serverSampleSpanSeconds": {
+          "values": [
+            72.7650644,
+            73.70546890000001,
+            73.7182313
+          ],
+          "median": 73.70546890000001,
+          "min": 72.7650644,
+          "max": 73.7182313
+        },
+        "nodeWholeRunEventLoopP95Ms": {
+          "values": [
+            35.061759,
+            35.028991,
+            35.028991
+          ],
+          "median": 35.028991,
+          "min": 35.028991,
+          "max": 35.061759
+        },
+        "validationP95Ms": {
+          "values": [
+            0.0407000000050175,
+            0.043099999995320104,
+            0.039700000001175795
+          ],
+          "median": 0.0407000000050175,
+          "min": 0.039700000001175795,
+          "max": 0.043099999995320104
+        },
+        "stompConnectP95Ms": {
+          "values": [
+            105.40880000000004,
+            87.757,
+            89.5978
+          ],
+          "median": 89.5978,
+          "min": 87.757,
+          "max": 105.40880000000004
+        },
+        "paceCeilingPercent": {
+          "values": [
+            94.71666666666665,
+            94.86666666666666,
+            94.7
+          ],
+          "median": 94.71666666666665,
+          "min": 94.7,
+          "max": 94.86666666666666
+        }
+      }
+    }
+  ],
+  "differences": [
+    {
+      "clients": 2,
+      "medianMsChangePercent": 0.3510193060965783,
+      "p95MsChangePercent": 0.25410099712182,
+      "throughputPerSecondChangePercent": 0.17543859649122862
+    },
+    {
+      "clients": 5,
+      "medianMsChangePercent": -2.0114157086178808,
+      "p95MsChangePercent": 1.6430159561235724,
+      "throughputPerSecondChangePercent": 0.2807017543859702
+    },
+    {
+      "clients": 20,
+      "medianMsChangePercent": -14.706655736160656,
+      "p95MsChangePercent": -1.959363783078405,
+      "throughputPerSecondChangePercent": 0.38862391803569096
+    }
+  ],
+  "boundaryExclusions": [
+    {
+      "clients": 20,
+      "mode": "bounded",
+      "repeat": 1,
+      "requestId": "703d0738-086e-4469-8fa3-581fccba110b",
+      "clientId": "client-8",
+      "outsideByMs": 0.021999999997206032,
+      "latencyMs": 2.3179000000091037,
+      "status": "COMPLETED",
+      "reason": "SEND timestamp outside predefined [start,end); original row retained"
+    }
+  ],
+  "databaseCheck": {
+    "task": "X01.6",
+    "capturedAt": "2026-10-29T11:21:28.437678+07:00",
+    "databaseUnchanged": true,
+    "readOnlyCheck": true,
+    "snapshot": {
+      "database": "huyenco_benchmark_test_20261029_010531",
+      "serverVersion": "18.6",
+      "schemaVersion": 12,
+      "tables": {
+        "calculation_rules": {
+          "count": 14,
+          "sha256": "76f30bd7aeccbff43a468462557bf935692a04d2dc30b17780c8a86c67f2c1a6"
+        },
+        "external_sources": {
+          "count": 1,
+          "sha256": "ac8fdf34aa76d9c558b0fb083e6c903e3569e18138870c2dec98a2a98f3ea168"
+        },
+        "flyway_schema_history": {
+          "count": 12,
+          "sha256": "67efcd43eb9c09803c27d886a3a9c73e952e25696fc07abcda3180503f6b3316"
+        },
+        "hexagram_lines": {
+          "count": 384,
+          "sha256": "afe508ef28a5d6a71730b8d1fc1902f4318ebb8cee92d4e7d41f6df6f4f8e89d"
+        },
+        "hexagrams": {
+          "count": 64,
+          "sha256": "9284c145bb575d168891d370d4375f7fd38e2bb8cf3a0073fd485f627336f59e"
+        },
+        "interpretations": {
+          "count": 64,
+          "sha256": "35ee5d9aea8bd5cfb3bbce9da84f104a64d1cd171348b94fc52adafc7a609463"
+        },
+        "mai_hoa_reading_templates": {
+          "count": 20,
+          "sha256": "4476b9f31a940b0b5a0362d6557b9295dcad5e54121ce61efa9a6836dc4687ab"
+        },
+        "reading_source_bundles": {
+          "count": 1,
+          "sha256": "10448f9d6d30020755bf5cff338ab80ba6b6e92b7cca1006c00ad93f96d8ed26"
+        },
+        "source_books": {
+          "count": 2,
+          "sha256": "79b022347e66970e64d99fea1f7014541e14bf5229aec9c9c7bdd1d26d3dac40"
+        },
+        "source_sections": {
+          "count": 33,
+          "sha256": "1a64d82c53d74baa5401caa96dd897a9b5ee193190061106cffb7b78dc54bb37"
+        },
+        "tam_the_hour_anchors": {
+          "count": 12,
+          "sha256": "ee6c97c6ddf3d6c491a6d9a10d671932c97ff39c5c6caac12342595426e6ba74"
+        },
+        "tam_the_lookup_entries": {
+          "count": 447,
+          "sha256": "4808ff07847552fd26fc0691a44dd98d2c04a8112b896fc11416fda96543e46e"
+        },
+        "tam_the_lookup_source_pages": {
+          "count": 231,
+          "sha256": "5e020e7a7bc5d2868e78cb0af8efe7465770a33d674ac8f8fe37771779b94a67"
+        },
+        "tam_the_supplement_mappings": {
+          "count": 204,
+          "sha256": "219f9313f8f565ffc421e9392240adc7cb25b23149253851b18b260ae88b92d3"
+        },
+        "tam_the_supplement_results": {
+          "count": 19,
+          "sha256": "dc10924c4594e0d16e44cbea608bd9859012936190d5bf869637b848df2053ed"
+        },
+        "trigrams": {
+          "count": 8,
+          "sha256": "7fccbb3f70b14ea041196f14fa941b18fccc3b3ef956da1d1f17f42367b07110"
+        }
+      },
+      "schemaSha256": "16bc7fcec71e6af200a9f2f80a33da0ac87dd48888b586500dd0361b8b25752a",
+      "knowledgeSha256": "115d9ced12f174341833dbe88ed5a15850a40f63e05a3922244bb6c2d77a01cc",
+      "runtimeCounts": {
+        "anonymous_sessions": 0,
+        "interpretation_history": 0
+      }
+    },
+    "jarUnchanged": true
+  },
+  "reliabilitySummary": [
+    {
+      "suite": "idempotency",
+      "casesPassed": 5,
+      "rawCounts": {
+        "sends": 50,
+        "progress": 176,
+        "successes": 46,
+        "errors": {
+          "INVALID_INPUT": 2
+        }
+      }
+    },
+    {
+      "suite": "overload",
+      "casesPassed": 2,
+      "rawCounts": {
+        "sends": 344,
+        "progress": 160,
+        "successes": 40,
+        "errors": {
+          "SERVER_BUSY": 304
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "cohort": "Measurement SEND timestamp in [start,end), unchanged original raw",
+    "quantiles": "Nearest-rank per run; group median/min/max across three separate run summaries",
+    "ranges": "Observed min-max of three runs, not confidence intervals",
+    "pooledECDF": "Pooled cohort requests across three runs, descriptive only, separate from median-of-run metrics",
+    "cpu": "Percent of one logical core, weighted by sampled elapsed time; can exceed 100",
+    "serverResources": "Whole observed JVM lifecycle including startup/JIT/warmup; not isolated 60s steady state",
+    "nodeResources": "Only sample timestamps inside measurement window; first-last spans recorded explicitly",
+    "eventLoopDelay": "Node monitorEventLoopDelay at 20ms resolution, all phases including connect/warmup",
+    "cpuPostgres": "Not sampled as a separate process"
+  },
+  "analysisDirectory": "scripts/generated/x01_analysis_20261029_112956_819906",
+  "databaseCheckPath": "scripts/generated/x01_analysis_dbcheck_20261029_112128_437678.json",
+  "figures": [
+    "01-latency",
+    "02-throughput",
+    "03-latency-ecdf",
+    "04-resources",
+    "05-throughput-timeline"
+  ],
+  "analysisToolchain": {
+    "python": "3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]",
+    "matplotlib": "3.11.1",
+    "numpy": "2.5.2"
+  },
+  "sourcePins": {
+    "scripts/summarize_x01_benchmark.py": "53fa020fb250ec9570b3febb1db4618a8754c410ac3087216c39187bde394fe0",
+    "scripts/audit_x01_matrix.py": "70053bab0f393e3846394c1ce8bdd922cf85dfd9f777a605ad5fb5723e83f7f5",
+    "scripts/audit_x01_reliability.py": "09597491691be5e06a0fc4c3762ea6846eecec129d4e2e85f9907ec3f629595a",
+    "scripts/run_x01_benchmark.py": "ac6ecefe0552388048bf8399549c83a6a61529b77fe6d3bdfb2188427e97ce60",
+    "scripts/run_x01_reliability.py": "7254801799aa310e2e4ff2104f2503fde0ac1123dcc5c80e613e6507bb02d6aa",
+    "scripts/run_x01_matrix.py": "15aca5ab03202cd5db54ef4f1c4b34945ead8a3cefa35812f13bddb6e8494547",
+    "scripts/prepare_x01_test_database.py": "01308d5f1db00fe90f0d5a8ba395e6488a26a9084856f794877f8dd9ce8f30c8"
+  },
+  "originalInputsUnchanged": true
+}

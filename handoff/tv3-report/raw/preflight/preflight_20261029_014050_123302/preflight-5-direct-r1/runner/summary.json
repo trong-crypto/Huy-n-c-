@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "task": "X01.2",
+  "kind": "preflight",
+  "passed": true,
+  "startedAt": "2026-10-28T18:41:06.204Z",
+  "endedAt": "2026-10-28T18:41:07.339Z",
+  "runId": "91bc213d-6af1-4d84-b8ec-a2538e7d9b3e",
+  "mode": "direct",
+  "clients": 5,
+  "repeat": 1,
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "endpoint": "ws://127.0.0.1:18091/ws",
+  "origin": "http://127.0.0.1:3173",
+  "config": {
+    "warmupMs": 0,
+    "durationMs": 1000,
+    "thinkMs": 200,
+    "drainMs": 15000,
+    "requestTimeoutMs": 15000,
+    "maxInFlightPerClient": 1,
+    "automaticReconnect": false,
+    "automaticRetry": false,
+    "cookies": false
+  },
+  "connectionCount": 5,
+  "connectedPeak": 5,
+  "connections": [
+    {
+      "clientId": "client-1",
+      "httpStatus": 101,
+      "upgradeMs": 33.738699999999994,
+      "stompConnectedMs": 57.96370000000002,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-2",
+      "httpStatus": 101,
+      "upgradeMs": 33.75389999999999,
+      "stompConnectedMs": 57.84280000000001,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-3",
+      "httpStatus": 101,
+      "upgradeMs": 33.20580000000001,
+      "stompConnectedMs": 57.17350000000005,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-4",
+      "httpStatus": 101,
+      "upgradeMs": 30.973700000000008,
+      "stompConnectedMs": 57.62189999999998,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-5",
+      "httpStatus": 101,
+      "upgradeMs": 33.9076,
+      "stompConnectedMs": 57.46909999999997,
+      "connectionCount": 1
+    }
+  ],
+  "windows": {
+    "measurement": {
+      "start": 415.3351,
+      "end": 1415.3351,
+      "drainedAt": 1416.5861
+    }
+  },
+  "metrics": {
+    "sent": 25,
+    "completed": 25,
+    "completedInsideWindow": 25,
+    "completedAfterWindow": 0,
+    "sentRatePerSecond": 25,
+    "throughputPerSecond": 25,
+    "cohortSuccessRate": 1,
+    "sampleCount": 25,
+    "medianLatencyMs": 9.71289999999999,
+    "p95LatencyMs": 12.722200000000043,
+    "errors": {},
+    "categories": {
+      "completed": 25
+    },
+    "reconciled": true,
+    "publishFailures": 0
+  },
+  "eventCount": 0,
+  "allPhases": {
+    "requests": 30,
+    "completed": 30,
+    "progress": 120
+  },
+  "eventLoopDelayMs": {
+    "mean": 27.7485568,
+    "p95": 34.930687
+  },
+  "failure": null,
+  "sentDefinition": "STOMP publish returned without throwing; not a delivery acknowledgement",
+  "throughputDefinition": "valid cohort completions received inside the measurement window / duration",
+  "benchmarkResult": false,
+  "observationEndedAt": "2026-10-28T18:41:07.339Z"
+}

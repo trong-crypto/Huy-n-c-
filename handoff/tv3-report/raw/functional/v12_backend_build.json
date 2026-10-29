@@ -1,0 +1,10 @@
+{
+  "artifact": "server/target/huyen-co-server-0.1.0-SNAPSHOT.jar",
+  "sha256": "c9e6192e1abc381260333b0da0bb56a9aa80714df14a001dc9aacc9d80ddc3f0",
+  "gitHead": "61a9696f28cba360c00b0d945401040c55d05b75",
+  "branch": "codex/detailed-interpretations",
+  "workingTreeContainsUncommittedM01M02M03D04": true,
+  "springProfile": "db",
+  "mainDatabase": "huyenco",
+  "migration": "12"
+}

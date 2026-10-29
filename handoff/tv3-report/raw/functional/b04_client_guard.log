@@ -1,0 +1,23 @@
+
+> huyen-co-client@0.1.0 test:calculation
+> node --test scripts/calculation-state.test.mjs
+
+✔ TIME runtime fixture passes the shared terminal guard with calendar and team-decision metadata (2.0044ms)
+✔ ordered progress and terminal result complete the pending request (0.4692ms)
+✔ duplicate and old progress cannot move the display backwards (0.1349ms)
+✔ a gap or incompatible step fails visibly instead of fabricating missing stages (0.2556ms)
+✔ other request IDs and other modules are ignored (0.133ms)
+✔ 15 second total deadline is not replaced by progress and late success is ignored (0.1059ms)
+✔ disconnect settles waiting work and old responses cannot affect a new request (0.1259ms)
+✔ validation failure keeps its actual two progress stages without claiming calculation (1.1073ms)
+✔ invalid frames fail guards and protocol errors settle the timer state (0.5045ms)
+✔ a second submit cannot replace a still pending request (0.2739ms)
+✔ the result panel renders real progress safely and keeps failure visible (72.8154ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 466.3886

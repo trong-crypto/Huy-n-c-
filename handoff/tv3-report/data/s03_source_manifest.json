@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "task": "S03",
+  "surveyedAt": "2026-10-24",
+  "editor": "Codex",
+  "reviewStage": "SOURCE_SURVEY_ONLY",
+  "runtimeApproval": false,
+  "method": "Visual reading of Poppler PNG renders; no OCR transcription; existing images cross-checked against original PDFs",
+  "scope": "Source locations, input/output dependencies and candidate short name glosses. No database import or verification promotion.",
+  "books": [
+    {
+      "bookId": "MH",
+      "filename": "Mai hoa dich so-Thieu-khang Tiet.pdf",
+      "pages": 672,
+      "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de",
+      "textLayerPages": 0,
+      "reviewedPdfPages": [
+        269,
+        270,
+        271,
+        585,
+        586,
+        587,
+        588,
+        589,
+        659,
+        660,
+        661,
+        662,
+        663,
+        664,
+        667,
+        668,
+        670,
+        672
+      ]
+    },
+    {
+      "bookId": "TT",
+      "filename": "Diễn Cầm Tam Thế Diễn Nghĩa.pdf",
+      "pages": 360,
+      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+      "textLayerPages": 0,
+      "reviewedPdfPages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        353,
+        354,
+        355,
+        356,
+        357,
+        358,
+        359,
+        360
+      ]
+    }
+  ],
+  "files": {
+    "data/s03_source_matrix.csv": "63dda824b498a114801ff7d8105cf55a55bfa0614cec685adba8e5c1e9e43b93",
+    "data/s03_hexagram_source_map.csv": "bc1433bdc2e48956a0860540277e0c48e6f039229ca60228c4d73a4a5ad6f6b0",
+    "data/hexagram_names.csv": "54a49416388a013c7c4a89982169209a15501f8295376f64cf23d73560c99023"
+  },
+  "findings": [
+    {
+      "id": "CAREER_REVERSED_SHORTCUT",
+      "bookId": "TT",
+      "pages": [
+        35,
+        36
+      ],
+      "nextTask": "D01"
+    },
+    {
+      "id": "WEALTH_MULTI_AND_MISSING_KEYS",
+      "bookId": "TT",
+      "pages": [
+        41,
+        42
+      ],
+      "nextTask": "D02"
+    },
+    {
+      "id": "LOVE_GENERAL_ROUTE_NO_SEX_INPUT",
+      "bookId": "TT",
+      "pages": [
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "nextTask": "D02"
+    },
+    {
+      "id": "TINH_GLOSS_LABEL_PRINTED_ICH",
+      "bookId": "MH",
+      "pages": [
+        271
+      ],
+      "nextTask": "E01"
+    }
+  ]
+}

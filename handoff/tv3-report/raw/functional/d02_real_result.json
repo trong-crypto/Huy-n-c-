@@ -1,0 +1,19 @@
+{
+  "backup": "C:\\Users\\abc\\OneDrive\\Documents\\ChatGPT\\BTL_LTM\\scripts\\generated\\db-backups\\huyenco-before-d02-20261024T173912Z.dump",
+  "backupBytes": 50533,
+  "counts": {
+    "source_books": 2,
+    "source_sections": 33,
+    "calculation_rules": 14,
+    "trigrams": 8,
+    "tam_the_hour_anchors": 12,
+    "tam_the_lookup_entries": 447,
+    "hexagrams": 64,
+    "hexagram_lines": 384,
+    "interpretations": 0
+  },
+  "verifiedRules": 12,
+  "d02Entries": 216,
+  "month5ReviewPreserved": true,
+  "unrelatedDataPreserved": true
+}

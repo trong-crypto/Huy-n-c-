@@ -1,0 +1,8 @@
+D03 STOMP passed: 263 terminal, 1034 progress; tables, 60 years, category order, leap month and two-session isolation.
+STOMP smoke test đạt: hai phiên tách biệt, INVALID_INPUT và ruleCode đúng.
+Progress/error STOMP passed: JSON rejection and recovery, real step prefixes, reconnect, forbidden SUBSCRIBE/SEND rejected.
+TIME passed: 66 terminal / 248 progress; independent date controls, boundary/offset/leap, privacy and two-session checks.
+LINES STOMP passed: 387 terminal responses, 1546 ordered progress events; two sessions sharing one requestId stay isolated.
+OBJECT_COUNT passed: 314 valid + 10 invalid terminal responses, 1276 progress; full 24x12 cycle, extremes, source policy and two-session isolation.
+Temporary D03 Server stopped. No migrations or imports were run against huyenco.
+Verified huyenco: all knowledge tables and review metadata unchanged.

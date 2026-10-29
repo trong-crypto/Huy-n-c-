@@ -1,0 +1,145 @@
+{
+  "task": "X01.3",
+  "status": "PASS",
+  "readyForOfficialMatrix": true,
+  "analyzedAt": "2026-10-29T01:59:11.475274+07:00",
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "jarSha256": "71a9d31d11adda8f50330398e87ccad6029fe7782b0a5b6239eaabf1bad0ab39",
+  "totals": {
+    "readiness": 44,
+    "warmup": 440,
+    "measurement": 1012,
+    "completed": 1496,
+    "progress": 5984
+  },
+  "runs": [
+    {
+      "clients": 2,
+      "mode": "direct",
+      "passed": true,
+      "readinessRequests": 2,
+      "warmupRequests": 20,
+      "measurementRequests": 46,
+      "allCompleted": 68,
+      "progress": 272,
+      "medianMs": 4.803550000000087,
+      "p95Ms": 7.540199999999913,
+      "throughputPerSecond": 9.2,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "minThinkGapMs": 200.26400000000012,
+      "nodeCpuMeasurement": {
+        "meanPercentOneCore": 2.735576740027623,
+        "maxSamplePercentOneCore": 4.631627908810146
+      },
+      "nodePeakMeasurementRssBytes": 108556288,
+      "nodeEventLoopP95MsWholeRun": 35.160063,
+      "serverCpuWholeLifecycle": {
+        "meanPercentOneCore": 155.84958955720464,
+        "maxSamplePercentOneCore": 432.96786004154706
+      },
+      "serverPeakRssBytesWholeLifecycle": 388300800,
+      "serverPeakOsThreadsWholeLifecycle": 128,
+      "databaseUnchanged": true,
+      "temporaryServerStopped": true
+    },
+    {
+      "clients": 2,
+      "mode": "bounded",
+      "passed": true,
+      "readinessRequests": 2,
+      "warmupRequests": 20,
+      "measurementRequests": 46,
+      "allCompleted": 68,
+      "progress": 272,
+      "medianMs": 4.448099999999613,
+      "p95Ms": 8.193999999999505,
+      "throughputPerSecond": 9.2,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "minThinkGapMs": 200.4930999999999,
+      "nodeCpuMeasurement": {
+        "meanPercentOneCore": 2.710355070687677,
+        "maxSamplePercentOneCore": 6.164666596933021
+      },
+      "nodePeakMeasurementRssBytes": 118902784,
+      "nodeEventLoopP95MsWholeRun": 35.127295,
+      "serverCpuWholeLifecycle": {
+        "meanPercentOneCore": 154.94782401534144,
+        "maxSamplePercentOneCore": 527.2462614725086
+      },
+      "serverPeakRssBytesWholeLifecycle": 392560640,
+      "serverPeakOsThreadsWholeLifecycle": 132,
+      "databaseUnchanged": true,
+      "temporaryServerStopped": true
+    },
+    {
+      "clients": 20,
+      "mode": "direct",
+      "passed": true,
+      "readinessRequests": 20,
+      "warmupRequests": 200,
+      "measurementRequests": 460,
+      "allCompleted": 680,
+      "progress": 2720,
+      "medianMs": 5.021549999999934,
+      "p95Ms": 9.384799999999814,
+      "throughputPerSecond": 92.0,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "minThinkGapMs": 200.17309999999998,
+      "nodeCpuMeasurement": {
+        "meanPercentOneCore": 12.45644603643361,
+        "maxSamplePercentOneCore": 17.19709541058516
+      },
+      "nodePeakMeasurementRssBytes": 133685248,
+      "nodeEventLoopP95MsWholeRun": 35.160063,
+      "serverCpuWholeLifecycle": {
+        "meanPercentOneCore": 217.43258060841845,
+        "maxSamplePercentOneCore": 539.6072730823646
+      },
+      "serverPeakRssBytesWholeLifecycle": 438919168,
+      "serverPeakOsThreadsWholeLifecycle": 145,
+      "databaseUnchanged": true,
+      "temporaryServerStopped": true
+    },
+    {
+      "clients": 20,
+      "mode": "bounded",
+      "passed": true,
+      "readinessRequests": 20,
+      "warmupRequests": 200,
+      "measurementRequests": 460,
+      "allCompleted": 680,
+      "progress": 2720,
+      "medianMs": 5.260849999999664,
+      "p95Ms": 32.880499999999756,
+      "throughputPerSecond": 92.0,
+      "completedAfterWindow": 0,
+      "errors": 0,
+      "minThinkGapMs": 200.03409999999985,
+      "nodeCpuMeasurement": {
+        "meanPercentOneCore": 10.079088572349237,
+        "maxSamplePercentOneCore": 18.44302230441914
+      },
+      "nodePeakMeasurementRssBytes": 134447104,
+      "nodeEventLoopP95MsWholeRun": 34.897919,
+      "serverCpuWholeLifecycle": {
+        "meanPercentOneCore": 195.50750221061193,
+        "maxSamplePercentOneCore": 434.8647381914423
+      },
+      "serverPeakRssBytesWholeLifecycle": 396165120,
+      "serverPeakOsThreadsWholeLifecycle": 149,
+      "databaseUnchanged": true,
+      "temporaryServerStopped": true
+    }
+  ],
+  "sameJarLaunchSettingsExceptMode": true,
+  "sameRunnerToolchain": true,
+  "allDatabaseSnapshotsMatchX011": true,
+  "allOwnedServersStopped": true,
+  "officialMatrixExecuted": false,
+  "cpuPercentDefinition": "100% means one logical core; interval-derived samples",
+  "resourceScope": "Node CPU/RSS measurement samples; Server CPU/RSS/OS threads whole lifecycle including startup",
+  "generatorObservation": "Interpret resource samples with the 200ms paced workload; this pilot is not a maximum-throughput test"
+}

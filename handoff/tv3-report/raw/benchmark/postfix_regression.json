@@ -1,0 +1,34 @@
+{
+  "evidenceDirectory": "scripts/generated/x01_preflight_20261029_025313_254678",
+  "runs": [
+    {
+      "clients": 2,
+      "mode": "direct",
+      "passed": true,
+      "allSendsInsideMeasurementWindow": true,
+      "databaseUnchanged": true
+    },
+    {
+      "clients": 2,
+      "mode": "bounded",
+      "passed": true,
+      "allSendsInsideMeasurementWindow": true,
+      "databaseUnchanged": true
+    },
+    {
+      "clients": 20,
+      "mode": "direct",
+      "passed": true,
+      "allSendsInsideMeasurementWindow": true,
+      "databaseUnchanged": true
+    },
+    {
+      "clients": 20,
+      "mode": "bounded",
+      "passed": true,
+      "allSendsInsideMeasurementWindow": true,
+      "databaseUnchanged": true
+    }
+  ],
+  "officialRunReplacement": false
+}

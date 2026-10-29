@@ -1,0 +1,21 @@
+BEGIN;
+SET LOCAL lock_timeout='5s'; SET LOCAL statement_timeout='30s';
+LOCK TABLE calculation_rules,external_sources IN SHARE ROW EXCLUSIVE MODE;
+DO $$ BEGIN
+IF EXISTS(SELECT 1 FROM external_sources x WHERE x.source_id='C01-VN-FIXED7' AND NOT (x.source_id IS NOT DISTINCT FROM 'C01-VN-FIXED7' AND x.title IS NOT DISTINCT FROM 'Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules' AND x.version IS NOT DISTINCT FROM 'C01-1.0 / Time4J 5.9.4' AND x.section IS NOT DISTINCT FROM 'Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions' AND x.url IS NOT DISTINCT FROM 'https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html' AND x.sha256 IS NOT DISTINCT FROM '48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6'))
+ THEN RAISE EXCEPTION 'C01 protected external source changed'; END IF;
+IF (SELECT count(*) FROM calculation_rules r WHERE module='CALENDAR' AND rule_code='LUNAR-CONVERSION' AND rule_version='1.0'
+ AND source_section_id IS NULL AND ((verification_status='DRAFT' AND external_source_id IS NULL
+ AND reviewer IS NULL AND reviewed_at IS NULL AND verification_note IS NULL AND description='Chưa chốt nguồn thuật toán lịch Âm-Dương/tiết khí.')
+ OR (verification_status='VERIFIED' AND external_source_id='C01-VN-FIXED7'
+ AND reviewer='Codex C01 source and calendar validation 2026-10-24' AND reviewed_at IS NOT NULL AND verification_note='C01: fixed UTC+7 civil calendar 1900-01-01..2099-12-31; Time4J 5.9.4 astronomy generated table, pinned hash. Tet changes lunar year; midnight changes civil day; leap month retains month Can Chi. Independent HKO/almanac controls and exhaustive consistency recorded in docs/26-C01-CALENDAR-HANDOFF.md. Not a historical Vietnamese calendar or Bazi solar-term pillars.' AND description='C01 fixed UTC+7 solar/lunar conversion and civil Can Chi; pinned generated calendar table, 1900..2099.')))<>1
+ THEN RAISE EXCEPTION 'C01 changed/protected calendar rule'; END IF;
+IF EXISTS(SELECT 1 FROM calculation_rules WHERE module='CALENDAR' AND rule_code='LUNAR-CONVERSION' AND rule_version='1.0'
+ AND verification_status='VERIFIED') AND NOT EXISTS(SELECT 1 FROM external_sources x WHERE x.source_id IS NOT DISTINCT FROM 'C01-VN-FIXED7' AND x.title IS NOT DISTINCT FROM 'Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules' AND x.version IS NOT DISTINCT FROM 'C01-1.0 / Time4J 5.9.4' AND x.section IS NOT DISTINCT FROM 'Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions' AND x.url IS NOT DISTINCT FROM 'https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html' AND x.sha256 IS NOT DISTINCT FROM '48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6')
+ THEN RAISE EXCEPTION 'C01 approved source missing'; END IF;
+END $$;
+INSERT INTO external_sources(source_id,title,version,section,url,sha256) VALUES('C01-VN-FIXED7','Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules','C01-1.0 / Time4J 5.9.4','Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions','https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html','48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6') ON CONFLICT(source_id) DO NOTHING;
+UPDATE calculation_rules SET external_source_id='C01-VN-FIXED7',verification_status='VERIFIED',
+ reviewer='Codex C01 source and calendar validation 2026-10-24',reviewed_at=CURRENT_TIMESTAMP,verification_note='C01: fixed UTC+7 civil calendar 1900-01-01..2099-12-31; Time4J 5.9.4 astronomy generated table, pinned hash. Tet changes lunar year; midnight changes civil day; leap month retains month Can Chi. Independent HKO/almanac controls and exhaustive consistency recorded in docs/26-C01-CALENDAR-HANDOFF.md. Not a historical Vietnamese calendar or Bazi solar-term pillars.',description='C01 fixed UTC+7 solar/lunar conversion and civil Can Chi; pinned generated calendar table, 1900..2099.'
+ WHERE module='CALENDAR' AND rule_code='LUNAR-CONVERSION' AND rule_version='1.0' AND verification_status='DRAFT';
+COMMIT;

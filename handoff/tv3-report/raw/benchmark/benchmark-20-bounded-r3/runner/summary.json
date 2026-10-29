@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 1,
+  "task": "X01.2",
+  "kind": "benchmark",
+  "passed": true,
+  "startedAt": "2026-10-28T19:42:17.601Z",
+  "endedAt": "2026-10-28T19:43:27.854Z",
+  "runId": "52ae6863-d02c-448c-a63d-5e69bcab9920",
+  "mode": "bounded",
+  "clients": 20,
+  "repeat": 3,
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "endpoint": "ws://127.0.0.1:18091/ws",
+  "origin": "http://127.0.0.1:3173",
+  "config": {
+    "warmupMs": 10000,
+    "durationMs": 60000,
+    "thinkMs": 200,
+    "drainMs": 15000,
+    "requestTimeoutMs": 15000,
+    "maxInFlightPerClient": 1,
+    "automaticReconnect": false,
+    "automaticRetry": false,
+    "cookies": false
+  },
+  "connectionCount": 20,
+  "connectedPeak": 20,
+  "connections": [
+    {
+      "clientId": "client-1",
+      "httpStatus": 101,
+      "upgradeMs": 55.07409999999999,
+      "stompConnectedMs": 89.74259999999998,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-2",
+      "httpStatus": 101,
+      "upgradeMs": 54.48719999999997,
+      "stompConnectedMs": 88.5505,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-3",
+      "httpStatus": 101,
+      "upgradeMs": 54.269000000000005,
+      "stompConnectedMs": 88.7482,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-4",
+      "httpStatus": 101,
+      "upgradeMs": 55.78540000000004,
+      "stompConnectedMs": 89.58170000000001,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-5",
+      "httpStatus": 101,
+      "upgradeMs": 55.64920000000001,
+      "stompConnectedMs": 88.99739999999997,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-6",
+      "httpStatus": 101,
+      "upgradeMs": 54.65500000000003,
+      "stompConnectedMs": 88.62780000000004,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-7",
+      "httpStatus": 101,
+      "upgradeMs": 55.19029999999998,
+      "stompConnectedMs": 89.38999999999999,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-8",
+      "httpStatus": 101,
+      "upgradeMs": 55.4461,
+      "stompConnectedMs": 89.34649999999999,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-9",
+      "httpStatus": 101,
+      "upgradeMs": 55.8648,
+      "stompConnectedMs": 89.07009999999997,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-10",
+      "httpStatus": 101,
+      "upgradeMs": 56.22309999999999,
+      "stompConnectedMs": 88.82319999999999,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-11",
+      "httpStatus": 101,
+      "upgradeMs": 54.8587,
+      "stompConnectedMs": 89.55989999999997,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-12",
+      "httpStatus": 101,
+      "upgradeMs": 56.28770000000003,
+      "stompConnectedMs": 89.33030000000002,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-13",
+      "httpStatus": 101,
+      "upgradeMs": 55.879099999999994,
+      "stompConnectedMs": 88.30930000000001,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-14",
+      "httpStatus": 101,
+      "upgradeMs": 53.3211,
+      "stompConnectedMs": 88.70870000000002,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-15",
+      "httpStatus": 101,
+      "upgradeMs": 50.8614,
+      "stompConnectedMs": 89.5978,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-16",
+      "httpStatus": 101,
+      "upgradeMs": 53.962199999999996,
+      "stompConnectedMs": 89.4144,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-17",
+      "httpStatus": 101,
+      "upgradeMs": 56.048599999999965,
+      "stompConnectedMs": 89.19129999999996,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-18",
+      "httpStatus": 101,
+      "upgradeMs": 53.707100000000025,
+      "stompConnectedMs": 88.17669999999998,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-19",
+      "httpStatus": 101,
+      "upgradeMs": 55.920000000000016,
+      "stompConnectedMs": 89.49680000000001,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-20",
+      "httpStatus": 101,
+      "upgradeMs": 56.355999999999995,
+      "stompConnectedMs": 87.83820000000003,
+      "connectionCount": 1
+    }
+  ],
+  "windows": {
+    "warmup": {
+      "start": 513.69,
+      "end": 10513.69,
+      "drainedAt": 10520.0418
+    },
+    "measurement": {
+      "start": 10520.0877,
+      "end": 70520.0877,
+      "drainedAt": 70526.6375
+    }
+  },
+  "metrics": {
+    "sent": 5682,
+    "completed": 5682,
+    "completedInsideWindow": 5682,
+    "completedAfterWindow": 0,
+    "sentRatePerSecond": 94.7,
+    "throughputPerSecond": 94.7,
+    "cohortSuccessRate": 1,
+    "sampleCount": 5682,
+    "medianLatencyMs": 5.745600000002014,
+    "p95LatencyMs": 11.99040000000059,
+    "errors": {},
+    "categories": {
+      "completed": 5682
+    },
+    "reconciled": true,
+    "publishFailures": 0
+  },
+  "eventCount": 0,
+  "allPhases": {
+    "requests": 6642,
+    "completed": 6642,
+    "progress": 26568
+  },
+  "eventLoopDelayMs": {
+    "mean": 26.5596351709531,
+    "p95": 35.028991
+  },
+  "failure": null,
+  "sentDefinition": "STOMP publish returned without throwing; not a delivery acknowledgement",
+  "throughputDefinition": "valid cohort completions received inside the measurement window / duration",
+  "benchmarkResult": true,
+  "observationEndedAt": "2026-10-28T19:43:27.854Z"
+}

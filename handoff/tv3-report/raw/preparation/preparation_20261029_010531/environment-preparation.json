@@ -1,0 +1,50 @@
+{
+  "capturedAt": "2026-10-29T01:07:57.7169299+07:00",
+  "stage": "X01.1 preparation; no benchmark measurements",
+  "gitCommit": "45f07a6fd8dd2c8b3dfaec09869e182545ce8ab7",
+  "workingTree": [
+    " M .gitignore",
+    " M README.md",
+    " M client/next-env.d.ts",
+    " M docs/15-COMBINED-TV2-TV3-PLAN.md",
+    " M docs/45-TV1-DEMO-SCRIPT.md",
+    "?? docs/46-DEMO-CLIENT-SERVER-POSTGRES-TEST.md",
+    "?? docs/47-X01-BENCHMARK-2-5-20-PLAN.md",
+    "?? scripts/prepare_x01_test_database.py",
+    "?? scripts/tests/test_x01_database_preparation.py"
+  ],
+  "operatingSystem": {
+    "caption": "Microsoft Windows 11 Home Single Language",
+    "version": "10.0.26300",
+    "architecture": "64-bit"
+  },
+  "cpu": {
+    "name": "13th Gen Intel(R) Core(TM) i7-13620H",
+    "cores": 10,
+    "logicalProcessors": 16
+  },
+  "physicalMemoryBytes": 25458917376,
+  "nodeVersion": "v24.21.0",
+  "pythonVersion": "Python 3.12.0",
+  "javaVersion": [
+    "java version \"24.0.2\" 2025-07-15",
+    "Java(TM) SE Runtime Environment (build 24.0.2+12-54)",
+    "Java HotSpot(TM) 64-Bit Server VM (build 24.0.2+12-54, mixed mode, sharing)"
+  ],
+  "postgresClientVersion": "psql (PostgreSQL) 18.6",
+  "existingListeners": [
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 18090,
+      "OwningProcess": 23200
+    },
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 3173,
+      "OwningProcess": 19460
+    }
+  ],
+  "benchmarkBackendStarted": false,
+  "benchmarkEndpointChosen": "http://127.0.0.1:18091",
+  "preparationScriptSha256": "01308d5f1db00fe90f0d5a8ba395e6488a26a9084856f794877f8dd9ce8f30c8"
+}

@@ -1,0 +1,28 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-29T01:38:32.872+07:00  INFO 18660 --- [huyen-co-server] [           main] com.huyenco.HuyenCoApplication           : Starting HuyenCoApplication v0.1.0-SNAPSHOT using Java 17.0.12 with PID 18660 (C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\scripts\generated\x01_backend_20261029_013243_326170\huyen-co-server.jar started by abc in C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM)
+2026-10-29T01:38:32.872+07:00  INFO 18660 --- [huyen-co-server] [           main] com.huyenco.HuyenCoApplication           : The following 1 profile is active: "db"
+2026-10-29T01:38:34.101+07:00  INFO 18660 --- [huyen-co-server] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 18091 (http)
+2026-10-29T01:38:34.108+07:00  INFO 18660 --- [huyen-co-server] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-29T01:38:34.112+07:00  INFO 18660 --- [huyen-co-server] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-10-29T01:38:34.140+07:00  INFO 18660 --- [huyen-co-server] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-29T01:38:34.140+07:00  INFO 18660 --- [huyen-co-server] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1196 ms
+2026-10-29T01:38:34.852+07:00  INFO 18660 --- [huyen-co-server] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-10-29T01:38:34.859+07:00  INFO 18660 --- [huyen-co-server] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7c70aae1]]
+2026-10-29T01:38:34.860+07:00  INFO 18660 --- [huyen-co-server] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-10-29T01:38:34.894+07:00  INFO 18660 --- [huyen-co-server] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 18091 (http) with context path '/'
+2026-10-29T01:38:34.919+07:00  INFO 18660 --- [huyen-co-server] [           main] com.huyenco.HuyenCoApplication           : Started HuyenCoApplication in 2.546 seconds (process running for 2.887)
+2026-10-29T01:38:35.352+07:00  INFO 18660 --- [huyen-co-server] [.1-18091-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-29T01:38:35.352+07:00  INFO 18660 --- [huyen-co-server] [.1-18091-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-29T01:38:35.354+07:00  INFO 18660 --- [huyen-co-server] [.1-18091-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-10-29T01:38:35.422+07:00  INFO 18660 --- [huyen-co-server] [.1-18091-exec-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-29T01:38:35.634+07:00  INFO 18660 --- [huyen-co-server] [.1-18091-exec-8] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5ca53125
+2026-10-29T01:38:35.637+07:00  INFO 18660 --- [huyen-co-server] [.1-18091-exec-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.

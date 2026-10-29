@@ -1,0 +1,126 @@
+{
+  "status": "READY",
+  "scope": "KNOWLEDGE_STORAGE",
+  "database": "UP",
+  "schema": "READY",
+  "seed": "READY",
+  "businessFeaturesReady": false,
+  "counts": {
+    "source_books": 2,
+    "source_sections": 21,
+    "calculation_rules": 14,
+    "trigrams": 8,
+    "hexagrams": 64,
+    "hexagram_lines": 384,
+    "interpretations": 0,
+    "tam_the_hour_anchors": 12,
+    "tam_the_lookup_entries": 51,
+    "verified_hexagram_names": 64,
+    "verified_rules": 3
+  },
+  "rules": [
+    {
+      "ruleCode": "MH-TRIGRAM",
+      "executionPolicy": "SOURCE_VERIFIED",
+      "sourceStatus": "VERIFIED",
+      "calculationAuthorized": true,
+      "reason": null
+    },
+    {
+      "ruleCode": "MH-MUTUAL",
+      "executionPolicy": "SOURCE_VERIFIED",
+      "sourceStatus": "VERIFIED",
+      "calculationAuthorized": true,
+      "reason": null
+    },
+    {
+      "ruleCode": "MH-CHANGE",
+      "executionPolicy": "SOURCE_VERIFIED",
+      "sourceStatus": "VERIFIED",
+      "calculationAuthorized": true,
+      "reason": null
+    },
+    {
+      "ruleCode": "MH-TIME",
+      "executionPolicy": "TEAM_DECISION",
+      "sourceStatus": "BLOCKED_SOURCE_CONFLICT",
+      "calculationAuthorized": true,
+      "reason": null
+    },
+    {
+      "ruleCode": "MH-OBJECT-COUNT",
+      "executionPolicy": "TEAM_DECISION",
+      "sourceStatus": "SOURCE_AMBIGUOUS",
+      "calculationAuthorized": true,
+      "reason": null
+    },
+    {
+      "ruleCode": "MH-THE-DUNG",
+      "executionPolicy": "DISABLED",
+      "sourceStatus": "SOURCE_AMBIGUOUS",
+      "calculationAuthorized": false,
+      "reason": "EXECUTION_DISABLED"
+    },
+    {
+      "ruleCode": "TT-NGU-HANH",
+      "executionPolicy": "SOURCE_VERIFIED",
+      "sourceStatus": "SOURCE_LOCATED",
+      "calculationAuthorized": false,
+      "reason": "SOURCE_UNVERIFIED"
+    },
+    {
+      "ruleCode": "TT-GIO-SINH",
+      "executionPolicy": "SOURCE_VERIFIED",
+      "sourceStatus": "BLOCKED_SOURCE_CONFLICT",
+      "calculationAuthorized": false,
+      "reason": "SOURCE_UNVERIFIED"
+    },
+    {
+      "ruleCode": "TT-36-PHAN",
+      "executionPolicy": "SOURCE_VERIFIED",
+      "sourceStatus": "SOURCE_AMBIGUOUS",
+      "calculationAuthorized": false,
+      "reason": "SOURCE_UNVERIFIED"
+    },
+    {
+      "ruleCode": "TT-CONG-DANH-11",
+      "executionPolicy": "SOURCE_VERIFIED",
+      "sourceStatus": "SOURCE_LOCATED",
+      "calculationAuthorized": false,
+      "reason": "SOURCE_UNVERIFIED"
+    },
+    {
+      "ruleCode": "TT-CONG-DANH-13",
+      "executionPolicy": "SOURCE_VERIFIED",
+      "sourceStatus": "SOURCE_LOCATED",
+      "calculationAuthorized": false,
+      "reason": "SOURCE_UNVERIFIED"
+    },
+    {
+      "ruleCode": "TT-TAI-LOC",
+      "executionPolicy": "DISABLED",
+      "sourceStatus": "DRAFT",
+      "calculationAuthorized": false,
+      "reason": "EXECUTION_DISABLED"
+    },
+    {
+      "ruleCode": "TT-TINH-DUYEN",
+      "executionPolicy": "DISABLED",
+      "sourceStatus": "DRAFT",
+      "calculationAuthorized": false,
+      "reason": "EXECUTION_DISABLED"
+    },
+    {
+      "ruleCode": "LUNAR-CONVERSION",
+      "executionPolicy": "SOURCE_VERIFIED",
+      "sourceStatus": "DRAFT",
+      "calculationAuthorized": false,
+      "reason": "MISSING_SOURCE_REFERENCE"
+    }
+  ],
+  "pending": [
+    "BUSINESS_IMPLEMENTATION_PENDING",
+    "INTERPRETATIONS_MISSING",
+    "RULES_NOT_AUTHORIZED"
+  ]
+}

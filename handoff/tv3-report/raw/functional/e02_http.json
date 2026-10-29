@@ -1,0 +1,688 @@
+{
+  "url": "http://127.0.0.1:18084",
+  "requests": 121,
+  "passed": true,
+  "calls": [
+    {
+      "path": "",
+      "query": {
+        "page": 0
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "page": 1
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "page": 2
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "page": 3
+      },
+      "http": 200
+    },
+    {
+      "path": "/H_CAN2_CAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN2_CAN2",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN2_CHAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN2_DOAI",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN2_KHAM",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN2_KHON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN2_LY",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN2_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN_CAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN_CAN2",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN_CHAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN_DOAI",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN_KHAM",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN_KHON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN_LY",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CAN_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CHAN_CAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CHAN_CAN2",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CHAN_CHAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CHAN_DOAI",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CHAN_KHAM",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CHAN_KHON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CHAN_LY",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_CHAN_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_DOAI_CAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_DOAI_CAN2",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_DOAI_CHAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_DOAI_DOAI",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_DOAI_KHAM",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_DOAI_KHON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_DOAI_LY",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_DOAI_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_CAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_CAN2",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_CHAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_DOAI",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_KHAM",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_KHON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_LY",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHON_CAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHON_CAN2",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHON_CHAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHON_DOAI",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHON_KHAM",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHON_KHON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHON_LY",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHON_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_LY_CAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_LY_CAN2",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_LY_CHAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_LY_DOAI",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_LY_KHAM",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_LY_KHON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_LY_LY",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_LY_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_TON_CAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_TON_CAN2",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_TON_CHAN",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_TON_DOAI",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_TON_KHAM",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_TON_KHON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_TON_LY",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_TON_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "Bĩ"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "Bí"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "Lý"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "Càn"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "Cấn"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "Ký tế"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "Vị tế"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "bi"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "ly"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "can"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "h_kham_ton"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "upperTrigramCode": "CAN"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "upperTrigramCode": "DOAI"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "upperTrigramCode": "LY"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "upperTrigramCode": "CHAN"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "upperTrigramCode": "TON"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "upperTrigramCode": "KHAM"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "upperTrigramCode": "CAN2"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "upperTrigramCode": "KHON"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "lowerTrigramCode": "CAN"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "lowerTrigramCode": "DOAI"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "lowerTrigramCode": "LY"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "lowerTrigramCode": "CHAN"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "lowerTrigramCode": "TON"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "lowerTrigramCode": "KHAM"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "lowerTrigramCode": "CAN2"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "lowerTrigramCode": "KHON"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "upperTrigramCode": "KHAM",
+        "lowerTrigramCode": "TON"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "page": 2147483647,
+        "size": 100
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "nothing here"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": "page=-1",
+      "http": 400
+    },
+    {
+      "path": "",
+      "query": "size=0",
+      "http": 400
+    },
+    {
+      "path": "",
+      "query": "size=101",
+      "http": 400
+    },
+    {
+      "path": "",
+      "query": "page=2147483648",
+      "http": 400
+    },
+    {
+      "path": "",
+      "query": "page=1.5",
+      "http": 400
+    },
+    {
+      "path": "",
+      "query": "size=",
+      "http": 400
+    },
+    {
+      "path": "",
+      "query": "page=1&page=2",
+      "http": 400
+    },
+    {
+      "path": "",
+      "query": "unknown=x",
+      "http": 400
+    },
+    {
+      "path": "",
+      "query": "upperTrigramCode=BAD",
+      "http": 400
+    },
+    {
+      "path": "",
+      "query": "lowerTrigramCode=",
+      "http": 400
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      "http": 400
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "%' OR 1=1 --"
+      },
+      "http": 200
+    },
+    {
+      "path": "",
+      "query": {
+        "q": "%"
+      },
+      "http": 200
+    },
+    {
+      "path": "/H_UNKNOWN_CAN",
+      "query": null,
+      "http": 404
+    },
+    {
+      "path": "/bad",
+      "query": null,
+      "http": 400
+    },
+    {
+      "path": "/H_KHAM_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_TON",
+      "query": null,
+      "http": 200
+    },
+    {
+      "path": "/H_KHAM_TON",
+      "query": null,
+      "http": 200
+    }
+  ]
+}

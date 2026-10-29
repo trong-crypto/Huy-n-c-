@@ -1,0 +1,24 @@
+{
+  "task": "X01.3",
+  "status": "READY_FOR_X01_4",
+  "createdAt": "2026-10-29T02:01:25.461716+07:00",
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "jarSha256": "71a9d31d11adda8f50330398e87ccad6029fe7782b0a5b6239eaabf1bad0ab39",
+  "pilotDirectory": "scripts/generated/x01_pilot_20261029_015503_004770",
+  "analysisFile": "scripts/generated/x01_pilot_20261029_015503_004770/pilot_analysis.json",
+  "pilotRuns": 4,
+  "totals": {
+    "readiness": 44,
+    "warmup": 440,
+    "measurement": 1012,
+    "completed": 1496,
+    "progress": 5984
+  },
+  "allDatabaseSnapshotsMatchX011": true,
+  "sameJarLaunchSettingsExceptMode": true,
+  "sameRunnerToolchain": true,
+  "allOwnedServersStopped": true,
+  "registryKeyUpperBoundPerRun": 680,
+  "applicationCodeChangedForPilot": false,
+  "officialBenchmarkRunsExecutedInThisTask": 0
+}

@@ -1,0 +1,37 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.huyenco:huyen-co-server >---------------------
+[INFO] Building Huyen Co Server 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ huyen-co-server ---
+[INFO] Copying 16 resources from src\main\resources to target\classes
+[INFO] Copying 1 resource from ..\data to target\classes\readings
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ huyen-co-server ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 88 source files with javac [debug parameters release 17] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ huyen-co-server ---
+[INFO] skip non existing resourceDirectory C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\work\x01_build_20261029_013243_326170\server\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ huyen-co-server ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 33 source files with javac [debug parameters release 17] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ huyen-co-server ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ huyen-co-server ---
+[INFO] Building jar: C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\work\x01_build_20261029_013243_326170\server\target\huyen-co-server-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.16:repackage (repackage) @ huyen-co-server ---
+[INFO] Replacing main artifact C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\work\x01_build_20261029_013243_326170\server\target\huyen-co-server-0.1.0-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\work\x01_build_20261029_013243_326170\server\target\huyen-co-server-0.1.0-SNAPSHOT.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.711 s
+[INFO] Finished at: 2026-10-29T01:32:52+07:00
+[INFO] ------------------------------------------------------------------------

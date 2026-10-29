@@ -1,0 +1,51 @@
+{
+  "task": "X01.6",
+  "status": "COMPLETE",
+  "reviewedAt": "2026-10-29T11:31:19.349378+07:00",
+  "figures": [
+    {
+      "name": "01-latency",
+      "pngSha256": "78cfbd2e07a505bc272db5fe455dbd58a03cf32ade62a7ea6c82d9eebe7eddb4",
+      "svgSha256": "c77df54f65ce74a1edb9dba1eb5ae47633390da02fd5493a6c5d635675d93fa1",
+      "visualReview": "PASS"
+    },
+    {
+      "name": "02-throughput",
+      "pngSha256": "7a564df6898fa2ce6239fbb683206328df9606cfd4b99d8fa6e2e0693c3dcb30",
+      "svgSha256": "7a8a938ae99fe6b61d0c056381c21ca963d8a1be94fded8d3da56c0fb5da0c8d",
+      "visualReview": "PASS"
+    },
+    {
+      "name": "03-latency-ecdf",
+      "pngSha256": "de04175661997564822ca02b561b7e0cebb884c5a6e33ac6ce34686135455acd",
+      "svgSha256": "13c68a4eb349b3425195df4609b3283f91dacf46c99a68473cc338823b23b3ce",
+      "visualReview": "PASS"
+    },
+    {
+      "name": "04-resources",
+      "pngSha256": "2f7cea2a82293ff3338d3d58d109da1061d814d0343d83626946418dca613068",
+      "svgSha256": "e73e61995c1a954e3644fca813a20fdbe3456798b723145ffc68e308fd1695d2",
+      "visualReview": "PASS"
+    },
+    {
+      "name": "05-throughput-timeline",
+      "pngSha256": "b6c29752d7c08dbf98c32a397572205a623d39fbdb9d5e651a1d837db7724eb2",
+      "svgSha256": "67a8fe852d17ca6e2ba9f24fea98762a1cd7ad52f50cba6980aad14dde4c7e15",
+      "visualReview": "PASS"
+    }
+  ],
+  "runRows": 18,
+  "aggregateRows": 6,
+  "timelineRows": 1080,
+  "excludedBoundaryRows": 1,
+  "eligibleCohortRequests": 46027,
+  "toolTestsPassed": 6,
+  "csvRecalculation": "PASS",
+  "markdownLinks": "PASS",
+  "inputHashesUnchanged": true,
+  "numericTablesUnchangedDuringVisualRefinement": true,
+  "testSourceSha256": "da93f4c6bd1c0d344c37b8fc72ac4067865cfae85268018851775a55756d6c5e",
+  "reportSha256": "fa071386934ef01fb0c2e50b6cdac867d459065786651eb28c7ce7a86f29c3dc",
+  "strictSendWindowSatisfied": false,
+  "rawBoundaryDeviationRemainsDisclosed": true
+}

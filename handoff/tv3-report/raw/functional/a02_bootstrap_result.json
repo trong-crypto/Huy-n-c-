@@ -1,0 +1,31 @@
+{
+  "database": "huyenco_a02_1caccd63cf1d",
+  "bootstrapRuns": 2,
+  "identicalRows": true,
+  "javaTests": true,
+  "cleanedUp": true,
+  "trigramApprovalGuards": 3,
+  "yearElementApprovalGuards": 4,
+  "careerApprovalGuards": 5,
+  "careerLegacyCases": 3,
+  "calendarApprovalGuards": 3,
+  "timeOwnerApprovalGuards": 2,
+  "d02ApprovalGuards": 8,
+  "counts": {
+    "source_books": 2,
+    "source_sections": 33,
+    "calculation_rules": 14,
+    "trigrams": 8,
+    "hexagrams": 64,
+    "hexagram_lines": 384,
+    "interpretations": 64,
+    "tam_the_hour_anchors": 12,
+    "tam_the_lookup_entries": 447,
+    "tam_the_lookup_source_pages": 231,
+    "flyway_schema_history": 11,
+    "external_sources": 1,
+    "anonymous_sessions": 0,
+    "interpretation_history": 0
+  },
+  "snapshotSha256": "9e44c148160bfbe020fb51ecedf21e80dfa5b2656657e0cf2c3fcf6dbf143a67"
+}

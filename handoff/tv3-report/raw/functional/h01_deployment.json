@@ -1,0 +1,21 @@
+{
+  "migrationV11": true,
+  "sessions": 0,
+  "history": 0,
+  "database": "huyenco",
+  "backup": "C:\\Users\\abc\\OneDrive\\Documents\\ChatGPT\\BTL_LTM\\scripts\\generated\\db-backups\\before-h01-20261025T084504196842Z.dump",
+  "knowledgeUnchanged": true,
+  "knowledgeHashes": {
+    "source_books": "cd8130cc9caad69ae072b69776038c32",
+    "source_sections": "e27d815c678a1945d6e05073367bc11f",
+    "calculation_rules": "8a4439aa9fe46a305dc86ed2084bbd80",
+    "trigrams": "e4bac43a99714857df085d617039778a",
+    "hexagrams": "852545b7471d21aea40a8b16a785f106",
+    "hexagram_lines": "7f81e5863da266e03e7113e9526d2f3d",
+    "interpretations": "ce04651aad75273fb8a2b2300f2a3f59",
+    "tam_the_hour_anchors": "17e6340cba31a79eaa27689463fc91c2",
+    "tam_the_lookup_entries": "80c917ca1124090b6a971d1e20c854bf",
+    "tam_the_lookup_source_pages": "7e2fd3152c77912853a731ba15dc330d",
+    "external_sources": "2413e69c1aef92b0c81f97ff895aa5ba"
+  }
+}

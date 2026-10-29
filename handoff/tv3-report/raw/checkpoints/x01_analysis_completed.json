@@ -1,0 +1,27 @@
+{
+  "task": "X01.6",
+  "status": "COMPLETE",
+  "completedAt": "2026-10-29T11:31:19.349378+07:00",
+  "analysisDirectory": "scripts/generated/x01_analysis_20261029_112956_819906",
+  "report": "docs/53-X01-BENCHMARK-ANALYSIS.md",
+  "figures": 5,
+  "formats": [
+    "PNG",
+    "SVG"
+  ],
+  "runRows": 18,
+  "groupRows": 6,
+  "cohortRequests": 46027,
+  "originalEvidenceUnchanged": true,
+  "databaseCheckPath": "scripts/generated/x01_analysis_dbcheck_20261029_112128_437678.json",
+  "databaseUnchanged": true,
+  "matrixAuditStatus": "COHORT_AUDIT_PASS_WITH_WINDOW_DEVIATION",
+  "strictSendWindowSatisfied": false,
+  "outOfWindowSends": 1,
+  "x015Complete": true,
+  "x016Complete": true,
+  "x017Complete": false,
+  "publicationManifestSha256": "b850ae064bd0598cac0caf357c444274191d0435d57120ffbbdeab8a11bff532",
+  "reviewSha256": "1520bba3b7a682a2f33c8e2544c4e1f48ac6e70613c70d4405a0af3c20cab081",
+  "nextTask": "X01.7"
+}

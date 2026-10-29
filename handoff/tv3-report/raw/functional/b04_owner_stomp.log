@@ -1,0 +1,5 @@
+TIME passed: 66 terminal / 248 progress; independent date controls, boundary/offset/leap, privacy and two-session checks.
+OBJECT_COUNT passed: 314 valid + 10 invalid terminal responses, 1276 progress; full 24x12 cycle, extremes, source policy and two-session isolation.
+LINES STOMP passed: 387 terminal responses, 1546 ordered progress events; two sessions sharing one requestId stay isolated.
+STOMP smoke test đạt: hai phiên tách biệt, INVALID_INPUT và ruleCode đúng.
+Temporary B04 Server stopped; application sources and evidence are ready for review.

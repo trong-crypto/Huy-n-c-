@@ -1,0 +1,314 @@
+{
+  "database": "huyenco",
+  "checked_at": "2026-10-25T15:07:45.837889+07:00",
+  "tables": [
+    "calculation_rules",
+    "external_sources",
+    "flyway_schema_history",
+    "hexagram_lines",
+    "hexagrams",
+    "interpretations",
+    "source_books",
+    "source_sections",
+    "tam_the_hour_anchors",
+    "tam_the_lookup_entries",
+    "tam_the_lookup_source_pages",
+    "trigrams"
+  ],
+  "migrations": [
+    {
+      "version": "1",
+      "script": "V1__create_knowledge_tables.sql",
+      "success": true
+    },
+    {
+      "version": "2",
+      "script": "V2__tam_the_hour_anchors.sql",
+      "success": true
+    },
+    {
+      "version": "3",
+      "script": "V3__hexagram_provenance.sql",
+      "success": true
+    },
+    {
+      "version": "4",
+      "script": "V4__verify_tv2_reviewed_rules.sql",
+      "success": true
+    },
+    {
+      "version": "5",
+      "script": "V5__hexagram_review_metadata.sql",
+      "success": true
+    },
+    {
+      "version": "6",
+      "script": "V6__lookup_review_metadata.sql",
+      "success": true
+    },
+    {
+      "version": "7",
+      "script": "V7__lookup_content_provenance.sql",
+      "success": true
+    },
+    {
+      "version": "8",
+      "script": "V8__external_algorithm_sources.sql",
+      "success": true
+    },
+    {
+      "version": "9",
+      "script": "V9__tam_the_content_page_provenance.sql",
+      "success": true
+    },
+    {
+      "version": "10",
+      "script": "V10__hexagram_name_gloss_reviews.sql",
+      "success": true
+    }
+  ],
+  "interpretations": [
+    {
+      "category": "NAME_GLOSS",
+      "verification_status": "VERIFIED",
+      "rows": 64
+    }
+  ],
+  "lookup_groups": [
+    {
+      "rule_code": "TT-36-PHAN",
+      "verification_status": "VERIFIED",
+      "rows": 36,
+      "unique_keys": 36,
+      "with_content": 36,
+      "reviewed": 36
+    },
+    {
+      "rule_code": "TT-CONG-DANH-11",
+      "verification_status": "VERIFIED",
+      "rows": 51,
+      "unique_keys": 34,
+      "with_content": 0,
+      "reviewed": 51
+    },
+    {
+      "rule_code": "TT-CONG-DANH-13",
+      "verification_status": "VERIFIED",
+      "rows": 120,
+      "unique_keys": 120,
+      "with_content": 120,
+      "reviewed": 120
+    },
+    {
+      "rule_code": "TT-NGU-HANH",
+      "verification_status": "VERIFIED",
+      "rows": 60,
+      "unique_keys": 60,
+      "with_content": 0,
+      "reviewed": 60
+    },
+    {
+      "rule_code": "TT-TAI-LOC",
+      "verification_status": "VERIFIED",
+      "rows": 120,
+      "unique_keys": 60,
+      "with_content": 120,
+      "reviewed": 120
+    },
+    {
+      "rule_code": "TT-TINH-DUYEN",
+      "verification_status": "VERIFIED",
+      "rows": 60,
+      "unique_keys": 60,
+      "with_content": 60,
+      "reviewed": 60
+    }
+  ],
+  "rule_statuses": [
+    {
+      "module": "CALENDAR",
+      "code": "LUNAR-CONVERSION",
+      "status": "VERIFIED"
+    },
+    {
+      "module": "MAI_HOA",
+      "code": "MH-CHANGE",
+      "status": "VERIFIED"
+    },
+    {
+      "module": "MAI_HOA",
+      "code": "MH-MUTUAL",
+      "status": "VERIFIED"
+    },
+    {
+      "module": "MAI_HOA",
+      "code": "MH-OBJECT-COUNT",
+      "status": "SOURCE_AMBIGUOUS"
+    },
+    {
+      "module": "MAI_HOA",
+      "code": "MH-THE-DUNG",
+      "status": "SOURCE_AMBIGUOUS"
+    },
+    {
+      "module": "MAI_HOA",
+      "code": "MH-TIME",
+      "status": "VERIFIED"
+    },
+    {
+      "module": "MAI_HOA",
+      "code": "MH-TRIGRAM",
+      "status": "VERIFIED"
+    },
+    {
+      "module": "TAM_THE",
+      "code": "TT-36-PHAN",
+      "status": "VERIFIED"
+    },
+    {
+      "module": "TAM_THE",
+      "code": "TT-CONG-DANH-11",
+      "status": "VERIFIED"
+    },
+    {
+      "module": "TAM_THE",
+      "code": "TT-CONG-DANH-13",
+      "status": "VERIFIED"
+    },
+    {
+      "module": "TAM_THE",
+      "code": "TT-GIO-SINH",
+      "status": "VERIFIED"
+    },
+    {
+      "module": "TAM_THE",
+      "code": "TT-NGU-HANH",
+      "status": "VERIFIED"
+    },
+    {
+      "module": "TAM_THE",
+      "code": "TT-TAI-LOC",
+      "status": "VERIFIED"
+    },
+    {
+      "module": "TAM_THE",
+      "code": "TT-TINH-DUYEN",
+      "status": "VERIFIED"
+    }
+  ],
+  "lines_columns": [
+    "hexagram_code",
+    "line_number",
+    "is_yang"
+  ],
+  "foreign_keys": [
+    {
+      "table": "calculation_rules",
+      "name": "calculation_rules_external_source_id_fkey",
+      "validated": true
+    },
+    {
+      "table": "calculation_rules",
+      "name": "calculation_rules_source_section_id_fkey",
+      "validated": true
+    },
+    {
+      "table": "hexagram_lines",
+      "name": "hexagram_lines_hexagram_code_fkey",
+      "validated": true
+    },
+    {
+      "table": "hexagrams",
+      "name": "hexagrams_lower_trigram_code_fkey",
+      "validated": true
+    },
+    {
+      "table": "hexagrams",
+      "name": "hexagrams_source_section_id_fkey",
+      "validated": true
+    },
+    {
+      "table": "hexagrams",
+      "name": "hexagrams_upper_trigram_code_fkey",
+      "validated": true
+    },
+    {
+      "table": "interpretations",
+      "name": "interpretations_hexagram_code_fkey",
+      "validated": true
+    },
+    {
+      "table": "interpretations",
+      "name": "interpretations_rule_id_fkey",
+      "validated": true
+    },
+    {
+      "table": "interpretations",
+      "name": "interpretations_source_section_id_fkey",
+      "validated": true
+    },
+    {
+      "table": "source_sections",
+      "name": "source_sections_source_book_id_fkey",
+      "validated": true
+    },
+    {
+      "table": "tam_the_hour_anchors",
+      "name": "tam_the_hour_anchors_source_section_id_fkey",
+      "validated": true
+    },
+    {
+      "table": "tam_the_lookup_entries",
+      "name": "tam_the_lookup_entries_content_source_section_id_fkey",
+      "validated": true
+    },
+    {
+      "table": "tam_the_lookup_entries",
+      "name": "tam_the_lookup_entries_rule_id_fkey",
+      "validated": true
+    },
+    {
+      "table": "tam_the_lookup_entries",
+      "name": "tam_the_lookup_entries_source_section_id_fkey",
+      "validated": true
+    },
+    {
+      "table": "tam_the_lookup_source_pages",
+      "name": "tam_the_lookup_source_pages_entry_id_fkey",
+      "validated": true
+    },
+    {
+      "table": "tam_the_lookup_source_pages",
+      "name": "tam_the_lookup_source_pages_source_section_id_fkey",
+      "validated": true
+    }
+  ],
+  "invalid_constraints": 0,
+  "counts": {
+    "source_books": 2,
+    "source_sections": 33,
+    "calculation_rules": 14,
+    "trigrams": 8,
+    "tam_the_hour_anchors": 12,
+    "tam_the_lookup_entries": 447,
+    "hexagrams": 64,
+    "hexagram_lines": 384,
+    "interpretations": 64
+  },
+  "external_sources": [
+    {
+      "source_id": "C01-VN-FIXED7",
+      "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+      "version": "C01-1.0 / Time4J 5.9.4",
+      "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+      "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html",
+      "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6"
+    }
+  ],
+  "wealth_coverage": {
+    "input_keys": 120,
+    "available_keys": 60,
+    "uncovered_keys": 60,
+    "rows": 120
+  }
+}

@@ -1,0 +1,1099 @@
+{
+  "task": "X01.5",
+  "status": "MEASUREMENTS_COMPLETE_PENDING_INDEPENDENT_AUDIT",
+  "startedAt": "2026-10-29T10:34:46.366201+07:00",
+  "suites": [
+    {
+      "task": "X01.5",
+      "suite": "idempotency",
+      "passed": true,
+      "database": "huyenco_benchmark_test_20261029_010531",
+      "jarSha256": "71a9d31d11adda8f50330398e87ccad6029fe7782b0a5b6239eaabf1bad0ab39",
+      "command": [
+        "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
+        "-Xms256m",
+        "-Xmx512m",
+        "-jar",
+        "C:\\Users\\abc\\OneDrive\\Documents\\ChatGPT\\BTL_LTM\\scripts\\generated\\x01_backend_20261029_013243_326170\\huyen-co-server.jar",
+        "--spring.profiles.active=db",
+        "--server.address=127.0.0.1",
+        "--server.port=18091",
+        "--spring.flyway.enabled=false",
+        "--spring.datasource.hikari.read-only=true",
+        "--spring.datasource.hikari.maximum-pool-size=8",
+        "--spring.datasource.url=jdbc:postgresql://127.0.0.1:5432/huyenco_benchmark_test_20261029_010531",
+        "--huyenco.allowed-origins=http://127.0.0.1:3173",
+        "--huyenco.calculation-mode=bounded",
+        "--huyenco.calculation-workers=4",
+        "--huyenco.calculation-queue-capacity=100",
+        "--huyenco.processing-timeout-ms=10000",
+        "--huyenco.idempotency-ttl-seconds=60",
+        "--huyenco.idempotency-max-entries=10000",
+        "--huyenco.max-calculation-sessions=1024",
+        "--huyenco.max-active-calculations=1000",
+        "--huyenco.max-active-per-session=16"
+      ],
+      "runnerToolchain": {
+        "nodeExecutable": "C:\\Program Files\\nodejs\\node.EXE",
+        "nodeVersion": "v24.21.0",
+        "nodeExecutableSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32",
+        "packages": {
+          "@stomp/stompjs": {
+            "version": "7.5.0",
+            "manifestSha256": "d21bc8ecfdbf9784eded47bbd142b2c3a9edd51d00c48972fc98ebe1105158d6"
+          },
+          "ws": {
+            "version": "8.22.0",
+            "manifestSha256": "c1ef91ca04eb4754c011c5f0e7638b5078ff71104fada400c44ac761cf93e0b1"
+          },
+          "typescript": {
+            "version": "5.9.3",
+            "manifestSha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+          }
+        },
+        "packageLockSha256": "8434f0f707eb57ccfc8901c35911b144b5327f48eb9f69f392aee2189f53fdd3"
+      },
+      "startedAt": "2026-10-29T10:34:46.663521+07:00",
+      "temporaryServerStopped": true,
+      "controlledContention": {
+        "table": "public.hexagrams",
+        "sql": "BEGIN; SET LOCAL lock_timeout='1s'; SET LOCAL statement_timeout='3s'; SET LOCAL idle_in_transaction_session_timeout='4s'; LOCK TABLE public.hexagrams IN ACCESS EXCLUSIVE MODE;\n",
+        "dataMutations": false,
+        "watchdogSeconds": 4,
+        "performanceBenchmark": false
+      },
+      "ownedJavaPid": 14892,
+      "beforeReadiness": {
+        "health": {
+          "status": "UP"
+        },
+        "readiness": {
+          "status": "READY",
+          "scope": "KNOWLEDGE_STORAGE",
+          "database": "UP",
+          "schema": "READY",
+          "seed": "READY",
+          "businessFeaturesReady": false,
+          "counts": {
+            "source_books": 2,
+            "source_sections": 33,
+            "calculation_rules": 14,
+            "trigrams": 8,
+            "hexagrams": 64,
+            "hexagram_lines": 384,
+            "interpretations": 64,
+            "tam_the_hour_anchors": 12,
+            "tam_the_lookup_entries": 447,
+            "verified_hexagram_names": 64,
+            "verified_rules": 12
+          },
+          "rules": [
+            {
+              "ruleCode": "MH-TRIGRAM",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-MUTUAL",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-CHANGE",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-TIME",
+              "executionPolicy": "TEAM_DECISION",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-OBJECT-COUNT",
+              "executionPolicy": "TEAM_DECISION",
+              "sourceStatus": "SOURCE_AMBIGUOUS",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-THE-DUNG",
+              "executionPolicy": "DISABLED",
+              "sourceStatus": "SOURCE_AMBIGUOUS",
+              "calculationAuthorized": false,
+              "reason": "EXECUTION_DISABLED"
+            },
+            {
+              "ruleCode": "TT-NGU-HANH",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-GIO-SINH",
+              "executionPolicy": "TEAM_DECISION",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-36-PHAN",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-CONG-DANH-11",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-CONG-DANH-13",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-TAI-LOC",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-TINH-DUYEN",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "LUNAR-CONVERSION",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            }
+          ],
+          "pending": [
+            "BUSINESS_IMPLEMENTATION_PENDING",
+            "RULES_NOT_AUTHORIZED"
+          ]
+        }
+      },
+      "ownedNodePid": 9772,
+      "runnerSummary": {
+        "task": "X01.5",
+        "suite": "idempotency",
+        "passed": true,
+        "database": "huyenco_benchmark_test_20261029_010531",
+        "endpoint": "ws://127.0.0.1:18091/ws",
+        "origin": "http://127.0.0.1:3173",
+        "reliabilityOnly": true,
+        "automaticReconnect": false,
+        "automaticRetry": false,
+        "cookies": false,
+        "cases": [
+          {
+            "name": "in_flight_dedupe_and_conflict",
+            "status": "PASS",
+            "startSequence": 142,
+            "endSequence": 162,
+            "details": {
+              "lockBefore": {
+                "database": "huyenco_benchmark_test_20261029_010531",
+                "locks": [
+                  {
+                    "pid": 18676,
+                    "granted": true,
+                    "mode": "AccessExclusiveLock"
+                  }
+                ],
+                "blocked": [
+                  {
+                    "pid": 17328,
+                    "wait_event_type": "Lock",
+                    "wait_event": "relation"
+                  }
+                ],
+                "elapsedMs": 45.99999999982174
+              },
+              "lockAfterDuplicate": {
+                "database": "huyenco_benchmark_test_20261029_010531",
+                "locks": [
+                  {
+                    "pid": 18676,
+                    "granted": true,
+                    "mode": "AccessExclusiveLock"
+                  }
+                ],
+                "blocked": [
+                  {
+                    "pid": 17328,
+                    "wait_event_type": "Lock",
+                    "wait_event": "relation"
+                  }
+                ],
+                "elapsedMs": 47.000000000025466
+              },
+              "duplicateSendSequences": [
+                152,
+                153
+              ],
+              "originalTerminalAt": 1031.7485,
+              "progress": 4,
+              "successTerminals": 1,
+              "conflicts": 1
+            }
+          },
+          {
+            "name": "terminal_replay_and_conflict_preserves_original",
+            "status": "PASS",
+            "startSequence": 164,
+            "endSequence": 170,
+            "details": {
+              "requestId": "1bca5537-b2f8-4ba7-9f12-530cfcfaef4f",
+              "replayProgress": 0,
+              "successfulReplays": 2,
+              "conflict": "INVALID_INPUT"
+            }
+          },
+          {
+            "name": "twenty_sessions_same_id_independent_inputs",
+            "status": "PASS",
+            "startSequence": 172,
+            "endSequence": 292,
+            "details": {
+              "clients": 20,
+              "requestId": "b6c9a78c-0512-421f-a8af-34e6b1105139",
+              "distinctInputs": 20,
+              "independentProgressChains": 20,
+              "correctResults": 20
+            }
+          },
+          {
+            "name": "reconnect_starts_new_work",
+            "status": "PASS",
+            "startSequence": 294,
+            "endSequence": 308,
+            "details": {
+              "requestId": "28235f1f-f78e-45b9-aed7-954aa2936da0",
+              "previousClient": "client-2",
+              "newClient": "client-2-reconnected",
+              "newProgress": 4,
+              "newHttpStatus": 101
+            }
+          },
+          {
+            "name": "expired_default_60s_ttl_recomputes",
+            "status": "PASS",
+            "startSequence": 310,
+            "endSequence": 317,
+            "details": {
+              "ttlSeconds": 60,
+              "elapsedSinceOriginalTerminalMs": 61506.275799999996,
+              "newProgress": 4,
+              "successTerminals": 1
+            }
+          }
+        ],
+        "failure": null,
+        "fatalCount": 0,
+        "connections": [
+          {
+            "clientId": "client-1",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-2",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-3",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-4",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-5",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-6",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-7",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-8",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-9",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-10",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-11",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-12",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-13",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-14",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-15",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-16",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-17",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-18",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-19",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-20",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-2-reconnected",
+            "httpStatus": 101,
+            "disconnected": true
+          }
+        ],
+        "counts": {
+          "sends": 50,
+          "progress": 176,
+          "successes": 46,
+          "errors": {
+            "INVALID_INPUT": 2
+          }
+        }
+      },
+      "afterReadiness": {
+        "health": {
+          "status": "UP"
+        },
+        "readiness": {
+          "status": "READY",
+          "scope": "KNOWLEDGE_STORAGE",
+          "database": "UP",
+          "schema": "READY",
+          "seed": "READY",
+          "businessFeaturesReady": false,
+          "counts": {
+            "source_books": 2,
+            "source_sections": 33,
+            "calculation_rules": 14,
+            "trigrams": 8,
+            "hexagrams": 64,
+            "hexagram_lines": 384,
+            "interpretations": 64,
+            "tam_the_hour_anchors": 12,
+            "tam_the_lookup_entries": 447,
+            "verified_hexagram_names": 64,
+            "verified_rules": 12
+          },
+          "rules": [
+            {
+              "ruleCode": "MH-TRIGRAM",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-MUTUAL",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-CHANGE",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-TIME",
+              "executionPolicy": "TEAM_DECISION",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-OBJECT-COUNT",
+              "executionPolicy": "TEAM_DECISION",
+              "sourceStatus": "SOURCE_AMBIGUOUS",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-THE-DUNG",
+              "executionPolicy": "DISABLED",
+              "sourceStatus": "SOURCE_AMBIGUOUS",
+              "calculationAuthorized": false,
+              "reason": "EXECUTION_DISABLED"
+            },
+            {
+              "ruleCode": "TT-NGU-HANH",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-GIO-SINH",
+              "executionPolicy": "TEAM_DECISION",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-36-PHAN",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-CONG-DANH-11",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-CONG-DANH-13",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-TAI-LOC",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-TINH-DUYEN",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "LUNAR-CONVERSION",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            }
+          ],
+          "pending": [
+            "BUSINESS_IMPLEMENTATION_PENDING",
+            "RULES_NOT_AUTHORIZED"
+          ]
+        }
+      },
+      "temporaryRunnerStopped": true,
+      "contentionLocksReleased": true,
+      "databaseUnchanged": true,
+      "endedAt": "2026-10-29T10:35:53.569404+07:00"
+    },
+    {
+      "task": "X01.5",
+      "suite": "overload",
+      "passed": true,
+      "database": "huyenco_benchmark_test_20261029_010531",
+      "jarSha256": "71a9d31d11adda8f50330398e87ccad6029fe7782b0a5b6239eaabf1bad0ab39",
+      "command": [
+        "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
+        "-Xms256m",
+        "-Xmx512m",
+        "-jar",
+        "C:\\Users\\abc\\OneDrive\\Documents\\ChatGPT\\BTL_LTM\\scripts\\generated\\x01_backend_20261029_013243_326170\\huyen-co-server.jar",
+        "--spring.profiles.active=db",
+        "--server.address=127.0.0.1",
+        "--server.port=18091",
+        "--spring.flyway.enabled=false",
+        "--spring.datasource.hikari.read-only=true",
+        "--spring.datasource.hikari.maximum-pool-size=8",
+        "--spring.datasource.url=jdbc:postgresql://127.0.0.1:5432/huyenco_benchmark_test_20261029_010531",
+        "--huyenco.allowed-origins=http://127.0.0.1:3173",
+        "--huyenco.calculation-mode=bounded",
+        "--huyenco.calculation-workers=2",
+        "--huyenco.calculation-queue-capacity=4",
+        "--huyenco.processing-timeout-ms=10000",
+        "--huyenco.idempotency-ttl-seconds=60",
+        "--huyenco.idempotency-max-entries=10000",
+        "--huyenco.max-calculation-sessions=1024",
+        "--huyenco.max-active-calculations=1000",
+        "--huyenco.max-active-per-session=16"
+      ],
+      "runnerToolchain": {
+        "nodeExecutable": "C:\\Program Files\\nodejs\\node.EXE",
+        "nodeVersion": "v24.21.0",
+        "nodeExecutableSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32",
+        "packages": {
+          "@stomp/stompjs": {
+            "version": "7.5.0",
+            "manifestSha256": "d21bc8ecfdbf9784eded47bbd142b2c3a9edd51d00c48972fc98ebe1105158d6"
+          },
+          "ws": {
+            "version": "8.22.0",
+            "manifestSha256": "c1ef91ca04eb4754c011c5f0e7638b5078ff71104fada400c44ac761cf93e0b1"
+          },
+          "typescript": {
+            "version": "5.9.3",
+            "manifestSha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+          }
+        },
+        "packageLockSha256": "8434f0f707eb57ccfc8901c35911b144b5327f48eb9f69f392aee2189f53fdd3"
+      },
+      "startedAt": "2026-10-29T10:35:53.847783+07:00",
+      "temporaryServerStopped": true,
+      "controlledContention": {
+        "table": "public.hexagrams",
+        "sql": "BEGIN; SET LOCAL lock_timeout='1s'; SET LOCAL statement_timeout='3s'; SET LOCAL idle_in_transaction_session_timeout='4s'; LOCK TABLE public.hexagrams IN ACCESS EXCLUSIVE MODE;\n",
+        "dataMutations": false,
+        "watchdogSeconds": 4,
+        "performanceBenchmark": false
+      },
+      "ownedJavaPid": 12672,
+      "beforeReadiness": {
+        "health": {
+          "status": "UP"
+        },
+        "readiness": {
+          "status": "READY",
+          "scope": "KNOWLEDGE_STORAGE",
+          "database": "UP",
+          "schema": "READY",
+          "seed": "READY",
+          "businessFeaturesReady": false,
+          "counts": {
+            "source_books": 2,
+            "source_sections": 33,
+            "calculation_rules": 14,
+            "trigrams": 8,
+            "hexagrams": 64,
+            "hexagram_lines": 384,
+            "interpretations": 64,
+            "tam_the_hour_anchors": 12,
+            "tam_the_lookup_entries": 447,
+            "verified_hexagram_names": 64,
+            "verified_rules": 12
+          },
+          "rules": [
+            {
+              "ruleCode": "MH-TRIGRAM",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-MUTUAL",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-CHANGE",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-TIME",
+              "executionPolicy": "TEAM_DECISION",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-OBJECT-COUNT",
+              "executionPolicy": "TEAM_DECISION",
+              "sourceStatus": "SOURCE_AMBIGUOUS",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-THE-DUNG",
+              "executionPolicy": "DISABLED",
+              "sourceStatus": "SOURCE_AMBIGUOUS",
+              "calculationAuthorized": false,
+              "reason": "EXECUTION_DISABLED"
+            },
+            {
+              "ruleCode": "TT-NGU-HANH",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-GIO-SINH",
+              "executionPolicy": "TEAM_DECISION",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-36-PHAN",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-CONG-DANH-11",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-CONG-DANH-13",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-TAI-LOC",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-TINH-DUYEN",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "LUNAR-CONVERSION",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            }
+          ],
+          "pending": [
+            "BUSINESS_IMPLEMENTATION_PENDING",
+            "RULES_NOT_AUTHORIZED"
+          ]
+        }
+      },
+      "ownedNodePid": 13996,
+      "runnerSummary": {
+        "task": "X01.5",
+        "suite": "overload",
+        "passed": true,
+        "database": "huyenco_benchmark_test_20261029_010531",
+        "endpoint": "ws://127.0.0.1:18091/ws",
+        "origin": "http://127.0.0.1:3173",
+        "reliabilityOnly": true,
+        "automaticReconnect": false,
+        "automaticRetry": false,
+        "cookies": false,
+        "cases": [
+          {
+            "name": "natural_burst_20x8_and_recovery",
+            "status": "PASS",
+            "startSequence": 142,
+            "endSequence": 514,
+            "details": {
+              "sent": 160,
+              "completed": 10,
+              "serverBusy": 150,
+              "blocked": null,
+              "workers": 2,
+              "queueCapacity": 4,
+              "maxPerClient": 8,
+              "maxActive": 160,
+              "otherLimits": {
+                "perSession": 16,
+                "active": 1000,
+                "registry": 10000
+              },
+              "sameIdRecovery": {
+                "requestId": "e092d46d-3cef-4ce0-a7c3-52fe00b09fe1",
+                "progress": 4,
+                "completed": true
+              },
+              "freshIdRecovery": "13bd0d99-264d-4463-9424-c06b334ed85b",
+              "queueSaturationObserved": true,
+              "controlledDatabaseContention": false
+            }
+          },
+          {
+            "name": "observed_full_2worker_4queue_and_non_cached_rejection",
+            "status": "PASS",
+            "startSequence": 516,
+            "endSequence": 882,
+            "details": {
+              "sent": 160,
+              "completed": 6,
+              "serverBusy": 154,
+              "blocked": {
+                "database": "huyenco_benchmark_test_20261029_010531",
+                "locks": [
+                  {
+                    "pid": 12856,
+                    "granted": true,
+                    "mode": "AccessExclusiveLock"
+                  }
+                ],
+                "blocked": [
+                  {
+                    "pid": 14968,
+                    "wait_event_type": "Lock",
+                    "wait_event": "relation"
+                  },
+                  {
+                    "pid": 12136,
+                    "wait_event_type": "Lock",
+                    "wait_event": "relation"
+                  }
+                ],
+                "elapsedMs": 47.000000000025466
+              },
+              "workers": 2,
+              "queueCapacity": 4,
+              "maxPerClient": 8,
+              "maxActive": 160,
+              "otherLimits": {
+                "perSession": 16,
+                "active": 1000,
+                "registry": 10000
+              },
+              "sameIdRecovery": {
+                "requestId": "178b4e6b-6db7-43f3-a356-60c8d10daa65",
+                "progress": 4,
+                "completed": true
+              },
+              "freshIdRecovery": "9d65de92-1f3f-40b6-be6a-6f769657e3bc",
+              "queueSaturationObserved": true,
+              "controlledDatabaseContention": true
+            }
+          }
+        ],
+        "failure": null,
+        "fatalCount": 0,
+        "connections": [
+          {
+            "clientId": "client-1",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-2",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-3",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-4",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-5",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-6",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-7",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-8",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-9",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-10",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-11",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-12",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-13",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-14",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-15",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-16",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-17",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-18",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-19",
+            "httpStatus": 101,
+            "disconnected": true
+          },
+          {
+            "clientId": "client-20",
+            "httpStatus": 101,
+            "disconnected": true
+          }
+        ],
+        "counts": {
+          "sends": 344,
+          "progress": 160,
+          "successes": 40,
+          "errors": {
+            "SERVER_BUSY": 304
+          }
+        }
+      },
+      "afterReadiness": {
+        "health": {
+          "status": "UP"
+        },
+        "readiness": {
+          "status": "READY",
+          "scope": "KNOWLEDGE_STORAGE",
+          "database": "UP",
+          "schema": "READY",
+          "seed": "READY",
+          "businessFeaturesReady": false,
+          "counts": {
+            "source_books": 2,
+            "source_sections": 33,
+            "calculation_rules": 14,
+            "trigrams": 8,
+            "hexagrams": 64,
+            "hexagram_lines": 384,
+            "interpretations": 64,
+            "tam_the_hour_anchors": 12,
+            "tam_the_lookup_entries": 447,
+            "verified_hexagram_names": 64,
+            "verified_rules": 12
+          },
+          "rules": [
+            {
+              "ruleCode": "MH-TRIGRAM",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-MUTUAL",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-CHANGE",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-TIME",
+              "executionPolicy": "TEAM_DECISION",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-OBJECT-COUNT",
+              "executionPolicy": "TEAM_DECISION",
+              "sourceStatus": "SOURCE_AMBIGUOUS",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "MH-THE-DUNG",
+              "executionPolicy": "DISABLED",
+              "sourceStatus": "SOURCE_AMBIGUOUS",
+              "calculationAuthorized": false,
+              "reason": "EXECUTION_DISABLED"
+            },
+            {
+              "ruleCode": "TT-NGU-HANH",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-GIO-SINH",
+              "executionPolicy": "TEAM_DECISION",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-36-PHAN",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-CONG-DANH-11",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-CONG-DANH-13",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-TAI-LOC",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "TT-TINH-DUYEN",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            },
+            {
+              "ruleCode": "LUNAR-CONVERSION",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "calculationAuthorized": true,
+              "reason": null
+            }
+          ],
+          "pending": [
+            "BUSINESS_IMPLEMENTATION_PENDING",
+            "RULES_NOT_AUTHORIZED"
+          ]
+        }
+      },
+      "temporaryRunnerStopped": true,
+      "contentionLocksReleased": true,
+      "databaseUnchanged": true,
+      "endedAt": "2026-10-29T10:35:59.801640+07:00"
+    }
+  ],
+  "endedAt": "2026-10-29T10:35:59.804649+07:00"
+}

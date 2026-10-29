@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.huyenco.maihoa.MaiHoaInterpretationTest
+-------------------------------------------------------------------------------
+Tests run: 1539, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.222 s -- in com.huyenco.maihoa.MaiHoaInterpretationTest

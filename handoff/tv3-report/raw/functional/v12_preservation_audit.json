@@ -1,0 +1,21 @@
+{
+  "database": "huyenco",
+  "status": "PASS",
+  "versionBefore": 11,
+  "versionAfter": 12,
+  "allOriginalV11RowsPreserved": true,
+  "onlyFourNewTablesAndOneMigrationAdded": true,
+  "originalBaselineSha256": "0b705f8761ede8fc25037937c3520aa12e5f89bb511781fdb1dcaf16cc6484ad",
+  "newTableCounts": {
+    "reading_source_bundles": 1,
+    "mai_hoa_reading_templates": 20,
+    "tam_the_supplement_results": 19,
+    "tam_the_supplement_mappings": 204
+  },
+  "supplementaryDataMatchesReviewedTest": true,
+  "sessionsPreserved": true,
+  "historyPreserved": true,
+  "sessions": 0,
+  "history": 0,
+  "totalPublicTables": 18
+}

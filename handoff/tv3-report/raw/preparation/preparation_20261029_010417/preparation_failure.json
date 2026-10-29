@@ -1,0 +1,10 @@
+{
+  "task": "X01.1",
+  "status": "FAILED",
+  "sourceDatabase": "huyenco_acceptance_test_20261028_184149",
+  "database": "huyenco_benchmark_test_20261029_010417",
+  "createdAt": "2026-10-29T01:04:17.273899+07:00",
+  "databaseCreated": true,
+  "manifestPublished": false,
+  "error": "pg_restore: error: could not execute query: ERROR:  schema \"public\" already exists\nCommand was: CREATE SCHEMA public;"
+}

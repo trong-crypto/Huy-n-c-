@@ -1,0 +1,12 @@
+{
+  "task": "X01.7",
+  "status": "PACKAGED_AND_HASH_VERIFIED",
+  "archive": "report/evidence/X01-Evidence.zip",
+  "sha256": "5cbb0b80991067c8d9403b63d78e9ad86a2565a11a23f13f70ed15481d01d6bd",
+  "bytes": 6529345,
+  "payloadFiles": 371,
+  "embeddedManifest": "MANIFEST.json",
+  "reportSha256": "9a59fe58b6ebffed427b99c3016fc52cf4d8a492c2c765a2553bf28a7109eeee",
+  "strictSendWindowSatisfied": false,
+  "createdAt": "2026-10-29T12:38:54.430589+07:00"
+}

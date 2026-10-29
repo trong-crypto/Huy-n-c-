@@ -1,0 +1,95 @@
+[
+  {
+    "action": "hold_lock",
+    "at": "2026-10-29T10:34:50.947816+07:00",
+    "result": {
+      "database": "huyenco_benchmark_test_20261029_010531",
+      "locks": [
+        {
+          "pid": 18676,
+          "granted": true,
+          "mode": "AccessExclusiveLock"
+        }
+      ],
+      "blocked": [],
+      "elapsedMs": 157.0000000001528
+    }
+  },
+  {
+    "action": "wait_blocked_one",
+    "at": "2026-10-29T10:34:50.995361+07:00",
+    "result": {
+      "database": "huyenco_benchmark_test_20261029_010531",
+      "locks": [
+        {
+          "pid": 18676,
+          "granted": true,
+          "mode": "AccessExclusiveLock"
+        }
+      ],
+      "blocked": [
+        {
+          "pid": 17328,
+          "wait_event_type": "Lock",
+          "wait_event": "relation"
+        }
+      ],
+      "elapsedMs": 45.99999999982174
+    }
+  },
+  {
+    "action": "wait_blocked_one",
+    "at": "2026-10-29T10:34:51.057339+07:00",
+    "result": {
+      "database": "huyenco_benchmark_test_20261029_010531",
+      "locks": [
+        {
+          "pid": 18676,
+          "granted": true,
+          "mode": "AccessExclusiveLock"
+        }
+      ],
+      "blocked": [
+        {
+          "pid": 17328,
+          "wait_event_type": "Lock",
+          "wait_event": "relation"
+        }
+      ],
+      "elapsedMs": 47.000000000025466
+    }
+  },
+  {
+    "action": "release_lock",
+    "at": "2026-10-29T10:34:51.214490+07:00",
+    "result": {
+      "database": "huyenco_benchmark_test_20261029_010531",
+      "locks": [],
+      "blocked": [],
+      "released": true,
+      "elapsedMs": 155.99999999994907
+    }
+  },
+  {
+    "action": "release_lock",
+    "at": "2026-10-29T10:34:51.453364+07:00",
+    "result": {
+      "database": "huyenco_benchmark_test_20261029_010531",
+      "locks": [],
+      "blocked": [],
+      "released": false,
+      "elapsedMs": 47.000000000025466
+    }
+  },
+  {
+    "action": "release_lock",
+    "at": "2026-10-29T10:35:53.387382+07:00",
+    "result": {
+      "database": "huyenco_benchmark_test_20261029_010531",
+      "locks": [],
+      "blocked": [],
+      "released": false,
+      "elapsedMs": 47.000000000025466
+    }
+  }
+]

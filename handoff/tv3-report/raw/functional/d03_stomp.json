@@ -1,0 +1,1159 @@
+{
+  "terminalCount": 263,
+  "progressCount": 1034,
+  "evidence": [
+    {
+      "case": "tam-the",
+      "response": {
+        "requestId": "550e8400-e29b-41d4-a716-446655440001",
+        "type": "TAM_THE",
+        "status": "COMPLETED",
+        "data": {
+          "ruleVersion": "1.0",
+          "ruleBasis": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "rules": [
+            {
+              "ruleCode": "LUNAR-CONVERSION",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "C01-VN-FIXED7",
+                  "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+                  "version": "C01-1.0 / Time4J 5.9.4",
+                  "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+                  "printedPage": null,
+                  "pdfPage": null,
+                  "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+                  "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "TT-NGU-HANH",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "TT-NGU-HANH",
+                  "printedPage": "12",
+                  "pdfPage": 11,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "TT-CONG-DANH-11",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "TT-CONG-DANH-11",
+                  "printedPage": "33",
+                  "pdfPage": 32,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "TT-CONG-DANH-13",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "TT-CONG-DANH-13",
+                  "printedPage": "36",
+                  "pdfPage": 35,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "TT-TAI-LOC",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "D02-TT-P041",
+                  "printedPage": "42",
+                  "pdfPage": 41,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                },
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "D02-TT-P042",
+                  "printedPage": "43",
+                  "pdfPage": 42,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "TT-TINH-DUYEN",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "D02-TT-P063",
+                  "printedPage": "64",
+                  "pdfPage": 63,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                },
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "D02-TT-P064",
+                  "printedPage": "65",
+                  "pdfPage": 64,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            }
+          ],
+          "sourceReferences": [
+            {
+              "sourceId": "C01-VN-FIXED7",
+              "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+              "version": "C01-1.0 / Time4J 5.9.4",
+              "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+              "printedPage": null,
+              "pdfPage": null,
+              "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+              "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "TT-NGU-HANH",
+              "printedPage": "12",
+              "pdfPage": 11,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "TT-CONG-DANH-11",
+              "printedPage": "33",
+              "pdfPage": 32,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "TT-CONG-DANH-13",
+              "printedPage": "36",
+              "pdfPage": 35,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "D02-TT-P041",
+              "printedPage": "42",
+              "pdfPage": 41,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "D02-TT-P042",
+              "printedPage": "43",
+              "pdfPage": 42,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "D02-TT-P063",
+              "printedPage": "64",
+              "pdfPage": 63,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "D02-TT-P064",
+              "printedPage": "65",
+              "pdfPage": 64,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            }
+          ],
+          "decisionReferences": [],
+          "categories": [
+            {
+              "category": "CAREER",
+              "entries": [
+                {
+                  "resultCode": "LAM_THO",
+                  "title": "Làm thợ",
+                  "content": "Bảng Số 11 ghi nghề: Làm thợ.",
+                  "sourceReferences": [
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "TT-CONG-DANH-11",
+                      "printedPage": "33",
+                      "pdfPage": 32,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    }
+                  ]
+                },
+                {
+                  "resultCode": "CAREER13_C01",
+                  "title": "Quan nhơn",
+                  "content": "Số này: số có mạng làm giàu, hay ăn của bổn phượng, học tập văn chương để lấy khoa, số có tiền và lúa gạo.",
+                  "sourceReferences": [
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "TT-CONG-DANH-13",
+                      "printedPage": "36",
+                      "pdfPage": 35,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "category": "WEALTH",
+              "entries": [
+                {
+                  "resultCode": "WEALTH_C01",
+                  "title": "Hưởng lộc",
+                  "content": "Số này có tài lộc thạnh vượng, có ruộng vườn, có tánh tốt, việc ăn mặc đủ, gặp hung hóa hiền, cầu quan có quới nhân [CHU_MO] kính trọng.",
+                  "sourceReferences": [
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "D02-TT-P041",
+                      "printedPage": "42",
+                      "pdfPage": 41,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    }
+                  ]
+                },
+                {
+                  "resultCode": "WEALTH_C07",
+                  "title": "Sát lộc",
+                  "content": "Số này phạm Sát Lộc, số bôn ba lội lạc, mưu sanh kế mị thường, dễ sanh nhai, đến tuổi gần già làm ăn mới khá.",
+                  "sourceReferences": [
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "D02-TT-P041",
+                      "printedPage": "42",
+                      "pdfPage": 41,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    },
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "D02-TT-P042",
+                      "printedPage": "43",
+                      "pdfPage": 42,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "category": "LOVE",
+              "entries": [
+                {
+                  "resultCode": "LOVE_C01",
+                  "title": "Trường sanh",
+                  "content": "Mẹ cha tích đức dày công,\nNên nay con hưởng phước hồng Trường Sanh.\nVợ chồng duyên nợ đặng thành,\nTrăm năm tơ tóc, yến anh giao hòa.\nSống lâu an hưởng một nhà,\nTrọn đời có một, dầu là có hai.\nTôi trai, tớ gái hằng ngày,\nSố này có đức hậu lại đặng nhờ.",
+                  "sourceReferences": [
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "D02-TT-P064",
+                      "printedPage": "65",
+                      "pdfPage": 64,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "error": null
+      },
+      "progress": [
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 1,
+          "step": "ACCEPTED",
+          "message": "Server đã nhận yêu cầu."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 2,
+          "step": "VALIDATING",
+          "message": "Đang kiểm tra đầu vào và điều kiện nguồn."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 3,
+          "step": "CALCULATING",
+          "message": "Đang xác định hành mệnh và khóa tra theo năm, tháng âm."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 4,
+          "step": "LOOKUP",
+          "message": "Đang tra các mục đã duyệt và đầy đủ trang nguồn."
+        }
+      ]
+    },
+    {
+      "case": "tam-the-career",
+      "response": {
+        "requestId": "550e8400-e29b-41d4-a716-446655440001",
+        "type": "TAM_THE",
+        "status": "COMPLETED",
+        "data": {
+          "ruleVersion": "1.0",
+          "ruleBasis": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "rules": [
+            {
+              "ruleCode": "LUNAR-CONVERSION",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "C01-VN-FIXED7",
+                  "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+                  "version": "C01-1.0 / Time4J 5.9.4",
+                  "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+                  "printedPage": null,
+                  "pdfPage": null,
+                  "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+                  "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "TT-NGU-HANH",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "TT-NGU-HANH",
+                  "printedPage": "12",
+                  "pdfPage": 11,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "TT-CONG-DANH-11",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "TT-CONG-DANH-11",
+                  "printedPage": "33",
+                  "pdfPage": 32,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "TT-CONG-DANH-13",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "TT-CONG-DANH-13",
+                  "printedPage": "36",
+                  "pdfPage": 35,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                },
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "TT-CONG-DANH-13-TEXT",
+                  "printedPage": "37",
+                  "pdfPage": 36,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            }
+          ],
+          "sourceReferences": [
+            {
+              "sourceId": "C01-VN-FIXED7",
+              "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+              "version": "C01-1.0 / Time4J 5.9.4",
+              "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+              "printedPage": null,
+              "pdfPage": null,
+              "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+              "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "TT-NGU-HANH",
+              "printedPage": "12",
+              "pdfPage": 11,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "TT-CONG-DANH-11",
+              "printedPage": "33",
+              "pdfPage": 32,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "TT-CONG-DANH-13",
+              "printedPage": "36",
+              "pdfPage": 35,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "TT-CONG-DANH-13-TEXT",
+              "printedPage": "37",
+              "pdfPage": 36,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            }
+          ],
+          "decisionReferences": [],
+          "categories": [
+            {
+              "category": "CAREER",
+              "entries": [
+                {
+                  "resultCode": "MUA_BAN",
+                  "title": "Mua bán",
+                  "content": "Bảng Số 11 ghi nghề: Mua bán.",
+                  "sourceReferences": [
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "TT-CONG-DANH-11",
+                      "printedPage": "33",
+                      "pdfPage": 32,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    }
+                  ]
+                },
+                {
+                  "resultCode": "CAU_CHAI",
+                  "title": "Câu/chài lưới/đáy rọ/mua thủy lợi",
+                  "content": "Bảng Số 11 ghi nghề: Câu/chài lưới/đáy rọ/mua thủy lợi.",
+                  "sourceReferences": [
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "TT-CONG-DANH-11",
+                      "printedPage": "33",
+                      "pdfPage": 32,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    }
+                  ]
+                },
+                {
+                  "resultCode": "LAM_THO",
+                  "title": "Làm thợ",
+                  "content": "Bảng Số 11 ghi nghề: Làm thợ.",
+                  "sourceReferences": [
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "TT-CONG-DANH-11",
+                      "printedPage": "33",
+                      "pdfPage": 32,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    }
+                  ]
+                },
+                {
+                  "resultCode": "CAREER13_C10",
+                  "title": "Tài Phùng",
+                  "content": "Số này: Có số làm thợ may, tay cầm kéo kim chỉ, nếu không làm thợ may thì tay phải có tật, phải nên làm nghề.",
+                  "sourceReferences": [
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "TT-CONG-DANH-13",
+                      "printedPage": "36",
+                      "pdfPage": 35,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    },
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "TT-CONG-DANH-13-TEXT",
+                      "printedPage": "37",
+                      "pdfPage": 36,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "error": null
+      },
+      "progress": [
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 1,
+          "step": "ACCEPTED",
+          "message": "Server đã nhận yêu cầu."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 2,
+          "step": "VALIDATING",
+          "message": "Đang kiểm tra đầu vào và điều kiện nguồn."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 3,
+          "step": "CALCULATING",
+          "message": "Đang xác định hành mệnh và khóa tra theo năm, tháng âm."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 4,
+          "step": "LOOKUP",
+          "message": "Đang tra các mục đã duyệt và đầy đủ trang nguồn."
+        }
+      ]
+    },
+    {
+      "case": "tam-the-wealth",
+      "response": {
+        "requestId": "550e8400-e29b-41d4-a716-446655440001",
+        "type": "TAM_THE",
+        "status": "COMPLETED",
+        "data": {
+          "ruleVersion": "1.0",
+          "ruleBasis": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "rules": [
+            {
+              "ruleCode": "LUNAR-CONVERSION",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "C01-VN-FIXED7",
+                  "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+                  "version": "C01-1.0 / Time4J 5.9.4",
+                  "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+                  "printedPage": null,
+                  "pdfPage": null,
+                  "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+                  "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "TT-NGU-HANH",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "TT-NGU-HANH",
+                  "printedPage": "12",
+                  "pdfPage": 11,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "TT-TAI-LOC",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "D02-TT-P041",
+                  "printedPage": "42",
+                  "pdfPage": 41,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                },
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "D02-TT-P042",
+                  "printedPage": "43",
+                  "pdfPage": 42,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            }
+          ],
+          "sourceReferences": [
+            {
+              "sourceId": "C01-VN-FIXED7",
+              "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+              "version": "C01-1.0 / Time4J 5.9.4",
+              "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+              "printedPage": null,
+              "pdfPage": null,
+              "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+              "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "TT-NGU-HANH",
+              "printedPage": "12",
+              "pdfPage": 11,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "D02-TT-P041",
+              "printedPage": "42",
+              "pdfPage": 41,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "D02-TT-P042",
+              "printedPage": "43",
+              "pdfPage": 42,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            }
+          ],
+          "decisionReferences": [],
+          "categories": [
+            {
+              "category": "WEALTH",
+              "entries": [
+                {
+                  "resultCode": "WEALTH_C01",
+                  "title": "Hưởng lộc",
+                  "content": "Số này có tài lộc thạnh vượng, có ruộng vườn, có tánh tốt, việc ăn mặc đủ, gặp hung hóa hiền, cầu quan có quới nhân [CHU_MO] kính trọng.",
+                  "sourceReferences": [
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "D02-TT-P041",
+                      "printedPage": "42",
+                      "pdfPage": 41,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    }
+                  ]
+                },
+                {
+                  "resultCode": "WEALTH_C07",
+                  "title": "Sát lộc",
+                  "content": "Số này phạm Sát Lộc, số bôn ba lội lạc, mưu sanh kế mị thường, dễ sanh nhai, đến tuổi gần già làm ăn mới khá.",
+                  "sourceReferences": [
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "D02-TT-P041",
+                      "printedPage": "42",
+                      "pdfPage": 41,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    },
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "D02-TT-P042",
+                      "printedPage": "43",
+                      "pdfPage": 42,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "error": null
+      },
+      "progress": [
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 1,
+          "step": "ACCEPTED",
+          "message": "Server đã nhận yêu cầu."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 2,
+          "step": "VALIDATING",
+          "message": "Đang kiểm tra đầu vào và điều kiện nguồn."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 3,
+          "step": "CALCULATING",
+          "message": "Đang xác định hành mệnh và khóa tra theo năm, tháng âm."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 4,
+          "step": "LOOKUP",
+          "message": "Đang tra các mục đã duyệt và đầy đủ trang nguồn."
+        }
+      ]
+    },
+    {
+      "case": "tam-the-love",
+      "response": {
+        "requestId": "550e8400-e29b-41d4-a716-446655440001",
+        "type": "TAM_THE",
+        "status": "COMPLETED",
+        "data": {
+          "ruleVersion": "1.0",
+          "ruleBasis": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "rules": [
+            {
+              "ruleCode": "LUNAR-CONVERSION",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "C01-VN-FIXED7",
+                  "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+                  "version": "C01-1.0 / Time4J 5.9.4",
+                  "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+                  "printedPage": null,
+                  "pdfPage": null,
+                  "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+                  "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "TT-NGU-HANH",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "TT-NGU-HANH",
+                  "printedPage": "12",
+                  "pdfPage": 11,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            },
+            {
+              "ruleCode": "TT-TINH-DUYEN",
+              "ruleVersion": "1.0",
+              "executionPolicy": "SOURCE_VERIFIED",
+              "ruleBasis": "SOURCE_VERIFIED",
+              "sourceStatus": "VERIFIED",
+              "sourceReferences": [
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "D02-TT-P063",
+                  "printedPage": "64",
+                  "pdfPage": 63,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                },
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "D02-TT-P064",
+                  "printedPage": "65",
+                  "pdfPage": 64,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                },
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "D02-TT-P066",
+                  "printedPage": "67",
+                  "pdfPage": 66,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                },
+                {
+                  "sourceId": "TT",
+                  "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                  "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                  "section": "D02-TT-P067",
+                  "printedPage": "68",
+                  "pdfPage": 67,
+                  "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                  "url": null
+                }
+              ],
+              "decisionReferences": []
+            }
+          ],
+          "sourceReferences": [
+            {
+              "sourceId": "C01-VN-FIXED7",
+              "title": "Vietnamese fixed UTC+7 calendar - Time4J astronomy / Huyen Co rules",
+              "version": "C01-1.0 / Time4J 5.9.4",
+              "section": "Fixed UTC+7; new-moon day, winter-solstice month11, first no-major-term leap month; Can Chi civil-date conventions",
+              "printedPage": null,
+              "pdfPage": null,
+              "sha256": "48d0e58f613fe6151961ceb776b5bffd704c6edadb390e050b93bce33bb653f6",
+              "url": "https://javadoc.io/static/net.time4j/time4j-base/5.9.4/net/time4j/calendar/astro/MoonPhase.html"
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "TT-NGU-HANH",
+              "printedPage": "12",
+              "pdfPage": 11,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "D02-TT-P063",
+              "printedPage": "64",
+              "pdfPage": 63,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "D02-TT-P064",
+              "printedPage": "65",
+              "pdfPage": 64,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "D02-TT-P066",
+              "printedPage": "67",
+              "pdfPage": 66,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            },
+            {
+              "sourceId": "TT",
+              "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+              "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+              "section": "D02-TT-P067",
+              "printedPage": "68",
+              "pdfPage": 67,
+              "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+              "url": null
+            }
+          ],
+          "decisionReferences": [],
+          "categories": [
+            {
+              "category": "LOVE",
+              "entries": [
+                {
+                  "resultCode": "LOVE_C10",
+                  "title": "Tuyệt",
+                  "content": "Vợ chồng duyên nợ chẳng lành,\nSanh nhằm chữ Tuyệt bao đành sầu đau.\nThêm sầu số phận quằn bao,\nXem trong duyên nợ khắc hào phu thê.\nMảng lo tranh đấu bộn bề,\nTrải qua bao độ gia tề mới an.\nBởi do số hệ chớ than,\nKỳ ba trời định mới an gia đình.",
+                  "sourceReferences": [
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "D02-TT-P064",
+                      "printedPage": "65",
+                      "pdfPage": 64,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    },
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "D02-TT-P066",
+                      "printedPage": "67",
+                      "pdfPage": 66,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    },
+                    {
+                      "sourceId": "TT",
+                      "title": "Diễn Cầm Tam Thế Diễn Nghĩa",
+                      "version": "Bản PDF scan người dùng cung cấp; chưa xác minh ấn bản in",
+                      "section": "D02-TT-P067",
+                      "printedPage": "68",
+                      "pdfPage": 67,
+                      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d",
+                      "url": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "error": null
+      },
+      "progress": [
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 1,
+          "step": "ACCEPTED",
+          "message": "Server đã nhận yêu cầu."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 2,
+          "step": "VALIDATING",
+          "message": "Đang kiểm tra đầu vào và điều kiện nguồn."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 3,
+          "step": "CALCULATING",
+          "message": "Đang xác định hành mệnh và khóa tra theo năm, tháng âm."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 4,
+          "step": "LOOKUP",
+          "message": "Đang tra các mục đã duyệt và đầy đủ trang nguồn."
+        }
+      ]
+    },
+    {
+      "case": "tam-the-no-match",
+      "response": {
+        "requestId": "550e8400-e29b-41d4-a716-446655440001",
+        "type": "TAM_THE",
+        "status": "FAILED",
+        "data": null,
+        "error": {
+          "code": "RULE_NOT_AVAILABLE",
+          "message": "Quy tắc hoặc dữ liệu chưa sẵn sàng để xử lý yêu cầu.",
+          "ruleCode": "TT-TAI-LOC",
+          "reason": "LOOKUP_NOT_AVAILABLE"
+        }
+      },
+      "progress": [
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 1,
+          "step": "ACCEPTED",
+          "message": "Server đã nhận yêu cầu."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 2,
+          "step": "VALIDATING",
+          "message": "Đang kiểm tra đầu vào và điều kiện nguồn."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 3,
+          "step": "CALCULATING",
+          "message": "Đang xác định hành mệnh và khóa tra theo năm, tháng âm."
+        },
+        {
+          "requestId": "550e8400-e29b-41d4-a716-446655440001",
+          "type": "TAM_THE",
+          "sequence": 4,
+          "step": "LOOKUP",
+          "message": "Đang tra các mục đã duyệt và đầy đủ trang nguồn."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "task": "X01.1",
+  "status": "READY_FOR_RUNNER",
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "host": "127.0.0.1",
+  "port": 5432,
+  "username": "postgres",
+  "jdbcUrl": "jdbc:postgresql://127.0.0.1:5432/huyenco_benchmark_test_20261029_010531",
+  "sourceDatabase": "huyenco_acceptance_test_20261028_184149",
+  "schemaVersion": 12,
+  "flywayEnabled": false,
+  "backendHttpUrl": "http://127.0.0.1:18091",
+  "webSocketUrl": "ws://127.0.0.1:18091/ws",
+  "origin": "http://127.0.0.1:3173",
+  "backendStarted": false,
+  "runtimeCounts": {
+    "anonymous_sessions": 0,
+    "interpretation_history": 0
+  },
+  "knowledgeSha256": "115d9ced12f174341833dbe88ed5a15850a40f63e05a3922244bb6c2d77a01cc",
+  "schemaSha256": "16bc7fcec71e6af200a9f2f80a33da0ac87dd48888b586500dd0361b8b25752a",
+  "archiveSha256": "a770ca1400d2aadd237c9087abdbb0427e3c534113c01be390c3446fe494c44d",
+  "evidenceDirectory": "scripts/generated/x01_preparation_20261029_010531",
+  "createdAt": "2026-10-29T01:05:35.258891+07:00",
+  "passwordStored": false
+}

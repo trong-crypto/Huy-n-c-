@@ -1,0 +1,2886 @@
+{
+  "schemaVersion": 1,
+  "bundleId": "M01-READINGS-20261026-V1",
+  "task": "M01",
+  "scope": "Reviewed source content and explicit project conventions; importing does not enable runtime. Not 64 essays or 384 literal line judgments.",
+  "runtimeEnabled": false,
+  "review": {
+    "editor": "Codex M01 transcription 2026-10-26",
+    "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+    "reviewedAt": "2026-10-25T18:23:10Z",
+    "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+    "independentHumanReview": false
+  },
+  "books": {
+    "MH": {
+      "filename": "Mai hoa dich so-Thieu-khang Tiet.pdf",
+      "pages": 672,
+      "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de"
+    },
+    "TT": {
+      "filename": "Diễn Cầm Tam Thế Diễn Nghĩa.pdf",
+      "pages": 360,
+      "sha256": "7976f690145cc0bbdf6cb1bf2a0276b843512d231dca9a9f83b6f99820816c7d"
+    }
+  },
+  "sourceSurveySha256": "269fc5cbd3e8dca0812e9eb485233d493b89efd68ad00a96b966eeb934431457",
+  "decisions": [
+    {
+      "id": "DEC-20261026-M01-BODY",
+      "basis": "TEAM_DECISION",
+      "purpose": "CALCULATION",
+      "sourceStatus": "SOURCE_AMBIGUOUS",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          224,
+          225
+        ],
+        "printedPages": [
+          231,
+          232
+        ]
+      },
+      "policy": "NON_MOVING_TRIGRAM_IS_BODY",
+      "detail": "Hào 1-3 động: Thể là thượng quái; hào 4-6 động: Thể là hạ quái. Dụng ở phía còn lại. Giữ Thể gốc khi so quái Dụng đã biến.",
+      "limitation": "Ví dụ Cách hỗ trợ trường hợp hào 1; chưa định vị câu tổng quát bao phủ sáu vị trí theo ấn bản. Không duyệt lại MH-THE-DUNG 1.0."
+    },
+    {
+      "id": "DEC-20261026-M01-PHASES",
+      "basis": "TEAM_DECISION",
+      "purpose": "CALCULATION",
+      "sourceStatus": "SOURCE_AMBIGUOUS",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          131,
+          132,
+          227,
+          228
+        ],
+        "printedPages": [
+          137,
+          138,
+          234,
+          235
+        ]
+      },
+      "policy": "ORIGINAL_BODY_SEPARATE_MUTUAL_SIDES",
+      "detail": "Đầu: Dụng gốc so Thể gốc. Giữa: cả hai quái hỗ so Thể gốc; cùng phía Thể mang vai trò BODY_MUTUAL. Cuối: quái ở phía Dụng trong quẻ biến so Thể gốc. Không cộng điểm hoặc gộp hai quan hệ giữa thành một kết luận.",
+      "limitation": "PDF228 mở đầu gọi hạ hỗ là hỗ Dụng rồi có trường hợp Thể dưới gọi hạ hỗ là hỗ Thể. Dùng quy ước vị trí công khai dựa nguyên văn PDF227; không sửa bản dịch."
+    },
+    {
+      "id": "DEC-20261026-M01-SEASON",
+      "basis": "TEAM_DECISION",
+      "purpose": "CALCULATION",
+      "sourceStatus": "SOURCE_LOCATED",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          131,
+          133
+        ],
+        "printedPages": [
+          137,
+          139
+        ]
+      },
+      "policy": "VIETNAM_LUNAR_MONTH_SEASON",
+      "detail": "Tháng âm 1,2: Xuân; 4,5: Hạ; 7,8: Thu; 10,11: Đông; 3,6,9,12: Thổ cuối mùa. Tháng nhuận giữ nhóm cùng số. TIME dùng datetime lập quẻ; LINES/OBJECT_COUNT chỉ dùng readingContext.datetime do người dùng cung cấp. Thiếu context: NOT_EVALUATED, vẫn có quan hệ và lời luận; không dùng thời gian máy.",
+      "limitation": "Quy đổi số tháng âm sang mùa là quy ước sản phẩm, chưa xác minh là thuật toán tiết khí của ấn bản. Không tính tiết khí hoặc 24 tiết bằng bảng này."
+    },
+    {
+      "id": "DEC-20261026-M01-RELATIONS",
+      "basis": "SOURCE_VERIFIED",
+      "purpose": "INTERPRETATION",
+      "sourceStatus": "VERIFIED",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          131,
+          132,
+          133,
+          134,
+          135
+        ],
+        "printedPages": [
+          137,
+          138,
+          139,
+          140,
+          141
+        ]
+      },
+      "policy": "DIRECTIONAL_FIVE_ELEMENT_RELATIONS",
+      "detail": "Duyệt riêng năm quan hệ: tỷ hòa, Dụng sinh Thể, Thể sinh Dụng, Thể khắc Dụng, Dụng khắc Thể. Dùng nguyên văn PDF132 và các mục chủ đề để phân biệt chiều.",
+      "limitation": "Không dùng câu PDF134 gọi hỗ/biến cùng hành Thể là đảng Dụng để tự tạo điểm số; không duyệt các ví dụ chi tiết ngoài phạm vi 20 đoạn."
+    },
+    {
+      "id": "DEC-20261026-M01-SANG-HEN-LABELS",
+      "basis": "TEAM_DECISION",
+      "purpose": "EDITORIAL_LINK",
+      "sourceStatus": "SOURCE_AMBIGUOUS",
+      "source": {
+        "book": "TT",
+        "pdfPages": [
+          43,
+          44
+        ],
+        "printedPages": [
+          44,
+          45
+        ]
+      },
+      "policy": "PRESERVE_PRINTED_LABEL_LINK_BY_COLUMN",
+      "detail": "Cột 3 Hoa cái -> tiêu đề Hao Cái; cột 10 Vong sát -> Vong Thần; cột 11 Tướng linh -> Tướng Tinh; cột 12 Thiên an -> tiêu đề Phiên An (nội dung Thiên An). Giữ cả hai trường, liên kết theo thứ tự 12 đoạn.",
+      "limitation": "Đây là liên kết biên tập của dự án, không phải đính chính từ nhà xuất bản. Đoạn Hao Cái có token 3 và đoạn Tướng Tinh có chữ khó đọc: bản diễn giải chỉ giữ phần nghĩa đọc rõ."
+    },
+    {
+      "id": "DEC-20261026-M01-DIEN-SAN-LABELS",
+      "basis": "TEAM_DECISION",
+      "purpose": "EDITORIAL_LINK",
+      "sourceStatus": "SOURCE_AMBIGUOUS",
+      "source": {
+        "book": "TT",
+        "pdfPages": [
+          49,
+          50
+        ],
+        "printedPages": [
+          50,
+          51
+        ]
+      },
+      "policy": "PRESERVE_PRINTED_LABEL_LINK_BY_COLUMN",
+      "detail": "Cột 6 bảng ghi Phú, đoạn thứ 6 ghi Phá; lưu nguyên cả hai và liên kết theo thứ tự cột. Chỉ gọi là Điền sản.",
+      "limitation": "Không sửa chữ Phú trên bản in và không coi nội dung Phá là lời giải tài lộc toàn diện."
+    },
+    {
+      "id": "DEC-20261026-M01-DIEN-SAN-REFERENCE",
+      "basis": "TEAM_DECISION",
+      "purpose": "CALCULATION",
+      "sourceStatus": "SOURCE_AMBIGUOUS",
+      "source": {
+        "book": "TT",
+        "pdfPages": [
+          49
+        ],
+        "printedPages": [
+          50
+        ]
+      },
+      "policy": "REUSE_REVIEWED_YEAR_ELEMENT",
+      "detail": "Hướng dẫn in dẫn Số 6; dự án dùng hành mệnh đã duyệt ở TT-NGU-HANH/Số 4 làm khóa của bảng năm hành này.",
+      "limitation": "Tham chiếu Số 6 được bảo tồn; không coi quyết định nối dữ liệu là câu đã in ở Số 15."
+    }
+  ],
+  "maiHoaTemplates": [
+    {
+      "code": "MH-GENERAL-SAME_ELEMENT",
+      "topic": "GENERAL",
+      "relation": "SAME_ELEMENT",
+      "content": "Theo mục Thể–Dụng, hai quái cùng hành được xét là tỷ hòa, biểu thị sự hòa hợp trong quan hệ chủ–khách.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          132,
+          135
+        ],
+        "printedPages": [
+          138,
+          141
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-GENERAL-USE_GENERATES_BODY",
+      "topic": "GENERAL",
+      "relation": "USE_GENERATES_BODY",
+      "content": "Quái Dụng sinh cho quái Thể: mục nguồn diễn giải theo hướng chủ thể nhận được sự hỗ trợ hoặc lợi ích từ sự việc.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          132,
+          135
+        ],
+        "printedPages": [
+          138,
+          141
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-GENERAL-BODY_GENERATES_USE",
+      "topic": "GENERAL",
+      "relation": "BODY_GENERATES_USE",
+      "content": "Quái Thể sinh cho quái Dụng: mục nguồn coi đây là tiết khí, chủ thể phải bỏ sức hoặc hao tổn cho sự việc.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          132,
+          135
+        ],
+        "printedPages": [
+          138,
+          141
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-GENERAL-BODY_CONTROLS_USE",
+      "topic": "GENERAL",
+      "relation": "BODY_CONTROLS_USE",
+      "content": "Quái Thể khắc quái Dụng: theo quan hệ trong mục nguồn, chủ thể có thế chế ngự sự việc.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          132,
+          135
+        ],
+        "printedPages": [
+          138,
+          141
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-GENERAL-USE_CONTROLS_BODY",
+      "topic": "GENERAL",
+      "relation": "USE_CONTROLS_BODY",
+      "content": "Quái Dụng khắc quái Thể: theo mục nguồn, sự việc tạo sức ép hoặc trở ngại đối với chủ thể.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          132,
+          135
+        ],
+        "printedPages": [
+          138,
+          141
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-CAREER-SAME_ELEMENT",
+      "topic": "CAREER",
+      "relation": "SAME_ELEMENT",
+      "content": "Theo mục cầu danh, Thể–Dụng tỷ hòa được luận là công danh có sự thuận hợp.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          156,
+          157
+        ],
+        "printedPages": [
+          162,
+          163
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-CAREER-USE_GENERATES_BODY",
+      "topic": "CAREER",
+      "relation": "USE_GENERATES_BODY",
+      "content": "Theo mục cầu danh, Dụng sinh Thể được luận là dễ thành hoặc nhờ việc cầu danh mà có lợi ích.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          156,
+          157
+        ],
+        "printedPages": [
+          162,
+          163
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-CAREER-BODY_GENERATES_USE",
+      "topic": "CAREER",
+      "relation": "BODY_GENERATES_USE",
+      "content": "Theo mục cầu danh, Thể sinh Dụng được luận là khó đạt điều mong cầu hoặc có hao tổn danh lợi.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          156,
+          157
+        ],
+        "printedPages": [
+          162,
+          163
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-CAREER-BODY_CONTROLS_USE",
+      "topic": "CAREER",
+      "relation": "BODY_CONTROLS_USE",
+      "content": "Theo mục cầu danh, Thể khắc Dụng được luận là có thể thành nhưng tiến triển chậm.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          156,
+          157
+        ],
+        "printedPages": [
+          162,
+          163
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-CAREER-USE_CONTROLS_BODY",
+      "topic": "CAREER",
+      "relation": "USE_CONTROLS_BODY",
+      "content": "Theo mục cầu danh, Dụng khắc Thể được luận theo chiều trở ngại đối với việc cầu danh.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          156,
+          157
+        ],
+        "printedPages": [
+          162,
+          163
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-WEALTH-SAME_ELEMENT",
+      "topic": "WEALTH",
+      "relation": "SAME_ELEMENT",
+      "content": "Theo mục cầu tài, tỷ hòa được luận theo chiều tài lợi thuận ý.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          158
+        ],
+        "printedPages": [
+          164
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-WEALTH-USE_GENERATES_BODY",
+      "topic": "WEALTH",
+      "relation": "USE_GENERATES_BODY",
+      "content": "Theo mục cầu tài, Dụng sinh Thể được luận theo chiều tăng ích cho chủ thể.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          158
+        ],
+        "printedPages": [
+          164
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-WEALTH-BODY_GENERATES_USE",
+      "topic": "WEALTH",
+      "relation": "BODY_GENERATES_USE",
+      "content": "Theo mục cầu tài, Thể sinh Dụng được luận theo chiều hao tổn khi cầu tài.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          158
+        ],
+        "printedPages": [
+          164
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-WEALTH-BODY_CONTROLS_USE",
+      "topic": "WEALTH",
+      "relation": "BODY_CONTROLS_USE",
+      "content": "Theo mục cầu tài, Thể khắc Dụng được luận theo chiều có thể đạt điều cầu tài.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          158
+        ],
+        "printedPages": [
+          164
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-WEALTH-USE_CONTROLS_BODY",
+      "topic": "WEALTH",
+      "relation": "USE_CONTROLS_BODY",
+      "content": "Theo mục cầu tài, Dụng khắc Thể được luận theo chiều bất lợi đối với điều cầu tài.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          158
+        ],
+        "printedPages": [
+          164
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-LOVE-SAME_ELEMENT",
+      "topic": "LOVE",
+      "relation": "SAME_ELEMENT",
+      "content": "Theo mục hôn nhân, tỷ hòa được luận là hai bên thuận hợp.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          150,
+          151
+        ],
+        "printedPages": [
+          156,
+          157
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-LOVE-USE_GENERATES_BODY",
+      "topic": "LOVE",
+      "relation": "USE_GENERATES_BODY",
+      "content": "Theo mục hôn nhân, Dụng sinh Thể được luận là dễ thành hoặc có lợi ích từ quan hệ hôn nhân.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          150,
+          151
+        ],
+        "printedPages": [
+          156,
+          157
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-LOVE-BODY_GENERATES_USE",
+      "topic": "LOVE",
+      "relation": "BODY_GENERATES_USE",
+      "content": "Theo mục hôn nhân, Thể sinh Dụng được luận là khó thành hoặc có hao tổn trong việc hôn nhân.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          150,
+          151
+        ],
+        "printedPages": [
+          156,
+          157
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-LOVE-BODY_CONTROLS_USE",
+      "topic": "LOVE",
+      "relation": "BODY_CONTROLS_USE",
+      "content": "Theo mục hôn nhân, Thể khắc Dụng được luận là có thể thành nhưng chậm.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          150,
+          151
+        ],
+        "printedPages": [
+          156,
+          157
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "MH-LOVE-USE_CONTROLS_BODY",
+      "topic": "LOVE",
+      "relation": "USE_CONTROLS_BODY",
+      "content": "Theo mục hôn nhân, Dụng khắc Thể được luận theo chiều bất lợi cho việc kết thành hôn nhân.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "source": {
+        "book": "MH",
+        "pdfPages": [
+          150,
+          151
+        ],
+        "printedPages": [
+          156,
+          157
+        ]
+      },
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    }
+  ],
+  "tamTheResults": [
+    {
+      "code": "TT-SANG-HEN-01",
+      "ruleCode": "TT-SANG-HEN",
+      "column": 1,
+      "title": "Nhựt Mã",
+      "tableLabel": "Nhựt mã",
+      "contentHeading": "Nhựt Mã",
+      "content": "Theo đoạn Nhựt Mã, sách mô tả người hay đi lại, làm ăn khá, có điền địa và tài lợi; ở nhà ít lo, ra ngoài được đối đãi trọng hậu.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "decisionIds": [],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-SANG-HEN-02",
+      "ruleCode": "TT-SANG-HEN",
+      "column": 2,
+      "title": "Lục Hại",
+      "tableLabel": "Lục hại",
+      "contentHeading": "Lục Hại",
+      "content": "Theo đoạn Lục Hại, sách mô tả sự xung khắc với cha mẹ, anh em, họ hàng và vợ chồng con cái; đồng thời nêu hướng tu hành.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "decisionIds": [],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-SANG-HEN-03",
+      "ruleCode": "TT-SANG-HEN",
+      "column": 3,
+      "title": "Hoa cái / Hao Cái",
+      "tableLabel": "Hoa cái",
+      "contentHeading": "Hao Cái",
+      "content": "Đoạn mang tiêu đề Hao Cái mô tả người có duyên, được nhiều người thương và kính trọng, có tài giỏi và lộc thực. Bản diễn giải không suy đoán token khó hiểu trong câu in.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          44
+        ],
+        "printedPages": [
+          45
+        ]
+      },
+      "decisionIds": [
+        "DEC-20261026-M01-SANG-HEN-LABELS"
+      ],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-SANG-HEN-04",
+      "ruleCode": "TT-SANG-HEN",
+      "column": 4,
+      "title": "Kiếp Sát",
+      "tableLabel": "Kiếp sát",
+      "contentHeading": "Kiếp Sát",
+      "content": "Theo đoạn Kiếp Sát, sách mô tả sự xung khắc trong gia đình, hoàn cảnh có thể sa sút; đoạn còn nêu phụ nữ thay đổi hôn nhân. Đây là mô tả trong nguồn cổ, không phải sự kiện đã được xác định cho người dùng.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          44
+        ],
+        "printedPages": [
+          45
+        ]
+      },
+      "decisionIds": [],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-SANG-HEN-05",
+      "ruleCode": "TT-SANG-HEN",
+      "column": 5,
+      "title": "Tai Sát",
+      "tableLabel": "Tai sát",
+      "contentHeading": "Tai Sát",
+      "content": "Theo đoạn Tai Sát, sách nêu tật bệnh, tai nạn và xung khắc vợ chồng, con cái. Nội dung được trình bày như quan niệm trong sách, không dùng để chẩn đoán bệnh hay xác nhận tai nạn.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          44
+        ],
+        "printedPages": [
+          45
+        ]
+      },
+      "decisionIds": [],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-SANG-HEN-06",
+      "ruleCode": "TT-SANG-HEN",
+      "column": 6,
+      "title": "Thiên Sát",
+      "tableLabel": "Thiên sát",
+      "contentHeading": "Thiên Sát",
+      "content": "Theo đoạn Thiên Sát, sách nêu xung khắc với gia đình bên vợ hoặc bên chồng, ít con, bệnh nặng hay cảnh lưu lạc tự tìm sinh kế. Các mô tả này thuộc lời luận của nguồn cổ.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          44
+        ],
+        "printedPages": [
+          45
+        ]
+      },
+      "decisionIds": [],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-SANG-HEN-07",
+      "ruleCode": "TT-SANG-HEN",
+      "column": 7,
+      "title": "Địa Sát",
+      "tableLabel": "Địa sát",
+      "contentHeading": "Địa Sát",
+      "content": "Theo đoạn Địa Sát, sách đồng thời nêu tai nạn, xung khắc trong gia đình và khả năng có nghề giỏi, làm ăn no đủ. Hai chiều nội dung được giữ cùng nhau.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          44
+        ],
+        "printedPages": [
+          45
+        ]
+      },
+      "decisionIds": [],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-SANG-HEN-08",
+      "ruleCode": "TT-SANG-HEN",
+      "column": 8,
+      "title": "Niên Sát",
+      "tableLabel": "Niên sát",
+      "contentHeading": "Niên Sát",
+      "content": "Theo đoạn Niên Sát, sách mô tả rời nơi cha mẹ đã lập để làm ăn nơi khác, tự tạo sự nghiệp, ít nhờ cậy anh em.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          44
+        ],
+        "printedPages": [
+          45
+        ]
+      },
+      "decisionIds": [],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-SANG-HEN-09",
+      "ruleCode": "TT-SANG-HEN",
+      "column": 9,
+      "title": "Ngoại Sát",
+      "tableLabel": "Ngoại sát",
+      "contentHeading": "Ngoại Sát",
+      "content": "Theo đoạn Ngoại Sát, sách mô tả làm ăn khá khi đến nơi khác, từ tay trắng lập sự nghiệp; đồng thời có lời luận xung khắc vợ chồng và con cái.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          44
+        ],
+        "printedPages": [
+          45
+        ]
+      },
+      "decisionIds": [],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-SANG-HEN-10",
+      "ruleCode": "TT-SANG-HEN",
+      "column": 10,
+      "title": "Vong sát / Vong Thần",
+      "tableLabel": "Vong sát",
+      "contentHeading": "Vong Thần",
+      "content": "Đoạn Vong Thần mô tả xung khắc anh em, bà con; qua nhiều lần đổi chỗ ở mới lập sự nghiệp, điền viên tốt. Nhãn bảng vẫn được lưu là Vong sát.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          44
+        ],
+        "printedPages": [
+          45
+        ]
+      },
+      "decisionIds": [
+        "DEC-20261026-M01-SANG-HEN-LABELS"
+      ],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-SANG-HEN-11",
+      "ruleCode": "TT-SANG-HEN",
+      "column": 11,
+      "title": "Tướng linh / Tướng Tinh",
+      "tableLabel": "Tướng linh",
+      "contentHeading": "Tướng Tinh",
+      "content": "Đoạn Tướng Tinh mô tả người có quyền hành, phát tài và hưởng lộc từ sớm, gia đình con cháu sung túc. Bản diễn giải chỉ giữ phần chữ đọc rõ, không đoán cụm chữ mờ sau quyền hành.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          44
+        ],
+        "printedPages": [
+          45
+        ]
+      },
+      "decisionIds": [
+        "DEC-20261026-M01-SANG-HEN-LABELS"
+      ],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-SANG-HEN-12",
+      "ruleCode": "TT-SANG-HEN",
+      "column": 12,
+      "title": "Thiên an / Phiên An",
+      "tableLabel": "Thiên an",
+      "contentHeading": "Phiên An",
+      "content": "Đoạn có tiêu đề Phiên An nhưng phần thân gọi Thiên An, mô tả tính cương cường, thông minh, có hướng tu niệm và học hành khoa cử. Dự án bảo tồn cả hai nhãn.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          43
+        ],
+        "printedPages": [
+          44
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          44
+        ],
+        "printedPages": [
+          45
+        ]
+      },
+      "decisionIds": [
+        "DEC-20261026-M01-SANG-HEN-LABELS"
+      ],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-DIEN-SAN-01",
+      "ruleCode": "TT-DIEN-SAN",
+      "column": 1,
+      "title": "Không",
+      "tableLabel": "Không",
+      "contentHeading": "Không",
+      "content": "Theo đoạn chữ Không, ruộng đất cha mẹ cho có thể không giữ được; sau khi sa sút mới tự lo mua tạo ít nhiều để mở dựng lại.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          49
+        ],
+        "printedPages": [
+          50
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          49
+        ],
+        "printedPages": [
+          50
+        ]
+      },
+      "decisionIds": [
+        "DEC-20261026-M01-DIEN-SAN-REFERENCE"
+      ],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-DIEN-SAN-02",
+      "ruleCode": "TT-DIEN-SAN",
+      "column": 2,
+      "title": "Bại",
+      "tableLabel": "Bại",
+      "contentHeading": "Bại",
+      "content": "Theo đoạn chữ Bại, điền sản cha mẹ cho hay tự tạo tại quê sinh dễ thất bại; có ý chí đi nơi khác lập điền viên thì được chút ít.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          49
+        ],
+        "printedPages": [
+          50
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          49
+        ],
+        "printedPages": [
+          50
+        ]
+      },
+      "decisionIds": [
+        "DEC-20261026-M01-DIEN-SAN-REFERENCE"
+      ],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-DIEN-SAN-03",
+      "ruleCode": "TT-DIEN-SAN",
+      "column": 3,
+      "title": "Hướng",
+      "tableLabel": "Hướng",
+      "contentHeading": "Hướng",
+      "content": "Theo đoạn chữ Hướng, sách mô tả không chú trọng gìn giữ hay tạo lập ruộng đất, thiên về ăn mặc và vui chơi nên khó giữ điền sản.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          49
+        ],
+        "printedPages": [
+          50
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          50
+        ],
+        "printedPages": [
+          51
+        ]
+      },
+      "decisionIds": [
+        "DEC-20261026-M01-DIEN-SAN-REFERENCE"
+      ],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-DIEN-SAN-04",
+      "ruleCode": "TT-DIEN-SAN",
+      "column": 4,
+      "title": "Kiên",
+      "tableLabel": "Kiên",
+      "contentHeading": "Kiên",
+      "content": "Theo đoạn chữ Kiên, ruộng đất cha mẹ cho hoặc tự tay tạo có thể được gìn giữ và phát triển thịnh vượng; nghề nông được luận là bền vững, thường gặp mùa thuận.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          49
+        ],
+        "printedPages": [
+          50
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          50
+        ],
+        "printedPages": [
+          51
+        ]
+      },
+      "decisionIds": [
+        "DEC-20261026-M01-DIEN-SAN-REFERENCE"
+      ],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-DIEN-SAN-05",
+      "ruleCode": "TT-DIEN-SAN",
+      "column": 5,
+      "title": "Giải",
+      "tableLabel": "Giải",
+      "contentHeading": "Giải",
+      "content": "Theo đoạn chữ Giải, điền sản cha mẹ cho không giữ lâu, nhưng có thể tự tay tạo lập lại từ tay trắng và thịnh vượng lúc tuổi già.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          49
+        ],
+        "printedPages": [
+          50
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          50
+        ],
+        "printedPages": [
+          51
+        ]
+      },
+      "decisionIds": [
+        "DEC-20261026-M01-DIEN-SAN-REFERENCE"
+      ],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-DIEN-SAN-06",
+      "ruleCode": "TT-DIEN-SAN",
+      "column": 6,
+      "title": "Phú / Phá",
+      "tableLabel": "Phú",
+      "contentHeading": "Phá",
+      "content": "Đoạn chữ Phá luận theo chiều không giữ được ruộng đất cha mẹ cho, đi nơi khác tạo lập lại cũng khó thành. Bảng in ghi Phú; liên kết đoạn Phá là quyết định biên tập theo cột thứ sáu.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          49
+        ],
+        "printedPages": [
+          50
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          50
+        ],
+        "printedPages": [
+          51
+        ]
+      },
+      "decisionIds": [
+        "DEC-20261026-M01-DIEN-SAN-REFERENCE",
+        "DEC-20261026-M01-DIEN-SAN-LABELS"
+      ],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    },
+    {
+      "code": "TT-DIEN-SAN-07",
+      "ruleCode": "TT-DIEN-SAN",
+      "column": 7,
+      "title": "Hiệp",
+      "tableLabel": "Hiệp",
+      "contentHeading": "Hiệp",
+      "content": "Theo đoạn chữ Hiệp, điền sản cha mẹ cho có thể được giữ và mua tạo thêm; sách luận theo chiều điền địa thịnh vượng, vững bền.",
+      "textKind": "EDITORIAL_PARAPHRASE",
+      "sourceStatus": "VERIFIED",
+      "basis": "SOURCE_VERIFIED",
+      "tableSource": {
+        "book": "TT",
+        "pdfPages": [
+          49
+        ],
+        "printedPages": [
+          50
+        ]
+      },
+      "contentSource": {
+        "book": "TT",
+        "pdfPages": [
+          50
+        ],
+        "printedPages": [
+          51
+        ]
+      },
+      "decisionIds": [
+        "DEC-20261026-M01-DIEN-SAN-REFERENCE"
+      ],
+      "review": {
+        "editor": "Codex M01 transcription 2026-10-26",
+        "reviewer": "Codex M01 second visual pass 2026-10-26 (same tool; not independent human)",
+        "reviewedAt": "2026-10-25T18:23:10Z",
+        "method": "SAME_TOOL_TWO_VISUAL_PASSES",
+        "independentHumanReview": false
+      }
+    }
+  ],
+  "tamTheMappings": [
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TY|MONTH:01",
+      "resultCode": "TT-SANG-HEN-01",
+      "tableRow": 1,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TY|MONTH:02",
+      "resultCode": "TT-SANG-HEN-02",
+      "tableRow": 1,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TY|MONTH:03",
+      "resultCode": "TT-SANG-HEN-03",
+      "tableRow": 1,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TY|MONTH:04",
+      "resultCode": "TT-SANG-HEN-04",
+      "tableRow": 1,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TY|MONTH:05",
+      "resultCode": "TT-SANG-HEN-05",
+      "tableRow": 1,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TY|MONTH:06",
+      "resultCode": "TT-SANG-HEN-06",
+      "tableRow": 1,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TY|MONTH:07",
+      "resultCode": "TT-SANG-HEN-07",
+      "tableRow": 1,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TY|MONTH:08",
+      "resultCode": "TT-SANG-HEN-08",
+      "tableRow": 1,
+      "tableColumn": 8
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TY|MONTH:09",
+      "resultCode": "TT-SANG-HEN-09",
+      "tableRow": 1,
+      "tableColumn": 9
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TY|MONTH:10",
+      "resultCode": "TT-SANG-HEN-10",
+      "tableRow": 1,
+      "tableColumn": 10
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TY|MONTH:11",
+      "resultCode": "TT-SANG-HEN-11",
+      "tableRow": 1,
+      "tableColumn": 11
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TY|MONTH:12",
+      "resultCode": "TT-SANG-HEN-12",
+      "tableRow": 1,
+      "tableColumn": 12
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:SUU|MONTH:02",
+      "resultCode": "TT-SANG-HEN-01",
+      "tableRow": 2,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:SUU|MONTH:03",
+      "resultCode": "TT-SANG-HEN-02",
+      "tableRow": 2,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:SUU|MONTH:04",
+      "resultCode": "TT-SANG-HEN-03",
+      "tableRow": 2,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:SUU|MONTH:05",
+      "resultCode": "TT-SANG-HEN-04",
+      "tableRow": 2,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:SUU|MONTH:06",
+      "resultCode": "TT-SANG-HEN-05",
+      "tableRow": 2,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:SUU|MONTH:07",
+      "resultCode": "TT-SANG-HEN-06",
+      "tableRow": 2,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:SUU|MONTH:08",
+      "resultCode": "TT-SANG-HEN-07",
+      "tableRow": 2,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:SUU|MONTH:09",
+      "resultCode": "TT-SANG-HEN-08",
+      "tableRow": 2,
+      "tableColumn": 8
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:SUU|MONTH:10",
+      "resultCode": "TT-SANG-HEN-09",
+      "tableRow": 2,
+      "tableColumn": 9
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:SUU|MONTH:11",
+      "resultCode": "TT-SANG-HEN-10",
+      "tableRow": 2,
+      "tableColumn": 10
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:SUU|MONTH:12",
+      "resultCode": "TT-SANG-HEN-11",
+      "tableRow": 2,
+      "tableColumn": 11
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:SUU|MONTH:01",
+      "resultCode": "TT-SANG-HEN-12",
+      "tableRow": 2,
+      "tableColumn": 12
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAN|MONTH:03",
+      "resultCode": "TT-SANG-HEN-01",
+      "tableRow": 3,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAN|MONTH:04",
+      "resultCode": "TT-SANG-HEN-02",
+      "tableRow": 3,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAN|MONTH:05",
+      "resultCode": "TT-SANG-HEN-03",
+      "tableRow": 3,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAN|MONTH:06",
+      "resultCode": "TT-SANG-HEN-04",
+      "tableRow": 3,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAN|MONTH:07",
+      "resultCode": "TT-SANG-HEN-05",
+      "tableRow": 3,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAN|MONTH:08",
+      "resultCode": "TT-SANG-HEN-06",
+      "tableRow": 3,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAN|MONTH:09",
+      "resultCode": "TT-SANG-HEN-07",
+      "tableRow": 3,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAN|MONTH:10",
+      "resultCode": "TT-SANG-HEN-08",
+      "tableRow": 3,
+      "tableColumn": 8
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAN|MONTH:11",
+      "resultCode": "TT-SANG-HEN-09",
+      "tableRow": 3,
+      "tableColumn": 9
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAN|MONTH:12",
+      "resultCode": "TT-SANG-HEN-10",
+      "tableRow": 3,
+      "tableColumn": 10
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAN|MONTH:01",
+      "resultCode": "TT-SANG-HEN-11",
+      "tableRow": 3,
+      "tableColumn": 11
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAN|MONTH:02",
+      "resultCode": "TT-SANG-HEN-12",
+      "tableRow": 3,
+      "tableColumn": 12
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MAO|MONTH:04",
+      "resultCode": "TT-SANG-HEN-01",
+      "tableRow": 4,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MAO|MONTH:05",
+      "resultCode": "TT-SANG-HEN-02",
+      "tableRow": 4,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MAO|MONTH:06",
+      "resultCode": "TT-SANG-HEN-03",
+      "tableRow": 4,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MAO|MONTH:07",
+      "resultCode": "TT-SANG-HEN-04",
+      "tableRow": 4,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MAO|MONTH:08",
+      "resultCode": "TT-SANG-HEN-05",
+      "tableRow": 4,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MAO|MONTH:09",
+      "resultCode": "TT-SANG-HEN-06",
+      "tableRow": 4,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MAO|MONTH:10",
+      "resultCode": "TT-SANG-HEN-07",
+      "tableRow": 4,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MAO|MONTH:11",
+      "resultCode": "TT-SANG-HEN-08",
+      "tableRow": 4,
+      "tableColumn": 8
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MAO|MONTH:12",
+      "resultCode": "TT-SANG-HEN-09",
+      "tableRow": 4,
+      "tableColumn": 9
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MAO|MONTH:01",
+      "resultCode": "TT-SANG-HEN-10",
+      "tableRow": 4,
+      "tableColumn": 10
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MAO|MONTH:02",
+      "resultCode": "TT-SANG-HEN-11",
+      "tableRow": 4,
+      "tableColumn": 11
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MAO|MONTH:03",
+      "resultCode": "TT-SANG-HEN-12",
+      "tableRow": 4,
+      "tableColumn": 12
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THIN|MONTH:05",
+      "resultCode": "TT-SANG-HEN-01",
+      "tableRow": 5,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THIN|MONTH:06",
+      "resultCode": "TT-SANG-HEN-02",
+      "tableRow": 5,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THIN|MONTH:07",
+      "resultCode": "TT-SANG-HEN-03",
+      "tableRow": 5,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THIN|MONTH:08",
+      "resultCode": "TT-SANG-HEN-04",
+      "tableRow": 5,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THIN|MONTH:09",
+      "resultCode": "TT-SANG-HEN-05",
+      "tableRow": 5,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THIN|MONTH:10",
+      "resultCode": "TT-SANG-HEN-06",
+      "tableRow": 5,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THIN|MONTH:11",
+      "resultCode": "TT-SANG-HEN-07",
+      "tableRow": 5,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THIN|MONTH:12",
+      "resultCode": "TT-SANG-HEN-08",
+      "tableRow": 5,
+      "tableColumn": 8
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THIN|MONTH:01",
+      "resultCode": "TT-SANG-HEN-09",
+      "tableRow": 5,
+      "tableColumn": 9
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THIN|MONTH:02",
+      "resultCode": "TT-SANG-HEN-10",
+      "tableRow": 5,
+      "tableColumn": 10
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THIN|MONTH:03",
+      "resultCode": "TT-SANG-HEN-11",
+      "tableRow": 5,
+      "tableColumn": 11
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THIN|MONTH:04",
+      "resultCode": "TT-SANG-HEN-12",
+      "tableRow": 5,
+      "tableColumn": 12
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TI|MONTH:06",
+      "resultCode": "TT-SANG-HEN-01",
+      "tableRow": 6,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TI|MONTH:07",
+      "resultCode": "TT-SANG-HEN-02",
+      "tableRow": 6,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TI|MONTH:08",
+      "resultCode": "TT-SANG-HEN-03",
+      "tableRow": 6,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TI|MONTH:09",
+      "resultCode": "TT-SANG-HEN-04",
+      "tableRow": 6,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TI|MONTH:10",
+      "resultCode": "TT-SANG-HEN-05",
+      "tableRow": 6,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TI|MONTH:11",
+      "resultCode": "TT-SANG-HEN-06",
+      "tableRow": 6,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TI|MONTH:12",
+      "resultCode": "TT-SANG-HEN-07",
+      "tableRow": 6,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TI|MONTH:01",
+      "resultCode": "TT-SANG-HEN-08",
+      "tableRow": 6,
+      "tableColumn": 8
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TI|MONTH:02",
+      "resultCode": "TT-SANG-HEN-09",
+      "tableRow": 6,
+      "tableColumn": 9
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TI|MONTH:03",
+      "resultCode": "TT-SANG-HEN-10",
+      "tableRow": 6,
+      "tableColumn": 10
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TI|MONTH:04",
+      "resultCode": "TT-SANG-HEN-11",
+      "tableRow": 6,
+      "tableColumn": 11
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TI|MONTH:05",
+      "resultCode": "TT-SANG-HEN-12",
+      "tableRow": 6,
+      "tableColumn": 12
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:NGO|MONTH:07",
+      "resultCode": "TT-SANG-HEN-01",
+      "tableRow": 7,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:NGO|MONTH:08",
+      "resultCode": "TT-SANG-HEN-02",
+      "tableRow": 7,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:NGO|MONTH:09",
+      "resultCode": "TT-SANG-HEN-03",
+      "tableRow": 7,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:NGO|MONTH:10",
+      "resultCode": "TT-SANG-HEN-04",
+      "tableRow": 7,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:NGO|MONTH:11",
+      "resultCode": "TT-SANG-HEN-05",
+      "tableRow": 7,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:NGO|MONTH:12",
+      "resultCode": "TT-SANG-HEN-06",
+      "tableRow": 7,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:NGO|MONTH:01",
+      "resultCode": "TT-SANG-HEN-07",
+      "tableRow": 7,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:NGO|MONTH:02",
+      "resultCode": "TT-SANG-HEN-08",
+      "tableRow": 7,
+      "tableColumn": 8
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:NGO|MONTH:03",
+      "resultCode": "TT-SANG-HEN-09",
+      "tableRow": 7,
+      "tableColumn": 9
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:NGO|MONTH:04",
+      "resultCode": "TT-SANG-HEN-10",
+      "tableRow": 7,
+      "tableColumn": 10
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:NGO|MONTH:05",
+      "resultCode": "TT-SANG-HEN-11",
+      "tableRow": 7,
+      "tableColumn": 11
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:NGO|MONTH:06",
+      "resultCode": "TT-SANG-HEN-12",
+      "tableRow": 7,
+      "tableColumn": 12
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MUI|MONTH:08",
+      "resultCode": "TT-SANG-HEN-01",
+      "tableRow": 8,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MUI|MONTH:09",
+      "resultCode": "TT-SANG-HEN-02",
+      "tableRow": 8,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MUI|MONTH:10",
+      "resultCode": "TT-SANG-HEN-03",
+      "tableRow": 8,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MUI|MONTH:11",
+      "resultCode": "TT-SANG-HEN-04",
+      "tableRow": 8,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MUI|MONTH:12",
+      "resultCode": "TT-SANG-HEN-05",
+      "tableRow": 8,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MUI|MONTH:01",
+      "resultCode": "TT-SANG-HEN-06",
+      "tableRow": 8,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MUI|MONTH:02",
+      "resultCode": "TT-SANG-HEN-07",
+      "tableRow": 8,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MUI|MONTH:03",
+      "resultCode": "TT-SANG-HEN-08",
+      "tableRow": 8,
+      "tableColumn": 8
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MUI|MONTH:04",
+      "resultCode": "TT-SANG-HEN-09",
+      "tableRow": 8,
+      "tableColumn": 9
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MUI|MONTH:05",
+      "resultCode": "TT-SANG-HEN-10",
+      "tableRow": 8,
+      "tableColumn": 10
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MUI|MONTH:06",
+      "resultCode": "TT-SANG-HEN-11",
+      "tableRow": 8,
+      "tableColumn": 11
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:MUI|MONTH:07",
+      "resultCode": "TT-SANG-HEN-12",
+      "tableRow": 8,
+      "tableColumn": 12
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THAN|MONTH:09",
+      "resultCode": "TT-SANG-HEN-01",
+      "tableRow": 9,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THAN|MONTH:10",
+      "resultCode": "TT-SANG-HEN-02",
+      "tableRow": 9,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THAN|MONTH:11",
+      "resultCode": "TT-SANG-HEN-03",
+      "tableRow": 9,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THAN|MONTH:12",
+      "resultCode": "TT-SANG-HEN-04",
+      "tableRow": 9,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THAN|MONTH:01",
+      "resultCode": "TT-SANG-HEN-05",
+      "tableRow": 9,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THAN|MONTH:02",
+      "resultCode": "TT-SANG-HEN-06",
+      "tableRow": 9,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THAN|MONTH:03",
+      "resultCode": "TT-SANG-HEN-07",
+      "tableRow": 9,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THAN|MONTH:04",
+      "resultCode": "TT-SANG-HEN-08",
+      "tableRow": 9,
+      "tableColumn": 8
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THAN|MONTH:05",
+      "resultCode": "TT-SANG-HEN-09",
+      "tableRow": 9,
+      "tableColumn": 9
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THAN|MONTH:06",
+      "resultCode": "TT-SANG-HEN-10",
+      "tableRow": 9,
+      "tableColumn": 10
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THAN|MONTH:07",
+      "resultCode": "TT-SANG-HEN-11",
+      "tableRow": 9,
+      "tableColumn": 11
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:THAN|MONTH:08",
+      "resultCode": "TT-SANG-HEN-12",
+      "tableRow": 9,
+      "tableColumn": 12
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAU|MONTH:10",
+      "resultCode": "TT-SANG-HEN-01",
+      "tableRow": 10,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAU|MONTH:11",
+      "resultCode": "TT-SANG-HEN-02",
+      "tableRow": 10,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAU|MONTH:12",
+      "resultCode": "TT-SANG-HEN-03",
+      "tableRow": 10,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAU|MONTH:01",
+      "resultCode": "TT-SANG-HEN-04",
+      "tableRow": 10,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAU|MONTH:02",
+      "resultCode": "TT-SANG-HEN-05",
+      "tableRow": 10,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAU|MONTH:03",
+      "resultCode": "TT-SANG-HEN-06",
+      "tableRow": 10,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAU|MONTH:04",
+      "resultCode": "TT-SANG-HEN-07",
+      "tableRow": 10,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAU|MONTH:05",
+      "resultCode": "TT-SANG-HEN-08",
+      "tableRow": 10,
+      "tableColumn": 8
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAU|MONTH:06",
+      "resultCode": "TT-SANG-HEN-09",
+      "tableRow": 10,
+      "tableColumn": 9
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAU|MONTH:07",
+      "resultCode": "TT-SANG-HEN-10",
+      "tableRow": 10,
+      "tableColumn": 10
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAU|MONTH:08",
+      "resultCode": "TT-SANG-HEN-11",
+      "tableRow": 10,
+      "tableColumn": 11
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:DAU|MONTH:09",
+      "resultCode": "TT-SANG-HEN-12",
+      "tableRow": 10,
+      "tableColumn": 12
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TUAT|MONTH:11",
+      "resultCode": "TT-SANG-HEN-01",
+      "tableRow": 11,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TUAT|MONTH:12",
+      "resultCode": "TT-SANG-HEN-02",
+      "tableRow": 11,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TUAT|MONTH:01",
+      "resultCode": "TT-SANG-HEN-03",
+      "tableRow": 11,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TUAT|MONTH:02",
+      "resultCode": "TT-SANG-HEN-04",
+      "tableRow": 11,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TUAT|MONTH:03",
+      "resultCode": "TT-SANG-HEN-05",
+      "tableRow": 11,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TUAT|MONTH:04",
+      "resultCode": "TT-SANG-HEN-06",
+      "tableRow": 11,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TUAT|MONTH:05",
+      "resultCode": "TT-SANG-HEN-07",
+      "tableRow": 11,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TUAT|MONTH:06",
+      "resultCode": "TT-SANG-HEN-08",
+      "tableRow": 11,
+      "tableColumn": 8
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TUAT|MONTH:07",
+      "resultCode": "TT-SANG-HEN-09",
+      "tableRow": 11,
+      "tableColumn": 9
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TUAT|MONTH:08",
+      "resultCode": "TT-SANG-HEN-10",
+      "tableRow": 11,
+      "tableColumn": 10
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TUAT|MONTH:09",
+      "resultCode": "TT-SANG-HEN-11",
+      "tableRow": 11,
+      "tableColumn": 11
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:TUAT|MONTH:10",
+      "resultCode": "TT-SANG-HEN-12",
+      "tableRow": 11,
+      "tableColumn": 12
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:HOI|MONTH:12",
+      "resultCode": "TT-SANG-HEN-01",
+      "tableRow": 12,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:HOI|MONTH:01",
+      "resultCode": "TT-SANG-HEN-02",
+      "tableRow": 12,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:HOI|MONTH:02",
+      "resultCode": "TT-SANG-HEN-03",
+      "tableRow": 12,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:HOI|MONTH:03",
+      "resultCode": "TT-SANG-HEN-04",
+      "tableRow": 12,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:HOI|MONTH:04",
+      "resultCode": "TT-SANG-HEN-05",
+      "tableRow": 12,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:HOI|MONTH:05",
+      "resultCode": "TT-SANG-HEN-06",
+      "tableRow": 12,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:HOI|MONTH:06",
+      "resultCode": "TT-SANG-HEN-07",
+      "tableRow": 12,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:HOI|MONTH:07",
+      "resultCode": "TT-SANG-HEN-08",
+      "tableRow": 12,
+      "tableColumn": 8
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:HOI|MONTH:08",
+      "resultCode": "TT-SANG-HEN-09",
+      "tableRow": 12,
+      "tableColumn": 9
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:HOI|MONTH:09",
+      "resultCode": "TT-SANG-HEN-10",
+      "tableRow": 12,
+      "tableColumn": 10
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:HOI|MONTH:10",
+      "resultCode": "TT-SANG-HEN-11",
+      "tableRow": 12,
+      "tableColumn": 11
+    },
+    {
+      "ruleCode": "TT-SANG-HEN",
+      "lookupKey": "BRANCH:HOI|MONTH:11",
+      "resultCode": "TT-SANG-HEN-12",
+      "tableRow": 12,
+      "tableColumn": 12
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:KIM|MONTH:04",
+      "resultCode": "TT-DIEN-SAN-01",
+      "tableRow": 1,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:KIM|MONTH:10",
+      "resultCode": "TT-DIEN-SAN-02",
+      "tableRow": 1,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:KIM|MONTH:03",
+      "resultCode": "TT-DIEN-SAN-03",
+      "tableRow": 1,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:KIM|MONTH:07",
+      "resultCode": "TT-DIEN-SAN-04",
+      "tableRow": 1,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:KIM|MONTH:06",
+      "resultCode": "TT-DIEN-SAN-05",
+      "tableRow": 1,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:KIM|MONTH:01",
+      "resultCode": "TT-DIEN-SAN-06",
+      "tableRow": 1,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:KIM|MONTH:05",
+      "resultCode": "TT-DIEN-SAN-01",
+      "tableRow": 2,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:KIM|MONTH:12",
+      "resultCode": "TT-DIEN-SAN-02",
+      "tableRow": 2,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:KIM|MONTH:11",
+      "resultCode": "TT-DIEN-SAN-03",
+      "tableRow": 2,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:KIM|MONTH:09",
+      "resultCode": "TT-DIEN-SAN-05",
+      "tableRow": 2,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:KIM|MONTH:02",
+      "resultCode": "TT-DIEN-SAN-06",
+      "tableRow": 2,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:KIM|MONTH:08",
+      "resultCode": "TT-DIEN-SAN-07",
+      "tableRow": 2,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:MOC|MONTH:07",
+      "resultCode": "TT-DIEN-SAN-01",
+      "tableRow": 1,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:MOC|MONTH:09",
+      "resultCode": "TT-DIEN-SAN-02",
+      "tableRow": 1,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:MOC|MONTH:04",
+      "resultCode": "TT-DIEN-SAN-03",
+      "tableRow": 1,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:MOC|MONTH:01",
+      "resultCode": "TT-DIEN-SAN-04",
+      "tableRow": 1,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:MOC|MONTH:10",
+      "resultCode": "TT-DIEN-SAN-05",
+      "tableRow": 1,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:MOC|MONTH:11",
+      "resultCode": "TT-DIEN-SAN-07",
+      "tableRow": 1,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:MOC|MONTH:12",
+      "resultCode": "TT-DIEN-SAN-02",
+      "tableRow": 2,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:MOC|MONTH:05",
+      "resultCode": "TT-DIEN-SAN-03",
+      "tableRow": 2,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:MOC|MONTH:02",
+      "resultCode": "TT-DIEN-SAN-04",
+      "tableRow": 2,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:MOC|MONTH:03",
+      "resultCode": "TT-DIEN-SAN-05",
+      "tableRow": 2,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:MOC|MONTH:08",
+      "resultCode": "TT-DIEN-SAN-06",
+      "tableRow": 2,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:MOC|MONTH:06",
+      "resultCode": "TT-DIEN-SAN-07",
+      "tableRow": 2,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THUY|MONTH:01",
+      "resultCode": "TT-DIEN-SAN-01",
+      "tableRow": 1,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THUY|MONTH:12",
+      "resultCode": "TT-DIEN-SAN-02",
+      "tableRow": 1,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THUY|MONTH:03",
+      "resultCode": "TT-DIEN-SAN-03",
+      "tableRow": 1,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THUY|MONTH:10",
+      "resultCode": "TT-DIEN-SAN-05",
+      "tableRow": 1,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THUY|MONTH:04",
+      "resultCode": "TT-DIEN-SAN-06",
+      "tableRow": 1,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THUY|MONTH:07",
+      "resultCode": "TT-DIEN-SAN-07",
+      "tableRow": 1,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THUY|MONTH:02",
+      "resultCode": "TT-DIEN-SAN-01",
+      "tableRow": 2,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THUY|MONTH:06",
+      "resultCode": "TT-DIEN-SAN-02",
+      "tableRow": 2,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THUY|MONTH:09",
+      "resultCode": "TT-DIEN-SAN-03",
+      "tableRow": 2,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THUY|MONTH:11",
+      "resultCode": "TT-DIEN-SAN-04",
+      "tableRow": 2,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THUY|MONTH:05",
+      "resultCode": "TT-DIEN-SAN-06",
+      "tableRow": 2,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THUY|MONTH:08",
+      "resultCode": "TT-DIEN-SAN-07",
+      "tableRow": 2,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:HOA|MONTH:06",
+      "resultCode": "TT-DIEN-SAN-01",
+      "tableRow": 1,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:HOA|MONTH:07",
+      "resultCode": "TT-DIEN-SAN-02",
+      "tableRow": 1,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:HOA|MONTH:08",
+      "resultCode": "TT-DIEN-SAN-03",
+      "tableRow": 1,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:HOA|MONTH:04",
+      "resultCode": "TT-DIEN-SAN-04",
+      "tableRow": 1,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:HOA|MONTH:10",
+      "resultCode": "TT-DIEN-SAN-06",
+      "tableRow": 1,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:HOA|MONTH:01",
+      "resultCode": "TT-DIEN-SAN-07",
+      "tableRow": 1,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:HOA|MONTH:12",
+      "resultCode": "TT-DIEN-SAN-02",
+      "tableRow": 2,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:HOA|MONTH:09",
+      "resultCode": "TT-DIEN-SAN-03",
+      "tableRow": 2,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:HOA|MONTH:05",
+      "resultCode": "TT-DIEN-SAN-04",
+      "tableRow": 2,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:HOA|MONTH:03",
+      "resultCode": "TT-DIEN-SAN-05",
+      "tableRow": 2,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:HOA|MONTH:11",
+      "resultCode": "TT-DIEN-SAN-06",
+      "tableRow": 2,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:HOA|MONTH:02",
+      "resultCode": "TT-DIEN-SAN-07",
+      "tableRow": 2,
+      "tableColumn": 7
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THO|MONTH:07",
+      "resultCode": "TT-DIEN-SAN-01",
+      "tableRow": 1,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THO|MONTH:01",
+      "resultCode": "TT-DIEN-SAN-02",
+      "tableRow": 1,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THO|MONTH:02",
+      "resultCode": "TT-DIEN-SAN-03",
+      "tableRow": 1,
+      "tableColumn": 3
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THO|MONTH:04",
+      "resultCode": "TT-DIEN-SAN-04",
+      "tableRow": 1,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THO|MONTH:05",
+      "resultCode": "TT-DIEN-SAN-05",
+      "tableRow": 1,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THO|MONTH:10",
+      "resultCode": "TT-DIEN-SAN-06",
+      "tableRow": 1,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THO|MONTH:08",
+      "resultCode": "TT-DIEN-SAN-01",
+      "tableRow": 2,
+      "tableColumn": 1
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THO|MONTH:09",
+      "resultCode": "TT-DIEN-SAN-02",
+      "tableRow": 2,
+      "tableColumn": 2
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THO|MONTH:12",
+      "resultCode": "TT-DIEN-SAN-04",
+      "tableRow": 2,
+      "tableColumn": 4
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THO|MONTH:03",
+      "resultCode": "TT-DIEN-SAN-05",
+      "tableRow": 2,
+      "tableColumn": 5
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THO|MONTH:11",
+      "resultCode": "TT-DIEN-SAN-06",
+      "tableRow": 2,
+      "tableColumn": 6
+    },
+    {
+      "ruleCode": "TT-DIEN-SAN",
+      "lookupKey": "ELEMENT:THO|MONTH:06",
+      "resultCode": "TT-DIEN-SAN-07",
+      "tableRow": 2,
+      "tableColumn": 7
+    }
+  ]
+}

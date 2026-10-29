@@ -1,0 +1,573 @@
+{
+  "kind": "preflight",
+  "clients": 20,
+  "mode": "direct",
+  "repeat": 1,
+  "passed": true,
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "jarSha256": "71a9d31d11adda8f50330398e87ccad6029fe7782b0a5b6239eaabf1bad0ab39",
+  "command": [
+    "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
+    "-Xms256m",
+    "-Xmx512m",
+    "-jar",
+    "C:\\Users\\abc\\OneDrive\\Documents\\ChatGPT\\BTL_LTM\\scripts\\generated\\x01_backend_20261029_013243_326170\\huyen-co-server.jar",
+    "--spring.profiles.active=db",
+    "--server.address=127.0.0.1",
+    "--server.port=18091",
+    "--spring.flyway.enabled=false",
+    "--spring.datasource.hikari.read-only=true",
+    "--spring.datasource.hikari.maximum-pool-size=8",
+    "--spring.datasource.url=jdbc:postgresql://127.0.0.1:5432/huyenco_benchmark_test_20261029_010531",
+    "--huyenco.allowed-origins=http://127.0.0.1:3173",
+    "--huyenco.calculation-mode=direct",
+    "--huyenco.calculation-workers=4",
+    "--huyenco.calculation-queue-capacity=100",
+    "--huyenco.processing-timeout-ms=10000",
+    "--huyenco.idempotency-ttl-seconds=60",
+    "--huyenco.idempotency-max-entries=10000",
+    "--huyenco.max-calculation-sessions=1024",
+    "--huyenco.max-active-calculations=1000",
+    "--huyenco.max-active-per-session=16"
+  ],
+  "runnerToolchain": {
+    "nodeExecutable": "C:\\Program Files\\nodejs\\node.EXE",
+    "nodeVersion": "v24.21.0",
+    "nodeExecutableSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32",
+    "packages": {
+      "@stomp/stompjs": {
+        "version": "7.5.0",
+        "manifestSha256": "d21bc8ecfdbf9784eded47bbd142b2c3a9edd51d00c48972fc98ebe1105158d6"
+      },
+      "ws": {
+        "version": "8.22.0",
+        "manifestSha256": "c1ef91ca04eb4754c011c5f0e7638b5078ff71104fada400c44ac761cf93e0b1"
+      },
+      "typescript": {
+        "version": "5.9.3",
+        "manifestSha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+      }
+    },
+    "packageLockSha256": "8434f0f707eb57ccfc8901c35911b144b5327f48eb9f69f392aee2189f53fdd3"
+  },
+  "sourceHashes": {
+    "client/scripts/benchmark-stomp.mjs": "fa8934d964438487e89a4d31b81d90d791ac5665d8167ad181a3eedbe1db4f66",
+    "client/scripts/lib/x01-benchmark.mjs": "77503cb4f2ecd1a9522ef287a17cfd543a8cca9e56e5857c16a0b367a95b2a06",
+    "scripts/run_x01_benchmark.py": "ac6ecefe0552388048bf8399549c83a6a61529b77fe6d3bdfb2188427e97ce60",
+    "scripts/sample_x01_process.ps1": "9e7a1eeec11df3d12438b599a9288dd3783f57bbb558e4f5104865f1a20d868c"
+  },
+  "git": {
+    "commit": "45f07a6fd8dd2c8b3dfaec09869e182545ce8ab7",
+    "workingTree": [
+      "M .gitignore",
+      " M README.md",
+      " M client/next-env.d.ts",
+      " M client/package.json",
+      " M docs/06-TEST-PLAN.md",
+      " M docs/15-COMBINED-TV2-TV3-PLAN.md",
+      " M docs/45-TV1-DEMO-SCRIPT.md",
+      "?? client/scripts/benchmark-stomp.mjs",
+      "?? client/scripts/lib/x01-benchmark.mjs",
+      "?? client/scripts/x01-benchmark.test.mjs",
+      "?? docs/46-DEMO-CLIENT-SERVER-POSTGRES-TEST.md",
+      "?? docs/47-X01-BENCHMARK-2-5-20-PLAN.md",
+      "?? docs/48-X01-TEST-DATABASE-BASELINE.md",
+      "?? docs/49-X01-RUNNER-BACKEND-HANDOFF.md",
+      "?? docs/50-X01-PILOT-ACCEPTANCE.md",
+      "?? scripts/audit_x01_matrix.py",
+      "?? scripts/prepare_x01_test_database.py",
+      "?? scripts/run_x01_benchmark.ps1",
+      "?? scripts/run_x01_benchmark.py",
+      "?? scripts/run_x01_matrix.py",
+      "?? scripts/sample_x01_process.ps1",
+      "?? scripts/tests/test_x01_cohort_audit.py",
+      "?? scripts/tests/test_x01_database_preparation.py",
+      "?? scripts/tests/test_x01_matrix_plan.py",
+      "?? scripts/tests/test_x01_runner_safety.py"
+    ]
+  },
+  "startedAt": "2026-10-29T02:53:27.370282+07:00",
+  "temporaryServerStopped": true,
+  "ownedJavaPid": 7852,
+  "beforeReadiness": {
+    "health": {
+      "status": "UP"
+    },
+    "readiness": {
+      "status": "READY",
+      "scope": "KNOWLEDGE_STORAGE",
+      "database": "UP",
+      "schema": "READY",
+      "seed": "READY",
+      "businessFeaturesReady": false,
+      "counts": {
+        "source_books": 2,
+        "source_sections": 33,
+        "calculation_rules": 14,
+        "trigrams": 8,
+        "hexagrams": 64,
+        "hexagram_lines": 384,
+        "interpretations": 64,
+        "tam_the_hour_anchors": 12,
+        "tam_the_lookup_entries": 447,
+        "verified_hexagram_names": 64,
+        "verified_rules": 12
+      },
+      "rules": [
+        {
+          "ruleCode": "MH-TRIGRAM",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "MH-MUTUAL",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "MH-CHANGE",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "MH-TIME",
+          "executionPolicy": "TEAM_DECISION",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "MH-OBJECT-COUNT",
+          "executionPolicy": "TEAM_DECISION",
+          "sourceStatus": "SOURCE_AMBIGUOUS",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "MH-THE-DUNG",
+          "executionPolicy": "DISABLED",
+          "sourceStatus": "SOURCE_AMBIGUOUS",
+          "calculationAuthorized": false,
+          "reason": "EXECUTION_DISABLED"
+        },
+        {
+          "ruleCode": "TT-NGU-HANH",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "TT-GIO-SINH",
+          "executionPolicy": "TEAM_DECISION",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "TT-36-PHAN",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "TT-CONG-DANH-11",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "TT-CONG-DANH-13",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "TT-TAI-LOC",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "TT-TINH-DUYEN",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "LUNAR-CONVERSION",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        }
+      ],
+      "pending": [
+        "BUSINESS_IMPLEMENTATION_PENDING",
+        "RULES_NOT_AUTHORIZED"
+      ]
+    }
+  },
+  "runnerSummary": {
+    "schemaVersion": 1,
+    "task": "X01.2",
+    "kind": "preflight",
+    "passed": true,
+    "startedAt": "2026-10-28T19:53:31.439Z",
+    "endedAt": "2026-10-28T19:53:33.714Z",
+    "runId": "bd68eb11-8a94-4c4c-b418-e4888df71bd5",
+    "mode": "direct",
+    "clients": 20,
+    "repeat": 1,
+    "database": "huyenco_benchmark_test_20261029_010531",
+    "endpoint": "ws://127.0.0.1:18091/ws",
+    "origin": "http://127.0.0.1:3173",
+    "config": {
+      "warmupMs": 1000,
+      "durationMs": 1000,
+      "thinkMs": 200,
+      "drainMs": 15000,
+      "requestTimeoutMs": 15000,
+      "maxInFlightPerClient": 1,
+      "automaticReconnect": false,
+      "automaticRetry": false,
+      "cookies": false
+    },
+    "connectionCount": 20,
+    "connectedPeak": 20,
+    "connections": [
+      {
+        "clientId": "client-1",
+        "httpStatus": 101,
+        "upgradeMs": 58.355999999999995,
+        "stompConnectedMs": 100.91559999999998,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-2",
+        "httpStatus": 101,
+        "upgradeMs": 58.35449999999997,
+        "stompConnectedMs": 100.12879999999996,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-3",
+        "httpStatus": 101,
+        "upgradeMs": 56.825199999999995,
+        "stompConnectedMs": 100.40710000000001,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-4",
+        "httpStatus": 101,
+        "upgradeMs": 58.454499999999996,
+        "stompConnectedMs": 99.43299999999999,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-5",
+        "httpStatus": 101,
+        "upgradeMs": 56.221900000000005,
+        "stompConnectedMs": 99.53950000000003,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-6",
+        "httpStatus": 101,
+        "upgradeMs": 58.283500000000004,
+        "stompConnectedMs": 100.54720000000003,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-7",
+        "httpStatus": 101,
+        "upgradeMs": 52.832100000000025,
+        "stompConnectedMs": 99.81220000000002,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-8",
+        "httpStatus": 101,
+        "upgradeMs": 56.43130000000002,
+        "stompConnectedMs": 100.28070000000002,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-9",
+        "httpStatus": 101,
+        "upgradeMs": 57.56149999999997,
+        "stompConnectedMs": 100.47819999999996,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-10",
+        "httpStatus": 101,
+        "upgradeMs": 58.10250000000002,
+        "stompConnectedMs": 99.2387,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-11",
+        "httpStatus": 101,
+        "upgradeMs": 57.16749999999996,
+        "stompConnectedMs": 98.90959999999995,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-12",
+        "httpStatus": 101,
+        "upgradeMs": 58.30599999999998,
+        "stompConnectedMs": 99.63979999999998,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-13",
+        "httpStatus": 101,
+        "upgradeMs": 55.847699999999975,
+        "stompConnectedMs": 100.51889999999997,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-14",
+        "httpStatus": 101,
+        "upgradeMs": 56.92399999999998,
+        "stompConnectedMs": 100.3277,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-15",
+        "httpStatus": 101,
+        "upgradeMs": 58.378600000000006,
+        "stompConnectedMs": 100.36470000000003,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-16",
+        "httpStatus": 101,
+        "upgradeMs": 55.57409999999999,
+        "stompConnectedMs": 100.23130000000003,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-17",
+        "httpStatus": 101,
+        "upgradeMs": 57.88099999999997,
+        "stompConnectedMs": 99.5387,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-18",
+        "httpStatus": 101,
+        "upgradeMs": 58.127700000000004,
+        "stompConnectedMs": 99.78140000000002,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-19",
+        "httpStatus": 101,
+        "upgradeMs": 55.209900000000005,
+        "stompConnectedMs": 99.88150000000002,
+        "connectionCount": 1
+      },
+      {
+        "clientId": "client-20",
+        "httpStatus": 101,
+        "upgradeMs": 58.40550000000002,
+        "stompConnectedMs": 100.59680000000003,
+        "connectionCount": 1
+      }
+    ],
+    "windows": {
+      "warmup": {
+        "start": 546.4667,
+        "end": 1546.4667,
+        "drainedAt": 1551.2112
+      },
+      "measurement": {
+        "start": 1551.236,
+        "end": 2551.236,
+        "drainedAt": 2556.9904
+      }
+    },
+    "metrics": {
+      "sent": 82,
+      "completed": 82,
+      "completedInsideWindow": 81,
+      "completedAfterWindow": 1,
+      "sentRatePerSecond": 82,
+      "throughputPerSecond": 81,
+      "cohortSuccessRate": 1,
+      "sampleCount": 82,
+      "medianLatencyMs": 10.060599999999909,
+      "p95LatencyMs": 24.415199999999913,
+      "errors": {},
+      "categories": {
+        "completed": 82
+      },
+      "reconciled": true,
+      "publishFailures": 0
+    },
+    "eventCount": 0,
+    "scheduledAttemptsSkippedAtBoundary": 0,
+    "allPhases": {
+      "requests": 202,
+      "completed": 202,
+      "progress": 808
+    },
+    "eventLoopDelayMs": {
+      "mean": 27.83277511111111,
+      "p95": 35.258367
+    },
+    "failure": null,
+    "sentDefinition": "STOMP publish returned without throwing; not a delivery acknowledgement",
+    "throughputDefinition": "valid cohort completions received inside the measurement window / duration",
+    "benchmarkResult": false,
+    "observationEndedAt": "2026-10-28T19:53:33.714Z"
+  },
+  "afterReadiness": {
+    "health": {
+      "status": "UP"
+    },
+    "readiness": {
+      "status": "READY",
+      "scope": "KNOWLEDGE_STORAGE",
+      "database": "UP",
+      "schema": "READY",
+      "seed": "READY",
+      "businessFeaturesReady": false,
+      "counts": {
+        "source_books": 2,
+        "source_sections": 33,
+        "calculation_rules": 14,
+        "trigrams": 8,
+        "hexagrams": 64,
+        "hexagram_lines": 384,
+        "interpretations": 64,
+        "tam_the_hour_anchors": 12,
+        "tam_the_lookup_entries": 447,
+        "verified_hexagram_names": 64,
+        "verified_rules": 12
+      },
+      "rules": [
+        {
+          "ruleCode": "MH-TRIGRAM",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "MH-MUTUAL",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "MH-CHANGE",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "MH-TIME",
+          "executionPolicy": "TEAM_DECISION",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "MH-OBJECT-COUNT",
+          "executionPolicy": "TEAM_DECISION",
+          "sourceStatus": "SOURCE_AMBIGUOUS",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "MH-THE-DUNG",
+          "executionPolicy": "DISABLED",
+          "sourceStatus": "SOURCE_AMBIGUOUS",
+          "calculationAuthorized": false,
+          "reason": "EXECUTION_DISABLED"
+        },
+        {
+          "ruleCode": "TT-NGU-HANH",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "TT-GIO-SINH",
+          "executionPolicy": "TEAM_DECISION",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "TT-36-PHAN",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "TT-CONG-DANH-11",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "TT-CONG-DANH-13",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "TT-TAI-LOC",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "TT-TINH-DUYEN",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        },
+        {
+          "ruleCode": "LUNAR-CONVERSION",
+          "executionPolicy": "SOURCE_VERIFIED",
+          "sourceStatus": "VERIFIED",
+          "calculationAuthorized": true,
+          "reason": null
+        }
+      ],
+      "pending": [
+        "BUSINESS_IMPLEMENTATION_PENDING",
+        "RULES_NOT_AUTHORIZED"
+      ]
+    }
+  },
+  "samplerExitCode": 0,
+  "serverResourcesAvailable": true,
+  "resourceSampling": "Get-Process every 1s: cumulative CPU seconds, working set, OS thread count; not JVM managed thread count",
+  "databaseUnchanged": true,
+  "endedAt": "2026-10-29T02:53:35.026302+07:00"
+}

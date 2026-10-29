@@ -1,0 +1,9 @@
+{
+  "database": "huyenco",
+  "beforeSha256": "124f20a073b0887cf75cd9a39cc404b76912f76003b594b9f194e70f1eaed5c1",
+  "afterSha256": "124f20a073b0887cf75cd9a39cc404b76912f76003b594b9f194e70f1eaed5c1",
+  "identicalRows": true,
+  "httpVerified": true,
+  "noDbVerified": true,
+  "temporaryServersStopped": true
+}

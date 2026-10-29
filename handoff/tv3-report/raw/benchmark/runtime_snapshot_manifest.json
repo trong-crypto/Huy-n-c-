@@ -1,0 +1,30 @@
+{
+  "capturedAt": "2026-10-29T02:49:37.196648+07:00",
+  "snapshotDirectory": "runtime_source_snapshot",
+  "matchesMeasurementPins": true,
+  "files": {
+    "client/package-lock.json": "8434f0f707eb57ccfc8901c35911b144b5327f48eb9f69f392aee2189f53fdd3",
+    "client/package.json": "ca2f7c8793a42fb4ffd679022ac1c77ef51d8a0d0ac32f2faa085eb24159c6e6",
+    "client/scripts/benchmark-stomp.mjs": "4594a59425e90f4ae5652f6a0789ab75b74f9a3770142d000af8e361bdec9cfb",
+    "client/scripts/lib/load-ui-module.mjs": "1fdf110d40f43902dbe7437b03be6d75a8d6971e3614ec183225506b738adeb3",
+    "client/scripts/lib/x01-benchmark.mjs": "0e4c0a9af7145a961f67cb82a6fa773c677cfe29809b56aa44d9445c25dc5a85",
+    "client/src/types/calendarValidation.test.ts": "557a1c6ced36491b1817fffdc866c199fc8c789e1ac4b00f3329bf0b0a8eb91e",
+    "client/src/types/calendarValidation.ts": "67006d7fc452d20adb821ef648257cc06cdbe316e58de0d80dc085e38f4b4c59",
+    "client/src/types/contract.ts": "546aa6f2ee6c50cc17fb418f3bb329b3d7e77b250e1ccbe8ca99071b9ee36f8e",
+    "client/src/types/contractValidation.test.ts": "b01b78980a27fc5fa6edaf539ebe6503c8c36b3b3438d45e3a5959ed4be64897",
+    "client/src/types/contractValidation.ts": "39e7192cfbdf6aa04cff533c4c83b928d07ff9e0e12de065ab21a4958943d68b",
+    "client/src/types/d04Wealth.test.ts": "299aa1080b9401d4b1ff22a541cfdbbdb17505f38d1dbde2429257b204f914c5",
+    "client/src/types/hexagramValidation.test.ts": "6b78a5502b20cd14ff1034539b696d326eced2b1a1fb84f98191d5bf08fa132d",
+    "client/src/types/hexagramValidation.ts": "892661e31e8246d552e5ef1e648decc426335deece23d84d7da302e00f672238",
+    "client/src/types/historyValidation.test.ts": "7fbd4685a55c33c38c17a92e31c676be7b91f8849f7fd0c795c8fef6d098e49f",
+    "client/src/types/historyValidation.ts": "fc1a47be95ba47c46364d3c4c69a5da72d4c65370174c6ccab519bcd5db13566",
+    "client/src/types/m03Readings.test.ts": "282556cbf0919fe923d1098d20e77738770666a8f7a8791b7119753aeea68886",
+    "client/src/types/readingContract.test.ts": "2aa394ba25ef6901219c50ed31a867b9d736c4d5bc4aef0655ac4e1b6b26e5c1",
+    "client/src/types/readingContract.ts": "24ebf2d6709b6222b3c4425948b7b7a5338d26fd82d9d40a764acf9984066b87",
+    "client/src/types/readingValidation.ts": "4b634f1f146471d26880763fd0638b5841bdfb82a976c276af5003baa1599f2d",
+    "scripts/prepare_x01_test_database.py": "01308d5f1db00fe90f0d5a8ba395e6488a26a9084856f794877f8dd9ce8f30c8",
+    "scripts/run_x01_benchmark.py": "ac6ecefe0552388048bf8399549c83a6a61529b77fe6d3bdfb2188427e97ce60",
+    "scripts/run_x01_matrix.py": "15aca5ab03202cd5db54ef4f1c4b34945ead8a3cefa35812f13bddb6e8494547",
+    "scripts/sample_x01_process.ps1": "9e7a1eeec11df3d12438b599a9288dd3783f57bbb558e4f5104865f1a20d868c"
+  }
+}

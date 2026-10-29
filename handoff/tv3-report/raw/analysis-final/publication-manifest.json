@@ -1,0 +1,47 @@
+{
+  "task": "X01.6",
+  "status": "REVIEWED",
+  "analysisDirectory": "scripts/generated/x01_analysis_20261029_112956_819906",
+  "matrixAuditStatus": "COHORT_AUDIT_PASS_WITH_WINDOW_DEVIATION",
+  "strictSendWindowSatisfied": false,
+  "cohortRequests": 46027,
+  "originalInputsUnchanged": true,
+  "sourcePins": {
+    "scripts/summarize_x01_benchmark.py": "53fa020fb250ec9570b3febb1db4618a8754c410ac3087216c39187bde394fe0",
+    "scripts/audit_x01_matrix.py": "70053bab0f393e3846394c1ce8bdd922cf85dfd9f777a605ad5fb5723e83f7f5",
+    "scripts/audit_x01_reliability.py": "09597491691be5e06a0fc4c3762ea6846eecec129d4e2e85f9907ec3f629595a",
+    "scripts/run_x01_benchmark.py": "ac6ecefe0552388048bf8399549c83a6a61529b77fe6d3bdfb2188427e97ce60",
+    "scripts/run_x01_reliability.py": "7254801799aa310e2e4ff2104f2503fde0ac1123dcc5c80e613e6507bb02d6aa",
+    "scripts/run_x01_matrix.py": "15aca5ab03202cd5db54ef4f1c4b34945ead8a3cefa35812f13bddb6e8494547",
+    "scripts/prepare_x01_test_database.py": "01308d5f1db00fe90f0d5a8ba395e6488a26a9084856f794877f8dd9ce8f30c8"
+  },
+  "analysisToolchain": {
+    "python": "3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]",
+    "matplotlib": "3.11.1",
+    "numpy": "2.5.2"
+  },
+  "files": {
+    "01-latency.png": "78cfbd2e07a505bc272db5fe455dbd58a03cf32ade62a7ea6c82d9eebe7eddb4",
+    "01-latency.svg": "c77df54f65ce74a1edb9dba1eb5ae47633390da02fd5493a6c5d635675d93fa1",
+    "02-throughput.png": "7a564df6898fa2ce6239fbb683206328df9606cfd4b99d8fa6e2e0693c3dcb30",
+    "02-throughput.svg": "7a8a938ae99fe6b61d0c056381c21ca963d8a1be94fded8d3da56c0fb5da0c8d",
+    "03-latency-ecdf.png": "de04175661997564822ca02b561b7e0cebb884c5a6e33ac6ce34686135455acd",
+    "03-latency-ecdf.svg": "13c68a4eb349b3425195df4609b3283f91dacf46c99a68473cc338823b23b3ce",
+    "04-resources.png": "2f7cea2a82293ff3338d3d58d109da1061d814d0343d83626946418dca613068",
+    "04-resources.svg": "e73e61995c1a954e3644fca813a20fdbe3456798b723145ffc68e308fd1695d2",
+    "05-throughput-timeline.png": "b6c29752d7c08dbf98c32a397572205a623d39fbdb9d5e651a1d837db7724eb2",
+    "05-throughput-timeline.svg": "67a8fe852d17ca6e2ba9f24fea98762a1cd7ad52f50cba6980aad14dde4c7e15",
+    "aggregate.csv": "428e5955774ef6ce0a2c46e60f37dac5644d9f8926800b14f5e73b4cf4cd8aed",
+    "boundary-exclusions.csv": "1503037a9deb0e52566eaa359a2c233d776136e539ab7e53d6338f5dbe498e28",
+    "differences.csv": "2f07e25be12d1a2697f128db7b5f7553f12fa0ea7e34a68cd691162343590a86",
+    "per-run.csv": "7d9f0863aecc07086f9217b2c1d5fbcb9c1878cb7b0f05a0cdf70eacb19d4f4f",
+    "timeline.csv": "39e975dcd271e5d0cab176030476eab0a5fad766aa61d5009fac63e85f9f2d27"
+  },
+  "reviewedAt": "2026-10-29T11:31:19.349378+07:00",
+  "visualReview": "5/5 PNG inspected; SVG parsed",
+  "toolTestsPassed": 6,
+  "reportSha256": "fa071386934ef01fb0c2e50b6cdac867d459065786651eb28c7ce7a86f29c3dc",
+  "inputEvidenceManifestSha256": "9846dcf028aaa11c207947933a995b3c44105c2dc1607e99821012fa83ce3179",
+  "databaseCheckPath": "scripts/generated/x01_analysis_dbcheck_20261029_112128_437678.json",
+  "databaseCheckSha256": "9a72dbddfa1d7678a2a8449aa21c5034bbe984432e6601a79fdd695a7124638c"
+}

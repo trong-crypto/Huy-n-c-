@@ -1,0 +1,9 @@
+{
+  "database": "huyenco_m02_test_20261026",
+  "status": "PASS",
+  "allPublicRowsMatchBeforeContractTests": true,
+  "snapshotSha256": "4543343a82c7eefb161b15bd359284c3dae350617a362aa56bcac0d180195f86",
+  "sessions": 0,
+  "history": 0,
+  "projectHuyencoVersion": "11"
+}

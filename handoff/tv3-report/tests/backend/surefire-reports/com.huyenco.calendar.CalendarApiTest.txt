@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.huyenco.calendar.CalendarApiTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.321 s -- in com.huyenco.calendar.CalendarApiTest

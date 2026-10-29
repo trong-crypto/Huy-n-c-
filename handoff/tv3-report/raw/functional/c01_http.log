@@ -1,0 +1,7 @@
+{
+  "httpChecks": 18,
+  "database": "huyenco",
+  "temporaryPort": 63307,
+  "fixturesWritten": true,
+  "serverStopped": true
+}

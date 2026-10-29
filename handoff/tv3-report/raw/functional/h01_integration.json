@@ -1,0 +1,9 @@
+{
+  "database": "huyenco_a02_8dc20f0b4f42",
+  "passed": true,
+  "cleanedUp": true,
+  "restartPersistence": true,
+  "remainingHistory": 2,
+  "e02Regression": true,
+  "noDbHttp": 2
+}

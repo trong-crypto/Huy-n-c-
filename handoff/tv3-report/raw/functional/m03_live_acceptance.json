@@ -1,0 +1,103 @@
+{
+  "task": "M03",
+  "status": "PASS",
+  "sessions": 2,
+  "terminalResponses": 15,
+  "progressEvents": 44,
+  "httpRequests": 22,
+  "realResultsSavedAndRead": 4,
+  "fixturesCaptured": false,
+  "scope": "Real Mai Hoa readings for LINES/OBJECT_COUNT/TIME, optional season, history/owner, replay/session and legacy; Tam The EXTENDED compatibility after D04",
+  "cases": [
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440070",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440071",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440072",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440073",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440070",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440070",
+      "status": "FAILED",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440070",
+      "status": "FAILED",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "session": "B",
+      "requestId": "550e8400-e29b-41d4-a716-446655440070",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440074",
+      "status": "FAILED",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440075",
+      "status": "FAILED",
+      "error": "INVALID_INPUT"
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440076",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440080",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440081",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440082",
+      "status": "COMPLETED",
+      "error": null
+    },
+    {
+      "session": "A",
+      "requestId": "550e8400-e29b-41d4-a716-446655440083",
+      "status": "COMPLETED",
+      "error": null
+    }
+  ]
+}

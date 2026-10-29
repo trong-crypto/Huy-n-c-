@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "httpRequests": 54,
+  "stompTerminal": 8,
+  "restartChecked": true
+}

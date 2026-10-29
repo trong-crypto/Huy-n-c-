@@ -1,0 +1,12 @@
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/33-DATABASE-COMPLETENESS-AUDIT.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'server/pom.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'server/src/main/java/com/huyenco/common/dto/MaiHoaResult.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'server/src/main/java/com/huyenco/common/dto/TamTheResult.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'server/src/main/java/com/huyenco/common/validation/ContractValidator.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'server/src/main/java/com/huyenco/config/KnowledgeDatabaseConfig.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'server/src/main/java/com/huyenco/config/RuleRegistryConfig.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'server/src/main/java/com/huyenco/knowledge/TrigramIndex.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'server/src/main/java/com/huyenco/maihoa/MaiHoaService.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'server/src/main/java/com/huyenco/tamthe/TamTheService.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'server/src/test/java/com/huyenco/knowledge/RuleRegistryContextTest.java', LF will be replaced by CRLF the next time Git touches it

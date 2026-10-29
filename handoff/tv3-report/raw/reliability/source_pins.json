@@ -1,0 +1,12 @@
+{
+  "scripts/run_x01_reliability.py": "7254801799aa310e2e4ff2104f2503fde0ac1123dcc5c80e613e6507bb02d6aa",
+  "client/scripts/x01-reliability.mjs": "70101af8b9a90fd8540dd1926ff83b4fc433f400bc37dd3ec018637bcd7fe54f",
+  "scripts/run_x01_benchmark.py": "ac6ecefe0552388048bf8399549c83a6a61529b77fe6d3bdfb2188427e97ce60",
+  "scripts/prepare_x01_test_database.py": "01308d5f1db00fe90f0d5a8ba395e6488a26a9084856f794877f8dd9ce8f30c8",
+  "client/scripts/lib/x01-benchmark.mjs": "77503cb4f2ecd1a9522ef287a17cfd543a8cca9e56e5857c16a0b367a95b2a06",
+  "client/scripts/lib/load-ui-module.mjs": "1fdf110d40f43902dbe7437b03be6d75a8d6971e3614ec183225506b738adeb3",
+  "client/src/types/contractValidation.ts": "39e7192cfbdf6aa04cff533c4c83b928d07ff9e0e12de065ab21a4958943d68b",
+  "client/src/types/contract.ts": "546aa6f2ee6c50cc17fb418f3bb329b3d7e77b250e1ccbe8ca99071b9ee36f8e",
+  "client/package.json": "ca2f7c8793a42fb4ffd679022ac1c77ef51d8a0d0ac32f2faa085eb24159c6e6",
+  "client/package-lock.json": "8434f0f707eb57ccfc8901c35911b144b5327f48eb9f69f392aee2189f53fdd3"
+}

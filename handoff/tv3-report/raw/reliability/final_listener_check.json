@@ -1,0 +1,9 @@
+{
+  "ports": [
+    18090,
+    18091,
+    3173
+  ],
+  "listeners": [],
+  "source": "Final Get-NetTCPConnection query returned no matching listeners; benchmark bind probe independently succeeded."
+}

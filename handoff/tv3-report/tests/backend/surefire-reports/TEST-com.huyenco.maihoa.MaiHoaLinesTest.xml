@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.huyenco.maihoa.MaiHoaLinesTest" time="1.05" tests="387" errors="0" skipped="0" failures="0" flakes="0">
+  <properties>
+    <property name="java.specification.version" value="24"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server\target\test-classes;C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server\target\classes;C:\Users\abc\.m2\repository\net\time4j\time4j-base\5.9.4\time4j-base-5.9.4.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.5.16\spring-boot-starter-web-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter\3.5.16\spring-boot-starter-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot\3.5.16\spring-boot-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.5.16\spring-boot-autoconfigure-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.5.16\spring-boot-starter-logging-3.5.16.jar;C:\Users\abc\.m2\repository\ch\qos\logback\logback-classic\1.5.34\logback-classic-1.5.34.jar;C:\Users\abc\.m2\repository\ch\qos\logback\logback-core\1.5.34\logback-core-1.5.34.jar;C:\Users\abc\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.24.3\log4j-to-slf4j-2.24.3.jar;C:\Users\abc\.m2\repository\org\apache\logging\log4j\log4j-api\2.24.3\log4j-api-2.24.3.jar;C:\Users\abc\.m2\repository\org\slf4j\jul-to-slf4j\2.0.18\jul-to-slf4j-2.0.18.jar;C:\Users\abc\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\abc\.m2\repository\org\yaml\snakeyaml\2.4\snakeyaml-2.4.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.5.16\spring-boot-starter-json-3.5.16.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.21.4\jackson-databind-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.21\jackson-annotations-2.21.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.21.4\jackson-core-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.21.4\jackson-datatype-jdk8-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.21.4\jackson-datatype-jsr310-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.21.4\jackson-module-parameter-names-2.21.4.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.5.16\spring-boot-starter-tomcat-3.5.16.jar;C:\Users\abc\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.55\tomcat-embed-core-10.1.55.jar;C:\Users\abc\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.55\tomcat-embed-el-10.1.55.jar;C:\Users\abc\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.55\tomcat-embed-websocket-10.1.55.jar;C:\Users\abc\.m2\repository\org\springframework\spring-web\6.2.19\spring-web-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-beans\6.2.19\spring-beans-6.2.19.jar;C:\Users\abc\.m2\repository\io\micrometer\micrometer-observation\1.15.12\micrometer-observation-1.15.12.jar;C:\Users\abc\.m2\repository\io\micrometer\micrometer-commons\1.15.12\micrometer-commons-1.15.12.jar;C:\Users\abc\.m2\repository\org\springframework\spring-webmvc\6.2.19\spring-webmvc-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-aop\6.2.19\spring-aop-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-context\6.2.19\spring-context-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-expression\6.2.19\spring-expression-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-websocket\3.5.16\spring-boot-starter-websocket-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\spring-messaging\6.2.19\spring-messaging-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-websocket\6.2.19\spring-websocket-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.5.16\spring-boot-starter-test-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-test\3.5.16\spring-boot-test-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.5.16\spring-boot-test-autoconfigure-3.5.16.jar;C:\Users\abc\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\abc\.m2\repository\org\slf4j\slf4j-api\2.0.18\slf4j-api-2.0.18.jar;C:\Users\abc\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.5\jakarta.xml.bind-api-4.0.5.jar;C:\Users\abc\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.4\jakarta.activation-api-2.1.4.jar;C:\Users\abc\.m2\repository\net\minidev\json-smart\2.5.2\json-smart-2.5.2.jar;C:\Users\abc\.m2\repository\net\minidev\accessors-smart\2.5.2\accessors-smart-2.5.2.jar;C:\Users\abc\.m2\repository\org\ow2\asm\asm\9.7.1\asm-9.7.1.jar;C:\Users\abc\.m2\repository\org\assertj\assertj-core\3.27.7\assertj-core-3.27.7.jar;C:\Users\abc\.m2\repository\net\bytebuddy\byte-buddy\1.17.8\byte-buddy-1.17.8.jar;C:\Users\abc\.m2\repository\org\awaitility\awaitility\4.2.2\awaitility-4.2.2.jar;C:\Users\abc\.m2\repository\org\hamcrest\hamcrest\3.0\hamcrest-3.0.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter\5.12.2\junit-jupiter-5.12.2.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\abc\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\abc\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\abc\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.12.2\junit-jupiter-params-5.12.2.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\abc\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;C:\Users\abc\.m2\repository\org\mockito\mockito-core\5.17.0\mockito-core-5.17.0.jar;C:\Users\abc\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar;C:\Users\abc\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\abc\.m2\repository\org\mockito\mockito-junit-jupiter\5.17.0\mockito-junit-jupiter-5.17.0.jar;C:\Users\abc\.m2\repository\org\skyscreamer\jsonassert\1.5.3\jsonassert-1.5.3.jar;C:\Users\abc\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\abc\.m2\repository\org\springframework\spring-core\6.2.19\spring-core-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-jcl\6.2.19\spring-jcl-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-test\6.2.19\spring-test-6.2.19.jar;C:\Users\abc\.m2\repository\org\xmlunit\xmlunit-core\2.10.4\xmlunit-core-2.10.4.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="Asia/Saigon"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="24"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-24\bin"/>
+    <property name="sun.java.command" value="C:\Users\abc\AppData\Local\Temp\surefire10713229155429553262\surefirebooter-20261028164930775_3.jar C:\Users\abc\AppData\Local\Temp\surefire10713229155429553262 2026-10-28T16-49-29_268-jvmRun1 surefire-20261028164930775_1tmp surefire_0-20261028164930775_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server\target\test-classes;C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server\target\classes;C:\Users\abc\.m2\repository\net\time4j\time4j-base\5.9.4\time4j-base-5.9.4.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.5.16\spring-boot-starter-web-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter\3.5.16\spring-boot-starter-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot\3.5.16\spring-boot-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.5.16\spring-boot-autoconfigure-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.5.16\spring-boot-starter-logging-3.5.16.jar;C:\Users\abc\.m2\repository\ch\qos\logback\logback-classic\1.5.34\logback-classic-1.5.34.jar;C:\Users\abc\.m2\repository\ch\qos\logback\logback-core\1.5.34\logback-core-1.5.34.jar;C:\Users\abc\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.24.3\log4j-to-slf4j-2.24.3.jar;C:\Users\abc\.m2\repository\org\apache\logging\log4j\log4j-api\2.24.3\log4j-api-2.24.3.jar;C:\Users\abc\.m2\repository\org\slf4j\jul-to-slf4j\2.0.18\jul-to-slf4j-2.0.18.jar;C:\Users\abc\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\abc\.m2\repository\org\yaml\snakeyaml\2.4\snakeyaml-2.4.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.5.16\spring-boot-starter-json-3.5.16.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.21.4\jackson-databind-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.21\jackson-annotations-2.21.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.21.4\jackson-core-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.21.4\jackson-datatype-jdk8-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.21.4\jackson-datatype-jsr310-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.21.4\jackson-module-parameter-names-2.21.4.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.5.16\spring-boot-starter-tomcat-3.5.16.jar;C:\Users\abc\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.55\tomcat-embed-core-10.1.55.jar;C:\Users\abc\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.55\tomcat-embed-el-10.1.55.jar;C:\Users\abc\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.55\tomcat-embed-websocket-10.1.55.jar;C:\Users\abc\.m2\repository\org\springframework\spring-web\6.2.19\spring-web-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-beans\6.2.19\spring-beans-6.2.19.jar;C:\Users\abc\.m2\repository\io\micrometer\micrometer-observation\1.15.12\micrometer-observation-1.15.12.jar;C:\Users\abc\.m2\repository\io\micrometer\micrometer-commons\1.15.12\micrometer-commons-1.15.12.jar;C:\Users\abc\.m2\repository\org\springframework\spring-webmvc\6.2.19\spring-webmvc-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-aop\6.2.19\spring-aop-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-context\6.2.19\spring-context-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-expression\6.2.19\spring-expression-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-websocket\3.5.16\spring-boot-starter-websocket-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\spring-messaging\6.2.19\spring-messaging-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-websocket\6.2.19\spring-websocket-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.5.16\spring-boot-starter-test-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-test\3.5.16\spring-boot-test-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.5.16\spring-boot-test-autoconfigure-3.5.16.jar;C:\Users\abc\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\abc\.m2\repository\org\slf4j\slf4j-api\2.0.18\slf4j-api-2.0.18.jar;C:\Users\abc\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.5\jakarta.xml.bind-api-4.0.5.jar;C:\Users\abc\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.4\jakarta.activation-api-2.1.4.jar;C:\Users\abc\.m2\repository\net\minidev\json-smart\2.5.2\json-smart-2.5.2.jar;C:\Users\abc\.m2\repository\net\minidev\accessors-smart\2.5.2\accessors-smart-2.5.2.jar;C:\Users\abc\.m2\repository\org\ow2\asm\asm\9.7.1\asm-9.7.1.jar;C:\Users\abc\.m2\repository\org\assertj\assertj-core\3.27.7\assertj-core-3.27.7.jar;C:\Users\abc\.m2\repository\net\bytebuddy\byte-buddy\1.17.8\byte-buddy-1.17.8.jar;C:\Users\abc\.m2\repository\org\awaitility\awaitility\4.2.2\awaitility-4.2.2.jar;C:\Users\abc\.m2\repository\org\hamcrest\hamcrest\3.0\hamcrest-3.0.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter\5.12.2\junit-jupiter-5.12.2.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\abc\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\abc\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\abc\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.12.2\junit-jupiter-params-5.12.2.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\abc\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;C:\Users\abc\.m2\repository\org\mockito\mockito-core\5.17.0\mockito-core-5.17.0.jar;C:\Users\abc\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar;C:\Users\abc\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\abc\.m2\repository\org\mockito\mockito-junit-jupiter\5.17.0\mockito-junit-jupiter-5.17.0.jar;C:\Users\abc\.m2\repository\org\skyscreamer\jsonassert\1.5.3\jsonassert-1.5.3.jar;C:\Users\abc\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\abc\.m2\repository\org\springframework\spring-core\6.2.19\spring-core-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-jcl\6.2.19\spring-jcl-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-test\6.2.19\spring-test-6.2.19.jar;C:\Users\abc\.m2\repository\org\xmlunit\xmlunit-core\2.10.4\xmlunit-core-2.10.4.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\abc"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-07-15"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-24"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\abc\AppData\Local\Temp\surefire10713229155429553262\surefirebooter-20261028164930775_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="24.0.2+12-54"/>
+    <property name="user.name" value="abc"/>
+    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\abc\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\abc\AppData\Local\Temp\"/>
+    <property name="java.version" value="24.0.2"/>
+    <property name="user.dir" value="C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-24\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell;C:\Users\abc\.codex\tmp\arg0-windows\codex-arg0DM9QlD;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\libheif\libheif\bin;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\jxrlib\jxrlib\bin;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\poppler\Library\bin;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\override;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\cloudflared\;C:\Users\abc\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\abc\AppData\Local\Programs\Python\Python312\;C:\Users\abc\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\abc\AppData\Local\Programs\Python\Python313\;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell;C:\Users\abc\AppData\Local\Microsoft\WindowsApps;C:\Users\abc\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\IntelliJ IDEA 2025.3.3\bin;C:\Users\abc\AppData\Local\JetBrains\Toolbox\scripts;C:\Program Files\JetBrains\IntelliJ IDEA 2025.3.3\bin;C:\Users\abc\AppData\Local\Programs\Antigravity\bin;C:\Users\abc\AppData\Local\Programs\Antigravity IDE\bin;C:\Users\abc\AppData\Local\Microsoft\WindowsApps;C:\Users\abc\AppData\Local\Pandoc\;C:\Users\abc\AppData\Local\Programs\MiKTeX\miktex\bin\x64\;C:\Users\abc\AppData\Roaming\npm;C:\Users\abc\AppData\Local\Programs\Microsoft VS Code\bin\copilot-shim;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\fallback;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\git\cmd;C:\Users\abc\AppData\Local\OpenAI\Codex\bin\593bad775a30e636;C:\Users\abc\AppData\Local\OpenAI\Codex\bin\08d187884f2330d1;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1252"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="24.0.2+12-54"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="68.0"/>
+  </properties>
+  <testcase name="rejectsInvalidShapeAndMovingLine" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.013"/>
+  <testcase name="outputDoesNotAliasCallerAndCannotBeMutated" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[1]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.029"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[2]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[3]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[4]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.005"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[5]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.01"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[6]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.004"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[7]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[8]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[9]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.004"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[10]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.006"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[11]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.006"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[12]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[13]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[14]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[15]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[16]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[17]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.02"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[18]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.02"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[19]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.005"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[20]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.003"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[21]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[22]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.003"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[23]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[24]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[25]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[26]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[27]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[28]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[29]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[30]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[31]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[32]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[33]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[34]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[35]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[36]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[37]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[38]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[39]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[40]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[41]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[42]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[43]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[44]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[45]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.004"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[46]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[47]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.005"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[48]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.017"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[49]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[50]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.007"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[51]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.007"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[52]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[53]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[54]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[55]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[56]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[57]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[58]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[59]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[60]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[61]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[62]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.006"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[63]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[64]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[65]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.003"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[66]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[67]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[68]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[69]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[70]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.003"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[71]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[72]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[73]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.006"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[74]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[75]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[76]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[77]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[78]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[79]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.003"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[80]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[81]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[82]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[83]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[84]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.003"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[85]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[86]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[87]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[88]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[89]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[90]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[91]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[92]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[93]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.004"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[94]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[95]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[96]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[97]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[98]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.005"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[99]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.004"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[100]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[101]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.006"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[102]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.004"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[103]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[104]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[105]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[106]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.006"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[107]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.003"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[108]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[109]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.006"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[110]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.003"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[111]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[112]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[113]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[114]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[115]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[116]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.009"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[117]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[118]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[119]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.003"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[120]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[121]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[122]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[123]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[124]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[125]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[126]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[127]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[128]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[129]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.003"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[130]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[131]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.006"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[132]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[133]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[134]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[135]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[136]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[137]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[138]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[139]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[140]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[141]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[142]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[143]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[144]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[145]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[146]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[147]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[148]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[149]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[150]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[151]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[152]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[153]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[154]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[155]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[156]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[157]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[158]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[159]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[160]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[161]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[162]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[163]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[164]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[165]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[166]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.004"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[167]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[168]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.004"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[169]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[170]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[171]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[172]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[173]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[174]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[175]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[176]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[177]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[178]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[179]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[180]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[181]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[182]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[183]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.003"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[184]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[185]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[186]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[187]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[188]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[189]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[190]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[191]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[192]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[193]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[194]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[195]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[196]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[197]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[198]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[199]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[200]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[201]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[202]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[203]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[204]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[205]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[206]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[207]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[208]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[209]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[210]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[211]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[212]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[213]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[214]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[215]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[216]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[217]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[218]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[219]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[220]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[221]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[222]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[223]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[224]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[225]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[226]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[227]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[228]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[229]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[230]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[231]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[232]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[233]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[234]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[235]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[236]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[237]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[238]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[239]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[240]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[241]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[242]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[243]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[244]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[245]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[246]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[247]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[248]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[249]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[250]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[251]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[252]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[253]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[254]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[255]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[256]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[257]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[258]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[259]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[260]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[261]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[262]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[263]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[264]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[265]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[266]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[267]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[268]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[269]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[270]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[271]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[272]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[273]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[274]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[275]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[276]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[277]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[278]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[279]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[280]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[281]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[282]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[283]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[284]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[285]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[286]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[287]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[288]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[289]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[290]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[291]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[292]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[293]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[294]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[295]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[296]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.003"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[297]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[298]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[299]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[300]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[301]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[302]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[303]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[304]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[305]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[306]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[307]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[308]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[309]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[310]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[311]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[312]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[313]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[314]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[315]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[316]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[317]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[318]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[319]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[320]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[321]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[322]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[323]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[324]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[325]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[326]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[327]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[328]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[329]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[330]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[331]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[332]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[333]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[334]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[335]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[336]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[337]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[338]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[339]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[340]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[341]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[342]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[343]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[344]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[345]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[346]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[347]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[348]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[349]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[350]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[351]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[352]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[353]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[354]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[355]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[356]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[357]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[358]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[359]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[360]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[361]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[362]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[363]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[364]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[365]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[366]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[367]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[368]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.002"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[369]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[370]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[371]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[372]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[373]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[374]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[375]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[376]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[377]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[378]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[379]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[380]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[381]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[382]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[383]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="all64PatternsAnd6MovingLinesMatchBitwiseOracle(int, int)[384]" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.0"/>
+  <testcase name="explicitAsymmetricExampleKeepsBottomToTopOrder" classname="com.huyenco.maihoa.MaiHoaLinesTest" time="0.001"/>
+</testsuite>

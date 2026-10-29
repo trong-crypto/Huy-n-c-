@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "task": "X01.2",
+  "kind": "benchmark",
+  "passed": true,
+  "startedAt": "2026-10-28T19:23:32.163Z",
+  "endedAt": "2026-10-28T19:24:42.308Z",
+  "runId": "867c2a51-b23c-4e57-b6de-a07f133f8831",
+  "mode": "bounded",
+  "clients": 5,
+  "repeat": 1,
+  "database": "huyenco_benchmark_test_20261029_010531",
+  "endpoint": "ws://127.0.0.1:18091/ws",
+  "origin": "http://127.0.0.1:3173",
+  "config": {
+    "warmupMs": 10000,
+    "durationMs": 60000,
+    "thinkMs": 200,
+    "drainMs": 15000,
+    "requestTimeoutMs": 15000,
+    "maxInFlightPerClient": 1,
+    "automaticReconnect": false,
+    "automaticRetry": false,
+    "cookies": false
+  },
+  "connectionCount": 5,
+  "connectedPeak": 5,
+  "connections": [
+    {
+      "clientId": "client-1",
+      "httpStatus": 101,
+      "upgradeMs": 34.165400000000034,
+      "stompConnectedMs": 55.12130000000002,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-2",
+      "httpStatus": 101,
+      "upgradeMs": 34.474199999999996,
+      "stompConnectedMs": 54.778700000000015,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-3",
+      "httpStatus": 101,
+      "upgradeMs": 34.2072,
+      "stompConnectedMs": 54.68830000000003,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-4",
+      "httpStatus": 101,
+      "upgradeMs": 34.621399999999994,
+      "stompConnectedMs": 54.5505,
+      "connectionCount": 1
+    },
+    {
+      "clientId": "client-5",
+      "httpStatus": 101,
+      "upgradeMs": 31.667399999999986,
+      "stompConnectedMs": 54.22239999999999,
+      "connectionCount": 1
+    }
+  ],
+  "windows": {
+    "warmup": {
+      "start": 415.6245,
+      "end": 10415.6245,
+      "drainedAt": 10419.3652
+    },
+    "measurement": {
+      "start": 10419.3866,
+      "end": 70419.3866,
+      "drainedAt": 70425.8733
+    }
+  },
+  "metrics": {
+    "sent": 1426,
+    "completed": 1426,
+    "completedInsideWindow": 1426,
+    "completedAfterWindow": 0,
+    "sentRatePerSecond": 23.766666666666666,
+    "throughputPerSecond": 23.766666666666666,
+    "cohortSuccessRate": 1,
+    "sampleCount": 1426,
+    "medianLatencyMs": 3.0472000000008848,
+    "p95LatencyMs": 6.099299999998038,
+    "errors": {},
+    "categories": {
+      "completed": 1426
+    },
+    "reconciled": true,
+    "publishFailures": 0
+  },
+  "eventCount": 0,
+  "allPhases": {
+    "requests": 1671,
+    "completed": 1671,
+    "progress": 6684
+  },
+  "eventLoopDelayMs": {
+    "mean": 27.144425105691056,
+    "p95": 35.061759
+  },
+  "failure": null,
+  "sentDefinition": "STOMP publish returned without throwing; not a delivery acknowledgement",
+  "throughputDefinition": "valid cohort completions received inside the measurement window / duration",
+  "benchmarkResult": true,
+  "observationEndedAt": "2026-10-28T19:24:42.308Z"
+}

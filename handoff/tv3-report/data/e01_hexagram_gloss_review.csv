@@ -1,0 +1,65 @@
+order,hexagram_code,canonical_name,gloss,pdf_page,printed_page,section,item_in_section,editor,reviewer,review_status,printed_source_label,decision
+1,H_CAN_CAN,Càn,Trời,269,276,THUONG_KINH,1,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Càn,SOURCE_MATCHES_CANONICAL
+2,H_KHON_KHON,Khôn,Đất,269,276,THUONG_KINH,2,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Khôn,SOURCE_MATCHES_CANONICAL
+3,H_KHAM_CHAN,Truân,"Mới sinh, khó khăn",269,276,THUONG_KINH,3,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Truân,SOURCE_MATCHES_CANONICAL
+4,H_CAN2_KHAM,Mông,"Mờ tối, non yếu",270,277,THUONG_KINH,4,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Mông,SOURCE_MATCHES_CANONICAL
+5,H_KHAM_CAN,Nhu,"Ăn uống, chờ đợi",270,277,THUONG_KINH,5,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Nhu,SOURCE_MATCHES_CANONICAL
+6,H_CAN_KHAM,Tụng,"Kiện cáo, tranh giành",270,277,THUONG_KINH,6,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Tụng,SOURCE_MATCHES_CANONICAL
+7,H_KHON_KHAM,Sư,"Quân lính, số đông người",270,277,THUONG_KINH,7,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Sư,SOURCE_MATCHES_CANONICAL
+8,H_KHAM_KHON,Tỷ,"Thân thiết, gần gũi",270,277,THUONG_KINH,8,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Tỷ,SOURCE_MATCHES_CANONICAL
+9,H_TON_CAN,Tiểu súc,Chứa nhỏ (hoặc lớn),270,277,THUONG_KINH,9,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Tiểu súc,SOURCE_MATCHES_CANONICAL
+10,H_CAN_DOAI,Lý,Lễ,270,277,THUONG_KINH,10,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Lý,SOURCE_MATCHES_CANONICAL
+11,H_KHON_CAN,Thái,Thông suốt,270,277,THUONG_KINH,11,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Thái,SOURCE_MATCHES_CANONICAL
+12,H_CAN_KHON,Bĩ,"Lấp, bế tắc",270,277,THUONG_KINH,12,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Bĩ,SOURCE_MATCHES_CANONICAL
+13,H_CAN_LY,Đồng nhân,Cùng với người,270,277,THUONG_KINH,13,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Đồng nhân,SOURCE_MATCHES_CANONICAL
+14,H_LY_CAN,Đại hữu,"Có, sở hữu lớn",270,277,THUONG_KINH,14,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Đại hữu,SOURCE_MATCHES_CANONICAL
+15,H_KHON_CAN2,Khiêm,Khiêm nhường,270,277,THUONG_KINH,15,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Khiêm,SOURCE_MATCHES_CANONICAL
+16,H_CHAN_KHON,Dự,Vui vẻ,270,277,THUONG_KINH,16,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Dự,SOURCE_MATCHES_CANONICAL
+17,H_DOAI_CHAN,Tùy,Theo,270,277,THUONG_KINH,17,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Tùy,SOURCE_MATCHES_CANONICAL
+18,H_CAN2_TON,Cổ,"Mê loạn, đổ nát",270,277,THUONG_KINH,18,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Cổ,SOURCE_MATCHES_CANONICAL
+19,H_KHON_DOAI,Lâm,Lớn,270,277,THUONG_KINH,19,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Lâm,SOURCE_MATCHES_CANONICAL
+20,H_TON_KHON,Quan,Xem xét,270,277,THUONG_KINH,20,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Quan,SOURCE_MATCHES_CANONICAL
+21,H_LY_CHAN,Phệ hạp,Làm cho hợp lại,270,277,THUONG_KINH,21,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Phệ hạp,SOURCE_MATCHES_CANONICAL
+22,H_CAN2_LY,Bí,"Trau dồi, trang sức",270,277,THUONG_KINH,22,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Bí,SOURCE_MATCHES_CANONICAL
+23,H_CAN2_KHON,Bác,Lột đi,270,277,THUONG_KINH,23,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Bác,SOURCE_MATCHES_CANONICAL
+24,H_KHON_CHAN,Phục,Trở lại,270,277,THUONG_KINH,24,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Phục,SOURCE_MATCHES_CANONICAL
+25,H_CAN_CHAN,Vô vọng,Không làm càn bậy,270,277,THUONG_KINH,25,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Vô vọng,SOURCE_MATCHES_CANONICAL
+26,H_CAN2_CAN,Đại súc,Chứa lớn,270,277,THUONG_KINH,26,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Đại súc,SOURCE_MATCHES_CANONICAL
+27,H_CAN2_CHAN,Di,Nuôi,270,277,THUONG_KINH,27,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Di,SOURCE_MATCHES_CANONICAL
+28,H_DOAI_TON,Đại quá,Quá lớn,270,277,THUONG_KINH,28,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Đại quá,SOURCE_MATCHES_CANONICAL
+29,H_KHAM_KHAM,Khảm,Hiểm,270,277,THUONG_KINH,29,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Khảm,SOURCE_MATCHES_CANONICAL
+30,H_LY_LY,Ly,Bám vào,270,277,THUONG_KINH,30,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Ly,SOURCE_MATCHES_CANONICAL
+31,H_DOAI_CAN2,Hàm,Giao cảm,270,277,HA_KINH,1,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Hàm,SOURCE_MATCHES_CANONICAL
+32,H_CHAN_TON,Hằng,Lâu dài,270,277,HA_KINH,2,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Hằng,SOURCE_MATCHES_CANONICAL
+33,H_CAN_CAN2,Độn,Tránh đi,270,277,HA_KINH,3,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Độn,SOURCE_MATCHES_CANONICAL
+34,H_CHAN_CAN,Đại tráng,Lớn mạnh,270,277,HA_KINH,4,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Đại tráng,SOURCE_MATCHES_CANONICAL
+35,H_LY_KHON,Tấn,Tiến lên,270,277,HA_KINH,5,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Tấn,SOURCE_MATCHES_CANONICAL
+36,H_KHON_LY,Minh di,Sáng bị tổn hại,270,277,HA_KINH,6,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Minh di,SOURCE_MATCHES_CANONICAL
+37,H_TON_LY,Gia nhân,Người cùng nhà,270,277,HA_KINH,7,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Gia nhân,SOURCE_MATCHES_CANONICAL
+38,H_LY_DOAI,Khuê,Ngang trái lìa nhau,270,277,HA_KINH,8,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Khuê,SOURCE_MATCHES_CANONICAL
+39,H_KHAM_CAN2,Kiển,Hiểm trở,270,277,HA_KINH,9,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Kiển,SOURCE_MATCHES_CANONICAL
+40,H_CHAN_KHAM,Giải,Mở ra,270,277,HA_KINH,10,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Giải,SOURCE_MATCHES_CANONICAL
+41,H_CAN2_DOAI,Tổn,Bị tổn hại,271,278,HA_KINH,11,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Tổn,SOURCE_MATCHES_CANONICAL
+42,H_TON_CHAN,Ích,Thêm vào phải có lợi,271,278,HA_KINH,12,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Ích,SOURCE_MATCHES_CANONICAL
+43,H_DOAI_CAN,Quải,Quả quyết,271,278,HA_KINH,13,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Quải,SOURCE_MATCHES_CANONICAL
+44,H_CAN_TON,Cấu,Gặp gỡ,271,278,HA_KINH,14,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Cấu,SOURCE_MATCHES_CANONICAL
+45,H_DOAI_KHON,Tụy,Tụ hợp,271,278,HA_KINH,15,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Tụy,SOURCE_MATCHES_CANONICAL
+46,H_KHON_TON,Thăng,Lên,271,278,HA_KINH,16,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Thăng,SOURCE_MATCHES_CANONICAL
+47,H_DOAI_KHAM,Khốn,Khốn cùng,271,278,HA_KINH,17,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Khốn,SOURCE_MATCHES_CANONICAL
+48,H_KHAM_TON,Tỉnh,Giếng nước,271,278,HA_KINH,18,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Ích,PRINTED_ICH_AT_TINH_POSITION; identity normalized to verified Tỉnh (48)
+49,H_DOAI_LY,Cách,"Biến đổi, cải cách",271,278,HA_KINH,19,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Cách,SOURCE_MATCHES_CANONICAL
+50,H_LY_TON,Đỉnh,Cái vạc,271,278,HA_KINH,20,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Đỉnh,SOURCE_MATCHES_CANONICAL
+51,H_CHAN_CHAN,Chấn,Sấm động,271,278,HA_KINH,21,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Chấn,SOURCE_MATCHES_CANONICAL
+52,H_CAN2_CAN2,Cấn,Ngăn lại,271,278,HA_KINH,22,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Cấn,SOURCE_MATCHES_CANONICAL
+53,H_TON_CAN2,Tiệm,Dần dần,271,278,HA_KINH,23,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Tiệm,SOURCE_MATCHES_CANONICAL
+54,H_CHAN_DOAI,Quy muội,Con gái về nhà chồng,271,278,HA_KINH,24,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Quy muội,SOURCE_MATCHES_CANONICAL
+55,H_CHAN_LY,Phong,Lớn thịnh,271,278,HA_KINH,25,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Phong,SOURCE_MATCHES_CANONICAL
+56,H_LY_CAN2,Lữ,Xa nhà,271,278,HA_KINH,26,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Lữ,SOURCE_MATCHES_CANONICAL
+57,H_TON_TON,Tốn,Vào,271,278,HA_KINH,27,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Tốn,SOURCE_MATCHES_CANONICAL
+58,H_DOAI_DOAI,Đoài,Vui,271,278,HA_KINH,28,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Đoài,SOURCE_MATCHES_CANONICAL
+59,H_TON_KHAM,Hoán,Lìa tan,271,278,HA_KINH,29,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Hoán,SOURCE_MATCHES_CANONICAL
+60,H_KHAM_DOAI,Tiết,Hạn chế,271,278,HA_KINH,30,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Tiết,SOURCE_MATCHES_CANONICAL
+61,H_TON_DOAI,Trung phu,Lòng có đức tin,271,278,HA_KINH,31,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Trung phu,SOURCE_MATCHES_CANONICAL
+62,H_CHAN_CAN2,Tiểu quá,Nhỏ và nhiều,271,278,HA_KINH,32,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Tiểu quá,SOURCE_MATCHES_CANONICAL
+63,H_KHAM_LY,Ký tế,Sự đã rồi,271,278,HA_KINH,33,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Ký tế,SOURCE_MATCHES_CANONICAL
+64,H_LY_KHAM,Vị tế,Việc chưa xong,271,278,HA_KINH,34,TV2_TV3_CODEX_E01_2026_10_25,Codex E01 2026-10-25 (same-tool source recheck; not independent human),VERIFIED,Vị tế,SOURCE_MATCHES_CANONICAL

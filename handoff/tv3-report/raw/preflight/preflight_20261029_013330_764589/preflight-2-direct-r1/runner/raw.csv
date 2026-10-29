@@ -1,0 +1,13 @@
+runId,mode,clients,repeat,clientId,requestId,inputCase,phase,sendMonoMs,terminalMonoMs,latencyMs,status,errorCode,progressCount,correct,terminalAfterWindow,sent,category,validationMs
+25ce3e47-34da-496f-893d-44ccb21be51e,direct,2,1,client-1,e9264d78-5e88-43d7-839d-b9a0e8de0cfa,21:2,readiness,341.1391,395.3397,54.20060000000001,COMPLETED,,4,true,false,true,completed,0.10089999999996735
+25ce3e47-34da-496f-893d-44ccb21be51e,direct,2,1,client-2,7f928cc2-348d-467f-9d3f-b8fcb8e92bdd,21:2,readiness,341.2403,393.5498,52.309500000000014,COMPLETED,,4,true,false,true,completed,1.4079999999999586
+25ce3e47-34da-496f-893d-44ccb21be51e,direct,2,1,client-1,3a808486-0786-492d-8880-0fb953b8c145,0:1,measurement,395.7511,404.5503,8.799199999999985,COMPLETED,,4,true,false,true,completed,0.0473999999999819
+25ce3e47-34da-496f-893d-44ccb21be51e,direct,2,1,client-2,3938df41-3f00-49bd-87f3-5738b9aa98ff,17:2,measurement,395.8456,404.0749,8.229300000000023,COMPLETED,,4,true,false,true,completed,0.07279999999997244
+25ce3e47-34da-496f-893d-44ccb21be51e,direct,2,1,client-2,00ec2ab5-c733-429a-afdf-8ff1c2badb87,18:3,measurement,608.3395,619.7389,11.3993999999999,COMPLETED,,4,true,false,true,completed,0.04629999999997381
+25ce3e47-34da-496f-893d-44ccb21be51e,direct,2,1,client-1,4b5583a6-cd16-4537-a6ff-d6f782d94fce,1:2,measurement,608.5369,618.766,10.229100000000017,COMPLETED,,4,true,false,true,completed,0.12779999999997926
+25ce3e47-34da-496f-893d-44ccb21be51e,direct,2,1,client-1,5df13827-cfc1-4533-a0cc-c63fee91694c,2:3,measurement,825.3617,831.9066,6.544899999999984,COMPLETED,,4,true,false,true,completed,0.06069999999999709
+25ce3e47-34da-496f-893d-44ccb21be51e,direct,2,1,client-2,d67626a2-bd43-4854-a256-d1cd26e322c6,19:4,measurement,825.5261,832.3669,6.840799999999945,COMPLETED,,4,true,false,true,completed,0.04099999999993997
+25ce3e47-34da-496f-893d-44ccb21be51e,direct,2,1,client-1,60d00dcb-4c16-41f8-9450-3e1a606757b9,3:4,measurement,1046.5305,1053.543,7.012499999999818,COMPLETED,,4,true,false,true,completed,0.06410000000005311
+25ce3e47-34da-496f-893d-44ccb21be51e,direct,2,1,client-2,c299c9f6-9f47-4759-82d1-01b96b2a0b78,20:5,measurement,1046.7795,1053.1864,6.4068999999999505,COMPLETED,,4,true,false,true,completed,0.07670000000007349
+25ce3e47-34da-496f-893d-44ccb21be51e,direct,2,1,client-2,6cd3ab1b-a840-49d7-a0b7-3db18cd87af9,21:6,measurement,1254.9496,1262.3012,7.3516000000001895,COMPLETED,,4,true,false,true,completed,0.18479999999999563
+25ce3e47-34da-496f-893d-44ccb21be51e,direct,2,1,client-1,8546ec0b-e02f-49fb-a136-86bb0615a06d,4:5,measurement,1255.1543,1260.7751,5.620800000000145,COMPLETED,,4,true,false,true,completed,0.06199999999989814

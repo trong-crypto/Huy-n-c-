@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="1.692" tests="208" errors="0" skipped="0" failures="0" flakes="0">
+  <properties>
+    <property name="java.specification.version" value="24"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server\target\test-classes;C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server\target\classes;C:\Users\abc\.m2\repository\net\time4j\time4j-base\5.9.4\time4j-base-5.9.4.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.5.16\spring-boot-starter-web-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter\3.5.16\spring-boot-starter-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot\3.5.16\spring-boot-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.5.16\spring-boot-autoconfigure-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.5.16\spring-boot-starter-logging-3.5.16.jar;C:\Users\abc\.m2\repository\ch\qos\logback\logback-classic\1.5.34\logback-classic-1.5.34.jar;C:\Users\abc\.m2\repository\ch\qos\logback\logback-core\1.5.34\logback-core-1.5.34.jar;C:\Users\abc\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.24.3\log4j-to-slf4j-2.24.3.jar;C:\Users\abc\.m2\repository\org\apache\logging\log4j\log4j-api\2.24.3\log4j-api-2.24.3.jar;C:\Users\abc\.m2\repository\org\slf4j\jul-to-slf4j\2.0.18\jul-to-slf4j-2.0.18.jar;C:\Users\abc\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\abc\.m2\repository\org\yaml\snakeyaml\2.4\snakeyaml-2.4.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.5.16\spring-boot-starter-json-3.5.16.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.21.4\jackson-databind-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.21\jackson-annotations-2.21.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.21.4\jackson-core-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.21.4\jackson-datatype-jdk8-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.21.4\jackson-datatype-jsr310-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.21.4\jackson-module-parameter-names-2.21.4.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.5.16\spring-boot-starter-tomcat-3.5.16.jar;C:\Users\abc\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.55\tomcat-embed-core-10.1.55.jar;C:\Users\abc\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.55\tomcat-embed-el-10.1.55.jar;C:\Users\abc\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.55\tomcat-embed-websocket-10.1.55.jar;C:\Users\abc\.m2\repository\org\springframework\spring-web\6.2.19\spring-web-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-beans\6.2.19\spring-beans-6.2.19.jar;C:\Users\abc\.m2\repository\io\micrometer\micrometer-observation\1.15.12\micrometer-observation-1.15.12.jar;C:\Users\abc\.m2\repository\io\micrometer\micrometer-commons\1.15.12\micrometer-commons-1.15.12.jar;C:\Users\abc\.m2\repository\org\springframework\spring-webmvc\6.2.19\spring-webmvc-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-aop\6.2.19\spring-aop-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-context\6.2.19\spring-context-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-expression\6.2.19\spring-expression-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-websocket\3.5.16\spring-boot-starter-websocket-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\spring-messaging\6.2.19\spring-messaging-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-websocket\6.2.19\spring-websocket-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.5.16\spring-boot-starter-test-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-test\3.5.16\spring-boot-test-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.5.16\spring-boot-test-autoconfigure-3.5.16.jar;C:\Users\abc\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\abc\.m2\repository\org\slf4j\slf4j-api\2.0.18\slf4j-api-2.0.18.jar;C:\Users\abc\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.5\jakarta.xml.bind-api-4.0.5.jar;C:\Users\abc\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.4\jakarta.activation-api-2.1.4.jar;C:\Users\abc\.m2\repository\net\minidev\json-smart\2.5.2\json-smart-2.5.2.jar;C:\Users\abc\.m2\repository\net\minidev\accessors-smart\2.5.2\accessors-smart-2.5.2.jar;C:\Users\abc\.m2\repository\org\ow2\asm\asm\9.7.1\asm-9.7.1.jar;C:\Users\abc\.m2\repository\org\assertj\assertj-core\3.27.7\assertj-core-3.27.7.jar;C:\Users\abc\.m2\repository\net\bytebuddy\byte-buddy\1.17.8\byte-buddy-1.17.8.jar;C:\Users\abc\.m2\repository\org\awaitility\awaitility\4.2.2\awaitility-4.2.2.jar;C:\Users\abc\.m2\repository\org\hamcrest\hamcrest\3.0\hamcrest-3.0.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter\5.12.2\junit-jupiter-5.12.2.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\abc\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\abc\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\abc\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.12.2\junit-jupiter-params-5.12.2.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\abc\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;C:\Users\abc\.m2\repository\org\mockito\mockito-core\5.17.0\mockito-core-5.17.0.jar;C:\Users\abc\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar;C:\Users\abc\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\abc\.m2\repository\org\mockito\mockito-junit-jupiter\5.17.0\mockito-junit-jupiter-5.17.0.jar;C:\Users\abc\.m2\repository\org\skyscreamer\jsonassert\1.5.3\jsonassert-1.5.3.jar;C:\Users\abc\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\abc\.m2\repository\org\springframework\spring-core\6.2.19\spring-core-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-jcl\6.2.19\spring-jcl-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-test\6.2.19\spring-test-6.2.19.jar;C:\Users\abc\.m2\repository\org\xmlunit\xmlunit-core\2.10.4\xmlunit-core-2.10.4.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="Asia/Saigon"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="24"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-24\bin"/>
+    <property name="sun.java.command" value="C:\Users\abc\AppData\Local\Temp\surefire10713229155429553262\surefirebooter-20261028164930775_3.jar C:\Users\abc\AppData\Local\Temp\surefire10713229155429553262 2026-10-28T16-49-29_268-jvmRun1 surefire-20261028164930775_1tmp surefire_0-20261028164930775_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server\target\test-classes;C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server\target\classes;C:\Users\abc\.m2\repository\net\time4j\time4j-base\5.9.4\time4j-base-5.9.4.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.5.16\spring-boot-starter-web-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter\3.5.16\spring-boot-starter-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot\3.5.16\spring-boot-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.5.16\spring-boot-autoconfigure-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.5.16\spring-boot-starter-logging-3.5.16.jar;C:\Users\abc\.m2\repository\ch\qos\logback\logback-classic\1.5.34\logback-classic-1.5.34.jar;C:\Users\abc\.m2\repository\ch\qos\logback\logback-core\1.5.34\logback-core-1.5.34.jar;C:\Users\abc\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.24.3\log4j-to-slf4j-2.24.3.jar;C:\Users\abc\.m2\repository\org\apache\logging\log4j\log4j-api\2.24.3\log4j-api-2.24.3.jar;C:\Users\abc\.m2\repository\org\slf4j\jul-to-slf4j\2.0.18\jul-to-slf4j-2.0.18.jar;C:\Users\abc\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\abc\.m2\repository\org\yaml\snakeyaml\2.4\snakeyaml-2.4.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.5.16\spring-boot-starter-json-3.5.16.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.21.4\jackson-databind-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.21\jackson-annotations-2.21.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.21.4\jackson-core-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.21.4\jackson-datatype-jdk8-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.21.4\jackson-datatype-jsr310-2.21.4.jar;C:\Users\abc\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.21.4\jackson-module-parameter-names-2.21.4.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.5.16\spring-boot-starter-tomcat-3.5.16.jar;C:\Users\abc\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.55\tomcat-embed-core-10.1.55.jar;C:\Users\abc\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.55\tomcat-embed-el-10.1.55.jar;C:\Users\abc\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.55\tomcat-embed-websocket-10.1.55.jar;C:\Users\abc\.m2\repository\org\springframework\spring-web\6.2.19\spring-web-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-beans\6.2.19\spring-beans-6.2.19.jar;C:\Users\abc\.m2\repository\io\micrometer\micrometer-observation\1.15.12\micrometer-observation-1.15.12.jar;C:\Users\abc\.m2\repository\io\micrometer\micrometer-commons\1.15.12\micrometer-commons-1.15.12.jar;C:\Users\abc\.m2\repository\org\springframework\spring-webmvc\6.2.19\spring-webmvc-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-aop\6.2.19\spring-aop-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-context\6.2.19\spring-context-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-expression\6.2.19\spring-expression-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-websocket\3.5.16\spring-boot-starter-websocket-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\spring-messaging\6.2.19\spring-messaging-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-websocket\6.2.19\spring-websocket-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.5.16\spring-boot-starter-test-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-test\3.5.16\spring-boot-test-3.5.16.jar;C:\Users\abc\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.5.16\spring-boot-test-autoconfigure-3.5.16.jar;C:\Users\abc\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\abc\.m2\repository\org\slf4j\slf4j-api\2.0.18\slf4j-api-2.0.18.jar;C:\Users\abc\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.5\jakarta.xml.bind-api-4.0.5.jar;C:\Users\abc\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.4\jakarta.activation-api-2.1.4.jar;C:\Users\abc\.m2\repository\net\minidev\json-smart\2.5.2\json-smart-2.5.2.jar;C:\Users\abc\.m2\repository\net\minidev\accessors-smart\2.5.2\accessors-smart-2.5.2.jar;C:\Users\abc\.m2\repository\org\ow2\asm\asm\9.7.1\asm-9.7.1.jar;C:\Users\abc\.m2\repository\org\assertj\assertj-core\3.27.7\assertj-core-3.27.7.jar;C:\Users\abc\.m2\repository\net\bytebuddy\byte-buddy\1.17.8\byte-buddy-1.17.8.jar;C:\Users\abc\.m2\repository\org\awaitility\awaitility\4.2.2\awaitility-4.2.2.jar;C:\Users\abc\.m2\repository\org\hamcrest\hamcrest\3.0\hamcrest-3.0.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter\5.12.2\junit-jupiter-5.12.2.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\abc\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\abc\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\abc\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.12.2\junit-jupiter-params-5.12.2.jar;C:\Users\abc\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\abc\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;C:\Users\abc\.m2\repository\org\mockito\mockito-core\5.17.0\mockito-core-5.17.0.jar;C:\Users\abc\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar;C:\Users\abc\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\abc\.m2\repository\org\mockito\mockito-junit-jupiter\5.17.0\mockito-junit-jupiter-5.17.0.jar;C:\Users\abc\.m2\repository\org\skyscreamer\jsonassert\1.5.3\jsonassert-1.5.3.jar;C:\Users\abc\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\abc\.m2\repository\org\springframework\spring-core\6.2.19\spring-core-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-jcl\6.2.19\spring-jcl-6.2.19.jar;C:\Users\abc\.m2\repository\org\springframework\spring-test\6.2.19\spring-test-6.2.19.jar;C:\Users\abc\.m2\repository\org\xmlunit\xmlunit-core\2.10.4\xmlunit-core-2.10.4.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\abc"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-07-15"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-24"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\abc\AppData\Local\Temp\surefire10713229155429553262\surefirebooter-20261028164930775_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="24.0.2+12-54"/>
+    <property name="user.name" value="abc"/>
+    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\abc\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\abc\AppData\Local\Temp\"/>
+    <property name="java.version" value="24.0.2"/>
+    <property name="user.dir" value="C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-24\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell;C:\Users\abc\.codex\tmp\arg0-windows\codex-arg0DM9QlD;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\libheif\libheif\bin;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\jxrlib\jxrlib\bin;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\poppler\Library\bin;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\override;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\cloudflared\;C:\Users\abc\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\abc\AppData\Local\Programs\Python\Python312\;C:\Users\abc\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\abc\AppData\Local\Programs\Python\Python313\;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell;C:\Users\abc\AppData\Local\Microsoft\WindowsApps;C:\Users\abc\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\IntelliJ IDEA 2025.3.3\bin;C:\Users\abc\AppData\Local\JetBrains\Toolbox\scripts;C:\Program Files\JetBrains\IntelliJ IDEA 2025.3.3\bin;C:\Users\abc\AppData\Local\Programs\Antigravity\bin;C:\Users\abc\AppData\Local\Programs\Antigravity IDE\bin;C:\Users\abc\AppData\Local\Microsoft\WindowsApps;C:\Users\abc\AppData\Local\Pandoc\;C:\Users\abc\AppData\Local\Programs\MiKTeX\miktex\bin\x64\;C:\Users\abc\AppData\Roaming\npm;C:\Users\abc\AppData\Local\Programs\Microsoft VS Code\bin\copilot-shim;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\fallback;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin;C:\Users\abc\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\git\cmd;C:\Users\abc\AppData\Local\OpenAI\Codex\bin\593bad775a30e636;C:\Users\abc\AppData\Local\OpenAI\Codex\bin\08d187884f2330d1;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1252"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="24.0.2+12-54"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="68.0"/>
+  </properties>
+  <testcase name="independentControlRowsPreservePrintedAliasesAndReferenceCaveats" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.122"/>
+  <testcase name="jdbcOutageIsSanitizedWithoutInventingSourceState" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.027"/>
+  <testcase name="missingOrChangedAttestationRowsAndMappingsNeverAuthorizePinnedFallback" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.065"/>
+  <testcase name="aggregateSourceOrderUsesCanonicalResultColumnsRatherThanImmutableMapIteration" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.029"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[1]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.019"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[2]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[3]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.004"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[4]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[5]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[6]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[7]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[8]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[9]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[10]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[11]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.004"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[12]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[13]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.005"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[14]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[15]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[16]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[17]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[18]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[19]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[20]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[21]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[22]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[23]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[24]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.005"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[25]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[26]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.006"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[27]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.004"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[28]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[29]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[30]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[31]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[32]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[33]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[34]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[35]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[36]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[37]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[38]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[39]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.014"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[40]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.005"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[41]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[42]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.028"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[43]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.03"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[44]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.018"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[45]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.005"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[46]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.01"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[47]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[48]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[49]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[50]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[51]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.007"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[52]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.005"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[53]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.007"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[54]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.023"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[55]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.008"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[56]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[57]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[58]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.016"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[59]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[60]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[61]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.006"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[62]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[63]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[64]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.0"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[65]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.007"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[66]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[67]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.012"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[68]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[69]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.008"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[70]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[71]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.004"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[72]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[73]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[74]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[75]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[76]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.0"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[77]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[78]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[79]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.005"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[80]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[81]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.009"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[82]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[83]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[84]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[85]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[86]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.0"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[87]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[88]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.0"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[89]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[90]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[91]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[92]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[93]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[94]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[95]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[96]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[97]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[98]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[99]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[100]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[101]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.0"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[102]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[103]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[104]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.0"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[105]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[106]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.004"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[107]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.012"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[108]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.005"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[109]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.007"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[110]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.005"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[111]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.033"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[112]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[113]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[114]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[115]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[116]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[117]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.0"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[118]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[119]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[120]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[121]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[122]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[123]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[124]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.004"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[125]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[126]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.006"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[127]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.006"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[128]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.004"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[129]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[130]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[131]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.026"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[132]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[133]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[134]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[135]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.021"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[136]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.0"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[137]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[138]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[139]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[140]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[141]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[142]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.0"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[143]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.0"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[144]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[145]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[146]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[147]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[148]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[149]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[150]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[151]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.004"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[152]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[153]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[154]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.0"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[155]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[156]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[157]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[158]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[159]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[160]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[161]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[162]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[163]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.006"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[164]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[165]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[166]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.004"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[167]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[168]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.006"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[169]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.005"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[170]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.006"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[171]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.005"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[172]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[173]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[174]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.007"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[175]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[176]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[177]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[178]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[179]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[180]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.0"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[181]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[182]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[183]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[184]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.004"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[185]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[186]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[187]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[188]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[189]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[190]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[191]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[192]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[193]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[194]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.0"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[195]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.008"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[196]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[197]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[198]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.002"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[199]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.005"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[200]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.003"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[201]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.006"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[202]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[203]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.027"/>
+  <testcase name="all204ReviewedMappingsRetainTextTitlesSourcesAndDecisions()[204]" classname="com.huyenco.knowledge.ReviewedTamTheWealthTest" time="0.001"/>
+</testsuite>

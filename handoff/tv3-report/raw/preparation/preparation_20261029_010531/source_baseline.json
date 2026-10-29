@@ -1,0 +1,77 @@
+{
+  "database": "huyenco_acceptance_test_20261028_184149",
+  "serverVersion": "18.6",
+  "schemaVersion": 12,
+  "tables": {
+    "calculation_rules": {
+      "count": 14,
+      "sha256": "76f30bd7aeccbff43a468462557bf935692a04d2dc30b17780c8a86c67f2c1a6"
+    },
+    "external_sources": {
+      "count": 1,
+      "sha256": "ac8fdf34aa76d9c558b0fb083e6c903e3569e18138870c2dec98a2a98f3ea168"
+    },
+    "flyway_schema_history": {
+      "count": 12,
+      "sha256": "67efcd43eb9c09803c27d886a3a9c73e952e25696fc07abcda3180503f6b3316"
+    },
+    "hexagram_lines": {
+      "count": 384,
+      "sha256": "afe508ef28a5d6a71730b8d1fc1902f4318ebb8cee92d4e7d41f6df6f4f8e89d"
+    },
+    "hexagrams": {
+      "count": 64,
+      "sha256": "9284c145bb575d168891d370d4375f7fd38e2bb8cf3a0073fd485f627336f59e"
+    },
+    "interpretations": {
+      "count": 64,
+      "sha256": "35ee5d9aea8bd5cfb3bbce9da84f104a64d1cd171348b94fc52adafc7a609463"
+    },
+    "mai_hoa_reading_templates": {
+      "count": 20,
+      "sha256": "4476b9f31a940b0b5a0362d6557b9295dcad5e54121ce61efa9a6836dc4687ab"
+    },
+    "reading_source_bundles": {
+      "count": 1,
+      "sha256": "10448f9d6d30020755bf5cff338ab80ba6b6e92b7cca1006c00ad93f96d8ed26"
+    },
+    "source_books": {
+      "count": 2,
+      "sha256": "79b022347e66970e64d99fea1f7014541e14bf5229aec9c9c7bdd1d26d3dac40"
+    },
+    "source_sections": {
+      "count": 33,
+      "sha256": "1a64d82c53d74baa5401caa96dd897a9b5ee193190061106cffb7b78dc54bb37"
+    },
+    "tam_the_hour_anchors": {
+      "count": 12,
+      "sha256": "ee6c97c6ddf3d6c491a6d9a10d671932c97ff39c5c6caac12342595426e6ba74"
+    },
+    "tam_the_lookup_entries": {
+      "count": 447,
+      "sha256": "4808ff07847552fd26fc0691a44dd98d2c04a8112b896fc11416fda96543e46e"
+    },
+    "tam_the_lookup_source_pages": {
+      "count": 231,
+      "sha256": "5e020e7a7bc5d2868e78cb0af8efe7465770a33d674ac8f8fe37771779b94a67"
+    },
+    "tam_the_supplement_mappings": {
+      "count": 204,
+      "sha256": "219f9313f8f565ffc421e9392240adc7cb25b23149253851b18b260ae88b92d3"
+    },
+    "tam_the_supplement_results": {
+      "count": 19,
+      "sha256": "dc10924c4594e0d16e44cbea608bd9859012936190d5bf869637b848df2053ed"
+    },
+    "trigrams": {
+      "count": 8,
+      "sha256": "7fccbb3f70b14ea041196f14fa941b18fccc3b3ef956da1d1f17f42367b07110"
+    }
+  },
+  "schemaSha256": "16bc7fcec71e6af200a9f2f80a33da0ac87dd48888b586500dd0361b8b25752a",
+  "knowledgeSha256": "115d9ced12f174341833dbe88ed5a15850a40f63e05a3922244bb6c2d77a01cc",
+  "runtimeCounts": {
+    "anonymous_sessions": 2,
+    "interpretation_history": 0
+  }
+}
