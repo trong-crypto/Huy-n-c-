@@ -93,8 +93,17 @@ describe("Tam The form through the existing STOMP hook", () => {
     fireEvent.change(calendar, { target: { value: "SOLAR" } }); fireEvent.submit(form());
     expect(sent(socket).payload.isLeapMonth).toBe(false);
   });
-  it.each(["24:00", "12:60", "1:30", "12:30:00", "12:30+07:00", "12:30Z"])("rejects DOM-manipulated time %s", birthTime => {
-    const socket = mount(); fill(); time().setAttribute("type", "text");
+  it.each(["00:00", "08:00", "12:00", "20:00", "23:59"])("shows and sends 24-hour time %s without locale conversion", birthTime => {
+    const socket = mount(); fill("2003-08-15", birthTime);
+    expect(time().type).toBe("text");
+    expect(time().value).toBe(birthTime);
+    expect(time().placeholder).toBe("HH:mm (24 giờ)");
+    fireEvent.submit(form());
+    expect(socket.publish).toHaveBeenCalledTimes(1);
+    expect(sent(socket).payload.birthTime).toBe(birthTime);
+  });
+  it.each(["24:00", "12:60", "1:30", "12:30:00", "12:30+07:00", "12:30Z", "08:00 CH", "08:00 PM"])("rejects invalid or 12-hour time %s", birthTime => {
+    const socket = mount(); fill();
     fireEvent.change(time(), { target: { value: birthTime } }); fireEvent.submit(form());
     expect(socket.publish).not.toHaveBeenCalled(); expect(document.activeElement).toBe(time());
     expect(time().getAttribute("aria-describedby")?.split(" ")).toContain(screen.getByRole("alert").id);

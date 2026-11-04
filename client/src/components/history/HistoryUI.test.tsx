@@ -150,7 +150,7 @@ describe("H01 saved snapshot detail", () => {
   it("renders the approved extended Tam The snapshot unchanged", async () => {
     const original = route; route = (url, init) => url.pathname.endsWith(list.data.items[0].id) ? Promise.resolve(response(envelope({ ...list.data.items[0], result: tam.data }))) : original(url, init);
     shell(<HistoryDetailPanel id={list.data.items[0].id} />); await screen.findByRole("region", { name: "Tiểu mục Lộc" });
-    expect(screen.getByText(/Bản in không có giao điểm Lộc/)).toBeTruthy(); expect(screen.getByRole("region", { name: "Tiểu mục Sang hèn" })).toBeTruthy();
+    expect(screen.getByText(/Chưa có lời luận Lộc tương ứng trong bảng nguồn/)).toBeTruthy(); expect(screen.getByRole("region", { name: "Tiểu mục Sang hèn" })).toBeTruthy();
   });
   it.each([404, 401])("handles detail HTTP %s without disclosing another owner's existence", async status => {
     const original = route; route = (url, init) => url.pathname.includes("/history/") ? Promise.resolve(response({ ...missing, error: { ...missing.error, code: status === 401 ? "INVALID_SESSION" : "NOT_FOUND" } }, status)) : original(url, init);

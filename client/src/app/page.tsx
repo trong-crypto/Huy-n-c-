@@ -8,7 +8,7 @@ const modules = [
     number: "01",
     title: "Mai Hoa Dịch Số",
     tag: "SÁU HÀO · THỜI GIAN · SỐ VẬT",
-    description: "Khám phá chuyển động Âm Dương qua sáu hào, thời điểm hoặc số vật. Bắt đầu bằng phương pháp phù hợp với bạn.",
+    description: "Lập quẻ từ sáu hào, thời điểm hoặc số vật; tìm hiểu cấu trúc và lời luận theo chủ đề với nguồn tham chiếu rõ ràng.",
     status: "Sáu hào · Thời gian · Số vật đếm được",
     action: "Khám phá Mai Hoa",
   },
@@ -30,7 +30,7 @@ export default function Home() {
         <div className="hero-copy">
           <p className="eyebrow hero-eyebrow"><span aria-hidden="true">✧</span> TRI THỨC CỔ TRUYỀN · TRẢI NGHIỆM HIỆN ĐẠI</p>
           <h1 id="hero-title">Khám phá<br /><em>Huyền Cơ</em></h1>
-          <p className="hero-description">Một không gian tĩnh tại để khám phá Mai Hoa Dịch Số, Tam Thế và chiều sâu tri thức phương Đông.</p>
+          <p className="hero-description">Tra cứu và tìm hiểu Mai Hoa Dịch Số, Tam Thế và lịch truyền thống qua dữ liệu, quy tắc và nguồn tham chiếu rõ ràng.</p>
           <div className="hero-actions">
             <Link href="/mai-hoa" className="primary-button hero-cta">Khám phá Mai Hoa <span aria-hidden="true">↗</span></Link>
             <Link href="/tam-the" className="secondary-button">Tìm hiểu Tam Thế <span aria-hidden="true">→</span></Link>
