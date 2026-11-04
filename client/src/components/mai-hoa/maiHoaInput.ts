@@ -12,7 +12,7 @@ export const TIME_MAX_DATETIME = "2099-12-31T23:59";
 
 function questionError(question: string | undefined): InputError | null {
   return question !== undefined && question.length > 500
-    ? { ok: false, field: "question", message: "Câu hỏi chỉ được tối đa 500 ký tự. Vui lòng rút ngắn nội dung trước khi gửi." }
+    ? { ok: false, field: "question", message: "Ghi chú tình huống chỉ được tối đa 500 ký tự. Vui lòng rút ngắn nội dung trước khi gửi." }
     : null;
 }
 

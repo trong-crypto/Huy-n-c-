@@ -2,10 +2,15 @@ import type { DetailedReading, ReadingPhase, ReadingRelation, SeasonReading, Tri
 import { SectionCard } from "@/components/ui/Controls";
 import { readingTopicLabels } from "@/components/mai-hoa/ReadingOptionsFields";
 import { EvidenceSummary, ReadingDecisions, SourceReferences } from "./Evidence";
+import { explainReadingPhase } from "./readingExplanation";
 
 const phases: Record<ReadingPhase["kind"], string> = {
   INITIAL_USE: "Ban đầu — Dụng", MIDDLE_BODY_MUTUAL: "Giữa — Hỗ Thể",
   MIDDLE_USE_MUTUAL: "Giữa — Hỗ Dụng", FINAL_USE: "Cuối — Dụng sau biến",
+};
+const plainPhases: Record<ReadingPhase["kind"], string> = {
+  INITIAL_USE: "Ban đầu", MIDDLE_BODY_MUTUAL: "Yếu tố bổ sung thứ nhất",
+  MIDDLE_USE_MUTUAL: "Yếu tố bổ sung thứ hai", FINAL_USE: "Sau biến đổi",
 };
 const relations: Record<ReadingRelation, string> = {
   SAME_ELEMENT: "Thể và quái đối chiếu cùng hành", USE_GENERATES_BODY: "Quái đối chiếu sinh Thể",
@@ -45,7 +50,28 @@ function SeasonView({ season }: { season: SeasonReading }) {
 export function DetailedReadingView({ reading }: { reading: DetailedReading }) {
   return <section className="detailed-reading" aria-label="Luận giải chi tiết Mai Hoa">
     <SectionCard title={`Luận giải chi tiết · ${readingTopicLabels[reading.topic]}`}>
-      <p className="result-section-note">Lời diễn giải biên tập được trả từ Server. Căn cứ từng đoạn và các quy ước tính toán được trình bày riêng.</p>
+      <p className="result-section-note">Đọc từng phần dưới đây theo cách luận của hệ thống. Phần giải thích dùng từ ngữ phổ thông; lời luận gốc và căn cứ được giữ trong mục mở rộng.</p>
+      <section className="reading-explanation" aria-label="Tóm tắt luận giải">
+        <h3>Kết quả dễ hiểu</h3>
+        <ol className="reading-phases" aria-label="Bốn phần giải thích dễ hiểu">
+          {reading.phases.map((phase, index) => {
+            const explanation = explainReadingPhase(reading.topic, phase);
+            return <li key={phase.kind}><article className="reading-phase">
+              <p className="eyebrow">PHẦN {index + 1}</p><h3>{plainPhases[phase.kind]}</h3>
+              <p className="interpretation-text">{explanation ?? phase.content}</p>
+              {!explanation && <p className="field-hint">Phần này được giữ nguyên lời Server vì chưa có bản diễn đạt dễ hiểu tương ứng.</p>}
+            </article></li>;
+          })}
+        </ol>
+        <aside className="reading-scope" aria-label="Cách hiểu và giới hạn">
+          <h3>Cách hiểu kết quả</h3>
+          <p>Bốn phần là các góc đối chiếu trong quẻ. “Ban đầu” và “Sau biến đổi” không có nghĩa là đầu tháng và cuối tháng; hai phần bổ sung được xét riêng, không cộng thành điểm tốt hoặc xấu.</p>
+          <p>Ghi chú tình huống giúp bạn theo dõi bối cảnh, không được dùng để tạo lời luận riêng. Kết quả là nội dung tham khảo theo quy tắc Mai Hoa, không xác định sự kiện hay thời điểm xảy ra trong thực tế.</p>
+        </aside>
+      </section>
+      <details className="result-technical reading-basis">
+        <summary>Xem cơ sở luận giải và nội dung gốc</summary>
+        <p className="field-hint">Thể là quái làm mốc so sánh, được giữ cố định trong phép luận. Dụng là quái được đối chiếu với mốc này. Các quan hệ “sinh”, “khắc” và “cùng hành” bên dưới là thuật ngữ của quy tắc tính toán.</p>
       <div className="reading-role-grid">
         <section aria-label="Thể từ Server"><h3>Thể</h3><RoleDescription role={reading.body} /></section>
         <section aria-label="Dụng từ Server"><h3>Dụng</h3><RoleDescription role={reading.use} /></section>
@@ -64,12 +90,13 @@ export function DetailedReadingView({ reading }: { reading: DetailedReading }) {
           </article>
         </li>)}
       </ol>
-      <section className="reading-summary" aria-label="Tóm tắt luận giải"><h3>Tóm tắt</h3><p className="interpretation-text">{reading.summary}</p></section>
+      <section className="reading-summary" aria-label="Tóm tắt gốc từ Server"><h3>Tóm tắt gốc từ Server</h3><p className="interpretation-text">{reading.summary}</p></section>
       <SeasonView season={reading.season} />
       <section className="reading-decisions" aria-label="Quyết định tính toán của lời luận">
         <h3>Quyết định tính toán và giới hạn</h3><ReadingDecisions decisions={reading.calculationDecisions} />
       </section>
       <details className="result-technical"><summary>Nguồn tổng hợp của lời luận</summary><SourceReferences sources={reading.sourceReferences} /></details>
+      </details>
     </SectionCard>
   </section>;
 }

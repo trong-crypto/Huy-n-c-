@@ -35,7 +35,7 @@ describe("Mai Hoa page → existing hook/guard → premium result", () => {
       fireEvent.change(screen.getByLabelText("Giờ Chi"), { target: { value: String(payload.hourIndex) } });
     } else {
       fireEvent.change(screen.getByLabelText("Thời điểm lập quẻ (giờ Việt Nam, UTC+07:00)"), { target: { value: payload.datetime.slice(0, 16) } });
-      fireEvent.change(screen.getByLabelText("Câu hỏi (tùy chọn)"), { target: { value: payload.question } });
+      fireEvent.change(screen.getByLabelText("Ghi chú tình huống (tùy chọn)"), { target: { value: payload.question } });
     }
     fireEvent.click(screen.getByRole("button", { name: "Gửi yêu cầu" }));
     expect(boundary.publish).toHaveBeenCalledTimes(1);

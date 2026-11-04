@@ -49,7 +49,7 @@ export default function MaiHoaPage() {
     return formError?.field === field ? <FieldError id={`${fieldIds[field]}-error`}>{formError.message}</FieldError> : null;
   }
   function describedBy(field: InputField) {
-    return [field === "datetime" ? "maihoa-datetime-hint" : null, formError?.field === field ? `${fieldIds[field]}-error` : null].filter(Boolean).join(" ") || undefined;
+    return [field === "datetime" || field === "question" ? `${fieldIds[field]}-hint` : null, formError?.field === field ? `${fieldIds[field]}-error` : null].filter(Boolean).join(" ") || undefined;
   }
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -69,7 +69,7 @@ export default function MaiHoaPage() {
   return (
     <PageContainer className="maihoa-page">
       <PageHeader eyebrow="01 / MAI HOA DỊCH SỐ" title="Bắt đầu từ một quẻ.">
-        <p>Chọn một phương pháp lập quẻ. Từ sáu hào Âm Dương đến thời gian và số vật, mỗi khởi đầu là một cách tiếp cận tri thức.</p>
+        <p>Lập quẻ để tìm hiểu Mai Hoa Dịch Số và đối chiếu lời luận có nguồn. Kết quả dựa trên dữ kiện lập quẻ và chủ đề bạn chọn.</p>
       </PageHeader>
       <fieldset className="method-selector" disabled={calculation.requestState === "waiting"}>
         <legend className="eyebrow">Phương pháp</legend>
@@ -116,7 +116,7 @@ export default function MaiHoaPage() {
               </FormField>
             </>
           )}
-          <FormField id="maihoa-question" label="Câu hỏi (tùy chọn)">
+          <FormField id="maihoa-question" label="Ghi chú tình huống (tùy chọn)" hint="Mô tả bối cảnh để tiện theo dõi. Hệ thống không phân tích ghi chú để trả lời riêng hay thay đổi kết quả lập quẻ. Tối đa 500 ký tự.">
             <textarea id="maihoa-question" rows={3} maxLength={500} value={question}
               aria-invalid={formError?.field === "question" || undefined} aria-describedby={describedBy("question")}
               onChange={(event) => { setQuestion(event.target.value); clearFieldError("question"); }} />
@@ -129,9 +129,9 @@ export default function MaiHoaPage() {
           <div className="guide-art"><CelestialArt compact /></div>
           <p className="eyebrow">TRƯỚC KHI BẮT ĐẦU</p>
           <h2>Rõ đầu vào.<br />Giữ đúng căn cứ.</h2>
-          <p>Với LINES, bạn chọn sáu hào và một hào động. Hào 1 nằm ở dưới, hào 6 nằm ở trên. Không cần nhập ngày giờ hay câu hỏi.</p>
-          <StatusBanner>Server đã triển khai LINES, số vật và TIME. TIME dùng giờ Việt Nam UTC+07:00 cố định, kèm nguồn và quyết định nhóm. Để nhận kết quả cần kết nối Backend hoạt động và dữ liệu đã duyệt.</StatusBanner>
-          <p>Luận giải chi tiết hỗ trợ cả ba phương pháp. Nội dung đã đối chiếu nguồn và quy ước chọn Thể, giai đoạn, mùa được trình bày riêng; không quy đổi thành điểm số hoặc xác suất.</p>
+          <p>Chọn thời gian, số vật hoặc nhập sáu hào để lập quẻ. Với sáu hào, hào 1 nằm ở dưới và hào 6 ở trên; bạn chọn thêm một hào động.</p>
+          <StatusBanner>Kết quả giúp bạn tìm hiểu cấu trúc quẻ và lời luận theo chủ đề đã chọn. Bạn có thể mở mục Tra cứu quẻ để xem nghĩa tên và nguồn tham chiếu.</StatusBanner>
+          <p>Ghi chú tình huống là phần tùy chọn. Lời luận được tra theo quy tắc có sẵn, không phải câu trả lời riêng cho nội dung ghi chú hay dự báo một sự kiện cụ thể.</p>
         </aside>
       </div>
       <div className="result-region"><ResultPanel {...calculation} /></div>

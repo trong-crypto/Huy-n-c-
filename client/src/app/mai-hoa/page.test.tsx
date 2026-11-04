@@ -61,7 +61,7 @@ describe("page integration through the existing useCalculation hook", () => {
     fireEvent.click(screen.getByRole("button", { name: "Gửi yêu cầu" }));
     expect(published(socket).payload).toEqual({ method: "TIME", datetime: "2099-12-31T23:59:00+07:00", question: "" });
     expect(screen.queryByText(/còn chờ module lịch/)).toBeNull();
-    expect(screen.getByText(/Server đã triển khai LINES, số vật và TIME/)).toBeTruthy();
+    expect(screen.getByText(/Kết quả giúp bạn tìm hiểu cấu trúc quẻ/)).toBeTruthy();
   });
   it.each([["1", "1"], ["999999", "12"]])("T16/T17/T21 publishes boundary %s/%s and blocks a duplicate while waiting", (count, hour) => {
     const { socket } = mount(); method("OBJECT_COUNT");
@@ -96,11 +96,11 @@ describe("page integration through the existing useCalculation hook", () => {
     const { socket } = mount(); method(selectedMethod);
     if (selectedMethod === "TIME") fireEvent.change(screen.getByLabelText("Thời điểm lập quẻ (giờ Việt Nam, UTC+07:00)"), { target: { value: "2026-10-25T10:30" } });
     else fireEvent.change(screen.getByLabelText("Số vật đếm được"), { target: { value: "12" } });
-    const input = screen.getByLabelText("Câu hỏi (tùy chọn)");
+    const input = screen.getByLabelText("Ghi chú tình huống (tùy chọn)");
     fireEvent.change(input, { target: { value: "a".repeat(501) } });
     fireEvent.submit(screen.getByRole("form", { name: "Lập quẻ theo thời gian hoặc số vật" }));
     expect(socket.publish).not.toHaveBeenCalled(); expect(document.activeElement).toBe(input);
-    expect(input.getAttribute("aria-describedby")).toBe(screen.getByRole("alert").id);
+    expect(input.getAttribute("aria-describedby")).toBe(`maihoa-question-hint ${screen.getByRole("alert").id}`);
     expect((input as HTMLTextAreaElement).value).toHaveLength(501);
     fireEvent.change(input, { target: { value: "a".repeat(500) } });
     expect(screen.queryByRole("alert")).toBeNull();
@@ -119,9 +119,9 @@ describe("page integration through the existing useCalculation hook", () => {
   });
   it("selects LINES and publishes the exact envelope/whitelist in bottom-up order", () => {
     const { socket } = mount();
-    fireEvent.change(screen.getByLabelText("Câu hỏi (tùy chọn)"), { target: { value: "Must not leak into LINES" } });
+    fireEvent.change(screen.getByLabelText("Ghi chú tình huống (tùy chọn)"), { target: { value: "Must not leak into LINES" } });
     method("LINES");
-    expect(screen.queryByLabelText("Câu hỏi (tùy chọn)")).toBeNull();
+    expect(screen.queryByLabelText("Ghi chú tình huống (tùy chọn)")).toBeNull();
     expect(screen.queryByLabelText("Thời điểm lập quẻ (giờ Việt Nam, UTC+07:00)")).toBeNull();
     request.payload.linesBottomUp.forEach((yang, index) => {
       fireEvent.click(within(screen.getByRole("group", { name: `Hào ${index + 1}` })).getByRole("radio", { name: yang ? "Dương — nét liền" : "Âm — nét đứt" }));
@@ -139,11 +139,14 @@ describe("page integration through the existing useCalculation hook", () => {
     expect(screen.queryByText("Xử lý thành công")).toBeNull();
     expect(screen.queryByRole("figure")).toBeNull(); // Full result presentation is the next checkpoint.
   });
-  it("preserves TIME selection, offset serialization and optional question", () => {
+  it("presents an optional context note while preserving TIME serialization and the question contract field", () => {
     const { socket } = mount();
     expect((screen.getByRole("radio", { name: /^Theo thời gian/ }) as HTMLInputElement).checked).toBe(true);
     fireEvent.change(screen.getByLabelText("Thời điểm lập quẻ (giờ Việt Nam, UTC+07:00)"), { target: { value: "2026-10-24T10:30" } });
-    fireEvent.change(screen.getByLabelText("Câu hỏi (tùy chọn)"), { target: { value: "Test only" } });
+    const note = screen.getByLabelText("Ghi chú tình huống (tùy chọn)");
+    expect(note.getAttribute("aria-describedby")).toBe("maihoa-question-hint");
+    expect(document.getElementById("maihoa-question-hint")?.textContent).toContain("không phân tích ghi chú");
+    fireEvent.change(note, { target: { value: "Test only" } });
     fireEvent.submit(screen.getByRole("form", { name: "Lập quẻ theo thời gian hoặc số vật" }));
     expect(published(socket).payload).toEqual({ method: "TIME", datetime: "2026-10-24T10:30:00+07:00", question: "Test only" });
   });

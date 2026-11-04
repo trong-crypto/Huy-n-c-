@@ -18,7 +18,7 @@ export function ReadingOptionsFields({ method, value, onChange, error, disabled 
         onChange={() => onChange({ ...value, enabled: true })} />Luận giải chi tiết</label>
     </div>
     {value.enabled && <div className="reading-options-fields">
-      <FormField id={readingFieldIds.readingTopic} label="Chủ đề luận giải" hint="Chọn chủ đề rõ ràng; không suy đoán từ nội dung câu hỏi.">
+      <FormField id={readingFieldIds.readingTopic} label="Chủ đề luận giải" hint="Chọn chủ đề để tra lời luận tương ứng. Hệ thống không tự chọn chủ đề từ ghi chú tình huống.">
         <select id={readingFieldIds.readingTopic} value={value.topic} required
           aria-invalid={error?.field === "readingTopic" || undefined}
           aria-describedby={`${readingFieldIds.readingTopic}-hint${error?.field === "readingTopic" ? ` ${readingFieldIds.readingTopic}-error` : ""}`}

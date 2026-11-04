@@ -74,8 +74,8 @@ export default function TamThePage() {
               onChange={event => edit({ birthDate: event.target.value }, ["birthDate"])} required />
             {error("birthDate")}
           </FormField>
-          <FormField id="tamthe-time" label="Giờ sinh (HH:mm)" hint="Giờ Việt Nam (UTC+07:00), chính xác đến phút; không đổi theo múi giờ thiết bị.">
-            <input id="tamthe-time" type="time" step={60} value={input.birthTime} disabled={waiting}
+          <FormField id="tamthe-time" label="Giờ sinh (HH:mm)" hint="Nhập giờ 24 giờ từ 00:00 đến 23:59, ví dụ 08:00 hoặc 20:00. Giờ Việt Nam (UTC+07:00), không đổi theo múi giờ thiết bị.">
+            <input id="tamthe-time" type="text" placeholder="HH:mm (24 giờ)" maxLength={5} autoComplete="off" spellCheck={false} value={input.birthTime} disabled={waiting}
               aria-invalid={!!errors.birthTime || undefined} aria-describedby={describedBy("birthTime")}
               onChange={event => edit({ birthTime: event.target.value }, ["birthTime"])} required />
             {error("birthTime")}

@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { ResultPanel } from "@/components/ResultPanel";
 import { isCalculationResponse } from "@/types/contractValidation";
 import type { CalculationResponse } from "@/types/contract";
+import { explainReadingPhase } from "./readingExplanation";
 import m03Lines from "../../../../docs/examples/m03-lines-reading.response.json";
 import m03Object from "../../../../docs/examples/m03-object-reading.response.json";
 import m03Time from "../../../../docs/examples/m03-time-reading.response.json";
@@ -22,12 +23,16 @@ function reading(value: unknown) {
   if (!isCalculationResponse(value) || value.status !== "COMPLETED" || value.type !== "MAI_HOA" || !value.data.detailedReading) throw new Error("Expected canonical M03");
   return value.data.detailedReading;
 }
+function openReadingBasis() {
+  fireEvent.click(screen.getByText("Xem cơ sở luận giải và nội dung gốc", { selector: "summary" }));
+}
 
 describe("I02 real M03 result presentation", () => {
   it.each([["LINES", m03Lines], ["OBJECT_COUNT", m03Object], ["TIME", m03Time], ["LINES with season", m03Season]])("renders canonical %s with original hexagrams and ordered four-phase text", (_name, fixture) => {
     const original = JSON.stringify(fixture);
     mount(fixture);
     expect(screen.getAllByRole("figure")).toHaveLength(3);
+    openReadingBasis();
     const section = within(screen.getByRole("region", { name: "Luận giải chi tiết Mai Hoa" }));
     const items = Array.from(section.getByRole("list", { name: "Bốn giai đoạn luận giải" }).children);
     expect(items.map(item => within(item as HTMLElement).getByRole("heading", { level: 3 }).textContent))
@@ -38,13 +43,14 @@ describe("I02 real M03 result presentation", () => {
       expect(within(items[index] as HTMLElement).getByText("Theo nguồn đã duyệt")).toBeTruthy();
       expect(within(items[index] as HTMLElement).getByText("Nguồn đã được đối chiếu")).toBeTruthy();
     });
-    expect(section.getByRole("region", { name: "Tóm tắt luận giải" }).textContent).toContain(detail.summary);
+    expect(section.getByRole("region", { name: "Tóm tắt gốc từ Server" }).textContent).toContain(detail.summary);
     expect(section.getByRole("region", { name: "Thể từ Server" })).toBeTruthy();
     expect(section.getByRole("region", { name: "Dụng từ Server" })).toBeTruthy();
     expect(JSON.stringify(fixture)).toBe(original);
   });
   it("keeps aggregate team provenance separate from verified phases and typed reading decisions", () => {
     mount(m03Lines);
+    openReadingBasis();
     const root = within(screen.getByRole("region", { name: "Căn cứ của phép tính" }));
     expect(root.getByText("Theo quy ước nhóm")).toBeTruthy();
     expect(root.getByText("Nguồn còn điểm cần đối chiếu")).toBeTruthy();
@@ -61,6 +67,7 @@ describe("I02 real M03 result presentation", () => {
   });
   it("honestly leaves season unevaluated when no reading time was supplied", () => {
     mount(m03Lines);
+    openReadingBasis();
     const section = within(screen.getByRole("region", { name: "Mùa và thời điểm luận" }));
     expect(section.getByText(/Chưa xét mùa vì chưa cung cấp thời điểm luận/)).toBeTruthy();
     expect(section.queryByText("Xuân")).toBeNull();
@@ -68,6 +75,7 @@ describe("I02 real M03 result presentation", () => {
   });
   it("renders evaluated season, original datetime and the returned strength", () => {
     mount(m03Time);
+    openReadingBasis();
     const section = within(screen.getByRole("region", { name: "Mùa và thời điểm luận" }));
     expect(section.getByText("Xuân")).toBeTruthy();
     expect(section.getByText("Suy theo quy ước mùa")).toBeTruthy();
@@ -75,6 +83,40 @@ describe("I02 real M03 result presentation", () => {
     if (season.status !== "EVALUATED") throw new Error("Expected evaluated canonical fixture");
     expect(section.getByText(season.datetime)).toBeTruthy();
     expect(section.queryByText(/Chưa xét mùa/)).toBeNull();
+  });
+  it.each([["LINES", m03Lines], ["OBJECT_COUNT", m03Object], ["TIME", m03Time], ["LINES with season", m03Season]])("explains %s first and keeps unmodified source text in a closed disclosure", (_name, fixture) => {
+    const original = JSON.stringify(fixture);
+    mount(fixture);
+    const detail = reading(fixture);
+    const summary = screen.getByRole("region", { name: "Tóm tắt luận giải" });
+    const items = Array.from(within(summary).getByRole("list", { name: "Bốn phần giải thích dễ hiểu" }).children);
+    expect(items.map(item => within(item as HTMLElement).getByRole("heading", { level: 3 }).textContent))
+      .toEqual(["Ban đầu", "Yếu tố bổ sung thứ nhất", "Yếu tố bổ sung thứ hai", "Sau biến đổi"]);
+    detail.phases.forEach((phase, index) => {
+      const explanation = explainReadingPhase(detail.topic, phase);
+      expect(explanation).not.toBeNull();
+      expect(items[index].textContent).toContain(explanation);
+      expect(items[index].textContent).not.toContain(phase.content);
+    });
+    const basis = screen.getByText("Xem cơ sở luận giải và nội dung gốc", { selector: "summary" }).closest("details")!;
+    expect(basis.open).toBe(false);
+    detail.phases.forEach(phase => expect(basis.textContent).toContain(phase.content));
+    expect(basis.textContent).toContain(detail.summary);
+    expect(within(summary).getByRole("complementary", { name: "Cách hiểu và giới hạn" }).textContent).toContain("không có nghĩa là đầu tháng và cuối tháng");
+    expect(summary.textContent).toContain("không cộng thành điểm tốt hoặc xấu");
+    expect(summary.textContent).toContain("Ghi chú tình huống giúp bạn theo dõi bối cảnh");
+    expect(summary.textContent).toContain("không được dùng để tạo lời luận riêng");
+    expect(summary.textContent).toContain("không xác định sự kiện hay thời điểm xảy ra trong thực tế");
+    expect(JSON.stringify(fixture)).toBe(original);
+  });
+  it("shows revised Server wording unchanged rather than explaining an older template", () => {
+    const revised = structuredClone(m03Lines);
+    revised.data.detailedReading.phases[0].content = "Lời luận mới do Server cung cấp.";
+    mount(revised);
+    const summary = within(screen.getByRole("region", { name: "Tóm tắt luận giải" }));
+    expect(summary.getByText("Lời luận mới do Server cung cấp.")).toBeTruthy();
+    expect(summary.getByText(/chưa có bản diễn đạt dễ hiểu tương ứng/)).toBeTruthy();
+    expect(summary.queryByText("Việc tiến tới hôn nhân được đánh giá theo hướng bất lợi.")).toBeNull();
   });
   it("rejects corrupted phase ordering through the existing runtime guard", () => {
     const invalid = structuredClone(m03Lines);

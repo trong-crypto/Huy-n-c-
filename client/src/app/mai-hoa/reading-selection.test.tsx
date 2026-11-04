@@ -48,7 +48,7 @@ describe("I02 reading selection in actual Mai Hoa forms", () => {
   });
   it("does not infer missing topic from a free-text question and focuses the error", () => {
     render(<MaiHoaPage />); fill("TIME"); detail();
-    fireEvent.change(screen.getByLabelText("Câu hỏi (tùy chọn)"), { target: { value: "Tài lộc" } }); submit();
+    fireEvent.change(screen.getByLabelText("Ghi chú tình huống (tùy chọn)"), { target: { value: "Tài lộc" } }); submit();
     expect(state.submit).not.toHaveBeenCalled();
     const topic = screen.getByLabelText("Chủ đề luận giải");
     expect(document.activeElement).toBe(topic);
