@@ -1,0 +1,566 @@
+[
+  {
+    "category": "LOVE",
+    "resultCode": "LOVE_C01",
+    "original": "Mẹ cha tích đức dày công,\nNên nay con hưởng phước hồng Trường Sanh.\nVợ chồng duyên nợ đặng thành,\nTrăm năm tơ tóc, yến anh giao hòa.\nSống lâu an hưởng một nhà,\nTrọn đời có một, dầu là có hai.\nTôi trai, tớ gái hằng ngày,\nSố này có đức hậu lại đặng nhờ.",
+    "meaning": "Bài thơ mô tả hôn nhân hòa hợp, gắn bó lâu dài và cuộc sống gia đình đủ đầy; đồng thời nhắc tới phúc đức của gia đình.",
+    "couplets": [
+      {
+        "lines": "1–2",
+        "meaning": "Hai câu mở đầu gắn hoàn cảnh thuận lợi của con cháu với việc làm tốt của cha mẹ theo quan niệm phúc đức trong sách."
+      },
+      {
+        "lines": "3–4",
+        "meaning": "Hình ảnh “yến anh giao hòa” nói về vợ chồng hòa hợp và gắn bó."
+      },
+      {
+        "lines": "5–6",
+        "meaning": "Đoạn thơ tiếp tục nói tới cùng sống yên ấm. Cụm “dầu là có hai” được giữ ở lời gốc; không suy ra số lần kết hôn cho người đọc."
+      },
+      {
+        "lines": "7–8",
+        "meaning": "“Tôi trai, tớ gái” là cách diễn đạt xưa về đời sống có người giúp việc. Hai câu cuối nhấn mạnh sự đủ đầy gắn với phúc đức."
+      }
+    ]
+  },
+  {
+    "category": "LOVE",
+    "resultCode": "LOVE_C02",
+    "original": "Chẳng may số hệ ở trời,\nSanh nhằm Mộc Dục đổi đời căn duyên.\nHôn nhân trắc trở chớ phiền,\nMột đời thứ nhứt không yên gia đình.\nĐời sau vương vấn linh đinh,\nThứ ba hòa hiệp chung tình trăm năm.\nLo cho huynh đệ nhứt tâm,\nViệc rồi kết oán thù thâm nỡ đành.",
+    "meaning": "Bài thơ kể về duyên vợ chồng nhiều trắc trở trước khi có được sự hòa hợp; cũng có lời than về quan hệ anh em.",
+    "couplets": [
+      {
+        "lines": "1–2",
+        "meaning": "Đoạn mở đầu đặt câu chuyện trong quan niệm số mệnh của sách và nói tới sự thay đổi đường tình duyên."
+      },
+      {
+        "lines": "3–4",
+        "meaning": "Hai câu này mô tả mối hôn nhân đầu tiên không yên ổn, có trở ngại."
+      },
+      {
+        "lines": "5–6",
+        "meaning": "Bài thơ kể tiếp những lần duyên gặp khó khăn rồi mới hòa hợp. Các số “thứ ba”, “trăm năm” thuộc lời thơ, không xác định số lần kết hôn hay tuổi thọ của người dùng."
+      },
+      {
+        "lines": "7–8",
+        "meaning": "Hai câu cuối nói tới việc lo cho anh em nhưng lại gặp oán trách, là một ý riêng của bài thơ."
+      }
+    ]
+  },
+  {
+    "category": "LOVE",
+    "resultCode": "LOVE_C03",
+    "original": "Than ôi! Trong cảnh phòng loan,\nSanh nhằm Quan Đài đeo mang nợ tình.\nHai đời phải chịu linh đinh,\nThình lình gặp mối chung tình thứ ba.\nNgày sau nên cửa nên nhà,\nĐến già trọn đạo gọi là phu thê.\nTrong bề gia đạo đề huề,\nTề gia nội trợ mọi bề đặng an.",
+    "meaning": "Bài thơ mô tả tình duyên có giai đoạn lận đận, sau đó mới ổn định và xây dựng được gia đình hòa thuận.",
+    "couplets": [
+      {
+        "lines": "1–2",
+        "meaning": "“Phòng loan” chỉ chốn vợ chồng; “nợ tình” diễn tả sự ràng buộc trong chuyện tình cảm."
+      },
+      {
+        "lines": "3–4",
+        "meaning": "Bài thơ kể hai lần duyên lận đận rồi gặp mối gắn bó tiếp theo. Đây là trình tự trong văn bản, không phải số lần kết hôn đã được xác định."
+      },
+      {
+        "lines": "5–6",
+        "meaning": "Hai câu này chuyển sang hình ảnh xây dựng gia đình và giữ nghĩa vợ chồng đến tuổi già."
+      },
+      {
+        "lines": "7–8",
+        "meaning": "“Gia đạo đề huề” và “tề gia nội trợ” nói về gia đình hòa thuận, việc nhà được thu xếp yên ổn."
+      }
+    ]
+  },
+  {
+    "category": "LOVE",
+    "resultCode": "LOVE_C04",
+    "original": "Hỡi thân phận bạc sau này,\nLâm Quan rủi gặp, nỗi này đớn đau.\nVợ chồng ai cũng ước ao,\nTại sao có bạn khác nào như không.\nCác sông các núi vợ chồng,\nÝ tình không hạp loan phòng quạnh hiu.\nNhớ trông buồn tủi bao nhiêu,\nĐến khi gặp mặt khó yêu tình chàng.",
+    "meaning": "Bài thơ tập trung vào sự xa cách, thiếu đồng điệu giữa vợ chồng và cảm giác cô đơn trong quan hệ.",
+    "couplets": [
+      {
+        "lines": "1–2",
+        "meaning": "Đoạn mở đầu thể hiện giọng buồn, than về chuyện tình cảm không như ý."
+      },
+      {
+        "lines": "3–4",
+        "meaning": "Ý “có bạn khác nào như không” diễn tả có người bạn đời nhưng vẫn cảm thấy thiếu sự gắn kết."
+      },
+      {
+        "lines": "5–6",
+        "meaning": "Hai câu nói về sự cách trở và không hợp ý, khiến đời sống vợ chồng vắng vẻ."
+      },
+      {
+        "lines": "7–8",
+        "meaning": "Đoạn cuối diễn tả vừa mong nhớ vừa khó gần gũi, khó tìm được sự hòa hợp khi gặp nhau."
+      }
+    ]
+  },
+  {
+    "category": "LOVE",
+    "resultCode": "LOVE_C05",
+    "original": "Khá nên tích đức thi công,\nSanh nhằm Đế Vượng phước hồng tương giao.\nHôn nhân gặp chỗ sang giàu,\nMột đời thong thả cùng nhau phỉ nguyền.\nThiên nhiên số định lương duyên,\nThượng hoà hạ lục miên miêng đời đời.\nSố này duyên nợ chẳng dời,\nThảnh thơi lo liệu an nơi gia đình.",
+    "meaning": "Bài thơ Đế Vượng nói theo hướng hôn nhân thuận hòa, đời sống đủ đầy và duyên vợ chồng bền lâu; mở đầu bằng lời nhắc sống có đức, làm việc tốt.",
+    "couplets": [
+      {
+        "lines": "1–2",
+        "meaning": "“Tích đức thi công” được hiểu là vun bồi điều tốt, làm việc có ích. “Phước hồng” là cách nói xưa về phúc lành."
+      },
+      {
+        "lines": "3–4",
+        "meaning": "Hai câu mô tả kết duyên trong hoàn cảnh sung túc và cùng nhau sống thư thái, toại nguyện."
+      },
+      {
+        "lines": "5–6",
+        "meaning": "“Lương duyên” chỉ mối duyên tốt đẹp. Cụm “hạ lục miên miêng” trong bản chép chưa rõ nghĩa; phần giải thích không tự đoán hay sửa cụm này."
+      },
+      {
+        "lines": "7–8",
+        "meaning": "Hai câu cuối nhấn mạnh sự gắn bó lâu dài và việc chăm lo cho gia đình yên ổn."
+      }
+    ]
+  },
+  {
+    "category": "LOVE",
+    "resultCode": "LOVE_C06",
+    "original": "Thảm thay căn số vô phần,\nGặp duyên bạc phận, sanh nhằm chữ Suy.\nMạng ai nấy tính không tùy,\nGặp nhau hiểm tỵ khác gì tù nhơn.\nĐôi co nhiều tiếng thiệt hơn,\nSâm thương hai ngã như đờn thiếu dây.\nHai đời phải chịu đổi xây,\nThứ ba mới đặng sum vầy nợ duyên.",
+    "meaning": "Bài thơ mô tả quan hệ thiếu đồng lòng, dễ tranh cãi và xa cách, rồi mới nói tới khả năng sum họp sau nhiều thay đổi.",
+    "couplets": [
+      {
+        "lines": "1–2",
+        "meaning": "Hai câu đầu mang giọng than thở về duyên tình không thuận."
+      },
+      {
+        "lines": "3–4",
+        "meaning": "Đoạn này mô tả mỗi người tự lo phần mình, thiếu sự đồng lòng và cảm thấy bị gò bó khi ở cạnh nhau."
+      },
+      {
+        "lines": "5–6",
+        "meaning": "Hình ảnh “đờn thiếu dây” diễn tả sự không hòa hợp; hai người tranh cãi rồi xa cách."
+      },
+      {
+        "lines": "7–8",
+        "meaning": "Bài thơ kể những lần thay đổi trước khi sum họp. Con số các lần duyên là nội dung của văn bản, không phải dự báo cho người dùng."
+      }
+    ]
+  },
+  {
+    "category": "LOVE",
+    "resultCode": "LOVE_C07",
+    "original": "Thảm buồn cho cảnh nợ duyên.\nSanh nhằm chữ Bịnh lụy liên gia đình.\nThở than phiền trách phận mình,\nRồi đây thọ lãnh giữ gìn lư hương.\nSanh ly tử biệt hai đường,\nDầu mà không thác tang thương chia lìa.\nTấn tu nhơn đức trau tria,\nThứ nhì mới đặng đó đây sum vầy.",
+    "meaning": "Bài thơ dùng hình ảnh buồn về chia lìa trong hôn nhân, sau đó nhắc sống có đức và kể tới một lần sum họp khác.",
+    "couplets": [
+      {
+        "lines": "1–2",
+        "meaning": "Đoạn đầu nói về chuyện vợ chồng mang lại nhiều buồn phiền trong gia đình."
+      },
+      {
+        "lines": "3–4",
+        "meaning": "“Giữ gìn lư hương” gợi việc hương khói, thờ cúng trong ngữ cảnh bài thơ."
+      },
+      {
+        "lines": "5–6",
+        "meaning": "“Sanh ly tử biệt” là hình ảnh chia lìa do xa cách hoặc mất mát. Đây là lời trong văn bản cổ, không phải dự báo bệnh tật hay tử vong."
+      },
+      {
+        "lines": "7–8",
+        "meaning": "Hai câu cuối khuyên tu dưỡng, làm điều tốt và nói tới một lần duyên sum họp tiếp theo trong câu chuyện của bài thơ."
+      }
+    ]
+  },
+  {
+    "category": "LOVE",
+    "resultCode": "LOVE_C08",
+    "original": "Câu rằng: phu phụ tình thâm,\nPhạm nay chữ Tử vướng nhầm chớ ta.\nVợ chồng không đặng hiệp hòa,\nKhông trùng duyên nợ đâu mà bình an.\nMột đời thứ nhứt lo toan,\nKhông lìa thì thác, hai đàng biệt ly.\nĐời sau trọn nghĩa trọn nghì,\nKết nguyền tơ tóc phải thì bền lâu.",
+    "meaning": "Bài thơ kể về hôn nhân đầu không hòa hợp và chia lìa, sau đó chuyển sang hình ảnh một mối gắn bó bền lâu.",
+    "couplets": [
+      {
+        "lines": "1–2",
+        "meaning": "“Phu phụ tình thâm” có nghĩa tình vợ chồng sâu nặng; câu tiếp đặt nội dung dưới nhãn tra “Tử” của sách."
+      },
+      {
+        "lines": "3–4",
+        "meaning": "Hai câu mô tả vợ chồng không thuận hòa nên gia đình thiếu yên ổn."
+      },
+      {
+        "lines": "5–6",
+        "meaning": "Bài thơ nêu cảnh chia lìa và mất mát ở lần duyên đầu. Không dùng lời này để kết luận người dùng sẽ ly hôn hoặc có người qua đời."
+      },
+      {
+        "lines": "7–8",
+        "meaning": "Đoạn cuối kể lần duyên sau giữ trọn tình nghĩa và gắn bó lâu dài."
+      }
+    ]
+  },
+  {
+    "category": "LOVE",
+    "resultCode": "LOVE_C09",
+    "original": "Vợ chồng nghĩa trọng tình thâm,\nSanh nhằm chữ Mộ vướng lâm cho chàng.\nCăn duyên mù tịt lỡ làng,\nKhi tan khi hiệp đôi đàng mới xong.\nTrước đời xóm kiến chòm ong,\nĐời sau qui hiệp buổi bồng đa đoan.\nVợ chồng mới đặng bình an,\nĐến sau rồi cũng bình an một mình.",
+    "meaning": "Bài thơ mô tả duyên vợ chồng có lúc tan, lúc hợp; có đoạn nói tới yên ổn nhưng kết thúc vẫn gợi cảnh một mình.",
+    "couplets": [
+      {
+        "lines": "1–2",
+        "meaning": "Hai câu mở đầu nói về tình nghĩa vợ chồng rồi dẫn vào nhãn tra “Mộ”."
+      },
+      {
+        "lines": "3–4",
+        "meaning": "Đoạn này kể chuyện duyên tình khó rõ, lỡ dở và có lúc chia xa, có lúc sum họp."
+      },
+      {
+        "lines": "5–6",
+        "meaning": "Các hình ảnh xóm kiến, chòm ong và cuộc sống bồng bềnh gợi hoàn cảnh rối ren; không suy ra một sự kiện cụ thể từ các hình ảnh này."
+      },
+      {
+        "lines": "7–8",
+        "meaning": "Hai câu cuối đồng thời nhắc sự bình an và cảnh một mình. Hai ý được giữ cùng nhau, không chuyển thành lời hứa hôn nhân luôn tốt đẹp."
+      }
+    ]
+  },
+  {
+    "category": "LOVE",
+    "resultCode": "LOVE_C10",
+    "original": "Vợ chồng duyên nợ chẳng lành,\nSanh nhằm chữ Tuyệt bao đành sầu đau.\nThêm sầu số phận quằn bao,\nXem trong duyên nợ khắc hào phu thê.\nMảng lo tranh đấu bộn bề,\nTrải qua bao độ gia tề mới an.\nBởi do số hệ chớ than,\nKỳ ba trời định mới an gia đình.",
+    "meaning": "Bài thơ kể về duyên vợ chồng nhiều buồn phiền, bất hòa và biến động trước khi gia đình được yên ổn.",
+    "couplets": [
+      {
+        "lines": "1–2",
+        "meaning": "Đoạn đầu bày tỏ nỗi buồn về tình duyên không thuận."
+      },
+      {
+        "lines": "3–4",
+        "meaning": "Hai câu tiếp tục nói về sự không hòa hợp giữa vợ chồng theo cách diễn đạt của sách."
+      },
+      {
+        "lines": "5–6",
+        "meaning": "Bài thơ mô tả nhiều tranh đấu, lo toan và thay đổi trước khi gia đình yên ổn."
+      },
+      {
+        "lines": "7–8",
+        "meaning": "Đoạn kết quy về quan niệm số mệnh và kể một lần duyên ổn định tiếp theo; không dùng con số trong thơ để ấn định số lần kết hôn."
+      }
+    ]
+  },
+  {
+    "category": "LOVE",
+    "resultCode": "LOVE_C11",
+    "original": "Hồng nhan cốt cách xanh tươi,\nXuê xoa ăn mặc, tiếng cười có duyên.\nDè đâu tình nghĩa ưu phiền,\nLương duyên thứ nhứt vẹn tuyền đặng đâu.\nCủa tiền hao tốn ngõ hầu,\nThứ nhì mới đặng giao đầu phụng loan.\nPhỉ nguyền tình thiếp nghĩa chàng,\nGia đình phát đạt đặng an một nhà.",
+    "meaning": "Bài thơ mô tả người có vẻ duyên dáng nhưng chuyện tình cảm ban đầu không thuận, có hao tốn; sau đó mới kể tới gia đình hòa hợp, ổn định.",
+    "couplets": [
+      {
+        "lines": "1–2",
+        "meaning": "“Hồng nhan”, “ăn mặc” và “tiếng cười có duyên” là những hình ảnh mô tả vẻ ngoài và sự duyên dáng trong bài thơ."
+      },
+      {
+        "lines": "3–4",
+        "meaning": "Hai câu này nói tới nỗi buồn và sự không trọn vẹn của mối duyên đầu."
+      },
+      {
+        "lines": "5–6",
+        "meaning": "Đoạn này kể hao tốn tiền của rồi chuyển sang một lần kết duyên khác. “Phụng loan” là hình ảnh chỉ đôi lứa."
+      },
+      {
+        "lines": "7–8",
+        "meaning": "Hai câu cuối mô tả vợ chồng toại nguyện, gia đình phát triển và sống yên ổn."
+      }
+    ]
+  },
+  {
+    "category": "LOVE",
+    "resultCode": "LOVE_C12",
+    "original": "Số này Trời Đất cho ta,\nVợ chồng phối ngẫu giao hoà bình an.\nPhụng loan kết cánh vầy đoàn,\nMột năm sanh dưỡng phòng loan kịp kỳ.\nĂn mặc đầy đủ số ni,\nVợ chồng một tuổi vậy thời giàu sang.\nChớ lo duyên nợ lỡ làng,\nVợ chồng hoà hiệp hiển hàn thất gia.",
+    "meaning": "Bài thơ nói theo hướng vợ chồng hòa thuận, cùng xây dựng gia đình và có đời sống đủ đầy.",
+    "couplets": [
+      {
+        "lines": "1–2",
+        "meaning": "Hai câu mở đầu diễn tả vợ chồng kết đôi và sống hòa thuận theo quan niệm trong sách."
+      },
+      {
+        "lines": "3–4",
+        "meaning": "Hình ảnh đôi chim chỉ sự sum vầy của vợ chồng; đoạn thơ còn nhắc việc sinh con. Không lấy lời này để xác định thời điểm có con."
+      },
+      {
+        "lines": "5–6",
+        "meaning": "Đoạn này nói tới sự đủ đầy và một quan niệm xưa về vợ chồng cùng tuổi; không phải bằng chứng rằng cùng tuổi sẽ giàu sang."
+      },
+      {
+        "lines": "7–8",
+        "meaning": "Hai câu cuối tiếp tục nhấn mạnh sự gắn bó và hòa hợp trong gia đình."
+      }
+    ]
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "WEALTH_C01",
+    "original": "Số này có tài lộc thạnh vượng, có ruộng vườn, có tánh tốt, việc ăn mặc đủ, gặp hung hóa hiền, cầu quan có quới nhân [CHU_MO] kính trọng.",
+    "meaning": "Đoạn sách mô tả đời sống đủ đầy, có nhà vườn, được giúp đỡ và kính trọng. Chữ [CHU_MO] là chỗ chưa đọc rõ trong nguồn nên không được tự bổ sung nghĩa."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "WEALTH_C02",
+    "original": "Số này phạm Khốn Lộc, anh em bà con không đặng gần, ăn mặc thiếu hẹp, tánh can cường, nhiều người ghét, tuổi nhỏ nghèo, tuổi lớn làm khá.",
+    "meaning": "Đoạn sách kể hoàn cảnh ban đầu thiếu thốn, ít gần gũi với họ hàng; khi lớn tuổi việc làm ăn mới khá hơn. “Can cường” nói về tính mạnh, cứng cỏi."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "WEALTH_C03",
+    "original": "Số này phạm Bối Lộc, anh em ở xa cách, đi biệt xứ không trở về, đi có nhiều xứ, đồ lao cực khổ, mà không khá.",
+    "meaning": "Đoạn sách kể chuyện xa anh em, đi nhiều nơi và làm lụng vất vả nhưng chưa khá lên. Nhãn bảng “Bất lộc” và tên đoạn “Bối Lộc” được giữ riêng theo nguồn."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "WEALTH_C04",
+    "original": "Số này đặng Chánh Lộc, tánh cần kiệm, đi lưu lạc xứ khác khi tuổi lớn làm ăn trở nên sự nghiệp, vợ chồng con cháu vui vẻ.",
+    "meaning": "Đoạn sách mô tả người cần cù, tiết kiệm, đi nơi khác làm ăn và gây dựng được sự nghiệp khi lớn tuổi; gia đình được nói theo hướng vui vẻ."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "WEALTH_C05",
+    "original": "Số này phạm Ám Lộc, ăn mặc có ít, không nhờ anh em, gần người sang trọng, sự nghiệp không ở xứ cũ, tuổi lớn ăn ở đặng yên, làm ăn mới khá.",
+    "meaning": "Đoạn sách kể đời sống ban đầu còn hạn hẹp, ít nhờ anh em; làm ăn ở nơi khác rồi ổn định hơn khi lớn tuổi."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "WEALTH_C06",
+    "original": "Số này đặng Tài Lộc, làm ăn khá, sự nghiệp lập nên, có trâu ruộng, tôi tớ đủ dùng, trở nên danh tiếng phú gia.",
+    "meaning": "Đoạn sách mô tả làm ăn phát triển, gây dựng tài sản và có danh tiếng. “Trâu ruộng, tôi tớ” là hình ảnh của sự sung túc trong bối cảnh xã hội xưa."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "WEALTH_C07",
+    "original": "Số này phạm Sát Lộc, số bôn ba lội lạc, mưu sanh kế mị thường, dễ sanh nhai, đến tuổi gần già làm ăn mới khá.",
+    "meaning": "Đoạn sách mô tả cuộc sống bôn ba, lo sinh kế và làm ăn khá hơn khi gần già. Cụm “mị thường” trong lời gốc chưa rõ nghĩa nên không được tự giải đoán."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "WEALTH_C08",
+    "original": "Số này đặng Thiên Lộc, có số làm quan, lại có số làm giàu tôi tớ nhiều, vợ chồng hòa thuận, hưởng phước lộc nhiều.",
+    "meaning": "Đoạn sách dùng hình ảnh quan chức, nhiều người giúp việc và vợ chồng thuận hòa để mô tả địa vị cùng đời sống sung túc theo quan niệm xưa."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "WEALTH_C09",
+    "original": "Số này phạm Hao Lộc, tánh hay ăn diện tiệc, hay kén nhơn tình, chơi gần người sang trọng, sự nghiệp phá tan, đến xứ khác mới lập an.",
+    "meaning": "Đoạn sách liên hệ việc chuộng ăn diện, tiệc tùng với hao tán tài sản; sau đó kể việc chuyển nơi ở để gây dựng lại cuộc sống."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "WEALTH_C10",
+    "original": "Số này phạm Toại Lộc, tánh hạnh nhiều mưu kế, có tánh tham, xảo trá, anh em, chồng vợ, con cháu có nhưng không hòa hiệp.",
+    "meaning": "Đoạn sách có những nhận xét về tính mưu tính, tham lợi và sự thiếu hòa thuận với người thân. Đây là cách mô tả của sách, không phải đánh giá tính cách của người dùng."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "WEALTH_C11",
+    "original": "Số này phạm Bịnh Lộc hay có bịnh hoạn lắm, không ở xứ cũ tu hành không đặng, giữ tiết kiệm đời cực khổ mà cũng nghèo.",
+    "meaning": "Đoạn sách gắn nhãn này với ốm đau, đời sống vất vả và thiếu thốn. Nhãn bảng “Bịch lộc” khác tên đoạn “Bịnh Lộc”; nội dung không phải kết luận về sức khỏe hay thu nhập của người dùng."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "WEALTH_C12",
+    "original": "Số này đặng Vượng Lộc, tiền tài hưng vượng, sản nghiệp lập thành, tánh hay chơi anh em bạn, trai cỡ vợ, gái có chồng gặp đặng chỗ sang trọng.",
+    "meaning": "Đoạn sách mô tả tiền tài, tài sản phát triển, thích giao du và kết duyên trong hoàn cảnh sung túc."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "CAREER13_C01",
+    "original": "Số này: số có mạng làm giàu, hay ăn của bổn phượng, học tập văn chương để lấy khoa, số có tiền và lúa gạo.",
+    "meaning": "Đoạn sách liên hệ mục này với việc học văn chương, thi cử và đời sống đủ đầy. Cụm “ăn của bổn phượng” còn khó hiểu trong lời gốc nên không được tự suy diễn."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "CAREER13_C02",
+    "original": "Số này: Người có tánh can cường, có số làm con nuôi người ta, khá nên thảo luyện nghề nghiệp, để hộ thân ngày sau.",
+    "meaning": "Đoạn sách nhấn mạnh rèn luyện tay nghề để có kế sinh nhai về sau; đồng thời có mô tả tính cứng cỏi và chuyện làm con nuôi theo quan niệm xưa."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "CAREER13_C03",
+    "original": "Số này: Có số về văn chương, đặng cậy nhờ về sau, công đường rất thạnh vượng, nam nữ cũng vậy.",
+    "meaning": "Đoạn sách liên hệ mục này với học hành, văn chương và con đường làm việc nơi công đường, tức cơ quan quan lại thời xưa."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "CAREER13_C04",
+    "original": "Số này: Có số làm thợ rèn, hoặc làm thợ thiếc, bằng không thì cũng có nghề cầm gươm giáo, nếu không thì anh em ở cách xứ.",
+    "meaning": "Đoạn sách liệt kê nghề rèn, làm đồ thiếc hoặc công việc liên quan tới gươm giáo; cũng có ý về anh em ở xa. Đây là nhóm nghề và lời mô tả trong sách, không phải chỉ định nghề nghiệp."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "CAREER13_C05",
+    "original": "Số này: Có số làm thầy, như có phước nhiều đặng làm quan, trọn đời ăn mặc đầy đủ, người có tài và gần người sang trọng.",
+    "meaning": "Đoạn sách nói tới vai trò làm thầy hoặc quan chức theo cách phân loại xưa, cùng hình ảnh có tài và đời sống đủ đầy. Bản chép không đủ rõ để xác định riêng một nghề “làm thầy” cụ thể."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "CAREER13_C06",
+    "original": "Số này: Tánh hạnh có mưu kế nhiều, và có số làm thợ mộc, số có ăn mặc đầy đủ, khéo ý, khéo tay làm.",
+    "meaning": "Đoạn sách liên hệ mục này với nghề mộc, sự khéo léo và đời sống đủ dùng."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "CAREER13_C07",
+    "original": "Số này: Có tánh thông minh, có nghề đờn tinh thông, có danh tiếng và vui vẻ, đến xứ nào cũng được người trọng hậu, quí thể.",
+    "meaning": "Đoạn sách mô tả năng khiếu chơi nhạc, sự thông minh và việc được quý trọng. “Đờn” nghĩa là đàn, chơi nhạc."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "CAREER13_C08",
+    "original": "Số này: có số làm thầy thuốc và lập tiệm thuốc và làm thầy bói, có cái phần làm thầy, thuận số thì khá.",
+    "meaning": "Đoạn sách liệt kê thầy thuốc, tiệm thuốc và thầy bói trong nhóm nghề “làm thầy” theo quan niệm xưa. Nội dung này không xác nhận trình độ hay năng lực hành nghề của người dùng."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "CAREER13_C09",
+    "original": "Số này: Có tu niệm đặng đắc quả, nếu lập gia đình sau rồi cũng bỏ, dù làm nghề gì thì cũng đủ sanh nhai đó thôi.",
+    "meaning": "Đoạn sách liên hệ mục này với đời sống tu hành; đồng thời có lời về rời gia đình và chỉ đủ sinh sống. Đó là các ý trong nguồn, không phải lời khuyên bỏ gia đình hoặc công việc."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "CAREER13_C10",
+    "original": "Số này: Có số làm thợ may, tay cầm kéo kim chỉ, nếu không làm thợ may thì tay phải có tật, phải nên làm nghề.",
+    "meaning": "“Tài Phùng” ở đoạn này chỉ nghề may vá, dùng kéo, kim và chỉ. Câu nói về tật ở tay là quan niệm trong sách cũ; không có nghĩa người dùng sẽ bị tật nếu không làm nghề may."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "CAREER13_C11",
+    "original": "Số này: Không có số ở theo làng xóm làm ăn, chỉ có cái số ở theo chốn công môn, làm nghề văn chương thì tốt.",
+    "meaning": "Đoạn sách nghiêng về công việc nơi cơ quan quan lại và văn chương thay vì làm ăn tại làng quê. Đây là cách phân loại nghề trong bối cảnh lịch sử của nguồn."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "CAREER13_C12",
+    "original": "Số này: Có cái số trồng răng, nhổ răng giỏi lắm, làm nghề răng đặng khá lại có người sang trọng yêu chuộng.",
+    "meaning": "Đoạn sách liên hệ mục này với việc nhổ, trồng răng và được khách hàng quý trọng. Đây là mô tả nghề trong sách xưa, không phải đánh giá khả năng chuyên môn hiện tại."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "MUA_BAN",
+    "original": "Bảng Số 11 ghi nghề: Mua bán.",
+    "meaning": "Bảng nghề nghiệp ghi nhóm buôn bán, trao đổi hàng hóa. Đây là một nhóm nghề được tra ra từ bảng, không phải kết luận rằng người dùng chỉ hợp nghề này."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "CAU_CHAI",
+    "original": "Bảng Số 11 ghi nghề: Câu/chài lưới/đáy rọ/mua thủy lợi.",
+    "meaning": "Bảng ghi nhóm nghề đánh bắt thủy sản bằng câu, lưới, đáy hoặc rọ. Cụm “mua thủy lợi” được giữ theo nhãn nguồn, chưa tự gán nghĩa hiện đại."
+  },
+  {
+    "category": "CAREER",
+    "resultCode": "LAM_THO",
+    "original": "Bảng Số 11 ghi nghề: Làm thợ.",
+    "meaning": "Bảng ghi nhóm công việc có tay nghề, làm ra hoặc sửa chữa sản phẩm. Bảng chưa chỉ rõ một nghề cụ thể hay đánh giá năng lực thực tế."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-SANG-HEN-01",
+    "original": "Theo đoạn Nhựt Mã, sách mô tả người hay đi lại, làm ăn khá, có điền địa và tài lợi; ở nhà ít lo, ra ngoài được đối đãi trọng hậu.",
+    "meaning": "Đoạn sách mô tả người thường đi lại, làm ăn khá, có tài sản và được người khác đối đãi tốt. “Điền địa” nghĩa là ruộng đất."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-SANG-HEN-02",
+    "original": "Theo đoạn Lục Hại, sách mô tả sự xung khắc với cha mẹ, anh em, họ hàng và vợ chồng con cái; đồng thời nêu hướng tu hành.",
+    "meaning": "“Lục Hại” là tên mục tra trong sách. Đoạn này nói về sự không hòa hợp với người thân và nhắc tới đời sống tu hành; không xác định rằng gia đình người dùng có xung đột hay yêu cầu người dùng phải tu hành."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-SANG-HEN-03",
+    "original": "Đoạn mang tiêu đề Hao Cái mô tả người có duyên, được nhiều người thương và kính trọng, có tài giỏi và lộc thực. Bản diễn giải không suy đoán token khó hiểu trong câu in.",
+    "meaning": "Đoạn sách mô tả sự duyên dáng, được yêu mến và kính trọng, có tài cùng đời sống đủ dùng. Nhãn “Hoa cái” và tiêu đề “Hao Cái” được bảo tồn; chỗ chữ khó đọc không được suy đoán thêm."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-SANG-HEN-04",
+    "original": "Theo đoạn Kiếp Sát, sách mô tả sự xung khắc trong gia đình, hoàn cảnh có thể sa sút; đoạn còn nêu phụ nữ thay đổi hôn nhân. Đây là mô tả trong nguồn cổ, không phải sự kiện đã được xác định cho người dùng.",
+    "meaning": "Đoạn sách mô tả bất hòa gia đình, hoàn cảnh sa sút và thay đổi hôn nhân. Đây là cách kể của nguồn cổ, không phải kết luận về người dùng hay về phụ nữ nói chung."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-SANG-HEN-05",
+    "original": "Theo đoạn Tai Sát, sách nêu tật bệnh, tai nạn và xung khắc vợ chồng, con cái. Nội dung được trình bày như quan niệm trong sách, không dùng để chẩn đoán bệnh hay xác nhận tai nạn.",
+    "meaning": "Đoạn sách nhắc tới bệnh tật, tai nạn và bất hòa trong gia đình. Nội dung chỉ giải thích ý của văn bản, không xác nhận một rủi ro sức khỏe hay tai nạn thực tế."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-SANG-HEN-06",
+    "original": "Theo đoạn Thiên Sát, sách nêu xung khắc với gia đình bên vợ hoặc bên chồng, ít con, bệnh nặng hay cảnh lưu lạc tự tìm sinh kế. Các mô tả này thuộc lời luận của nguồn cổ.",
+    "meaning": "Đoạn sách mô tả khó hòa hợp với gia đình bên vợ hoặc bên chồng, cùng hoàn cảnh ít con, đau ốm và đi xa kiếm sống. Không dùng các ý này để kết luận về sức khỏe, sinh con hoặc gia đình của người đọc."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-SANG-HEN-07",
+    "original": "Theo đoạn Địa Sát, sách đồng thời nêu tai nạn, xung khắc trong gia đình và khả năng có nghề giỏi, làm ăn no đủ. Hai chiều nội dung được giữ cùng nhau.",
+    "meaning": "Đoạn sách có hai mặt: vừa nhắc trở ngại và bất hòa gia đình, vừa nói tới tay nghề tốt và cuộc sống đủ đầy. Không bỏ một mặt để kết luận hoàn toàn tốt hoặc xấu."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-SANG-HEN-08",
+    "original": "Theo đoạn Niên Sát, sách mô tả rời nơi cha mẹ đã lập để làm ăn nơi khác, tự tạo sự nghiệp, ít nhờ cậy anh em.",
+    "meaning": "Đoạn sách nói về tự lập ở nơi khác, gây dựng sự nghiệp và ít dựa vào anh em. “Nơi cha mẹ đã lập” chỉ chốn gia đình đã sinh sống, gây dựng trước đó."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-SANG-HEN-09",
+    "original": "Theo đoạn Ngoại Sát, sách mô tả làm ăn khá khi đến nơi khác, từ tay trắng lập sự nghiệp; đồng thời có lời luận xung khắc vợ chồng và con cái.",
+    "meaning": "Đoạn sách vừa nói tới tự lập, làm ăn khá ở nơi khác, vừa có lời về bất hòa vợ chồng và con cái. Các ý được giữ song song, không biến thành lời khuyên rời gia đình."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-SANG-HEN-10",
+    "original": "Đoạn Vong Thần mô tả xung khắc anh em, bà con; qua nhiều lần đổi chỗ ở mới lập sự nghiệp, điền viên tốt. Nhãn bảng vẫn được lưu là Vong sát.",
+    "meaning": "Đoạn mang tên “Vong Thần” kể việc không hòa hợp với họ hàng và đổi chỗ ở nhiều lần trước khi có cơ nghiệp. “Điền viên” nghĩa là ruộng vườn; nhãn bảng vẫn là “Vong sát”."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-SANG-HEN-11",
+    "original": "Đoạn Tướng Tinh mô tả người có quyền hành, phát tài và hưởng lộc từ sớm, gia đình con cháu sung túc. Bản diễn giải chỉ giữ phần chữ đọc rõ, không đoán cụm chữ mờ sau quyền hành.",
+    "meaning": "Đoạn mang tên “Tướng Tinh” mô tả quyền hành, tài sản và gia đình sung túc. Phần chữ chưa đọc rõ không được bổ sung; nhãn bảng “Tướng linh” vẫn được giữ để đối chiếu."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-SANG-HEN-12",
+    "original": "Đoạn có tiêu đề Phiên An nhưng phần thân gọi Thiên An, mô tả tính cương cường, thông minh, có hướng tu niệm và học hành khoa cử. Dự án bảo tồn cả hai nhãn.",
+    "meaning": "Đoạn sách mô tả tính cứng cỏi, thông minh, việc tu dưỡng và học hành thi cử. Nguồn dùng cả “Thiên An” và “Phiên An”; giao diện giữ các nhãn để người đọc nhận biết khác biệt."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-DIEN-SAN-01",
+    "original": "Theo đoạn chữ Không, ruộng đất cha mẹ cho có thể không giữ được; sau khi sa sút mới tự lo mua tạo ít nhiều để mở dựng lại.",
+    "meaning": "Đoạn sách kể tài sản ruộng đất được cha mẹ cho nhưng không giữ được; sau đó tự gây dựng lại từng phần. Không hiểu nhãn “Không” là kết luận người dùng không có tài sản."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-DIEN-SAN-02",
+    "original": "Theo đoạn chữ Bại, điền sản cha mẹ cho hay tự tạo tại quê sinh dễ thất bại; có ý chí đi nơi khác lập điền viên thì được chút ít.",
+    "meaning": "Đoạn sách kể việc giữ hoặc tạo lập ruộng đất tại quê nhà gặp khó khăn; việc đến nơi khác gây dựng chỉ đạt được một phần. Đây là mô tả trong sách, không phải khuyến nghị mua bán hay chuyển nơi ở."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-DIEN-SAN-03",
+    "original": "Theo đoạn chữ Hướng, sách mô tả không chú trọng gìn giữ hay tạo lập ruộng đất, thiên về ăn mặc và vui chơi nên khó giữ điền sản.",
+    "meaning": "Đoạn sách liên hệ việc ít chăm lo gìn giữ, tạo lập tài sản và thiên về ăn mặc, vui chơi với khó giữ ruộng đất. Không dùng lời này để gán tính cách cho người đọc."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-DIEN-SAN-04",
+    "original": "Theo đoạn chữ Kiên, ruộng đất cha mẹ cho hoặc tự tay tạo có thể được gìn giữ và phát triển thịnh vượng; nghề nông được luận là bền vững, thường gặp mùa thuận.",
+    "meaning": "Đoạn sách mô tả giữ được và phát triển tài sản do gia đình cho hoặc tự tạo lập; cũng nêu nghề nông thuận lợi. “Điền sản” ở đây là ruộng đất, tài sản đất đai."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-DIEN-SAN-05",
+    "original": "Theo đoạn chữ Giải, điền sản cha mẹ cho không giữ lâu, nhưng có thể tự tay tạo lập lại từ tay trắng và thịnh vượng lúc tuổi già.",
+    "meaning": "Đoạn sách kể việc khó giữ tài sản được cha mẹ cho, nhưng có thể tự gây dựng lại và khá hơn về già. Đây là trình tự trong lời nguồn, chưa xác định thời điểm thực tế."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-DIEN-SAN-06",
+    "original": "Đoạn chữ Phá luận theo chiều không giữ được ruộng đất cha mẹ cho, đi nơi khác tạo lập lại cũng khó thành. Bảng in ghi Phú; liên kết đoạn Phá là quyết định biên tập theo cột thứ sáu.",
+    "meaning": "Bảng ghi “Phú”, còn đoạn được liên kết có tiêu đề “Phá”. Nội dung đoạn nói tới khó giữ hoặc gây dựng lại ruộng đất. Liên kết này là quyết định biên tập theo vị trí cột, không phải xác nhận hai chữ có cùng nghĩa."
+  },
+  {
+    "category": "WEALTH",
+    "resultCode": "TT-DIEN-SAN-07",
+    "original": "Theo đoạn chữ Hiệp, điền sản cha mẹ cho có thể được giữ và mua tạo thêm; sách luận theo chiều điền địa thịnh vượng, vững bền.",
+    "meaning": "Đoạn sách mô tả giữ được ruộng đất gia đình cho và tạo lập thêm, theo hướng tài sản bền vững. Đây là lời của nguồn cổ, không bảo đảm giá trị hay lợi nhuận tài sản thực tế."
+  }
+]

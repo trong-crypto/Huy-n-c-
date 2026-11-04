@@ -145,7 +145,8 @@ describe("I02 real D04 and legacy Tam The results", () => {
     mount(d04Missing);
     const loc = screen.getByRole("region", { name: "Tiểu mục Lộc" });
     expect(loc.querySelectorAll(".interpretation-entry")).toHaveLength(0);
-    expect(within(loc).getByText(/Bản in không có giao điểm Lộc/)).toBeTruthy();
+    expect(within(loc).getByText(/Chưa có lời luận Lộc tương ứng trong bảng nguồn/)).toBeTruthy();
+    expect(loc.textContent).toContain("không có nghĩa bạn không có tài lộc");
     expect(screen.getByRole("region", { name: "Tiểu mục Sang hèn" }).querySelectorAll(".interpretation-entry")).toHaveLength(1);
     expect(screen.getByRole("region", { name: "Tiểu mục Điền sản" }).querySelectorAll(".interpretation-entry")).toHaveLength(1);
     expect(screen.getByRole("region", { name: "Kết quả Công danh" })).toBeTruthy();

@@ -393,6 +393,13 @@ summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; bo
 .interpretation-entries, .wealth-subreadings { display: grid; gap: 20px; }
 .interpretation-entry { min-width: 0; overflow-wrap: anywhere; }
 .interpretation-entry h4 { color: var(--primary-hover); font-size: 17px; margin: 0 0 12px; }
+.tamthe-explanation { margin-top: 16px; padding: 16px; border-left: 3px solid var(--primary-hover); background: var(--bg-secondary); }
+.tamthe-explanation h5 { margin: 0 0 10px; color: var(--primary-hover); font-size: 17px; }
+.tamthe-explanation > p:last-child { margin-bottom: 0; }
+.tamthe-poem { margin: 12px 0 24px; padding-left: 16px; border-left: 1px solid var(--border); }
+.poem-couplets { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 16px; }
+.poem-couplets strong { color: var(--primary-hover); font-size: 14px; }
+.poem-couplets p { margin: 6px 0 0; }
 .subreading-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
 .subreading-heading h3 { margin: 0; }
 .subreading-heading .evidence-badge { white-space: normal; }
