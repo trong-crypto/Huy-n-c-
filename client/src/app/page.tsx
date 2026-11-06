@@ -23,6 +23,12 @@ const modules = [
   },
 ];
 
+const tools = [
+  { href: "/hexagrams", title: "Thư viện 64 quẻ", description: "Tìm tên quẻ, xem sáu hào và đối chiếu nguồn." },
+  { href: "/calendar", title: "Lịch Âm – Dương", description: "Đổi ngày và tra Can Chi theo ngày giờ đã chọn." },
+  { href: "/history", title: "Lịch sử riêng tư", description: "Tìm và mở lại các kết quả bạn đã chủ động lưu." },
+];
+
 export default function Home() {
   return (
     <PageContainer>
@@ -52,7 +58,20 @@ export default function Home() {
           </Link>
         ))}
       </div>
-      <section className="discovery-note" aria-label="Nguyên tắc khám phá"><span aria-hidden="true">✧</span><div><h2>Tri thức luôn đi cùng căn cứ</h2><p>Chọn phương pháp, nhập dữ liệu, đối chiếu phản hồi. Khi nguồn chưa đủ hoặc chức năng chưa sẵn sàng, hệ thống thông báo rõ ràng.</p></div></section>
+      <section aria-labelledby="home-tools-title">
+        <div className="section-introduction"><div><p className="eyebrow">CÔNG CỤ TRA CỨU</p><h2 id="home-tools-title">Tìm và xem lại</h2></div></div>
+        <div className="home-tools">{tools.map(tool => <Link key={tool.href} href={tool.href} className="section-card home-tool">
+          <h3>{tool.title} <span aria-hidden="true">↗</span></h3><p>{tool.description}</p>
+        </Link>)}</div>
+      </section>
+      <section id="huong-dan" className="home-guide" aria-labelledby="home-guide-title">
+        <div className="section-introduction"><div><p className="eyebrow">HƯỚNG DẪN</p><h2 id="home-guide-title">Bắt đầu trong ba bước</h2></div></div>
+        <ol className="home-tools">
+          <li className="section-card"><p className="eyebrow">01</p><h3>Chọn cách tra</h3><p>Mai Hoa có thời gian, số vật và sáu hào. Tam Thế dùng ngày giờ sinh và loại lịch.</p></li>
+          <li className="section-card"><p className="eyebrow">02</p><h3>Gửi dữ kiện</h3><p>Điền biểu mẫu, chọn nội dung muốn xem rồi theo dõi tiến trình trong phần phản hồi.</p></li>
+          <li className="section-card"><p className="eyebrow">03</p><h3>Đọc và lưu kết quả</h3><p>Xem lời giải nghĩa và nguồn đi kèm. Chọn lưu nếu bạn muốn mở lại trong lịch sử riêng tư.</p></li>
+        </ol>
+      </section>
     </PageContainer>
   );
 }

@@ -3,6 +3,7 @@
 import { FormEvent, useRef, useState } from "react";
 import { ResultPanel } from "@/components/ResultPanel";
 import { useCalculation } from "@/services/websocket/useCalculation";
+import { SessionNotice } from "@/services/session/SessionProvider";
 import type { MaiHoaPayload } from "@/types/contract";
 import { PageContainer, PageHeader } from "@/components/ui/Page";
 import { FieldError, FormField, PrimaryButton, SectionCard, StatusBanner } from "@/components/ui/Controls";
@@ -27,6 +28,7 @@ export default function MaiHoaPage() {
   const [reading, setReading] = useState<ReadingSelection>({ enabled: false, topic: "", datetime: "" });
   const [readingError, setReadingError] = useState<ReadingInputError | null>(null);
   const calculation = useCalculation();
+  const waiting = calculation.requestState === "waiting";
 
   function submitPayload(payload: MaiHoaPayload) {
     if (calculation.connection !== "connected" || calculation.requestState === "waiting") return;
@@ -91,7 +93,7 @@ export default function MaiHoaPage() {
           {readingFields}
           {method === "TIME" ? (
             <FormField id="maihoa-datetime" label="Thời điểm lập quẻ (giờ Việt Nam, UTC+07:00)" hint="Ngày từ 1900-01-01 đến 2099-12-31 theo giờ Việt Nam (UTC+07:00), chính xác đến phút; không theo múi giờ của thiết bị.">
-              <input id="maihoa-datetime" type="datetime-local" step={60} min={TIME_MIN_DATETIME} max={TIME_MAX_DATETIME} value={datetime}
+              <input id="maihoa-datetime" type="datetime-local" step={60} min={TIME_MIN_DATETIME} max={TIME_MAX_DATETIME} value={datetime} disabled={waiting}
                 aria-invalid={formError?.field === "datetime" || undefined} aria-describedby={describedBy("datetime")}
                 onChange={(event) => { setDatetime(event.target.value); clearFieldError("datetime"); }} required />
               {fieldError("datetime")}
@@ -99,13 +101,13 @@ export default function MaiHoaPage() {
           ) : (
             <>
               <FormField id="maihoa-count" label="Số vật đếm được">
-                <input id="maihoa-count" type="number" min={1} max={999999} step={1} value={objectCount}
+                <input id="maihoa-count" type="number" min={1} max={999999} step={1} value={objectCount} disabled={waiting}
                   aria-invalid={formError?.field === "objectCount" || undefined} aria-describedby={describedBy("objectCount")}
                   onChange={(event) => { setObjectCount(event.target.value); clearFieldError("objectCount"); }} required />
                 {fieldError("objectCount")}
               </FormField>
               <FormField id="maihoa-hour" label="Giờ Chi">
-                <select id="maihoa-hour" value={hourIndex}
+                <select id="maihoa-hour" value={hourIndex} disabled={waiting}
                   aria-invalid={formError?.field === "hourIndex" || undefined} aria-describedby={describedBy("hourIndex")}
                   onChange={(event) => { setHourIndex(event.target.value); clearFieldError("hourIndex"); }}>
                   {["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"].map((name, index) => (
@@ -117,13 +119,17 @@ export default function MaiHoaPage() {
             </>
           )}
           <FormField id="maihoa-question" label="Ghi chú tình huống (tùy chọn)" hint="Mô tả bối cảnh để tiện theo dõi. Hệ thống không phân tích ghi chú để trả lời riêng hay thay đổi kết quả lập quẻ. Tối đa 500 ký tự.">
-            <textarea id="maihoa-question" rows={3} maxLength={500} value={question}
+            <textarea id="maihoa-question" rows={3} maxLength={500} value={question} disabled={waiting}
               aria-invalid={formError?.field === "question" || undefined} aria-describedby={describedBy("question")}
               onChange={(event) => { setQuestion(event.target.value); clearFieldError("question"); }} />
             {fieldError("question")}
           </FormField>
-          <PrimaryButton type="submit" disabled={calculation.connection !== "connected" || calculation.requestState === "waiting"}>{calculation.requestState === "waiting" ? "Đang chờ phản hồi…" : "Gửi yêu cầu"}</PrimaryButton>
+          {calculation.connection !== "connected" && <p id="maihoa-connection" className="field-hint">{calculation.connection === "connecting" ? "Đang kết nối tới Server. Bạn có thể chuẩn bị dữ kiện trong lúc chờ." : "Mất kết nối với Server. Dữ kiện vẫn được giữ trên trang."}</p>}
+          <PrimaryButton type="submit" disabled={calculation.connection !== "connected" || waiting}
+            aria-describedby={calculation.connection !== "connected" ? "maihoa-connection" : undefined}>{waiting ? "Đang chờ phản hồi…" : "Gửi yêu cầu"}</PrimaryButton>
         </form>)}
+          {calculation.connection === "disconnected" && <SessionNotice />}
+          {calculation.requestState !== "idle" && <a className="secondary-button calculation-shortcut" href="#ket-qua">Đến tiến trình và kết quả ↓</a>}
         </SectionCard>
         <aside className="input-guide" aria-label="Hướng dẫn lập quẻ">
           <div className="guide-art"><CelestialArt compact /></div>
@@ -134,7 +140,7 @@ export default function MaiHoaPage() {
           <p>Ghi chú tình huống là phần tùy chọn. Lời luận được tra theo quy tắc có sẵn, không phải câu trả lời riêng cho nội dung ghi chú hay dự báo một sự kiện cụ thể.</p>
         </aside>
       </div>
-      <div className="result-region"><ResultPanel {...calculation} /></div>
+      <div id="ket-qua" tabIndex={-1} className="result-region"><ResultPanel {...calculation} /></div>
     </PageContainer>
   );
 }

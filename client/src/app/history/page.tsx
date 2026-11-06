@@ -30,6 +30,13 @@ function HistoryList() {
     event.preventDefault(); if (draft.q.length > 100) { setInputError(true); search.current?.focus(); return; }
     setInputError(false); setMessage(""); setQuery({ ...draft, page: 0, size: 20 });
   }
+  function clearFilters() {
+    setDraft({ q: "", type: "" });
+    setInputError(false);
+    setMessage("");
+    setQuery({ q: "", type: "", page: 0, size: 20 });
+    search.current?.focus();
+  }
   function closeDialog() { setDeleting(null); deleteTrigger.current?.focus(); }
   function deleted() {
     setDeleting(null); setMessage("Server đã xác nhận xóa bản lịch sử."); search.current?.focus();
@@ -51,7 +58,13 @@ function HistoryList() {
       <p role="status" aria-live="polite">{message || (result.status === "loading" ? "Đang tải lịch sử…" : result.status === "completed" ? `${result.data.totalElements} bản lịch sử · Trang ${query.page + 1}/${Math.max(1, result.data.totalPages)}` : "Chưa tải được lịch sử.")}</p>
       {result.status === "failed" && <><p role="alert" className="response-error">{historyErrorMessage(result.error)}</p><button type="button" className="secondary-button" onClick={result.retry}>Tải lại danh sách</button></>}
       {result.status === "completed" && <>
-        {result.data.items.length === 0 ? <p className="status-banner">{query.q || query.type ? "Không có lịch sử phù hợp bộ lọc." : "Phiên này chưa có lịch sử. Bạn có thể chủ động lưu sau khi tính thành công."}</p> : <ul className="history-list">{result.data.items.map(item => <li className="section-card history-item" key={item.id}>
+        {result.data.items.length === 0 ? <div className="section-card">
+          <p className="status-banner">{query.q || query.type ? "Không có lịch sử phù hợp bộ lọc." : "Phiên này chưa có lịch sử. Bạn có thể chủ động lưu sau khi tính thành công."}</p>
+          <div className="history-actions">
+            {query.q || query.type ? <button type="button" className="secondary-button" onClick={clearFilters}>Xóa bộ lọc lịch sử</button>
+              : <><Link className="secondary-button" href="/mai-hoa">Lập quẻ Mai Hoa</Link><Link className="secondary-button" href="/tam-the">Tra Tam Thế</Link></>}
+          </div>
+        </div> : <ul className="history-list">{result.data.items.map(item => <li className="section-card history-item" key={item.id}>
           <div><p className="eyebrow">{item.type === "MAI_HOA" ? "Mai Hoa" : "Tam Thế"}</p><h2><Link href={`/history/${item.id}`}>{item.title}</Link></h2>
             <p className="field-hint">Đã lưu: <time dateTime={item.createdAt}>{item.createdAt.replace("T", " ").replace("Z", " UTC")}</time></p>
             <p className="field-hint">{item.ruleBasis === "TEAM_DECISION" ? "Có quy ước nhóm trong bản đã lưu" : "Theo nguồn đã duyệt"}</p></div>
