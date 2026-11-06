@@ -13,9 +13,10 @@
    - [Công việc phối hợp](#phoi-hop)
    - [Hợp đồng API cần thống nhất](#hop-dong-api)
    - [Tiêu chí nghiệm thu](#nghiem-thu)
-2. [Các phase tiếp theo](#phase-tiep-theo)
-3. [Bảng theo dõi công việc](#theo-doi)
-4. [Quy tắc cập nhật](#cap-nhat)
+2. [Phase 3 – Quản lý nội dung Admin](#phase-3)
+3. [Các phase tiếp theo](#phase-tiep-theo)
+4. [Bảng theo dõi công việc](#theo-doi)
+5. [Quy tắc cập nhật](#cap-nhat)
 
 <a id="phase-2"></a>
 ## Phase 2 – Xác thực quản trị (Admin Authentication)
@@ -96,12 +97,41 @@ Các phương thức, trường và mã phản hồi bên dưới là đề xu�
 
 Chỉ ghi `PASS` khi có kết quả thực tế kèm mốc commit, môi trường và bằng chứng đã che thông tin bí mật.
 
+<a id="phase-3"></a>
+## Phase 3 – Quản lý nội dung Admin (Admin Content Management)
+
+**Trạng thái `PARTIAL – WAITING FOR BACKEND`.** TV1 đã bổ sung giao diện phương pháp, quẻ và lời giải nghĩa, dữ liệu nguồn, nội dung website và xem trước quy trình duyệt. Danh sách/chi tiết quẻ dùng API công khai `GET /api/v1/hexagrams` và `GET /api/v1/hexagrams/{code}` để đối chiếu. Danh mục phương pháp dựa trên các phương pháp đã có trong Client. Form chỉ xem trước trên trang, chưa ghi dữ liệu. Trạng thái nội dung quản trị và phiên bản nguồn phải đến từ Backend.
+
+### A. Công việc TV2 – Backend
+
+| ID | Phạm vi | Endpoint |
+| --- | --- | --- |
+| CONTENT-01 | Danh sách/chi tiết phương pháp, quẻ và giải nghĩa, nguồn, nội dung website. Thống nhất tìm kiếm, lọc, phân trang, trạng thái và phiên bản có thể hiển thị. | TBD – Chờ TV2 thống nhất |
+| CONTENT-02 | Tạo/chỉnh sửa bản nháp và tiếp nhận đề xuất chỉnh sửa nguồn. Tách nội dung biên tập khỏi công thức, dữ liệu nghiệp vụ và quy tắc tính quẻ. | TBD – Chờ TV2 thống nhất |
+| CONTENT-03 | Ẩn/hiện hoặc đổi trạng thái nội dung. Chốt cách xử lý thao tác cạnh tranh và quyền cần thiết. | TBD – Chờ TV2 thống nhất |
+| CONTENT-04 | Gửi duyệt, duyệt và công bố theo các chuyển trạng thái hợp lệ. Chốt cách từ chối/lưu trữ nếu có và nội dung nào được website người dùng đọc. | TBD – Chờ TV2 thống nhất |
+| CONTENT-05 | Bảo vệ mọi API quản trị bằng phiên Admin, quyền phù hợp và CSRF cho thao tác ghi. Thống nhất phản hồi `401`/`403` theo Phase 2. | Áp dụng cho toàn bộ API quản trị |
+| CONTENT-06 | Xác thực dữ liệu ở Server, chốt cấu trúc phản hồi, lỗi theo trường và lỗi xung đột phiên bản/trạng thái. Chốt giới hạn văn bản và quy tắc hiển thị an toàn. | Áp dụng cho toàn bộ API quản trị |
+
+### B. Công việc TV3 – Cơ sở dữ liệu và dữ liệu
+
+1. **CMS-DATA-01 – Lưu nội dung.** Đề xuất định danh và cấu trúc lưu bản nháp, mô tả phương pháp, nội dung giải nghĩa và các khu vực website.
+2. **CMS-DATA-02 – Liên kết dữ liệu nguồn.** Bảo toàn định danh nguồn, xuất xứ, trang tham chiếu và trạng thái đối chiếu. Phân biệt dữ liệu nguồn gốc với đề xuất biên tập.
+3. **CMS-DATA-03 – Phiên bản và lịch sử.** Chốt cách lưu bản sửa, người sửa và thời điểm. Cung cấp dữ liệu phiên bản để TV2 phát hiện cập nhật cạnh tranh, nhất là với dữ liệu nguồn quan trọng.
+4. **CMS-DATA-04 – Trạng thái duyệt.** Chốt cách lưu bản nháp, bản chờ duyệt và bản công bố. Giữ khả năng đọc bản đã công bố trong khi có bản sửa chờ duyệt. Chỉ thêm `REJECTED`/`ARCHIVED` sau khi nhóm xác nhận.
+5. **CMS-DATA-05 – Bảo toàn dữ liệu.** Rà soát tác động của migration nếu có lên dữ liệu nguồn, 64 quẻ, Mai Hoa, Tam Thế và lịch sử H01. Đối chiếu trên cơ sở dữ liệu TEST trước nghiệm thu.
+
+### C. Phối hợp và tiêu chí nghiệm thu
+
+- TV2/TV3 chốt hợp đồng lưu và phiên bản, quan hệ nguồn, quyền duyệt và các chuyển trạng thái `DRAFT → PENDING_REVIEW → PUBLISHED`. TV1 đối chiếu dữ liệu hiển thị, lỗi và trạng thái tải/rỗng trên giao diện trước khi kết nối API.
+- Nghiệm thu trên localhost bằng tài khoản TEST sau khi Auth Phase 2 sẵn sàng. Kiểm tra danh sách/chi tiết, lọc, tạo/sửa và đọc lại từ cơ sở dữ liệu, ẩn/hiện, dữ liệu không hợp lệ, xung đột phiên bản, `401`/`403` và CSRF. Kiểm tra gửi duyệt/công bố và xác nhận website người dùng chỉ đọc nội dung đã công bố.
+- Đối chiếu dữ liệu cũ và chạy regression Client, REST, STOMP, Session/History. Ghi kết quả và mốc commit khi có bằng chứng. Nghiệm thu API quản trị, ghi dữ liệu và duyệt/công bố hiện `BLOCKED`.
+
 <a id="phase-tiep-theo"></a>
 ## Các phase tiếp theo
 
 | Phase | Phạm vi dự kiến | Trạng thái |
 | --- | --- | --- |
-| 3 | Quản lý nội dung Admin | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
 | 4 | Dashboard và quản lý tài khoản | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
 | 5 | Phương pháp bói mới | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
 | 6 | Chat trực tiếp với người tư vấn | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
@@ -131,6 +161,18 @@ Phase 9 là tùy chọn và chưa nằm trong phạm vi cam kết triển khai.
 | PH2-PH-01 | 2 | Chốt thiết kế tài khoản, vai trò và phiên | TV2, TV3 | Cao | `TODO` | Rà soát Backend và dữ liệu hiện có | Ghi quyết định kỹ thuật trước migration |
 | PH2-PH-02 | 2 | Chốt hợp đồng API | TV2, TV1, TV3 | Cao | `TODO` | PH2-PH-01 | Xác nhận endpoint, schema, lỗi và cơ chế bảo mật |
 | PH2-PH-03 | 2 | Tích hợp và nghiệm thu localhost | TV1, TV2, TV3 | Cao | `BLOCKED` | AUTH-01–06, DATA-04–05, PH2-PH-02 | Chờ Backend và dữ liệu TEST |
+| CONTENT-01 | 3 | Đọc danh sách và chi tiết quản trị | TV2 | Cao | `TODO` | CMS-DATA-01, CMS-DATA-02 | API công khai chỉ phục vụ đối chiếu quẻ |
+| CONTENT-02 | 3 | Tạo và sửa bản nháp | TV2 | Cao | `TODO` | CMS-DATA-01–03, CONTENT-05 | Có kiểm tra phiên bản nguồn |
+| CONTENT-03 | 3 | Ẩn/hiện và đổi trạng thái | TV2 | Cao | `TODO` | CMS-DATA-04, CONTENT-05 | Chốt quyền và chuyển trạng thái |
+| CONTENT-04 | 3 | Duyệt và công bố | TV2 | Cao | `TODO` | CMS-DATA-03–04, CONTENT-05 | Chỉ bản đã công bố ra website |
+| CONTENT-05 | 3 | Xác thực, phân quyền và CSRF | TV2 | Cao | `BLOCKED` | AUTH-01–06 | Chờ Auth Phase 2 |
+| CONTENT-06 | 3 | Kiểm tra dữ liệu và chuẩn hóa phản hồi | TV2 | Cao | `TODO` | CMS-DATA-01–04 | Chốt schema và mã lỗi với TV1 |
+| CMS-DATA-01 | 3 | Thiết kế lưu nội dung | TV3 | Cao | `TODO` | Chốt phạm vi với TV2 | Tách bản công bố và bản nháp |
+| CMS-DATA-02 | 3 | Liên kết dữ liệu nguồn | TV3 | Cao | `TODO` | CMS-DATA-01 | Bảo toàn xuất xứ và đối chiếu |
+| CMS-DATA-03 | 3 | Phiên bản và lịch sử chỉnh sửa | TV3 | Cao | `TODO` | CMS-DATA-01 | Phục vụ kiểm tra xung đột |
+| CMS-DATA-04 | 3 | Trạng thái duyệt nội dung | TV3 | Cao | `TODO` | CMS-DATA-01 | Thống nhất chuyển trạng thái với TV2 |
+| CMS-DATA-05 | 3 | Bảo toàn dữ liệu cũ | TV3 | Cao | `TODO` | CMS-DATA-01–04 | Kiểm chứng trên cơ sở dữ liệu TEST |
+| PH3-PH-01 | 3 | Tích hợp và nghiệm thu nội dung trên localhost | TV1, TV2, TV3 | Cao | `BLOCKED` | CONTENT-01–06, CMS-DATA-01–05 | Ghi bằng chứng API, quyền, lưu và công bố |
 
 <a id="cap-nhat"></a>
 ## Quy tắc cập nhật

@@ -43,14 +43,15 @@ describe("Admin foundation while authentication is unavailable", () => {
     expect(screen.getByRole("heading", { name: "Đăng nhập quản trị" })).toBeTruthy();
   });
 
-  it("exposes the overview and login only, with future modules marked as unavailable", () => {
+  it("exposes the content workspace links while keeping later modules unavailable", () => {
     render(<AdminWorkspaceLayout><AdminDashboardPage /></AdminWorkspaceLayout>);
     const sidebar = screen.getByRole("navigation", { name: "Điều hướng quản trị" });
     const overview = within(sidebar).getByRole("link", { name: "Tổng quan" });
     expect(overview.getAttribute("href")).toBe("/admin");
     expect(overview.getAttribute("aria-current")).toBe("page");
-    expect(within(sidebar).getAllByRole("link")).toHaveLength(1);
-    expect(within(sidebar).getAllByText("Chưa triển khai")).toHaveLength(7);
+    expect(within(sidebar).getAllByRole("link")).toHaveLength(5);
+    expect(within(sidebar).getByRole("link", { name: "Quản lý nội dung website" }).getAttribute("href")).toBe("/admin/website");
+    expect(within(sidebar).getAllByText("Chưa triển khai")).toHaveLength(4);
     expect(screen.getByRole("link", { name: "Đăng nhập" }).getAttribute("href")).toBe("/admin/login");
     expect((screen.getByRole("button", { name: "Đăng xuất" }) as HTMLButtonElement).disabled).toBe(true);
     expect(screen.getByRole("region", { name: "Phiên quản trị" }).textContent).toContain("Đang chờ Backend");

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { AdminBrand } from "@/components/admin/AdminBrand";
-import { adminModules } from "@/components/admin/adminModules";
+import { AdminNavigation } from "@/components/admin/AdminNavigation";
 import styles from "@/components/admin/admin.module.css";
 
 export default function AdminWorkspaceLayout({ children }: { children: ReactNode }) {
@@ -17,15 +17,7 @@ export default function AdminWorkspaceLayout({ children }: { children: ReactNode
     </header>
     <div className={styles.workspace}>
       <aside className={styles.sidebar}>
-        <nav aria-label="Điều hướng quản trị">
-          <p className="eyebrow">KHU VỰC QUẢN TRỊ</p>
-          <Link href="/admin" className={styles.current} aria-current="page">Tổng quan</Link>
-          <ul className={styles.moduleMenu}>
-            {adminModules.map(module => <li key={module.id}>
-              <span>{module.title}</span><small>Chưa triển khai</small>
-            </li>)}
-          </ul>
-        </nav>
+        <AdminNavigation />
         <Link href="/" className={styles.textLink}>← Về website người dùng</Link>
       </aside>
       <main id="admin-content" tabIndex={-1} className={styles.content}>{children}</main>

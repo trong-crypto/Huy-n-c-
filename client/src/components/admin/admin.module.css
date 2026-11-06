@@ -132,15 +132,21 @@
   background: var(--bg-secondary);
 }
 
-.current {
+.overview, .moduleMenu a {
   display: block;
-  margin-top: 16px;
-  padding: 12px;
-  border: 1px solid var(--border);
+  padding: 9px 12px;
+  border: 1px solid transparent;
   border-radius: 8px;
-  background: var(--soft);
   color: var(--primary-hover);
   text-decoration: none;
+}
+
+.overview { margin-top: 16px; }
+
+.overview:hover, .moduleMenu a:hover,
+.overview[aria-current="page"], .moduleMenu a[aria-current="page"] {
+  border-color: var(--border);
+  background: var(--soft);
 }
 
 .moduleMenu, .cards {
@@ -165,6 +171,8 @@
   color: var(--muted);
   font-size: 12px;
 }
+
+.moduleMenu li:has(a) { padding: 2px 0; }
 
 .content {
   width: 100%;
@@ -225,6 +233,8 @@
   font-size: 14px;
 }
 
+.card a { display: inline-block; margin-top: 12px; font-size: 14px; }
+
 .badge {
   display: inline-block;
   padding: 5px 9px;
@@ -234,3 +244,69 @@
   color: var(--primary-hover);
   font-size: 12px;
 }
+
+.contentStack { display: grid; gap: 18px; align-content: start; min-width: 0; }
+.contentStack > .dashboardIntro { margin-bottom: 0; }
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(0, 1.55fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.contentPanel {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-gradient);
+  overflow-wrap: anywhere;
+}
+
+.contentPanel h2 { margin: 0 0 12px; color: var(--primary-hover); font: 26px var(--font-heading); }
+.contentPanel h3 { color: var(--primary-hover); font-size: 16px; }
+
+.recordList {
+  display: grid;
+  gap: 6px;
+  max-height: 360px;
+  margin: 12px 0;
+  padding: 4px;
+  overflow: auto;
+  list-style: none;
+}
+
+.recordList button {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.recordList button:hover, .recordList button[aria-pressed="true"] { border-color: var(--primary); color: var(--primary-hover); }
+.recordList small { color: var(--secondary); }
+.contentActions, .workflow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.contentActions button { width: auto; }
+.contentActions button:disabled { opacity: .55; cursor: not-allowed; }
+.workflow { padding-left: 0; list-style: none; }
+.workflow dd { margin: 4px 0 0; color: var(--secondary); }
+.reviewDetails summary { color: var(--primary-hover); cursor: pointer; }
+
+.preview {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--soft);
+}
+
+.preview h3 { margin-top: 0; }
+.preview p { white-space: pre-wrap; }

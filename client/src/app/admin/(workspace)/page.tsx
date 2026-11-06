@@ -20,9 +20,10 @@ export default function AdminDashboardPage() {
       <h2 id="admin-modules-title" className={styles.modulesTitle}>Các module quản trị</h2>
       <ul className={styles.cards}>
         {adminModules.map(module => <li key={module.id} className={styles.card}>
-          <span className={styles.badge}>Chưa triển khai</span>
+          <span className={styles.badge}>{"href" in module ? "Giao diện · chờ Backend" : "Chưa triển khai"}</span>
           <h3>{module.title}</h3>
           <p>{module.description}</p>
+          {"href" in module && <Link className={styles.textLink} href={module.href}>Mở {module.title.toLowerCase()}</Link>}
         </li>)}
       </ul>
     </section>
