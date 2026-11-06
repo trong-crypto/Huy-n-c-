@@ -1,0 +1,142 @@
+# Huyền Cơ – Bàn giao tập trung từ TV1 đến TV2 và TV3
+
+- **Kho mã** `trong-crypto/Huy-n-c-` · **Nhánh làm việc** `bmanh812`.
+- **Phạm vi** Từ Phase 2 đến Phase 8 của đợt nâng cấp. Nghiệm thu trên trình duyệt máy tính và môi trường localhost.
+- **Đầu mối** TV1 phụ trách Client và tích hợp. TV2 phụ trách Backend. TV3 phụ trách cơ sở dữ liệu và dữ liệu.
+
+## Mục lục
+
+1. [Phase 2 – Xác thực quản trị](#phase-2)
+   - [Hiện trạng và căn cứ](#hien-trang)
+   - [Công việc TV2](#cong-viec-tv2)
+   - [Công việc TV3](#cong-viec-tv3)
+   - [Công việc phối hợp](#phoi-hop)
+   - [Hợp đồng API cần thống nhất](#hop-dong-api)
+   - [Tiêu chí nghiệm thu](#nghiem-thu)
+2. [Các phase tiếp theo](#phase-tiep-theo)
+3. [Bảng theo dõi công việc](#theo-doi)
+4. [Quy tắc cập nhật](#cap-nhat)
+
+<a id="phase-2"></a>
+## Phase 2 – Xác thực quản trị (Admin Authentication)
+
+**Trạng thái `PARTIAL – WAITING FOR BACKEND`.**
+
+<a id="hien-trang"></a>
+### Hiện trạng và căn cứ
+
+- **TV1 đã hoàn thiện** trang `/admin/login`, kiểm tra biểu mẫu, bố cục Admin, thanh bên, đầu trang, bảng điều khiển cơ bản tại `/admin` và các bài kiểm thử giao diện. Mốc bàn giao frontend là `13cc086`.
+- **Đang chờ tích hợp** đăng nhập với Backend thật, kiểm tra quyền `ADMIN`, đăng xuất, xử lý hết phiên và nghiệm thu xác thực/phân quyền. Các bài kiểm thử giao diện hiện có chỉ xác nhận hành vi phía Client.
+- **Backend trên nhánh `bmanh812` tại `13cc086`** có `POST /api/v1/session` trong `HistoryController` và các API lịch sử H01. `SessionService` xác minh cookie `huyenco_session` và quyền sở hữu lịch sử. Cookie do Server cấp với `HttpOnly` và `SameSite=Lax`. Phản hồi bootstrap phiên có `expiresAt` và `csrfToken`. H01 dùng `401` cho phiên không hợp lệ và `403` cho kiểm tra CSRF/Origin thất bại. Phiên này đại diện cho chủ sở hữu ẩn danh, chưa gắn với tài khoản hoặc vai trò `ADMIN`.
+- **Đối chiếu tài liệu với mã** cho thấy tình trạng chờ Admin Auth trong tài liệu cũ phù hợp với bản mã đã đọc. Chưa thấy API đăng nhập, đọc phiên quản trị, đăng xuất hay kiểm tra vai trò `ADMIN` trong Backend tại mốc này. Migration V11 tạo `anonymous_sessions` và `interpretation_history`. Các migration đến V12 chưa có bảng tài khoản hoặc vai trò Admin. Nếu TV2/TV3 đã làm trên nhánh khác, cần xác nhận bằng nhánh, commit và hợp đồng tương ứng.
+
+[Bàn giao Admin Auth gốc](TV1-PHASE2-ADMIN-AUTH-HANDOFF.md) · [Hợp đồng API hiện tại](02-API-CONTRACT.md) · [Hợp đồng H01](34-H01-SESSION-HISTORY-HANDOFF.md) · [HistoryController](../server/src/main/java/com/huyenco/history/HistoryController.java) · [Migration V11](../server/src/main/resources/db/migration/V11__anonymous_sessions_and_history.sql)
+
+<a id="cong-viec-tv2"></a>
+### A. Công việc TV2 – Backend
+
+1. **AUTH-01 – Đăng nhập quản trị.** Kiểm tra tài khoản, mật khẩu và quyền tại Server. Khi hợp lệ, cấp phiên quản trị an toàn và trả dữ liệu tối thiểu theo hợp đồng. Với thông tin sai, trả lỗi chung để tránh tiết lộ tài khoản nào tồn tại. Loại thông tin bí mật khỏi phản hồi và log.
+2. **AUTH-02 – Đọc phiên quản trị hiện tại.** Xác minh cookie và trạng thái phiên. Trả tên hiển thị, vai trò, thời hạn và dữ liệu CSRF nếu hợp đồng yêu cầu. Xử lý phiên thiếu, hết hạn hoặc đã thu hồi.
+3. **AUTH-03 – Đăng xuất.** Thu hồi phiên phía Server, làm hết hạn cookie quản trị và kiểm tra CSRF theo hợp đồng. Phiên cũ phải bị từ chối khi dùng lại.
+4. **AUTH-04 – Phân quyền quản trị.** Phân biệt `ADMIN`, `USER` và các vai trò được nhóm thống nhất. Kiểm tra quyền trên từng API quản trị và từ chối yêu cầu thiếu quyền. Client dùng thông tin vai trò để hiển thị giao diện. Quyết định cấp quyền thuộc Backend.
+5. **AUTH-05 – Cookie, phiên và CSRF.** Thống nhất cookie riêng cho Admin, thời hạn, thuộc tính và phạm vi cookie, cách kiểm tra Origin khi đăng nhập, cách cấp/gửi CSRF và cách bảo vệ thao tác ghi. Kiểm tra tương thích với Next.js trên localhost và phiên lịch sử H01.
+6. **AUTH-06 – Phản hồi lỗi.** Chốt cấu trúc JSON, mã lỗi ổn định và thông báo an toàn. Phân biệt dữ liệu sai (`400`), thông tin đăng nhập/phiên không hợp lệ (`401`), thiếu quyền hoặc lỗi Origin/CSRF (`403`) và lỗi nội bộ (`500`) khi phù hợp.
+
+<a id="cong-viec-tv3"></a>
+### B. Công việc TV3 – Cơ sở dữ liệu và dữ liệu
+
+1. **DATA-01 – Dữ liệu tài khoản.** Rà soát cấu trúc hiện có, đề xuất bảng/trường và ràng buộc cần thiết. Chốt với TV2 quan hệ tài khoản–phiên và dữ liệu cần lưu cho hết hạn hoặc thu hồi nếu thiết kế dùng phiên lưu trong cơ sở dữ liệu.
+2. **DATA-02 – Vai trò người dùng.** Đề xuất cách lưu vai trò/quyền, tối thiểu phân biệt `ADMIN` và `USER`. Tính đến khả năng thêm `CONSULTANT` khi phase tương ứng xác nhận nhu cầu.
+3. **DATA-03 – Bảo mật dữ liệu tài khoản.** Thống nhất với TV2 cách băm mật khẩu phù hợp và cấu trúc lưu giá trị băm. Chỉ lưu giá trị băm theo thiết kế đã duyệt. Cấp thông tin bí mật qua kênh riêng, tách khỏi mã nguồn và tài liệu.
+4. **DATA-04 – Tài khoản kiểm thử.** Chuẩn bị tài khoản `ADMIN` và `USER` cho môi trường TEST trên localhost, cùng hướng dẫn thiết lập an toàn. Cung cấp thông tin đăng nhập qua kênh riêng của nhóm.
+5. **DATA-05 – Tương thích dữ liệu cũ.** Xác định migration cần thiết nếu có, kiểm tra bảo toàn lịch sử và quyền sở hữu H01. Xác nhận Mai Hoa, Tam Thế và Lịch sử tiếp tục hoạt động trên cơ sở dữ liệu TEST sau thay đổi.
+
+<a id="phoi-hop"></a>
+### Công việc phối hợp
+
+- **PH2-PH-01 – Thiết kế tài khoản, vai trò và phiên.** TV2 và TV3 thống nhất nơi lưu tài khoản, vai trò, cách lưu/thu hồi phiên và cách tách dữ liệu Admin khỏi phiên H01 trước khi chốt migration.
+- **PH2-PH-02 – Chốt hợp đồng tích hợp.** TV2 và TV1 thống nhất các API trong bảng dưới. TV3 xác nhận dữ liệu tài khoản, vai trò và tài khoản TEST có thể đáp ứng hợp đồng.
+- **PH2-PH-03 – Nghiệm thu trên localhost.** TV2 cung cấp Backend TEST và hợp đồng. TV3 chuẩn bị dữ liệu/tài khoản và bằng chứng bảo toàn lịch sử. TV1 tích hợp và chạy các ca trên trình duyệt. Cả nhóm ghi kết quả tại mục nghiệm thu.
+
+<a id="hop-dong-api"></a>
+### C. Hợp đồng API cần thống nhất
+
+Các phương thức, trường và mã phản hồi bên dưới là đề xuất để TV2 và TV1 chốt. Các endpoint quản trị chưa được xác nhận.
+
+| ID | Chức năng | HTTP Method | Endpoint | Request | Response | Auth/CSRF | Người phụ trách | Trạng thái |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| AUTH-01 | Đăng nhập Admin | `POST` đề xuất | TBD – Chờ TV2 thống nhất | JSON `username`, `password` | `200` đề xuất, cấp cookie Admin và trả dữ liệu phiên. `400`/`401`/`403` khi phù hợp. | Chốt kiểm tra Origin và cơ chế chống CSRF khi đăng nhập. | TV2, TV1 đối chiếu | `TODO` |
+| AUTH-02 | Đọc phiên Admin hiện tại | `GET` đề xuất | TBD – Chờ TV2 thống nhất | Cookie Admin, không có body | `200` đề xuất, trả dữ liệu phiên. `401` khi thiếu/hết phiên và `403` khi thiếu quyền. | Cookie Admin. Chốt cách cấp hoặc làm mới thông tin CSRF nếu có. | TV2, TV1 đối chiếu | `TODO` |
+| AUTH-03 | Đăng xuất Admin | `POST` đề xuất | TBD – Chờ TV2 thống nhất | Cookie Admin và thông tin CSRF theo hợp đồng | `204` đề xuất, thu hồi phiên và làm hết hạn cookie. Chốt hành vi nếu phiên đã hết hạn. | Cookie Admin, Origin/CSRF theo hợp đồng. | TV2, TV1 đối chiếu | `TODO` |
+| AUTH-04 | Kiểm tra quyền Admin | Theo từng API | TBD – Chờ TV2 thống nhất | Cookie Admin và dữ liệu theo thao tác | Phản hồi theo từng API. `401` khi phiên không hợp lệ, `403` khi phiên hợp lệ nhưng thiếu quyền hoặc lỗi CSRF. | Backend bắt buộc xác minh phiên và vai trò `ADMIN`. Áp dụng CSRF cho thao tác ghi. | TV2 | `TODO` |
+
+`AUTH-04` là quy tắc bảo vệ các API quản trị. Việc cung cấp endpoint kiểm tra quyền riêng chỉ được quyết định khi nhóm chốt hợp đồng.
+
+**Dữ liệu Client cần và các điểm cần xác nhận**
+
+- Dữ liệu phiên tối thiểu gồm tên hiển thị (`displayName`), vai trò (`role`), thời hạn (`expiresAt`) và thông tin CSRF (`csrfToken`) nếu thiết kế yêu cầu Client gửi token. Chốt tên, kiểu, định dạng thời gian và cấu trúc JSON. Chốt có dùng cấu trúc phản hồi `{requestId,status,data,error}` của REST hiện tại cho Admin hay không.
+- Chốt tên cookie Admin, `HttpOnly`, `SameSite`, `Path`, `Secure`, vòng đời phiên và việc làm hết hạn cookie khi đăng xuất. Chốt quy tắc Origin, proxy cùng nguồn của Next.js và cấu hình localhost. Admin Auth cần phân biệt cookie quản trị với `huyenco_session` và giữ nguyên quyền sở hữu H01.
+- Chốt nguồn cấp CSRF, tên header, vòng đời token và cách Client xử lý token thiếu/sai. Chốt mã lỗi máy đọc được để Client phân biệt thiếu quyền với lỗi CSRF trong nhóm `403`.
+- Với `400`, Client hiển thị lỗi đầu vào phù hợp. Với `401` khi đăng nhập, hiển thị thông báo chung. Với `401` trên trang quản trị đang dùng, xóa trạng thái phiên Admin trong Client và yêu cầu đăng nhập lại. Với `403`, hiển thị thiếu quyền hoặc lỗi CSRF theo mã lỗi đã chốt. Với `500`, hiển thị lỗi chung và chỉ dùng mã yêu cầu để đối chiếu log nếu Server cung cấp.
+
+<a id="nghiem-thu"></a>
+### D. Tiêu chí nghiệm thu Phase 2
+
+| Ca | Kiểm tra với Backend và dữ liệu TEST thật | Kết quả cần đạt | Trạng thái |
+| --- | --- | --- | --- |
+| NT-01 | Đăng nhập tài khoản `ADMIN`, tải lại trang và mở trực tiếp trang quản trị | Phiên được cấp, API đọc phiên xác nhận vai trò, UI hiển thị đúng | Chưa chạy |
+| NT-02 | Nhập sai mật khẩu | Bị từ chối theo hợp đồng, thông báo chung, không cấp phiên Admin | Chưa chạy |
+| NT-03 | Gọi trực tiếp API quản trị khi chưa đăng nhập | Backend trả `401`, kể cả khi bỏ qua UI | Chưa chạy |
+| NT-04 | Dùng phiên `USER` hợp lệ gọi API quản trị | Backend trả `403`, dữ liệu quản trị được bảo vệ | Chưa chạy |
+| NT-05 | Đăng xuất rồi dùng lại phiên cũ | Cookie Admin hết hạn, Server từ chối phiên cũ | Chưa chạy |
+| NT-06 | Đọc phiên/gọi API khi phiên hết hạn | Backend trả `401`, Client yêu cầu đăng nhập lại | Chưa chạy |
+| NT-07 | Gửi thao tác ghi thiếu hoặc sai CSRF và thử Origin bị từ chối | Backend từ chối theo hợp đồng và thao tác không ghi dữ liệu | Chưa chạy |
+| NT-08 | Chuyển qua lại giữa Admin và website người dùng | REST, STOMP Mai Hoa/Tam Thế và phiên H01 tiếp tục hoạt động đúng | Chưa chạy |
+| NT-09 | Đối chiếu lịch sử TEST trước và sau tích hợp/migration nếu có | Bản ghi cũ còn đọc được đúng chủ sở hữu, dữ liệu không bị mất | Chưa chạy |
+
+Chỉ ghi `PASS` khi có kết quả thực tế kèm mốc commit, môi trường và bằng chứng đã che thông tin bí mật.
+
+<a id="phase-tiep-theo"></a>
+## Các phase tiếp theo
+
+| Phase | Phạm vi dự kiến | Trạng thái |
+| --- | --- | --- |
+| 3 | Quản lý nội dung Admin | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
+| 4 | Dashboard và quản lý tài khoản | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
+| 5 | Phương pháp bói mới | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
+| 6 | Chat trực tiếp với người tư vấn | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
+| 7 | Tích hợp hệ thống trên localhost | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
+| 8 | Kiểm thử và bàn giao | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
+
+Phase 9 là tùy chọn và chưa nằm trong phạm vi cam kết triển khai.
+
+<a id="theo-doi"></a>
+## Bảng theo dõi công việc
+
+`TODO` — chưa thực hiện · `IN PROGRESS` — đang thực hiện · `BLOCKED` — đang bị chặn · `READY FOR TV1` — Backend/dữ liệu đã sẵn sàng để TV1 tích hợp · `TESTING` — đang nghiệm thu · `DONE` — đã hoàn thành và kiểm chứng.
+
+| ID | Phase | Công việc | Người phụ trách | Mức ưu tiên | Trạng thái | Phụ thuộc | Ghi chú |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| AUTH-01 | 2 | Đăng nhập quản trị | TV2 | Cao | `TODO` | DATA-01, DATA-02, DATA-03, AUTH-05 | Chốt định danh đăng nhập và dữ liệu phiên |
+| AUTH-02 | 2 | Đọc phiên quản trị | TV2 | Cao | `TODO` | AUTH-05, DATA-02 | Chốt thời hạn và hành vi khi hết phiên |
+| AUTH-03 | 2 | Đăng xuất quản trị | TV2 | Cao | `TODO` | AUTH-05 | Thu hồi phiên và hết hạn cookie |
+| AUTH-04 | 2 | Phân quyền quản trị | TV2 | Cao | `TODO` | AUTH-02, DATA-02 | Kiểm tra quyền tại Backend |
+| AUTH-05 | 2 | Cookie, phiên, Origin và CSRF | TV2 | Cao | `TODO` | PH2-PH-01 | Tách Admin và H01 |
+| AUTH-06 | 2 | Cấu trúc và mã lỗi | TV2 | Cao | `TODO` | PH2-PH-02 | Phân biệt lỗi phiên, quyền và CSRF |
+| DATA-01 | 2 | Thiết kế dữ liệu tài khoản | TV3 | Cao | `TODO` | PH2-PH-01 | Xác định ràng buộc và quan hệ tài khoản–phiên |
+| DATA-02 | 2 | Lưu vai trò người dùng | TV3 | Cao | `TODO` | PH2-PH-01 | Tối thiểu `ADMIN` và `USER` |
+| DATA-03 | 2 | Bảo mật dữ liệu tài khoản | TV3 | Cao | `TODO` | PH2-PH-01 | Thống nhất băm mật khẩu với TV2 |
+| DATA-04 | 2 | Tài khoản TEST | TV3 | Cao | `TODO` | DATA-01, DATA-02, DATA-03 | Cấp thông tin thử nghiệm qua kênh riêng |
+| DATA-05 | 2 | Tương thích dữ liệu cũ | TV3 | Cao | `TODO` | PH2-PH-01 | Xác định migration và đối chiếu lịch sử |
+| PH2-PH-01 | 2 | Chốt thiết kế tài khoản, vai trò và phiên | TV2, TV3 | Cao | `TODO` | Rà soát Backend và dữ liệu hiện có | Ghi quyết định kỹ thuật trước migration |
+| PH2-PH-02 | 2 | Chốt hợp đồng API | TV2, TV1, TV3 | Cao | `TODO` | PH2-PH-01 | Xác nhận endpoint, schema, lỗi và cơ chế bảo mật |
+| PH2-PH-03 | 2 | Tích hợp và nghiệm thu localhost | TV1, TV2, TV3 | Cao | `BLOCKED` | AUTH-01–06, DATA-04–05, PH2-PH-02 | Chờ Backend và dữ liệu TEST |
+
+<a id="cap-nhat"></a>
+## Quy tắc cập nhật
+
+1. Đọc file này trước khi ghi yêu cầu mới. Chỉ thêm việc TV1 thực sự cần TV2 hoặc TV3 hỗ trợ và đưa vào đúng phase.
+2. Dùng mã công việc ổn định. Tìm và cập nhật dòng hiện có trước khi thêm mới. Giữ các việc chưa hoàn thành và tránh tạo thêm tài liệu bàn giao song song.
+3. Chỉ đổi trạng thái khi có bằng chứng và xác nhận của người phụ trách. Khi ghi `READY FOR TV1`, kèm mốc commit và hướng dẫn tích hợp. Khi ghi `DONE`, kèm kết quả nghiệm thu hoặc đường dẫn bằng chứng.
+4. Giữ lịch sử quyết định theo mốc commit hoặc ngày xác nhận, người xác nhận, nội dung đã chốt và tác động đến Client/Backend/dữ liệu. Đánh dấu rõ đề xuất đang chờ duyệt.
+5. Giữ tài liệu bàn giao Admin Auth gốc làm căn cứ. Ghi các yêu cầu mới và trạng thái hiện hành tại file tập trung này.
