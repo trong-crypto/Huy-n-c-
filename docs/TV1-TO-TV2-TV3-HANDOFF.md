@@ -14,9 +14,10 @@
    - [Hợp đồng API cần thống nhất](#hop-dong-api)
    - [Tiêu chí nghiệm thu](#nghiem-thu)
 2. [Phase 3 – Quản lý nội dung Admin](#phase-3)
-3. [Các phase tiếp theo](#phase-tiep-theo)
-4. [Bảng theo dõi công việc](#theo-doi)
-5. [Quy tắc cập nhật](#cap-nhat)
+3. [Phase 4 – Dashboard và quản lý tài khoản](#phase-4)
+4. [Các phase tiếp theo](#phase-tiep-theo)
+5. [Bảng theo dõi công việc](#theo-doi)
+6. [Quy tắc cập nhật](#cap-nhat)
 
 <a id="phase-2"></a>
 ## Phase 2 – Xác thực quản trị (Admin Authentication)
@@ -127,12 +128,35 @@ Chỉ ghi `PASS` khi có kết quả thực tế kèm mốc commit, môi trườ
 - Nghiệm thu trên localhost bằng tài khoản TEST sau khi Auth Phase 2 sẵn sàng. Kiểm tra danh sách/chi tiết, lọc, tạo/sửa và đọc lại từ cơ sở dữ liệu, ẩn/hiện, dữ liệu không hợp lệ, xung đột phiên bản, `401`/`403` và CSRF. Kiểm tra gửi duyệt/công bố và xác nhận website người dùng chỉ đọc nội dung đã công bố.
 - Đối chiếu dữ liệu cũ và chạy regression Client, REST, STOMP, Session/History. Ghi kết quả và mốc commit khi có bằng chứng. Nghiệm thu API quản trị, ghi dữ liệu và duyệt/công bố hiện `BLOCKED`.
 
+<a id="phase-4"></a>
+## Phase 4 – Dashboard và quản lý tài khoản
+
+**Trạng thái `PARTIAL – BACKEND PENDING`.** TV1 đã bổ sung giao diện thống kê, tài khoản, tư vấn viên và nhật ký. Backend ở mốc `5f57d0f` có health/readiness công khai và phiên H01 dành cho lịch sử ẩn danh. Cần API quản trị có phân quyền để đọc số liệu hoặc dữ liệu tài khoản. Giao diện hiện ở trạng thái chờ, các bản xem trước trong kiểm thử chỉ minh họa cách hiển thị. Tên trường và vai trò dùng trong giao diện chưa phải hợp đồng truyền dữ liệu.
+
+### API TV2 cần cung cấp hoặc thống nhất
+
+| ID | Phạm vi hợp đồng | Endpoint |
+| --- | --- | --- |
+| ADM-01 | Tổng số người dùng, lượt tính, phân nhóm theo phương pháp, nội dung chờ duyệt, số tư vấn viên và trạng thái dịch vụ nếu hỗ trợ. Chốt cửa sổ thống kê, cách đếm, múi giờ và phân biệt số 0 với dữ liệu chưa có. | TBD – Chờ TV2 thống nhất |
+| ADM-02 | Danh sách và chi tiết tài khoản với định danh, tên hiển thị, vai trò, trạng thái và quyền được phép xem. Chốt các trường tối thiểu và phạm vi dữ liệu theo quyền. | TBD – Chờ TV2 thống nhất |
+| ADM-03 | Tìm kiếm, lọc vai trò/trạng thái và phân trang ổn định cho danh sách. Chốt điều kiện tìm, cách sắp xếp, kích thước trang và metadata. | TBD – Chờ TV2 thống nhất |
+| ADM-04 | Thay đổi trạng thái tài khoản, khóa/mở khóa nếu được cấp quyền. Chốt hiệu lực với phiên đang hoạt động và phản hồi sau khi cập nhật. | TBD – Chờ TV2 thống nhất |
+| ADM-05 | Đọc và thay đổi vai trò `USER`, `ADMIN`, `CONSULTANT` nếu thống nhất. Server quyết định quyền, quy tắc tự đổi vai trò và bảo vệ tài khoản quản trị cuối cùng. | TBD – Chờ TV2 thống nhất |
+| ADM-06 | Danh sách, chi tiết và duyệt/từ chối hồ sơ tư vấn viên. Tách trạng thái tài khoản khỏi trạng thái duyệt. Chốt lý do từ chối, tìm kiếm, lọc và phân trang nếu hỗ trợ. | TBD – Chờ TV2 thống nhất |
+| ADM-07 | Đọc nhật ký quản trị nếu nhóm thống nhất phạm vi, với thời gian, thao tác, đối tượng và kết quả. Chốt lọc/phân trang, chính sách đọc và dữ liệu cần che. | TBD – Chờ TV2 thống nhất |
+| ADM-08 | Bảo vệ toàn bộ API bằng phiên quản trị và quyền theo thao tác. Chốt lỗi `401`/ `403`, CSRF khi ghi, validation và xử lý xung đột cập nhật. | Áp dụng cho mọi API quản trị |
+
+### TV3 và phối hợp nghiệm thu
+
+TV3 rà soát dữ liệu tài khoản theo Phase 2, cách tổng hợp lượt tính, dữ liệu vai trò và trạng thái, hồ sơ tư vấn viên, lưu nhật ký và dữ liệu TEST. TV2/TV3 thống nhất cách ghi thời gian, định danh và trường được phép hiển thị. TV1 chỉ kết nối khi hợp đồng, Auth và dữ liệu TEST sẵn sàng.
+
+Nghiệm thu trên localhost bằng tài khoản TEST. Đối chiếu số liệu với dữ liệu gốc, kiểm tra tìm kiếm/lọc/phân trang, chi tiết và trạng thái sau khi tải lại, duyệt/từ chối tư vấn viên, và nhật ký nếu có. Kiểm tra người thiếu quyền bị từ chối và thao tác ghi cần CSRF. Đối chiếu các luồng H01, Mai Hoa, Tam Thế và Admin Phase 3. Dữ liệu TEST dùng tài khoản tổng hợp, tránh đưa thông tin nhạy cảm vào fixture.
+
 <a id="phase-tiep-theo"></a>
 ## Các phase tiếp theo
 
 | Phase | Phạm vi dự kiến | Trạng thái |
 | --- | --- | --- |
-| 4 | Dashboard và quản lý tài khoản | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
 | 5 | Phương pháp bói mới | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
 | 6 | Chat trực tiếp với người tư vấn | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
 | 7 | Tích hợp hệ thống trên localhost | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
@@ -173,6 +197,26 @@ Phase 9 là tùy chọn và chưa nằm trong phạm vi cam kết triển khai.
 | CMS-DATA-04 | 3 | Trạng thái duyệt nội dung | TV3 | Cao | `TODO` | CMS-DATA-01 | Thống nhất chuyển trạng thái với TV2 |
 | CMS-DATA-05 | 3 | Bảo toàn dữ liệu cũ | TV3 | Cao | `TODO` | CMS-DATA-01–04 | Kiểm chứng trên cơ sở dữ liệu TEST |
 | PH3-PH-01 | 3 | Tích hợp và nghiệm thu nội dung trên localhost | TV1, TV2, TV3 | Cao | `BLOCKED` | CONTENT-01–06, CMS-DATA-01–05 | Ghi bằng chứng API, quyền, lưu và công bố |
+
+### Theo dõi Phase 4
+
+| ID | Công việc | Người phụ trách | Ưu tiên | Trạng thái | Phụ thuộc | Tiêu chí nghiệm thu |
+| --- | --- | --- | --- | --- | --- | --- |
+| ADM-01 | Thống kê dashboard | TV2 | Cao | `TODO` | ADM-DATA-02, ADM-08 | Tổng, phân nhóm và trạng thái được đối chiếu với dữ liệu thật trong phạm vi đã chốt |
+| ADM-02 | Danh sách và chi tiết tài khoản | TV2 | Cao | `TODO` | ADM-DATA-01, ADM-08 | Vai trò và trạng thái đúng. Chỉ trả trường được phép xem |
+| ADM-03 | Tìm kiếm, lọc và phân trang | TV2 | Cao | `TODO` | ADM-02 | Kết quả đúng, không lặp hoặc bỏ sót bản ghi giữa các trang với tập dữ liệu cố định |
+| ADM-04 | Quản lý trạng thái tài khoản | TV2 | Cao | `TODO` | ADM-DATA-03, ADM-08 | Khóa/mở khóa có hiệu lực, đọc lại đúng và bị từ chối khi thiếu quyền |
+| ADM-05 | Quản lý vai trò | TV2 | Cao | `TODO` | ADM-DATA-03, ADM-08 | Role đúng khi đọc lại. Từ chối nâng quyền trái phép |
+| ADM-06 | Quản lý tư vấn viên | TV2 | Cao | `TODO` | ADM-DATA-04, ADM-08 | Danh sách/chi tiết và duyệt/từ chối hoạt động, lý do hiển thị nếu hợp đồng hỗ trợ |
+| ADM-07 | API nhật ký quản trị | TV2 | Trung bình | `TODO` | ADM-DATA-05, ADM-08 | Nếu được duyệt phạm vi, truy xuất đúng thao tác và chỉ hiển thị trường được phép |
+| ADM-08 | Xác thực, phân quyền và CSRF | TV2 | Cao | `BLOCKED` | AUTH-01–06 | Phân biệt 401/403, chặn ghi khi thiếu quyền hoặc CSRF không hợp lệ |
+| ADM-DATA-01 | Dữ liệu và cấu trúc tài khoản | TV3 | Cao | `TODO` | DATA-01 | Đọc đúng tài khoản TEST mà vẫn bảo toàn phiên H01 |
+| ADM-DATA-02 | Dữ liệu thống kê người dùng và lượt tính | TV3 | Cao | `TODO` | Chốt định nghĩa lượt tính với TV2 | Có bộ dữ liệu đối chiếu tổng, phân nhóm, số 0 và trường hợp thiếu dữ liệu |
+| ADM-DATA-03 | Dữ liệu role và trạng thái | TV3 | Cao | `TODO` | DATA-02, ADM-DATA-01 | Ràng buộc vai trò và trạng thái đã chốt, từ chối dữ liệu không hợp lệ |
+| ADM-DATA-04 | Hồ sơ tư vấn viên | TV3 | Cao | `TODO` | ADM-DATA-01, ADM-DATA-03 | Hồ sơ liên kết tài khoản, trạng thái duyệt độc lập và lý do đọc lại được nếu có |
+| ADM-DATA-05 | Dữ liệu nhật ký quản trị | TV3 | Trung bình | `TODO` | Thống nhất với TV2 | Đối chiếu sự kiện với thay đổi thật, kiểm tra trường nhạy cảm và thời hạn lưu |
+| ADM-DATA-06 | Dữ liệu TEST cho nghiệm thu | TV3 | Cao | `TODO` | DATA-04, ADM-DATA-01–04 | Đủ vai trò, trạng thái và nhiều trang, dùng tài khoản tổng hợp |
+| PH4-PH-01 | Chốt hợp đồng và nghiệm thu localhost | TV1, TV2, TV3 | Cao | `BLOCKED` | ADM-01–06, ADM-08, ADM-DATA-06 | Kiểm quyền, thống kê, cập nhật có lưu, tài khoản, tư vấn viên và hồi quy Phase 1–3 |
 
 <a id="cap-nhat"></a>
 ## Quy tắc cập nhật

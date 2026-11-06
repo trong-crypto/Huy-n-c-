@@ -12,9 +12,7 @@ export function AdminNavigation() {
     <Link href="/admin" className={styles.overview} aria-current={pathname === "/admin" ? "page" : undefined}>Tổng quan</Link>
     <ul className={styles.moduleMenu}>
       {adminModules.map(module => <li key={module.id}>
-        {"href" in module
-          ? <Link href={module.href} aria-current={pathname === module.href ? "page" : undefined}>{module.title}</Link>
-          : <><span>{module.title}</span><small>Chưa triển khai</small></>}
+        <Link href={module.href} aria-current={pathname === module.href ? "page" : undefined}>{module.title}</Link>
       </li>)}
     </ul>
   </nav>;

@@ -6,7 +6,7 @@ import { adminModules, type ContentModule } from "./adminModules";
 
 function open(id: ContentModule["id"]) {
   const module = adminModules.find(item => item.id === id);
-  if (!module || !("href" in module)) throw new Error(`Missing module ${id}`);
+  if (!module || module.kind !== "content") throw new Error(`Missing module ${id}`);
   return render(<AdminContentWorkspace module={module} />);
 }
 
