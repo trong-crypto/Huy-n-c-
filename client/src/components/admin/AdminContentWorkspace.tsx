@@ -3,17 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FormField } from "@/components/ui/Controls";
+import { divinationCatalog } from "@/config/divinationCatalog";
 import { AdminContentForm } from "./AdminContentForm";
 import { AdminHexagramCatalog } from "./AdminHexagramCatalog";
 import type { ContentModule } from "./adminModules";
 import styles from "./admin.module.css";
 
-const methods = [
-  { code: "TIME", group: "Mai Hoa", title: "Theo thời điểm", body: "Lập quẻ từ thời điểm được nhập theo giờ Việt Nam." },
-  { code: "OBJECT_COUNT", group: "Mai Hoa", title: "Theo số vật", body: "Lập quẻ theo dữ kiện số vật." },
-  { code: "LINES", group: "Mai Hoa", title: "Theo sáu hào", body: "Lập quẻ từ sáu hào và hào động đã chọn." },
-  { code: "TAM_THE", group: "Tam Thế", title: "Tra cứu theo dữ kiện sinh", body: "Tra cứu Công danh, Tài lộc và Tình duyên theo dữ kiện sinh." },
-];
+const methods = divinationCatalog.flatMap(family => family.methods.map(method => ({ ...method, group: family.group })));
 
 function MethodManagement() {
   const [query, setQuery] = useState("");
@@ -34,7 +30,7 @@ function MethodManagement() {
         </FormField>
         <FormField id="admin-method-group" label="Nhóm phương pháp">
           <select id="admin-method-group" value={group} onChange={event => setGroup(event.target.value)}>
-            <option value="">Tất cả</option><option>Mai Hoa</option><option>Tam Thế</option>
+            <option value="">Tất cả</option>{divinationCatalog.map(family => <option key={family.href}>{family.group}</option>)}
           </select>
         </FormField>
       </div>

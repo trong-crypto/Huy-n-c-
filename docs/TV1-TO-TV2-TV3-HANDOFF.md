@@ -15,9 +15,10 @@
    - [Tiêu chí nghiệm thu](#nghiem-thu)
 2. [Phase 3 – Quản lý nội dung Admin](#phase-3)
 3. [Phase 4 – Dashboard và quản lý tài khoản](#phase-4)
-4. [Các phase tiếp theo](#phase-tiep-theo)
-5. [Bảng theo dõi công việc](#theo-doi)
-6. [Quy tắc cập nhật](#cap-nhat)
+4. [Phase 5 – Phương pháp bổ sung](#phase-5)
+5. [Các phase tiếp theo](#phase-tiep-theo)
+6. [Bảng theo dõi công việc](#theo-doi)
+7. [Quy tắc cập nhật](#cap-nhat)
 
 <a id="phase-2"></a>
 ## Phase 2 – Xác thực quản trị (Admin Authentication)
@@ -152,12 +153,41 @@ TV3 rà soát dữ liệu tài khoản theo Phase 2, cách tổng hợp lượt 
 
 Nghiệm thu trên localhost bằng tài khoản TEST. Đối chiếu số liệu với dữ liệu gốc, kiểm tra tìm kiếm/lọc/phân trang, chi tiết và trạng thái sau khi tải lại, duyệt/từ chối tư vấn viên, và nhật ký nếu có. Kiểm tra người thiếu quyền bị từ chối và thao tác ghi cần CSRF. Đối chiếu các luồng H01, Mai Hoa, Tam Thế và Admin Phase 3. Dữ liệu TEST dùng tài khoản tổng hợp, tránh đưa thông tin nhạy cảm vào fixture.
 
+<a id="phase-5"></a>
+## Phase 5 – Phương pháp bổ sung
+
+**Trạng thái `PHASE 5 PARTIAL – METHOD/CONTRACT PENDING`.** Danh mục Client đã có, tích hợp phương pháp mới vẫn `BLOCKED`. Góp ý giảng viên đề nghị mở rộng cách tra cứu nhưng chưa nêu tên phương pháp được duyệt. Đối chiếu mốc `101c6ce`, nhật ký quyết định, phạm vi, hợp đồng và các bàn giao hiện có chưa thấy phương pháp bổ sung nào được phê duyệt hoặc có Backend riêng chờ giao diện.
+
+| Phân loại | Kết quả rà soát |
+| --- | --- |
+| Đã có Client và Backend | Mai Hoa `TIME`, `OBJECT_COUNT`, `LINES` qua `/app/mai-hoa/calculate`. M03 là luận giải mở rộng của các phương pháp này. Tam Thế `CAREER`, `WEALTH`, `LOVE` qua `/app/tam-the/calculate`, với chế độ Tài lộc `LEGACY`/`EXTENDED` đã có. |
+| Có Backend nhưng chưa có UI, hoặc đã phê duyệt nhưng chưa có Backend | Chưa tìm thấy phương pháp mới thuộc hai nhóm này trong tài liệu và mã nguồn đã đối chiếu. |
+| Công cụ hỗ trợ | REST đổi lịch/Can Chi, thư viện 64 quẻ và H01 lịch sử. H01 hiện lưu và đọc snapshot của `MAI_HOA` và `TAM_THE` theo owner. |
+
+[Phạm vi](01-SCOPE.md) · [Nhật ký quyết định](07-DECISION-LOG.md) · [Hợp đồng v1.2](02-API-CONTRACT.md) · [Bàn giao M03](41-M03-MAI-HOA-INTERPRETATION-HANDOFF.md) · [Bàn giao D04](42-D04-TAM-THE-EXTENDED-WEALTH-HANDOFF.md)
+
+### Phương án để nhóm xem xét
+
+| Phương án | Phần có thể dùng lại | Phụ thuộc TV2/TV3 |
+| --- | --- | --- |
+| Hỗ trợ nhập quẻ đã lập bên ngoài qua `LINES` | Biểu mẫu, ba quẻ, tiến trình và lịch sử đang có nếu người dùng cung cấp đúng sáu hào và một hào động. Đây chỉ là hướng dẫn nhập liệu dùng lại thuật toán `LINES` hiện có. | Thấp nếu chỉ hướng dẫn nhập kết quả đã có. Nếu bổ sung nhập kết quả từng lần gieo hoặc tự gieo, TV2/TV3 cần duyệt cách quy đổi, xử lý số hào động và ca chuẩn trước khi chọn hợp đồng. |
+| Luồng Lục Hào độc lập | Có thể tái sử dụng hiển thị sáu hào, mã 64 quẻ và transport STOMP sau khi có hợp đồng. | Cao. TV2 cần bộ quy tắc riêng, schema đầu vào/kết quả và xử lý trường hợp hợp đồng một hào động hiện tại không biểu diễn được. TV3 cần nguồn, bảng tra theo phạm vi được duyệt và ca kiểm độc lập. |
+| Bát Tự theo tiết khí | Có thể dùng lại phần nhập ngày giờ và cách hiển thị nguồn. | Cao. C01 hiện dùng quy ước Can Chi theo lịch âm; TV2/TV3 cần duyệt quy ước tiết khí, dữ liệu mốc và ca sát ranh trước khi chốt đầu vào/kết quả. |
+
+Các phương án trên đang ở mức đề xuất. Thuật toán, mã phương pháp, endpoint và schema mở rộng đều `TBD`. Danh mục public chỉ liên kết đến biểu mẫu hiện có, dùng chung mô tả với trang chủ và danh mục Admin. Giữ nguyên bộ kiểm tra payload, `requestId`, tiến trình, timeout, hành vi reconnect và H01 cho hai tuyến đang chạy.
+
+### Điều kiện tích hợp
+
+- **TV1/TV2/TV3** ghi phương pháp được chọn, nguồn/quy ước, người xác nhận, giới hạn và ca chuẩn vào nhật ký. Nếu có phản hồi cụ thể của giảng viên, đính kèm làm căn cứ.
+- **TV2** sau khi phương pháp được chốt mới xác định DTO và runtime validation, đích STOMP hoặc REST, kết quả kèm căn cứ, tiến trình/lỗi, timeout/retry và quyền lưu lịch sử. Nếu mở H01, cần thống nhất cách đọc snapshot cũ và kiểm quyền theo owner.
+- **TV3** xác nhận nguồn có thể sử dụng, phiên bản, phạm vi dữ liệu và ca chuẩn độc lập. Nếu mở H01, chốt cấu trúc lưu snapshot, phiên bản và tương thích dữ liệu cũ với TV2. Fixture chỉ dùng cho kiểm thử và không chứa dữ liệu cá nhân thật.
+- **TV1** chỉ mở biểu mẫu mới sau khi có thuật toán Backend và hợp đồng đã xác nhận. Nghiệm thu trên localhost với dữ liệu hợp lệ/sai, đối chiếu kết quả, progress, lỗi, timeout, ngắt kết nối và lưu/xem lại nếu hỗ trợ. Chạy hồi quy Mai Hoa, Tam Thế, C01, E02, H01 và Admin Phase 2–4.
+
 <a id="phase-tiep-theo"></a>
 ## Các phase tiếp theo
 
 | Phase | Phạm vi dự kiến | Trạng thái |
 | --- | --- | --- |
-| 5 | Phương pháp bói mới | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
 | 6 | Chat trực tiếp với người tư vấn | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
 | 7 | Tích hợp hệ thống trên localhost | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
 | 8 | Kiểm thử và bàn giao | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
@@ -217,6 +247,15 @@ Phase 9 là tùy chọn và chưa nằm trong phạm vi cam kết triển khai.
 | ADM-DATA-05 | Dữ liệu nhật ký quản trị | TV3 | Trung bình | `TODO` | Thống nhất với TV2 | Đối chiếu sự kiện với thay đổi thật, kiểm tra trường nhạy cảm và thời hạn lưu |
 | ADM-DATA-06 | Dữ liệu TEST cho nghiệm thu | TV3 | Cao | `TODO` | DATA-04, ADM-DATA-01–04 | Đủ vai trò, trạng thái và nhiều trang, dùng tài khoản tổng hợp |
 | PH4-PH-01 | Chốt hợp đồng và nghiệm thu localhost | TV1, TV2, TV3 | Cao | `BLOCKED` | ADM-01–06, ADM-08, ADM-DATA-06 | Kiểm quyền, thống kê, cập nhật có lưu, tài khoản, tư vấn viên và hồi quy Phase 1–3 |
+
+### Theo dõi Phase 5
+
+| ID | Công việc | Người phụ trách | Ưu tiên | Trạng thái | Phụ thuộc | Tiêu chí nghiệm thu |
+| --- | --- | --- | --- | --- | --- | --- |
+| PH5-PH-01 | Chốt phương pháp và phạm vi | TV1, TV2, TV3 | Cao | `TODO` | Quyết định nhóm, nguồn và phản hồi giảng viên nếu có | Ghi phương pháp được chọn, căn cứ, giới hạn và ca chuẩn |
+| METHOD-01 | Hợp đồng và xử lý Backend | TV2 | Cao | `BLOCKED` | PH5-PH-01 | Chốt API/STOMP, xác thực dữ liệu đầu vào, kết quả, tiến trình/lỗi và H01 nếu hỗ trợ |
+| METHOD-DATA-01 | Nguồn, phiên bản dữ liệu và ca chuẩn | TV3 | Cao | `BLOCKED` | PH5-PH-01 | Đối chiếu nguồn, chuẩn bị fixture và xác nhận cấu trúc lưu nếu hỗ trợ lịch sử |
+| PH5-PH-02 | Nghiệm thu Client–Server trên localhost | TV1, TV2, TV3 | Cao | `BLOCKED` | METHOD-01, METHOD-DATA-01 | Luồng thật trả kết quả đúng, lỗi và ngắt kết nối đúng hợp đồng, hồi quy các tính năng cũ |
 
 <a id="cap-nhat"></a>
 ## Quy tắc cập nhật
