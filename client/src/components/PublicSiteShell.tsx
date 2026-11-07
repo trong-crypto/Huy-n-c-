@@ -5,16 +5,18 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { SiteNavigation } from "@/components/SiteNavigation";
 import { chatRoutes } from "@/components/chat/chatState";
+import { customerAuthRoutes } from "@/config/customerAuthRoutes";
 import { SessionProvider } from "@/services/session/SessionProvider";
 
 export function PublicSiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   if (pathname === "/admin" || pathname?.startsWith("/admin/")) return children;
   const chatPage = pathname === chatRoutes.user || pathname === chatRoutes.consultant;
+  const accountPage = pathname === customerAuthRoutes.login || pathname === customerAuthRoutes.register;
   const content = <><SiteNavigation />{children}</>;
 
   return <>
-    {chatPage ? content : <SessionProvider>{content}</SessionProvider>}
+    {chatPage || accountPage ? content : <SessionProvider>{content}</SessionProvider>}
     <footer className="site-footer">
       <span>Huyền Cơ</span>
       <p>Tri thức văn hóa truyền thống. Nội dung không phải dự đoán khoa học.</p>

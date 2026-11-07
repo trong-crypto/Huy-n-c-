@@ -59,15 +59,19 @@ input[aria-invalid="true"], select[aria-invalid="true"] { border-color: var(--da
 textarea { resize: vertical; }
 select:disabled, input:disabled, fieldset:disabled { cursor: not-allowed; }
 .site-header { background: rgb(12 7 25 / 85%); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-.site-navigation { max-width: 1248px; margin: auto; padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.site-navigation { max-width: 1248px; margin: auto; padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 .brand { display: flex; align-items: center; gap: 12px; color: var(--primary-hover); font-family: var(--font-heading); font-size: 25px; letter-spacing: .1em; font-weight: 400; text-decoration: none; }
 .brand-mark { display: grid; place-items: center; width: 46px; height: 46px; flex-shrink: 0; color: var(--primary); }
 .brand-mark svg { width: 100%; height: 100%; }
 .brand-caption { display: block; margin-top: 2px; font-family: var(--font-body); font-size: 9px; letter-spacing: .1em; color: var(--muted); }
-.navigation-links { display: flex; flex-wrap: wrap; gap: 8px; }
-.navigation-links a { min-height: 44px; display: flex; align-items: center; padding: 8px 20px; text-decoration: none; border: 1px solid transparent; border-radius: 8px; color: var(--secondary); font-size: 14px; }
-.navigation-links a:hover { color: var(--primary-hover); background: var(--soft); }
-.navigation-links a[aria-current="page"] { color: var(--primary-hover); background: rgb(215 180 106 / 9%); border-color: var(--border); }
+.navigation-links, .navigation-account { display: flex; flex-wrap: wrap; gap: 6px; }
+.navigation-links a, .navigation-account a { min-height: 44px; display: flex; align-items: center; padding: 8px 11px; text-decoration: none; border: 1px solid transparent; border-radius: 8px; color: var(--secondary); font-size: 14px; }
+.navigation-links { gap: 4px; }
+.navigation-links a { padding-inline: 7px; }
+.navigation-links a:hover, .navigation-account a:hover { color: var(--primary-hover); background: var(--soft); }
+.navigation-links a[aria-current="page"], .navigation-account a[aria-current="page"] { color: var(--primary-hover); background: rgb(215 180 106 / 9%); border-color: var(--border); }
+.navigation-account { padding-left: 12px; border-left: 1px solid var(--border); }
+.navigation-account .navigation-register { color: var(--primary-hover); border-color: var(--gold-muted); }
 .skip-link { position: absolute; top: -100px; left: 16px; padding: 12px; background: var(--surface); color: var(--text); z-index: 50; }
 .skip-link:focus { top: 8px; }
 .page-container { width: 100%; max-width: 1248px; margin: auto; padding: var(--space-16) var(--space-8); }

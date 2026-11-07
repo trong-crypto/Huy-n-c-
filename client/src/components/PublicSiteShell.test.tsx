@@ -33,4 +33,13 @@ describe("Public session layout boundary", () => {
     expect(screen.queryByTestId("public-session")).toBeNull();
     expect(screen.getByRole("navigation", { name: "Điều hướng chính" })).toBeTruthy();
   });
+
+  it.each(["/dang-nhap", "/dang-ky"])("keeps %s in the public shell without bootstrapping H01", pathname => {
+    vi.mocked(usePathname).mockReturnValue(pathname);
+    render(<PublicSiteShell><main>Customer account form</main></PublicSiteShell>);
+    expect(screen.getByRole("main").textContent).toBe("Customer account form");
+    expect(screen.queryByTestId("public-session")).toBeNull();
+    expect(screen.getByRole("navigation", { name: "Điều hướng chính" })).toBeTruthy();
+    expect(screen.getByRole("navigation", { name: "Điều hướng cuối trang" })).toBeTruthy();
+  });
 });

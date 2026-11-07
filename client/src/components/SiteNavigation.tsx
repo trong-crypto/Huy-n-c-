@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BrandSymbol } from "@/components/ui/CelestialArt";
+import { customerAuthRoutes } from "@/config/customerAuthRoutes";
 import { methodCatalogHref } from "@/config/divinationCatalog";
 import { chatRoutes } from "@/components/chat/chatState";
 
@@ -23,6 +24,14 @@ export function SiteNavigation() {
               {link.label}
             </Link>
           ))}
+        </div>
+        <div className="navigation-account">
+          <Link href={customerAuthRoutes.login} aria-current={pathname === customerAuthRoutes.login ? "page" : undefined}>
+            Đăng nhập
+          </Link>
+          <Link href={customerAuthRoutes.register} className="navigation-register" aria-current={pathname === customerAuthRoutes.register ? "page" : undefined}>
+            Đăng ký
+          </Link>
         </div>
       </nav>
     </header>
