@@ -1,0 +1,2 @@
+clients,mode,repeat,requestId,clientId,outsideByMs,latencyMs,status,reason
+20,bounded,1,703d0738-086e-4469-8fa3-581fccba110b,client-8,0.021999999997206032,2.3179000000091037,COMPLETED,"SEND timestamp outside predefined [start,end); original row retained"

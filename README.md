@@ -1,5 +1,25 @@
 # Huyền Cơ
 
+**Chạy demo trên PostgreSQL TEST:** mở [tài liệu 46 — lệnh theo từng terminal, chuẩn bị lần đầu và chạy lại](docs/46-DEMO-CLIENT-SERVER-POSTGRES-TEST.md).
+
+**Bàn giao dữ liệu cho TV3 viết báo cáo:** [mở hướng dẫn trong handoff/tv3-report](handoff/tv3-report/README.md). Gói gom raw benchmark, log nghiệm thu chức năng, Maven reports, CSV/biểu đồ, tài liệu và bản báo cáo; có manifest SHA-256 và script kiểm sau khi kéo GitHub. Bản gốc được giữ nguyên; thư mục bàn giao đã cho phép Git nhận các log đã rà soát.
+
+**X01.7 hoàn thành báo cáo nhóm 12:** [Word 19 trang](report/Nhom12_HuyenCo_Report.docx), [hướng dẫn báo cáo](report/README.md) và [biên bản 54](docs/54-X01-REPORT-HANDOFF.md). Đã điền ba họ tên/MSSV, tích hợp Experimental Setup/Results/Discussion, bảng 18 lượt, biểu đồ và bằng chứng. Giữ công bố 1 SEND muộn 0,022 ms, không gọi strict-window bản gốc đạt tuyệt đối. Bước trước nộp còn kiểm Compilatio ≤20% và nộp/bàn giao theo học phần; chưa thực hiện các bước này.
+
+**Benchmark X01:** [phân tích53 — bảng18 lượt, năm biểu đồ PNG/SVG và nhận xét](docs/53-X01-BENCHMARK-ANALYSIS.md); [kế hoạch47](docs/47-X01-BENCHMARK-2-5-20-PLAN.md), dữ liệu đo và window deviation tại [51](docs/51-X01-BENCHMARK-RESULTS.md), độ tin cậy tại [52](docs/52-X01-OVERLOAD-IDEMPOTENCY-ACCEPTANCE.md). Các cập nhật theo task bên dưới giữ tiến độ lịch sử ở thời điểm thực hiện.
+
+**X01.1 đã chuẩn bị TEST riêng:** [biên bản 48 — database V12, snapshot và kiểm toán nguồn đã PASS](docs/48-X01-TEST-DATABASE-BASELINE.md). Backend benchmark dùng cấu hình cổng 18091, tách TEST demo/UI.
+
+**X01.2 đã hoàn thành công cụ:** [biên bản 49 — runner 2/5/20 Client, JDK17/JAR pin và lệnh chạy](docs/49-X01-RUNNER-BACKEND-HANDOFF.md). Sáu kiểm thử khói thật đạt; database giữ nguyên, các Backend tạm đã dừng. Các lượt khói này không thuộc ma trận 18 lượt.
+
+**X01.3 pilot đã PASS:** [biên bản 50 — bốn lượt 2/20 Client direct/bounded và chỉ số thực](docs/50-X01-PILOT-ACCEPTANCE.md). Cohort đo1.012 thành công/0 lỗi, DB không đổi; đã dùng làm điều kiện trước X01.4.
+
+**X01.4 đã đo đủ18 lượt:** [biên bản51 — kết quả direct/bounded, raw và cohort correction](docs/51-X01-BENCHMARK-RESULTS.md). Cohort46.027 thành công/0 lỗi, DB không đổi; công bố1SEND ngoài ranh0,022ms và sửa runner cho lần sau. X01.6 phân tích còn riêng.
+
+**X01.5 ngày29/10 đã PASS 7/7 tình huống:** [biên bản52 — quá tải/idempotency qua STOMP và PostgreSQL thật](docs/52-X01-OVERLOAD-IDEMPOTENCY-ACCEPTANCE.md). Kiểm in-flight/replay/xung đột/20 phiên/TTL60giây/reconnect, burst tự nhiên và queue2worker/4việc có kiểm soát; Server phục hồi, DB giữ nguyên, tiến trình thử đã dừng. Tiếp theo X01.6 biểu đồ/phân tích; sai lệch strict-window X01.4 vẫn được giữ nguyên.
+
+**X01.6 ngày29/10 hoàn thành:** [tài liệu53](docs/53-X01-BENCHMARK-ANALYSIS.md) có median/P95/P99/throughput, ECDF, CPU/RAM/OS thread, CSV18 lượt/sáu ô và năm hình PNG/SVG. Ở20Client bounded giảm median14,71% nhưng P99 cao hơn khoảng59%, throughput gần nhau; ghi rõ ba lượt/ô, tải có nghỉ200ms, nguồn mẫu tài nguyên và sai lệch ranh. TEST so trực tiếp sau đo vẫn khớp baseline. Công cụ tái lập `scripts/summarize_x01_benchmark.py`; tiếp theo X01.7, chưa đóng toànX01.
+
 **Đã triển khai vào huyenco ngày26/10:** đã sao lưu/khôi phục thử, nâng DB dự án lên **V12**, nhập1 bundle/20 mẫu Mai Hoa/19 đoạn Tam Thế/204 ánh xạ và kiểm toán đạt. Dữ liệu mở rộng khớp TEST; mọi dòng V11 giữ nguyên. Nghiệm thu trên huyenco đạt739 terminal/2948 progress, gồm720 tổ hợp Tam Thế và chín capture M03/D04; Server tạm đã dừng. Xem [biên bản43](docs/43-HUYENCO-V12-DEPLOYMENT-ACCEPTANCE.md). Khởi động Backend bằng code mới/profile db để dùng; các dòng huyenco V11/chưa nhập trong mốc cũ bên dưới là lịch sử. Tiếp theo I02/T02, chưa commit/push Git.
 
 **D04 hoàn thành ngày26/10:** Server trả WEALTH mở rộng với **Lộc/Sang hèn/Điền sản**, nguồn và quyết định biên tập riêng. Đủ720 tổ hợp qua PostgreSQL/STOMP thật;360 trường hợp thiếu Lộc vẫn trả đủ ba category và ghi đúng no-match. Đã kiểm737 terminal/2928 progress/27 HTTP, năm lịch sử thật;452 Client tests/62 fixtures đạt. Xem [bàn giao42](docs/42-D04-TAM-THE-EXTENDED-WEALTH-HANDOFF.md). **Tiếp theo I02 (TV1)/T02 (TV2–TV3)**. Huyenco vẫn V11, TEST V12; Server tạm đã dừng. Các mốc M03/M02 dưới đây là lịch sử; chưa gọi toàn sản phẩm đã hoàn thành.

@@ -1,5 +1,11 @@
 # Kế hoạch kiểm thử
 
+**X01.7 ngày29/10 hoàn thành phần báo cáo:** [Word nhóm12, 19 trang](../report/Nhom12_HuyenCo_Report.docx) đã có Experimental Setup/Results/Discussion, bảng18lượt, năm biểu đồ, phạm vi mẫu tài nguyên và bằng chứng X01.5. Đã điền ba tác giả/MSSV và kiểm dàn trang19/19. [Biên bản54](54-X01-REPORT-HANDOFF.md) giữ sai lệch1SEND muộn0,022ms và P99 bounded20Client cao hơn; không đổi strict-window thành PASS. Chưa chạy Compilatio/nộp bài; đó là bước bàn giao tiếp theo. Các ghi nhận X01.6 trở về trước bên dưới là lịch sử.
+
+**X01.6 ngày29/10 hoàn thành phân tích:** raw18lượt được auditor kiểm lại, cohort46.027 COMPLETED/0 lỗi, một SEND ngoài ranh được giữ công bố. Có CSV đủ18lượt/sáu ô, median/P95/P99/throughput/CPU/RAM/OSthread và năm hình PNG/SVG đã kiểm trực quan; hash raw X01.4/X01.5 trước/sau phân tích không đổi. Ở20Client bounded giảm median14,71% nhưng median P99 cao hơn khoảng59%, không kết luận tốt hơn toàn phân bố; dùng min–max ba lượt, không gọi là CI. TEST kiểm chỉ đọc lúc11:21 UTC+7 vẫn khớp16 bảng/schema/runtime0. Sáu kiểm tra công thức/percentile/cohort-bin của công cụ đạt; không sửa Java/UI. Xem [53](53-X01-BENCHMARK-ANALYSIS.md); tiếp theo X01.7 báo cáo nộp.
+
+**X01.5 ngày29/10 — 7/7 tình huống STOMP/PostgreSQL thật PASS:** gửi trùng in-flight (đảo key/UUID hoa), replay không progress, xung đột không đổi kết quả gốc,20 phiên cùng ID khác input, reconnect và TTL mặc định60giây đã kiểm. Burst20×8 ở2worker/queue4 tự nhiên có10 COMPLETED/150 SERVER_BUSY; ca khóa DB ngắn có kiểm soát có6 COMPLETED/154 SERVER_BUSY, hai JDBC waiters được quan sát; ID bị từ chối và ID mới đều phục hồi. Hai suite394 SEND/336 progress/86 COMPLETED (gồm2 replay)/304 SERVER_BUSY/2 INVALID_INPUT dự kiến,0 sai phiên/kết quả; raw đối chiếu độc lập đạt,7 test công cụ đạt. Snapshot TEST không đổi, phiên/history0, khóa/Java/Node thử đã dọn. Phạm vi và fault injection tại [52](52-X01-OVERLOAD-IDEMPOTENCY-ACCEPTANCE.md); không thay mẫu hiệu năng hoặc xóa window deviation X01.4. Tiếp theo X01.6 phân tích/biểu đồ.
+
 **Triển khai huyenco V12 ngày26/10 theo [43](43-HUYENCO-V12-DEPLOYMENT-ACCEPTANCE.md):** backup đã phục hồi thử và so14 bảng V11; migrate/import xong, mọi dòng cũ giữ nguyên, dữ liệu mới khớp TEST. Audit54 nguồn nền0 FAIL/0 PENDING, audit V12 chính xác1/20/19/204 đạt. Nghiệm thu chỉ đọc trên DB dự án sau khởi động lại JVM:739 terminal/2948 progress/2 GET,720 tổ hợp/chín capture mới/sáu ca nền đạt,0 owner/history writes. Đã cố định thứ tự nguồn D04; hồi quy TEST2262 PASS/21 SKIP/0 lỗi trong2283 ca và452 Client/62 fixtures đạt. Không chạy các test phá dữ liệu hoặc ghi history vào DB chính. UI/I02/T02 toàn sản phẩm còn làm.
 
 **D04 hoàn thành ngày26/10 theo [42](42-D04-TAM-THE-EXTENDED-WEALTH-HANDOFF.md):**720 tổ hợp Tam Thế qua JDBC và STOMP thật đủ ba category,360 có/360 no-match Lộc.15 ca can thiệp nguồn/ánh xạ/schema/dữ liệu nền bị chặn và rollback. Toàn suite2255 PASS/21 SKIP/0 lỗi; sau bổ sung capture/biên/schema/outage chạy mục tiêu217/217 đạt (không cộng số ca trùng). Client452/452,12 Node state,typecheck/62 fixtures đạt. D04 thật737 terminal/2928 progress/27 HTTP/năm history; M02 hồi quy13/34, M03 hồi quy15/44/22 HTTP đạt. Snapshot TEST sau dọn giữ nguyên mọi dòng, huyenco vẫn V11. UI/I02, tải và T02 toàn sản phẩm còn làm; các mốc trước dưới đây là lịch sử.
@@ -65,9 +71,13 @@ Theo phạm vi mới, F01–F08 ở `10-FUNCTIONAL-REQUIREMENTS.md` đều cần
 ## Thực nghiệm cho bài tập lớn
 
 - So baseline xử lý trực tiếp với phương án worker pool/hàng đợi hữu hạn và idempotency **sau khi phương án được triển khai**. Cùng máy, cùng workload, cùng cấu hình và dữ liệu.
-- Chạy 1, 5 và 20 Client đồng thời, lặp lại có ghi số lần; đo median/p95 thời gian phản hồi, throughput, số hoàn tất, lỗi, `SERVER_BUSY` và phản hồi sai phiên.
+- Chạy 2, 5 và 20 Client đồng thời theo cập nhật 29/10 tại tài liệu 47, lặp lại có ghi số lần; đo median/p95 thời gian phản hồi, throughput, số hoàn tất, lỗi, `SERVER_BUSY` và phản hồi sai phiên. Các mốc 1/5/20 trong ghi nhận cũ là kế hoạch lịch sử.
 - Lưu raw CSV, script/câu lệnh chạy, môi trường, input, cấu hình, biểu đồ và phần giải thích. Không ghi số liệu dự kiến thành kết quả thực.
 - Có test requestId trùng cùng payload, requestId trùng khác payload, disconnect khi đang chờ, hàng đợi đầy, input sai, lỗi database nếu bật database và một tuyến nghiệp vụ thật đã `VERIFIED`.
+
+**X01.3 ngày 29/10 đã PASS:** bốn pilot 2/20 Client × direct/bounded, warm-up 2 giây/đo 5 giây. Cohort 1.012 COMPLETED/0 lỗi; tính cả readiness/warm-up có 1.496 COMPLETED/5.984 progress. CSV/timing/chỉ số đối chiếu độc lập, DB khớp baseline, Java tạm đã dừng. Xem [biên bản 50](50-X01-PILOT-ACCEPTANCE.md). Đây là điều kiện chuyển X01.4, chưa thay ma trận 18 lượt chính thức hoặc bài overload/idempotency riêng.
+
+**X01.4 ngày29/10 đã chạy đủ18 lượt:** warm-up10giây/đo60giây × 2/5/20 Client × hai mode × ba lần. Cohort timestamp46.027 COMPLETED/0 lỗi, DB không đổi. Auditor phát hiện1SEND ngoài ranh0,022ms, giữ raw/summary và công bố loại khỏi cohort theo [start,end); strict-window bản đo gốc chưa đạt tuyệt đối. Đã sửa final publish gate,12 test Node/3 test cohort Python và4 smoke sau sửa đạt; không thay lượt chính thức bằng smoke. Kết quả/giới hạn tại [51](51-X01-BENCHMARK-RESULTS.md); overload/idempotency và phân tích đầy đủ còn X01.5/X01.6.
 
 ## Nghiệm thu chức năng đầy đủ
 

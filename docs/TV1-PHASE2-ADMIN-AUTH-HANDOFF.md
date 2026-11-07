@@ -2,6 +2,8 @@
 
 Phase 2 bắt đầu từ `8f2a525` trên nhánh `bmanh812`. Client có trang `/admin/login` để kiểm tra biểu mẫu và `/admin` để xem bố cục, trạng thái các module. Tích hợp đăng nhập quản trị đang chờ Backend.
 
+TV2 và TV3 dùng [hợp đồng Auth v1.0](56-TV2-TV3-ACCOUNT-AUTH-CONTRACT.md) làm đầu vào triển khai. Các đề xuất bên dưới ghi lại bối cảnh bàn giao ban đầu.
+
 ## Hiện trạng tại commit nền
 
 - `POST /api/v1/session` trong `HistoryController` cấp phiên ẩn danh cho lịch sử. Phản hồi gồm thời hạn và CSRF token. Cookie `huyenco_session` do Server cấp với HttpOnly và SameSite=Lax.

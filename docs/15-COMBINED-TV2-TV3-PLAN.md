@@ -1,5 +1,11 @@
 # Huyền Cơ — Kế hoạch hoàn thành phần TV2 + TV3
 
+**X01.7 hoàn thành ngày29/10 theo [54](54-X01-REPORT-HANDOFF.md):** đã tạo [báo cáo Word nhóm12](../report/Nhom12_HuyenCo_Report.docx), 19 trang, ba tác giả/MSSV đúng thông tin cung cấp; có thiết lập/kết quả/thảo luận, bảng18lượt, hình, đóng góp/giới hạn và bằng chứng. X01 được hoàn thiện hồ sơ với sai lệch ranh đã công bố; strict-window raw gốc vẫn false. **Tiếp theo nhóm đọc bản cuối, kiểm Compilatio ≤20% và nộp/bàn giao source theo học phần**; chưa thực hiện nộp hộ nhóm. Các mốc “tiếp theo X01.7” bên dưới là trạng thái lịch sử.
+
+**X01.6 hoàn thành ngày29/10 theo [53](53-X01-BENCHMARK-ANALYSIS.md):** có bảng18lượt/sáu ô và năm biểu đồ PNG/SVG, median/P95/P99/throughput, phân bố và tài nguyên với phạm vi mẫu rõ ràng. Tái tính từ raw, giữ sai lệch SEND0,022ms và tách X01.5; công bố bounded20Client giảm median nhưng P99 tăng, chưa suy ra cải tiến tổng quát. TEST sau đo kiểm chỉ đọc tiếp tục khớp baseline; sáu test công cụ đạt. **Tiếp theo X01.7 — đưa phần thực nghiệm và bằng chứng vào báo cáo nộp**; không coi tiêu chí strict-window bản đo gốc đã đạt tuyệt đối.
+
+**X01.5 hoàn thành ngày29/10 theo [52](52-X01-OVERLOAD-IDEMPOTENCY-ACCEPTANCE.md):** 7/7 ca độ tin cậy qua STOMP/PostgreSQL thật và auditor raw PASS. Đã kiểm dedupe/replay/xung đột,20 phiên cùng ID,TTL60giây,reconnect; cấu hình stress2worker/queue4 nhận6 việc và từ chối154 có kiểm soát, xử lý lại ID bị từ chối và ID mới thành công. TEST/schema/hash giữ nguyên, khóa và tiến trình thử đã dọn; không sửa UI/Java hoặc số liệu18lượt. **Tiếp theo X01.6 — tổng hợp chỉ số/biểu đồ/phân tích**, rồi X01.7 báo cáo. Công bố strict-window X01.4 vẫn áp dụng; toàn X01 chưa đóng.
+
 **Triển khai V12 ngày26/10 hoàn thành theo [43](43-HUYENCO-V12-DEPLOYMENT-ACCEPTANCE.md):** chủ dự án đã yêu cầu nâng database huyenco; backup/khôi phục thử, migration/import, bảo toàn dữ liệu cũ và nghiệm thu M03/D04 trên DB chính đều đạt. Huyenco và TEST đều có V12/bộ M01. Các dòng huyenco V11 bên dưới là lịch sử; I02/T02 vẫn là công việc tiếp theo.
 
 **Cập nhật sau D04 ngày26/10:** M03 và D04 Backend đã hoàn thành theo [41](41-M03-MAI-HOA-INTERPRETATION-HANDOFF.md)/[42](42-D04-TAM-THE-EXTENDED-WEALTH-HANDOFF.md). Tam Thế EXTENDED đủ720 tổ hợp qua DB/STOMP, giữ no-match Lộc; dữ liệu và JSON LEGACY nguyên vẹn. **Tiếp theo I02/T02**, không còn chờ service D04. DB huyenco vẫn V11, TEST V12; các đoạn tiến độ M03 bên dưới là mốc trước D04.
@@ -130,7 +136,7 @@ Luồng bootstrap phải xử lý được database trống: Flyway V1–V3 → 
 | T02 | TODO | Nghiệm thu phạm vi F09/F04 mở rộng và lịch sử/mạng | Ca nguồn, đủ miền khóa, lỗi, Client cũ/mới và bằng chứng STOMP/DB TEST thật | M03/D04/I02 |
 | I01 | TODO | TV2–TV3 bàn giao contract/fixtures/lỗi/progress; TV1 triển khai và tích hợp các màn hình | TV1 demo luồng UI thật sau mỗi module; sau E02/H01 có tra cứu/lịch/lịch sử; cập nhật bảng F01–F08 | Mỗi module tương ứng |
 | T01 | TODO | Kiểm đầu cuối đủ F01–F08, dữ liệu nhạy cảm, reconnect, payload xấu, SQL/DB lỗi, timeout | Bảng đạt/chưa đạt gắn lệnh, kết quả và bằng chứng cụ thể; lỗi một phiên không làm hỏng các phiên khác | B/D/E/H/N/I |
-| X01 | TODO | Benchmark direct/bounded: 1/5/20 Client, đo thật và phân tích | Raw CSV, môi trường, input, cấu hình, median/p95/throughput/lỗi/quá tải/sai phiên, script tái lập | N01/T01 tuyến LINES |
+| X01 | TODO | Benchmark direct/bounded: 2/5/20 Client theo cập nhật 29/10, đo thật và phân tích; xem tài liệu 47 | Raw CSV, môi trường, input, cấu hình, median/p95/throughput/lỗi/quá tải/sai phiên, script tái lập | N01/T01 tuyến LINES |
 | R01 | TODO | Viết paper/README/kiến trúc/sequence/References/giới hạn/contribution từ kết quả thực | Report theo Instruction.md, đóng góp đúng người thực hiện; không điền kết quả chưa đo | Làm dần, chốt sau X01 |
 | R02 | TODO | Chạy từ gói sạch/DB mới, diễn tập demo, Compilatio và đóng gói đúng Submission.md | Build/run/test trên bản đóng gói; báo cáo cuối đúng tên; nguồn/secret sạch; nộp trước hạn | T01/X01/R01 |
 
@@ -183,6 +189,16 @@ Thay đổi hợp đồng phải cập nhật `docs/02-API-CONTRACT.md`, `client
 - Bootstrap vào DB trống và chạy lại bộ nhập; khởi động Server lại vẫn có dữ liệu/lịch sử hợp lệ.
 
 ### Thiết kế benchmark
+
+**Cập nhật 29/10/2026 theo yêu cầu chủ dự án:** ma trận triển khai tiếp theo dùng **2/5/20 Client** thay cho mức 1/5/20 trong kế hoạch lịch sử bên dưới. Cách giữ môi trường, tải, ma trận 18 lượt, phép đo, bài quá tải/idempotency và phân công nằm ở [kế hoạch X01 chi tiết, tài liệu 47](47-X01-BENCHMARK-2-5-20-PLAN.md). X01 chưa đóng cho đến khi có đủ ma trận/phân tích; các bước chuẩn bị đã hoàn thành được ghi riêng bên dưới.
+
+**X01.1 đã hoàn thành ngày 29/10:** tạo TEST benchmark riêng V12, khôi phục/so khớp 16 bảng tri thức và schema, runtime trống; audit nguồn 54 PASS/0 FAIL/0 PENDING, audit V12 PASS; lưu snapshot/hash/manifest không có mật khẩu. Không ghi vào huyenco/TEST nguồn, không dừng Backend UI. Cổng benchmark dự kiến 18091; chưa chạy Backend benchmark hoặc đo tải. Xem [biên bản 48](48-X01-TEST-DATABASE-BASELINE.md). Tiếp theo X01.2 xây runner và pin binary; toàn task X01 chưa đóng.
+
+**X01.2 đã hoàn thành ngày 29/10:** có runner 2/5/20 STOMP, raw CSV/summary, wrapper bảo vệ TEST/lifecycle, JDK17/JAR pin và lấy mẫu tài nguyên. 10 test Node/3 test Python đạt; sáu kiểm thử khói thật direct/bounded có warm-up1giây/đo1giây đạt594 COMPLETED/2376 progress, không phát hiện sai phiên/lỗi, DB giữ nguyên và Java tạm dừng. Đây chưa phải pilot/benchmark chính thức. Xem [biên bản 49](49-X01-RUNNER-BACKEND-HANDOFF.md). Tiếp theo X01.3; X01 vẫn chưa đóng.
+
+**X01.3 đã hoàn thành ngày 29/10:** bốn pilot 2/20 Client ở direct/bounded, warm-up2giây/đo5giây, cùng JAR/config/TEST. Cohort1.012 COMPLETED; toàn lượt1.496 COMPLETED/5.984 progress, không lỗi/sai phiên, snapshot DB giữ nguyên; các Java tạm đã dừng. CSV/timing/chỉ số đã tính lại độc lập, đủ điều kiện X01.4. P95 20Client bounded32,88ms cao hơn direct9,38ms trong pilot; chưa suy ra kết luận cải tiến từ cửa sổ5giây. Xem [biên bản 50](50-X01-PILOT-ACCEPTANCE.md). Ma trận18lượt và phân tích chính thức chưa thực hiện; X01 chưa đóng.
+
+**X01.4 ngày29/10 đã đo đủ18 lượt chính thức:** cùng JAR/JDK17/config/TEST, warm-up10giây/đo60giây và đúng thứ tự. Cohorttimestamp46.027 COMPLETED/0 lỗi; raw53.830 COMPLETED/215.320 progress, DB giữ nguyên. Công bố1SEND ngoài ranh0,022ms, loại khỏi cohort theo quy tắc đã chốt và giữ nguyên toàn bộ raw/summary; strict-window bản đo gốc có sai lệch. Đã sửa gate trướcpublish và hồi quy riêng, không trộn bản sửa vào18lượt. Kết quả/giới hạn ở [51](51-X01-BENCHMARK-RESULTS.md). Tiếp theoX01.5/X01.6; không coi toàn X01 đã đóng.
 
 So cùng tuyến **LINES thật**, cùng snapshot dữ liệu và phiên bản nghiệp vụ; baseline chỉ khác cơ chế điều phối, không so baseline trả lỗi với bản mới trả kết quả. Giữ một mốc Git có kết quả đúng trước khi thêm N01. Mỗi cấu hình chạy warm-up 10 giây và đo 60 giây, lặp ít nhất 3 lần ở 1/5/20 kết nối. Ghi mức request/giây thực tế và seed workload; dùng request ID mới cho phép đo thường, tách riêng bài request trùng. So latency kết quả thành công và phân bố lỗi riêng; không tính SERVER_BUSY như phản hồi thành công nhanh để kết luận cải tiến.
 

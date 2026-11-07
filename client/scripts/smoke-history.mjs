@@ -100,8 +100,14 @@ try {
   const publicResult=await calculate(publicClient,"MAI_HOA",lines);
   await http("POST","/api/v1/history",{calculationRequestId:publicResult.requestId},a,404);
   const conflict=crypto.randomUUID();
-  await calculate(ca,"MAI_HOA",lines,conflict);await calculate(ca,"MAI_HOA",{...lines,movingLine:4},conflict);
-  await http("POST","/api/v1/history",{calculationRequestId:conflict},a,400);
+  const original=await calculate(ca,"MAI_HOA",lines,conflict);
+  const rejected=await calculate(ca,"MAI_HOA",{...lines,movingLine:4},conflict);
+  assert.equal(original.status,"COMPLETED");
+  assert.equal(rejected.status,"FAILED");
+  assert.equal(rejected.error.code,"INVALID_INPUT");
+  const savedOriginal=(await http("POST","/api/v1/history",{calculationRequestId:conflict},a,201)).value;
+  assert.deepEqual(savedOriginal.data.result,original.data);
+  await http("DELETE","/api/v1/history/"+savedOriginal.data.id,undefined,a);
   const invalidResult=await calculate(ca,"MAI_HOA",{...lines,movingLine:7});assert.equal(invalidResult.status,"FAILED");
   await http("POST","/api/v1/history",{calculationRequestId:invalidResult.requestId},a,404);
   for(const extra of [{ownerId:"fake"},{result:{}},{title:null},{title:" "},{title:"x".repeat(101)}])

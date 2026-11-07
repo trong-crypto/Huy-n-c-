@@ -21,5 +21,12 @@ huyenco:
   history-result-max-bytes: ${HISTORY_RESULT_MAX_BYTES:33554432}
   history-max-per-owner: ${HISTORY_MAX_PER_OWNER:1000}
   session-secure-cookie: ${SESSION_SECURE_COOKIE:false}
+  auth:
+    enabled: ${AUTH_ENABLED:false}
+    secure-cookie: ${AUTH_SECURE_COOKIE:true}
+    csrf-key: ${AUTH_CSRF_KEY:}
+    login-per-ip: ${AUTH_LOGIN_PER_IP:60}
+    login-per-identifier: ${AUTH_LOGIN_PER_IDENTIFIER:10}
+    register-per-ip: ${AUTH_REGISTER_PER_IP:10}
 
 

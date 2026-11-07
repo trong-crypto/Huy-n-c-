@@ -16,6 +16,8 @@
     "smoke:time": "node scripts/smoke-time.mjs",
     "smoke:tam-the": "node scripts/smoke-tam-the.mjs",
     "smoke:history": "node scripts/smoke-history.mjs",
+    "benchmark:stomp": "node scripts/benchmark-stomp.mjs",
+    "test:benchmark": "node --test scripts/x01-benchmark.test.mjs",
     "test": "vitest",
     "test:run": "vitest run"
   },
