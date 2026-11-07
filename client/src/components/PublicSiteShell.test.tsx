@@ -25,4 +25,12 @@ describe("Public session layout boundary", () => {
     expect(screen.getByRole("navigation", { name: "Điều hướng chính" })).toBeTruthy();
     expect(screen.getByRole("navigation", { name: "Điều hướng cuối trang" })).toBeTruthy();
   });
+
+  it.each(["/tu-van", "/tu-van-vien"])("keeps chat route %s separate from the anonymous history session", pathname => {
+    vi.mocked(usePathname).mockReturnValue(pathname);
+    render(<PublicSiteShell><main>Chat workspace</main></PublicSiteShell>);
+    expect(screen.getByRole("main").textContent).toBe("Chat workspace");
+    expect(screen.queryByTestId("public-session")).toBeNull();
+    expect(screen.getByRole("navigation", { name: "Điều hướng chính" })).toBeTruthy();
+  });
 });
