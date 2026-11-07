@@ -18,6 +18,7 @@
 4. [Phase 5 – Phương pháp bổ sung](#phase-5)
 5. [Phase 6 – Chat trực tiếp với tư vấn viên](#phase-6)
 6. [Phase 7 – Integration Readiness](#phase-7)
+   - [Phase 7B – Môi trường TEST và kiểm thử live](#phase-7b)
 7. [Các phase tiếp theo](#phase-tiep-theo)
 8. [Bảng theo dõi công việc](#theo-doi)
 9. [Quy tắc cập nhật](#cap-nhat)
@@ -296,6 +297,51 @@ Kiểm tra lại các luồng lõi song song với việc chốt P0 khi Backend 
 4. **Lỗi mạng có kiểm soát.** Dùng context TEST riêng để tái hiện timeout, mất kết nối và reconnect. Đối chiếu không tự SEND lại, tin cũ không làm thay đổi kết quả mới và hai context cách ly. Ghi riêng ca lỗi nào mới chạy ở mock.
 5. **Admin và chat khi có hợp đồng.** Sau khi P0 đạt, kiểm login, phiên, logout và role/CSRF trước Admin CRUD, dashboard và tư vấn viên. Dùng USER/CONSULTANT TEST để kiểm chat hai chiều, ACK/chống trùng, reconnect/lịch sử, kết thúc và từ chối REST/SEND/SUBSCRIBE ngoài phòng.
 6. **Ghi kết quả.** Lưu ca, SHA, môi trường, kỳ vọng, kết quả và loại bằng chứng. Giữ `BLOCKED`/`NOT RUN` cho phần chưa đủ điều kiện. Che cookie, token và dữ liệu hội thoại trong bằng chứng.
+
+<a id="phase-7b"></a>
+### Phase 7B – Môi trường TEST và kiểm thử live
+
+**`PHASE 7B BLOCKED – TEST ENVIRONMENT UNAVAILABLE`** · 07/11/2026 · nhánh `bmanh812`, mốc `d09b509`. PostgreSQL tiếp nhận kết nối ở cổng 5432. Cổng xác thực database TEST chưa đạt, nên lượt này dừng trước khởi động Backend và các ca nghiệp vụ live.
+
+| Hạng mục | Bằng chứng 7B | Kết luận và xử lý |
+| --- | --- | --- |
+| Spring Boot và cổng | Không thấy tiến trình `java.exe`/`javaw.exe` hay listener 8080 ở thời điểm kiểm tra. GET `/api/v1/health` và `/api/v1/readiness` tại `127.0.0.1:8080` đều báo curl 7 và mã `000` do curl in khi không nhận HTTP response. | Backend chưa chạy tại thời điểm kiểm tra. Không có HTTP response để kết luận lỗi readiness. TV1/TV2 chỉ khởi động Backend TEST sau khi qua cổng DB. |
+| Java, Maven và log | Java theo PATH là JDK 8. JDK 25.0.1 có sẵn và `mvnw.cmd -v` xác nhận Maven Wrapper 3.9.16 chạy bằng JDK 25. Log V12 lưu trữ ghi nhận một lượt khởi động thành công trước đây. Chưa có log startup mới gắn với lượt 7B. | Dùng `JAVA_HOME` riêng trong tiến trình khởi động. JDK 8 là rủi ro cấu hình khi chạy bằng mặc định, chưa có bằng chứng đó là nguyên nhân dừng lần trước. |
+| Profile và datasource | Repo dùng Maven profile `database`, Spring profile `db`, các biến `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`. Phiên kiểm tra chưa có cấu hình datasource hiệu lực cho một Backend đang chạy. `application-db.yml` mặc định bật Flyway. | TV1/TV2 ghim JDBC URL và role TEST đã xác minh, tắt Flyway bằng `SPRING_FLYWAY_ENABLED=false` và `--spring.flyway.enabled=false`. Không suy từ config nguồn rằng một JVM đang dùng đúng datasource. |
+| PostgreSQL TEST | PostgreSQL 16 đang Running, `pg_isready` tại `127.0.0.1:5432` trả `accepting connections`, exit 0. Một kết nối `psql -w` chỉ đọc đến `huyenco_test_tv1` với `huyenco_tv1_test` trả exit 2, `fe_sendauth: no password supplied`. | PostgreSQL đã trả yêu cầu xác thực. Chưa có mật khẩu được cung cấp cho tiến trình nên chưa xác minh đăng nhập, database đích, owner/quyền, schema, Flyway V1–V12 và seed/H01. Không có bằng chứng mật khẩu sai hay database/role không tồn tại. |
+| Cấu hình Client | Kiểm tên và đích cấu hình runtime local. REST dùng proxy cùng origin `/api/v1` đến localhost cổng 8080 và STOMP trỏ localhost cổng 8080 với path `/ws`. | Chưa thấy lệch đích trong cấu hình local đã rà. Kiểm Origin thực tế và WebSocket handshake sau khi Backend khởi động. |
+| API TV2/TV3 | Đầu nhánh GitHub `main` ở `94bfbee`. So sánh Backend và dữ liệu giữa mốc đó với nhánh TV1 không có khác biệt. Kiểm các nhánh đã công bố và mã nguồn tại mốc 7B. | Chưa xác nhận triển khai hoặc hợp đồng mới cho xác thực tài khoản, Admin hay chat. Giữ nguyên các đầu việc Phase 2–6 và các điều kiện tích hợp tương ứng. |
+
+### Kết quả live 7B
+
+| Nhóm ca | Trạng thái | Phạm vi còn chờ |
+| --- | --- | --- |
+| Health / readiness | **FAIL ở kết nối HTTP** | Hai probe đã thực hiện. Chưa có response HTTP từ Spring Boot và chưa kiểm readiness DB/schema/seed. |
+| REST tra quẻ, lịch và Can Chi | `NOT RUN` | Chờ Backend TEST đạt readiness. |
+| STOMP Mai Hoa, Tam Thế | `NOT RUN` | Chờ handshake, ca TIME/OBJECT_COUNT/LINES, luận đại diện, ba nhóm Tam Thế và EXTENDED, progress/result/error và cách ly request. |
+| H01, session, CSRF và quyền owner | `NOT RUN` | Chờ datasource TEST được xác minh. Lượt này chưa tạo phiên hoặc tạo/xóa bản ghi. |
+| 401/403/404, timeout, disconnect/reconnect và chống gửi trùng | `NOT RUN` với Backend thật | Chạy trên môi trường TEST riêng. Kết quả Client/mock được ghi riêng. |
+| Admin và chat | `BLOCKED` | Thiếu Auth tài khoản, phân quyền Server, API quản trị và Chat REST/STOMP, dữ liệu và tài khoản TEST theo vai trò. |
+
+Lượt 7B chưa có ca **PASS LIVE**. [Bằng chứng 8E/8F ngày 27/10/2026](44-TV1-PHASE8A-ACCEPTANCE.md) vẫn áp dụng trong phạm vi ca lịch sử đã ghi.
+
+### Regression 7B
+
+| Loại | Kết quả |
+| --- | --- |
+| PASS STATIC | TypeScript, production build trong bản sao cách ly và `git diff --check`. |
+| PASS MOCK / component / fixture | Vitest 1.361/1.361, calculation 12/12, contract fixtures 62/62. Timeout, ngắt kết nối, phản hồi muộn và cleanup trong bộ Client giữ phạm vi kiểm thử mô phỏng. |
+| PASS LIVE | Chưa có ca ở lượt 7B. |
+
+### Điều kiện mở lại cổng nghiệm thu
+
+1. **TV3 hoặc người quản lý TEST** xác nhận JDBC đích `jdbc:postgresql://127.0.0.1:5432/huyenco_test_tv1` và role `huyenco_tv1_test` còn được cấp quyền cho Phase 7B. Cung cấp cách nhập mật khẩu qua prompt ẩn hoặc nguồn bí mật được duyệt. Tránh gửi mật khẩu trong chat, lệnh, log hoặc Git.
+2. **TV1 kiểm chỉ đọc trên đúng TEST.** Dùng `psql -X -W` với host, port, database và role tường minh, `default_transaction_read_only=on`, timeout và `ON_ERROR_STOP`. Xác minh `current_database()`, `current_user`, owner, schema, quyền đọc và các bảng H01/V12. Đối chiếu lịch sử migration V1–V12 và đếm dữ liệu nguồn/seed theo biên bản 38/43, gồm 64 quẻ, 384 hào và bộ V12 1 bundle, 20 mẫu, 19 đoạn, 204 ánh xạ. Chỉ đọc metadata và số đếm cần thiết.
+3. **TV1/TV2 khởi động TEST theo hướng dẫn 35** sau khi cổng DB đạt. Dùng JDK 25, Maven `database`, Spring `db`, datasource TEST đã xác minh, Origin `http://127.0.0.1:3173`, bind `127.0.0.1:8080` và tắt Flyway bằng cả môi trường lẫn override CLI. Xác minh PID/listener, health HTTP 200 và readiness HTTP 200 với `READY`, database UP, schema/seed READY trước khi chạy nghiệp vụ.
+4. **TV1 chạy kịch bản 7B ở phần 7A.** Kiểm REST/STOMP trước, sau đó H01 hai phiên và lỗi. Chỉ tạo và xóa bản ghi thuộc chính lượt TEST sau khi xác minh datasource và quyền. Tách kết quả live khỏi fixture.
+5. **TV2/TV3** bàn giao Auth và dữ liệu TEST theo role trước Admin/chat. Cung cấp SHA, hợp đồng API, cookie/CSRF, quyền theo phòng và quy trình đối chiếu dữ liệu. TV1 chỉ mở các tính năng khi có bằng chứng trên Server thật.
+
+[Hướng dẫn tích hợp](35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md) · [Dữ liệu V12](38-M01-M02-REVIEWED-KNOWLEDGE-HANDOFF.md) · [Biên bản V12](43-HUYENCO-V12-DEPLOYMENT-ACCEPTANCE.md)
 
 <a id="phase-tiep-theo"></a>
 ## Các phase tiếp theo
