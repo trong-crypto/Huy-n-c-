@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { SiteNavigation } from "@/components/SiteNavigation";
-import { SessionProvider } from "@/services/session/SessionProvider";
+import { PublicSiteShell } from "@/components/PublicSiteShell";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,8 +11,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="vi">
       <body>
-        <SessionProvider><SiteNavigation />{children}</SessionProvider>
-        <footer className="site-footer"><span>Huyền Cơ</span><p>Tri thức văn hóa truyền thống. Nội dung không phải dự đoán khoa học.</p></footer>
+        <PublicSiteShell>{children}</PublicSiteShell>
       </body>
     </html>
   );

@@ -2,6 +2,8 @@
 
 Next.js Client do TV1 phụ trách: biểu mẫu Mai Hoa/Tam Thế, kết quả có nguồn, tra cứu quẻ, lịch/Can Chi và lịch sử H01. Client kiểm đầu vào và trình bày phản hồi; phép tính và quyền truy cập do Backend quyết định.
 
+**Bàn giao đợt nâng cấp trên nhánh `bmanh812`.** Danh mục phương pháp, các giao diện Admin và hai trang tư vấn đã có ở Client. Tích hợp Auth, thao tác ghi quản trị và chat thật đang chờ Backend/Database. Mục Phase 8 trong tài liệu tập trung ghi cách chạy demo Desktop khi Backend vắng mặt, các cổng nghiệm thu live và phụ thuộc TV2/TV3. [Bàn giao TV1 và hướng dẫn demo](../docs/TV1-TO-TV2-TV3-HANDOFF.md#phase-8)
+
 **Trạng thái bàn giao TV1 ngày 27/10/2026:** F01–F06 có nghiệm thu UI/network thật theo ca chuẩn; F07 đạt progress/cách ly hai context; F08 H01 đạt hai-owner/save/detail/delete/CSRF và cleanup 2/2 record; F09 M03 đạt hai ca UI đại diện. Đây là phạm vi live 8E/8F trên TEST, chưa phải toàn sản phẩm COMPLETE. Xem [ma trận và handoff Phase 8](../docs/44-TV1-PHASE8A-ACCEPTANCE.md) và [kịch bản demo](../docs/45-TV1-DEMO-SCRIPT.md) để phân biệt LIVE ACCEPTED, mock, bằng chứng Backend và các mục PENDING.
 
 ## Môi trường và cài đặt
@@ -62,7 +64,7 @@ Backend cần code/contract v1.2 hiện tại, dữ liệu V12 đã được TV2
 
 ## Phiên, cookie và riêng tư
 
-**Mở bất kỳ trang nào có thể gọi `POST /api/v1/session` tự động**, trước WebSocket. Trên Backend thật, bootstrap này có thể ghi DB; không coi chỉ mở giao diện là thao tác chỉ đọc. Chỉ mở UI nối Backend thật khi môi trường và quyền thao tác đã được xác nhận.
+**Các trang công khai dùng shell H01 có thể tự gọi `POST /api/v1/session`** trước WebSocket. Trên Backend thật, bootstrap này có thể ghi DB. Khu vực Admin và hai trang `/tu-van`, `/tu-van-vien` chạy ngoài provider H01. Chỉ mở UI nối Backend thật khi môi trường và quyền thao tác đã được xác nhận.
 
 - Cookie `huyenco_session` là HttpOnly, SameSite=Lax, Path=/; JavaScript không đọc cookie. CSRF chỉ ở React memory, bootstrap lại khi reload.
 - Cookie không phân biệt port nhưng phân biệt hostname: `localhost` và `127.0.0.1` không dùng chung cookie. Client chỉ chuẩn hóa hai alias loopback này cho WebSocket. Với hai máy/hostname khác nhau cần cấu hình cùng hostname/reverse proxy phù hợp; không tắt Origin/CSRF. Socket không tương thích cookie không được coi là kết quả có thể lưu.

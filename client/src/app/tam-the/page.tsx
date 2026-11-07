@@ -3,6 +3,7 @@
 import { FormEvent, useRef, useState } from "react";
 import { ResultPanel } from "@/components/ResultPanel";
 import { useCalculation } from "@/services/websocket/useCalculation";
+import { SessionNotice } from "@/services/session/SessionProvider";
 import { PageContainer, PageHeader } from "@/components/ui/Page";
 import { FieldError, FormField, PrimaryButton, SectionCard, StatusBanner } from "@/components/ui/Controls";
 import { TamTheArt } from "@/components/ui/TamTheArt";
@@ -126,6 +127,8 @@ export default function TamThePage() {
           <PrimaryButton type="submit" disabled={calculation.connection !== "connected" || waiting}
             aria-describedby={calculation.connection !== "connected" ? "tamthe-connection" : undefined}>{waiting ? "Đang chờ phản hồi…" : "Gửi yêu cầu"}</PrimaryButton>
         </form>
+          {calculation.connection === "disconnected" && <SessionNotice />}
+          {calculation.requestState !== "idle" && <a className="secondary-button calculation-shortcut" href="#ket-qua">Đến tiến trình và kết quả ↓</a>}
         </SectionCard>
         <aside className="input-guide" aria-label="Lưu ý Tam Thế">
           <TamTheArt />
@@ -136,7 +139,7 @@ export default function TamThePage() {
           <p>Các liên kết nhãn và tham chiếu biên tập vẫn là quyết định nhóm. Xem nguồn và giới hạn áp dụng của từng mục trong kết quả.</p>
         </aside>
       </div>
-      <div className="result-region"><ResultPanel {...calculation} /></div>
+      <div id="ket-qua" tabIndex={-1} className="result-region"><ResultPanel {...calculation} /></div>
     </PageContainer>
   );
 }
