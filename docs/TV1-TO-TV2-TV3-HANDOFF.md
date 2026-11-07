@@ -17,9 +17,10 @@
 3. [Phase 4 – Dashboard và quản lý tài khoản](#phase-4)
 4. [Phase 5 – Phương pháp bổ sung](#phase-5)
 5. [Phase 6 – Chat trực tiếp với tư vấn viên](#phase-6)
-6. [Các phase tiếp theo](#phase-tiep-theo)
-7. [Bảng theo dõi công việc](#theo-doi)
-8. [Quy tắc cập nhật](#cap-nhat)
+6. [Phase 7 – Integration Readiness](#phase-7)
+7. [Các phase tiếp theo](#phase-tiep-theo)
+8. [Bảng theo dõi công việc](#theo-doi)
+9. [Quy tắc cập nhật](#cap-nhat)
 
 <a id="phase-2"></a>
 ## Phase 2 – Xác thực quản trị (Admin Authentication)
@@ -220,12 +221,88 @@ Khi mất kết nối, Client giữ bản nháp trong trang và đánh dấu tr�
 
 Chuẩn bị hai tài khoản TEST trên localhost gồm một USER và một CONSULTANT. Kiểm tra tạo yêu cầu, phân công/chấp nhận nếu hỗ trợ, mở phòng, gửi hai chiều và nhận ACK, đọc lịch sử, kết thúc và kết nối lại. Dùng tài khoản hoặc phòng ngoài quyền để thử từ chối REST và SUBSCRIBE/SEND. Đối chiếu mất mạng giữa lúc gửi để kiểm tra tin đến muộn, trùng, chưa rõ ACK và phiên hết hạn. Chạy hồi quy Mai Hoa, Tam Thế, H01 và Admin. Chỉ ghi live PASS sau khi có bằng chứng từ Server thật.
 
+<a id="phase-7"></a>
+## Phase 7 – Integration Readiness
+
+**`PHASE 7A PARTIAL – DEPENDENCIES PENDING`.** Audit ngày 07/11/2026 trên `bmanh812`, mốc `05b4909`. Bằng chứng 8E/8F dưới đây thuộc lượt nghiệm thu trước của kế hoạch gốc. Lượt 7A đánh giá lại mã nguồn hiện tại và tách riêng kết quả Client với kết quả live.
+
+### Môi trường và hợp đồng đã đối chiếu
+
+| Lớp | Có trong mã nguồn | Kiểm tra hiện tại |
+| --- | --- | --- |
+| Client | Next.js, proxy REST cùng origin cho E02/C01/H01 và cấu hình URL STOMP riêng. UI Admin/chat Phase 2–6 hiện có trạng thái chờ. | Kiểm thử desktop cách ly với yêu cầu mạng được chặn hoặc thay bằng fixture. |
+| Backend | Spring Boot 3.5.16, Java 17 là mức target của project. GET `/api/v1/health` và `/api/v1/readiness`. Profile Maven `database`, Spring `db` và datasource từ cấu hình môi trường. | Cả hai GET tại `127.0.0.1:8080` trả lỗi kết nối curl 7, HTTP `000`. Readiness chưa xác minh. |
+| PostgreSQL | Migration trong repo đến V12, gồm V11 cho H01 và V12 cho dữ liệu luận giải. Lượt 8E/8F trước đã chạy trên `huyenco_test_tv1`. | Dịch vụ `postgresql-x64-16` báo Running. Kết nối đến database TEST, schema, seed và phiên bản Flyway hiện tại `NOT TESTED`. |
+| REST | E02 GET `/api/v1/hexagrams` và `/{code}`. C01 POST `/api/v1/calendar/convert` và `/api/v1/calendar/can-chi`. H01 POST `/api/v1/session`, GET/POST `/api/v1/history`, GET/DELETE `/api/v1/history/{id}`. | REST nghiệp vụ và H01 `NOT RUN` do Backend chưa nghe cổng kiểm tra. |
+| WebSocket/STOMP | Handshake `/ws`, SEND `/app/mai-hoa/calculate` hoặc `/app/tam-the/calculate`. SUBSCRIBE `/user/queue/results`, `/user/queue/errors`, `/user/queue/progress`. Spring kiểm các đích này ở inbound interceptor. | Không có REST tính Mai Hoa/Tam Thế trong contract hiện tại. Progress, result, error, timeout và reconnect live `NOT RUN` ở lượt 7A. |
+| Session và quyền | H01 xác định owner ẩn danh từ cookie `huyenco_session`. Server kiểm owner, Origin/CSRF và custom header theo contract. H01 trả `401 INVALID_SESSION`, `403 CSRF_REJECTED` và `404 NOT_FOUND` khi truy cập bản ghi ngoài owner. | Kiểm H01 live, gồm save/read/delete và ca lỗi, `NOT RUN` trong lượt này. H01 chỉ cấp quyền trong phạm vi lịch sử ẩn danh. |
+| Tài khoản, Admin và chat | Mã Backend tại mốc audit chưa có đăng nhập/đọc phiên/đăng xuất tài khoản, kiểm vai trò ADMIN/CONSULTANT, CRUD quản trị, thống kê, quản lý tư vấn viên hoặc chat REST/STOMP. | `BLOCKED`. Các route chat giữ khóa và bỏ qua bootstrap H01. |
+
+[Contract v1.2](02-API-CONTRACT.md) · [Cấu hình localhost TEST](35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md) · [Bằng chứng live 8E/8F](44-TV1-PHASE8A-ACCEPTANCE.md) · [Ca chuẩn D01–D12](45-TV1-DEMO-SCRIPT.md)
+
+### Ma trận tích hợp 13 module
+
+`VERIFIED LIVE` ghi bằng chứng đã có ở 8E/8F trong phạm vi ca nêu rõ. Cột kiểm thử 7A cho biết lần này đã chạy gì. `READY FOR INTEGRATION` áp dụng cho giao diện độc lập đã sẵn sàng. `PARTIAL` ghi phần dùng được và phần chờ. `BLOCKED` chỉ phụ thuộc chưa đáp ứng. `NOT TESTED` dùng cho điều kiện chưa kiểm chứng. Fixture và UI smoke không thay bằng chứng Backend thật.
+
+| # | Module | Frontend | API Backend và DB | Xác thực / phân quyền | Dữ liệu TEST | Trạng thái và kiểm thử 7A | Phụ trách và điều kiện nghiệm thu |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | Trang chủ và điều hướng | Trang chủ, danh mục phương pháp, các liên kết public | UI độc lập với dữ liệu nghiệp vụ. Shell có bootstrap H01 ở các trang public cũ | Không cần tài khoản để xem trang | Không cần DB để kiểm UI | `READY FOR INTEGRATION`. Desktop UI smoke | TV1 kiểm liên kết, route active và bố cục desktop |
+| 2 | Mai Hoa | Form TIME, OBJECT_COUNT, LINES, tiến trình, ba quẻ, luận chi tiết | STOMP thật. Kho quy tắc, lịch và dữ liệu M03/V12 trong repo | Phiên socket để định tuyến. Cookie H01 cần khi lưu kết quả | Fixture D01–D05. DB TEST từng dùng ở 8F | `VERIFIED LIVE` 8F cho ca chuẩn và M03 đại diện. 7A live `NOT RUN` | TV1/TV2 kiểm progress, terminal và lỗi theo requestId. TV3 xác nhận seed/rule |
+| 3 | Tam Thế | Form ngày giờ sinh, category và Tài lộc mở rộng | STOMP thật. Bảng D03/D04 và V12 trong repo | Phiên socket để định tuyến. Cookie H01 cần khi lưu | Fixture D06. DB TEST từng dùng ở 8F | `VERIFIED LIVE` 8F cho D04 đại diện. 7A live `NOT RUN` | TV1/TV2 kiểm LEGACY/EXTENDED theo ca đã chốt. TV3 kiểm dữ liệu và no-match nguồn |
+| 4 | Tra cứu 64 quẻ | Danh sách, tìm/lọc, phân trang và chi tiết | REST E02 thật. Kho quẻ, hào và nghĩa tên trong schema | Đọc công khai, không yêu cầu tài khoản | Bộ 64 quẻ từng kiểm ở 8F, có fixture | `VERIFIED LIVE` 8F đủ 64 mã và chi tiết đại diện. 7A fixture, live `NOT RUN` | TV3 xác nhận seed, TV2/TV1 đối chiếu 64 mã và ca tìm/lọc |
+| 5 | Lịch/Can Chi | Đổi lịch hai chiều và tra Can Chi | REST C01 thật. Bảng lịch/nguồn và quy tắc C01/V8 | Công khai, không yêu cầu tài khoản | Fixture D08/D09, DB TEST từng dùng ở 8F | `VERIFIED LIVE` 8F cho round-trip, Can Chi có/không giờ. 7A live `NOT RUN` | TV2/TV3 kiểm quy ước UTC+7 và ca biên, TV1 kiểm form/response |
+| 6 | Lịch sử H01 | Lưu, danh sách/tìm kiếm, chi tiết, xóa | REST H01 thật, V11 phiên ẩn danh và snapshot lịch sử | Cookie owner, kiểm quyền theo bản ghi, CSRF khi ghi/xóa | Hai owner TEST đã dùng ở 8E. Lượt mới cần dữ liệu do lượt test tạo | `VERIFIED LIVE` 8E cho hai owner, save/read/delete, CSRF và từ chối chéo. 7A live `NOT RUN` | TV1/TV2 kiểm lại 401/403/404, tạo và dọn đúng bản ghi test. TV3 xác nhận TEST và dataset nhiều trang |
+| 7 | Admin Login/Logout | Trang login, validation, phiên và logout chờ tích hợp | API phiên tài khoản và dữ liệu xác thực chưa có | Phiên tài khoản, role ADMIN và CSRF | Chưa xác nhận tài khoản ADMIN TEST | `BLOCKED` | TV2 AUTH-01–06, TV3 DATA-01–05. Kiểm đúng/sai thông tin, hết phiên, logout và quyền |
+| 8 | Quản lý nội dung | Form và preview. Đọc quẻ công khai để đối chiếu | E02 có thật ở phần đọc quẻ. CRUD, trạng thái và công bố thiếu API, lưu trữ và versioning | ADMIN/CSRF cho quản trị | Có fixture quẻ. Chưa có dữ liệu nội dung quản trị TEST | `PARTIAL` cho giao diện và đọc quẻ. CRUD/duyệt `BLOCKED` | TV2 CONTENT-01–06, TV3 CMS-DATA-01–05. Tạo/sửa/đọc lại và duyệt/công bố trên TEST |
+| 9 | Admin Dashboard | Thẻ chỉ số, bảng và trạng thái chờ dữ liệu | Chưa có API hoặc dữ liệu thống kê Admin đã chốt | ADMIN theo quyền thống kê | Chỉ có dữ liệu tổng hợp trong test UI | `BLOCKED` | TV2 ADM-01, TV3 ADM-DATA-02. Đối chiếu tổng, phân nhóm và ranh giới số 0/thiếu dữ liệu |
+| 10 | Người dùng và phân quyền | Danh sách/chi tiết, bộ lọc, preview đề xuất | Chưa có API tài khoản/role và dữ liệu thực tương ứng | ADMIN theo quyền đọc/đổi trạng thái/role và CSRF | Chưa xác nhận tài khoản TEST theo role | `BLOCKED` | TV2 ADM-02–05/08, TV3 ADM-DATA-01/03/06. Kiểm role, phân trang và cập nhật có lưu |
+| 11 | Quản lý tư vấn viên | Hồ sơ, bộ lọc, preview duyệt/từ chối | Chưa có API danh sách, duyệt hoặc dữ liệu hồ sơ | ADMIN cho quản lý. CONSULTANT là vai trò riêng | Chưa xác nhận hồ sơ/tài khoản TEST | `BLOCKED` | TV2 ADM-06, TV3 ADM-DATA-04/06. Kiểm trạng thái tài khoản và duyệt độc lập |
+| 12 | Chat 1:1 | Hai route riêng, composer khóa, trạng thái phòng/kết nối | Chưa có REST/STOMP chat, quan hệ thành viên hoặc lịch sử tin | Auth USER/CONSULTANT hoặc chính sách khách đã duyệt, quyền từng phòng | Chưa xác nhận hai tài khoản và ca ngoài quyền | `BLOCKED`. UI và kiểm thử nguồn sự kiện nội bộ | TV2 CHAT-01–09, TV3 CHAT-DATA-01–07. Kiểm hai chiều, ACK, lịch sử, ngoài quyền, kết thúc và reconnect |
+| 13 | Phương pháp bói mới | Danh mục dùng chung cho các phương pháp hiện có | Quy tắc, API/STOMP, dữ liệu và H01 cho phương pháp mới đều TBD | Quyền theo hợp đồng tương lai | Chưa có ca chuẩn của phương pháp được duyệt | `BLOCKED` cho tích hợp phương pháp mới | Cả nhóm chốt phương pháp và nguồn. TV2/TV3 bàn giao hợp đồng và ca chuẩn trước khi TV1 tích hợp |
+
+**Giới hạn của bằng chứng cũ.** 8F có progress, kết quả và hai phiên cách ly. Fault injection live cho timeout, mất mạng, reconnect và terminal đến muộn/trùng vẫn chờ kiểm. 8E xác nhận CSRF 403 và đọc/xóa chéo owner 404 trong phạm vi ca đã chạy. Bộ nghiệm thu Client vẫn cần ca 401, hết phiên và phân trang lịch sử nhiều trang. Lượt 7A không tạo phiên, ghi hoặc xóa dữ liệu TEST.
+
+### Kết quả kiểm thử Phase 7A
+
+| Loại | Kết quả |
+| --- | --- |
+| Kiểm tra tĩnh và build | TypeScript, production build cách ly và `git diff --check` đạt. |
+| Unit, component và fixture | Vitest 1.361/1.361, calculation 12/12 và contract fixtures 62/62 đạt. Ca lỗi, timeout, reconnect và cách ly phòng trong bộ kiểm Client là bằng chứng mock hoặc component. |
+| Desktop localhost | Chromium 1280, 1440 và 1920 px đạt smoke. Kiểm điều hướng public và Admin, tra quẻ qua fixture và hai trang chat giữ khóa, không gọi API/WS. |
+| Live 7A | `NOT RUN` cho các ca REST/STOMP nghiệp vụ và H01 do không kết nối được Backend ở cổng 8080. Auth/Admin/chat và phương pháp mới giữ các phụ thuộc `BLOCKED` trong ma trận. |
+
+### Rà soát hạ tầng Client
+
+- REST kiểm envelope và DTO lúc nhận, gắn timeout, abort khi hủy và bỏ kết quả cũ. Mặc định API công khai không kèm cookie. H01 dùng same-origin, CSRF cho thao tác ghi và không tự retry ghi.
+- STOMP tính quẻ có timeout kết nối và timeout tổng cho từng yêu cầu. Client giữ một request đang chờ, lọc theo socket/generation, requestId và type, xử lý progress đúng thứ tự. Ngắt kết nối giải phóng request, unmount hủy subscription/socket, reconnect thiết lập lại subscription mà không tự gửi lại yêu cầu.
+- H01 bootstrap và theo dõi hạn của phiên owner. Khi gặp lỗi phiên/CSRF, Client vô hiệu hóa trạng thái tương ứng. Chat chưa có adapter mạng. UI chỉ kiểm subscription nội bộ, lọc roomId, loại tin trùng và hủy khi mất kết nối hoặc đổi phòng.
+- Các route nghiệp vụ cũ và hợp đồng hiện tại được giữ nguyên. Chưa có lỗi Client được xác nhận cần sửa trong audit này.
+
+### Ưu tiên TV2 và TV3
+
+| Ưu tiên | TV2 | TV3 | Điều kiện chuyển bước |
+| --- | --- | --- | --- |
+| P0 | Bàn giao Backend TEST, bằng chứng datasource/readiness và hợp đồng login/session/logout, role, cookie, Origin/CSRF. Chốt mô hình Auth chat riêng. | Xác nhận DB TEST tách biệt, schema/seed đúng, tài khoản ADMIN/USER/CONSULTANT và ca thiếu quyền sau khi thống nhất mô hình. | Chạy được hồi quy lõi. Phiên, quyền và lỗi 401/403 được kiểm trước mọi API ghi quản trị hoặc chat. |
+| P1 | Cung cấp CRUD/duyệt nội dung, tài khoản, hồ sơ tư vấn viên và Chat REST/STOMP có quyền từng phòng, ACK và reconnect. | Chốt schema nội dung, hồ sơ và hội thoại. Cung cấp fixtures, snapshot, versioning và dữ liệu TEST phù hợp. | Tích hợp theo hợp đồng đã xác nhận, có ca đọc lại từ DB và kiểm từ chối ngoài quyền. |
+| P2 | Bàn giao thống kê nâng cao, nhật ký và API phương pháp mới khi được duyệt. | Chốt nguồn số liệu, lưu nhật ký và quy tắc/dữ liệu phương pháp mới. | Cần quyết định phạm vi, dữ liệu tham chiếu và ca chuẩn. |
+
+Kiểm tra lại các luồng lõi song song với việc chốt P0 khi Backend TEST đã sẵn sàng, vì chúng dùng contract v1.2/H01 hiện hữu. Admin/chat vẫn phụ thuộc Auth tài khoản và quyền riêng, nên chỉ tích hợp sau cổng P0.
+
+### Kịch bản nghiệm thu Phase 7B
+
+1. **Preflight TEST.** Ghi SHA Client/Backend, PID/port, datasource TEST, phiên bản schema và seed, Origin, Flyway tắt, GET health và readiness đều HTTP 200 với readiness `READY`. Dừng trước thao tác ghi nếu chưa xác minh môi trường.
+2. **Luồng lõi.** Chạy D01–D09. Mai Hoa TIME/OBJECT_COUNT/LINES và Tam Thế gửi STOMP, kiểm requestId/type, progress và terminal, cùng ít nhất một lỗi nghiệp vụ. Tra quẻ qua đủ các trang, tìm/lọc/chi tiết. Đổi lịch hai chiều và kiểm Can Chi có/không giờ.
+3. **H01 hai owner TEST.** Dùng hai context riêng. Tạo phiên, tính, lưu, đọc/list và kiểm lỗi 401/403, ngoài owner 404. Nếu được xác nhận phạm vi TEST, xóa đúng ID do lượt đó tạo, đối chiếu 404 sau xóa và ghi bằng chứng cleanup. Kiểm phân trang khi có dataset được duyệt.
+4. **Lỗi mạng có kiểm soát.** Dùng context TEST riêng để tái hiện timeout, mất kết nối và reconnect. Đối chiếu không tự SEND lại, tin cũ không làm thay đổi kết quả mới và hai context cách ly. Ghi riêng ca lỗi nào mới chạy ở mock.
+5. **Admin và chat khi có hợp đồng.** Sau khi P0 đạt, kiểm login, phiên, logout và role/CSRF trước Admin CRUD, dashboard và tư vấn viên. Dùng USER/CONSULTANT TEST để kiểm chat hai chiều, ACK/chống trùng, reconnect/lịch sử, kết thúc và từ chối REST/SEND/SUBSCRIBE ngoài phòng.
+6. **Ghi kết quả.** Lưu ca, SHA, môi trường, kỳ vọng, kết quả và loại bằng chứng. Giữ `BLOCKED`/`NOT RUN` cho phần chưa đủ điều kiện. Che cookie, token và dữ liệu hội thoại trong bằng chứng.
+
 <a id="phase-tiep-theo"></a>
 ## Các phase tiếp theo
 
 | Phase | Phạm vi dự kiến | Trạng thái |
 | --- | --- | --- |
-| 7 | Tích hợp hệ thống trên localhost | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
+| 7B | Nghiệm thu tích hợp trên localhost | Chờ Backend TEST và các hợp đồng còn thiếu theo từng cổng |
 | 8 | Kiểm thử và bàn giao | Chưa bắt đầu – Sẽ bổ sung yêu cầu sau khi TV1 triển khai và xác định dependency |
 
 Phase 9 là tùy chọn và chưa nằm trong phạm vi cam kết triển khai.
@@ -314,6 +391,15 @@ Phase 9 là tùy chọn và chưa nằm trong phạm vi cam kết triển khai.
 | CHAT-DATA-06 | Hai tài khoản và phòng TEST | TV3 | Cao | `BLOCKED` | CHAT-04, CHAT-DATA-01–03 | C3–C10 | Đủ USER, CONSULTANT và ca ngoài quyền. Dữ liệu tổng hợp |
 | CHAT-DATA-07 | Lưu giữ, truy xuất và bảo vệ hội thoại | TV3 | Cao | `TODO` | Chốt chính sách với TV2 | C7, C8 | Kiểm quyền, phạm vi lưu, che log và xử lý hết thời hạn |
 | PH6-PH-01 | Nghiệm thu chat 1:1 trên localhost | TV1, TV2, TV3 | Cao | `BLOCKED` | CHAT-01–09, CHAT-DATA-06 | C1–C10 | Hai tài khoản thật trao đổi đúng phòng, lịch sử, reconnect, từ chối ngoài quyền và hồi quy |
+
+### Theo dõi Phase 7
+
+| ID | Công việc | Người phụ trách | Ưu tiên | Trạng thái | Điều kiện nghiệm thu |
+| --- | --- | --- | --- | --- | --- |
+| INT-01 | Bàn giao Backend và dữ liệu TEST | TV2, TV3 | P0 | `TODO` | Datasource TEST được xác nhận, health/readiness đạt, schema/seed và Origin khớp |
+| INT-02 | Chạy lại luồng lõi và H01 trên TEST | TV1, TV2, TV3 | P0 | `BLOCKED` | INT-01 đạt, có bằng chứng REST/STOMP, 401/403, cách ly phiên và cleanup đúng |
+| INT-03 | Tích hợp Auth trước Admin/chat | TV1, TV2, TV3 | P0 | `BLOCKED` | AUTH/CHAT Auth chốt và kiểm trên Backend thật. Có tài khoản TEST theo role |
+| INT-04 | Nghiệm thu Admin và chat theo contract | TV1, TV2, TV3 | P1 | `BLOCKED` | INT-03 đạt và hợp đồng liên quan được bàn giao. Kiểm dữ liệu lưu và ca ngoài quyền |
 
 <a id="cap-nhat"></a>
 ## Quy tắc cập nhật
