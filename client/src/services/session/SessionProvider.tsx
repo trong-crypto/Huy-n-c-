@@ -3,6 +3,8 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState, ty
 import type { SessionResult } from "@/types/contract";
 import { bootstrapSession, historyErrorMessage } from "@/services/rest/history";
 import { RestError } from "@/services/rest/transport";
+import { CLIENT_CONFIG } from "@/config/client";
+import Link from "next/link";
 
 type SessionState = { status: "loading" | "failed" | "invalid"; data: null; error: unknown } | { status: "ready"; data: SessionResult; error: null };
 type Context = SessionState & { revision: number; retry: () => void; invalidate: (error: unknown) => void; handleError: (error: unknown) => void };
@@ -18,7 +20,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     generation.current++; bootstrap.current?.controller.abort(); bootstrap.current = null;
     setRevision(value => value + 1); setState({ status: "invalid", data: null, error });
   }, []);
-  const handleError = useCallback((error: unknown) => { if (error instanceof RestError && ["INVALID_SESSION", "CSRF_REJECTED"].includes(error.code)) invalidate(error); }, [invalidate]);
+  const handleError = useCallback((error: unknown) => {
+    if (!(error instanceof RestError)) return;
+    if (error.code === "LOGIN_REQUIRED") {
+      generation.current++; bootstrap.current?.controller.abort(); bootstrap.current = null;
+      setRevision(value => value + 1); setState({ status: "failed", data: null, error });
+    } else if (["INVALID_SESSION", "CSRF_REJECTED"].includes(error.code)) invalidate(error);
+  }, [invalidate]);
   useEffect(() => {
     const id = ++generation.current;
     if (!bootstrap.current?.promise || bootstrap.current.attempt !== attempt || bootstrap.current.controller.signal.aborted) {
@@ -56,7 +64,10 @@ export function SessionProvider({ children }: { children: ReactNode }) {
 export function SessionNotice() {
   const session = useSession();
   if (!session || session.status === "ready") return null;
+  const needsLogin = CLIENT_CONFIG.accountHistory && session.error instanceof RestError
+    && ["LOGIN_REQUIRED", "INVALID_SESSION"].includes(session.error.code);
   return <div className="session-notice"><p role="status">{session.status === "loading" ? "Đang khởi tạo phiên riêng tư…" : historyErrorMessage(session.error)}</p>
-    {session.status !== "loading" && <button type="button" className="secondary-button" onClick={session.retry}>Kiểm tra lại phiên</button>}
-    <p className="field-hint">Lịch sử gắn với phiên của trình duyệt này. Nếu xóa dữ liệu trình duyệt, bạn có thể mất quyền truy cập lịch sử.</p></div>;
+    {needsLogin ? <Link className="secondary-button" href="/dang-nhap">Đăng nhập</Link> :
+      session.status !== "loading" && <button type="button" className="secondary-button" onClick={session.retry}>Kiểm tra lại phiên</button>}
+    {!CLIENT_CONFIG.accountHistory && <p className="field-hint">Lịch sử gắn với phiên của trình duyệt này. Nếu xóa dữ liệu trình duyệt, bạn có thể mất quyền truy cập lịch sử.</p>}</div>;
 }

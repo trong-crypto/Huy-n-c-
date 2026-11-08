@@ -104,6 +104,20 @@ beforeEach(() => {
 });
 
 describe("useCalculation safe core", () => {
+  it("sends a v4 request ID over LAN HTTP when randomUUID is unavailable", () => {
+    const descriptor = Object.getOwnPropertyDescriptor(crypto, "randomUUID");
+    Object.defineProperty(crypto, "randomUUID", { configurable: true, value: undefined });
+    try {
+      const { result } = renderHook(() => useCalculation());
+      const client = stomp.instances[0];
+      connect(client);
+      act(() => result.current.submit("MAI_HOA", payload));
+      expect(lastId(client)).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
+    } finally {
+      if (descriptor) Object.defineProperty(crypto, "randomUUID", descriptor);
+      else Reflect.deleteProperty(crypto, "randomUUID");
+    }
+  });
   it("H01 waits for bootstrap before creating the WebSocket and binds saved results to that generation", async () => {
     let ready!: (value: ReturnType<typeof readySession>) => void;
     vi.mocked(bootstrapSession).mockReset().mockReturnValue(new Promise(yes => { ready = yes; }));

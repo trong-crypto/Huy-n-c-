@@ -1,0 +1,41 @@
+import { CLIENT_CONFIG } from "@/config/client";
+import { isRecord } from "@/types/contractValidation";
+import { isHistoryCsrf, isUuid } from "@/types/historyValidation";
+import { requestJson, RestError } from "./transport";
+
+type Credentials = { identifier: string; password: string };
+type Account = { id: string; displayName: string; role: "USER" | "CONSULTANT" };
+type Registration = { account: Account };
+type Session = Registration & { expiresAt: string; csrfToken: string };
+
+function isRegistration(value: unknown): value is Registration {
+  if (!isRecord(value) || !isRecord(value.account)) return false;
+  const { id, displayName, role } = value.account;
+  return isUuid(id) && typeof displayName === "string" && (role === "USER" || role === "CONSULTANT");
+}
+
+function isSession(value: unknown): value is Session {
+  return isRecord(value) && typeof value.expiresAt === "string" && Number.isFinite(Date.parse(value.expiresAt))
+    && isHistoryCsrf(value.csrfToken) && isRegistration(value);
+}
+
+function options() {
+  if (new URL(CLIENT_CONFIG.apiBaseUrl, window.location.href).origin !== window.location.origin) {
+    throw new RestError("SESSION_CONFIGURATION");
+  }
+  return { credentials: "same-origin" as const, headers: { "X-HuyenCo-Request": "1" } };
+}
+
+export function registerCustomer(data: Credentials & { displayName: string }, signal: AbortSignal) {
+  return requestJson("/auth/register", isRegistration, signal, data, { ...options(), successStatus: 201 });
+}
+
+export function loginCustomer(data: Credentials, signal: AbortSignal) {
+  return requestJson("/auth/login", isSession, signal, data, options());
+}
+
+export function logoutCustomer(csrfToken: string, signal: AbortSignal) {
+  const request = options();
+  return requestJson("/auth/logout", (value): value is null => value === null, signal, {},
+    { ...request, headers: { ...request.headers, "X-CSRF-Token": csrfToken }, successStatus: 204 });
+}

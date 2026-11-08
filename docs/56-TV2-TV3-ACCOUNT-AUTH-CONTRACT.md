@@ -72,7 +72,7 @@ TV3 đã thêm [migration V13](../server/src/main/resources/db/migration/V13__ac
 
 - Băm mật khẩu bằng Argon2id với salt riêng, tối thiểu 19 MiB, hai vòng và độ song song một. Lưu kết quả băm có tham số. Token cookie là chuỗi ngẫu nhiên có entropy cao, lưu SHA-256 của token trong DB. Phiên chỉ hợp lệ khi bản ghi còn hạn, chưa thu hồi, tài khoản đang hoạt động và role vẫn phù hợp cổng. Luồng khóa tài khoản hoặc đổi role khi được triển khai phải thu hồi phiên trong cùng giao dịch để phiên cũ không có hiệu lực lại.
 - Tạo USER và ADMIN TEST bằng dữ liệu riêng. Tạo CONSULTANT TEST để kiểm đường đăng nhập khách hàng nếu cần. Cấp tài khoản đặc quyền bằng quy trình quản trị có kiểm soát, với mật khẩu cấp ngoài Git. Dùng TEST riêng đã xác nhận datasource, sao lưu và đối chiếu H01 trước/sau migration.
-- `POST /api/v1/session`, cookie `huyenco_session` và quyền chủ sở hữu `/api/v1/history` tiếp tục theo H01. Giai đoạn Auth chưa gắn lịch sử với account. Chuyển lịch sử ẩn danh và đọc lịch sử theo tài khoản trên thiết bị khác cần hợp đồng sở hữu riêng.
+- Từ V14, khi bật Auth trên profile `db`, lịch sử dùng phiên tài khoản theo quy tắc bên dưới. Cookie `huyenco_session` và dữ liệu H01 cũ thuộc chế độ tương thích.
 
 ## Ca bàn giao TV1
 
@@ -89,5 +89,13 @@ Build với Maven profile `database`, chạy Spring profile `db` với datasourc
 Giới hạn mặc định trong 15 phút là 60 lượt login theo IP, 10 lượt login theo cặp IP/định danh và 10 lượt đăng ký theo IP. Ba ngưỡng đọc từ `AUTH_LOGIN_PER_IP`, `AUTH_LOGIN_PER_IDENTIFIER` và `AUTH_REGISTER_PER_IP`. Bộ đếm nằm trong một tiến trình Backend và dùng địa chỉ do servlet nhận. Khi dùng reverse proxy, cấu hình hạ tầng tin cậy để servlet nhận đúng địa chỉ nếu cần giới hạn riêng theo IP khách.
 
 Lượt kiểm ngày 07/11/2026 chạy trên `http://127.0.0.1:18095`. Có 42 ca HTTP Auth đạt, gồm phiên Admin và khách hàng, mật khẩu sai, xung đột định danh, xoay token, hết hạn, thu hồi, Origin, CSRF và giới hạn tần suất. Hồi quy H01 đạt 49 yêu cầu HTTP và 8 phản hồi cuối STOMP. Hai lượt đã dọn bản ghi thử. Kiểm trình duyệt qua Next.js và môi trường hai máy vẫn là bước bàn giao tiếp theo.
+
+## Lịch sử theo tài khoản V14
+
+- Với profile `db` và `AUTH_ENABLED=true`, `POST /api/v1/session` trả thời hạn và CSRF từ phiên khách hàng hiện có. API lưu, liệt kê, đọc và xóa `/api/v1/history` yêu cầu phiên này. Khách và phiên hết hạn nhận `401 LOGIN_REQUIRED`. Phiên Admin và cookie H01 không cấp quyền truy cập lịch sử tài khoản. Với mã bản ghi ngoài quyền, API trả `404`.
+- Khách vẫn lập quẻ được. Để lưu kết quả mới, người dùng đăng nhập rồi lập quẻ trong phiên đã xác thực. WebSocket dùng `/api/v1/ws` để cookie khách hàng có `Path=/api/v1` đi cùng yêu cầu. Kết quả tạm chỉ lưu được từ phiên tài khoản đã tính ra kết quả. Sau khi lưu, mọi phiên hợp lệ của cùng tài khoản đọc được qua REST.
+- Migration tạo bảng `account_history` với khóa sở hữu theo tài khoản. Bản ghi H01 cũ được giữ trong `interpretation_history` và thuộc phiên ẩn danh ban đầu. Bản này chưa có thao tác chuyển dữ liệu H01 vào tài khoản. Môi trường chạy với Auth tắt tiếp tục dùng H01 cho kiểm thử tương thích.
+- Giao diện bật `NEXT_PUBLIC_ACCOUNT_HISTORY=1` khi build và khi chạy, trỏ `HUYENCO_API_URL` tới Backend Auth. Next.js chuyển tiếp các tuyến Auth và WebSocket cùng origin. Đăng nhập dẫn tới lịch sử, tại đó có nút đăng xuất. Khách được dẫn tới đăng nhập khi mở lịch sử hoặc muốn lưu kết quả.
+- Trên TEST V14, kiểm qua Next.js đạt 27 yêu cầu HTTP và hai kết quả STOMP, gồm khách bị chặn lưu, tài khoản khác bị chặn đọc/xóa, cùng tài khoản đọc bằng phiên thứ hai và phiên cũ bị từ chối sau đăng xuất. Chrome cũng đạt luồng đăng ký, đăng nhập, lập quẻ, lưu, tải lại và đăng xuất. Các tài khoản thử đã được dọn. Nghiệm thu qua thiết bị thứ hai dành cho mốc triển khai sau.
 
 Tham chiếu triển khai. [Bàn giao Auth của TV1](TV1-PHASE2-ADMIN-AUTH-HANDOFF.md), [môi trường TEST](55-TV2-TV3-TEST-ENVIRONMENT-20261107.md), [OWASP Password Storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html), [OWASP CSRF Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CompletedResults {
     public record Result(String type, String basis, String json) { }
-    private record Key(UUID owner, UUID request) { }
+    private record Key(UUID owner, UUID accountSession, UUID request) { }
     private record Entry(Result result, Instant expires, int bytes, boolean conflict) { }
     private final LinkedHashMap<Key, Entry> entries = new LinkedHashMap<>();
     private final Clock clock;
@@ -42,7 +42,7 @@ public class CompletedResults {
         if (length > 131072 || length > maxBytes) return;
         UUID id;
         try { id=UUID.fromString(requestId); } catch (IllegalArgumentException failure) { return; }
-        var key=new Key(owner.id(),id);
+        var key=new Key(owner.id(),owner.accountSessionId(),id);
         var result=new Result(type,tree.path("ruleBasis").asText(),json);
         var old=entries.get(key);
         if (old != null) {
@@ -55,8 +55,12 @@ public class CompletedResults {
         entries.put(key,new Entry(result,expiry,length,false)); bytes+=length;
     }
 
-    public synchronized Optional<Result> find(UUID owner, UUID request) {
-        prune(); var entry=entries.get(new Key(owner,request));
+    public Optional<Result> find(UUID owner, UUID request) { return find(new Key(owner,null,request)); }
+    public Optional<Result> find(HistoryStore.Owner owner, UUID request) {
+        return find(new Key(owner.id(),owner.accountSessionId(),request));
+    }
+    private synchronized Optional<Result> find(Key key) {
+        prune(); var entry=entries.get(key);
         if (entry != null && entry.conflict()) throw SessionService.invalid("requestId đã có nhiều kết quả khác nhau; hãy tính lại với ID mới.");
         return entry == null ? Optional.empty() : Optional.of(entry.result());
     }

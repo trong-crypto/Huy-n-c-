@@ -1,5 +1,5 @@
 import { CLIENT_CONFIG } from "@/config/client";
-import { isHistoryDeleted, isHistoryDetail, isHistoryPage, isSessionResult, isUuid } from "@/types/historyValidation";
+import { isHistoryCsrf, isHistoryDeleted, isHistoryDetail, isHistoryPage, isSessionResult, isUuid } from "@/types/historyValidation";
 import { requestJson, RestError } from "./transport";
 export type HistoryQuery = { q: string; type: string; page: number; size: number };
 const options = { credentials: "same-origin" as const };
@@ -7,11 +7,14 @@ function sameOrigin() {
   if (typeof window !== "undefined" && new URL(CLIENT_CONFIG.apiBaseUrl, window.location.href).origin !== window.location.origin) throw new RestError("SESSION_CONFIGURATION");
 }
 function mutation(csrf: string) {
-  if (csrf.length !== 64 || !/^[0-9a-f]{64}$/.test(csrf)) throw new RestError("INVALID_SESSION");
+  if (!isHistoryCsrf(csrf)) throw new RestError("INVALID_SESSION");
   return { ...options, headers: { "X-HuyenCo-Request": "1", "X-CSRF-Token": csrf } };
 }
 export async function bootstrapSession(signal: AbortSignal) {
-  sameOrigin(); return requestJson("/session", isSessionResult, signal, {}, { ...options, headers: { "X-HuyenCo-Request": "1" } });
+  sameOrigin();
+  const session = await requestJson("/session", isSessionResult, signal, {}, { ...options, headers: { "X-HuyenCo-Request": "1" } });
+  if (CLIENT_CONFIG.accountHistory && session.csrfToken.length !== 43) throw new RestError("SESSION_CONFIGURATION");
+  return session;
 }
 export function historyQueryString(query: HistoryQuery) {
   if (query.q.length > 100 || !["", "MAI_HOA", "TAM_THE"].includes(query.type) || !Number.isInteger(query.page) || query.page < 0 || query.page > 2147483647
@@ -40,6 +43,7 @@ export function deleteHistory(id: string, csrf: string, signal: AbortSignal) {
 }
 export function historyErrorMessage(error: unknown): string {
   const messages: Record<string, string> = {
+    LOGIN_REQUIRED: "Đăng nhập để lưu và xem lịch sử tài khoản.",
     INVALID_SESSION: "Phiên không hợp lệ hoặc đã hết hạn. Dữ liệu riêng tư đã được ẩn; cần kiểm tra lại phiên.",
     CSRF_REJECTED: "Yêu cầu bị từ chối do kiểm tra phiên/CSRF. Không tự động gửi lại thao tác.",
     NOT_FOUND: "Không tìm thấy dữ liệu trong phiên của bạn. Kết quả chưa lưu có thể đã hết hạn hoặc bị loại khỏi cache.",
@@ -49,7 +53,7 @@ export function historyErrorMessage(error: unknown): string {
     INVALID_RESPONSE: "Phản hồi lịch sử không đúng hợp đồng. Không hiển thị dữ liệu chưa xác thực.",
     REQUEST_TIMEOUT: "Yêu cầu quá thời gian chờ. Server có thể đã nhận thao tác; không tự gửi lại.",
     NETWORK_ERROR: "Không kết nối được dịch vụ. Server có thể đã nhận thao tác; không tự gửi lại.",
-    SESSION_CONFIGURATION: "Cấu hình dịch vụ phiên phải cùng origin với giao diện để bảo vệ cookie.",
+    SESSION_CONFIGURATION: "Cấu hình dịch vụ phiên chưa khớp với giao diện.",
   };
   return error instanceof RestError && Object.hasOwn(messages, error.code) ? messages[error.code] : "Không thể xử lý yêu cầu lịch sử. Vui lòng thử lại.";
 }

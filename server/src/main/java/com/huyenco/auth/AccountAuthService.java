@@ -52,7 +52,7 @@ final class AccountAuthService {
     record Session(Account account, String expiresAt, String csrfToken) {}
     record Issued(String token, Session session) {}
     private record Credentials(Account account, String hash, boolean active) {}
-    private record StoredSession(Account account, OffsetDateTime expiresAt) {}
+    record StoredSession(Account account, OffsetDateTime expiresAt, UUID sessionId) {}
 
     private static final Base64.Encoder TOKEN_ENCODER = Base64.getUrlEncoder().withoutPadding();
     private final JdbcTemplate db;
@@ -114,18 +114,24 @@ final class AccountAuthService {
     }
 
     Session requireSession(Realm realm, String token) {
+        StoredSession stored = requireStoredSession(realm, token);
+        return session(stored.account(), stored.expiresAt(), realm, token);
+    }
+
+    StoredSession requireStoredSession(Realm realm, String token) {
         if (token == null) throw AuthFailure.session();
         StoredSession stored = db.query("""
-                SELECT a.id, a.display_name, a.role, s.expires_at
+                SELECT a.id, a.display_name, a.role, s.expires_at, s.id AS session_id
                 FROM account_sessions s JOIN accounts a ON a.id = s.account_id
                 WHERE s.token_hash = ? AND s.realm = ? AND s.revoked_at IS NULL
                   AND s.expires_at > ? AND a.status = 'ACTIVE'
                 """, (row, index) -> new StoredSession(
                 new Account(row.getObject("id", UUID.class), row.getString("display_name"), row.getString("role")),
-                row.getObject("expires_at", OffsetDateTime.class)), tokenHash(token), realm.name(), now())
+                row.getObject("expires_at", OffsetDateTime.class), row.getObject("session_id", UUID.class)),
+                tokenHash(token), realm.name(), now())
                 .stream().findFirst().orElseThrow(AuthFailure::session);
         if (!realm.allows(stored.account().role())) throw AuthFailure.session();
-        return session(stored.account(), stored.expiresAt(), realm, token);
+        return stored;
     }
 
     void logout(Realm realm, String token, String csrf) {
@@ -159,7 +165,7 @@ final class AccountAuthService {
                 """, now, tokenHash(token), realm.name(), now);
     }
 
-    private Session session(Account account, OffsetDateTime expiresAt, Realm realm, String token) {
+    Session session(Account account, OffsetDateTime expiresAt, Realm realm, String token) {
         try {
             Mac mac = Mac.getInstance("HmacSHA256");
             mac.init(csrfKey);

@@ -155,10 +155,11 @@ public class CalculationSessions implements AutoCloseable {
                     new ProgressEvent(requestId, type, ++sequence, step, message));
         }
 
-        public synchronized void complete(Object data) {
-            if(terminal)return;
+        public synchronized boolean complete(Object data) {
+            if (terminal) return false;
             if(completedResults!=null)completedResults.capture(owner,requestId,type,data);
             finish("/queue/results", ApiResponse.completed(requestId, type, data));
+            return true;
         }
 
         public synchronized void fail(String code, String message) {

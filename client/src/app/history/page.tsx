@@ -8,11 +8,15 @@ import { listHistory, historyErrorMessage, type HistoryQuery } from "@/services/
 import { useLookup } from "@/services/rest/useLookup";
 import type { HistoryItem } from "@/types/contract";
 import { DeleteHistoryDialog } from "@/components/history/DeleteHistoryDialog";
+import { CLIENT_CONFIG } from "@/config/client";
+import { logoutCustomer } from "@/services/rest/customerAuth";
+import { RestError } from "@/services/rest/transport";
 
 export default function HistoryPage() {
   const session = useSession();
   return <PageContainer><PageHeader eyebrow="05 / LỊCH SỬ RIÊNG TƯ" title="Những kết quả bạn chọn lưu.">
-    <p>Xem lại những kết quả bạn đã lưu trên trình duyệt này. Chỉ bạn trong phiên hiện tại có thể truy cập lịch sử riêng tư.</p>
+    <p>{CLIENT_CONFIG.accountHistory ? "Đăng nhập cùng tài khoản để xem lại kết quả đã lưu trên các thiết bị của bạn."
+      : "Xem lại những kết quả bạn đã lưu trên trình duyệt này. Chỉ bạn trong phiên hiện tại có thể truy cập lịch sử riêng tư."}</p>
   </PageHeader>{session?.status === "ready" ? <HistoryList key={session.revision} /> : <SessionNotice />}</PageContainer>;
 }
 function HistoryList() {
@@ -21,6 +25,7 @@ function HistoryList() {
   const [query, setQuery] = useState<HistoryQuery>({ q: "", type: "", page: 0, size: 20 });
   const [refresh, setRefresh] = useState(0); const [inputError, setInputError] = useState(false);
   const [deleting, setDeleting] = useState<HistoryItem | null>(null); const [message, setMessage] = useState("");
+  const [signingOut, setSigningOut] = useState(false);
   const search = useRef<HTMLInputElement>(null); const deleteTrigger = useRef<HTMLButtonElement | null>(null);
   const load = useCallback(async (signal: AbortSignal) => {
     try { return await listHistory(query, signal); } catch (error) { if (!signal.aborted) handleError(error); throw error; }
@@ -43,7 +48,23 @@ function HistoryList() {
     if (query.page > 0 && result.status === "completed" && result.data.items.length === 1) setQuery({ ...query, page: query.page - 1 });
     else setRefresh(value => value + 1);
   }
+  async function signOut() {
+    if (session.status !== "ready" || signingOut) return;
+    setSigningOut(true);
+    setMessage("");
+    try {
+      await logoutCustomer(session.data.csrfToken, new AbortController().signal);
+      window.location.replace("/dang-nhap");
+    } catch (error) {
+      if (error instanceof RestError && error.code === "INVALID_SESSION") window.location.replace("/dang-nhap");
+      else setMessage(historyErrorMessage(error));
+    } finally {
+      setSigningOut(false);
+    }
+  }
   return <>
+    {CLIENT_CONFIG.accountHistory && <button type="button" className="secondary-button" disabled={signingOut}
+      onClick={() => void signOut()}>{signingOut ? "Đang đăng xuất…" : "Đăng xuất"}</button>}
     <form className="section-card history-search" aria-label="Tìm lịch sử" onSubmit={submit} noValidate>
       <FormField id="history-search" label="Tìm theo tiêu đề" hint="Tối đa 100 ký tự. Hãy nhập đúng dấu để tìm chính xác hơn.">
         <input id="history-search" ref={search} type="search" value={draft.q} maxLength={100} aria-invalid={inputError || undefined}

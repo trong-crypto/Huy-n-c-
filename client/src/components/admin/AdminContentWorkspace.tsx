@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { FormField } from "@/components/ui/Controls";
 import { divinationCatalog } from "@/config/divinationCatalog";
+import { CLIENT_CONFIG } from "@/config/client";
+import { MethodGuideWorkspace } from "./MethodGuideWorkspace";
 import { AdminContentForm } from "./AdminContentForm";
 import { AdminHexagramCatalog } from "./AdminHexagramCatalog";
 import type { ContentModule } from "./adminModules";
@@ -105,18 +107,19 @@ function ReviewWorkflow() {
 }
 
 export function AdminContentWorkspace({ module }: { module: ContentModule }) {
+  const liveMethods = module.id === "methods" && CLIENT_CONFIG.methodGuides;
   return <div className={styles.contentStack}>
     <header className={styles.dashboardIntro}>
       <p className="eyebrow">HUYỀN CƠ / QUẢN TRỊ NỘI DUNG</p>
       <h1>{module.title}</h1><p>{module.description}</p>
     </header>
-    <p id="content-write-notice" className={styles.notice}>
+    {!liveMethods && <p id="content-write-notice" className={styles.notice}>
       Đang chờ API quản trị và phân quyền Admin. Có thể xem dữ liệu công khai khi có và soạn bản xem trước. Lưu, đổi trạng thái và công bố đang bị khóa.
-    </p>
-    {module.id === "methods" && <MethodManagement />}
+    </p>}
+    {module.id === "methods" && (liveMethods ? <MethodGuideWorkspace /> : <MethodManagement />)}
     {module.id === "readings" && <AdminHexagramCatalog />}
     {module.id === "sources" && <SourceManagement />}
     {module.id === "website" && <WebsiteManagement />}
-    <ReviewWorkflow />
+    {!liveMethods && <ReviewWorkflow />}
   </div>;
 }

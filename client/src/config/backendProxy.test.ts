@@ -4,6 +4,40 @@ import { getPathMatch } from "next/dist/shared/lib/router/utils/path-match";
 
 afterEach(() => vi.unstubAllEnvs());
 
+it("proxies STOMP on the same origin when explicitly enabled", async () => {
+  vi.stubEnv("HUYENCO_WS_PROXY", "1");
+  vi.stubEnv("HUYENCO_API_URL", "http://127.0.0.1:18102");
+  expect(await nextConfig.rewrites!()).toContainEqual({
+    source: "/ws", destination: "http://127.0.0.1:18102/ws",
+  });
+});
+
+it("proxies Admin authentication and both CMS routes when method guides are enabled", async () => {
+  vi.stubEnv("NEXT_PUBLIC_METHOD_GUIDES", "1");
+  vi.stubEnv("NEXT_PUBLIC_ACCOUNT_HISTORY", "0");
+  vi.stubEnv("HUYENCO_API_URL", "http://127.0.0.1:18108");
+  const rewrites = await nextConfig.rewrites!();
+  if (!Array.isArray(rewrites)) throw new Error("Expected a flat rewrite list");
+  for (const path of ["/api/v1/auth/admin/login", "/api/v1/admin/method-guides",
+    "/api/v1/admin/method-guides/TIME/visibility", "/api/v1/method-guides"]) {
+    expect(rewrites.filter(rewrite => getPathMatch(rewrite.source)(path) !== false)).toHaveLength(1);
+  }
+});
+
+it("proxies Admin accounts and authentication independently of the CMS", async () => {
+  vi.stubEnv("NEXT_PUBLIC_ADMIN_ACCOUNTS", "1");
+  vi.stubEnv("NEXT_PUBLIC_METHOD_GUIDES", "0");
+  vi.stubEnv("NEXT_PUBLIC_ACCOUNT_HISTORY", "0");
+  const rewrites = await nextConfig.rewrites!();
+  if (!Array.isArray(rewrites)) throw new Error("Expected a flat rewrite list");
+  for (const path of ["/api/v1/auth/admin/login", "/api/v1/admin/accounts", "/api/v1/admin/accounts/id/status",
+    "/api/v1/admin/accounts/id/role", "/api/v1/admin/consultants", "/api/v1/admin/consultants/id/review",
+    "/api/v1/admin/metrics", "/api/v1/admin/audit"]) {
+    expect(rewrites.filter(rewrite => getPathMatch(rewrite.source)(path) !== false)).toHaveLength(1);
+  }
+  expect(rewrites.some(rewrite => getPathMatch(rewrite.source)("/api/v1/admin/method-guides") !== false)).toBe(false);
+});
+
 it.each([
   ["documented server URL", "http://127.0.0.1:18090", undefined, "http://127.0.0.1:18090"],
   ["TV1 alias", undefined, "http://127.0.0.1:18091", "http://127.0.0.1:18091"],
@@ -14,6 +48,10 @@ it.each([
 ] as const)("routes all supported REST endpoints using %s", async (_name, documentedUrl, aliasUrl, expected) => {
   vi.stubEnv("HUYENCO_API_URL", documentedUrl);
   vi.stubEnv("API_SERVER_URL", aliasUrl);
+  vi.stubEnv("HUYENCO_WS_PROXY", undefined);
+  vi.stubEnv("NEXT_PUBLIC_METHOD_GUIDES", undefined);
+  vi.stubEnv("NEXT_PUBLIC_ACCOUNT_HISTORY", undefined);
+  vi.stubEnv("NEXT_PUBLIC_ADMIN_ACCOUNTS", undefined);
   expect(await nextConfig.rewrites!()).toEqual([
     { source: "/api/v1/hexagrams/:path*", destination: `${expected}/api/v1/hexagrams/:path*` },
     { source: "/api/v1/calendar/convert", destination: `${expected}/api/v1/calendar/convert` },

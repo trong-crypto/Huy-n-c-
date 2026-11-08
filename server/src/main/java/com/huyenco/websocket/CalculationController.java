@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
+import com.huyenco.admin.AdminMetricsService;
 import com.huyenco.common.dto.ApiResponse;
 import com.huyenco.common.dto.ProgressEvent.Step;
 import com.huyenco.common.exception.ContractException;
@@ -17,6 +18,7 @@ import com.huyenco.knowledge.KnowledgeDataException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
@@ -31,16 +33,23 @@ public class CalculationController {
     private final ObjectReader json;
     private final MaiHoaService maiHoa;
     private final TamTheService tamThe;
+    private final Optional<AdminMetricsService> metrics;
 
     @Autowired
     public CalculationController(CalculationSessions sessions, ObjectMapper mapper, MaiHoaService maiHoa,
-            TamTheService tamThe, CalculationDispatcher dispatcher) {
+            TamTheService tamThe, CalculationDispatcher dispatcher, Optional<AdminMetricsService> metrics) {
         this.sessions = sessions;
         this.dispatcher = dispatcher;
         this.json = mapper.copy().enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION)
                 .readerFor(JsonNode.class).with(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
         this.maiHoa = maiHoa;
         this.tamThe = tamThe;
+        this.metrics = metrics;
+    }
+
+    CalculationController(CalculationSessions sessions, ObjectMapper mapper, MaiHoaService maiHoa,
+            TamTheService tamThe, CalculationDispatcher dispatcher) {
+        this(sessions, mapper, maiHoa, tamThe, dispatcher, Optional.empty());
     }
 
     /** Compatibility constructor for direct-mode controller tests. */
@@ -79,7 +88,12 @@ public class CalculationController {
             ContractValidator.validate(request, type);
             Object result = "MAI_HOA".equals(type) ? maiHoa.calculate(request.get("payload"), run)
                     : tamThe.calculate(request.get("payload"), run);
-            run.complete(result);
+            if (run.complete(result)) {
+                metrics.ifPresent(recorder -> {
+                    String method = "MAI_HOA".equals(type) ? request.path("payload").path("method").textValue() : "TAM_THE";
+                    recorder.recordCompletion(method);
+                });
+            }
         } catch (CalculationSessions.Stopped ignored) {
             // The deadline/disconnect already ended this request. Never send another terminal result.
         } catch (ContractException ex) {

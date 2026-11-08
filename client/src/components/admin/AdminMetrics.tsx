@@ -3,7 +3,7 @@ import styles from "./admin.module.css";
 
 type Metrics = {
   users: number;
-  calculations: number;
+  calculations: number | null;
   pendingContent: number;
   consultants: number;
   methods: readonly { id: string; name: string; count: number }[];
@@ -27,7 +27,7 @@ export function AdminMetrics({ state = { status: "blocked" } }: { state?: AdminD
     {state.status === "ready" && !data && <p role="status">Chưa có chỉ số thống kê trong phạm vi đã chọn.</p>}
     <dl className={styles.metricGrid}>
       {metrics.map(({ key, label }) => <div key={key} className={styles.contentPanel}>
-        <dt>{label}</dt><dd>{data ? formatCount.format(data[key]) : <span aria-label="Chưa có số liệu">—</span>}</dd>
+        <dt>{label}</dt><dd>{data?.[key] != null ? formatCount.format(data[key]) : <span aria-label="Chưa có số liệu">—</span>}</dd>
       </div>)}
     </dl>
     <div className={styles.metricTables}>
@@ -36,7 +36,7 @@ export function AdminMetrics({ state = { status: "blocked" } }: { state?: AdminD
         {data?.methods.length ? <table className={styles.adminTable}>
           <thead><tr><th scope="col">Phương pháp</th><th scope="col">Lượt tính</th></tr></thead>
           <tbody>{data.methods.map(method => <tr key={method.id}><td>{method.name}</td><td>{formatCount.format(method.count)}</td></tr>)}</tbody>
-        </table> : <p className="field-hint">{data ? "Chưa có lượt tính theo phương pháp." : "Chưa có số liệu từ API thống kê."}</p>}
+        </table> : <p className="field-hint">{data?.calculations == null ? "Chưa có số liệu lượt tính." : "Chưa có lượt tính theo phương pháp."}</p>}
       </section>
       <section className={styles.contentPanel} aria-labelledby="service-status-title">
         <h3 id="service-status-title">Trạng thái dịch vụ</h3>

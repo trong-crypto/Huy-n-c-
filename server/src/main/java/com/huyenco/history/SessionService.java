@@ -58,6 +58,7 @@ public class SessionService {
     }
     private static String csrf(String token) { return hash("huyenco-csrf-v1:"+token); }
     public static ContractException invalidSession() { return new ContractException("INVALID_SESSION","Phiên không hợp lệ hoặc đã hết hạn."); }
+    public static ContractException loginRequired() { return new ContractException("LOGIN_REQUIRED","Đăng nhập để dùng lịch sử tài khoản."); }
     public static ContractException invalid(String message) { return new ContractException("INVALID_INPUT",message); }
     public static ContractException missing() { return new ContractException("NOT_FOUND","Không tìm thấy dữ liệu trong phiên của bạn."); }
 }

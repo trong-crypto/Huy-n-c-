@@ -122,7 +122,7 @@ describe("Admin Phase 4 presentations", () => {
     const { rerender } = render(<AdminAuditLog />);
     expect(screen.getByRole("status").textContent).toContain("Chưa có dữ liệu Backend");
     expect(screen.queryByRole("table")).toBeNull();
-    rerender(<AdminAuditLog state={{ status: "ready", data: [{ id: "log-1", timeLabel: "08:00", action: "Khóa", target: "Mẫu A", outcome: "Thành công" }] }} />);
-    expect(screen.getByRole("row", { name: "08:00 Khóa Mẫu A Thành công" })).toBeTruthy();
+    rerender(<AdminAuditLog state={{ status: "ready", data: [{ id: "log-1", timeLabel: "08:00", action: "Khóa", target: "Mẫu A", actorId: "admin-a", outcome: "Thành công" }] }} />);
+    expect(screen.getByRole("row", { name: "08:00 Khóa Mẫu A admin-a Thành công" })).toBeTruthy();
   });
 });

@@ -38,7 +38,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.setPreserveReceiveOrder(true);
         registry.setErrorHandler(new SafeStompErrorHandler());
-        registry.addEndpoint("/ws").addInterceptors(historyHandshake).setAllowedOriginPatterns(allowedOrigins);
+        registry.addEndpoint("/ws", "/api/v1/ws").addInterceptors(historyHandshake).setAllowedOriginPatterns(allowedOrigins);
     }
 
     @Override

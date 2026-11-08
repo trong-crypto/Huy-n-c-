@@ -3,9 +3,12 @@ import { isCalculationResponse, isRecord } from "./contractValidation";
 
 export const isUuid = (value: unknown): value is string => typeof value === "string" && value.length === 36 && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
 const timestamp = (value: unknown): value is string => typeof value === "string" && /^\d{4}-\d{2}-\d{2}T.+(?:Z|[+-]\d{2}:\d{2})$/.test(value) && Number.isFinite(Date.parse(value));
+export const isHistoryCsrf = (value: unknown): value is string =>
+  typeof value === "string" && (value.length === 64 && /^[0-9a-f]+$/.test(value)
+    || value.length === 43 && /^[A-Za-z0-9_-]+$/.test(value));
 export function isSessionResult(value: unknown): value is SessionResult {
   return isRecord(value) && Object.keys(value).length === 2 && timestamp(value.expiresAt)
-    && typeof value.csrfToken === "string" && /^[0-9a-f]{64}$/.test(value.csrfToken) && value.csrfToken.length === 64;
+    && isHistoryCsrf(value.csrfToken);
 }
 export function isHistoryItem(value: unknown): value is HistoryItem {
   return isRecord(value) && isUuid(value.id) && (value.type === "MAI_HOA" || value.type === "TAM_THE")

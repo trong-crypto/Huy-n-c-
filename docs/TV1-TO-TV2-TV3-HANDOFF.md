@@ -110,6 +110,8 @@ Chỉ ghi `PASS` khi có kết quả thực tế kèm mốc commit, môi trườ
 <a id="phase-3"></a>
 ## Phase 3 – Quản lý nội dung Admin (Admin Content Management)
 
+Phạm vi đầu tiên đã có [hợp đồng quản trị bài hướng dẫn phương pháp](57-TV2-TV3-METHOD-GUIDE-CMS-CONTRACT.md) để TV2 và TV3 triển khai. Các bảng bên dưới ghi phạm vi bàn giao ban đầu của toàn Phase 3.
+
 **Trạng thái `PARTIAL – WAITING FOR BACKEND`.** TV1 đã bổ sung giao diện phương pháp, quẻ và lời giải nghĩa, dữ liệu nguồn, nội dung website và xem trước quy trình duyệt. Danh sách/chi tiết quẻ dùng API công khai `GET /api/v1/hexagrams` và `GET /api/v1/hexagrams/{code}` để đối chiếu. Danh mục phương pháp dựa trên các phương pháp đã có trong Client. Form chỉ xem trước trên trang, chưa ghi dữ liệu. Trạng thái nội dung quản trị và phiên bản nguồn phải đến từ Backend.
 
 ### A. Công việc TV2 – Backend
@@ -486,23 +488,35 @@ Phase 9 là tùy chọn và chưa nằm trong phạm vi cam kết triển khai.
 
 ### Theo dõi Phase 4
 
+Hợp đồng và cách kiểm quản lý tài khoản Admin (ADM-02–04) có trong [tài liệu 58](58-TV2-TV3-ADMIN-ACCOUNTS.md).
+
+Hợp đồng thống kê Dashboard và quy tắc đếm (ADM-01, ADM-DATA-02) có trong [tài liệu 59](59-TV2-TV3-ADMIN-METRICS-CONTRACT.md).
+
+Hợp đồng đổi vai trò tài khoản (ADM-05, ADM-DATA-03) có trong [tài liệu 60](60-TV2-TV3-ADMIN-ACCOUNT-ROLES.md).
+
+Hợp đồng quản lý hồ sơ tư vấn viên (ADM-06, ADM-DATA-04) có trong [tài liệu 61](61-TV2-TV3-ADMIN-CONSULTANT-REVIEW.md).
+
+Hợp đồng nhật ký quản trị (ADM-07, ADM-DATA-05) có trong [tài liệu 62](62-TV2-TV3-ADMIN-AUDIT-CONTRACT.md).
+
+Môi trường TEST chung và checklist nghiệm thu (ADM-08, ADM-DATA-06) có trong [tài liệu 63](63-TV2-TV3-PHASE4-ADMIN-TEST-HANDOFF.md).
+
 | ID | Công việc | Người phụ trách | Ưu tiên | Trạng thái | Phụ thuộc | Tiêu chí nghiệm thu |
 | --- | --- | --- | --- | --- | --- | --- |
-| ADM-01 | Thống kê dashboard | TV2 | Cao | `TODO` | ADM-DATA-02, ADM-08 | Tổng, phân nhóm và trạng thái được đối chiếu với dữ liệu thật trong phạm vi đã chốt |
-| ADM-02 | Danh sách và chi tiết tài khoản | TV2 | Cao | `TODO` | ADM-DATA-01, ADM-08 | Vai trò và trạng thái đúng. Chỉ trả trường được phép xem |
-| ADM-03 | Tìm kiếm, lọc và phân trang | TV2 | Cao | `TODO` | ADM-02 | Kết quả đúng, không lặp hoặc bỏ sót bản ghi giữa các trang với tập dữ liệu cố định |
-| ADM-04 | Quản lý trạng thái tài khoản | TV2 | Cao | `TODO` | ADM-DATA-03, ADM-08 | Khóa/mở khóa có hiệu lực, đọc lại đúng và bị từ chối khi thiếu quyền |
-| ADM-05 | Quản lý vai trò | TV2 | Cao | `TODO` | ADM-DATA-03, ADM-08 | Role đúng khi đọc lại. Từ chối nâng quyền trái phép |
-| ADM-06 | Quản lý tư vấn viên | TV2 | Cao | `TODO` | ADM-DATA-04, ADM-08 | Danh sách/chi tiết và duyệt/từ chối hoạt động, lý do hiển thị nếu hợp đồng hỗ trợ |
-| ADM-07 | API nhật ký quản trị | TV2 | Trung bình | `TODO` | ADM-DATA-05, ADM-08 | Nếu được duyệt phạm vi, truy xuất đúng thao tác và chỉ hiển thị trường được phép |
-| ADM-08 | Xác thực, phân quyền và CSRF | TV2 | Cao | `BLOCKED` | AUTH-01–06 | Phân biệt 401/403, chặn ghi khi thiếu quyền hoặc CSRF không hợp lệ |
+| ADM-01 | Thống kê dashboard | TV2 | Cao | `PASS_LOCAL_TEST` (API) | ADM-DATA-02, ADM-08 | Tổng, phân nhóm và trạng thái được đối chiếu với dữ liệu thật trong phạm vi đã chốt. TV1 tích hợp Dashboard theo tài liệu 59 |
+| ADM-02 | Danh sách và chi tiết tài khoản | TV2 | Cao | `PASS_LOCAL_TEST` | ADM-DATA-01, ADM-08 | Vai trò và trạng thái đúng. Chỉ trả trường được phép xem |
+| ADM-03 | Tìm kiếm, lọc và phân trang | TV2 | Cao | `PASS_LOCAL_TEST` | ADM-02 | Kết quả đúng, không lặp hoặc bỏ sót bản ghi giữa các trang với tập dữ liệu cố định |
+| ADM-04 | Quản lý trạng thái tài khoản | TV2 | Cao | `PASS_LOCAL_TEST` | ADM-DATA-03, ADM-08 | Khóa/mở khóa có hiệu lực, đọc lại đúng và bị từ chối khi thiếu quyền |
+| ADM-05 | Quản lý vai trò | TV2 | Cao | `PASS_LOCAL_TEST` (API) | ADM-DATA-03, ADM-08 | USER ↔ CONSULTANT, kiểm hồ sơ đã duyệt, chặn đổi quyền Admin, thu hồi phiên. TV1 tích hợp theo tài liệu 60 |
+| ADM-06 | Quản lý tư vấn viên | TV2 | Cao | `PASS_LOCAL_TEST` (API) | ADM-DATA-04, ADM-08 | Tạo, lọc, xem chi tiết, duyệt/từ chối và đọc lại lý do. TV1 tích hợp theo tài liệu 61 |
+| ADM-07 | API nhật ký quản trị | TV2 | Trung bình | `PASS_LOCAL_TEST` (API) | ADM-DATA-05, ADM-08 | Lọc, phân trang và giới hạn trường dữ liệu. TV1 tích hợp theo tài liệu 62 |
+| ADM-08 | Xác thực, phân quyền và CSRF | TV2 | Cao | `PASS_LOCAL_TEST` (API) | AUTH-01–06 | Kiểm 19 tuyến Admin và trạng thái dữ liệu sau 401/403/409 trên TEST V20 |
 | ADM-DATA-01 | Dữ liệu và cấu trúc tài khoản | TV3 | Cao | `TODO` | DATA-01 | Đọc đúng tài khoản TEST mà vẫn bảo toàn phiên H01 |
-| ADM-DATA-02 | Dữ liệu thống kê người dùng và lượt tính | TV3 | Cao | `TODO` | Chốt định nghĩa lượt tính với TV2 | Có bộ dữ liệu đối chiếu tổng, phân nhóm, số 0 và trường hợp thiếu dữ liệu |
-| ADM-DATA-03 | Dữ liệu role và trạng thái | TV3 | Cao | `TODO` | DATA-02, ADM-DATA-01 | Ràng buộc vai trò và trạng thái đã chốt, từ chối dữ liệu không hợp lệ |
-| ADM-DATA-04 | Hồ sơ tư vấn viên | TV3 | Cao | `TODO` | ADM-DATA-01, ADM-DATA-03 | Hồ sơ liên kết tài khoản, trạng thái duyệt độc lập và lý do đọc lại được nếu có |
-| ADM-DATA-05 | Dữ liệu nhật ký quản trị | TV3 | Trung bình | `TODO` | Thống nhất với TV2 | Đối chiếu sự kiện với thay đổi thật, kiểm tra trường nhạy cảm và thời hạn lưu |
-| ADM-DATA-06 | Dữ liệu TEST cho nghiệm thu | TV3 | Cao | `TODO` | DATA-04, ADM-DATA-01–04 | Đủ vai trò, trạng thái và nhiều trang, dùng tài khoản tổng hợp |
-| PH4-PH-01 | Chốt hợp đồng và nghiệm thu localhost | TV1, TV2, TV3 | Cao | `BLOCKED` | ADM-01–06, ADM-08, ADM-DATA-06 | Kiểm quyền, thống kê, cập nhật có lưu, tài khoản, tư vấn viên và hồi quy Phase 1–3 |
+| ADM-DATA-02 | Dữ liệu thống kê người dùng và lượt tính | TV3 | Cao | `PASS_LOCAL_TEST` | Quy tắc đếm tại tài liệu 59 | Có bộ dữ liệu đối chiếu tổng, phân nhóm, số 0 và trường hợp thiếu dữ liệu |
+| ADM-DATA-03 | Dữ liệu role và trạng thái | TV3 | Cao | `PASS_LOCAL_TEST` | DATA-02, ADM-DATA-01 | Kiểm ràng buộc và nhật ký trên PostgreSQL TEST V18 |
+| ADM-DATA-04 | Hồ sơ tư vấn viên | TV3 | Cao | `PASS_LOCAL_TEST` | ADM-DATA-01, ADM-DATA-03 | PostgreSQL TEST V19 giữ hồ sơ cũ và kiểm được lý do từ chối, người duyệt, phiên bản và trạng thái độc lập |
+| ADM-DATA-05 | Dữ liệu nhật ký quản trị | TV3 | Trung bình | `PASS_LOCAL_TEST` | View V20 | Đối chiếu dữ liệu có sẵn và sự kiện mới với bảng nguồn. Lưu giữ theo vòng đời dữ liệu nguồn ở giai đoạn TEST |
+| ADM-DATA-06 | Dữ liệu TEST cho nghiệm thu | TV3 | Cao | `PASS_LOCAL_TEST` | TEST V20 | Bộ dữ liệu tổng hợp và kịch bản chạy lại tại tài liệu 63 |
+| PH4-PH-01 | Chốt hợp đồng và nghiệm thu localhost | TV1, TV2, TV3 | Cao | `PASS_LOCAL_TEST` (các màn hình tích hợp mới) | ADM-01–08, ADM-DATA-06 | Chrome trên TEST V20 đã kiểm Dashboard, hồ sơ, vai trò, nhật ký và chặn khách. TV1 chạy lại checklist tài liệu 63 trên máy riêng |
 
 ### Theo dõi Phase 5
 

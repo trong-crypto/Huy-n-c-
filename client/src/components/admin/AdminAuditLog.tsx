@@ -1,7 +1,7 @@
 import { AdminDataState, type AdminData } from "./AdminDataState";
 import styles from "./admin.module.css";
 
-type AuditEntry = { id: string; timeLabel: string; action: string; target: string; outcome: string };
+type AuditEntry = { id: string; timeLabel: string; action: string; target: string; outcome: string; actorId?: string };
 
 export function AdminAuditLog({ state = { status: "blocked" } }: { state?: AdminData<readonly AuditEntry[]> }) {
   return <>
@@ -12,9 +12,9 @@ export function AdminAuditLog({ state = { status: "blocked" } }: { state?: Admin
     </header>
     <section className={styles.contentPanel} aria-label="Danh sách nhật ký" aria-busy={state.status === "loading"}>
       {state.status !== "ready" ? <AdminDataState state={state} /> : state.data.length ? <table className={styles.adminTable}>
-        <thead><tr><th scope="col">Thời gian</th><th scope="col">Thao tác</th><th scope="col">Đối tượng</th><th scope="col">Kết quả</th></tr></thead>
+        <thead><tr><th scope="col">Thời gian</th><th scope="col">Thao tác</th><th scope="col">Đối tượng</th><th scope="col">Người thực hiện</th><th scope="col">Kết quả</th></tr></thead>
         <tbody>{state.data.map(entry => <tr key={entry.id}>
-          <td>{entry.timeLabel}</td><td>{entry.action}</td><td>{entry.target}</td><td>{entry.outcome}</td>
+          <td>{entry.timeLabel}</td><td>{entry.action}</td><td>{entry.target}</td><td>{entry.actorId ?? "—"}</td><td>{entry.outcome}</td>
         </tr>)}</tbody>
       </table> : <p role="status">Chưa có thao tác quản trị trong phạm vi đã chọn.</p>}
     </section>

@@ -36,9 +36,9 @@ class HistorySecurityTest {
         store=mock(HistoryStore.class);
         when(store.create(anyString(),any(),any())).thenAnswer(a->{var owner=new HistoryStore.Owner(UUID.randomUUID(),a.getArgument(2));owners.put(a.getArgument(0),owner);return owner;});
         when(store.owner(anyString(),any())).thenAnswer(a->{var owner=owners.get(a.getArgument(0));return owner!=null&&owner.expiresAt().isAfter(a.getArgument(1))?Optional.of(owner):Optional.empty();});
-        when(store.byRequest(any(),any())).thenReturn(Optional.empty());
+        when(store.byRequest(any(HistoryStore.Owner.class),any())).thenReturn(Optional.empty());
         sessions=new SessionService(store,time);cache=new CompletedResults(MAPPER,time,900,10,1000000);
-        mvc=MockMvcBuilders.standaloneSetup(new HistoryController(sessions,store,cache,new RequestGuards("http://localhost:3000"),MAPPER,time,1000,false)).build();
+        mvc=MockMvcBuilders.standaloneSetup(new HistoryController(sessions,store,cache,new RequestGuards("http://localhost:3000"),MAPPER,time,1000,false,Optional.empty())).build();
     }
     SessionService.Session session() {return sessions.bootstrap(new MockHttpServletRequest());}
     static MaiHoaResult result() throws Exception {
@@ -118,16 +118,16 @@ class HistorySecurityTest {
         var own=session();
         for(String query:List.of("size=0","size=101","page=-1","page=2147483648","type=BAD","q="+"a".repeat(101),"ownerId=spoof","page=1&page=2"))
             mvc.perform(get("/api/v1/history?"+query).cookie(cookie(own))).andExpect(status().isBadRequest());
-        when(store.detail(any(),any())).thenReturn(Optional.empty());
+        when(store.detail(any(HistoryStore.Owner.class),any())).thenReturn(Optional.empty());
         mvc.perform(get("/api/v1/history/"+UUID.randomUUID()).cookie(cookie(own))).andExpect(status().isNotFound()).andExpect(jsonPath("$.error.code").value("NOT_FOUND"));
-        when(store.detail(any(),any())).thenThrow(new com.huyenco.knowledge.KnowledgeAccessException());
+        when(store.detail(any(HistoryStore.Owner.class),any())).thenThrow(new com.huyenco.knowledge.KnowledgeAccessException());
         mvc.perform(get("/api/v1/history/"+UUID.randomUUID()).cookie(cookie(own))).andExpect(status().isServiceUnavailable())
                 .andExpect(jsonPath("$.error.code").value("DATABASE_UNAVAILABLE"));
     }
 
     @Test void handshakeOwnershipOnlyComesFromValidatedCookie()throws Exception {
         var own=session();
-        var handshake=new HistoryHandshakeInterceptor(sessions,new RequestGuards("http://localhost:3000"));
+        var handshake=new HistoryHandshakeInterceptor(sessions,new RequestGuards("http://localhost:3000"),Optional.empty());
         var request=new MockHttpServletRequest();request.setCookies(cookie(own));request.addHeader("Origin","http://localhost:3000");
         var attributes=new HashMap<String,Object>();
         var response=new org.springframework.mock.web.MockHttpServletResponse();

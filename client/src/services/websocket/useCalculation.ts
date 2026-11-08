@@ -21,6 +21,17 @@ type PendingRequest = Readonly<{
 
 const SEND_FAILURE = "Lỗi Client: Không xác nhận được việc gửi yêu cầu. Server có thể đã nhận; không tự động gửi lại.";
 
+function newRequestId(): string {
+  if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
+
+  // randomUUID requires a secure context, while getRandomValues also works on LAN HTTP.
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, byte => byte.toString(16).padStart(2, "0")).join("");
+  return [hex.slice(0, 8), hex.slice(8, 12), hex.slice(12, 16), hex.slice(16, 20), hex.slice(20)].join("-");
+}
+
 export function useCalculation() {
   const session = useSession();
   const sessionKey = session ? `${session.status}:${session.revision}` : "standalone";
@@ -191,7 +202,7 @@ export function useCalculation() {
     let snapshot: CalculationRequest;
     let body: string;
     try {
-      const requestId = crypto.randomUUID();
+      const requestId = newRequestId();
       snapshot = args[0] === "MAI_HOA"
         ? { requestId, type: "MAI_HOA", payload: args[1] }
         : { requestId, type: "TAM_THE", payload: args[1] };

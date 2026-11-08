@@ -7,14 +7,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.huyenco.auth.AccountAuthService.Realm;
 import com.huyenco.common.dto.ApiError;
-import jakarta.servlet.http.Cookie;
+import static com.huyenco.auth.AccountRequestGuards.header;
+import static com.huyenco.auth.AccountRequestGuards.token;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
@@ -48,28 +48,27 @@ final class AccountAuthController {
     private static final Pattern USERNAME = Pattern.compile("[a-zA-Z0-9._-]{3,32}");
     private static final Pattern EMAIL_LOCAL = Pattern.compile("[a-zA-Z0-9_+%-]+(?:\\.[a-zA-Z0-9_+%-]+)*");
     private static final Pattern DOMAIN_LABEL = Pattern.compile("[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?");
-    private static final Pattern SESSION_TOKEN = Pattern.compile("[a-zA-Z0-9_-]{43}");
     private final AccountAuthService service;
     private final AuthAttemptLimits limits;
     private final ObjectReader reader;
-    private final Set<String> origins;
+    private final AccountRequestGuards guards;
     private final boolean secureCookie;
 
     AccountAuthController(AccountAuthService service, AuthAttemptLimits limits, ObjectMapper mapper,
-                          @Value("${huyenco.allowed-origins}") String origins,
+                          AccountRequestGuards guards,
                           @Value("${huyenco.auth.secure-cookie}") boolean secureCookie) {
         this.service = service;
         this.limits = limits;
         this.reader = mapper.copy().enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION)
                 .readerFor(JsonNode.class).with(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
-        this.origins = Set.copyOf(Arrays.asList(origins.split("\\s*,\\s*")));
+        this.guards = guards;
         this.secureCookie = secureCookie;
     }
 
     @PostMapping("/register")
     ResponseEntity<Envelope> register(HttpServletRequest request) {
         return handle(request, () -> {
-            checkMutation(request);
+            guards.mutation(request);
             JsonNode body = body(request, Set.of("displayName", "identifier", "password"));
             String name = text(body, "displayName").strip();
             if (name.isEmpty() || name.codePointCount(0, name.length()) > 80
@@ -84,7 +83,7 @@ final class AccountAuthController {
     @PostMapping({"/login", "/{portal:admin}/login"})
     ResponseEntity<Envelope> login(HttpServletRequest request, @PathVariable(name = "portal", required = false) String portal) {
         return handle(request, () -> {
-            checkMutation(request);
+            guards.mutation(request);
             JsonNode body = body(request, Set.of("identifier", "password"));
             String identifier = identifier(text(body, "identifier"));
             String password = password(body, 1);
@@ -98,7 +97,7 @@ final class AccountAuthController {
     @GetMapping({"/session", "/{portal:admin}/session"})
     ResponseEntity<Envelope> session(HttpServletRequest request, @PathVariable(name = "portal", required = false) String portal) {
         return handle(request, () -> {
-            if (request.getHeaders("Origin").hasMoreElements()) checkOrigin(request);
+            guards.optionalOrigin(request);
             Realm realm = realm(portal);
             return success(200, service.requireSession(realm, token(request, realm)), null);
         });
@@ -107,28 +106,13 @@ final class AccountAuthController {
     @PostMapping({"/logout", "/{portal:admin}/logout"})
     ResponseEntity<Envelope> logout(HttpServletRequest request, @PathVariable(name = "portal", required = false) String portal) {
         return handle(request, () -> {
-            checkMutation(request);
+            guards.mutation(request);
             body(request, Set.of());
             Realm realm = realm(portal);
             service.logout(realm, token(request, realm), header(request, "X-CSRF-Token"));
             return ResponseEntity.noContent().cacheControl(CacheControl.noStore())
                     .header(HttpHeaders.SET_COOKIE, cookie(realm, "", Duration.ZERO, request).toString()).build();
         });
-    }
-
-    private void checkMutation(HttpServletRequest request) {
-        checkOrigin(request);
-        if (!"1".equals(header(request, "X-HuyenCo-Request"))) throw AuthFailure.csrf();
-    }
-
-    private void checkOrigin(HttpServletRequest request) {
-        String origin = header(request, "Origin");
-        if (origin == null || "null".equals(origin) || !origins.contains(origin)) throw AuthFailure.csrf();
-    }
-
-    private static String header(HttpServletRequest request, String name) {
-        var values = Collections.list(request.getHeaders(name));
-        return values.size() == 1 ? values.get(0) : null;
     }
 
     private JsonNode body(HttpServletRequest request, Set<String> fields) {
@@ -183,17 +167,6 @@ final class AccountAuthController {
 
     private static Realm realm(String portal) {
         return portal == null ? Realm.CUSTOMER : Realm.ADMIN;
-    }
-
-    private static String token(HttpServletRequest request, Realm realm) {
-        if (request.getCookies() == null) return null;
-        String token = null;
-        for (Cookie cookie : request.getCookies()) {
-            if (!realm.cookie.equals(cookie.getName())) continue;
-            if (token != null || !SESSION_TOKEN.matcher(cookie.getValue()).matches()) throw AuthFailure.session();
-            token = cookie.getValue();
-        }
-        return token;
     }
 
     private ResponseCookie cookie(Realm realm, String token, Duration maxAge, HttpServletRequest request) {

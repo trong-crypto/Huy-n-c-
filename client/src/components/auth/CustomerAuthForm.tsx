@@ -1,6 +1,10 @@
 "use client";
 
-import { useRef, useState, useSyncExternalStore, type FormEvent } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
+import { CLIENT_CONFIG } from "@/config/client";
+import { customerAuthRoutes } from "@/config/customerAuthRoutes";
+import { loginCustomer, registerCustomer } from "@/services/rest/customerAuth";
+import { RestError } from "@/services/rest/transport";
 import { FieldError, FormField, PrimaryButton } from "@/components/ui/Controls";
 import styles from "./customerAuth.module.css";
 
@@ -27,9 +31,15 @@ export function CustomerAuthForm({ registering }: { registering: boolean }) {
   const inputs = useRef<Partial<Record<FieldKey, HTMLInputElement | null>>>({});
   const [errors, setErrors] = useState<FieldErrors>({});
   const [validated, setValidated] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [apiError, setApiError] = useState("");
+  const pending = useRef<AbortController | null>(null);
+  useEffect(() => () => pending.current?.abort(), []);
 
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (pending.current) return;
+    setApiError("");
     const nextErrors: FieldErrors = {};
     for (const field of fields) {
       const value = inputs.current[field.key]?.value ?? "";
@@ -44,13 +54,45 @@ export function CustomerAuthForm({ registering }: { registering: boolean }) {
 
     const firstError = fields.find(field => nextErrors[field.key]);
     setErrors(nextErrors);
-    setValidated(!firstError);
+    setValidated(!firstError && !CLIENT_CONFIG.accountHistory);
     if (firstError) {
       inputs.current[firstError.key]?.focus();
       return;
     }
 
-    event.currentTarget.reset();
+    if (!CLIENT_CONFIG.accountHistory) {
+      event.currentTarget.reset();
+      return;
+    }
+    const request = new AbortController();
+    pending.current = request;
+    setBusy(true);
+    const credentials = { identifier: inputs.current.identifier!.value, password: inputs.current.password!.value };
+    try {
+      if (registering) {
+        await registerCustomer({ ...credentials, displayName: inputs.current.displayName!.value }, request.signal);
+        window.location.assign(customerAuthRoutes.login);
+      } else {
+        await loginCustomer(credentials, request.signal);
+        window.location.assign("/history");
+      }
+    } catch (failure) {
+      if (request.signal.aborted) return;
+      const messages: Record<string, string> = {
+        INVALID_CREDENTIALS: "Tài khoản hoặc mật khẩu không hợp lệ.",
+        IDENTIFIER_TAKEN: "Tài khoản hoặc email đã được sử dụng.",
+        INVALID_INPUT: "Kiểm tra tên hiển thị, tài khoản hoặc email và mật khẩu. Mật khẩu đăng ký dài 15–128 ký tự.",
+        TOO_MANY_REQUESTS: "Bạn đã gửi quá nhiều yêu cầu. Vui lòng thử lại sau.",
+        FORBIDDEN: "Tài khoản này không có quyền đăng nhập tại đây.",
+      };
+      setApiError(failure instanceof RestError && Object.hasOwn(messages, failure.code)
+        ? messages[failure.code] : "Không thể xác nhận yêu cầu. Vui lòng thử lại.");
+    } finally {
+      if (!request.signal.aborted) {
+        pending.current = null;
+        setBusy(false);
+      }
+    }
   }
 
   function clearError(key: FieldKey) {
@@ -60,11 +102,12 @@ export function CustomerAuthForm({ registering }: { registering: boolean }) {
       ...(key === "password" ? { confirmation: undefined } : {}),
     }));
     setValidated(false);
+    setApiError("");
   }
 
   return (
     <form method="post" noValidate onSubmit={submit} aria-label={actionLabel} aria-describedby="customer-auth-availability">
-      <fieldset className={`form-stack ${styles.fields}`} disabled={!hydrated}>
+      <fieldset className={`form-stack ${styles.fields}`} disabled={!hydrated || busy}>
         {fields.map(field => {
           const id = `customer-auth-${field.key}`;
           return (
@@ -78,11 +121,12 @@ export function CustomerAuthForm({ registering }: { registering: boolean }) {
             </FormField>
           );
         })}
-        <PrimaryButton type="submit">{actionLabel}</PrimaryButton>
+        <PrimaryButton type="submit">{busy ? "Đang gửi…" : actionLabel}</PrimaryButton>
       </fieldset>
       {validated && <p className={styles.feedback} role="status">
         Đã kiểm tra biểu mẫu. Yêu cầu {registering ? "đăng ký" : "đăng nhập"} chưa được gửi vì tính năng đang chờ máy chủ.
       </p>}
+      {apiError && <p className={styles.feedback} role="alert">{apiError}</p>}
     </form>
   );
 }

@@ -322,3 +322,7 @@
 .adminTable th, .adminTable td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
 .adminTable th { color: var(--primary-hover); }
 .adminTable tbody tr:last-child td { border-bottom: 0; }
+.guideText {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

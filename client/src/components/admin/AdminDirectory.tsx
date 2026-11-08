@@ -2,6 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import { FieldError, FormField } from "@/components/ui/Controls";
+import { CLIENT_CONFIG } from "@/config/client";
+import { AccountDirectoryLive } from "./AccountDirectoryLive";
+import { ConsultantDirectoryLive } from "./ConsultantDirectoryLive";
 import { AdminDataState, type AdminData } from "./AdminDataState";
 import type { DirectoryModule } from "./adminModules";
 import styles from "./admin.module.css";
@@ -172,7 +175,7 @@ export function AdminDirectory({ module, state = { status: "blocked" } }: { modu
       <p className="eyebrow">HUYỀN CƠ / QUẢN TRỊ TÀI KHOẢN</p>
       <h1>{module.title}</h1><p>{module.description}</p>
     </header>
-    {state.status !== "ready" ? <>
+    {CLIENT_CONFIG.adminAccounts ? (consultant ? <ConsultantDirectoryLive /> : <AccountDirectoryLive />) : state.status !== "ready" ? <>
       <AdminDataState state={state} />
       <div className={styles.contentGrid}>
         <section className={styles.contentPanel}>

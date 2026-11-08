@@ -1,6 +1,6 @@
 # TV2 TV3 — Môi trường Backend và PostgreSQL TEST ngày 07/11/2026
 
-Database TEST hiện ở **V13** sau [migration Auth](#migration-auth-v13). Các số liệu V12 trong phần bàn giao bên dưới là mốc trước migration.
+Database TEST hiện ở **V15** sau [migration quản trị nội dung](#migration-quản-trị-nội-dung-v15). [Lịch sử theo tài khoản](56-TV2-TV3-ACCOUNT-AUTH-CONTRACT.md#lịch-sử-theo-tài-khoản-v14) đã được kiểm trên localhost tại mốc V14.
 
 ## Kết quả bàn giao
 
@@ -58,6 +58,16 @@ Kết quả mong đợi trong kế hoạch sau demo yêu cầu người dùng �
 
 **Điều kiện đóng mốc:** có bằng chứng Browser Client trên máy khác cho toàn chuỗi mở trang → chọn phương pháp → gửi → nhận → lưu → tải lại/xem lịch sử, kèm ca cách ly phiên. Khả năng truy cập website công khai ngoài mạng nội bộ/HTTPS là mốc triển khai riêng; thử hai máy trong LAN không chứng minh đã triển khai Internet.
 
+### Lượt chuẩn bị LAN ngày 07/11/2026
+
+Website TEST chạy tại `http://192.168.1.8:18100` trên giao diện Wi-Fi của máy chủ. Next.js nhận REST và WebSocket qua cùng địa chỉ. Bản build dùng `HUYENCO_WS_PROXY=1`, `HUYENCO_API_URL=http://127.0.0.1:18102` và `NEXT_PUBLIC_WS_URL=ws://192.168.1.8:18100/ws`. Backend nghe cổng 18102 trên loopback, cho phép Origin `http://192.168.1.8:18100` và dùng PostgreSQL TEST V13 đã sao lưu. Lượt này dùng lịch sử phiên ẩn danh H01.
+
+Build Next.js và 98 ca kiểm Client liên quan đạt. Từ máy chủ, kiểm trực tiếp qua địa chỉ LAN đạt HTTP 200 cho trang chủ, Mai Hoa và API tra quẻ. Qua cùng địa chỉ Next.js, hồi quy H01 đạt 49 yêu cầu HTTP và 8 phản hồi cuối STOMP, gồm lưu, đọc và từ chối phiên ngoài quyền. Các phiên do bộ kiểm tạo đã được dọn.
+
+**Đạt nghiệm thu H01 trên thiết bị thứ hai qua Wi-Fi.** Người dùng xác nhận đã mở website, lập quẻ Mai Hoa theo số vật, lưu kết quả, tải lại trang và đọc được lịch sử. Cửa sổ ẩn danh không thấy bản ghi đã lưu. Truy vấn chỉ đọc trên PostgreSQL TEST xác nhận bản ghi `MAI_HOA / OBJECT_COUNT` được lưu lúc 17:26:09 ngày 07/11/2026 (giờ Việt Nam), với số vật 12 và giờ Chi Mùi (8). Đối chiếu dựa vào dữ kiện và thời điểm lưu vì tiêu đề bản ghi khác `TEST LAN`.
+
+Mốc này đóng cho phiên ẩn danh H01 trong mạng nội bộ. Lịch sử theo tài khoản và truy cập từ Internet vẫn có tiêu chí nghiệm thu riêng. Nếu địa chỉ Wi-Fi đổi, cập nhật Origin, địa chỉ Next.js và URL WebSocket trước khi build lại.
+
 ## Migration Auth V13
 
 Ngày 07/11/2026, TV3 đã sao lưu và chạy `flyway:migrate` đến V13 trên `huyenco_test_tv1_20261107`. `flyway:validate` đạt với 13 migration. Flyway 11.7.2 cảnh báo PostgreSQL 18.6 nằm ngoài phạm vi phiên bản đã được Flyway này kiểm chứng.
@@ -66,3 +76,17 @@ Ngày 07/11/2026, TV3 đã sao lưu và chạy `flyway:migrate` đến V13 trên
 - Kiểm thêm tài khoản và phiên hợp lệ trong giao dịch rollback. PostgreSQL từ chối định danh trùng, token trùng, role, trạng thái, cổng hoặc thời hạn sai và phiên thiếu tài khoản. Xóa tài khoản trong giao dịch thử đã xóa phiên tương ứng.
 - Sau rollback, `accounts` và `account_sessions` đều có 0 dòng. Tạo tài khoản TEST cùng bước triển khai Auth bằng cơ chế băm mật khẩu của Backend.
 - Bản sao lưu trước V13 nằm ngoài Git tại `C:\Users\abc\Documents\Codex\huyenco-v13-test-20261107-163007-244\before-v13.dump`. Danh mục archive đọc được bằng `pg_restore --list`.
+
+## Migration lịch sử tài khoản V14
+
+Flyway đã áp dụng và xác thực V14 trên `huyenco_test_tv1_20261107`. Bản ghi H01 có sẵn giữ nguyên dấu vân tay nội dung sau migration. Bản sao lưu trước V14 nằm tại `C:\Users\abc\Documents\Codex\huyenco-account-history-test-20261107\before-v14-180958782.dump`.
+
+Bản TEST lịch sử tài khoản chạy tại `http://127.0.0.1:18103`, qua Backend `127.0.0.1:18104`. Nó dùng `AUTH_ENABLED=true` và `NEXT_PUBLIC_ACCOUNT_HISTORY=1`. Địa chỉ LAN của lượt H01 trước là môi trường tương thích phiên ẩn danh.
+
+## Migration quản trị nội dung V15
+
+Ngày 07/11/2026, Flyway áp dụng V15 trên `huyenco_test_tv1_20261107` và xác thực đủ 15 migration. Kết quả đối chiếu số dòng và dấu vân tay nội dung của 20 bảng dữ liệu V14 đều khớp. Flyway 11.7.2 tiếp tục cảnh báo về phạm vi hỗ trợ PostgreSQL 18.6.
+
+Kiểm schema trong giao dịch rollback. PostgreSQL từ chối tạo bài trùng, bật hiển thị khi chưa công bố, trỏ bản nháp, bản công bố hoặc nhật ký sang bài khác, lý do trả duyệt rỗng, sửa phiên bản đã lưu và xóa sự kiện nhật ký. Kiểm tra có thể lưu bản nháp mới trong khi vẫn đọc được bản đã công bố. Sau rollback, cả ba bảng CMS đều rỗng. Đây là kết quả kiểm schema. Quyền Admin và xung đột phiên bản khi ghi cần kiểm ở bước triển khai API.
+
+Bản sao lưu trước V15 nằm tại `C:\Users\abc\Documents\Codex\huyenco-method-guide-test-20261107\before-v15-183838224.dump`. Đã kiểm danh mục archive bằng `pg_restore --list`.

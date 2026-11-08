@@ -2,17 +2,17 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { AdminBrand } from "@/components/admin/AdminBrand";
 import { AdminNavigation } from "@/components/admin/AdminNavigation";
+import { AdminSessionActions, AdminSessionGate } from "@/components/admin/AdminSessionGate";
+import { CLIENT_CONFIG } from "@/config/client";
 import styles from "@/components/admin/admin.module.css";
 
 export default function AdminWorkspaceLayout({ children }: { children: ReactNode }) {
-  return <>
+  const workspace = <>
     <a className="skip-link" href="#admin-content">Đến nội dung quản trị</a>
     <header className={styles.header}>
       <AdminBrand />
       <div className={styles.headerActions}>
-        <span className={styles.badge}>Chưa tích hợp xác thực</span>
-        <Link href="/admin/login" className="secondary-button">Đăng nhập</Link>
-        <button type="button" className="secondary-button" disabled>Đăng xuất</button>
+        <AdminSessionActions />
       </div>
     </header>
     <div className={styles.workspace}>
@@ -23,4 +23,5 @@ export default function AdminWorkspaceLayout({ children }: { children: ReactNode
       <main id="admin-content" tabIndex={-1} className={styles.content}>{children}</main>
     </div>
   </>;
+  return CLIENT_CONFIG.adminEnabled ? <AdminSessionGate>{workspace}</AdminSessionGate> : workspace;
 }
