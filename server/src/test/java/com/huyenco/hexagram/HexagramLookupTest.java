@@ -112,4 +112,18 @@ class HexagramLookupTest {
                     .andExpect(content().string(org.hamcrest.Matchers.not(org.hamcrest.Matchers.containsString("secret"))));
         }
     }
+
+    @Test void hiddenVerifiedGlossKeepsTheHexagramPublicWithoutAnInterpretation() throws Exception {
+        var data = snapshot();
+        var g = data.glosses().get(0);
+        var hidden = new HexagramLookupSnapshot.Gloss(g.code(), g.content(), g.status(), g.reviewer(), g.reviewedAt(),
+                g.note(), g.sourceOrder(), g.printedSourceLabel(), g.source(), g.sourceSectionId(), false);
+        var service = new HexagramLookupService(() -> new HexagramLookupSnapshot(data.hexagrams(), List.of(hidden)));
+
+        var detail = service.detail(g.code());
+        assertEquals("Tỉnh", detail.name());
+        assertEquals(6, detail.linesBottomUp().size());
+        assertEquals(List.of(SOURCE), detail.sourceReferences());
+        assertTrue(detail.interpretations().isEmpty());
+    }
 }

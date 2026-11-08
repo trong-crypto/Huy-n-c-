@@ -1,5 +1,9 @@
 package com.huyenco.cms;
 
+import static com.huyenco.common.validation.CmsInput.expectedVersion;
+import static com.huyenco.common.validation.CmsInput.invalid;
+import static com.huyenco.common.validation.CmsInput.text;
+
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -12,6 +16,7 @@ import com.huyenco.cms.MethodGuideService.Method;
 import com.huyenco.cms.MethodGuideService.Status;
 import com.huyenco.common.dto.ApiError;
 import com.huyenco.common.exception.ContractException;
+import com.huyenco.common.validation.CmsInput.FieldFailure;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -60,7 +65,8 @@ final class MethodGuideController {
             actor(request, false);
             query(request, Set.of("q", "group", "status", "page", "size"));
             String q = request.getParameter("q");
-            if (q != null && (q.length() > 100 || q.codePoints().anyMatch(c -> invalidCharacter(c, false)))) throw invalid("q");
+            if (q != null && (q.length() > 100 || q.codePoints().anyMatch(c ->
+                    Character.isISOControl(c) || c >= Character.MIN_SURROGATE && c <= Character.MAX_SURROGATE))) throw invalid("q");
             String group = request.getParameter("group");
             if (group != null && !Set.of("MAI_HOA", "TAM_THE").contains(group)) throw invalid("group");
             String status = request.getParameter("status");
@@ -101,7 +107,7 @@ final class MethodGuideController {
         return respond(200, () -> {
             UUID actor = actor(request, true);
             JsonNode json = body(request, Set.of("expectedVersion", "title", "body", "editorNote"));
-            return service.update(method(methodCode), version(json), Action.SAVE_DRAFT, draft(json), null, actor);
+            return service.update(method(methodCode), expectedVersion(json), Action.SAVE_DRAFT, draft(json), null, actor);
         });
     }
 
@@ -118,7 +124,7 @@ final class MethodGuideController {
             boolean returning = action == Action.RETURN_TO_DRAFT;
             JsonNode json = body(request, returning ? Set.of("expectedVersion", "reason") : Set.of("expectedVersion"));
             String reason = returning ? text(json, "reason", 500, true, false) : null;
-            return service.update(method(methodCode), version(json), action, null, reason, actor);
+            return service.update(method(methodCode), expectedVersion(json), action, null, reason, actor);
         });
     }
 
@@ -129,7 +135,7 @@ final class MethodGuideController {
             JsonNode json = body(request, Set.of("expectedVersion", "visible"));
             if (!json.path("visible").isBoolean()) throw invalid("visible");
             Action action = json.path("visible").booleanValue() ? Action.SHOW : Action.HIDE;
-            return service.update(method(methodCode), version(json), action, null, null, actor);
+            return service.update(method(methodCode), expectedVersion(json), action, null, null, actor);
         });
     }
 
@@ -172,29 +178,6 @@ final class MethodGuideController {
                 text(json, "editorNote", 500, true, true));
     }
 
-    private static String text(JsonNode json, String field, int limit, boolean multiline, boolean optional) {
-        if (optional && !json.has(field)) return null;
-        JsonNode node = json.path(field);
-        if (!node.isTextual()) throw invalid(field);
-        String raw = node.textValue();
-        if (raw.codePoints().anyMatch(c -> invalidCharacter(c, multiline))) throw invalid(field);
-        String value = raw.strip();
-        if (optional && value.isEmpty()) return null;
-        if (value.isEmpty() || value.length() > limit) throw invalid(field);
-        return value;
-    }
-
-    private static boolean invalidCharacter(int value, boolean multiline) {
-        if (value >= Character.MIN_SURROGATE && value <= Character.MAX_SURROGATE) return true;
-        return Character.isISOControl(value) && !(multiline && (value == '\n' || value == '\r' || value == '\t'));
-    }
-
-    private static int version(JsonNode json) {
-        JsonNode value = json.path("expectedVersion");
-        if (!value.isIntegralNumber() || !value.canConvertToInt() || value.intValue() < 1) throw invalid("expectedVersion");
-        return value.intValue();
-    }
-
     private static Method method(String value) { return option(Method.class, value, "methodCode"); }
     private static <T extends Enum<T>> T option(Class<T> type, String value, String field) {
         try { return Enum.valueOf(type, value); }
@@ -234,7 +217,7 @@ final class MethodGuideController {
                 case "GUIDE_EXISTS", "VERSION_CONFLICT", "INVALID_TRANSITION" -> 409;
                 default -> 400;
             };
-            String reason = failure instanceof InvalidInput input ? input.field : null;
+            String reason = failure instanceof FieldFailure input ? input.field() : null;
             return result(code, new Envelope(id, "FAILED", null, new ApiError(failure.code(), failure.getMessage(), null, reason)));
         } catch (DataAccessException | CannotCreateTransactionException failure) {
             LOG.warn("Method guides DATABASE_UNAVAILABLE requestId={} error={}", id, failure.getClass().getSimpleName());
@@ -251,13 +234,5 @@ final class MethodGuideController {
         return ResponseEntity.status(status).cacheControl(CacheControl.noStore()).body(envelope);
     }
 
-    private static InvalidInput invalid(String field) { return new InvalidInput(field); }
-    private static final class InvalidInput extends ContractException {
-        private final String field;
-        private InvalidInput(String field) {
-            super("INVALID_INPUT", "Dữ liệu bài hướng dẫn không hợp lệ.");
-            this.field = field;
-        }
-    }
     record Envelope(String requestId, String status, Object data, ApiError error) {}
 }

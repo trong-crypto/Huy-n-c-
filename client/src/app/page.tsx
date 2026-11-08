@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { PageContainer } from "@/components/ui/Page";
 import { BrandSymbol, CelestialArt, TimeSymbol } from "@/components/ui/CelestialArt";
+import { HomeWebsiteContent } from "@/components/ui/HomeWebsiteContent";
+import { CLIENT_CONFIG } from "@/config/client";
 import { divinationCatalog, methodCatalogHref } from "@/config/divinationCatalog";
 
 const tools = [
@@ -25,6 +27,13 @@ export default function Home() {
         </div>
         <div className="hero-art" aria-hidden="true"><div className="celestial-halo" /><CelestialArt /><span className="art-caption">ÂM DƯƠNG TƯƠNG SINH · VẠN VẬT BIẾN HÓA</span></div>
       </section>
+      <HomeSections />
+    </PageContainer>
+  );
+}
+
+function HomeSections() {
+  const sections = <>
       <div className="section-introduction"><div><p className="eyebrow">PHƯƠNG PHÁP</p><h2>Chọn một hành trình</h2></div><Link href={methodCatalogHref} className="secondary-button">Xem danh mục phương pháp</Link></div>
       <div className="module-grid">
         {divinationCatalog.map((module) => (
@@ -44,15 +53,16 @@ export default function Home() {
           <h3>{tool.title} <span aria-hidden="true">↗</span></h3><p>{tool.description}</p>
         </Link>)}</div>
       </section>
-      <section id="huong-dan" className="home-guide" aria-labelledby="home-guide-title">
+  </>;
+  const usage = <section id="huong-dan" className="home-guide" aria-labelledby="home-guide-title">
         <div className="section-introduction"><div><p className="eyebrow">HƯỚNG DẪN</p><h2 id="home-guide-title">Bắt đầu trong ba bước</h2></div></div>
         <ol className="home-tools">
           <li className="section-card"><p className="eyebrow">01</p><h3>Chọn cách tra</h3><p>Mai Hoa có thời gian, số vật và sáu hào. Tam Thế dùng ngày giờ sinh và loại lịch.</p></li>
           <li className="section-card"><p className="eyebrow">02</p><h3>Gửi dữ kiện</h3><p>Điền biểu mẫu, chọn nội dung muốn xem rồi theo dõi tiến trình trong phần phản hồi.</p></li>
           <li className="section-card"><p className="eyebrow">03</p><h3>Đọc và lưu kết quả</h3><p>Xem lời giải nghĩa và nguồn đi kèm. Chọn lưu nếu bạn muốn mở lại trong lịch sử riêng tư.</p></li>
         </ol>
-      </section>
-    </PageContainer>
-  );
+      </section>;
+  return CLIENT_CONFIG.websiteContent ? <HomeWebsiteContent usage={usage}>{sections}</HomeWebsiteContent>
+    : <>{sections}{usage}</>;
 }
 

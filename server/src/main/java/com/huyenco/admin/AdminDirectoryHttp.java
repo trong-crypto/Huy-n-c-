@@ -8,6 +8,9 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import com.huyenco.auth.AdminRequestAccess;
 import com.huyenco.common.dto.ApiError;
 import com.huyenco.common.exception.ContractException;
+import com.huyenco.common.validation.CmsInput.FieldFailure;
+import com.huyenco.knowledge.KnowledgeAccessException;
+import com.huyenco.knowledge.KnowledgeDataException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -97,11 +100,17 @@ final class AdminDirectoryHttp {
                 case "INVALID_SESSION" -> 401;
                 case "CSRF_REJECTED", "FORBIDDEN" -> 403;
                 case "NOT_FOUND" -> 404;
-                case "VERSION_CONFLICT", "INVALID_TRANSITION", "ACCOUNT_LOCKED", "CONSULTANT_APPROVAL_REQUIRED", "PROFILE_EXISTS" -> 409;
+                case "VERSION_CONFLICT", "INVALID_TRANSITION", "ACCOUNT_LOCKED", "CONSULTANT_APPROVAL_REQUIRED",
+                        "PROFILE_EXISTS", "GLOSS_DRAFT_EXISTS", "SOURCE_PROPOSAL_EXISTS",
+                        "SOURCE_CHANGED", "SOURCE_ALREADY_APPLIED" -> 409;
                 default -> 400;
             };
-            return failed(status, requestId, failure.code(), failure.getMessage());
-        } catch (DataAccessException | CannotCreateTransactionException failure) {
+            String field = failure instanceof FieldFailure input ? input.field() : null;
+            return response(status, new Envelope(requestId, "FAILED", null,
+                    new ApiError(failure.code(), failure.getMessage(), null, field)));
+        } catch (KnowledgeDataException failure) {
+            return failed(503, requestId, "KNOWLEDGE_DATA_INCOMPLETE", failure.getMessage());
+        } catch (DataAccessException | CannotCreateTransactionException | KnowledgeAccessException failure) {
             log.warn("Admin directory DATABASE_UNAVAILABLE requestId={}", requestId);
             return failed(503, requestId, "DATABASE_UNAVAILABLE", "Kho dữ liệu quản trị tạm thời không khả dụng.");
         } catch (RuntimeException failure) {

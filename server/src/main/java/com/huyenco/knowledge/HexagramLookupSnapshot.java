@@ -13,5 +13,10 @@ public record HexagramLookupSnapshot(List<HexagramRecord> hexagrams, List<Gloss>
 
     public record Gloss(String code, String content, SourceStatus status, String reviewer,
                         Instant reviewedAt, String note, int sourceOrder, String printedSourceLabel,
-                        SourceReference source) { }
+                        SourceReference source, Long sourceSectionId, boolean visible) {
+        public Gloss(String code, String content, SourceStatus status, String reviewer, Instant reviewedAt,
+                     String note, int sourceOrder, String printedSourceLabel, SourceReference source) {
+            this(code, content, status, reviewer, reviewedAt, note, sourceOrder, printedSourceLabel, source, null, true);
+        }
+    }
 }

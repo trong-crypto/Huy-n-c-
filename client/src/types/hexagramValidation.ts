@@ -11,12 +11,12 @@ const nullableText = (v: unknown) => v === null || typeof v === "string";
 const integer = (v: unknown): v is number => typeof v === "number" && Number.isSafeInteger(v);
 export const isHexagramCode = (v: unknown): v is string => typeof v === "string" && v.length <= 64 && /^H_[A-Z0-9]+_[A-Z0-9]+$/.test(v);
 
-function source(v: unknown): v is SourceReference {
+export function isSourceReference(v: unknown): v is SourceReference {
   return isRecord(v) && [v.sourceId, v.title, v.version, v.section].every(nonempty)
     && [v.printedPage, v.sha256, v.url].every(nullableText)
     && (v.pdfPage === null || (integer(v.pdfPage) && v.pdfPage > 0));
 }
-function sources(v: unknown): v is SourceReference[] { return Array.isArray(v) && v.every(source); }
+function sources(v: unknown): v is SourceReference[] { return Array.isArray(v) && v.every(isSourceReference); }
 function traceable(v: SourceReference) {
   return v.pdfPage !== null || (v.printedPage !== null && v.printedPage.trim() !== "") || (v.url !== null && v.url.trim() !== "");
 }

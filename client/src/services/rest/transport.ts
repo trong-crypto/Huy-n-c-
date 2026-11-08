@@ -33,7 +33,9 @@ export async function requestJson<T>(path: string, guard: (value: unknown) => va
     if (value.status === "FAILED") {
       const statuses: Record<string, number> = { INVALID_INPUT: 400, INVALID_DATE: 400, NOT_FOUND: 404,
         INVALID_SESSION: 401, LOGIN_REQUIRED: 401, INVALID_CREDENTIALS: 401, FORBIDDEN: 403, CSRF_REJECTED: 403,
-        IDENTIFIER_TAKEN: 409, GUIDE_EXISTS: 409, VERSION_CONFLICT: 409, INVALID_TRANSITION: 409,
+        IDENTIFIER_TAKEN: 409, GUIDE_EXISTS: 409, GLOSS_DRAFT_EXISTS: 409, SOURCE_PROPOSAL_EXISTS: 409,
+        VERSION_CONFLICT: 409, INVALID_TRANSITION: 409, SOURCE_CHANGED: 409, SOURCE_ALREADY_APPLIED: 409,
+        INVALID_SOURCE: 400,
         RULE_NOT_AVAILABLE: 422, TOO_MANY_REQUESTS: 429,
         DATABASE_UNAVAILABLE: 503, KNOWLEDGE_DATA_INCOMPLETE: 503, INTERNAL_ERROR: 500 };
       if (response.ok || (Object.hasOwn(statuses, value.error.code) && response.status !== statuses[value.error.code])) throw new RestError("INVALID_RESPONSE");

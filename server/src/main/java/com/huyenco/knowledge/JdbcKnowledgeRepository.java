@@ -67,6 +67,14 @@ public final class JdbcKnowledgeRepository implements RuleStateProvider, Hexagra
 
     @Override
     public HexagramLookupSnapshot lookupSnapshot() {
+        return lookupSnapshot(" AND i.verification_status='VERIFIED'");
+    }
+
+    public HexagramLookupSnapshot adminHexagramSnapshot() {
+        return lookupSnapshot("");
+    }
+
+    private HexagramLookupSnapshot lookupSnapshot(String statusFilter) {
         return read(connection -> {
             connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
             connection.setAutoCommit(false);
@@ -82,18 +90,19 @@ public final class JdbcKnowledgeRepository implements RuleStateProvider, Hexagra
                          FROM interpretations i
                          LEFT JOIN source_sections s ON s.id=i.source_section_id
                          LEFT JOIN source_books b ON b.id=s.source_book_id
-                         WHERE i.category='NAME_GLOSS' AND i.verification_status='VERIFIED'
-                         ORDER BY i.hexagram_code LIMIT 65
-                        """); var rows = statement.executeQuery()) {
+                         WHERE i.category='NAME_GLOSS'
+                        """ + statusFilter + " ORDER BY i.hexagram_code LIMIT 65"); var rows = statement.executeQuery()) {
                     while (rows.next()) {
                         var reviewed = rows.getTimestamp("reviewed_at");
                         glosses.add(new HexagramLookupSnapshot.Gloss(rows.getString("hexagram_code"),
                                 rows.getString("content"), SourceStatus.valueOf(rows.getString("verification_status")),
                                 rows.getString("reviewer"), reviewed == null ? null : reviewed.toInstant(),
                                 rows.getString("verification_note"), rows.getInt("source_order"),
-                                rows.getString("printed_source_label"), source(rows)));
+                                rows.getString("printed_source_label"), source(rows),
+                                rows.getObject("source_section_id", Long.class), true));
                     }
                 }
+                applyGlossPublications(connection, glosses);
                 connection.commit();
                 return new HexagramLookupSnapshot(hexagrams, glosses);
             } catch (SQLException | RuntimeException failure) {
@@ -101,6 +110,40 @@ public final class JdbcKnowledgeRepository implements RuleStateProvider, Hexagra
                 throw failure;
             }
         });
+    }
+
+    private static void applyGlossPublications(Connection connection, List<HexagramLookupSnapshot.Gloss> glosses)
+            throws SQLException {
+        var published = new HashMap<String, HexagramLookupSnapshot.Gloss>();
+        try (var statement = prepare(connection, """
+                SELECT DISTINCT ON (e.hexagram_code) e.hexagram_code,e.actor_id,e.occurred_at,
+                    e.printed_source_label,e.verification_note,r.content,r.source_section_id,i.source_order,
+                    COALESCE(v.action <> 'HIDE', true) AS visible,
+                    r.source_snapshot->>'bookId' AS book_id,r.source_snapshot->>'title' AS title,
+                    r.source_snapshot->>'edition' AS edition,r.source_snapshot->>'section' AS section_label,
+                    r.source_snapshot->>'printedPage' AS printed_page_label,
+                    (r.source_snapshot->>'pdfPage')::integer AS pdf_page,r.source_snapshot->>'sha256' AS file_sha256
+                FROM cms_hexagram_gloss_events e
+                JOIN cms_hexagram_gloss_draft_revisions r ON (r.hexagram_code,r.version)=(e.hexagram_code,e.revision)
+                JOIN interpretations i ON i.hexagram_code=e.hexagram_code AND i.category='NAME_GLOSS'
+                    AND i.verification_status='VERIFIED'
+                LEFT JOIN LATERAL (
+                    SELECT action FROM cms_hexagram_gloss_events
+                    WHERE hexagram_code=e.hexagram_code AND action IN ('HIDE', 'SHOW')
+                    ORDER BY sequence DESC LIMIT 1
+                ) v ON true
+                WHERE e.action='PUBLISH'
+                ORDER BY e.hexagram_code,e.sequence DESC
+                """); var rows = statement.executeQuery()) {
+            while (rows.next()) {
+                String code = rows.getString("hexagram_code");
+                published.put(code, new HexagramLookupSnapshot.Gloss(code, rows.getString("content"), SourceStatus.VERIFIED,
+                        rows.getString("actor_id"), rows.getTimestamp("occurred_at").toInstant(),
+                        rows.getString("verification_note"), rows.getInt("source_order"), rows.getString("printed_source_label"),
+                        source(rows), rows.getObject("source_section_id", Long.class), rows.getBoolean("visible")));
+            }
+        }
+        glosses.replaceAll(gloss -> published.getOrDefault(gloss.code(), gloss));
     }
 
     @Override
@@ -335,7 +378,8 @@ public final class JdbcKnowledgeRepository implements RuleStateProvider, Hexagra
     private static HexagramRecord hexagram(ResultSet rows) throws SQLException {
         return new HexagramRecord(rows.getString("code"), rows.getString("name"), rows.getString("upper_trigram_code"),
                 rows.getString("lower_trigram_code"), lines(rows), rows.getString("name_kind"),
-                SourceStatus.valueOf(rows.getString("verification_status")), rows.getString("reviewer"), source(rows));
+                SourceStatus.valueOf(rows.getString("verification_status")), rows.getString("reviewer"), source(rows),
+                rows.getObject("source_section_id", Long.class));
     }
 
     private static List<Boolean> lines(ResultSet rows) throws SQLException {

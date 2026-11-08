@@ -6,7 +6,9 @@ import { LookupFailure, NameVerification, TrigramPair } from "@/components/hexag
 import { SourceReferences } from "@/components/results/Evidence";
 import { getHexagram, listHexagrams } from "@/services/rest/hexagrams";
 import { useLookup } from "@/services/rest/useLookup";
+import { CLIENT_CONFIG } from "@/config/client";
 import { AdminContentForm } from "./AdminContentForm";
+import { HexagramGlossWorkspace } from "./HexagramGlossWorkspace";
 import styles from "./admin.module.css";
 
 const loadCatalog = (signal: AbortSignal) => listHexagrams({ q: "", upper: "", lower: "", page: 0, size: 64 }, signal);
@@ -14,23 +16,24 @@ const loadCatalog = (signal: AbortSignal) => listHexagrams({ q: "", upper: "", l
 function HexagramReadingEditor({ code }: { code: string }) {
   const load = useCallback((signal: AbortSignal) => getHexagram(code, signal), [code]);
   const result = useLookup(code, load);
-  if (result.status === "loading") return <p role="status">Đang tải chi tiết quẻ…</p>;
-  if (result.status === "failed") return <LookupFailure error={result.error} retry={result.retry} />;
   const hexagram = result.data;
   return <div className={styles.contentStack}>
-    <section className={styles.contentPanel} aria-label="Chi tiết quẻ công khai">
+    {result.status === "loading" && <p role="status">Đang tải chi tiết quẻ…</p>}
+    {result.status === "failed" && <LookupFailure error={result.error} retry={result.retry} />}
+    {hexagram && <section className={styles.contentPanel} aria-label="Chi tiết quẻ công khai">
       <h2>{hexagram.name}</h2><code>{hexagram.code}</code>
       <NameVerification status={hexagram.verificationStatus} structural={hexagram.nameKind === "STRUCTURAL_LABEL"} />
       <TrigramPair upper={hexagram.upperTrigramCode} lower={hexagram.lowerTrigramCode} />
       <h3>Nguồn tên quẻ</h3><SourceReferences sources={hexagram.sourceReferences} />
       <h3>Nghĩa tên đã đối chiếu</h3>
-      {hexagram.interpretations.length === 0 && <p>Chưa có nghĩa tên đã đối chiếu trong dữ liệu công khai.</p>}
+      {hexagram.interpretations.length === 0 && <p>Chưa có nghĩa tên hiển thị công khai.</p>}
       {hexagram.interpretations.map(entry => <div key={entry.resultCode} className={styles.preview}>
         <strong>{entry.title}</strong><p>{entry.content}</p><SourceReferences sources={entry.sourceReferences} />
       </div>)}
-      <p className="field-hint">Trạng thái đối chiếu nguồn ở trên thuộc dữ liệu công khai. Trạng thái duyệt bản chỉnh sửa đang chờ Backend quản trị.</p>
-    </section>
-    <AdminContentForm heading="Soạn đề xuất giải nghĩa" initialTitle={hexagram.name} requiresProvenance />
+      <p className="field-hint">Trạng thái đối chiếu nguồn ở trên thuộc dữ liệu công khai.</p>
+    </section>}
+    {CLIENT_CONFIG.adminHexagramGlosses ? <HexagramGlossWorkspace code={code} refreshPublic={result.retry} />
+      : hexagram && <AdminContentForm heading="Soạn đề xuất giải nghĩa" initialTitle={hexagram.name} requiresProvenance />}
   </div>;
 }
 

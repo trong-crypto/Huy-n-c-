@@ -15,28 +15,35 @@ public class HexagramLookupService {
     public HexagramLookupService(HexagramLookupRepository repository) { this.repository = repository; }
 
     public Page list(String q, String upper, String lower, int page, int size) {
-        if (q == null || q.length() > 100 || page < 0 || size < 1 || size > 100 ||
-                (upper != null && !TRIGRAMS.contains(upper)) || (lower != null && !TRIGRAMS.contains(lower)))
-            throw invalid();
-        String query = normalized(q.strip());
-        boolean accents = !query.equals(fold(query));
-        var matches = validated().hexagrams().stream()
-                .filter(h -> upper == null || upper.equals(h.upperTrigramCode()))
-                .filter(h -> lower == null || lower.equals(h.lowerTrigramCode()))
-                .filter(h -> (accents ? normalized(h.name()) : fold(h.name())).contains(query) ||
-                        (query.startsWith("h_") && normalized(h.code()).contains(query)))
-                .sorted(Comparator.comparing(HexagramRecord::code)).toList();
+        validateList(q, upper, lower, page, size);
+        var matches = matching(validated(repository.lookupSnapshot()), q, upper, lower);
         long start = (long) page * size;
         List<Item> items = start >= matches.size() ? List.of() : matches.subList((int) start,
                 (int) Math.min(start + size, matches.size())).stream().map(HexagramLookupService::item).toList();
         return new Page(items, page, size, matches.size(), (matches.size() + size - 1) / size);
     }
 
+    static void validateList(String q, String upper, String lower, int page, int size) {
+        if (q == null || q.length() > 100 || page < 0 || size < 1 || size > 100 ||
+                (upper != null && !TRIGRAMS.contains(upper)) || (lower != null && !TRIGRAMS.contains(lower)))
+            throw invalid();
+    }
+
+    static List<HexagramRecord> matching(HexagramLookupSnapshot snapshot, String q, String upper, String lower) {
+        String query = normalized(q.strip());
+        boolean accents = !query.equals(fold(query));
+        return snapshot.hexagrams().stream()
+                .filter(h -> upper == null || upper.equals(h.upperTrigramCode()))
+                .filter(h -> lower == null || lower.equals(h.lowerTrigramCode()))
+                .filter(h -> (accents ? normalized(h.name()) : fold(h.name())).contains(query) ||
+                        (query.startsWith("h_") && normalized(h.code()).contains(query)))
+                .sorted(Comparator.comparing(HexagramRecord::code)).toList();
+    }
+
     public Detail detail(String code) {
-        if (code == null || code.length() > 64 || !code.matches("H_[A-Z0-9]+_[A-Z0-9]+")) throw invalid();
-        var snapshot = validated();
-        var hexagram = snapshot.hexagrams().stream().filter(h -> h.code().equals(code)).findFirst()
-                .orElseThrow(() -> new ContractException("NOT_FOUND", "Không tìm thấy quẻ."));
+        validateCode(code);
+        var snapshot = validated(repository.lookupSnapshot());
+        var hexagram = find(snapshot, code);
         var glosses = snapshot.glosses().stream().filter(g -> code.equals(g.code()) && publishable(g))
                 .map(g -> new Interpretation("NAME_GLOSS", "Nghĩa tên quẻ " + hexagram.name(), g.content(),
                         List.of(g.source()), SourceStatus.VERIFIED, "NAME_GLOSS", g.sourceOrder(),
@@ -46,8 +53,16 @@ public class HexagramLookupService {
                 references(hexagram), glosses);
     }
 
-    private HexagramLookupSnapshot validated() {
-        var snapshot = repository.lookupSnapshot();
+    static void validateCode(String code) {
+        if (code == null || code.length() > 64 || !code.matches("H_[A-Z0-9]+_[A-Z0-9]+")) throw invalid();
+    }
+
+    static HexagramRecord find(HexagramLookupSnapshot snapshot, String code) {
+        return snapshot.hexagrams().stream().filter(h -> h.code().equals(code)).findFirst()
+                .orElseThrow(() -> new ContractException("NOT_FOUND", "Không tìm thấy quẻ."));
+    }
+
+    static HexagramLookupSnapshot validated(HexagramLookupSnapshot snapshot) {
         var codes = new HashSet<String>();
         if (snapshot.hexagrams().size() != 64 || snapshot.glosses().size() > 64) throw new KnowledgeDataException();
         for (var h : snapshot.hexagrams()) {
@@ -66,8 +81,8 @@ public class HexagramLookupService {
         return snapshot;
     }
 
-    private static boolean publishable(HexagramLookupSnapshot.Gloss g) {
-        return g.status() == SourceStatus.VERIFIED && g.reviewer() != null && !g.reviewer().isBlank() &&
+    static boolean publishable(HexagramLookupSnapshot.Gloss g) {
+        return g.visible() && g.status() == SourceStatus.VERIFIED && g.reviewer() != null && !g.reviewer().isBlank() &&
                 g.reviewedAt() != null && g.note() != null && !g.note().isBlank() &&
                 g.sourceOrder() >= 1 && g.sourceOrder() <= 64 && g.printedSourceLabel() != null &&
                 !g.printedSourceLabel().isBlank() && g.content() != null && !g.content().isBlank() &&

@@ -12,9 +12,13 @@ export function AdminLoginForm() {
   const [errors, setErrors] = useState({ account: false, password: false });
   const [validated, setValidated] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [ready, setReady] = useState(false);
   const [serverError, setServerError] = useState<unknown>(null);
   const pending = useRef<AbortController | null>(null);
-  useEffect(() => () => pending.current?.abort(), []);
+  useEffect(() => {
+    setReady(true);
+    return () => pending.current?.abort();
+  }, []);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -38,7 +42,10 @@ export function AdminLoginForm() {
     setBusy(true);
     try {
       await loginAdmin(account.current.value, password.current.value, controller.signal);
-      if (!controller.signal.aborted) window.location.replace(CLIENT_CONFIG.adminAccounts ? "/admin/users" : "/admin/methods");
+      if (!controller.signal.aborted) window.location.replace(CLIENT_CONFIG.adminAccounts ? "/admin/users"
+        : CLIENT_CONFIG.methodGuides ? "/admin/methods"
+          : CLIENT_CONFIG.adminHexagramGlosses ? "/admin/readings"
+            : CLIENT_CONFIG.adminSourceCatalog ? "/admin/sources" : "/admin/website");
     } catch (failure) {
       if (!controller.signal.aborted) setServerError(failure);
     } finally {
@@ -64,7 +71,7 @@ export function AdminLoginForm() {
         onChange={() => { setErrors(current => ({ ...current, password: false })); setValidated(false); }} />
       {errors.password && <FieldError id="admin-password-error">Vui lòng nhập mật khẩu.</FieldError>}
     </FormField>
-    <PrimaryButton type="submit" disabled={busy}>{busy ? "Đang đăng nhập…" : "Đăng nhập"}</PrimaryButton>
+    <PrimaryButton type="submit" disabled={busy || !ready}>{busy ? "Đang đăng nhập…" : "Đăng nhập"}</PrimaryButton>
     {validated && <p className={styles.notice} role="status">Đã kiểm tra dữ liệu nhập. Đăng nhập đang chờ tích hợp Backend.</p>}
     {serverError !== null && <p className={styles.notice} role="alert">{methodGuideError(serverError)}</p>}
   </form>;

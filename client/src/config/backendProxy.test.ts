@@ -38,6 +38,48 @@ it("proxies Admin accounts and authentication independently of the CMS", async (
   expect(rewrites.some(rewrite => getPathMatch(rewrite.source)("/api/v1/admin/method-guides") !== false)).toBe(false);
 });
 
+it("proxies Admin gloss workflow and login with only the gloss feature enabled", async () => {
+  vi.stubEnv("NEXT_PUBLIC_ADMIN_HEXAGRAM_GLOSSES", "1");
+  vi.stubEnv("NEXT_PUBLIC_ADMIN_ACCOUNTS", "0");
+  vi.stubEnv("NEXT_PUBLIC_METHOD_GUIDES", "0");
+  vi.stubEnv("NEXT_PUBLIC_ACCOUNT_HISTORY", "0");
+  const rewrites = await nextConfig.rewrites!();
+  if (!Array.isArray(rewrites)) throw new Error("Expected a flat rewrite list");
+  for (const path of ["/api/v1/auth/admin/login", "/api/v1/admin/hexagrams/H_KHAM_TON",
+    "/api/v1/admin/hexagrams/H_KHAM_TON/gloss-draft/workflow/publish"]) {
+    expect(rewrites.filter(rewrite => getPathMatch(rewrite.source)(path) !== false)).toHaveLength(1);
+  }
+});
+
+it("proxies source listing, source detail and Admin login when only the source catalog is enabled", async () => {
+  vi.stubEnv("NEXT_PUBLIC_ADMIN_SOURCE_CATALOG", "1");
+  vi.stubEnv("NEXT_PUBLIC_ADMIN_HEXAGRAM_GLOSSES", "0");
+  vi.stubEnv("NEXT_PUBLIC_ADMIN_ACCOUNTS", "0");
+  vi.stubEnv("NEXT_PUBLIC_METHOD_GUIDES", "0");
+  vi.stubEnv("NEXT_PUBLIC_ACCOUNT_HISTORY", "0");
+  const rewrites = await nextConfig.rewrites!();
+  if (!Array.isArray(rewrites)) throw new Error("Expected a flat rewrite list");
+  for (const path of ["/api/v1/auth/admin/login", "/api/v1/admin/sources",
+    "/api/v1/admin/sources/EXTERNAL_ALGORITHM/C01-VN-FIXED7"]) {
+    expect(rewrites.filter(rewrite => getPathMatch(rewrite.source)(path) !== false)).toHaveLength(1);
+  }
+});
+
+it("proxies public and Admin website content with only the website CMS enabled", async () => {
+  vi.stubEnv("NEXT_PUBLIC_WEBSITE_CONTENT", "1");
+  vi.stubEnv("NEXT_PUBLIC_ACCOUNT_HISTORY", "0");
+  vi.stubEnv("NEXT_PUBLIC_METHOD_GUIDES", "0");
+  vi.stubEnv("NEXT_PUBLIC_ADMIN_ACCOUNTS", "0");
+  vi.stubEnv("NEXT_PUBLIC_ADMIN_HEXAGRAM_GLOSSES", "0");
+  vi.stubEnv("NEXT_PUBLIC_ADMIN_SOURCE_CATALOG", "0");
+  const rewrites = await nextConfig.rewrites!();
+  if (!Array.isArray(rewrites)) throw new Error("Expected a flat rewrite list");
+  for (const path of ["/api/v1/website-content", "/api/v1/auth/admin/login",
+    "/api/v1/admin/website-content/INTRODUCTION/publish"]) {
+    expect(rewrites.filter(rewrite => getPathMatch(rewrite.source)(path) !== false)).toHaveLength(1);
+  }
+});
+
 it.each([
   ["documented server URL", "http://127.0.0.1:18090", undefined, "http://127.0.0.1:18090"],
   ["TV1 alias", undefined, "http://127.0.0.1:18091", "http://127.0.0.1:18091"],
@@ -52,6 +94,9 @@ it.each([
   vi.stubEnv("NEXT_PUBLIC_METHOD_GUIDES", undefined);
   vi.stubEnv("NEXT_PUBLIC_ACCOUNT_HISTORY", undefined);
   vi.stubEnv("NEXT_PUBLIC_ADMIN_ACCOUNTS", undefined);
+  vi.stubEnv("NEXT_PUBLIC_ADMIN_HEXAGRAM_GLOSSES", undefined);
+  vi.stubEnv("NEXT_PUBLIC_ADMIN_SOURCE_CATALOG", undefined);
+  vi.stubEnv("NEXT_PUBLIC_WEBSITE_CONTENT", undefined);
   expect(await nextConfig.rewrites!()).toEqual([
     { source: "/api/v1/hexagrams/:path*", destination: `${expected}/api/v1/hexagrams/:path*` },
     { source: "/api/v1/calendar/convert", destination: `${expected}/api/v1/calendar/convert` },

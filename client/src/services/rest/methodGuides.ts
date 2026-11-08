@@ -13,8 +13,8 @@ export type GuideSummary = { methodCode: MethodCode; group: "MAI_HOA" | "TAM_THE
 export type Guide = GuideSummary & { working: Revision | null; published: (Revision & { publishedAt: string }) | null };
 export type PublicGuide = { methodCode: MethodCode; title: string; body: string; revision: number; publishedAt: string };
 export type AdminSession = { account: { id: string; displayName: string; role: "ADMIN" }; expiresAt: string; csrfToken: string };
-type Page<T> = { items: T[]; page: number; size: number; totalElements: number; totalPages: number };
-type GuideEvent = { version: number; action: string; revision: number; actorId: string; occurredAt: string; reason: string | null };
+export type Page<T> = { items: T[]; page: number; size: number; totalElements: number; totalPages: number };
+export type GuideEvent = { version: number; action: string; revision: number; actorId: string; occurredAt: string; reason: string | null };
 
 const timestamp = (value: unknown): value is string => typeof value === "string" && Number.isFinite(Date.parse(value));
 const integer = (value: unknown): value is number => Number.isSafeInteger(value) && (value as number) >= 0;
@@ -40,10 +40,10 @@ function isGuide(value: unknown): value is Guide {
 }
 const isPublicGuide = (value: unknown): value is PublicGuide => isRecord(value) && methodCode(value.methodCode)
   && typeof value.title === "string" && typeof value.body === "string" && positive(value.revision) && timestamp(value.publishedAt);
-const isEvent = (value: unknown): value is GuideEvent => isRecord(value) && positive(value.version) && positive(value.revision)
+export const isEvent = (value: unknown): value is GuideEvent => isRecord(value) && positive(value.version) && positive(value.revision)
   && typeof value.action === "string" && isUuid(value.actorId) && timestamp(value.occurredAt)
   && (value.reason === null || typeof value.reason === "string");
-function isPage<T>(value: unknown, isItem: (item: unknown) => item is T): value is Page<T> {
+export function isPage<T>(value: unknown, isItem: (item: unknown) => item is T): value is Page<T> {
   return isRecord(value) && Array.isArray(value.items) && value.items.every(isItem)
     && integer(value.page) && positive(value.size) && integer(value.totalElements) && integer(value.totalPages);
 }

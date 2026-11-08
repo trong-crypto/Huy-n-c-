@@ -26,6 +26,9 @@ export default function AdminDashboardPage() {
       <ul className={styles.cards}>
         {adminModules.map(module => <li key={module.id} className={styles.card}>
           <span className={styles.badge}>{(CLIENT_CONFIG.methodGuides && module.id === "methods")
+            || (CLIENT_CONFIG.adminHexagramGlosses && module.id === "readings")
+            || (CLIENT_CONFIG.adminSourceCatalog && module.id === "sources")
+            || (CLIENT_CONFIG.websiteContent && module.id === "website")
             || (CLIENT_CONFIG.adminAccounts && ["users", "consultants", "audit"].includes(module.id))
             ? "Đã kết nối" : "Giao diện · chờ Backend"}</span>
           <h3>{module.title}</h3>

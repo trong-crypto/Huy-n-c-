@@ -112,18 +112,22 @@ Chỉ ghi `PASS` khi có kết quả thực tế kèm mốc commit, môi trườ
 
 Phạm vi đầu tiên đã có [hợp đồng quản trị bài hướng dẫn phương pháp](57-TV2-TV3-METHOD-GUIDE-CMS-CONTRACT.md) để TV2 và TV3 triển khai. Các bảng bên dưới ghi phạm vi bàn giao ban đầu của toàn Phase 3.
 
+Danh sách, chi tiết quẻ và nguồn nghĩa tên cho Admin được bàn giao trong [tài liệu 65](65-TV2-TV3-ADMIN-HEXAGRAM-CATALOG.md).
+
+Tạo, sửa và đọc lại các phiên bản bản nháp nghĩa tên được bàn giao trong [tài liệu 66](66-TV2-TV3-HEXAGRAM-GLOSS-DRAFTS.md).
+
 **Trạng thái `PARTIAL – WAITING FOR BACKEND`.** TV1 đã bổ sung giao diện phương pháp, quẻ và lời giải nghĩa, dữ liệu nguồn, nội dung website và xem trước quy trình duyệt. Danh sách/chi tiết quẻ dùng API công khai `GET /api/v1/hexagrams` và `GET /api/v1/hexagrams/{code}` để đối chiếu. Danh mục phương pháp dựa trên các phương pháp đã có trong Client. Form chỉ xem trước trên trang, chưa ghi dữ liệu. Trạng thái nội dung quản trị và phiên bản nguồn phải đến từ Backend.
 
 ### A. Công việc TV2 – Backend
 
 | ID | Phạm vi | Endpoint |
 | --- | --- | --- |
-| CONTENT-01 | Danh sách/chi tiết phương pháp, quẻ và giải nghĩa, nguồn, nội dung website. Thống nhất tìm kiếm, lọc, phân trang, trạng thái và phiên bản có thể hiển thị. | TBD – Chờ TV2 thống nhất |
-| CONTENT-02 | Tạo/chỉnh sửa bản nháp và tiếp nhận đề xuất chỉnh sửa nguồn. Tách nội dung biên tập khỏi công thức, dữ liệu nghiệp vụ và quy tắc tính quẻ. | TBD – Chờ TV2 thống nhất |
-| CONTENT-03 | Ẩn/hiện hoặc đổi trạng thái nội dung. Chốt cách xử lý thao tác cạnh tranh và quyền cần thiết. | TBD – Chờ TV2 thống nhất |
-| CONTENT-04 | Gửi duyệt, duyệt và công bố theo các chuyển trạng thái hợp lệ. Chốt cách từ chối/lưu trữ nếu có và nội dung nào được website người dùng đọc. | TBD – Chờ TV2 thống nhất |
-| CONTENT-05 | Bảo vệ mọi API quản trị bằng phiên Admin, quyền phù hợp và CSRF cho thao tác ghi. Thống nhất phản hồi `401`/`403` theo Phase 2. | Áp dụng cho toàn bộ API quản trị |
-| CONTENT-06 | Xác thực dữ liệu ở Server, chốt cấu trúc phản hồi, lỗi theo trường và lỗi xung đột phiên bản/trạng thái. Chốt giới hạn văn bản và quy tắc hiển thị an toàn. | Áp dụng cho toàn bộ API quản trị |
+| CONTENT-01 | Danh sách/chi tiết phương pháp, quẻ và giải nghĩa, nguồn, nội dung website. | Phương pháp theo tài liệu 57, quẻ theo tài liệu 65, nguồn theo [tài liệu 72](72-TV2-TV3-ADMIN-SOURCE-CATALOG.md). Giới thiệu và Hướng dẫn sử dụng theo [hợp đồng V27](76-TV2-TV3-WEBSITE-CONTENT-CMS.md). |
+| CONTENT-02 | Tạo/chỉnh sửa bản nháp nghĩa tên và tiếp nhận đề xuất chỉnh sửa nguồn. | Nghĩa tên theo tài liệu 66. Đề xuất nguồn theo [hợp đồng V24](73-TV2-TV3-SOURCE-EDIT-PROPOSAL-DRAFTS.md). |
+| CONTENT-03 | Admin ẩn/hiện nghĩa tên đã công bố. Kiểm phiên bản khi thao tác cạnh tranh. | Đã nghiệm thu phạm vi `NAME_GLOSS` trên V23 theo [hợp đồng ẩn/hiện](69-TV2-TV3-CONTENT03-HEXAGRAM-GLOSS-VISIBILITY.md). |
+| CONTENT-04 | Gửi duyệt, trả về và công bố nghĩa tên quẻ. Gửi duyệt, trả về và phê duyệt đề xuất sửa nguồn. Xem trước và áp dụng metadata sách đã duyệt. | Nghĩa tên theo tài liệu 67. Duyệt đề xuất nguồn theo [hợp đồng V25](74-TV2-TV3-SOURCE-EDIT-PROPOSAL-REVIEW.md). Áp dụng tác giả hoặc nhà xuất bản theo [hợp đồng V26](75-TV2-TV3-SOURCE-PROPOSAL-APPLICATION.md). |
+| CONTENT-05 | Bảo vệ API quản trị bằng phiên Admin, quyền phù hợp và CSRF cho thao tác ghi. | Đã nghiệm thu 20 tuyến bài hướng dẫn phương pháp và nghĩa tên quẻ. Xem [ma trận quyền](70-TV2-TV3-CONTENT05-CMS-ACCESS-AUDIT.md). |
+| CONTENT-06 | Kiểm tra đầu vào ở Server và Client, giới hạn Unicode, lỗi theo trường và lỗi xung đột phiên bản/trạng thái. | Đã nghiệm thu bài hướng dẫn phương pháp và nghĩa tên quẻ. Xem [hợp đồng validation](71-TV2-TV3-CONTENT06-CMS-VALIDATION.md). |
 
 ### B. Công việc TV3 – Cơ sở dữ liệu và dữ liệu
 
@@ -473,18 +477,18 @@ Phase 9 là tùy chọn và chưa nằm trong phạm vi cam kết triển khai.
 | PH2-PH-01 | 2 | Chốt thiết kế tài khoản, vai trò và phiên | TV2, TV3 | Cao | `TODO` | Rà soát Backend và dữ liệu hiện có | Ghi quyết định kỹ thuật trước migration |
 | PH2-PH-02 | 2 | Chốt hợp đồng API | TV2, TV1, TV3 | Cao | `TODO` | PH2-PH-01 | Xác nhận endpoint, schema, lỗi và cơ chế bảo mật |
 | PH2-PH-03 | 2, 8A.1 | Tích hợp và nghiệm thu localhost | TV1, TV2, TV3 | Cao | `BLOCKED` | AUTH-01–07, DATA-04–05, PH2-PH-02 | Chờ Backend và dữ liệu TEST |
-| CONTENT-01 | 3 | Đọc danh sách và chi tiết quản trị | TV2 | Cao | `TODO` | CMS-DATA-01, CMS-DATA-02 | API công khai chỉ phục vụ đối chiếu quẻ |
-| CONTENT-02 | 3 | Tạo và sửa bản nháp | TV2 | Cao | `TODO` | CMS-DATA-01–03, CONTENT-05 | Có kiểm tra phiên bản nguồn |
-| CONTENT-03 | 3 | Ẩn/hiện và đổi trạng thái | TV2 | Cao | `TODO` | CMS-DATA-04, CONTENT-05 | Chốt quyền và chuyển trạng thái |
-| CONTENT-04 | 3 | Duyệt và công bố | TV2 | Cao | `TODO` | CMS-DATA-03–04, CONTENT-05 | Chỉ bản đã công bố ra website |
-| CONTENT-05 | 3 | Xác thực, phân quyền và CSRF | TV2 | Cao | `BLOCKED` | AUTH-01–06 | Chờ Auth Phase 2 |
-| CONTENT-06 | 3 | Kiểm tra dữ liệu và chuẩn hóa phản hồi | TV2 | Cao | `TODO` | CMS-DATA-01–04 | Chốt schema và mã lỗi với TV1 |
-| CMS-DATA-01 | 3 | Thiết kế lưu nội dung | TV3 | Cao | `TODO` | Chốt phạm vi với TV2 | Tách bản công bố và bản nháp |
-| CMS-DATA-02 | 3 | Liên kết dữ liệu nguồn | TV3 | Cao | `TODO` | CMS-DATA-01 | Bảo toàn xuất xứ và đối chiếu |
-| CMS-DATA-03 | 3 | Phiên bản và lịch sử chỉnh sửa | TV3 | Cao | `TODO` | CMS-DATA-01 | Phục vụ kiểm tra xung đột |
-| CMS-DATA-04 | 3 | Trạng thái duyệt nội dung | TV3 | Cao | `TODO` | CMS-DATA-01 | Thống nhất chuyển trạng thái với TV2 |
-| CMS-DATA-05 | 3 | Bảo toàn dữ liệu cũ | TV3 | Cao | `TODO` | CMS-DATA-01–04 | Kiểm chứng trên cơ sở dữ liệu TEST |
-| PH3-PH-01 | 3 | Tích hợp và nghiệm thu nội dung trên localhost | TV1, TV2, TV3 | Cao | `BLOCKED` | CONTENT-01–06, CMS-DATA-01–05 | Ghi bằng chứng API, quyền, lưu và công bố |
+| CONTENT-01 | 3 | Đọc danh sách và chi tiết quản trị | TV2 | Cao | `PASS_LOCAL_TEST` | CMS-DATA-01, CMS-DATA-02 | Phương pháp theo tài liệu 57, quẻ theo tài liệu 65, nguồn theo tài liệu 72. Giới thiệu và Hướng dẫn sử dụng theo [tài liệu 76](76-TV2-TV3-WEBSITE-CONTENT-CMS.md). |
+| CONTENT-02 | 3 | Tạo và sửa bản nháp | TV2 | Cao | `PASS_LOCAL_TEST` (nghĩa tên và đề xuất sửa nguồn) | CMS-DATA-01–03, CONTENT-05 | `NAME_GLOSS` theo tài liệu 66. Đề xuất nguồn, bảo toàn dữ liệu và xung đột phiên bản theo [tài liệu 73](73-TV2-TV3-SOURCE-EDIT-PROPOSAL-DRAFTS.md) |
+| CONTENT-03 | 3 | Ẩn/hiện và đổi trạng thái | TV2 | Cao | `PASS_LOCAL_TEST` (nghĩa tên) | CMS-DATA-04, CONTENT-05 | API, nhật ký V23 và nghiệm thu Chromium theo [tài liệu 69](69-TV2-TV3-CONTENT03-HEXAGRAM-GLOSS-VISIBILITY.md) |
+| CONTENT-04 | 3 | Duyệt và công bố | TV2 | Cao | `PASS_LOCAL_TEST` (nghĩa tên và duyệt đề xuất nguồn) | CMS-DATA-03–04, CONTENT-05 | Nghĩa tên theo tài liệu 67. Duyệt đề xuất nguồn, khóa sửa và chống tự duyệt theo [tài liệu 74](74-TV2-TV3-SOURCE-EDIT-PROPOSAL-REVIEW.md) |
+| CONTENT-05 | 3 | Xác thực, phân quyền và CSRF | TV2 | Cao | `PASS_LOCAL_TEST` (hai mô-đun CMS đang hoạt động) | AUTH-01–06 | 20 tuyến và 201 ca từ chối trên PostgreSQL TEST V23 theo [biên bản](70-TV2-TV3-CONTENT05-CMS-ACCESS-AUDIT.md) |
+| CONTENT-06 | 3 | Kiểm tra dữ liệu và chuẩn hóa phản hồi | TV2 | Cao | `PASS_LOCAL_TEST` (hai mô-đun CMS đang hoạt động) | CMS-DATA-01–04 | 60 kiểm tra HTTP trên TEST V23 và hồi quy Client theo [biên bản](71-TV2-TV3-CONTENT06-CMS-VALIDATION.md) |
+| CMS-DATA-01 | 3 | Thiết kế lưu nội dung | TV3 | Cao | `PASS_LOCAL_TEST` (bản nháp nghĩa tên) | Chốt phạm vi với TV2 | V21 tách bản nháp `NAME_GLOSS` khỏi dữ liệu E01 đã công bố |
+| CMS-DATA-02 | 3 | Liên kết dữ liệu nguồn | TV3 | Cao | `PASS_LOCAL_TEST` (nguồn quẻ, E01 và danh mục đọc) | CMS-DATA-01 | Đối chiếu 64 nghĩa tên với E01 theo tài liệu 65. Danh mục nguồn đọc và đối chiếu các tham chiếu trực tiếp theo tài liệu 72 |
+| CMS-DATA-03 | 3 | Phiên bản và lịch sử chỉnh sửa | TV3 | Cao | `PASS_LOCAL_TEST` (nghĩa tên và đề xuất sửa nguồn) | CMS-DATA-01 | Đọc lại từng phiên bản, giữ nguồn tại lúc lưu và kiểm xung đột theo tài liệu 66 và 73 |
+| CMS-DATA-04 | 3 | Trạng thái duyệt nội dung | TV3 | Cao | `PASS_LOCAL_TEST` (nghĩa tên và đề xuất nguồn) | CMS-DATA-01 | V22 lưu lịch sử duyệt nghĩa tên. V25 lưu quyết định theo đúng phiên bản đề xuất nguồn, kiểm cạnh tranh theo tài liệu 74 |
+| CMS-DATA-05 | 3 | Bảo toàn dữ liệu cũ | TV3 | Cao | `PASS_LOCAL_TEST` | CMS-DATA-01–04 | 28 bảng cũ khớp khi nâng V20 → V22. E02, Mai Hoa, Tam Thế, lịch và cách ly H01 đạt theo [biên bản kiểm toán](68-TV2-TV3-CMS-DATA05-V22-MIGRATION-AUDIT.md) |
+| PH3-PH-01 | 3 | Tích hợp và nghiệm thu nội dung trên localhost | TV1, TV2, TV3 | Cao | `PASS_LOCAL_TEST` (nghĩa tên quẻ, metadata sách và nội dung website) | CONTENT-01–06, CMS-DATA-01–05 | Nghiệm thu Chromium theo tài liệu 67, 75 và [76](76-TV2-TV3-WEBSITE-CONTENT-CMS.md). V27 kiểm với hai phiên Admin và một phiên khách trên PostgreSQL TEST. |
 
 ### Theo dõi Phase 4
 
@@ -500,6 +504,8 @@ Hợp đồng nhật ký quản trị (ADM-07, ADM-DATA-05) có trong [tài li�
 
 Môi trường TEST chung và checklist nghiệm thu (ADM-08, ADM-DATA-06) có trong [tài liệu 63](63-TV2-TV3-PHASE4-ADMIN-TEST-HANDOFF.md).
 
+Kiểm toán bảo toàn H01 và cách ly lịch sử tài khoản (ADM-DATA-01) có trong [tài liệu 64](64-TV2-TV3-H01-MIGRATION-COMPATIBILITY.md).
+
 | ID | Công việc | Người phụ trách | Ưu tiên | Trạng thái | Phụ thuộc | Tiêu chí nghiệm thu |
 | --- | --- | --- | --- | --- | --- | --- |
 | ADM-01 | Thống kê dashboard | TV2 | Cao | `PASS_LOCAL_TEST` (API) | ADM-DATA-02, ADM-08 | Tổng, phân nhóm và trạng thái được đối chiếu với dữ liệu thật trong phạm vi đã chốt. TV1 tích hợp Dashboard theo tài liệu 59 |
@@ -510,7 +516,7 @@ Môi trường TEST chung và checklist nghiệm thu (ADM-08, ADM-DATA-06) có t
 | ADM-06 | Quản lý tư vấn viên | TV2 | Cao | `PASS_LOCAL_TEST` (API) | ADM-DATA-04, ADM-08 | Tạo, lọc, xem chi tiết, duyệt/từ chối và đọc lại lý do. TV1 tích hợp theo tài liệu 61 |
 | ADM-07 | API nhật ký quản trị | TV2 | Trung bình | `PASS_LOCAL_TEST` (API) | ADM-DATA-05, ADM-08 | Lọc, phân trang và giới hạn trường dữ liệu. TV1 tích hợp theo tài liệu 62 |
 | ADM-08 | Xác thực, phân quyền và CSRF | TV2 | Cao | `PASS_LOCAL_TEST` (API) | AUTH-01–06 | Kiểm 19 tuyến Admin và trạng thái dữ liệu sau 401/403/409 trên TEST V20 |
-| ADM-DATA-01 | Dữ liệu và cấu trúc tài khoản | TV3 | Cao | `TODO` | DATA-01 | Đọc đúng tài khoản TEST mà vẫn bảo toàn phiên H01 |
+| ADM-DATA-01 | Dữ liệu và cấu trúc tài khoản | TV3 | Cao | `PASS_LOCAL_TEST` | DATA-01 | V13 → V20 giữ nguyên dữ liệu H01. Kiểm cách ly lịch sử tài khoản theo tài liệu 64 |
 | ADM-DATA-02 | Dữ liệu thống kê người dùng và lượt tính | TV3 | Cao | `PASS_LOCAL_TEST` | Quy tắc đếm tại tài liệu 59 | Có bộ dữ liệu đối chiếu tổng, phân nhóm, số 0 và trường hợp thiếu dữ liệu |
 | ADM-DATA-03 | Dữ liệu role và trạng thái | TV3 | Cao | `PASS_LOCAL_TEST` | DATA-02, ADM-DATA-01 | Kiểm ràng buộc và nhật ký trên PostgreSQL TEST V18 |
 | ADM-DATA-04 | Hồ sơ tư vấn viên | TV3 | Cao | `PASS_LOCAL_TEST` | ADM-DATA-01, ADM-DATA-03 | PostgreSQL TEST V19 giữ hồ sơ cũ và kiểm được lý do từ chối, người duyệt, phiên bản và trạng thái độc lập |

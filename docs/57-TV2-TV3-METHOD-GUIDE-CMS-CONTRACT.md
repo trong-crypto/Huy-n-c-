@@ -76,6 +76,8 @@ Ví dụ Admin lưu bản nháp với `PUT /api/v1/admin/method-guides/OBJECT_CO
 | 409 | `GUIDE_EXISTS` | Tạo bài cho phương pháp đã có bài. |
 | 409 | `VERSION_CONFLICT` | `expectedVersion` cũ. |
 | 409 | `INVALID_TRANSITION` | Trạng thái hiện tại không cho phép thao tác. |
+
+Quy tắc văn bản Unicode và lỗi theo trường dùng chung với nghĩa tên quẻ tại [CONTENT-06](71-TV2-TV3-CONTENT06-CMS-VALIDATION.md).
 | 503 / 500 | `DATABASE_UNAVAILABLE` / `INTERNAL_ERROR` | Kho dữ liệu không khả dụng hoặc lỗi xử lý. |
 
 ## Schema PostgreSQL

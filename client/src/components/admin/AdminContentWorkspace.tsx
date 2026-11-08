@@ -8,6 +8,8 @@ import { CLIENT_CONFIG } from "@/config/client";
 import { MethodGuideWorkspace } from "./MethodGuideWorkspace";
 import { AdminContentForm } from "./AdminContentForm";
 import { AdminHexagramCatalog } from "./AdminHexagramCatalog";
+import { AdminSourceCatalog } from "./AdminSourceCatalog";
+import { WebsiteContentWorkspace } from "./WebsiteContentWorkspace";
 import type { ContentModule } from "./adminModules";
 import styles from "./admin.module.css";
 
@@ -108,18 +110,21 @@ function ReviewWorkflow() {
 
 export function AdminContentWorkspace({ module }: { module: ContentModule }) {
   const liveMethods = module.id === "methods" && CLIENT_CONFIG.methodGuides;
+  const liveSources = module.id === "sources" && CLIENT_CONFIG.adminSourceCatalog;
+  const liveWebsite = module.id === "website" && CLIENT_CONFIG.websiteContent;
+  const liveContent = liveMethods || liveSources || liveWebsite || module.id === "readings" && CLIENT_CONFIG.adminHexagramGlosses;
   return <div className={styles.contentStack}>
     <header className={styles.dashboardIntro}>
       <p className="eyebrow">HUYỀN CƠ / QUẢN TRỊ NỘI DUNG</p>
       <h1>{module.title}</h1><p>{module.description}</p>
     </header>
-    {!liveMethods && <p id="content-write-notice" className={styles.notice}>
+    {!liveContent && <p id="content-write-notice" className={styles.notice}>
       Đang chờ API quản trị và phân quyền Admin. Có thể xem dữ liệu công khai khi có và soạn bản xem trước. Lưu, đổi trạng thái và công bố đang bị khóa.
     </p>}
     {module.id === "methods" && (liveMethods ? <MethodGuideWorkspace /> : <MethodManagement />)}
     {module.id === "readings" && <AdminHexagramCatalog />}
-    {module.id === "sources" && <SourceManagement />}
-    {module.id === "website" && <WebsiteManagement />}
-    {!liveMethods && <ReviewWorkflow />}
+    {module.id === "sources" && (liveSources ? <AdminSourceCatalog /> : <SourceManagement />)}
+    {module.id === "website" && (liveWebsite ? <WebsiteContentWorkspace /> : <WebsiteManagement />)}
+    {!liveContent && <ReviewWorkflow />}
   </div>;
 }
