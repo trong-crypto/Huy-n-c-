@@ -11,6 +11,9 @@
 .actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .actions button { width: auto; }
 .actions button:disabled { opacity: .6; cursor: not-allowed; }
+.choice { display: flex; align-items: baseline; gap: 8px; cursor: pointer; }
+.choice input { width: auto; }
+.entries button[aria-pressed="true"] { border-color: var(--accent); }
 
 .messages, .entries {
   display: grid;

@@ -34,7 +34,8 @@ class AccountAuthRegistrationPolicyTest {
         auth = mock(AccountAuthService.class);
         var limits = new AuthAttemptLimits(Clock.systemUTC(), 50, 50, 50);
         mvc = MockMvcBuilders.standaloneSetup(
-                new AccountAuthController(auth, limits, json, new AccountRequestGuards(ORIGIN), false))
+                new AccountAuthController(auth, limits, json, new AccountRequestGuards(ORIGIN),
+                        mock(ChatSessionAccess.class), false))
                 .build();
     }
 
@@ -57,6 +58,15 @@ class AccountAuthRegistrationPolicyTest {
         mvc.perform(register(password))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.account.id").value(account.id().toString()));
+        verify(auth).register("Policy fixture", IDENTIFIER, password);
+    }
+
+    @Test
+    void preservesLeadingZeroInNumericPassword() throws Exception {
+        String password = "01234567";
+        var account = new Account(UUID.randomUUID(), "Policy fixture", "USER");
+        when(auth.register("Policy fixture", IDENTIFIER, password)).thenReturn(new Registration(account));
+        mvc.perform(register(password)).andExpect(status().isCreated());
         verify(auth).register("Policy fixture", IDENTIFIER, password);
     }
 

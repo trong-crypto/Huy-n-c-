@@ -1,0 +1,227 @@
+{
+  "c1": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440007",
+    "status": "COMPLETED",
+    "data": {
+      "items": [
+        {
+          "consultantId": "550e8400-e29b-41d4-a716-446655440002",
+          "displayName": "Tư vấn viên An",
+          "summary": null
+        }
+      ],
+      "page": 0,
+      "size": 20,
+      "totalElements": 1,
+      "totalPages": 1
+    },
+    "error": null
+  },
+  "c2": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440007",
+    "status": "COMPLETED",
+    "data": {
+      "consultantId": "550e8400-e29b-41d4-a716-446655440002",
+      "displayName": "Tư vấn viên An",
+      "summary": null
+    },
+    "error": null
+  },
+  "c3Request": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440004",
+    "consultantId": "550e8400-e29b-41d4-a716-446655440002"
+  },
+  "c3": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440007",
+    "status": "COMPLETED",
+    "data": {
+      "conversationId": "550e8400-e29b-41d4-a716-446655440003",
+      "status": "PENDING",
+      "startedAt": null,
+      "endedAt": null,
+      "endReason": null,
+      "endedByAccountId": null,
+      "userId": "550e8400-e29b-41d4-a716-446655440001",
+      "consultantId": "550e8400-e29b-41d4-a716-446655440002",
+      "createdAt": "2026-11-09T03:00:00Z"
+    },
+    "error": null
+  },
+  "c4": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440007",
+    "status": "COMPLETED",
+    "data": {
+      "items": [
+        {
+          "conversationId": "550e8400-e29b-41d4-a716-446655440003",
+          "status": "ACTIVE",
+          "startedAt": "2026-11-09T03:01:00Z",
+          "endedAt": null,
+          "endReason": null,
+          "endedByAccountId": null,
+          "userId": "550e8400-e29b-41d4-a716-446655440001",
+          "consultantId": "550e8400-e29b-41d4-a716-446655440002",
+          "createdAt": "2026-11-09T03:00:00Z"
+        }
+      ],
+      "page": 0,
+      "size": 20,
+      "totalElements": 1,
+      "totalPages": 1
+    },
+    "error": null
+  },
+  "c5": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440007",
+    "status": "COMPLETED",
+    "data": {
+      "conversationId": "550e8400-e29b-41d4-a716-446655440003",
+      "status": "ACTIVE",
+      "startedAt": "2026-11-09T03:01:00Z",
+      "endedAt": null,
+      "endReason": null,
+      "endedByAccountId": null,
+      "userId": "550e8400-e29b-41d4-a716-446655440001",
+      "consultantId": "550e8400-e29b-41d4-a716-446655440002",
+      "createdAt": "2026-11-09T03:00:00Z"
+    },
+    "error": null
+  },
+  "c6Request": {
+    "action": "ACCEPT"
+  },
+  "c6": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440007",
+    "status": "COMPLETED",
+    "data": {
+      "conversationId": "550e8400-e29b-41d4-a716-446655440003",
+      "status": "ACTIVE",
+      "startedAt": "2026-11-09T03:01:00Z",
+      "endedAt": null,
+      "endReason": null,
+      "endedByAccountId": null
+    },
+    "error": null
+  },
+  "c7Send": {
+    "clientMessageId": "550e8400-e29b-41d4-a716-446655440006",
+    "text": "Xin chào"
+  },
+  "c7Ack": {
+    "type": "ACK",
+    "conversationId": "550e8400-e29b-41d4-a716-446655440003",
+    "clientMessageId": "550e8400-e29b-41d4-a716-446655440006",
+    "messageId": "550e8400-e29b-41d4-a716-446655440005",
+    "sequence": "9007199254740993",
+    "createdAt": "2026-11-09T03:02:00Z"
+  },
+  "c7Message": {
+    "type": "MESSAGE",
+    "conversationId": "550e8400-e29b-41d4-a716-446655440003",
+    "messageId": "550e8400-e29b-41d4-a716-446655440005",
+    "senderAccountId": "550e8400-e29b-41d4-a716-446655440001",
+    "sequence": "9007199254740993",
+    "text": "Xin chào",
+    "createdAt": "2026-11-09T03:02:00Z"
+  },
+  "c7Error": {
+    "type": "ERROR",
+    "conversationId": "550e8400-e29b-41d4-a716-446655440003",
+    "clientMessageId": "550e8400-e29b-41d4-a716-446655440006",
+    "code": "MESSAGE_ID_CONFLICT"
+  },
+  "c7UncorrelatedError": {
+    "type": "ERROR",
+    "conversationId": "550e8400-e29b-41d4-a716-446655440003",
+    "clientMessageId": null,
+    "code": "INVALID_INPUT"
+  },
+  "c8": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440007",
+    "status": "COMPLETED",
+    "data": {
+      "items": [
+        {
+          "conversationId": "550e8400-e29b-41d4-a716-446655440003",
+          "messageId": "550e8400-e29b-41d4-a716-446655440005",
+          "senderAccountId": "550e8400-e29b-41d4-a716-446655440001",
+          "sequence": "9007199254740993",
+          "text": "Xin chào",
+          "createdAt": "2026-11-09T03:02:00Z"
+        }
+      ],
+      "nextAfterSequence": "9007199254740993",
+      "hasMore": false
+    },
+    "error": null
+  },
+  "c8Empty": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440007",
+    "status": "COMPLETED",
+    "data": {
+      "items": [],
+      "nextAfterSequence": "9007199254740993",
+      "hasMore": false
+    },
+    "error": null
+  },
+  "c9Request": {
+    "action": "END"
+  },
+  "c9": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440007",
+    "status": "COMPLETED",
+    "data": {
+      "conversationId": "550e8400-e29b-41d4-a716-446655440003",
+      "status": "ENDED",
+      "startedAt": "2026-11-09T03:01:00Z",
+      "endedAt": "2026-11-09T03:03:00Z",
+      "endReason": "COMPLETED",
+      "endedByAccountId": "550e8400-e29b-41d4-a716-446655440001"
+    },
+    "error": null
+  },
+  "c10": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440007",
+    "status": "COMPLETED",
+    "data": {
+      "accountId": "550e8400-e29b-41d4-a716-446655440001",
+      "role": "USER",
+      "expiresAt": "2026-11-09T09:00:00Z"
+    },
+    "error": null
+  },
+  "restOutsideRoom": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440007",
+    "status": "FAILED",
+    "data": null,
+    "error": {
+      "code": "NOT_FOUND",
+      "message": "Không tìm thấy cuộc trò chuyện.",
+      "ruleCode": null,
+      "reason": null
+    }
+  },
+  "restInvalidSession": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440007",
+    "status": "FAILED",
+    "data": null,
+    "error": {
+      "code": "INVALID_SESSION",
+      "message": "Phiên không hợp lệ hoặc đã hết hạn.",
+      "ruleCode": null,
+      "reason": null
+    }
+  },
+  "restTransitionConflict": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440007",
+    "status": "FAILED",
+    "data": null,
+    "error": {
+      "code": "INVALID_TRANSITION",
+      "message": "Trạng thái cuộc trò chuyện không cho phép thao tác này.",
+      "ruleCode": null,
+      "reason": null
+    }
+  }
+}

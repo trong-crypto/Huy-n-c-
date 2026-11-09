@@ -145,8 +145,8 @@ function timeResult(v: Record<string, unknown>): boolean {
 }
 
 function maiHoa(v: Record<string, unknown>): boolean {
-  return member(v.method, ["TIME", "OBJECT_COUNT", "LINES"])
-    && (!Object.hasOwn(v, "detailedReading") || isDetailedReading(v.detailedReading))
+  return member(v.method, ["TIME", "OBJECT_COUNT", "LINES", "TRUONG_XICH"])
+    && (!Object.hasOwn(v, "detailedReading") || v.method !== "TRUONG_XICH" && isDetailedReading(v.detailedReading))
     && [v.primaryHexagram, v.mutualHexagram, v.changedHexagram].every(hexagram)
     && integer(v.movingLine) && v.movingLine >= 1 && v.movingLine <= 6
     && (v.method !== "TIME" ? v.lunarDate === null : timeResult(v))

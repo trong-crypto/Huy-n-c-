@@ -31,7 +31,7 @@ final class AccountRequestGuards {
         if (request.getHeaders("Origin").hasMoreElements()) origin(request);
     }
 
-    private void origin(HttpServletRequest request) {
+    void origin(HttpServletRequest request) {
         String origin = header(request, "Origin");
         if (origin == null || "null".equals(origin) || !origins.contains(origin)) throw AuthFailure.csrf();
     }

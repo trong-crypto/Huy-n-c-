@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { PageContainer, PageHeader } from "@/components/ui/Page";
-import { divinationCatalog } from "@/config/divinationCatalog";
+import { divinationCatalog, truongXichMethod } from "@/config/divinationCatalog";
 import { CLIENT_CONFIG } from "@/config/client";
 import { listPublishedGuides, type PublicGuide } from "@/services/rest/methodGuides";
 import { useLookup } from "@/services/rest/useLookup";
@@ -43,6 +43,10 @@ function Catalog({ guides = [], loadFailed, retry }: {
               </details>}</dd>
             </div>;
           })}
+          {family.href === "/mai-hoa" && <div>
+            <dt><strong>{truongXichMethod.formLabel}</strong></dt>
+            <dd>{truongXichMethod.input}</dd>
+          </div>}
         </dl>
         <Link className="secondary-button" href={family.href}>Mở biểu mẫu {family.group}</Link>
       </section>)}

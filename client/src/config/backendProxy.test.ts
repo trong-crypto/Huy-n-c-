@@ -4,12 +4,38 @@ import { getPathMatch } from "next/dist/shared/lib/router/utils/path-match";
 
 afterEach(() => vi.unstubAllEnvs());
 
+it.each(["consultants", "conversations"])("proxies chat %s routes with account sessions enabled", async (resource) => {
+  vi.stubEnv("NEXT_PUBLIC_ACCOUNT_HISTORY", "1");
+  vi.stubEnv("HUYENCO_API_URL", "http://127.0.0.1:18108");
+  const rewrites = await nextConfig.rewrites!();
+  if (!Array.isArray(rewrites)) throw new Error("Expected a flat rewrite list");
+  const base = `/api/v1/chat/${resource}`;
+  const detail = `${base}/905b2f9f-c230-4887-9369-7b5500964f59`;
+  const paths = resource === "conversations" ? [base, detail, `${detail}/messages`] : [base, detail];
+  for (const path of paths) {
+    expect(rewrites.filter(rewrite => getPathMatch(rewrite.source)(path) !== false)).toEqual([
+      { source: `${base}/:path*`, destination: `http://127.0.0.1:18108${base}/:path*` },
+    ]);
+  }
+});
+
 it("proxies STOMP on the same origin when explicitly enabled", async () => {
   vi.stubEnv("HUYENCO_WS_PROXY", "1");
   vi.stubEnv("HUYENCO_API_URL", "http://127.0.0.1:18102");
   expect(await nextConfig.rewrites!()).toContainEqual({
     source: "/ws", destination: "http://127.0.0.1:18102/ws",
   });
+});
+
+it("proxies the account Chat WebSocket separately from the calculation socket", async () => {
+  vi.stubEnv("NEXT_PUBLIC_ACCOUNT_HISTORY", "1");
+  vi.stubEnv("HUYENCO_API_URL", "http://127.0.0.1:18108");
+  const rewrites = await nextConfig.rewrites!();
+  if (!Array.isArray(rewrites)) throw new Error("Expected a flat rewrite list");
+  const path = "/api/v1/ws/chat";
+  expect(rewrites.filter(rewrite => getPathMatch(rewrite.source)(path) !== false)).toEqual([
+    { source: path, destination: `http://127.0.0.1:18108${path}` },
+  ]);
 });
 
 it("proxies Admin authentication and both CMS routes when method guides are enabled", async () => {

@@ -72,6 +72,10 @@ public final class ContractValidator {
                     || hourIndex.asInt() < 1 || hourIndex.asInt() > 12) {
                 throw invalidInput("hourIndex phải là số nguyên từ 1 đến 12.");
             }
+        } else if ("TRUONG_XICH".equals(method)) {
+            allowOnly(payload, Set.of("method", "truong", "thuoc"));
+            requireMaiHoaInteger(payload, "truong", 1, 999_999);
+            requireMaiHoaInteger(payload, "thuoc", 0, 9);
         } else if ("LINES".equals(method)) {
             allowOnly(payload, Set.of("method", "linesBottomUp", "movingLine", "reading"));
             JsonNode lines = payload.get("linesBottomUp");
@@ -90,7 +94,7 @@ public final class ContractValidator {
                 throw invalidInput("movingLine phải là số nguyên từ 1 đến 6.");
             }
         } else {
-            throw new ContractException("INVALID_METHOD", "method chỉ nhận TIME, OBJECT_COUNT hoặc LINES.");
+            throw new ContractException("INVALID_METHOD", "method chỉ nhận TIME, OBJECT_COUNT, LINES hoặc TRUONG_XICH.");
         }
         JsonNode question = payload.get("question");
         if (question != null && (!question.isTextual() || question.asText().length() > 500)) {
@@ -112,6 +116,13 @@ public final class ContractValidator {
                 allowOnly(context, Set.of("datetime"));
                 readingDateTime(text(context, "datetime"));
             }
+        }
+    }
+
+    private static void requireMaiHoaInteger(JsonNode payload, String field, int min, int max) {
+        JsonNode value = payload.path(field);
+        if (!value.isIntegralNumber() || !value.canConvertToInt() || value.intValue() < min || value.intValue() > max) {
+            throw invalidInput(field + " phải là số nguyên từ " + min + " đến " + max + ".");
         }
     }
 

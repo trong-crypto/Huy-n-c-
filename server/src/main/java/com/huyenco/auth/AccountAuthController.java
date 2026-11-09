@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.huyenco.auth.AccountAuthService.Realm;
 import com.huyenco.common.dto.ApiError;
+import com.huyenco.common.exception.ContractException;
 import static com.huyenco.auth.AccountRequestGuards.header;
 import static com.huyenco.auth.AccountRequestGuards.token;
 import jakarta.servlet.http.HttpServletRequest;
@@ -53,16 +54,18 @@ final class AccountAuthController {
     private final AuthAttemptLimits limits;
     private final ObjectReader reader;
     private final AccountRequestGuards guards;
+    private final ChatSessionAccess chatSessions;
     private final boolean secureCookie;
 
     AccountAuthController(AccountAuthService service, AuthAttemptLimits limits, ObjectMapper mapper,
-                          AccountRequestGuards guards,
+                          AccountRequestGuards guards, ChatSessionAccess chatSessions,
                           @Value("${huyenco.auth.secure-cookie}") boolean secureCookie) {
         this.service = service;
         this.limits = limits;
         this.reader = mapper.copy().enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION)
                 .readerFor(JsonNode.class).with(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
         this.guards = guards;
+        this.chatSessions = chatSessions;
         this.secureCookie = secureCookie;
     }
 
@@ -113,6 +116,18 @@ final class AccountAuthController {
             service.logout(realm, token(request, realm), header(request, "X-CSRF-Token"));
             return ResponseEntity.noContent().cacheControl(CacheControl.noStore())
                     .header(HttpHeaders.SET_COOKIE, cookie(realm, "", Duration.ZERO, request).toString()).build();
+        });
+    }
+
+    @GetMapping("/chat/session")
+    ResponseEntity<Envelope> chatSession(HttpServletRequest request) {
+        return handle(request, () -> {
+            try {
+                return success(200, chatSessions.requireRead(request), null);
+            } catch (ContractException failure) {
+                int status = "INVALID_SESSION".equals(failure.code()) ? 401 : 403;
+                return failure(status, failure.code(), failure.getMessage(), 0);
+            }
         });
     }
 

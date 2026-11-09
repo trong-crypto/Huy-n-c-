@@ -200,7 +200,9 @@ Các phương án trên đang ở mức đề xuất. Thuật toán, mã phươn
 <a id="phase-6"></a>
 ## Phase 6 – Chat trực tiếp với tư vấn viên
 
-**Trạng thái `PHASE 6 PARTIAL – BACKEND PENDING`.** Hai trang `/tu-van` và `/tu-van-vien` hiển thị trạng thái chờ Backend. Bản chạy hiện tại chưa truy vấn danh sách, mở socket chat hoặc ghi dữ liệu. Mô hình hiển thị và kiểm tra dữ liệu nội bộ của Client phục vụ kiểm thử độc lập. Hợp đồng truyền dữ liệu vẫn chờ TV2 xác nhận.
+**Trạng thái kỹ thuật `PASS_LOCAL_TEST`.** `/tu-van` và `/tu-van-vien` đã được nghiệm thu qua Next.js, Backend và PostgreSQL TEST V33. Nhóm còn bước xác nhận bàn giao. [Biên bản PH6-PH-01](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#ph6-ph-01)
+
+Bảng dưới ghi lại mốc lịch sử trước khi triển khai Phase 6.
 
 | Hạ tầng | Hiện trạng ở `b2e1f5d` | Phụ thuộc còn thiếu |
 | --- | --- | --- |
@@ -212,22 +214,22 @@ Các phương án trên đang ở mức đề xuất. Thuật toán, mã phươn
 
 ### Hợp đồng cần thống nhất với TV2
 
-Mọi phương thức, endpoint/destination, tên trường và mã lỗi chat dưới đây đều chờ xác nhận. Các lỗi trong bảng là tình huống cần biểu diễn. Với REST, cần phân biệt thiếu/hết phiên (`401`) và thiếu quyền (`403`) theo hợp đồng được chốt. STOMP cần có phản hồi lỗi tương ứng mà không làm lộ phòng hoặc người dùng khác.
+Các dòng `TBD` chờ xác nhận hợp đồng. REST phân biệt thiếu hoặc hết phiên (`401`) với thiếu quyền (`403`). Các task STOMP cần trả lỗi theo phạm vi phiên và quyền phòng.
 
 | ID | Chức năng | Method / đích | Request cần chốt | Response cần chốt | Quyền và lỗi cần chốt | Định danh cần chốt | Trạng thái |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| C1 | Danh sách tư vấn viên | TBD | Bộ lọc, phân trang nếu hỗ trợ | Danh bạ và trạng thái sẵn sàng nếu có | Quyền xem danh bạ, đầu vào sai, tạm không sẵn sàng | Consultant ID, cursor nếu có | TBD |
-| C2 | Chi tiết tư vấn viên | TBD | Định danh tư vấn viên | Hồ sơ với các trường được phép công bố | Quyền xem hồ sơ, hồ sơ không tồn tại hoặc không hiển thị | Consultant ID | TBD |
-| C3 | Tạo yêu cầu tư vấn | TBD | Tư vấn viên được chọn nếu có và dữ liệu yêu cầu tối thiểu | Yêu cầu đã ghi nhận hoặc trạng thái bị từ chối | USER hoặc khách theo chính sách được duyệt. Kiểm CSRF nếu dùng cookie và xử lý yêu cầu lặp | Request ID, consultant ID, conversation ID khi được cấp | TBD |
-| C4 | Danh sách hội thoại được phép xem | TBD | Bộ lọc, phân trang nếu hỗ trợ | Hội thoại thuộc tài khoản hoặc được phân cho tư vấn viên | Server lọc theo phiên, vai trò và quan hệ tham gia. Xử lý thiếu/hết phiên | Conversation ID, cursor nếu có | TBD |
-| C5 | Chi tiết cuộc trò chuyện | TBD | Định danh cuộc trò chuyện | Trạng thái, người tham gia được phép xem, thao tác khả dụng | Kiểm membership. Chốt lỗi thiếu quyền hoặc không tìm thấy mà không tiết lộ sự tồn tại | Conversation ID | TBD |
-| C6 | Chấp nhận hoặc từ chối | TBD | Định danh yêu cầu, quyết định, lý do nếu hỗ trợ | Trạng thái sau xử lý | CONSULTANT được phân. Chặn trạng thái xung đột, yêu cầu cũ hoặc thao tác lặp | Request ID, conversation ID | TBD |
-| C7 | Gửi và nhận tin nhắn | TBD cho STOMP SEND, SUBSCRIBE và ACK nghiệp vụ | Định danh phòng, nội dung, định danh chống trùng | Tin chuẩn hóa do Server xác nhận, sự kiện gửi riêng, lỗi hoặc ACK | Kiểm phiên, vai trò và membership ở mỗi thao tác. Chặn đích công khai, phòng sai, nội dung sai và quá tải | Conversation ID, client message ID, server message ID, thứ tự/cursor nếu hỗ trợ | TBD |
-| C8 | Đọc lịch sử tin nhắn | TBD | Định danh phòng, cursor hoặc trang | Các tin có thứ tự trong phạm vi được phép | Kiểm membership và thời hạn lưu. Xử lý cursor không hợp lệ, phiên hết hạn và truy cập sai phòng | Conversation ID, message ID, cursor | TBD |
-| C9 | Kết thúc hoặc rời cuộc trò chuyện | TBD | Định danh phòng và hành động đã chọn | Trạng thái sau xử lý và quyền đọc lại | Kiểm người tham gia được phép, CSRF nếu cần và chuyển trạng thái hợp lệ | Conversation ID, request ID nếu cần | TBD |
-| C10 | Kiểm tra phiên và quyền | TBD cho REST và STOMP handshake/CONNECT | Thông tin phiên theo cơ chế xác thực được duyệt | Vai trò và quyền theo thao tác, trạng thái phiên | Chốt đăng nhập hay khách, USER/CONSULTANT, Origin/CSRF và thu hồi khi hết phiên | Phiên chat, account ID hoặc định danh khách được cấp riêng | TBD |
+| C1 | Danh sách tư vấn viên | `GET /api/v1/chat/consultants` | `page`, `size` | Trang hồ sơ đủ điều kiện với ba trường công bố | Phiên CUSTOMER vai trò USER. HTTP 400/401/403/503 | Consultant UUID | [Hợp đồng C1/C2](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-01) |
+| C2 | Chi tiết tư vấn viên | `GET /api/v1/chat/consultants/{consultantId}` | Consultant UUID | `consultantId`, `displayName`, `summary` | Quyền như C1. HTTP 404 chung cho hồ sơ vắng mặt hoặc ẩn | Consultant UUID | [Hợp đồng C1/C2](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-01) |
+| C3 | Tạo yêu cầu tư vấn | `POST /api/v1/chat/conversations` | `requestId`, `consultantId` | Hội thoại mới `201`, gửi lại trả phòng cũ `200` | USER, Origin và CSRF. Cùng UUID yêu cầu cho tư vấn viên khác trả `409`. | UUID yêu cầu của Client và UUID phòng của Server | [Hợp đồng C3–C5](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-02) |
+| C4 | Danh sách hội thoại được phép xem | `GET /api/v1/chat/conversations` | `page`, `size` | Trang hội thoại thuộc tài khoản hoặc được phân | Lọc theo phiên, vai trò và vị trí tham gia trong truy vấn | Conversation UUID | [Hợp đồng C3–C5](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-02) |
+| C5 | Chi tiết cuộc trò chuyện | `GET /api/v1/chat/conversations/{conversationId}` | Conversation UUID | Người tham gia và trạng thái vòng đời | `404` chung cho phòng vắng mặt hoặc ngoài quyền | Conversation UUID | [Hợp đồng C3–C5](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-02) |
+| C6 | Chấp nhận hoặc từ chối | `POST /api/v1/chat/conversations/{conversationId}/transition` | `action=ACCEPT` hoặc `DECLINE` trong JSON | Trạng thái và thời điểm sau xử lý | CONSULTANT được phân, Origin và CSRF. Xung đột trạng thái trả `409`. | Conversation UUID | [Hợp đồng C6/C9](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-06) |
+| C7 | Gửi và nhận tin nhắn | WebSocket `/api/v1/ws/chat`. Đích SEND/SUBSCRIBE trong CHAT-05 | `clientMessageId`, `text` | ACK sau commit, MESSAGE riêng tới người còn lại, ERROR riêng về bên gửi | Kiểm phiên và quyền phòng ở SEND, SUBSCRIBE và trước khi giao dữ liệu | Conversation ID, client message ID, server message ID, sequence | [Hợp đồng C7](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-03). Client đã nối ở CHAT-08. |
+| C8 | Đọc lịch sử tin nhắn | `GET /api/v1/chat/conversations/{conversationId}/messages` | `afterSequence`, `size` | `items`, `nextAfterSequence`, `hasMore` | Kiểm phiên, quyền phòng và thời hạn lưu. Ngoài phòng cùng lỗi 404 với phòng không tồn tại | Conversation ID, message ID, cursor dạng chuỗi | [Hợp đồng C8](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-07). Client đã nối ở CHAT-08. |
+| C9 | Hủy yêu cầu hoặc kết thúc hội thoại | `POST /api/v1/chat/conversations/{conversationId}/transition` | `action=CANCEL` hoặc `END` trong JSON | Trạng thái sau xử lý và quyền đọc lại qua C5 | USER được hủy khi chờ. Hai người tham gia được kết thúc khi đang tư vấn. Origin và CSRF. | Conversation UUID | [Hợp đồng C6/C9](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-06) |
+| C10 | Kiểm tra phiên và quyền | `GET /api/v1/auth/chat/session` | Cookie phiên CUSTOMER | `accountId`, `role`, `expiresAt` | Kiểm USER/CONSULTANT, hồ sơ đã duyệt, Origin và hiệu lực phiên | Account UUID | [REST C10 và chính sách STOMP](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md) |
 
-Khi mất kết nối, Client giữ bản nháp trong trang và đánh dấu trường hợp chưa biết Server đã nhận tin. Trước khi mở lại subscription, adapter tương lai cần xác minh phiên và quyền vào phòng, đồng bộ theo hợp đồng lịch sử, rồi loại trùng theo định danh đã chốt. Cần phân biệt STOMP receipt với ACK nghiệp vụ xác nhận Server đã nhận hoặc lưu tin. Tự động gửi lại chỉ có thể xem xét sau khi nhóm chốt idempotency và xác định an toàn trạng thái tin cũ.
+Khi mất kết nối, Client giữ bản nháp và báo nếu chưa nhận ACK. Khi kết nối lại, Client xác minh phiên, đăng ký hàng đợi, đọc bù qua C8 và loại trùng theo mã tin Server. Người dùng có thể chủ động gửi lại cùng mã và nội dung. [Luồng và nghiệm thu CHAT-08](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-08)
 
 ### Điều kiện nghiệm thu phối hợp
 
@@ -269,7 +271,7 @@ Chuẩn bị hai tài khoản TEST trên localhost gồm một USER và một CO
 | 9 | Admin Dashboard | Thẻ chỉ số, bảng và trạng thái chờ dữ liệu | Chưa có API hoặc dữ liệu thống kê Admin đã chốt | ADMIN theo quyền thống kê | Chỉ có dữ liệu tổng hợp trong test UI | `BLOCKED` | TV2 ADM-01, TV3 ADM-DATA-02. Đối chiếu tổng, phân nhóm và ranh giới số 0/thiếu dữ liệu |
 | 10 | Người dùng và phân quyền | Danh sách/chi tiết, bộ lọc, preview đề xuất | Chưa có API tài khoản/role và dữ liệu thực tương ứng | ADMIN theo quyền đọc/đổi trạng thái/role và CSRF | Chưa xác nhận tài khoản TEST theo role | `BLOCKED` | TV2 ADM-02–05/08, TV3 ADM-DATA-01/03/06. Kiểm role, phân trang và cập nhật có lưu |
 | 11 | Quản lý tư vấn viên | Hồ sơ, bộ lọc, preview duyệt/từ chối | Chưa có API danh sách, duyệt hoặc dữ liệu hồ sơ | ADMIN cho quản lý. CONSULTANT là vai trò riêng | Chưa xác nhận hồ sơ/tài khoản TEST | `BLOCKED` | TV2 ADM-06, TV3 ADM-DATA-04/06. Kiểm trạng thái tài khoản và duyệt độc lập |
-| 12 | Chat 1:1 | Hai route riêng, composer khóa, trạng thái phòng/kết nối | Chưa có REST/STOMP chat, quan hệ thành viên hoặc lịch sử tin | Auth USER/CONSULTANT hoặc chính sách khách đã duyệt, quyền từng phòng | Chưa xác nhận hai tài khoản và ca ngoài quyền | `BLOCKED`. UI và kiểm thử nguồn sự kiện nội bộ | TV2 CHAT-01–09, TV3 CHAT-DATA-01–07. Kiểm hai chiều, ACK, lịch sử, ngoài quyền, kết thúc và reconnect |
+| 12 | Chat 1:1 | Hai route riêng, composer khóa, trạng thái phòng/kết nối | REST C1/C2/C10 sẵn sàng cho tích hợp danh bạ. Phòng, tin nhắn và STOMP còn chờ | Quyền từng phòng và quan hệ thành viên | Chưa xác nhận hai tài khoản trao đổi qua một phòng | `BLOCKED` cho nghiệm thu Chat 1:1 | Kiểm hai chiều, ACK, lịch sử, ngoài quyền, kết thúc và reconnect |
 | 13 | Phương pháp bói mới | Danh mục dùng chung cho các phương pháp hiện có | Quy tắc, API/STOMP, dữ liệu và H01 cho phương pháp mới đều TBD | Quyền theo hợp đồng tương lai | Chưa có ca chuẩn của phương pháp được duyệt | `BLOCKED` cho tích hợp phương pháp mới | Cả nhóm chốt phương pháp và nguồn. TV2/TV3 bàn giao hợp đồng và ca chuẩn trước khi TV1 tích hợp |
 
 **Giới hạn của bằng chứng cũ.** 8F có progress, kết quả và hai phiên cách ly. Fault injection live cho timeout, mất mạng, reconnect và terminal đến muộn/trùng vẫn chờ kiểm. 8E xác nhận CSRF 403 và đọc/xóa chéo owner 404 trong phạm vi ca đã chạy. Bộ nghiệm thu Client vẫn cần ca 401, hết phiên và phân trang lịch sử nhiều trang. Lượt 7A không tạo phiên, ghi hoặc xóa dữ liệu TEST.
@@ -528,38 +530,42 @@ Kiểm toán bảo toàn H01 và cách ly lịch sử tài khoản (ADM-DATA-01)
 
 | ID | Công việc | Người phụ trách | Ưu tiên | Trạng thái | Phụ thuộc | Tiêu chí nghiệm thu |
 | --- | --- | --- | --- | --- | --- | --- |
-| PH5-PH-01 | Chốt phương pháp và phạm vi | TV1, TV2, TV3 | Cao | `TODO` | Quyết định nhóm, nguồn và phản hồi giảng viên nếu có | Ghi phương pháp được chọn, căn cứ, giới hạn và ca chuẩn |
-| METHOD-01 | Hợp đồng và xử lý Backend | TV2 | Cao | `BLOCKED` | PH5-PH-01 | Chốt API/STOMP, xác thực dữ liệu đầu vào, kết quả, tiến trình/lỗi và H01 nếu hỗ trợ |
-| METHOD-DATA-01 | Nguồn, phiên bản dữ liệu và ca chuẩn | TV3 | Cao | `BLOCKED` | PH5-PH-01 | Đối chiếu nguồn, chuẩn bị fixture và xác nhận cấu trúc lưu nếu hỗ trợ lịch sử |
-| PH5-PH-02 | Nghiệm thu Client–Server trên localhost | TV1, TV2, TV3 | Cao | `BLOCKED` | METHOD-01, METHOD-DATA-01 | Luồng thật trả kết quả đúng, lỗi và ngắt kết nối đúng hợp đồng, hồi quy các tính năng cũ |
+| PH5-PH-01 | Chốt phương pháp và phạm vi | TV1, TV2, TV3 | Cao | `DONE` | Xác nhận của chủ dự án ngày 08/11/2026 | [Phạm vi Trượng xích chiêm](78-PH5-PH-01-TRUONG-XICH-PROPOSAL.md) và quyết định `DEC-20261108-MH-TRUONG-XICH`. |
+| METHOD-01 | Hợp đồng và xử lý Backend | TV2 | Cao | `PASS_LOCAL_TEST` | Catalog `TEAM_DECISION` và dữ liệu V28 | Backend và DTO Trượng xích đã kiểm với catalog phát hành. Xem [bàn giao V28](79-TV2-TV3-TRUONG-XICH-HANDOFF.md). |
+| METHOD-DATA-01 | Nguồn, phiên bản dữ liệu và ca chuẩn | TV3 | Cao | `PASS_LOCAL_TEST` | Phạm vi PH5-PH-01 | V28 giữ nguồn `SOURCE_LOCATED` tại trang in 61, PDF 56. Sáu ca chuẩn tại [tài liệu 78](78-PH5-PH-01-TRUONG-XICH-PROPOSAL.md). |
+| PH5-PH-02 | Nghiệm thu Client–Server trên localhost | TV1, TV2, TV3 | Cao | `PASS_LOCAL_TEST` | Client, Server và PostgreSQL TEST V28 | [Biên bản Chromium](80-PH5-PH-02-TRUONG-XICH-CLIENT-ACCEPTANCE.md) kiểm form mặc định, STOMP, kết nối lại và cách ly lịch sử với catalog đã duyệt. |
 
 ### Theo dõi Phase 6
 
 | ID | Công việc | Người phụ trách | Ưu tiên | Trạng thái | Phụ thuộc | Hợp đồng | Tiêu chí nghiệm thu |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| CHAT-01 | Danh bạ và chi tiết tư vấn viên | TV2 | Cao | `TODO` | CHAT-DATA-01, CHAT-04 | C1, C2 | Chỉ trả hồ sơ và trạng thái sẵn sàng được phép hiển thị |
-| CHAT-02 | Tạo yêu cầu và đọc hội thoại | TV2 | Cao | `BLOCKED` | CHAT-04, CHAT-DATA-02–03 | C3–C5 | Chỉ trả phòng thuộc tài khoản hoặc được phân |
-| CHAT-03 | STOMP riêng và ACK nghiệp vụ | TV2 | Cao | `BLOCKED` | CHAT-04, CHAT-05, CHAT-DATA-04 | C7 | Gửi hai chiều, ACK có định danh, không phát công khai |
-| CHAT-04 | Xác thực phiên chat và vai trò | TV2 | Cao | `TODO` | Chốt chính sách đăng nhập/khách, CHAT-DATA-01 | C10 | USER/CONSULTANT và quyền do Server xác nhận, H01 tách riêng |
-| CHAT-05 | Phân quyền từng cuộc trò chuyện | TV2 | Cao | `BLOCKED` | CHAT-04, CHAT-DATA-02 | C3–C10 | Từ chối tài khoản ngoài phòng ở REST, SEND và SUBSCRIBE |
-| CHAT-06 | Vòng đời và kết thúc hội thoại | TV2 | Cao | `BLOCKED` | CHAT-05, CHAT-DATA-05 | C6, C9 | Xử lý đúng người được phân, trạng thái và thao tác lặp |
-| CHAT-07 | Lịch sử tin nhắn | TV2 | Cao | `BLOCKED` | CHAT-05, CHAT-DATA-04, CHAT-DATA-07 | C8 | Thứ tự, phân trang và quyền đọc khớp dữ liệu |
-| CHAT-08 | Kết nối lại và chống trùng | TV2 | Cao | `BLOCKED` | CHAT-03, CHAT-07 | C7, C8, C10 | Xác minh lại quyền, đồng bộ phần thiếu và nhận diện tin gửi lặp |
-| CHAT-09 | Chuẩn hóa DTO, định danh và lỗi | TV2 | Cao | `TODO` | Chốt phạm vi với TV1/TV3 | C1–C10 | Mẫu thành công/thất bại, ranh giới lỗi và quy ước ACK được cả nhóm xác nhận |
-| CHAT-DATA-01 | Tài khoản và hồ sơ tư vấn viên | TV3 | Cao | `TODO` | DATA-01–02, ADM-DATA-04 | C1, C2, C10 | Hồ sơ liên kết tài khoản, role rõ và phân biệt trường công khai |
-| CHAT-DATA-02 | Quan hệ USER, CONSULTANT và phòng | TV3 | Cao | `TODO` | CHAT-DATA-01, chính sách khách | C3–C5, C10 | Có quan hệ tham gia để kiểm quyền theo phòng |
-| CHAT-DATA-03 | Lưu cuộc trò chuyện | TV3 | Cao | `TODO` | CHAT-DATA-02, CHAT-DATA-05 | C3–C6, C9 | Đọc lại đúng phòng, người tham gia và trạng thái |
-| CHAT-DATA-04 | Lưu tin và định danh chống trùng | TV3 | Cao | `TODO` | CHAT-DATA-03, chốt ACK với TV2 | C7, C8 | Tin có thứ tự truy xuất ổn định, phát hiện ID trùng theo phạm vi đã chốt |
-| CHAT-DATA-05 | Trạng thái cuộc trò chuyện | TV3 | Cao | `TODO` | Chốt vòng đời với TV2 | C3–C6, C9 | Chuyển trạng thái hợp lệ và đọc lại nhất quán |
-| CHAT-DATA-06 | Hai tài khoản và phòng TEST | TV3 | Cao | `BLOCKED` | CHAT-04, CHAT-DATA-01–03 | C3–C10 | Đủ USER, CONSULTANT và ca ngoài quyền. Dữ liệu tổng hợp |
-| CHAT-DATA-07 | Lưu giữ, truy xuất và bảo vệ hội thoại | TV3 | Cao | `TODO` | Chốt chính sách với TV2 | C7, C8 | Kiểm quyền, phạm vi lưu, che log và xử lý hết thời hạn |
-| PH6-PH-01 | Nghiệm thu chat 1:1 trên localhost | TV1, TV2, TV3 | Cao | `BLOCKED` | CHAT-01–09, CHAT-DATA-06 | C1–C10 | Hai tài khoản thật trao đổi đúng phòng, lịch sử, reconnect, từ chối ngoài quyền và hồi quy |
+| CHAT-01 | Danh bạ và chi tiết tư vấn viên | TV2 | Cao | `PASS_LOCAL_TEST` (REST C1/C2, giao diện C1) | CHAT-DATA-01, CHAT-04 | C1, C2 | `/tu-van` dùng C1 để hiển thị và chọn tư vấn viên, kèm giới thiệu đã duyệt. |
+| CHAT-02 | Tạo yêu cầu và đọc hội thoại | TV2 | Cao | `PASS_LOCAL_TEST` (REST và Client C3–C5) | CHAT-04, CHAT-DATA-02–03 | C3–C5 | Chromium trên TEST V31 đã kiểm USER tạo và mở phòng, CONSULTANT mở phòng được phân. [Hợp đồng và nghiệm thu](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-02). |
+| CHAT-03 | STOMP riêng và ACK nghiệp vụ | TV2 | Cao | `PASS_LOCAL_TEST` (Backend C7) | CHAT-04, CHAT-05, CHAT-DATA-04 | C7 | Hai kết nối STOMP thật trao đổi trên TEST V32. ACK sau commit và thử lại chỉ nhận ACK cũ. [Hợp đồng](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-03). |
+| CHAT-04 | Xác thực phiên chat và vai trò | TV2 | Cao | `PASS_LOCAL_TEST` (REST C10) | Phiên CUSTOMER, CHAT-DATA-01 | C10 | USER/CONSULTANT do Server xác nhận. [Hợp đồng và ràng buộc STOMP](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md). |
+| CHAT-05 | Phân quyền từng cuộc trò chuyện | TV2 | Cao | `PASS_LOCAL_TEST` | CHAT-04, CHAT-DATA-02 | C3–C10 | Từ chối ngoài phòng ở REST, SEND và SUBSCRIBE. Kiểm lại quyền trước khi giao frame cho subscription đã mở. [Hợp đồng và nghiệm thu](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-05). |
+| CHAT-06 | Vòng đời và kết thúc hội thoại | TV2 | Cao | `PASS_LOCAL_TEST` (REST và Client C6/C9) | CHAT-05, CHAT-DATA-05 | C6, C9 | Hai phiên Chromium trên TEST V31 đã kiểm nhận, từ chối, hủy, kết thúc và xử lý `409`. [Hợp đồng và nghiệm thu](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-06). |
+| CHAT-07 | Lịch sử tin nhắn | TV2 | Cao | `PASS_LOCAL_TEST` (Backend C8) | CHAT-05, CHAT-DATA-04, CHAT-DATA-07 | C8 | Đọc theo cursor, loại tin hết hạn và kiểm quyền trên PostgreSQL TEST V33. |
+| CHAT-08 | Kết nối lại và chống trùng | TV2 | Cao | `PASS_LOCAL_TEST` | CHAT-03, CHAT-07 | C7, C8, C10 | Hai phiên Chromium trên TEST V33 kiểm ngắt socket, đọc bù, loại trùng và xóa nội dung sau thu hồi phiên. [Hợp đồng và nghiệm thu](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-08). |
+| CHAT-09 | Chuẩn hóa DTO, định danh và lỗi | TV2 | Cao | `PASS_LOCAL_TEST` (kỹ thuật) | C1–C10 đã triển khai | C1–C10 | [Fixture và bảng mã](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-09) khớp DTO Client/Backend. Chờ nhóm xác nhận ở lượt bàn giao. |
+| CHAT-DATA-01 | Tài khoản và hồ sơ tư vấn viên | TV3 | Cao | `PASS_LOCAL_TEST` | DATA-01–02, ADM-DATA-04 | C1, C2, C10 | Projection ba trường công bố và điều kiện `CONSULTANT + ACTIVE + APPROVED` dùng schema hiện có. |
+| CHAT-DATA-02 | Quan hệ USER, CONSULTANT và phòng | TV3 | Cao | `PASS_LOCAL_TEST` | CHAT-DATA-01, CHAT-04 | C3–C5, C10 | V29 lưu đúng hai người tham gia, kiểm quyền theo vị trí và phiên hiện hành. [Thiết kế và nghiệm thu](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-data-02). |
+| CHAT-DATA-03 | Lưu cuộc trò chuyện | TV3 | Cao | `PASS_LOCAL_TEST` (lớp dữ liệu) | CHAT-DATA-02, CHAT-DATA-05 | C3–C6, C9 | Tạo và đọc lại đúng phòng, người tham gia và vòng đời trên V30. [Nghiệp vụ và nghiệm thu](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-data-03). |
+| CHAT-DATA-04 | Lưu tin và định danh chống trùng | TV3 | Cao | `PASS_LOCAL_TEST` (lớp dữ liệu) | CHAT-DATA-03 | C7, C8 | V32 lưu tin theo thứ tự trong phòng, chống trùng khi gửi đồng thời và đọc theo cursor. [Thiết kế và ACK](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-data-04). |
+| CHAT-DATA-05 | Trạng thái cuộc trò chuyện | TV3 | Cao | `PASS_LOCAL_TEST` | CHAT-DATA-02, CHAT-04 | C3–C6, C9 | V30 và service nội bộ bảo vệ chuyển trạng thái, thao tác lặp và xung đột. [Vòng đời và nghiệm thu](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-data-05). |
+| CHAT-DATA-06 | Hai tài khoản và phòng TEST | TV3 | Cao | `PASS_LOCAL_TEST` | CHAT-04, CHAT-DATA-01–03 | C3–C10 | Script tạo USER, CONSULTANT, tài khoản ngoài phòng, phòng chờ và phòng hoạt động. [Cách chạy và bằng chứng](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-data-06). |
+| CHAT-DATA-07 | Lưu giữ, truy xuất và bảo vệ hội thoại | TV3 | Cao | `PASS_LOCAL_TEST` | CHAT-DATA-04, CHAT-05 | C7, C8 | Tin hết hạn sau 30 ngày, dọn theo lô và giữ khóa chống gửi lại. [Chính sách và nghiệm thu](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-data-07). |
+| PH6-PH-01 | Nghiệm thu chat 1:1 trên localhost | TV1, TV2, TV3 | Cao | `PASS_LOCAL_TEST` (kỹ thuật) | CHAT-01–09, CHAT-DATA-06 | C1–C10 | Ba phiên Chromium trên TEST V33 đạt vòng đời, gửi nhận, reconnect, mất ACK và kiểm ngoài quyền. Chờ nhóm xác nhận bàn giao. [Biên bản](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#ph6-ph-01). |
 
 ### Theo dõi Phase 7
 
+**Nghiệm thu bản tích hợp ngày 10/11/2026.** Bản tích hợp trên nền `3ef055d` đạt kiểm thử localhost với JDK 17, Next.js và PostgreSQL TEST riêng. Flyway nâng V32 lên V33 và giữ nguyên phòng mẫu. Backend chạy 2.332 ca, đạt 2.302, bỏ qua 30, trong đó cả 20 ca Chat tích hợp PostgreSQL đều đạt. Client đạt 1.411 Vitest, 12 ca tính toán Node và 63 fixture hợp đồng.
+
+Ba phiên Chromium kiểm danh bạ, vòng đời phòng, gửi nhận và đọc lại tin, ngắt kết nối, gửi lại sau mất ACK mà không nhân đôi, chặn người ngoài phòng và thu hồi phiên. Luồng qua Backend thật cũng kiểm đăng ký bằng mật khẩu tám chữ số có số 0 đầu, đăng nhập Admin, Mai Hoa LINES, Tam Thế CAREER, lưu lịch sử theo tài khoản và quyền truy cập Admin metrics. Đây là bằng chứng hồi quy cục bộ cho một phần INT-02 đến INT-04. Nghiệm thu phối hợp và kiểm từ mạng khác được theo dõi riêng.
+
 | ID | Công việc | Người phụ trách | Ưu tiên | Trạng thái | Điều kiện nghiệm thu |
 | --- | --- | --- | --- | --- | --- |
-| INT-01 | Bàn giao Backend và dữ liệu TEST | TV2, TV3 | P0 | `TODO` | Datasource TEST được xác nhận, health/readiness đạt, schema/seed và Origin khớp |
+| INT-01 | Bàn giao Backend và dữ liệu TEST | TV2, TV3 | P0 | `PASS_LOCAL_TEST` | GitHub `8efe7db`, Flyway V20 → V27, health/readiness và hồi quy đạt. Xem [cấu hình và checklist TV1](77-TV1-INT01-V27-TEST-HANDOFF.md). |
 | INT-02 | Chạy lại luồng lõi và H01 trên TEST | TV1, TV2, TV3 | P0 | `BLOCKED` | INT-01 đạt, có bằng chứng REST/STOMP, 401/403, cách ly phiên và cleanup đúng |
 | INT-03 | Tích hợp Auth trước Admin/chat | TV1, TV2, TV3 | P0 | `BLOCKED` | AUTH/CHAT Auth chốt và kiểm trên Backend thật. Có tài khoản TEST theo role |
 | INT-04 | Nghiệm thu Admin và chat theo contract | TV1, TV2, TV3 | P1 | `BLOCKED` | INT-03 đạt và hợp đồng liên quan được bàn giao. Kiểm dữ liệu lưu và ca ngoài quyền |

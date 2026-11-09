@@ -9,13 +9,25 @@ const examples = path.resolve(root, "../docs/examples");
 const virtualPath = path.resolve(root, "src/types/__contract_fixtures__.ts");
 const declarations = [
   'import type { CalculationRequest, CalculationResponse, ProgressEvent, CalendarInput, CanChiInput, CalendarResult, CanChiResult, RestResponse, HistorySaveRequest, HistoryItem, HistoryDetail, HistoryDeleteResult, Page, HexagramRecord, HexagramDetail } from "./contract";',
+  'import type { ChatAck, ChatIncoming, ChatSend, ChatSendError, ChatSession, Consultant, Conversation, ConversationTransition, CreateConversationRequest, MessagePage, TransitionRequest } from "./chatContract";',
+  `type ChatFixtures = {
+    c1: RestResponse<Page<Consultant>>; c2: RestResponse<Consultant>;
+    c3Request: CreateConversationRequest; c3: RestResponse<Conversation>;
+    c4: RestResponse<Page<Conversation>>; c5: RestResponse<Conversation>;
+    c6Request: TransitionRequest; c6: RestResponse<ConversationTransition>;
+    c7Send: ChatSend; c7Ack: ChatAck; c7Message: ChatIncoming; c7Error: ChatSendError; c7UncorrelatedError: ChatSendError;
+    c8: RestResponse<MessagePage>; c8Empty: RestResponse<MessagePage>;
+    c9Request: TransitionRequest; c9: RestResponse<ConversationTransition>; c10: RestResponse<ChatSession>;
+    restOutsideRoom: RestResponse<never>; restInvalidSession: RestResponse<never>; restTransitionConflict: RestResponse<never>;
+  };`,
 ];
 let count = 0;
 for (const filename of fs.readdirSync(examples).filter((name) => name.endsWith(".json")).sort()) {
   const body = fs.readFileSync(path.join(examples, filename), "utf8");
   const value = JSON.parse(body);
   let type;
-  if (filename.endsWith(".request.json") && value.type) type = "CalculationRequest";
+  if (filename === "chat-v1.json") type = "ChatFixtures";
+  else if (filename.endsWith(".request.json") && value.type) type = "CalculationRequest";
   else if (filename.endsWith(".response.json") && value.type) type = "CalculationResponse";
   else if (filename === "calculation.progress.json") type = "ProgressEvent";
   else if (filename === "calendar-convert.request.json") type = "CalendarInput";

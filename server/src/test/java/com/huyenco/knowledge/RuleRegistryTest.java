@@ -42,15 +42,17 @@ class RuleRegistryTest {
     }
 
     @Test
-    void catalogMatchesFourteenExistingRuleCodesAndContainsNoSourceApprovals() throws Exception {
+    void catalogMatchesExpectedRuleCodesAndContainsNoSourceApprovals() throws Exception {
         RuleCatalog catalog = RuleCatalog.load(new ObjectMapper());
-        assertEquals(14, catalog.all().size());
         assertEquals(java.util.Set.of("MH-TRIGRAM", "MH-MUTUAL", "MH-CHANGE", "MH-TIME", "MH-OBJECT-COUNT",
-                "MH-THE-DUNG", "TT-NGU-HANH", "TT-GIO-SINH", "TT-36-PHAN", "TT-CONG-DANH-11",
+                "MH-THE-DUNG", "MH-TRUONG-XICH", "TT-NGU-HANH", "TT-GIO-SINH", "TT-36-PHAN", "TT-CONG-DANH-11",
                 "TT-CONG-DANH-13", "TT-TAI-LOC", "TT-TINH-DUYEN", "LUNAR-CONVERSION"),
                 catalog.all().stream().map(RuleDefinition::ruleCode).collect(java.util.stream.Collectors.toSet()));
         assertEquals(ExecutionPolicy.SOURCE_VERIFIED, catalog.find("MH-MUTUAL").orElseThrow().executionPolicy());
         assertEquals(ExecutionPolicy.TEAM_DECISION, catalog.find("MH-OBJECT-COUNT").orElseThrow().executionPolicy());
+        var truongXich = catalog.find("MH-TRUONG-XICH").orElseThrow();
+        assertEquals(ExecutionPolicy.TEAM_DECISION, truongXich.executionPolicy());
+        assertEquals("DEC-20261108-MH-TRUONG-XICH", truongXich.decisionReferences().get(0).decisionId());
         assertEquals(ExecutionPolicy.SOURCE_VERIFIED, catalog.find("TT-TAI-LOC").orElseThrow().executionPolicy());
         assertEquals(ExecutionPolicy.TEAM_DECISION, catalog.find("TT-GIO-SINH").orElseThrow().executionPolicy());
         assertEquals("DEC-20261025-D02-HOUR-PARTS", catalog.find("TT-GIO-SINH").orElseThrow().decisionReferences().get(0).decisionId());

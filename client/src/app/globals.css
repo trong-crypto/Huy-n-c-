@@ -188,6 +188,9 @@ select:disabled, input:disabled, fieldset:disabled { cursor: not-allowed; }
 .discovery-note p { color: var(--muted); font-size: 14px; margin: 0; }
 .method-selector { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 0; padding: 0; margin: 0 0 40px; min-width: 0; }
 .method-selector > legend { margin-bottom: 14px; }
+@media (min-width: 1024px) {
+  .method-selector--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
 .method-option { position: relative; min-width: 0; cursor: pointer; }
 .method-option > input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .method-option-content { display: flex; height: 100%; align-items: center; gap: 14px; min-height: 96px; padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-gradient); }

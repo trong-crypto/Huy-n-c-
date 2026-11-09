@@ -81,10 +81,10 @@ def audit_seed(audit: Audit, pdf_dir: Path) -> None:
     audit.check("Hai PDF được mở và có SHA-256", len(BOOKS) == 2 and
                 all(len(str(book.get("sha256", ""))) == 64 for book in BOOKS.values()),
                 "Mai Hoa 672 trang; Tam Thế 360 trang (số trang được đối chiếu khi có pdfinfo).")
-    audit.check("Bộ seed 104 bản ghi", (len(BOOKS), len(SECTIONS), len(RULES),
+    audit.check("Bộ seed 106 bản ghi", (len(BOOKS), len(SECTIONS), len(RULES),
                 len(TRIGRAMS), len(HOUR_ANCHORS), sum(len(months)
                 for _, table in JOB_TABLE.values() for months in table.values()))
-                == (2, 17, 14, 8, 12, 51))
+                == (2, 18, 15, 8, 12, 51))
     audit.check("Quy tắc nhập không tự duyệt VERIFIED", all(row[2] != "VERIFIED" for row in RULES))
     expected_pages = {
         1: ("04:20", 12), 2: ("04:00", 12), 3: ("04:30", 13),

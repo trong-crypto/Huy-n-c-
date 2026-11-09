@@ -5,11 +5,12 @@ import { DecisionReferences, EvidenceSummary, RuleEvidenceList, SourceReferences
 import { DetailedReadingView } from "./DetailedReadingView";
 
 const methodLabels: Record<MaiHoaResult["method"], string> = {
-  LINES: "Nhập sáu hào", OBJECT_COUNT: "Theo số vật", TIME: "Theo thời gian",
+  LINES: "Nhập sáu hào", OBJECT_COUNT: "Theo số vật", TIME: "Theo thời gian", TRUONG_XICH: "Trượng xích chiêm",
 };
 const valueLabels: Record<string, string> = {
   movingLine: "Hào động", upperLineStart: "Hào bắt đầu của hỗ thượng", lowerLineStart: "Hào bắt đầu của hỗ hạ",
   objectCount: "Số vật", hourIndex: "Chỉ số Chi giờ", movingLineSum: "Tổng hai số gốc",
+  truong: "Số trượng", thuoc: "Số thước",
   upperTrigram: "Số thượng quái", lowerTrigram: "Số hạ quái",
   lunarYear: "Năm âm", lunarMonth: "Tháng âm", lunarDay: "Ngày âm", isLeapMonth: "Tháng nhuận",
   yearBranchIndex: "Chỉ số Chi năm", dateSum: "Tổng năm/tháng/ngày", timeSum: "Tổng có giờ",
@@ -44,6 +45,8 @@ export function MaiHoaResultView({ data }: { data: MaiHoaResult }) {
       ? "Kết quả tổng hợp có áp dụng quy ước nhóm để chọn Thể và các giai đoạn. Trạng thái nguồn của từng đoạn luận và từng quyết định được trình bày riêng bên dưới."
       : data.method === "TIME"
       ? "Kết quả tính theo quy ước nhóm. Quy tắc TIME đã được chủ dự án duyệt trong phạm vi dự án; bản in còn khác biệt về phép chia 6/8. Xem nguồn và quyết định kèm theo."
+      : data.method === "TRUONG_XICH"
+      ? "Kết quả áp dụng quy ước triển khai ghi trong phần căn cứ. Trạng thái đối chiếu nguồn được hiển thị riêng."
       : "Kết quả tính theo quy ước nhóm. Phương pháp này áp dụng quy ước đã được nhóm thống nhất; căn cứ trong nguồn vẫn còn điểm cần đối chiếu."}</p>}
     {data.method === "TIME" && data.lunarDate !== null && <section className="moving-line-summary" aria-label="Ngày âm từ Server">
       <span aria-hidden="true">☾</span><div>

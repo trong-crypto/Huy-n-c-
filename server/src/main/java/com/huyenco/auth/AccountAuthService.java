@@ -120,15 +120,25 @@ final class AccountAuthService {
 
     StoredSession requireStoredSession(Realm realm, String token) {
         if (token == null) throw AuthFailure.session();
+        return requireStoredSession(realm, "s.token_hash", tokenHash(token));
+    }
+
+    StoredSession requireStoredSessionById(Realm realm, UUID sessionId) {
+        return requireStoredSession(realm, "s.id", sessionId);
+    }
+
+    private StoredSession requireStoredSession(Realm realm, String column, Object value) {
         StoredSession stored = db.query("""
                 SELECT a.id, a.display_name, a.role, s.expires_at, s.id AS session_id
                 FROM account_sessions s JOIN accounts a ON a.id = s.account_id
-                WHERE s.token_hash = ? AND s.realm = ? AND s.revoked_at IS NULL
+                WHERE
+                """ + column + """
+                 = ? AND s.realm = ? AND s.revoked_at IS NULL
                   AND s.expires_at > ? AND a.status = 'ACTIVE'
                 """, (row, index) -> new StoredSession(
                 new Account(row.getObject("id", UUID.class), row.getString("display_name"), row.getString("role")),
                 row.getObject("expires_at", OffsetDateTime.class), row.getObject("session_id", UUID.class)),
-                tokenHash(token), realm.name(), now())
+                value, realm.name(), now())
                 .stream().findFirst().orElseThrow(AuthFailure::session);
         if (!realm.allows(stored.account().role())) throw AuthFailure.session();
         return stored;
@@ -141,8 +151,12 @@ final class AccountAuthService {
     }
 
     void checkCsrf(Session session, String supplied) {
+        checkCsrfToken(session.csrfToken(), supplied);
+    }
+
+    static void checkCsrfToken(String expected, String supplied) {
         if (supplied == null || !MessageDigest.isEqual(
-                session.csrfToken().getBytes(StandardCharsets.UTF_8), supplied.getBytes(StandardCharsets.UTF_8))) {
+                expected.getBytes(StandardCharsets.UTF_8), supplied.getBytes(StandardCharsets.UTF_8))) {
             throw AuthFailure.csrf();
         }
     }

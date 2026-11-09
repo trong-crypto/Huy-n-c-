@@ -1,6 +1,7 @@
 package com.huyenco.websocket;
 
 import java.util.Set;
+import java.util.Optional;
 import com.huyenco.history.HistoryStore;
 import com.huyenco.history.SessionService;
 import org.springframework.beans.factory.ObjectProvider;
@@ -16,10 +17,17 @@ public final class SessionDestinationInterceptor implements ChannelInterceptor {
     private static final Set<String> REQUESTS = Set.of("/app/mai-hoa/calculate", "/app/tam-the/calculate");
     private final ObjectProvider<CalculationSessions> sessions;
     private final ObjectProvider<MessageChannel> outbound;
+    private final Optional<ChatSocketSecurity> chat;
 
     public SessionDestinationInterceptor(ObjectProvider<CalculationSessions> sessions, ObjectProvider<MessageChannel> outbound) {
+        this(sessions, outbound, Optional.empty());
+    }
+
+    public SessionDestinationInterceptor(ObjectProvider<CalculationSessions> sessions, ObjectProvider<MessageChannel> outbound,
+                                         Optional<ChatSocketSecurity> chat) {
         this.sessions = sessions;
         this.outbound = outbound;
+        this.chat = chat;
     }
 
     private Message<?> denied(String sessionId) {
@@ -33,6 +41,9 @@ public final class SessionDestinationInterceptor implements ChannelInterceptor {
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
         var headers = StompHeaderAccessor.wrap(message);
+        if (chat.isPresent() && chat.get().owns(headers)) {
+            return chat.get().inbound(message, headers, outbound.getObject());
+        }
         var command = headers.getCommand();
         if (command == StompCommand.CONNECT || command == StompCommand.STOMP) {
             var attributes=headers.getSessionAttributes();

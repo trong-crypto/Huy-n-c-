@@ -11,6 +11,18 @@ public final class MaiHoaNumbers {
     public record TimeNumbers(int upperTrigram, int lowerTrigram, int movingLine, int dateSum, int timeSum) {
     }
 
+    public record TruongXichNumbers(int upperTrigram, int lowerTrigram, int movingLine, int movingLineSum) {
+    }
+
+    public static TruongXichNumbers fromTruongXich(int truong, int thuoc) {
+        if (truong < 1 || truong > 999_999 || thuoc < 0 || thuoc > 9) {
+            throw new IllegalArgumentException("truong hoặc thuoc ngoài phạm vi.");
+        }
+        int sum = truong + thuoc;
+        return new TruongXichNumbers(nonZeroRemainder(truong, 8), nonZeroRemainder(thuoc, 8),
+                nonZeroRemainder(sum, 6), sum);
+    }
+
     public static ObjectCountNumbers fromObjectCount(int objectCount, int hourIndex) {
         if (objectCount < 1 || objectCount > 999_999 || hourIndex < 1 || hourIndex > 12) {
             throw new IllegalArgumentException("objectCount hoặc hourIndex ngoài phạm vi.");

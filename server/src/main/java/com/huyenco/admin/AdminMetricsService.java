@@ -23,7 +23,8 @@ public class AdminMetricsService {
     private static final ZoneId ZONE = ZoneId.of("Asia/Ho_Chi_Minh");
     private static final List<Method> METHODS = List.of(
             new Method("TIME", "Theo thời điểm"), new Method("OBJECT_COUNT", "Theo số vật đếm được"),
-            new Method("LINES", "Nhập sáu hào"), new Method("TAM_THE", "Tam Thế"));
+            new Method("LINES", "Nhập sáu hào"), new Method("TAM_THE", "Tam Thế"),
+            new Method("TRUONG_XICH", "Trượng xích chiêm"));
 
     private record Method(String id, String name) {}
     record MethodCount(String id, String name, long count) {}
@@ -90,6 +91,7 @@ public class AdminMetricsService {
             return values;
         }, day);
         List<MethodCount> methods = METHODS.stream()
+                .filter(method -> !"TRUONG_XICH".equals(method.id()) || counts.containsKey(method.id()))
                 .map(method -> new MethodCount(method.id(), method.name(), counts.getOrDefault(method.id(), 0L))).toList();
         long total = methods.stream().mapToLong(MethodCount::count).sum();
         return new Metrics(day.toString(), ZONE.getId(), startedAt.toInstant().toString(),

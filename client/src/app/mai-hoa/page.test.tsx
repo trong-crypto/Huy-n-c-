@@ -29,12 +29,42 @@ function mount(Page = MaiHoaPage, connected = true) {
   return { ...view, socket };
 }
 function method(value: string) {
-  const names: Record<string, RegExp> = { TIME: /^Theo thời gian/, OBJECT_COUNT: /^Theo số vật/, LINES: /^Nhập sáu hào/ };
+  const names: Record<string, RegExp> = { TIME: /^Theo thời gian/, OBJECT_COUNT: /^Theo số vật/,
+    LINES: /^Nhập sáu hào/, TRUONG_XICH: /^Trượng xích chiêm/ };
   fireEvent.click(screen.getByRole("radio", { name: names[value] }));
 }
 function published(socket: Socket) { return JSON.parse(socket.publish.mock.calls[0][0].body); }
 
 describe("page integration through the existing useCalculation hook", () => {
+  it("includes the approved Trượng xích method in the default selector", () => {
+    mount();
+    expect(screen.getByRole("radio", { name: /^Trượng xích chiêm/ })).toBeTruthy();
+  });
+
+  it("validates both Trượng xích fields and sends zero thước without hidden options", () => {
+    const { socket } = mount();
+    fireEvent.click(screen.getByLabelText("Luận giải chi tiết"));
+    fireEvent.change(screen.getByLabelText("Ghi chú tình huống (tùy chọn)"), { target: { value: "private draft" } });
+    method("TRUONG_XICH");
+    expect(screen.queryByLabelText("Luận giải chi tiết")).toBeNull();
+    expect(screen.queryByLabelText("Ghi chú tình huống (tùy chọn)")).toBeNull();
+    const form = screen.getByRole("form", { name: "Lập quẻ Trượng xích" });
+    const truong = screen.getByLabelText("Số trượng");
+    const thuoc = screen.getByLabelText("Số thước lẻ");
+    fireEvent.submit(form);
+    expect(document.activeElement).toBe(truong);
+    fireEvent.change(truong, { target: { value: "2" } });
+    fireEvent.change(thuoc, { target: { value: "1.5" } });
+    fireEvent.submit(form);
+    expect(document.activeElement).toBe(thuoc);
+    expect(thuoc.getAttribute("aria-describedby")).toContain("maihoa-thuoc-error");
+    expect(socket.publish).not.toHaveBeenCalled();
+    fireEvent.change(thuoc, { target: { value: "0" } });
+    fireEvent.submit(form);
+    fireEvent.submit(form);
+    expect(socket.publish).toHaveBeenCalledTimes(1);
+    expect(published(socket).payload).toEqual({ method: "TRUONG_XICH", truong: 2, thuoc: 0 });
+  });
   it.each(["", "2026-02-29T10:30", "2026-02-30T10:30", "2026-10-25T24:00", "2026-10-25T10:30:01", "broken", "1899-12-31T23:59", "2100-01-01T00:00"])("T15 rejects raw TIME %j before publish and focuses its associated error", datetime => {
     const { socket } = mount();
     const input = screen.getByLabelText("Thời điểm lập quẻ (giờ Việt Nam, UTC+07:00)");

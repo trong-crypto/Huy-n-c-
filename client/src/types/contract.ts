@@ -51,7 +51,8 @@ export type LunarDate = { year: number; month: number; day: number; isLeapMonth:
 export type MaiHoaPayload =
   | { method: "TIME"; datetime: string; question?: string; reading?: TimeReadingOptions }
   | { method: "OBJECT_COUNT"; objectCount: number; hourIndex: number; question?: string; reading?: ReadingOptions }
-  | { method: "LINES"; linesBottomUp: SixLines; movingLine: number; reading?: ReadingOptions };
+  | { method: "LINES"; linesBottomUp: SixLines; movingLine: number; reading?: ReadingOptions }
+  | { method: "TRUONG_XICH"; truong: number; thuoc: number };
 export type TamThePayload = {
   birthDate: string;
   birthTime: string;

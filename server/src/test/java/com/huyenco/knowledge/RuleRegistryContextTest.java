@@ -20,7 +20,7 @@ class RuleRegistryContextTest {
                     com.huyenco.calendar.CalendarService.class, com.huyenco.calendar.VietnameseLunarCalendar.class,
                     com.huyenco.tamthe.TamTheService.class);
             context.refresh();
-            assertEquals(14, context.getBean(RuleCatalog.class).all().size());
+            assertTrue(context.getBean(RuleCatalog.class).find("MH-MUTUAL").isPresent());
             RuleRegistry registry = context.getBean(RuleRegistry.class);
             var error = assertThrows(RuleNotAvailableException.class,
                     () -> registry.authorize("MH-MUTUAL", RulePurpose.CALCULATION));

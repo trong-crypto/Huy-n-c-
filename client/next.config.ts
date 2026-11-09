@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
       ...(process.env.HUYENCO_WS_PROXY === "1" ? [{ source: "/ws", destination: `${server}/ws` }] : []),
       ...(process.env.NEXT_PUBLIC_ACCOUNT_HISTORY === "1" ? [
         { source: "/api/v1/ws", destination: `${server}/api/v1/ws` },
+        { source: "/api/v1/ws/chat", destination: `${server}/api/v1/ws/chat` },
+        { source: "/api/v1/chat/consultants/:path*", destination: `${server}/api/v1/chat/consultants/:path*` },
+        { source: "/api/v1/chat/conversations/:path*", destination: `${server}/api/v1/chat/conversations/:path*` },
       ] : []),
       ...(process.env.NEXT_PUBLIC_ACCOUNT_HISTORY === "1" || process.env.NEXT_PUBLIC_METHOD_GUIDES === "1"
         || process.env.NEXT_PUBLIC_ADMIN_ACCOUNTS === "1" || process.env.NEXT_PUBLIC_ADMIN_HEXAGRAM_GLOSSES === "1"

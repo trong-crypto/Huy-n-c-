@@ -123,3 +123,7 @@ Các dòng “chờ duyệt” là việc của nhóm, chưa được coi là qu
 - `DEC-20261022-MH-OBJECT-COUNT`: quyết định ngày 22/10 dùng số vật gốc cộng hourIndex rồi chia 6; giữ ghi chú cụm “số quẻ” PDF 46 đa nghĩa.
 
 A01 chỉ cấu hình hai quyết định này làm căn cứ phép tính; không nâng trạng thái nguồn và không cho phép áp dụng quyết định nhóm để tạo lời luận giải chưa kiểm.
+
+## Trượng xích chiêm
+
+- `DEC-20261108-MH-TRUONG-XICH` · 08/11/2026. Chủ dự án báo trong cuộc trò chuyện rằng nhóm đã duyệt đề xuất [PH5-PH-01](78-PH5-PH-01-TRUONG-XICH-PROPOSAL.md). Ghi nhận phạm vi v1 là lập quẻ từ trượng 1–999.999 và thước lẻ 0–9, quy thước 0 về Khôn, lấy hào từ tổng hai số gốc chia 6 và giữ cách dựng quẻ hỗ hiện hành cho Càn/Khôn. Backend áp dụng `TEAM_DECISION`. Dữ liệu nguồn vẫn ở `SOURCE_LOCATED` với trang in 61 / PDF 56. Thông tin người duyệt ghi theo xác nhận của chủ dự án.

@@ -1,5 +1,10 @@
 export const methodCatalogHref = "/phuong-phap";
 
+export const truongXichMethod = {
+  code: "TRUONG_XICH", formLabel: "Trượng xích chiêm",
+  input: "Số trượng và số thước lẻ theo đơn vị trong sách. Chỉ lập quẻ.",
+} as const;
+
 const maiHoaMethods = [
   { code: "TIME", title: "Theo thời điểm", formLabel: "Theo thời gian", body: "Lập quẻ từ thời điểm được nhập theo giờ Việt Nam.",
     input: "Ngày và giờ lập quẻ theo giờ Việt Nam (UTC+07:00)." },
@@ -21,9 +26,9 @@ export const divinationCatalog = [
     number: "01",
     group: "Mai Hoa",
     title: "Mai Hoa Dịch Số",
-    tag: "SÁU HÀO · THỜI GIAN · SỐ VẬT",
-    description: "Lập quẻ từ sáu hào, thời điểm hoặc số vật để tìm hiểu cấu trúc quẻ và lời luận theo chủ đề, có nguồn tham chiếu.",
-    summary: "Sáu hào · Thời gian · Số vật đếm được",
+    tag: "SÁU HÀO · THỜI GIAN · SỐ VẬT · TRƯỢNG THƯỚC",
+    description: "Lập quẻ từ sáu hào, thời điểm, số vật hoặc trượng thước để tìm hiểu cấu trúc quẻ và căn cứ trong sách.",
+    summary: "Sáu hào · Thời gian · Số vật · Trượng thước",
     action: "Khám phá Mai Hoa",
     methods: maiHoaMethods,
   },

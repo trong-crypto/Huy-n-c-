@@ -68,6 +68,7 @@ Kết quả cuối:
 | LINES | `linesBottomUp`, `movingLine` | Đúng sáu boolean từ dưới lên; true=dương, false=âm; hào động nguyên 1–6. Không nhận question |
 | OBJECT_COUNT | `objectCount`, `hourIndex`, `question?` | Số vật nguyên 1–999999; giờ nguyên 1–12, Tý=1…Hợi=12; question chuỗi tối đa 500 ký tự |
 | TIME | `datetime`, `question?` | ISO 8601 có offset; chuẩn hóa UTC+7 trước khi chuyển lịch; question như trên |
+| TRUONG_XICH | `truong`, `thuoc` | Số nguyên 1–999999 và 0–9. V28 thực thi theo `TEAM_DECISION` khi đủ nguồn và dữ liệu. Xem [bàn giao V28](79-TV2-TV3-TRUONG-XICH-HANDOFF.md). |
 
 NUMBER và numbers:[a,b] đã bị loại bỏ. NUMBER trả INVALID_METHOD; thêm numbers vào OBJECT_COUNT cũng bị từ chối. Số nguyên vượt kiểu Java phải bị từ chối trước khi ép kiểu, không cho tràn thành một giá trị hợp lệ.
 
@@ -188,6 +189,10 @@ HistoryItem: `{id,type,title,createdAt,ruleBasis}`. HistoryDetail thêm result s
 **Lịch C01,tra quẻ E02 và5 endpoint session/history H01 đã có**. Fixtures lịch,tra quẻ,Tam Thế và lịch sử chụp từ Server thật,chỉ cố định requestId; không ghi cookie/CSRF thực vào fixture. Không dùng fixture thay chứng cứ nguồn. Tam Thế tiếp tục dùng STOMP,không tự thêm REST tính toán mới.
 
 Chốt bàn giao TV1: REST qua proxy cùng origin `/api/v1`,backend dev `http://localhost:8080`; NEXT_PUBLIC_API_BASE_URL dự kiến `/api/v1`,HUYENCO_API_URL là biến Next.js server-only cho đích nội bộ. Proxy/UI thuộc TV1. H01 đã xác thực cookie ở handshake và gắn owner vào bộ giữ kết quả; không dùng owner làm Principal để tránh phát kết quả lẫn tab. **Client bootstrap session trước WebSocket**,hoặc kết nối lại nếu socket đã mở vô danh. WebSocket không cookie vẫn tính được nhưng không có kết quả thuộc owner để lưu; không nhận owner từ STOMP header. Sau refresh/bootstrap lại lấy CSRF vào bộ nhớ trang,không cần đọc HttpOnly cookie.
+
+### REST Chat tư vấn
+
+Danh bạ C1/C2, tạo và đọc hội thoại C3–C5, vòng đời C6/C9 và phiên CUSTOMER C10 dùng envelope REST và `Cache-Control: no-store`. C3 lưu khóa gửi lại theo tài khoản trên PostgreSQL V31. Xem [hợp đồng phiên và danh bạ](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md), [hợp đồng tạo, liệt kê, đọc hội thoại](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-02) và [hợp đồng thao tác vòng đời](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-06).
 
 ## 9. Mã lỗi và reason
 

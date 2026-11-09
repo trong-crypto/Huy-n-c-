@@ -19,7 +19,7 @@ function isSession(value: unknown): value is Session {
     && isHistoryCsrf(value.csrfToken) && isRegistration(value);
 }
 
-function options() {
+export function customerOptions() {
   if (new URL(CLIENT_CONFIG.apiBaseUrl, window.location.href).origin !== window.location.origin) {
     throw new RestError("SESSION_CONFIGURATION");
   }
@@ -27,21 +27,25 @@ function options() {
 }
 
 export function registerCustomer(data: Credentials & { displayName: string }, signal: AbortSignal) {
-  return requestJson("/auth/register", isRegistration, signal, data, { ...options(), successStatus: 201 });
+  return requestJson("/auth/register", isRegistration, signal, data, { ...customerOptions(), successStatus: 201 });
 }
 
 export function loginCustomer(data: Credentials, signal: AbortSignal) {
-  return requestJson("/auth/login", isSession, signal, data, options());
+  return requestJson("/auth/login", isSession, signal, data, customerOptions());
+}
+
+export function readCustomerSession(signal: AbortSignal) {
+  return requestJson("/auth/session", isSession, signal, undefined, customerOptions());
 }
 
 export async function getCustomerSession(signal: AbortSignal) {
-  const session = await requestJson("/auth/session", isSession, signal, undefined, options());
+  const session = await readCustomerSession(signal);
   if (Date.parse(session.expiresAt) <= Date.now()) throw new RestError("INVALID_SESSION");
   return session;
 }
 
 export function logoutCustomer(csrfToken: string, signal: AbortSignal) {
-  const request = options();
+  const request = customerOptions();
   return requestJson("/auth/logout", (value): value is null => value === null, signal, {},
     { ...request, headers: { ...request.headers, "X-CSRF-Token": csrfToken }, successStatus: 204 });
 }

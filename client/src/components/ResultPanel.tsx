@@ -19,7 +19,7 @@ export function ResultPanel({ connection, requestState, response, progress, loca
   const validResponse = response !== null && isCalculationResponse(response);
   const completed = requestState === "completed" && response?.status === "COMPLETED" && validResponse;
   const invalidResult = requestState === "completed" && response?.status === "COMPLETED" && !validResponse;
-  const hexagramResult = completed && response.type === "MAI_HOA" && ["LINES", "OBJECT_COUNT", "TIME"].includes(response.data.method);
+  const hexagramResult = completed && response.type === "MAI_HOA";
   const serverFailed = requestState === "failed" && response?.status === "FAILED";
   const latestProgress = progress.at(-1);
   const announcement = requestState === "waiting"

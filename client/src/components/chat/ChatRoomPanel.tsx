@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { FieldError, FormField } from "@/components/ui/Controls";
-import { draftLimit, isChatMessage, roomStatusLabels, validateChatDraft, type ChatAccess, type ChatMessage, type SubscribeToRoom } from "./chatState";
+import { draftLimit, isChatMessage, roomStatusLabels, validateChatDraft,
+  type ChatAccess, type ChatMessage, type ChatMessaging, type SubscribeToRoom } from "./chatState";
 import styles from "./chat.module.css";
 
 type Authorized = Extract<ChatAccess, { status: "authorized" }>;
@@ -13,17 +14,28 @@ const connectionLabels = {
   disconnected: "Mất kết nối. Bản nháp vẫn được giữ trên trang.",
   reconnecting: "Đang kết nối lại.",
   unresponsive: "Máy chủ chưa phản hồi.",
+  unavailable: "Đã mở phòng. Gửi nhận tin nhắn sẽ khả dụng khi kết nối chat được triển khai.",
 };
 
-export function ChatRoomPanel({ state, subscribe, retry }: { state: Authorized; subscribe?: SubscribeToRoom; retry?: () => void }) {
+export function ChatRoomPanel({ state, subscribe, retry, messaging, lifecycleControls }: {
+  state: Authorized; subscribe?: SubscribeToRoom; retry?: () => void; messaging?: ChatMessaging; lifecycleControls?: ReactNode;
+}) {
   const room = state.room;
   const roomId = room?.id;
+  const messagingAvailable = state.connection !== "unavailable";
   const listening = room?.status === "active" && state.connection === "connected";
   const [received, setReceived] = useState<ChatMessage[]>([]);
   const [receiveError, setReceiveError] = useState(false);
   const [draft, setDraft] = useState("");
   const [draftError, setDraftError] = useState<string | null>(null);
   const [checked, setChecked] = useState(false);
+  const acknowledgedId = messaging?.acknowledgedId;
+  useEffect(() => {
+    if (acknowledgedId) {
+      setDraft("");
+      setDraftError(null);
+    }
+  }, [acknowledgedId]);
 
   useEffect(() => {
     if (!listening || !subscribe || !roomId) return;
@@ -51,35 +63,59 @@ export function ChatRoomPanel({ state, subscribe, retry }: { state: Authorized; 
   }
 
   return <>
-    <p role="status">{connectionLabels[state.connection]}</p>
+    {(room || messagingAvailable) && (!messaging || room?.status === "active") &&
+      <p role="status">{connectionLabels[state.connection]}</p>}
     {(state.connection === "disconnected" || state.connection === "unresponsive") &&
       <button type="button" className="secondary-button" disabled={!retry} onClick={retry}>Thử kết nối lại</button>}
     {state.failure === "sendFailed" && <p role="alert">Gửi tin nhắn thất bại.</p>}
     {state.failure === "deliveryUnknown" && <p role="alert">Chưa xác định máy chủ đã nhận tin. Hãy đối chiếu lịch sử trước khi gửi lại.</p>}
+    {messaging?.delivery === "waiting" && <p role="status">Đang chờ xác nhận tin nhắn…</p>}
+    {messaging?.delivery === "unknown" && !messaging.notice &&
+      <p role="alert">Chưa nhận được xác nhận. Bạn có thể gửi lại tin này khi kết nối hoạt động.</p>}
+    {messaging?.notice && <p role="alert">{messaging.notice}</p>}
     {receiveError && <p role="alert">Có lỗi khi nhận dữ liệu hội thoại.</p>}
     {!room ? <p>Chưa mở cuộc trò chuyện.</p> : <>
       <h3>{room.title}</h3>
       <p className="field-hint">{roomStatusLabels[room.status]}</p>
-      {messages.size === 0 ? <p>Cuộc trò chuyện chưa có tin nhắn.</p> : <ol className={styles.messages} aria-label="Tin nhắn trong cuộc trò chuyện">
+      {room.ending && <p>{room.ending}</p>}
+      {lifecycleControls}
+      {messaging?.historyStatus === "loading" && <p role="status">Đang tải lịch sử tin nhắn…</p>}
+      {messaging?.historyStatus === "error" && <>
+        <p role="alert">Chưa đồng bộ được lịch sử tin nhắn.</p>
+        <button type="button" className="secondary-button" onClick={retry}>Tải lại lịch sử</button>
+      </>}
+      {!messaging && !messagingAvailable ? <p>Lịch sử tin nhắn chưa khả dụng.</p> : messages.size === 0 ?
+        (!messaging || messaging.historyStatus === "ready") && <p>Cuộc trò chuyện chưa có tin nhắn.</p> :
+        <ol className={styles.messages} aria-label="Tin nhắn trong cuộc trò chuyện">
         {Array.from(messages.values(), message => <li key={message.id}>
           <strong>{message.author}</strong><p>{message.text}</p>
         </li>)}
       </ol>}
     </>}
-    <form className="form-stack" onSubmit={event => event.preventDefault()}>
-      <FormField id="chat-draft" label="Tin nhắn" hint={`Bản nháp tối đa ${draftLimit} ký tự và chỉ hiển thị trên trang. Gửi tin đang chờ Backend.`}>
-        <textarea id="chat-draft" rows={3} maxLength={draftLimit} value={draft} disabled={room?.status !== "active"}
+    <form className="form-stack" onSubmit={event => {
+      event.preventDefault();
+      if (!messaging || state.connection !== "connected" || room?.status !== "active") return;
+      const error = validateChatDraft(draft);
+      setDraftError(error);
+      if (!error) messaging.send(draft.trim());
+    }}>
+      <FormField id="chat-draft" label="Tin nhắn" hint={`Bản nháp tối đa ${draftLimit} ký tự và chỉ hiển thị trên trang.`}>
+        <textarea id="chat-draft" rows={3} maxLength={draftLimit} value={draft} disabled={!messagingAvailable || room?.status !== "active"}
+          readOnly={messaging !== undefined && messaging.delivery !== "idle"}
           aria-invalid={!!draftError || undefined} aria-describedby={draftError ? "chat-draft-hint chat-draft-error" : "chat-draft-hint"}
           onChange={event => { setDraft(event.target.value); setChecked(false); setDraftError(null); }} />
         {draftError && <FieldError id="chat-draft-error">{draftError}</FieldError>}
       </FormField>
       {checked && !draftError && <p role="status">Bản nháp hợp lệ · Chưa gửi.</p>}
       <div className={styles.actions}>
-        {room?.status === "active" && <button type="button" className="secondary-button" onClick={() => {
+        {!messaging && messagingAvailable && room?.status === "active" && <button type="button" className="secondary-button" onClick={() => {
           setDraftError(validateChatDraft(draft)); setChecked(true);
         }}>Kiểm tra bản nháp</button>}
-        <button type="submit" className="primary-button" disabled>Gửi tin nhắn</button>
-        <button type="button" className="secondary-button" disabled>Kết thúc cuộc trò chuyện</button>
+        <button type="submit" className="primary-button"
+          disabled={!messaging || room?.status !== "active" || state.connection !== "connected" || messaging.delivery === "waiting"}>
+          {messaging?.delivery === "unknown" ? "Gửi lại tin này" : "Gửi tin nhắn"}
+        </button>
+        {!messaging && messagingAvailable && <button type="button" className="secondary-button" disabled>Kết thúc cuộc trò chuyện</button>}
       </div>
     </form>
   </>;

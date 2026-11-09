@@ -1,5 +1,5 @@
-import { ConsultationWorkspace } from "@/components/chat/ConsultationWorkspace";
+import { LiveConsultationWorkspace } from "@/components/chat/LiveConsultationWorkspace";
 
 export default function ConsultantWorkspacePage() {
-  return <ConsultationWorkspace audience="consultant" />;
+  return <LiveConsultationWorkspace audience="consultant" />;
 }

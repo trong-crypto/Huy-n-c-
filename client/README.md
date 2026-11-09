@@ -2,7 +2,7 @@
 
 Next.js Client do TV1 phụ trách: biểu mẫu Mai Hoa/Tam Thế, kết quả có nguồn, tra cứu quẻ, lịch/Can Chi và lịch sử H01. Client kiểm đầu vào và trình bày phản hồi; phép tính và quyền truy cập do Backend quyết định.
 
-**Bàn giao đợt nâng cấp trên nhánh `bmanh812`.** Danh mục phương pháp, các giao diện Admin và hai trang tư vấn đã có ở Client. Tích hợp Auth, thao tác ghi quản trị và chat thật đang chờ Backend/Database. Mục Phase 8 trong tài liệu tập trung ghi cách chạy demo Desktop khi Backend vắng mặt, các cổng nghiệm thu live và phụ thuộc TV2/TV3. [Bàn giao TV1 và hướng dẫn demo](../docs/TV1-TO-TV2-TV3-HANDOFF.md#phase-8)
+**Giao diện tư vấn.** Bật `NEXT_PUBLIC_ACCOUNT_HISTORY=1` và trỏ `HUYENCO_API_URL` đến Backend có Auth và PostgreSQL V31. Người dùng tạo hoặc hủy yêu cầu tại `/tu-van`. Tư vấn viên đã duyệt chấp nhận hoặc từ chối yêu cầu được phân tại `/tu-van-vien`. Cả hai bên có thể mở và kết thúc phòng đang hoạt động. Gửi nhận và lịch sử tin nhắn cần C7/C8. [Cấu hình và cách chạy](../docs/81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-02) · [Hướng dẫn demo Phase 8](../docs/TV1-TO-TV2-TV3-HANDOFF.md#phase-8)
 
 **Trạng thái bàn giao TV1 ngày 27/10/2026:** F01–F06 có nghiệm thu UI/network thật theo ca chuẩn; F07 đạt progress/cách ly hai context; F08 H01 đạt hai-owner/save/detail/delete/CSRF và cleanup 2/2 record; F09 M03 đạt hai ca UI đại diện. Đây là phạm vi live 8E/8F trên TEST, chưa phải toàn sản phẩm COMPLETE. Xem [ma trận và handoff Phase 8](../docs/44-TV1-PHASE8A-ACCEPTANCE.md) và [kịch bản demo](../docs/45-TV1-DEMO-SCRIPT.md) để phân biệt LIVE ACCEPTED, mock, bằng chứng Backend và các mục PENDING.
 

@@ -1,16 +1,24 @@
 export const chatRoutes = { user: "/tu-van", consultant: "/tu-van-vien" } as const;
 
 export type ChatAudience = keyof typeof chatRoutes;
-export type ChatConnection = "connecting" | "connected" | "disconnected" | "reconnecting" | "unresponsive";
+export type ChatConnection = "connecting" | "connected" | "disconnected" | "reconnecting" | "unresponsive" | "unavailable";
 export type ChatMessage = { id: string; roomId: string; author: string; text: string };
+export type ChatMessaging = {
+  historyStatus: "idle" | "loading" | "ready" | "error";
+  delivery: "idle" | "waiting" | "unknown";
+  acknowledgedId?: string;
+  notice?: string;
+  send: (text: string) => void;
+};
 export type ChatRoom = {
   id: string;
   title: string;
   status: "pending" | "active" | "ended";
   history: readonly ChatMessage[];
+  ending?: string;
 };
 
-// View model only. A future authenticated adapter must map the approved wire contract.
+// View model shared by the REST workspace and the message panel.
 export type ChatAccess =
   | { status: "blocked" | "loading" | "expired" | "forbidden" | "error" }
   | { status: "authorized"; accessKey: string; connection: ChatConnection; room: ChatRoom | null;

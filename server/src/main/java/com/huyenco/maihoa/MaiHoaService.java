@@ -70,9 +70,10 @@ public class MaiHoaService {
             reading=interpretations.prepare(payload);
         }
         String method = payload.path("method").asText();
-        if ("LINES".equals(method) || "OBJECT_COUNT".equals(method) || "TIME".equals(method)) {
+        if ("LINES".equals(method) || "OBJECT_COUNT".equals(method) || "TIME".equals(method) || "TRUONG_XICH".equals(method)) {
             boolean objectCount = "OBJECT_COUNT".equals(method);
             boolean time = "TIME".equals(method);
+            boolean truongXich = "TRUONG_XICH".equals(method);
             LunarDate lunarDate = null;
             int hourIndex = 0;
             var rules = new ArrayList<RuleEvidence>();
@@ -88,9 +89,13 @@ public class MaiHoaService {
                 }
                 hourIndex = VietnameseLunarCalendar.hourBranchIndex(local.toLocalTime()) + 1;
             }
-            rules.addAll(registry.authorizeAll(time ? List.of("MH-TIME", "MH-TRIGRAM", "MH-MUTUAL", "MH-CHANGE")
-                    : objectCount ? List.of("MH-OBJECT-COUNT", "MH-TRIGRAM", "MH-MUTUAL", "MH-CHANGE")
-                    : List.of("MH-MUTUAL", "MH-CHANGE"), RulePurpose.CALCULATION));
+            var methodRules = switch (method) {
+                case "TIME" -> List.of("MH-TIME", "MH-TRIGRAM", "MH-MUTUAL", "MH-CHANGE");
+                case "OBJECT_COUNT" -> List.of("MH-OBJECT-COUNT", "MH-TRIGRAM", "MH-MUTUAL", "MH-CHANGE");
+                case "TRUONG_XICH" -> List.of("MH-TRUONG-XICH", "MH-TRIGRAM", "MH-MUTUAL", "MH-CHANGE");
+                default -> List.of("MH-MUTUAL", "MH-CHANGE");
+            };
+            rules.addAll(registry.authorizeAll(methodRules, RulePurpose.CALCULATION));
             if(reading!=null) {
                 if(!objectCount && !time) rules.add(registry.authorize("MH-TRIGRAM",RulePurpose.CALCULATION));
                 rules.addAll(reading.authorized().proofs());
@@ -99,7 +104,7 @@ public class MaiHoaService {
             }
             var evidence = EvidenceSummary.from(rules);
             // All five TIME source gates finish before trigram/hexagram reads or CALCULATING.
-            var trigramIndex = objectCount || time || reading!=null ? new TrigramIndex(trigrams.trigrams()) : null;
+            var trigramIndex = objectCount || time || truongXich || reading!=null ? new TrigramIndex(trigrams.trigrams()) : null;
             if(reading!=null) MaiHoaInterpretationService.validateTrigrams(trigramIndex);
             var input = new ArrayList<Boolean>();
             var steps = new ArrayList<CalculationStep>();
@@ -129,6 +134,17 @@ public class MaiHoaService {
                 steps.add(new CalculationStep("OBJECT_COUNT_NUMBERS",
                         "Số vật lấy thượng quái, chỉ số giờ lấy hạ quái; tổng số gốc chia 6 lấy hào theo quy ước nhóm.",
                         Map.of("objectCount", count, "hourIndex", hour, "movingLineSum", count + hour,
+                                "upperTrigram", numbers.upperTrigram(), "lowerTrigram", numbers.lowerTrigram(),
+                                "movingLine", movingLine)));
+            } else if (truongXich) {
+                int truong = payload.get("truong").intValue(), thuoc = payload.get("thuoc").intValue();
+                var numbers = MaiHoaNumbers.fromTruongXich(truong, thuoc);
+                input.addAll(trigramIndex.find(numbers.lowerTrigram()).linesBottomUp());
+                input.addAll(trigramIndex.find(numbers.upperTrigram()).linesBottomUp());
+                movingLine = numbers.movingLine();
+                steps.add(new CalculationStep("TRUONG_XICH_NUMBERS",
+                        "Số trượng lấy thượng quái, số thước lấy hạ quái; tổng hai số gốc chia 6 lấy hào.",
+                        Map.of("truong", truong, "thuoc", thuoc, "movingLineSum", numbers.movingLineSum(),
                                 "upperTrigram", numbers.upperTrigram(), "lowerTrigram", numbers.lowerTrigram(),
                                 "movingLine", movingLine)));
             } else {

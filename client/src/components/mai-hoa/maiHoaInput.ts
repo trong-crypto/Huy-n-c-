@@ -1,11 +1,12 @@
 import type { MaiHoaPayload } from "@/types/contract";
 import type { ReadingTopic } from "@/types/readingContract";
 
-export type InputField = "datetime" | "objectCount" | "hourIndex" | "question";
+export type InputField = "datetime" | "objectCount" | "hourIndex" | "question" | "truong" | "thuoc";
 type InputError = { ok: false; field: InputField; message: string };
 type InputResult<T> = { ok: true; payload: T } | InputError;
 type TimePayload = Extract<MaiHoaPayload, { method: "TIME" }>;
 type ObjectCountPayload = Extract<MaiHoaPayload, { method: "OBJECT_COUNT" }>;
+type TruongXichPayload = Extract<MaiHoaPayload, { method: "TRUONG_XICH" }>;
 
 export const TIME_MIN_DATETIME = "1900-01-01T00:00";
 export const TIME_MAX_DATETIME = "2099-12-31T23:59";
@@ -58,6 +59,17 @@ export function buildObjectCountPayload(objectCount: string, hourIndex: string, 
   return { ok: true, payload: { method: "OBJECT_COUNT", objectCount: count, hourIndex: hour, ...(question === undefined ? {} : { question }) } };
 }
 
+export function buildTruongXichPayload(truongInput: string, thuocInput: string): InputResult<TruongXichPayload> {
+  const truong = Number(truongInput), thuoc = Number(thuocInput);
+  if (/^\d{1,6}$/u.exec(truongInput)?.[0] !== truongInput || truong < 1 || truong > 999_999) {
+    return { ok: false, field: "truong", message: "Số trượng phải là số nguyên từ 1 đến 999999." };
+  }
+  if (/^[0-9]$/u.exec(thuocInput)?.[0] !== thuocInput) {
+    return { ok: false, field: "thuoc", message: "Số thước phải là một số nguyên từ 0 đến 9." };
+  }
+  return { ok: true, payload: { method: "TRUONG_XICH", truong, thuoc } };
+}
+
 export const READING_TOPICS: readonly ReadingTopic[] = ["GENERAL", "CAREER", "WEALTH", "LOVE"];
 export type ReadingSelection = { enabled: boolean; topic: string; datetime: string };
 export type ReadingField = "readingTopic" | "readingDatetime";
@@ -66,6 +78,11 @@ export type ReadingInputError = { ok: false; field: ReadingField; message: strin
 // Request options only. The Server selects roles, relations, seasons and interpretation text.
 export function withReadingOptions(payload: MaiHoaPayload, selection: ReadingSelection):
   { ok: true; payload: MaiHoaPayload } | ReadingInputError {
+  if (payload.method === "TRUONG_XICH") {
+    return selection.enabled
+      ? { ok: false, field: "readingTopic", message: "Trượng xích chiêm hiện chỉ hỗ trợ lập quẻ." }
+      : { ok: true, payload };
+  }
   const { reading: previousReading, ...base } = payload;
   void previousReading;
   if (!selection.enabled) return { ok: true, payload: base };
