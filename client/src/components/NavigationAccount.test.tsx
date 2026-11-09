@@ -99,7 +99,7 @@ describe("customer navigation session", () => {
     render(<SiteNavigation />);
     expect(await screen.findByRole("link", { name: "Đăng nhập" })).toBeTruthy();
     expect(screen.queryByText("Tên hết hạn")).toBeNull();
-    expect(state.invalidate).toHaveBeenCalledWith(expect.objectContaining({ code: "INVALID_SESSION" }));
+    await waitFor(() => expect(state.invalidate).toHaveBeenCalledWith(expect.objectContaining({ code: "INVALID_SESSION" })));
   });
 
   it("revalidates a displayed account when its session expires", async () => {

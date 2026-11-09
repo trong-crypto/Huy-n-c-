@@ -570,6 +570,54 @@ Ba phiên Chromium kiểm danh bạ, vòng đời phòng, gửi nhận và đọ
 | INT-03 | Tích hợp Auth trước Admin/chat | TV1, TV2, TV3 | P0 | `BLOCKED` | AUTH/CHAT Auth chốt và kiểm trên Backend thật. Có tài khoản TEST theo role |
 | INT-04 | Nghiệm thu Admin và chat theo contract | TV1, TV2, TV3 | P1 | `BLOCKED` | INT-03 đạt và hợp đồng liên quan được bàn giao. Kiểm dữ liệu lưu và ca ngoài quyền |
 
+### P21 · Kiểm thử HTTPS/WSS cục bộ
+
+Ngày 10/11/2026, GitHub `main` và bản dùng để kiểm thử cùng ở `23d61e4`. Client chạy bản production build với Next.js 16, Backend dùng JDK 17 và PostgreSQL TEST khôi phục riêng lên Flyway V33. Cả ba dịch vụ chạy trên loopback. Điểm vào HTTPS dùng chứng chỉ thử nghiệm chỉ được tin cậy trong tiến trình kiểm thử.
+
+- Health và readiness đạt. Điểm vào HTTPS từ chối khách chưa có mã, từ chối mã sai và cấp phiên khi nhập đúng. Cookie đăng nhập TEST có `Secure`, `HttpOnly` và `SameSite=Lax`.
+- Qua cùng Origin HTTPS, STOMP chạy trên WSS cho Mai Hoa LINES, Tam Thế CAREER và Chat 1:1. Lịch sử được lưu theo đúng tài khoản. Admin đọc được số liệu, tài khoản khách hàng bị chặn.
+- Ba phiên Chromium kiểm vòng đời phòng, gửi nhận, kết nối lại, đọc bù, gửi lại sau mất ACK, chặn người ngoài phòng và thu hồi phiên.
+
+**Trạng thái:** đạt phần HTTPS/WSS cục bộ. Các dịch vụ thử đã dừng sau lượt chạy. Chủ dự án giới hạn đợt nghiệm thu này trên một máy. Nghiệm thu qua hai mạng chỉ áp dụng khi mở lại phạm vi staging.
+
+### P22 · Hồi quy cục bộ
+
+Ngày 10/11/2026, kiểm trên nền `23d61e4`, Client production, Backend JDK 17 và hai bản sao PostgreSQL TEST riêng. Lượt Backend xác nhận Flyway V33 giữ phòng mẫu từ V32. Lượt HTTPS/WSS dùng bản sao khác, trên loopback.
+
+| Hạng mục | Kết quả |
+| --- | --- |
+| Client | 1.411 Vitest, 12 ca Node và 63 fixture hợp đồng đạt. Ca phiên hết hạn chờ hiệu ứng xóa trạng thái lịch sử trước khi khẳng định. |
+| Backend | 2.302 đạt, 30 bỏ qua, 0 lỗi. Cả 20 ca tích hợp Chat trên PostgreSQL đạt. 30 ca bỏ qua thuộc các bộ dữ liệu tri thức cần cấu hình TEST riêng. |
+| Nghiệp vụ qua HTTPS/WSS | Mai Hoa LINES, OBJECT_COUNT, TIME, Tam Thế CAREER, tra quẻ, chuyển lịch, đọc nội dung CMS và Admin metrics đạt. Kiểm mã quẻ sai định dạng 400, mã đúng định dạng nhưng không tồn tại 404 và ngày sai 400. |
+| Auth và lịch sử | Cookie bảo mật, lưu/đọc/xóa đúng chủ tài khoản, tài khoản khác nhận 404, sai CSRF hoặc Origin nhận 403 và tài khoản khách hàng bị chặn khỏi Admin metrics. |
+| Chat | Ba phiên Chromium kiểm vòng đời, gửi nhận, đọc bù sau ngắt socket, gửi lại sau mất ACK, chặn người ngoài phòng và thu hồi phiên. Một lượt hết thời gian chờ bắt tay WSS ở ngưỡng 5 giây. Lượt đầy đủ đạt khi tăng ngưỡng chờ của công cụ kiểm thử lên 15 giây. |
+
+**Trạng thái:** `PASS_LOCAL_TEST` cho các ca trên. Lượt CMS trực tiếp kiểm đọc nội dung, còn quy trình nháp, duyệt và công bố dùng bằng chứng V27 tại PH3-PH-01.
+
+### P23 · Tải đồng thời và lỗi kết nối cục bộ
+
+Ngày 10/11/2026, đo Backend trên nền `23d61e4` với JDK 17.0.12, Node 24.21.0 và PostgreSQL TEST riêng tại Flyway V33. Windows, Intel Core i7-13620H, 16 luồng logic, khoảng 23,71 GiB RAM theo Node. Bộ phát tải, Backend và database chạy cùng máy, qua loopback. Flyway tắt trong lúc đo, pool JDBC ở chế độ chỉ đọc.
+
+Ma trận gồm 1, 5 và 20 kết nối STOMP độc lập, mỗi mức ba lượt, chạy tuần tự và xoay thứ tự. Mỗi lượt làm nóng 5 giây, đo 15 giây và có tối đa 15 giây thu nốt. Backend dùng `bounded`, 4 worker, hàng đợi 100 và JVM heap từ 256 đến 512 MiB. Tải là Mai Hoa LINES với tối đa một yêu cầu chưa có kết quả trên mỗi kết nối và khoảng nghỉ 200 ms. Runner dùng bản sao tạm của X01, đổi số Client, điều kiện đích TEST V33 và đường dẫn tải bộ kiểm hợp đồng. Ma trận đo trực tiếp WebSocket, tập trung vào xử lý tính quẻ, không gồm chi phí trình duyệt, HTTPS hay tải từ mạng ngoài.
+
+Đối chiếu mẫu từ CSV theo thời điểm SEND trong cửa sổ `[start, end)`. Số yêu cầu trong bảng cộng qua ba lượt. Median, P95, P99 và thông lượng lấy median của ba chỉ số từng lượt. P95/P99 tính theo nearest-rank trên kết quả hợp lệ, thông lượng đếm kết quả đến trong cửa sổ đo.
+
+| Client | Hoàn thành / gửi | Median (ms) | P95 (ms) | P99 (ms) | Yêu cầu/giây |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 209 / 209 | 2,929 | 5,452 | 7,652 | 4,667 |
+| 5 | 1.039 / 1.039 | 4,477 | 9,047 | 12,790 | 23,000 |
+| 20 | 4.120 / 4.120 | 10,526 | 19,101 | 155,732 | 91,467 |
+
+Cả chín lượt đạt. Có 5.368 kết quả đúng, không phát hiện SEND ngoài ranh, kết quả đến muộn hoặc lỗi giao thức. P99 của ba lượt 20 Client lần lượt là 276,026, 155,732 và 42,347 ms. Độ trễ đuôi dao động đáng kể giữa các lượt ngắn. Phép đo có nhịp gửi cố định theo từng Client, nên thông lượng chỉ mô tả tải đã thử trên máy này.
+
+Ca lỗi kết nối chạy riêng qua HTTPS/WSS trên PostgreSQL TEST V33. Khi ngắt socket phía USER và gửi từ CONSULTANT, USER kết nối lại và đọc bù đúng một lần. Khi chặn ACK sau lúc Server đã lưu tin, Client giữ bản nháp, gửi lại cùng mã yêu cầu và PostgreSQL giữ một bản ghi. Tài khoản ngoài phòng tiếp tục bị từ chối và giao diện xóa nội dung khi phiên bị thu hồi.
+
+**Trạng thái:** `PASS_LOCAL_TEST`. Dữ liệu thô và CSV đối chiếu nằm ở `server/target/p23-local/`. Log lỗi kết nối nằm ở `server/target/p23-fault/scenarios.log`. Các tiến trình thử đã dừng.
+
+### P24 · Bàn giao trên một máy
+
+Đã bổ sung [hướng dẫn chạy, sao lưu, khôi phục và kịch bản demo](83-P24-LOCAL-RUNBOOK.md) vào README. Diễn tập sao lưu và khôi phục trên PostgreSQL TEST V33 đạt `PASS_LOCAL_TEST`. Số dòng và dấu vân tay nội dung của sáu bảng, gồm quẻ, tài khoản, phòng chat và tin nhắn, đều khớp giữa nguồn và đích.
+
 <a id="cap-nhat"></a>
 ## Quy tắc cập nhật
 
