@@ -45,6 +45,7 @@ import org.springframework.web.bind.annotation.RestController;
 final class AccountAuthController {
     private static final Logger LOG = LoggerFactory.getLogger(AccountAuthController.class);
     private static final int MAX_BODY = 16 * 1024;
+    private static final int REGISTRATION_PASSWORD_MIN_LENGTH = 8;
     private static final Pattern USERNAME = Pattern.compile("[a-zA-Z0-9._-]{3,32}");
     private static final Pattern EMAIL_LOCAL = Pattern.compile("[a-zA-Z0-9_+%-]+(?:\\.[a-zA-Z0-9_+%-]+)*");
     private static final Pattern DOMAIN_LABEL = Pattern.compile("[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?");
@@ -74,7 +75,7 @@ final class AccountAuthController {
             if (name.isEmpty() || name.codePointCount(0, name.length()) > 80
                     || name.codePoints().anyMatch(Character::isISOControl)) throw AuthFailure.invalid();
             String identifier = identifier(text(body, "identifier"));
-            String password = password(body, 15);
+            String password = password(body, REGISTRATION_PASSWORD_MIN_LENGTH);
             limits.register(request.getRemoteAddr());
             return success(201, service.register(name, identifier, password), null);
         });

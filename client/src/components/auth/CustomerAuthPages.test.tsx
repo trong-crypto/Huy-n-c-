@@ -41,6 +41,45 @@ describe("customer registration", () => {
     expect(screen.getByText("Mật khẩu xác nhận chưa trùng khớp.")).toBeTruthy();
     expect(document.activeElement).toBe(confirmation);
   });
+
+  it.each([7, 129])("rejects a registration password of %i code points and keeps it editable", (length) => {
+    render(<RegistrationPage />);
+    enter("Tên hiển thị", "Khách thử");
+    enter("Tài khoản hoặc email", "sample-user");
+    const value = "🔑".repeat(length);
+    const password = enter("Mật khẩu", value);
+    const confirmation = enter("Xác nhận mật khẩu", value);
+
+    fireEvent.click(screen.getByRole("button", { name: "Đăng ký" }));
+    expect(screen.getByRole("alert").textContent).toContain("8 đến 128");
+    expect(document.activeElement).toBe(password);
+    expect(password.value).toBe(value);
+    expect(confirmation.value).toBe(value);
+  });
+
+  it.each([8, 128])("accepts a registration password of %i Unicode code points", (length) => {
+    render(<RegistrationPage />);
+    enter("Tên hiển thị", "Khách thử");
+    enter("Tài khoản hoặc email", "sample-user");
+    const value = "🔑".repeat(length);
+    enter("Mật khẩu", value);
+    enter("Xác nhận mật khẩu", value);
+
+    fireEvent.click(screen.getByRole("button", { name: "Đăng ký" }));
+    expect(screen.queryByRole("alert")).toBeNull();
+    expect(screen.getByRole("status").textContent).toContain("chưa được gửi");
+  });
+
+  it("can show or hide confirmation independently without submitting the form", () => {
+    render(<RegistrationPage />);
+    const password = enter("Mật khẩu", " value with spaces ");
+    const confirmation = enter("Xác nhận mật khẩu", password.value);
+    fireEvent.click(screen.getByRole("button", { name: "Hiện xác nhận mật khẩu" }));
+    expect(confirmation.type).toBe("text");
+    expect(password.type).toBe("password");
+    expect(confirmation.value).toBe(password.value);
+    expect(screen.queryByRole("alert")).toBeNull();
+  });
 });
 
 describe("customer login", () => {
@@ -52,6 +91,21 @@ describe("customer login", () => {
     fireEvent.click(screen.getByRole("button", { name: "Đăng nhập" }));
     expect(screen.getAllByRole("alert")).toHaveLength(2);
     expect(document.activeElement).toBe(identifier);
+  });
+
+  it("toggles password visibility without altering the password or validating registration length at login", () => {
+    render(<LoginPage />);
+    enter("Tài khoản hoặc email", "sample-user");
+    const password = enter("Mật khẩu", " 001 ");
+    fireEvent.click(screen.getByRole("button", { name: "Hiện mật khẩu" }));
+    expect(password.type).toBe("text");
+    expect(password.value).toBe(" 001 ");
+    fireEvent.click(screen.getByRole("button", { name: "Ẩn mật khẩu" }));
+    expect(password.type).toBe("password");
+    expect(password.value).toBe(" 001 ");
+    fireEvent.click(screen.getByRole("button", { name: "Đăng nhập" }));
+    expect(screen.queryByRole("alert")).toBeNull();
+    expect(screen.getByRole("status").textContent).toContain("chưa được gửi");
   });
 });
 

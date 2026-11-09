@@ -23,6 +23,8 @@ const subscribe = () => () => {};
 const clientSnapshot = () => true;
 const serverSnapshot = () => false;
 const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const registrationPasswordLength = { min: 8, max: 128 } as const;
+const passwordLengthHint = `Mật khẩu đăng ký cần từ ${registrationPasswordLength.min} đến ${registrationPasswordLength.max} ký tự.`;
 
 export function CustomerAuthForm({ registering }: { registering: boolean }) {
   const fields = registering ? registrationFields : loginFields;
@@ -33,6 +35,7 @@ export function CustomerAuthForm({ registering }: { registering: boolean }) {
   const [validated, setValidated] = useState(false);
   const [busy, setBusy] = useState(false);
   const [apiError, setApiError] = useState("");
+  const [visiblePasswords, setVisiblePasswords] = useState<Partial<Record<FieldKey, boolean>>>({});
   const pending = useRef<AbortController | null>(null);
   useEffect(() => () => pending.current?.abort(), []);
 
@@ -47,6 +50,11 @@ export function CustomerAuthForm({ registering }: { registering: boolean }) {
         nextErrors[field.key] = field.requiredError;
       } else if (field.key === "identifier" && value.includes("@") && !emailFormat.test(value.trim())) {
         nextErrors.identifier = "Vui lòng nhập email đúng định dạng.";
+      } else if (registering && field.key === "password") {
+        const length = Array.from(value).length;
+        if (length < registrationPasswordLength.min || length > registrationPasswordLength.max) {
+          nextErrors.password = passwordLengthHint;
+        }
       } else if (field.key === "confirmation" && value !== inputs.current.password?.value) {
         nextErrors.confirmation = "Mật khẩu xác nhận chưa trùng khớp.";
       }
@@ -81,7 +89,9 @@ export function CustomerAuthForm({ registering }: { registering: boolean }) {
       const messages: Record<string, string> = {
         INVALID_CREDENTIALS: "Tài khoản hoặc mật khẩu không hợp lệ.",
         IDENTIFIER_TAKEN: "Tài khoản hoặc email đã được sử dụng.",
-        INVALID_INPUT: "Kiểm tra tên hiển thị, tài khoản hoặc email và mật khẩu. Mật khẩu đăng ký dài 15–128 ký tự.",
+        INVALID_INPUT: registering
+          ? `Kiểm tra tên hiển thị, tài khoản hoặc email và mật khẩu. ${passwordLengthHint}`
+          : "Kiểm tra tài khoản hoặc email và mật khẩu.",
         TOO_MANY_REQUESTS: "Bạn đã gửi quá nhiều yêu cầu. Vui lòng thử lại sau.",
         FORBIDDEN: "Tài khoản này không có quyền đăng nhập tại đây.",
       };
@@ -110,13 +120,22 @@ export function CustomerAuthForm({ registering }: { registering: boolean }) {
       <fieldset className={`form-stack ${styles.fields}`} disabled={!hydrated || busy}>
         {fields.map(field => {
           const id = `customer-auth-${field.key}`;
+          const hint = registering && field.key === "password" ? passwordLengthHint : undefined;
+          const describedBy = [hint && `${id}-hint`, errors[field.key] && `${id}-error`].filter(Boolean).join(" ");
+          const isPassword = field.type === "password";
+          const visible = Boolean(visiblePasswords[field.key]);
           return (
-            <FormField key={field.key} id={id} label={field.label}>
-              <input id={id} type={field.type} autoComplete={field.autoComplete} required
+            <FormField key={field.key} id={id} label={field.label} hint={hint}>
+              <input id={id} type={isPassword && visible ? "text" : field.type} autoComplete={field.autoComplete} required
                 ref={input => { inputs.current[field.key] = input; }}
                 aria-invalid={errors[field.key] ? true : undefined}
-                aria-describedby={errors[field.key] ? `${id}-error` : undefined}
+                aria-describedby={describedBy || undefined}
                 onChange={() => clearError(field.key)} />
+              {isPassword && <button type="button" className={styles.passwordToggle} aria-controls={id}
+                aria-label={`${visible ? "Ẩn" : "Hiện"} ${field.label.toLocaleLowerCase("vi")}`}
+                onClick={() => setVisiblePasswords(current => ({ ...current, [field.key]: !visible }))}>
+                {visible ? "Ẩn" : "Hiện"}
+              </button>}
               {errors[field.key] && <FieldError id={`${id}-error`}>{errors[field.key]}</FieldError>}
             </FormField>
           );
