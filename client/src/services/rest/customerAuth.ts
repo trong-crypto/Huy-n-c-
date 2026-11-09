@@ -34,6 +34,12 @@ export function loginCustomer(data: Credentials, signal: AbortSignal) {
   return requestJson("/auth/login", isSession, signal, data, options());
 }
 
+export async function getCustomerSession(signal: AbortSignal) {
+  const session = await requestJson("/auth/session", isSession, signal, undefined, options());
+  if (Date.parse(session.expiresAt) <= Date.now()) throw new RestError("INVALID_SESSION");
+  return session;
+}
+
 export function logoutCustomer(csrfToken: string, signal: AbortSignal) {
   const request = options();
   return requestJson("/auth/logout", (value): value is null => value === null, signal, {},

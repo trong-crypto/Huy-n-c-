@@ -65,13 +65,17 @@ select:disabled, input:disabled, fieldset:disabled { cursor: not-allowed; }
 .brand-mark svg { width: 100%; height: 100%; }
 .brand-caption { display: block; margin-top: 2px; font-family: var(--font-body); font-size: 9px; letter-spacing: .1em; color: var(--muted); }
 .navigation-links, .navigation-account { display: flex; flex-wrap: wrap; gap: 6px; }
-.navigation-links a, .navigation-account a { min-height: 44px; display: flex; align-items: center; padding: 8px 11px; text-decoration: none; border: 1px solid transparent; border-radius: 8px; color: var(--secondary); font-size: 14px; }
+.navigation-links a, .navigation-account a, .navigation-account button { min-height: 44px; display: flex; align-items: center; padding: 8px 11px; text-decoration: none; border: 1px solid transparent; border-radius: 8px; color: var(--secondary); font-size: 14px; }
 .navigation-links { gap: 4px; }
 .navigation-links a { padding-inline: 7px; }
-.navigation-links a:hover, .navigation-account a:hover { color: var(--primary-hover); background: var(--soft); }
+.navigation-links a:hover, .navigation-account a:hover, .navigation-account button:not(:disabled):hover { color: var(--primary-hover); background: var(--soft); }
 .navigation-links a[aria-current="page"], .navigation-account a[aria-current="page"] { color: var(--primary-hover); background: rgb(215 180 106 / 9%); border-color: var(--border); }
-.navigation-account { padding-left: 12px; border-left: 1px solid var(--border); }
+.navigation-account { min-height: 44px; align-items: center; min-width: 0; padding-left: 12px; border-left: 1px solid var(--border); }
 .navigation-account .navigation-register { color: var(--primary-hover); border-color: var(--gold-muted); }
+.navigation-account button { background: transparent; border-color: var(--border); cursor: pointer; }
+.navigation-account button:disabled { cursor: default; opacity: .6; }
+.navigation-account-name { max-width: 12rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--primary-hover); font-size: 14px; }
+.navigation-session-status { color: var(--muted); font-size: 13px; }
 .skip-link { position: absolute; top: -100px; left: 16px; padding: 12px; background: var(--surface); color: var(--text); z-index: 50; }
 .skip-link:focus { top: 8px; }
 .page-container { width: 100%; max-width: 1248px; margin: auto; padding: var(--space-16) var(--space-8); }

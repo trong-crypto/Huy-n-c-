@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BrandSymbol } from "@/components/ui/CelestialArt";
-import { customerAuthRoutes } from "@/config/customerAuthRoutes";
 import { methodCatalogHref } from "@/config/divinationCatalog";
 import { chatRoutes } from "@/components/chat/chatState";
+import { NavigationAccount } from "./NavigationAccount";
 
 export function SiteNavigation() {
   const pathname = usePathname();
@@ -25,14 +25,7 @@ export function SiteNavigation() {
             </Link>
           ))}
         </div>
-        <div className="navigation-account">
-          <Link href={customerAuthRoutes.login} aria-current={pathname === customerAuthRoutes.login ? "page" : undefined}>
-            Đăng nhập
-          </Link>
-          <Link href={customerAuthRoutes.register} className="navigation-register" aria-current={pathname === customerAuthRoutes.register ? "page" : undefined}>
-            Đăng ký
-          </Link>
-        </div>
+        <NavigationAccount pathname={pathname} />
       </nav>
     </header>
   );
