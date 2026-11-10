@@ -43,6 +43,7 @@ it("loads the user directory, retries C3 with one UUID, and opens the saved room
 
   render(<ConsultationPage />);
   fireEvent.click(await screen.findByRole("radio", { name: consultant.displayName }));
+  expect(screen.queryByRole("link", { name: /Mở không gian tư vấn viên/ })).toBeNull();
   fireEvent.click(screen.getByRole("button", { name: "Gửi yêu cầu tư vấn" }));
   await screen.findByRole("alert", { name: "" });
   expect(screen.getByText("Chưa xác nhận được yêu cầu. Bạn có thể bấm gửi lại.")).toBeTruthy();
@@ -86,6 +87,14 @@ it("blocks the wrong role before loading any room data", async () => {
   render(<ConsultantWorkspacePage />);
   await screen.findByText("Bạn không có quyền mở cuộc trò chuyện này.");
   await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
+});
+
+it("shows the consultant workspace link only after the server confirms a consultant session", async () => {
+  vi.stubGlobal("fetch", vi.fn(async () => success({ accountId: consultantId, role: "CONSULTANT", expiresAt: expiresAt() })));
+  render(<ConsultationPage />);
+  expect(screen.queryByRole("link", { name: /Mở không gian tư vấn viên/ })).toBeNull();
+  const link = await screen.findByRole("link", { name: /Mở không gian tư vấn viên/ });
+  expect(link.getAttribute("href")).toBe("/tu-van-vien");
 });
 
 it("lets a consultant accept a pending room and end the active room using the customer CSRF token", async () => {

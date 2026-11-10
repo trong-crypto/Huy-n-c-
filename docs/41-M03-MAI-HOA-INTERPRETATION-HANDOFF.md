@@ -98,7 +98,7 @@ Snapshot TEST vẫn `4543343a82c7eefb161b15bd359284c3dae350617a362aa56bcac0d1801
 
 ## 6. Chạy lại trên TEST
 
-1. Dùng database TEST riêng đã bootstrap và nhập M02 theo38; không trỏ mặc định vào huyenco. Hướng dẫn profile/env/Origin ở [35](35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md).
+1. Dùng database TEST riêng đã bootstrap và nhập M02 theo38; không trỏ mặc định vào huyenco. Hướng dẫn profile/env/Origin ở [35](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md).
 2. Build JAR profile database và khởi động profile db vào TEST. Ví dụ port18087, ALLOWED_ORIGINS có đúng Origin của Client. Credentials ở biến môi trường, không đi theo Git. Profile db hiện bật Flyway tự động khi khởi động: kiểm DB_URL thật sự trỏ TEST đã bootstrap/seed theo38; không dùng huyenco để thử. Trước khi áp dụng vào DB dự án, làm backup/kiểm/import theo wrapper38 và cổng nghiệm thu đã chốt.
 3. Từ client:
 

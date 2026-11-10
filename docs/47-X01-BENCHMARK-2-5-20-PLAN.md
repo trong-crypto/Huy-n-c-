@@ -19,7 +19,7 @@ Một Client trong phép đo là **một kết nối WebSocket/STOMP độc lậ
 
 ### 2.1. Database và tiến trình
 
-1. X01.1 đã tạo và kiểm toán database riêng `huyenco_benchmark_test_20261029_010531`; dùng target manifest cục bộ `scripts/generated/x01_benchmark_target.json` theo [biên bản 48](48-X01-TEST-DATABASE-BASELINE.md). [Tài liệu 46](46-DEMO-CLIENT-SERVER-POSTGRES-TEST.md) tiếp tục dành cho TEST demo/UI. Xác nhận tên database thực tế trước khi chạy; không mặc định rằng cấu hình của terminal cũ còn đúng.
+1. X01.1 đã tạo và kiểm toán database riêng `huyenco_benchmark_test_20261029_010531`; dùng target manifest cục bộ `scripts/generated/x01_benchmark_target.json` theo [biên bản 48](48-X01-TEST-DATABASE-BASELINE.md). [Tài liệu 46](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/46-DEMO-CLIENT-SERVER-POSTGRES-TEST.md) tiếp tục dành cho TEST demo/UI. Xác nhận tên database thực tế trước khi chạy; không mặc định rằng cấu hình của terminal cũ còn đúng.
 2. Chốt snapshot dữ liệu đầu buổi. Không migrate/import trong lúc đo; đặt `SPRING_FLYWAY_ENABLED=false`.
 3. Dùng request LINES không cookie, không gọi `/session`, không lưu/xóa history. Runner tự kết nối STOMP với Origin cho phép. Không tái sử dụng cookie của trình duyệt vừa sửa lỗi phiên.
 4. Chạy tuần tự một Backend dành cho benchmark tại `127.0.0.1:18091`, theo target manifest đã chốt, không dùng chung tiến trình với người đang nghiệm thu UI. Cổng 18090 hiện phục vụ UI; chỉ dừng tiến trình benchmark do buổi đo tạo. Dù tách cổng/database, không chạy workload UI đồng thời khi thu số liệu chính thức trên cùng máy.

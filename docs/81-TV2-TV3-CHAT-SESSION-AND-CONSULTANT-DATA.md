@@ -305,7 +305,7 @@ STOMP receipt thuộc tầng giao thức. Client chỉ đánh dấu đã lưu kh
 <a id="chat-data-06"></a>
 ## CHAT-DATA-06 · Dữ liệu TEST cho nghiệm thu Chat 1:1
 
-Chuẩn bị một bản PostgreSQL có seed và Flyway V33 trên loopback. Tên database phải là `huyenco_chat_fixture_test` hoặc tên đó kèm một hậu tố chữ thường/số sau dấu gạch dưới. Khi cần dựng bản sao, dùng [quy trình TEST riêng](77-TV1-INT01-V27-TEST-HANDOFF.md) và đổi đích Flyway thành V33. Chạy từ thư mục gốc repo sau khi đóng gói Backend với JDK 17:
+Chuẩn bị một bản PostgreSQL có seed và Flyway V33 trên loopback. Tên database phải là `huyenco_chat_fixture_test` hoặc tên đó kèm một hậu tố chữ thường/số sau dấu gạch dưới. Khi cần dựng bản sao, dùng [quy trình TEST riêng](82-HUYENCO-LAN-DEMO.md#tạo-database-test-mới-nếu-cần). Chạy từ thư mục gốc repo sau khi đóng gói Backend với JDK 17:
 
 ```powershell
 Push-Location server

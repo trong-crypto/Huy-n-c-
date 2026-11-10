@@ -1,3 +1,5 @@
+[Hướng dẫn chạy Client và Admin bản hiện tại](../docs/82-HUYENCO-LAN-DEMO.md).
+
 # Huyền Cơ Client
 
 Next.js Client do TV1 phụ trách: biểu mẫu Mai Hoa/Tam Thế, kết quả có nguồn, tra cứu quẻ, lịch/Can Chi và lịch sử H01. Client kiểm đầu vào và trình bày phản hồi; phép tính và quyền truy cập do Backend quyết định.
@@ -60,7 +62,7 @@ npm run start -- --hostname 127.0.0.1 --port 3173
 
 Không chạy dev/start đồng thời cùng port hoặc build trong khi dev đang dùng cùng `.next`. `next dev` có thể tự sinh/cập nhật `AGENTS.md` và `next-env.d.ts`; review Git sau khi chạy. Không xóa artifact của người khác để làm sạch status.
 
-Backend cần code/contract v1.2 hiện tại, dữ liệu V12 đã được TV2/TV3 bàn giao và Origin thật của trang được cho phép. Git không chuyển PostgreSQL. Đọc [hướng dẫn Backend](../docs/35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md); không tự bootstrap/import/Flyway hoặc đổi CORS để vượt lỗi. Phase 8A không khởi động lại Backend.
+Backend cần code/contract v1.2 hiện tại, dữ liệu V12 đã được TV2/TV3 bàn giao và Origin thật của trang được cho phép. Git không chuyển PostgreSQL. Đọc [hướng dẫn Backend](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md); không tự bootstrap/import/Flyway hoặc đổi CORS để vượt lỗi. Phase 8A không khởi động lại Backend.
 
 ## Phiên, cookie và riêng tư
 

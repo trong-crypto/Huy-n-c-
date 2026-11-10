@@ -43,7 +43,7 @@ $env:ALLOWED_ORIGINS = 'http://localhost:3000,http://127.0.0.1:3173'
 
 Nếu JAR bị thay hoặc Server source thay đổi, build lại với Maven profile `database` trước khi chạy. Chỉ đặt `SPRING_FLYWAY_ENABLED=true` trong lượt migration đã có backup và được kiểm soát; không bật khi chỉ nghiệm thu trên database TEST đã chuẩn bị. Sau khi dừng Server, xóa `DB_PASSWORD` khỏi phiên PowerShell.
 
-TV1 trên cùng máy dùng `HUYENCO_API_URL=http://127.0.0.1:8080` cho REST proxy và `NEXT_PUBLIC_WS_URL=ws://127.0.0.1:8080/ws` cho STOMP. Khi thử từ máy khác, thay `127.0.0.1` bằng IP Server, cấu hình Origin thật và firewall theo [hướng dẫn 35](35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md); kiểm readiness từ máy TV1 trước. PostgreSQL không cần mở cổng ra máy TV1.
+TV1 trên cùng máy dùng `HUYENCO_API_URL=http://127.0.0.1:8080` cho REST proxy và `NEXT_PUBLIC_WS_URL=ws://127.0.0.1:8080/ws` cho STOMP. Khi thử từ máy khác, thay `127.0.0.1` bằng IP Server, cấu hình Origin thật và firewall theo [hướng dẫn 35](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md); kiểm readiness từ máy TV1 trước. PostgreSQL không cần mở cổng ra máy TV1.
 
 ## Giới hạn và bước kế tiếp
 

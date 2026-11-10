@@ -77,7 +77,7 @@ Năm capture D04 được cập nhật bằng phản hồi thật, sau chốt b�
 
 ## 6. Cách dùng và kiểm lại
 
-Máy hiện tại đã có V12/bundle: **không cần nạp lại** để chạy M03/D04. Khởi động lại Backend bằng code/JAR mới với Spring profile db, DB_URL trỏ `jdbc:postgresql://127.0.0.1:5432/huyenco`; DB_USERNAME/DB_PASSWORD và Origin theo [35](35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md). Không ghi mật khẩu vào application-db.yml. Server127.0.0.1:18089 trong biên bản đã dừng, không phải dịch vụ đang chạy cho TV1.
+Máy hiện tại đã có V12/bundle: **không cần nạp lại** để chạy M03/D04. Khởi động lại Backend bằng code/JAR mới với Spring profile db, DB_URL trỏ `jdbc:postgresql://127.0.0.1:5432/huyenco`; DB_USERNAME/DB_PASSWORD và Origin theo [35](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md). Không ghi mật khẩu vào application-db.yml. Server127.0.0.1:18089 trong biên bản đã dừng, không phải dịch vụ đang chạy cho TV1.
 
 Kiểm chỉ đọc từ repo root, credential nhận riêng qua môi trường:
 

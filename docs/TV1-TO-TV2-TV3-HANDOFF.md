@@ -39,7 +39,7 @@
 - **Backend trên nhánh `bmanh812` tại `13cc086`** có `POST /api/v1/session` trong `HistoryController` và các API lịch sử H01. `SessionService` xác minh cookie `huyenco_session` và quyền sở hữu lịch sử. Cookie do Server cấp với `HttpOnly` và `SameSite=Lax`. Phản hồi bootstrap phiên có `expiresAt` và `csrfToken`. H01 dùng `401` cho phiên không hợp lệ và `403` cho kiểm tra CSRF/Origin thất bại. Phiên này đại diện cho chủ sở hữu ẩn danh, chưa gắn với tài khoản hoặc vai trò `ADMIN`.
 - **Đối chiếu tài liệu với mã** cho thấy tình trạng chờ Admin Auth trong tài liệu cũ phù hợp với bản mã đã đọc. Chưa thấy API đăng nhập, đọc phiên quản trị, đăng xuất hay kiểm tra vai trò `ADMIN` trong Backend tại mốc này. Migration V11 tạo `anonymous_sessions` và `interpretation_history`. Các migration đến V12 chưa có bảng tài khoản hoặc vai trò Admin. Nếu TV2/TV3 đã làm trên nhánh khác, cần xác nhận bằng nhánh, commit và hợp đồng tương ứng.
 
-[Bàn giao Admin Auth gốc](TV1-PHASE2-ADMIN-AUTH-HANDOFF.md) · [Hợp đồng API hiện tại](02-API-CONTRACT.md) · [Hợp đồng H01](34-H01-SESSION-HISTORY-HANDOFF.md) · [HistoryController](../server/src/main/java/com/huyenco/history/HistoryController.java) · [Migration V11](../server/src/main/resources/db/migration/V11__anonymous_sessions_and_history.sql)
+[Bàn giao Admin Auth gốc](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/TV1-PHASE2-ADMIN-AUTH-HANDOFF.md) · [Hợp đồng API hiện tại](02-API-CONTRACT.md) · [Hợp đồng H01](34-H01-SESSION-HISTORY-HANDOFF.md) · [HistoryController](../server/src/main/java/com/huyenco/history/HistoryController.java) · [Migration V11](../server/src/main/resources/db/migration/V11__anonymous_sessions_and_history.sql)
 
 <a id="cong-viec-tv2"></a>
 ### A. Công việc TV2 – Backend
@@ -252,7 +252,7 @@ Chuẩn bị hai tài khoản TEST trên localhost gồm một USER và một CO
 | Session và quyền | H01 xác định owner ẩn danh từ cookie `huyenco_session`. Server kiểm owner, Origin/CSRF và custom header theo contract. H01 trả `401 INVALID_SESSION`, `403 CSRF_REJECTED` và `404 NOT_FOUND` khi truy cập bản ghi ngoài owner. | Kiểm H01 live, gồm save/read/delete và ca lỗi, `NOT RUN` trong lượt này. H01 chỉ cấp quyền trong phạm vi lịch sử ẩn danh. |
 | Tài khoản, Admin và chat | Mã Backend tại mốc audit chưa có đăng nhập/đọc phiên/đăng xuất tài khoản, kiểm vai trò ADMIN/CONSULTANT, CRUD quản trị, thống kê, quản lý tư vấn viên hoặc chat REST/STOMP. | `BLOCKED`. Các route chat giữ khóa và bỏ qua bootstrap H01. |
 
-[Contract v1.2](02-API-CONTRACT.md) · [Cấu hình localhost TEST](35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md) · [Bằng chứng live 8E/8F](44-TV1-PHASE8A-ACCEPTANCE.md) · [Ca chuẩn D01–D12](45-TV1-DEMO-SCRIPT.md)
+[Contract v1.2](02-API-CONTRACT.md) · [Cấu hình localhost TEST](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md) · [Bằng chứng live 8E/8F](44-TV1-PHASE8A-ACCEPTANCE.md) · [Ca chuẩn D01–D12](45-TV1-DEMO-SCRIPT.md)
 
 ### Ma trận tích hợp 13 module
 
@@ -354,7 +354,7 @@ Lượt 7B chưa có ca **PASS LIVE**. [Bằng chứng 8E/8F ngày 27/10/2026](4
 4. **TV1 chạy kịch bản 7B ở phần 7A.** Kiểm REST/STOMP trước, sau đó H01 hai phiên và lỗi. Chỉ tạo và xóa bản ghi thuộc chính lượt TEST sau khi xác minh datasource và quyền. Tách kết quả live khỏi fixture.
 5. **TV2/TV3** bàn giao Auth và dữ liệu TEST theo role trước Admin/chat. Cung cấp SHA, hợp đồng API, cookie/CSRF, quyền theo phòng và quy trình đối chiếu dữ liệu. TV1 chỉ mở các tính năng khi có bằng chứng trên Server thật.
 
-[Hướng dẫn tích hợp](35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md) · [Dữ liệu V12](38-M01-M02-REVIEWED-KNOWLEDGE-HANDOFF.md) · [Biên bản V12](43-HUYENCO-V12-DEPLOYMENT-ACCEPTANCE.md)
+[Hướng dẫn tích hợp](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md) · [Dữ liệu V12](38-M01-M02-REVIEWED-KNOWLEDGE-HANDOFF.md) · [Biên bản V12](43-HUYENCO-V12-DEPLOYMENT-ACCEPTANCE.md)
 
 <a id="final-tv1-handoff"></a>
 ## Bàn giao cuối từ TV1 đến TV2 và TV3
@@ -504,7 +504,7 @@ Hợp đồng quản lý hồ sơ tư vấn viên (ADM-06, ADM-DATA-04) có tron
 
 Hợp đồng nhật ký quản trị (ADM-07, ADM-DATA-05) có trong [tài liệu 62](62-TV2-TV3-ADMIN-AUDIT-CONTRACT.md).
 
-Môi trường TEST chung và checklist nghiệm thu (ADM-08, ADM-DATA-06) có trong [tài liệu 63](63-TV2-TV3-PHASE4-ADMIN-TEST-HANDOFF.md).
+Môi trường TEST chung và checklist nghiệm thu (ADM-08, ADM-DATA-06) có trong [tài liệu 63](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/63-TV2-TV3-PHASE4-ADMIN-TEST-HANDOFF.md).
 
 Kiểm toán bảo toàn H01 và cách ly lịch sử tài khoản (ADM-DATA-01) có trong [tài liệu 64](64-TV2-TV3-H01-MIGRATION-COMPATIBILITY.md).
 
@@ -565,7 +565,7 @@ Ba phiên Chromium kiểm danh bạ, vòng đời phòng, gửi nhận và đọ
 
 | ID | Công việc | Người phụ trách | Ưu tiên | Trạng thái | Điều kiện nghiệm thu |
 | --- | --- | --- | --- | --- | --- |
-| INT-01 | Bàn giao Backend và dữ liệu TEST | TV2, TV3 | P0 | `PASS_LOCAL_TEST` | GitHub `8efe7db`, Flyway V20 → V27, health/readiness và hồi quy đạt. Xem [cấu hình và checklist TV1](77-TV1-INT01-V27-TEST-HANDOFF.md). |
+| INT-01 | Bàn giao Backend và dữ liệu TEST | TV2, TV3 | P0 | `PASS_LOCAL_TEST` | GitHub `8efe7db`, Flyway V20 → V27, health/readiness và hồi quy đạt. Xem [cấu hình và checklist TV1](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/77-TV1-INT01-V27-TEST-HANDOFF.md). |
 | INT-02 | Chạy lại luồng lõi và H01 trên TEST | TV1, TV2, TV3 | P0 | `BLOCKED` | INT-01 đạt, có bằng chứng REST/STOMP, 401/403, cách ly phiên và cleanup đúng |
 | INT-03 | Tích hợp Auth trước Admin/chat | TV1, TV2, TV3 | P0 | `BLOCKED` | AUTH/CHAT Auth chốt và kiểm trên Backend thật. Có tài khoản TEST theo role |
 | INT-04 | Nghiệm thu Admin và chat theo contract | TV1, TV2, TV3 | P1 | `BLOCKED` | INT-03 đạt và hợp đồng liên quan được bàn giao. Kiểm dữ liệu lưu và ca ngoài quyền |
@@ -616,7 +616,7 @@ Ca lỗi kết nối chạy riêng qua HTTPS/WSS trên PostgreSQL TEST V33. Khi 
 
 ### P24 · Bàn giao trên một máy
 
-Đã bổ sung [hướng dẫn chạy, sao lưu, khôi phục và kịch bản demo](83-P24-LOCAL-RUNBOOK.md) vào README. Diễn tập sao lưu và khôi phục trên PostgreSQL TEST V33 đạt `PASS_LOCAL_TEST`. Số dòng và dấu vân tay nội dung của sáu bảng, gồm quẻ, tài khoản, phòng chat và tin nhắn, đều khớp giữa nguồn và đích.
+Đã bổ sung [hướng dẫn chạy, sao lưu, khôi phục và kịch bản demo](82-HUYENCO-LAN-DEMO.md#7-sao-lưu-và-khôi-phục-thử) vào README. Diễn tập sao lưu và khôi phục trên PostgreSQL TEST V33 đạt `PASS_LOCAL_TEST`. Số dòng và dấu vân tay nội dung của sáu bảng, gồm quẻ, tài khoản, phòng chat và tin nhắn, đều khớp giữa nguồn và đích.
 
 <a id="cap-nhat"></a>
 ## Quy tắc cập nhật

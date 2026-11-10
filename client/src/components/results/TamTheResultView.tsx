@@ -2,6 +2,7 @@ import type { InterpretationEntry, TamTheCategory, TamTheResult } from "@/types/
 import { SectionCard } from "@/components/ui/Controls";
 import { DecisionReferences, EvidenceSummary, ReadingDecisions, RuleEvidenceList, SourceReferences } from "./Evidence";
 import { explainTamTheEntry } from "./tamTheExplanation";
+import { CopyReadingForChat } from "./CopyReadingForChat";
 
 const categoryLabels = { CAREER: "Công danh", WEALTH: "Tài lộc", LOVE: "Tình duyên" };
 const subreadingLabels = { LOC: "Lộc", SANG_HEN: "Sang hèn", DIEN_SAN: "Điền sản" };
@@ -40,11 +41,20 @@ function Entries({ entries, category }: { entries: readonly InterpretationEntry[
 }
 
 export function TamTheResultView({ data }: { data: TamTheResult }) {
+  const entryText = (entry: InterpretationEntry) => `${entry.title}\n${entry.content}`;
+  const sections = data.categories.map(category => {
+    const content = category.subreadings
+      ? category.subreadings.map(sub => [subreadingLabels[sub.code],
+        ...(sub.status === "NO_SOURCE_MATCH" ? ["Chưa có lời luận trong nguồn."] : sub.entries.map(entryText))].join("\n"))
+      : category.entries.map(entryText);
+    return [categoryLabels[category.category], ...content].join("\n");
+  });
   return <div className="tamthe-result" aria-label="Kết quả luận giải Tam Thế">
     <header className="result-summary"><div><p className="eyebrow">DIỄN CẦM TAM THẾ</p><h2>Bảng tra và lời luận từ nguồn.</h2>
       <p>{data.coverageMode === "EXTENDED" ? "Tài lộc mở rộng · Lộc, Sang hèn, Điền sản" : "Tra cứu cơ bản"}</p></div>
       <section aria-label="Căn cứ nội dung Tam Thế"><EvidenceSummary ruleBasis={data.ruleBasis} sourceStatus={data.sourceStatus} /></section>
     </header>
+    <CopyReadingForChat text={["Diễn Cầm Tam Thế", ...sections].join("\n\n")} />
     <p className="result-section-note">Phần giải nghĩa là nội dung biên tập hỗ trợ đọc văn bản. Lời gốc và nguồn được giữ để đối chiếu; các mô tả trong sách cổ không phải kết luận về cuộc đời bạn.</p>
     {data.coverageMode === "EXTENDED" && <p className="field-hint">Lộc, Sang hèn và Điền sản có dữ liệu riêng. Một mục thiếu dữ liệu không làm mất kết quả của các mục còn lại; các liên kết biên tập được ghi trong phần căn cứ.</p>}
     {data.categories.map(category => <section key={category.category} aria-label={`Kết quả ${categoryLabels[category.category]}`}>

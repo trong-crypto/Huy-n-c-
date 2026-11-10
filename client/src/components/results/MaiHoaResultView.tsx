@@ -3,6 +3,7 @@ import { HexagramView } from "@/components/hexagrams/HexagramView";
 import { SectionCard } from "@/components/ui/Controls";
 import { DecisionReferences, EvidenceSummary, RuleEvidenceList, SourceReferences } from "./Evidence";
 import { DetailedReadingView } from "./DetailedReadingView";
+import { CopyReadingForChat } from "./CopyReadingForChat";
 
 const methodLabels: Record<MaiHoaResult["method"], string> = {
   LINES: "Nhập sáu hào", OBJECT_COUNT: "Theo số vật", TIME: "Theo thời gian", TRUONG_XICH: "Trượng xích chiêm",
@@ -36,6 +37,15 @@ export function CalculationSteps({ steps }: { steps: readonly CalculationStep[] 
 
 // Receives the existing validated DTO. No lookups, mutation or calculation here.
 export function MaiHoaResultView({ data }: { data: MaiHoaResult }) {
+  const describeHexagram = (label: string, value: MaiHoaResult["primaryHexagram"]) =>
+    `${label}: ${value.name ?? value.code ?? "Chưa có tên"} · Sáu hào từ dưới lên: ${value.linesBottomUp.map(line => line ? "Dương" : "Âm").join(", ")}`;
+  const shareText = [
+    `Mai Hoa Dịch Số · ${methodLabels[data.method]}`,
+    describeHexagram("Quẻ chủ", data.primaryHexagram),
+    describeHexagram("Quẻ hỗ", data.mutualHexagram),
+    describeHexagram("Quẻ biến", data.changedHexagram),
+    `Hào động: ${data.movingLine} (tính từ dưới lên)`,
+  ].join("\n");
   return <div className="maihoa-result" aria-label="Kết quả quẻ Mai Hoa">
     <header className="result-summary">
       <div><p className="eyebrow">MAI HOA DỊCH SỐ · {methodLabels[data.method]}</p><h2>Ba quẻ, một mạch biến hóa.</h2><p>Quẻ chủ · Quẻ hỗ · Quẻ biến</p></div>
@@ -60,6 +70,7 @@ export function MaiHoaResultView({ data }: { data: MaiHoaResult }) {
       <HexagramView roleLabel="Quẻ biến" {...data.changedHexagram} />
     </section>
     <section className="moving-line-summary" aria-label="Hào động của quẻ chủ"><span aria-hidden="true">↔</span><div><h3>Hào động: {data.movingLine}</h3><p>Vị trí tính từ hào 1 ở dưới cùng của quẻ chủ.</p></div></section>
+    <CopyReadingForChat text={shareText} />
     {data.detailedReading && <DetailedReadingView reading={data.detailedReading} />}
     {data.calculationSteps.length > 0 && <SectionCard title="Các bước tính"><CalculationSteps steps={data.calculationSteps} /></SectionCard>}
     <SectionCard title="Nguồn tham chiếu">

@@ -515,7 +515,7 @@ Mẫu trên là LINES. OBJECT_COUNT dùng objectCount/hourIndex; TIME dùng th�
 
 ### Phụ lục B: Cấu hình môi trường và hướng dẫn chạy với PostgreSQL TEST
 
-Dùng database TEST riêng đã backup và seed/migrate V12. Cấu hình DB_URL, DB_USERNAME, DB_PASSWORD bằng biến môi trường riêng; không ghi credential vào repo. Backend dùng profile db với Flyway theo quy trình bootstrap, rồi kiểm GET /api/v1/health và /api/v1/readiness. Client đặt HUYENCO_API_URL cho REST proxy và NEXT_PUBLIC_WS_URL cho WebSocket; ALLOWED_ORIGINS trên Backend phải khớp origin thực. Xem docs/35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md; không chạy import trên database chung chỉ để demo. [9,11]
+Dùng database TEST riêng đã backup và seed/migrate V12. Cấu hình DB_URL, DB_USERNAME, DB_PASSWORD bằng biến môi trường riêng; không ghi credential vào repo. Backend dùng profile db với Flyway theo quy trình bootstrap, rồi kiểm GET /api/v1/health và /api/v1/readiness. Client đặt HUYENCO_API_URL cho REST proxy và NEXT_PUBLIC_WS_URL cho WebSocket; ALLOWED_ORIGINS trên Backend phải khớp origin thực. Xem https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md; không chạy import trên database chung chỉ để demo. [9,11]
 
 ### Phụ lục C: Kịch bản nghiệm thu chức năng và fixture mẫu
 

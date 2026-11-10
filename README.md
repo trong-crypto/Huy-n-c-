@@ -1,8 +1,6 @@
 # Huyền Cơ
 
-**Chạy và demo bản nâng cấp trên một máy:** [P24 — PostgreSQL TEST V33, sao lưu, khôi phục và kịch bản demo](docs/83-P24-LOCAL-RUNBOOK.md).
-
-**Chạy demo trên PostgreSQL TEST:** mở [tài liệu 46 — lệnh theo từng terminal, chuẩn bị lần đầu và chạy lại](docs/46-DEMO-CLIENT-SERVER-POSTGRES-TEST.md).
+**Chạy Huyền Cơ:** [Hướng dẫn Client và Admin trên một máy hoặc qua LAN](docs/82-HUYENCO-LAN-DEMO.md).
 
 **Bàn giao dữ liệu cho TV3 viết báo cáo:** [mở hướng dẫn trong handoff/tv3-report](handoff/tv3-report/README.md). Gói gom raw benchmark, log nghiệm thu chức năng, Maven reports, CSV/biểu đồ, tài liệu và bản báo cáo; có manifest SHA-256 và script kiểm sau khi kéo GitHub. Bản gốc được giữ nguyên; thư mục bàn giao đã cho phép Git nhận các log đã rà soát.
 

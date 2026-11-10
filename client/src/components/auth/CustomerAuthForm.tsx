@@ -94,6 +94,7 @@ export function CustomerAuthForm({ registering }: { registering: boolean }) {
           : "Kiểm tra tài khoản hoặc email và mật khẩu.",
         TOO_MANY_REQUESTS: "Bạn đã gửi quá nhiều yêu cầu. Vui lòng thử lại sau.",
         FORBIDDEN: "Tài khoản này không có quyền đăng nhập tại đây.",
+        CSRF_REJECTED: "Máy chủ từ chối yêu cầu. Hãy mở đúng địa chỉ website đã cấu hình trên máy chủ rồi thử lại.",
       };
       setApiError(failure instanceof RestError && Object.hasOwn(messages, failure.code)
         ? messages[failure.code] : "Không thể xác nhận yêu cầu. Vui lòng thử lại.");

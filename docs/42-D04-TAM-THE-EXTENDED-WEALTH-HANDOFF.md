@@ -108,7 +108,7 @@ Snapshot TEST sau cùng: `4543343a82c7eefb161b15bd359284c3dae350617a362aa56bcac0
 ## 6. Chạy lại trên TEST
 
 1. Nhận cùng checkout đầy đủ server/client/data/scripts/docs, dùng TEST riêng đã bootstrap và seed M02 theo38. Không trỏ DB_URL vào huyenco để thử. Không cần nhập lại TEST đã có đúng bundle. Khi tạo TEST mới, theo wrapper backup trước schema và backup trước import; không sửa V1–V12 hoặc Flyway history.
-2. Theo [35](35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md), dùng Maven profile database khi build, Spring profile db khi chạy. Profile db bật Flyway tự động: kiểm DB_URL trước khởi động. DB_USERNAME/DB_PASSWORD truyền qua môi trường riêng. ALLOWED_ORIGINS phải chứa Origin thật của Client.
+2. Theo [35](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md), dùng Maven profile database khi build, Spring profile db khi chạy. Profile db bật Flyway tự động: kiểm DB_URL trước khởi động. DB_USERNAME/DB_PASSWORD truyền qua môi trường riêng. ALLOWED_ORIGINS phải chứa Origin thật của Client.
 3. Sau readiness READY, chạy từ client, ví dụ Server ở127.0.0.1:18088:
 
 ```powershell

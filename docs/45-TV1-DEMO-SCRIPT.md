@@ -1,6 +1,6 @@
 # Kịch bản demo Client TV1 theo F01–F08
 
-**Lệnh để tự chạy demo:** xem [tài liệu 46 — Client–Server–PostgreSQL TEST](46-DEMO-CLIENT-SERVER-POSTGRES-TEST.md), gồm chuẩn bị TEST lần đầu, lệnh chạy lại theo terminal, dữ liệu mẫu và các script nghiệm thu. Các bằng chứng lịch sử trong tài liệu này giữ nguyên phạm vi của từng lượt.
+**Chạy bản hiện tại:** [hướng dẫn Client và Admin](82-HUYENCO-LAN-DEMO.md). Các ca dưới đây giữ nguyên mốc nghiệm thu lịch sử.
 
 Kịch bản ban đầu cho Client baseline `c227140` cộng sửa nhỏ Phase 8A; trạng thái dưới đây đã cập nhật bằng live 8E/8F ngày 27/10/2026 tại HEAD `d95c92651e37f840eb158f284dd1c23056130e9f`, branch `bmanh812`. Dùng dữ liệu mẫu đã có trong `docs/examples/`, không dùng ngày sinh/câu hỏi cá nhân. Không tự suy luận lời luận hoặc phép tính để điền kết quả mong đợi.
 

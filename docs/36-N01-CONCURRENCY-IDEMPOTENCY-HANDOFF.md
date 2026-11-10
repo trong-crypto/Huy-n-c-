@@ -2,7 +2,7 @@
 
 **Ngày kiểm: 25/10/2026 · Phạm vi: Server TV2 + TV3 · Trạng thái: triển khai và kiểm thử trọng tâm đạt.**
 
-N01 bổ sung điều phối cho hai tuyến tính toán STOMP đang có. Kết quả nghiệp vụ, nguồn sách và các quyết định nhóm tiếp tục do service/registry hiện có quyết định. N01 không có migration hoặc yêu cầu nạp lại PostgreSQL. Cách chạy Backend và bootstrap dữ liệu nằm ở [tài liệu 35](35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md).
+N01 bổ sung điều phối cho hai tuyến tính toán STOMP đang có. Kết quả nghiệp vụ, nguồn sách và các quyết định nhóm tiếp tục do service/registry hiện có quyết định. N01 không có migration hoặc yêu cầu nạp lại PostgreSQL. Cách chạy Backend và bootstrap dữ liệu nằm ở [tài liệu 35](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md).
 
 ## 1. Mã nguồn và luồng xử lý
 

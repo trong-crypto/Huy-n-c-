@@ -72,7 +72,8 @@ function SessionGate({ audience }: { audience: ChatAudience }) {
     return <ConsultationWorkspace audience={audience} access={{ status }} retry={resource.reload} />;
   }
   if (session.role !== (audience === "user" ? "USER" : "CONSULTANT")) {
-    return <ConsultationWorkspace audience={audience} access={{ status: "forbidden" }} />;
+    return <ConsultationWorkspace audience={audience} access={{ status: "forbidden" }}
+      canOpenConsultantWorkspace={session.role === "CONSULTANT"} />;
   }
   return <SessionWorkspace key={session.accountId} session={session} audience={audience} onAuthError={invalidate} />;
 }

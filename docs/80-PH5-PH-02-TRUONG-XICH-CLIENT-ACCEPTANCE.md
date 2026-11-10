@@ -2,7 +2,7 @@
 
 ## Chạy thử trên TEST V28
 
-Dùng Backend V28 và PostgreSQL TEST theo [bàn giao V28](79-TV2-TV3-TRUONG-XICH-HANDOFF.md). Chọn **Trượng xích chiêm** trong trang Mai Hoa. Form có sẵn trong Client cùng bản V28. Dùng `NEXT_PUBLIC_ACCOUNT_HISTORY=1` và cấu hình proxy ở [hướng dẫn INT-01](77-TV1-INT01-V27-TEST-HANDOFF.md#3-chạy-client) nếu kiểm lịch sử tài khoản.
+Dùng Backend V28 và PostgreSQL TEST theo [bàn giao V28](79-TV2-TV3-TRUONG-XICH-HANDOFF.md). Chọn **Trượng xích chiêm** trong trang Mai Hoa. Form có sẵn trong Client cùng bản V28. Dùng `NEXT_PUBLIC_ACCOUNT_HISTORY=1` và cấu hình proxy ở [hướng dẫn INT-01](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/77-TV1-INT01-V27-TEST-HANDOFF.md#3-chạy-client) nếu kiểm lịch sử tài khoản.
 
 - Form nhận số trượng 1–999.999 và số thước lẻ 0–9. Số đo tròn trượng nhập `0` thước. Form gửi đúng hai trường số với mã phương pháp `TRUONG_XICH`. Phạm vi v1 là lập quẻ.
 - Nhập `2` và `4`. Chờ bốn bước tiến độ, kết quả Tùy → Tiệm → Vô vọng, hào động 6, trang in 61 / PDF 56. Đăng nhập, chủ động lưu kết quả, mở lại chi tiết và dùng tài khoản khác để kiểm quyền đọc.

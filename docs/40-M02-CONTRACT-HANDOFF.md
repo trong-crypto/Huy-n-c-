@@ -88,7 +88,7 @@ $env:TMP = $env:TEMP
 npm run test:run -- --reporter=dot
 ```
 
-Sau khi tự khởi động Server profile db vào TEST theo [hướng dẫn35](35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md), kiểm giao thức:
+Sau khi tự khởi động Server profile db vào TEST theo [hướng dẫn35](https://github.com/trong-crypto/Huy-n-c-/blob/50cba56a19d6e90be5f3aef01a4e67b91c8da92d/docs/35-TV1-BACKEND-POSTGRES-INTEGRATION-GUIDE.md), kiểm giao thức:
 
 ```powershell
 $env:M02_WS_URL = 'ws://127.0.0.1:18086/ws'

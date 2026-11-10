@@ -14,9 +14,10 @@ const accessMessages = {
   error: "Không tải được thông tin tư vấn. Máy chủ có thể chưa phản hồi.",
 };
 
-export function ConsultationWorkspace({ audience, access = { status: "blocked" }, subscribe, retry, messaging, controls }: {
+export function ConsultationWorkspace({ audience, access = { status: "blocked" }, canOpenConsultantWorkspace, subscribe, retry, messaging, controls }: {
   audience: ChatAudience;
   access?: ChatAccess;
+  canOpenConsultantWorkspace?: boolean;
   subscribe?: SubscribeToRoom;
   retry?: () => void;
   messaging?: ChatMessaging;
@@ -42,9 +43,9 @@ export function ConsultationWorkspace({ audience, access = { status: "blocked" }
       <p>{consultant
         ? "Xem yêu cầu được phân và trả lời trong cuộc trò chuyện được cấp quyền."
         : "Chọn tư vấn viên và trao đổi riêng trong cuộc trò chuyện được Server cấp quyền."}</p>
-      <Link className="source-link" href={consultant ? chatRoutes.user : chatRoutes.consultant}>
+      {(consultant || canOpenConsultantWorkspace) && <Link className="source-link" href={consultant ? chatRoutes.user : chatRoutes.consultant}>
         {consultant ? "Về trang tư vấn người dùng" : "Mở không gian tư vấn viên"} →
-      </Link>
+      </Link>}
     </PageHeader>
     {access.status !== "authorized" && <p className="status-banner"
       role={access.status === "blocked" || access.status === "loading" ? "status" : "alert"}>{accessMessages[access.status]}</p>}
