@@ -78,7 +78,7 @@ final class AccountAuthController {
             if (name.isEmpty() || name.codePointCount(0, name.length()) > 80
                     || name.codePoints().anyMatch(Character::isISOControl)) throw AuthFailure.invalid();
             String identifier = identifier(text(body, "identifier"));
-            String password = password(body, REGISTRATION_PASSWORD_MIN_LENGTH);
+            String password = password(body, "password", REGISTRATION_PASSWORD_MIN_LENGTH);
             limits.register(request.getRemoteAddr());
             return success(201, service.register(name, identifier, password), null);
         });
@@ -90,7 +90,7 @@ final class AccountAuthController {
             guards.mutation(request);
             JsonNode body = body(request, Set.of("identifier", "password"));
             String identifier = identifier(text(body, "identifier"));
-            String password = password(body, 1);
+            String password = password(body, "password", 1);
             limits.login(request.getRemoteAddr(), identifier);
             Realm realm = realm(portal);
             var issued = service.login(realm, identifier, password, token(request, realm));
@@ -131,6 +131,26 @@ final class AccountAuthController {
         });
     }
 
+    @PostMapping({"/password/change", "/{portal:admin}/password/change"})
+    ResponseEntity<Envelope> changePassword(HttpServletRequest request,
+                                            @PathVariable(name = "portal", required = false) String portal) {
+        return handle(request, () -> {
+            guards.mutation(request);
+            var body = body(request, Set.of("currentPassword", "newPassword"));
+            String current = password(body, "currentPassword", 1);
+            String replacement = password(body, "newPassword", REGISTRATION_PASSWORD_MIN_LENGTH);
+            Realm realm = realm(portal);
+            String token = token(request, realm);
+            var session = service.requireSession(realm, token);
+            service.checkCsrf(session, header(request, "X-CSRF-Token"));
+            UUID accountId = session.account().id();
+            limits.passwordChange(request.getRemoteAddr(), accountId);
+            service.changePassword(realm, token, accountId, current, replacement);
+            return ResponseEntity.noContent().cacheControl(CacheControl.noStore())
+                    .header(HttpHeaders.SET_COOKIE, cookie(realm, "", Duration.ZERO, request).toString()).build();
+        });
+    }
+
     private JsonNode body(HttpServletRequest request, Set<String> fields) {
         try {
             if (request.getContentType() == null) throw AuthFailure.invalid();
@@ -161,8 +181,8 @@ final class AccountAuthController {
         return text;
     }
 
-    private static String password(JsonNode body, int minimum) {
-        String password = text(body, "password");
+    private static String password(JsonNode body, String field, int minimum) {
+        String password = text(body, field);
         int length = password.codePointCount(0, password.length());
         if (length < minimum || length > 128) throw AuthFailure.invalid();
         return password;

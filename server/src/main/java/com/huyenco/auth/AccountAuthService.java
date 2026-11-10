@@ -87,13 +87,14 @@ final class AccountAuthService {
     }
 
     Issued login(Realm realm, String identifier, String password, String previousToken) {
-        Credentials credentials = credentials(identifier, false).orElse(null);
+        Credentials credentials = credentials("identifier_normalized", identifier, false).orElse(null);
         String hash = credentials == null ? dummyHash : credentials.hash();
         boolean matches = passwordWork(() -> passwords.matches(password, hash));
         if (!matches || credentials == null || !credentials.active()) throw invalidCredentials();
 
         return transactions.execute(transaction -> {
-            Credentials current = credentials(identifier, true).orElseThrow(AccountAuthService::invalidCredentials);
+            Credentials current = credentials("identifier_normalized", identifier, true)
+                    .orElseThrow(AccountAuthService::invalidCredentials);
             if (!current.active() || !current.account().id().equals(credentials.account().id())
                     || !current.hash().equals(hash)) {
                 throw invalidCredentials();
@@ -150,6 +151,31 @@ final class AccountAuthService {
         if (revoke(realm, token, now()) == 0) throw AuthFailure.session();
     }
 
+    void changePassword(Realm realm, String token, UUID accountId, String currentPassword, String newPassword) {
+        Credentials initial = credentials("id", accountId, false).orElseThrow(AuthFailure::session);
+        if (!initial.active() || !realm.allows(initial.account().role())) throw AuthFailure.session();
+        String replacement = passwordWork(() -> {
+            if (!passwords.matches(currentPassword, initial.hash())) throw invalidCredentials();
+            return passwords.encode(newPassword);
+        });
+
+        transactions.executeWithoutResult(transaction -> {
+            // Login locks the same account before issuing a session and rechecks its password hash.
+            Credentials locked = credentials("id", accountId, true).orElseThrow(AuthFailure::session);
+            if (!locked.active() || !realm.allows(locked.account().role()) || !locked.hash().equals(initial.hash())) {
+                throw AuthFailure.session();
+            }
+            OffsetDateTime changedAt = now();
+            // A concurrent logout or expiry must prevent the password update.
+            if (revoke(realm, token, changedAt) == 0) throw AuthFailure.session();
+            db.update("UPDATE accounts SET password_hash = ? WHERE id = ?", replacement, accountId);
+            db.update("""
+                    UPDATE account_sessions SET revoked_at = greatest(created_at, ?)
+                    WHERE account_id = ? AND revoked_at IS NULL AND expires_at > ?
+                    """, changedAt, accountId, changedAt);
+        });
+    }
+
     void checkCsrf(Session session, String supplied) {
         checkCsrfToken(session.csrfToken(), supplied);
     }
@@ -161,14 +187,14 @@ final class AccountAuthService {
         }
     }
 
-    private Optional<Credentials> credentials(String identifier, boolean lock) {
+    private Optional<Credentials> credentials(String column, Object value, boolean lock) {
         String sql = """
                 SELECT id, display_name, role, password_hash, status
-                FROM accounts WHERE identifier_normalized = ?
-                """;
+                FROM accounts WHERE
+                """ + column + " = ?";
         return db.query(lock ? sql + " FOR UPDATE" : sql, (row, index) -> new Credentials(
                 new Account(row.getObject("id", UUID.class), row.getString("display_name"), row.getString("role")),
-                row.getString("password_hash"), "ACTIVE".equals(row.getString("status"))), identifier)
+                row.getString("password_hash"), "ACTIVE".equals(row.getString("status"))), value)
                 .stream().findFirst();
     }
 

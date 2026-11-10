@@ -5,6 +5,7 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState, ty
 import { useLookup } from "@/services/rest/useLookup";
 import { logoutAdmin, methodGuideError, readAdminSession, type AdminSession } from "@/services/rest/methodGuides";
 import { RestError } from "@/services/rest/transport";
+import { passwordChangeRoutes } from "@/config/customerAuthRoutes";
 import styles from "./admin.module.css";
 
 const AdminContext = createContext<{ session: AdminSession; handleError: (error: unknown) => void } | null>(null);
@@ -69,6 +70,7 @@ export function AdminSessionActions() {
   }
   return <>
     <span className={styles.badge}>{session.account.displayName} · Admin</span>
+    <Link href={passwordChangeRoutes.admin} className="secondary-button">Đổi mật khẩu</Link>
     <button type="button" className="secondary-button" disabled={busy} onClick={() => void signOut()}>
       {busy ? "Đang đăng xuất…" : "Đăng xuất"}
     </button>

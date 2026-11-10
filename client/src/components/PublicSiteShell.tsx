@@ -5,14 +5,15 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { SiteNavigation } from "@/components/SiteNavigation";
 import { chatRoutes } from "@/components/chat/chatState";
-import { customerAuthRoutes } from "@/config/customerAuthRoutes";
+import { customerAuthRoutes, passwordChangeRoutes } from "@/config/customerAuthRoutes";
 import { SessionProvider } from "@/services/session/SessionProvider";
 
 export function PublicSiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   if (pathname === "/admin" || pathname?.startsWith("/admin/")) return children;
   const chatPage = pathname === chatRoutes.user || pathname === chatRoutes.consultant;
-  const accountPage = pathname === customerAuthRoutes.login || pathname === customerAuthRoutes.register;
+  const accountPage = pathname === customerAuthRoutes.login || pathname === customerAuthRoutes.register
+    || pathname === passwordChangeRoutes.customer;
   const content = <><SiteNavigation />{children}</>;
 
   return <>
