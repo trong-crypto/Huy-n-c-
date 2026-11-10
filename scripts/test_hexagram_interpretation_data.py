@@ -22,6 +22,7 @@ class InterpretationDraftsTest(unittest.TestCase):
         self.catalog = read_csv("hexagram_interpretation_sources.csv")
         self.pilots = read_json("hexagram_interpretation_pilot.draft.json")
         self.overviews = read_json("hexagram_interpretation_overviews.draft.json")
+        self.details = read_json("hexagram_interpretation_details.draft.json")
 
     def test_catalog_matches_e01_and_all_six_lines(self):
         trigrams = {row["code"]: row["lines_bottom_up"] for row in read_csv("trigram_source_review.csv")}
@@ -73,6 +74,29 @@ class InterpretationDraftsTest(unittest.TestCase):
             lines = [section for section in row["sections"] if section["kind"] == "LINE"]
             self.assertEqual([1, 2, 3, 4, 5, 6], [line["lineNumber"] for line in lines])
             self.assertEqual(list(catalog["lines_bottom_up"]), ["1" if line["isYang"] else "0" for line in lines])
+
+    def test_details_complete_the_61_overviews_and_384_line_positions(self):
+        overviews = {row["code"]: row for row in self.overviews["entries"]}
+        entries = self.details["entries"]
+        self.assertEqual(61, len(entries))
+        self.assertCountEqual(overviews.keys(), (row["code"] for row in entries))
+        self.assertEqual(384, 6 * len(self.pilots["entries"]) + sum(len(row["lines"]) for row in entries))
+        self.assertEqual(366, len({line["text"] for row in entries for line in row["lines"]}))
+        for row in entries:
+            with self.subTest(code=row["code"]):
+                overview = overviews[row["code"]]
+                catalog = self.catalog[row["order"] - 1]
+                self.assertEqual((row["order"], row["name"]), (overview["order"], overview["name"]))
+                self.assertEqual((row["status"], row["verificationStatus"]), ("DRAFT", "SOURCE_LOCATED"))
+                self.assertEqual(row["sourceUrl"], catalog["zhou_yi_chapter_url"])
+                self.assertEqual([1, 2, 3, 4, 5, 6], [line["lineNumber"] for line in row["lines"]])
+                self.assertEqual(catalog["lines_bottom_up"], "".join("1" if line["isYang"] else "0" for line in row["lines"]))
+                self.assertTrue(all(20 <= len(line["text"]) <= 3000 for line in row["lines"]))
+                self.assertTrue(all(row[key].strip() for key in ("image", "paraphrase", "application")))
+                if row["order"] in (23, 49):
+                    self.assertEqual("", row["original"])
+                else:
+                    self.assertRegex(row["original"], r"[\u3400-\u9fff]")
 
 
 if __name__ == "__main__":

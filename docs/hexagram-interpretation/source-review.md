@@ -23,6 +23,12 @@ Trước khi công bố, người biên tập kiểm các dị bản ưu tiên, 
 
 ## Bảng theo từng mã quẻ
 
+### Bổ sung lời giải cho 61 quẻ
+
+Tệp `hexagram_interpretation_details.draft.json` ghép theo mã với 61 tổng quan giữ nguyên. Đã đọc bản nguồn ở 64 URL ghim; sáu nhãn hào của từng quẻ bổ sung khớp thứ tự và âm/dương của E01. Các lô biên tập lần lượt là 3–12, 13–22, 23–33 (trừ quẻ mẫu 26), 34–43, 44–53, 54–63 và 64.
+
+Hình tượng theo Đại Tượng, đoạn Hán ở trường nguyên văn chỉ lấy lời quẻ cổ trong mục 易經, và sáu đoạn tiếng Việt giải nghĩa lời hào. Bản nháp Bác và Cách tạm để trống trường nguyên văn vì còn khác biệt ngắt câu hoặc dị tự. Giữ các điểm cần duyệt của Tiệm, Đại súc, Tỉnh, Khôn và các dị bản đã ghi trong bảng. Nguồn của 64 quẻ giữ trạng thái `SOURCE_LOCATED`. Tất cả lời giải tiếng Việt chờ người biên tập kiểm tra trước khi công bố.
+
 ### Ba bài mẫu
 
 | STT · mã · tên | Chương đã mở | Căn cứ nội dung | Dị bản hoặc điểm cần duyệt | Bản nháp | Sẵn sàng gửi duyệt |

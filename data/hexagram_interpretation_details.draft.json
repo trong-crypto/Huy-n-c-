@@ -1,0 +1,2691 @@
+{
+  "schemaVersion": 1,
+  "purpose": "EDITORIAL_REVIEW_ONLY",
+  "editorialNote": "Hình tượng đối chiếu Đại Tượng, lời quẻ và sáu hào đối chiếu mục 易經 theo phiên bản ghim. Lời Việt do nhóm biên soạn. Bác và Cách để trống nguyên văn lời quẻ trong bản nháp vì còn điểm cần duyệt.",
+  "entries": [
+    {
+      "order": 3,
+      "code": "H_KHAM_CHAN",
+      "name": "Truân",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%B1%AF&oldid=10643482",
+      "image": "Mây và sấm dồn lại, Chấn ở dưới Khảm, sức khởi động gặp chỗ hiểm.",
+      "original": "元亨，利貞。勿用有攸往，利建侯。",
+      "paraphrase": "Lời quẻ đặt việc dựng người đứng đầu và nền tổ chức trước chuyện đi xa.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Bước đầu còn quanh quẩn. Giữ vị trí vững rồi dựng cơ cấu giúp mình tiến."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Đoàn ngựa chần chừ, người đến tưởng là giặc hóa ra cầu hôn. Sự việc chưa rõ cần thời gian để nhận đúng."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Đuổi hươu vào rừng thiếu người dẫn đường. Thấy mình sắp đi lạc thì bỏ cuộc săn."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Đoàn ngựa vẫn ngần ngại, nhưng khi mục đích kết hợp đã rõ thì có thể chủ động đi tới."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Ân trạch còn bị giữ lại. Việc nhỏ có thể làm chắc, việc lớn chưa đủ nguồn lực."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Ngựa đứng chựng và nước mắt như máu. Cố giữ tình thế bế tắc chỉ kéo dài tổn thất."
+        }
+      ],
+      "application": "Trước một việc mới, thử phân biệt vướng mắc cần tháo ngay với chỗ cần thêm người dẫn đường."
+    },
+    {
+      "order": 4,
+      "code": "H_CAN2_KHAM",
+      "name": "Mông",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%92%99&oldid=10645379",
+      "image": "Suối chảy ra dưới núi, Khảm ở dưới Cấn, gợi sự hiểu biết đang tìm lối.",
+      "original": "亨。匪我求童蒙，童蒙求我。初筮告，再三瀆，瀆則不告。利貞。",
+      "paraphrase": "Người học chủ động hỏi, nhận hướng dẫn rồi tự thử. Lặp lại lời hỏi mà không học từ câu trả lời làm mất ý nghĩa trao đổi.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Kỷ luật ban đầu có thể tháo gông cho người học, nhưng dùng hình phạt mãi lại gây hại."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Bao dung người còn non giúp họ đảm nhận được việc nhà. Dạy dỗ cần chỗ cho sai sót."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Hình ảnh hôn nhân cổ nói đến việc thấy người giàu rồi bỏ mất chủ kiến. Có thể đọc như lời nhắc về sức hấp dẫn của lợi ích."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Tự nhốt mình trong chỗ mù mờ khiến việc học không tiến. Cần tìm điểm tựa bên ngoài."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Sự non trẻ đi cùng thái độ sẵn lòng tiếp nhận giúp người học tiến bộ."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Có thể mạnh tay để ngăn điều gây hại. Đừng biến quyền sửa sai thành quyền xâm phạm."
+        }
+      ],
+      "application": "Viết đúng điều chưa hiểu, hỏi một lần rõ ràng, rồi đem câu trả lời thử trên bài khác."
+    },
+    {
+      "order": 5,
+      "code": "H_KHAM_CAN",
+      "name": "Nhu",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%9C%80&oldid=10643261",
+      "image": "Nước trên trời, mây đã tụ mà chưa mưa, gợi thời gian chuẩn bị.",
+      "original": "有孚，光亨。貞吉，利涉大川。",
+      "paraphrase": "Lời quẻ đặt lòng tin và sự bền chí làm điều kiện để chờ rồi mới vượt việc lớn.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Chờ ở vùng ngoại ô, còn xa nguy hiểm. Việc chính là giữ nhịp ổn định."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Đợi ở bãi cát đã gần nước. Có lời qua tiếng lại nhưng vẫn còn khoảng an toàn."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Sa vào bùn làm kẻ gây hại có dịp tới. Đợi sai chỗ có thể tạo thêm hiểm họa."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Máu và hang gợi tình thế đã có thương tổn. Cần tìm đường thoát khỏi chỗ mắc kẹt."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Rượu và thức ăn cho thấy có thể chờ trong điều kiện được nuôi dưỡng. Hãy dùng thời gian đó để giữ sức."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Khách bất ngờ tới hang. Tiếp họ bằng sự tôn trọng có thể chuyển tình thế."
+        }
+      ],
+      "application": "Khi phải đợi dữ liệu, đặt trước mốc xem lại và việc chuẩn bị vẫn hữu ích nếu dữ liệu tới trễ."
+    },
+    {
+      "order": 6,
+      "code": "H_CAN_KHAM",
+      "name": "Tụng",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%A8%9F&oldid=10645409",
+      "image": "Trời và nước đi ngược hướng, Càn trên Khảm. Hai bên càng tiến càng tách xa.",
+      "original": "有孚，窒，惕，中吉，終凶。利見大人，不利涉大川。",
+      "paraphrase": "Dù tin mình có lý, kéo tranh chấp đến tận cùng gây hại. Lời quẻ khuyên tìm người xét xử và hoãn việc lớn.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Chớ kéo dài việc kiện. Chấp nhận một ít lời bàn để kết thúc sớm."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Không thắng kiện thì lui về để cộng đồng nhỏ của mình tránh bị kéo vào."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Giữ phần nền đã có. Nếu đi theo việc của người trên, đừng biến kết quả chung thành công riêng."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Khi thấy thế tranh không thắng, quay về điều chỉnh quyết định rồi giữ ổn định."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Lời tốt ở hào xét kiện gắn với việc phân xử đúng chỗ, không cổ vũ thắng bằng mọi giá."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Đai thưởng vừa được ban đã bị tước nhiều lần. Thắng bằng tranh chấp có thể đem lại danh vị không bền."
+        }
+      ],
+      "application": "Trước khi tranh luận tiếp, viết ra điều có thể hòa giải và việc thực sự cần bên thứ ba."
+    },
+    {
+      "order": 7,
+      "code": "H_KHON_KHAM",
+      "name": "Sư",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%B8%AB&oldid=2405011",
+      "image": "Nước nằm trong đất, Khảm ở dưới Khôn. Sức của tập thể cần được chứa và điều động có kỷ luật.",
+      "original": "貞丈人吉，无咎。",
+      "paraphrase": "Lời quẻ nhấn mạnh người chỉ huy từng trải và sự chính đáng khi tổ chức lực lượng.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Xuất quân phải có phép. Quy trình rối ngay từ đầu làm cả đội gặp nguy."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Người chỉ huy ở giữa quân được giao phó nhiều lần. Sự tin cậy đi cùng trách nhiệm trực tiếp."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Xe chở xác là hình ảnh hậu quả của việc tổ chức sai. Cần nhận thất bại trước khi đẩy thêm người vào."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Đóng quân sang một bên là cách rút giữ lực lượng, chưa phải bỏ nhiệm vụ."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Có mục tiêu rõ mới nên huy động. Lời hào phân biệt người đủ sức chỉ huy với việc giao quyền tùy tiện."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Khi đã lập lại trật tự, việc chia trách nhiệm cần xem phẩm chất của người nhận."
+        }
+      ],
+      "application": "Khi giao việc nhóm, chốt ai có quyền quyết định và ai thay thế khi tình huống đổi."
+    },
+    {
+      "order": 8,
+      "code": "H_KHAM_KHON",
+      "name": "Tỷ",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%AF%94&oldid=10645543",
+      "image": "Nước ở trên đất, Khảm trên Khôn, nhiều dòng tụ lại thành mối liên kết.",
+      "original": "吉。原筮元永貞，无咎。不寧方來，後夫凶。",
+      "paraphrase": "Việc liên kết cần xem lại cam kết và giữ được lâu. Người đến muộn có thể đã bỏ lỡ cơ hội cùng dựng nền.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Lòng tin đầy như chum là nền để quan hệ mới tự đến. Đừng chỉ dựa vào lời hứa."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Sự gắn bó xuất phát từ bên trong có thể giữ vững qua áp lực bên ngoài."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Gắn với người không phù hợp làm mất ý nghĩa liên kết, dù vẫn thuộc cùng một nhóm."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Kết nối với bên ngoài có thể tốt khi không bỏ nguyên tắc của mình."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Cuộc săn để lối thoát cho thú. Liên kết minh bạch không buộc tất cả phải đứng về một bên."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Liên kết không có đầu mối sẽ mất hướng. Cần biết ai chịu trách nhiệm."
+        }
+      ],
+      "application": "Trong một liên minh, xem tiêu chí tham gia, cách rút lui và người chịu trách nhiệm đã rõ chưa."
+    },
+    {
+      "order": 9,
+      "code": "H_TON_CAN",
+      "name": "Tiểu súc",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%B0%8F%E7%95%9C&oldid=10645530",
+      "image": "Gió đi trên trời, Tốn trên Càn. Mây dày đã tới nhưng mưa chưa xuống.",
+      "original": "亨。密雲不雨，自我西郊。",
+      "paraphrase": "Sự tích tụ đang diễn ra ở mức nhỏ. Điều kiện có vẻ đủ vẫn cần thời gian để chuyển thành kết quả.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Tự quay lại đúng đường sớm thì không có lỗi. Đừng tiếp tục chỉ vì đã đi được một đoạn."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Có người kéo cùng quay về. Lời góp ý có thể giúp dừng hướng đi chưa phù hợp."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Xe mất chốt và vợ chồng nhìn nhau giận dữ. Hỏng hóc trong phối hợp khiến việc chung dừng lại."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Giữ lòng tin thì sợ hãi và nguy cơ thương tổn dịu bớt. Cần làm rõ điều mỗi bên đã cam kết."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Lòng tin kết lại và của cải được chia với láng giềng. Tích lũy bền khi người xung quanh cũng hưởng lợi."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Mưa đã xuống, trăng gần đầy. Đó là lúc giữ thành quả và giảm đà thúc ép."
+        }
+      ],
+      "application": "Thay vì mở rộng ngay, kiểm xem nhóm đã có nguồn dự phòng và cách xử lý bất đồng chưa."
+    },
+    {
+      "order": 10,
+      "code": "H_CAN_DOAI",
+      "name": "Lý",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%B1%A5&oldid=10647513",
+      "image": "Trời trên đầm, Càn trên Đoài. Lời quẻ dùng việc bước lên đuôi hổ để nói về cách đi qua chỗ nguy.",
+      "original": "履虎尾，不咥人，亨。",
+      "paraphrase": "Bước vào thế có sức mạnh lớn cần đúng cách và giữ khoảng an toàn. Quẻ thừa nhận rủi ro ngay cả khi đi tiếp được.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Bước chân mộc mạc gợi hành xử giản dị, không thêm phô trương vào việc đã đủ khó."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Đường bằng và người ở ẩn gợi sự vững vàng khi tự chọn nhịp đi."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Mắt kém và chân què mà vẫn giẫm đuôi hổ. Đánh giá quá cao năng lực làm nguy cơ thành tổn thất."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Vẫn bước sát hổ nhưng hết sức dè chừng. Thận trọng ở đây là hành vi cụ thể."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Bước quyết liệt vẫn có hiểm ngay cả khi ý định đúng. Kiểm giới hạn trước khi dồn sức."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Nhìn lại dấu chân và vòng đường vừa đi. Kết quả tốt còn nằm ở việc biết xem lại mình đã làm thế nào."
+        }
+      ],
+      "application": "Trong tình thế nhạy cảm, chốt trước giới hạn có thể chấp nhận và dấu hiệu cần lùi lại."
+    },
+    {
+      "order": 11,
+      "code": "H_KHON_CAN",
+      "name": "Thái",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%B3%B0&oldid=2106138",
+      "image": "Trời ở dưới đất, Càn dưới Khôn. Hai luồng giao nhau, tạo điều kiện trao đổi.",
+      "original": "小往大來，吉亨。",
+      "paraphrase": "Cái nhỏ lui, cái lớn tới. Thời thông thuận mở cơ hội phối hợp, song dòng thuận vẫn có thể đảo.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Nhổ một bụi cỏ kéo theo cả cụm rễ. Khởi động đúng mối nối có thể kéo cả nhóm cùng đi."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Bao dung phần thô, dám vượt sông và không quên người xa. Giữ mức giữa để không thiên theo bè."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Đường phẳng rồi có dốc, đi rồi có trở lại. Thời thuận cần nhớ lúc khó để giữ chữ tín."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Láng giềng cùng xuống mà không cần khoe giàu hay đề phòng nhau. Hợp tác nảy từ lòng tin."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Hôn lễ của Đế Ất là hình ảnh cổ về nối kết đem phúc. Có thể hiểu là kết hợp nhờ nhường một bước."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Thành đổ xuống hào. Khi trật tự đã đổi, mệnh lệnh nên quay về phạm vi mình còn quản được."
+        }
+      ],
+      "application": "Khi nhóm đang thuận, ghi cách trao quyền và trao đổi để quy trình còn dùng được lúc khó."
+    },
+    {
+      "order": 12,
+      "code": "H_CAN_KHON",
+      "name": "Bĩ",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%90%A6&oldid=10645603",
+      "image": "Trời trên đất, Càn ở trên Khôn. Hai luồng tách rời khiến tin tức và việc chung khó thông.",
+      "original": "否之匪人，不利君子貞，大往小來。",
+      "paraphrase": "Việc lớn lui còn việc nhỏ lấn tới. Trong thế bế tắc, cố cưỡng ép như lúc thông thuận khó có ích.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Một cụm cỏ có rễ chung. Những người còn giữ nguyên tắc có thể đứng cùng nhau mà không chạy theo dòng tắc."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Chỗ thuận cho người chịu luồn lách lại là chỗ bế với người giữ nguyên tắc. Cần xem cái giá của sự thuận tiện."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Lời hào chỉ sự che giấu điều đáng hổ thẹn. Bế tắc tăng khi sai sót không được nói ra."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Có mệnh rồi mới hành động. Việc tháo tắc cần đúng thẩm quyền để lợi ích lan tới người cùng làm."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Thế tắc bắt đầu lui, nhưng vẫn nhớ lời lo mất và buộc vào gốc dâu. Cần giữ điểm tựa."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Khi thế tắc bị lật, buồn trước rồi vui sau. Sự thay đổi đến từ việc phá được cấu trúc cản trở."
+        }
+      ],
+      "application": "Xác định tin đang tắc ở đâu và ai có quyền tháo nút, rồi nối lại một kênh trao đổi cụ thể."
+    },
+    {
+      "order": 13,
+      "code": "H_CAN_LY",
+      "name": "Đồng nhân",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%90%8C%E4%BA%BA&oldid=10645635",
+      "image": "Lửa dưới trời, Ly dưới Càn. Ánh sáng có thể nối người ở ngoài vòng thân quen.",
+      "original": "同人于野，亨。 利涉大川，利君子貞。",
+      "paraphrase": "Hợp sức ngoài phe nhóm mở đường cho việc lớn, với điều kiện giữ được mục tiêu chung.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Gặp nhau ở cửa, còn ít ràng buộc. Có thể bắt đầu bằng một cuộc gặp mở."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Chỉ kết thân trong tông tộc làm hẹp sức hợp tác."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Giấu quân trong cỏ và lên đồi nhìn nhau suốt nhiều năm. Nghi kỵ kéo dài làm cả hai đứng yên."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Đã trèo lên thành nhưng thôi không đánh. Tự kiềm chế mở đường cho giải hòa."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Khóc trước rồi cười sau. Vượt trở ngại thì những người muốn hợp tác mới gặp được nhau."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Hội ở ngoại ô tạo liên hệ vừa phải, đủ để không hối tiếc dù chưa thật gần."
+        }
+      ],
+      "application": "Mời một người ngoài nhóm góp ý về mục tiêu trước khi phân vai."
+    },
+    {
+      "order": 14,
+      "code": "H_LY_CAN",
+      "name": "Đại hữu",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%A4%A7%E6%9C%89&oldid=10645712",
+      "image": "Lửa ở trên trời, Ly trên Càn, soi rõ những gì đang có.",
+      "original": "元亨。",
+      "paraphrase": "Đại hữu mở đầu hanh thông. Sức nặng của sở hữu đặt vấn đề dùng và chia nguồn lực đúng chỗ.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Chưa vướng sự gây hại thì hãy giữ ý thức về điều khó, thay vì coi thuận lợi là đương nhiên."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Xe lớn chở được nhiều. Có nền chuyên chở thì mới nên đưa nguồn lực đi xa."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Việc hiến lễ cho thiên tử là hình ảnh về khả năng dùng của cải cho trách nhiệm lớn."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Lời hào có dị tự. Bản nháp đọc theo hướng có nhiều mà không cậy vào cái nhiều để lấn người."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Lòng tin đi cùng uy nghi. Có thể gần gũi mà vẫn giữ ranh giới và trách nhiệm."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Lời được trời giúp đặt ở cuối quẻ. Đọc như sự thuận trợ khi đã có cách ứng xử xứng với nguồn lực."
+        }
+      ],
+      "application": "Khi có thêm nguồn lực, hỏi ai sẽ cùng hưởng lợi và ai chịu trách nhiệm giữ gìn."
+    },
+    {
+      "order": 15,
+      "code": "H_KHON_CAN2",
+      "name": "Khiêm",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%AC%99&oldid=2106142",
+      "image": "Núi ở trong đất, Cấn dưới Khôn. Cái cao được đặt thấp, gợi cách cân bằng phần dư và thiếu.",
+      "original": "亨，君子有終。",
+      "paraphrase": "Khiêm nhường giúp việc thông và bền đến cuối. Lời quẻ nói tới cách dùng sức, vẫn cho phép làm việc khó.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Người khiêm rồi lại khiêm vẫn có thể vượt sông lớn. Hạ mình có thể giúp chuẩn bị tốt hơn."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Sự khiêm nhường được người khác nghe biết. Giữ nhất quán để lời nói có căn cứ."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Có công lao mà vẫn giữ sự khiêm. Điều đáng giá là hoàn thành việc với người khác."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Phát huy sự khiêm trong hành động, cả khi đã có chỗ đứng vững."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Dùng sự hợp tác của láng giềng thay vì cậy của cải. Lời đánh dẹp thuộc bối cảnh cổ."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Sự khiêm đã được biết nhưng vẫn phải xử lý việc trong cõi mình. Khiêm không đồng nghĩa với bỏ trách nhiệm."
+        }
+      ],
+      "application": "Ghi công cho người làm và dành nguồn hỗ trợ cho khâu đang thiếu trước khi nhận phần về mình."
+    },
+    {
+      "order": 16,
+      "code": "H_CHAN_KHON",
+      "name": "Dự",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%B1%AB&oldid=10645735",
+      "image": "Sấm phát trên đất, Chấn trên Khôn. Hình tượng gợi sự hứng khởi có thể tập hợp nhiều người.",
+      "original": "利建侯行師。",
+      "paraphrase": "Lời quẻ nói dựng người đứng đầu và huy động lực lượng. Niềm vui có ích khi đưa được tập thể vào việc chung.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Phô ra sự hứng khởi quá sớm dễ gây hại. Chưa có kết quả thì lời tung hô có thể làm lệch việc."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Vững như đá và quyết định trong ngày. Cần nhận ra tín hiệu trước khi bị cuốn theo đám đông."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Ngước lên trông chờ niềm vui của người khác rồi trì hoãn sẽ dẫn tới hối tiếc."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Người làm nguồn hứng khởi quy tụ bạn bè. Lời hào khuyên bớt nghi khi sức hợp tác đã rõ."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Có bệnh dai dẳng nhưng vẫn sống. Tập thể giữ được hoạt động có thể vẫn cần chăm một vấn đề chưa khỏi."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Mê say đến tối. Khi đã nhận ra và đổi cách làm thì còn đường sửa."
+        }
+      ],
+      "application": "Sau một buổi tạo động lực, giao một việc cụ thể và một thời điểm kiểm tiến độ."
+    },
+    {
+      "order": 17,
+      "code": "H_DOAI_CHAN",
+      "name": "Tùy",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%9A%A8&oldid=10645020",
+      "image": "Sấm ở trong đầm, Chấn dưới Đoài. Tượng gợi việc đổi nhịp, làm theo thời rồi nghỉ đúng lúc.",
+      "original": "元亨。利貞。无咎。",
+      "paraphrase": "Theo người hay theo thời có thể thông thuận khi giữ được phương hướng và nguyên tắc.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Chức việc thay đổi. Bước ra ngoài gặp người khác giúp tạo kết quả mới."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Bám vào mối nhỏ khiến mất người đáng theo. Mỗi lựa chọn gắn kết đều có cái giá."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Theo người đủ sức thì có thể được điều cần, đồng thời chấp nhận buông mối cũ."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Theo mà thu được lợi riêng có thể gây nguy. Lòng tin và sự minh bạch giúp phân biệt động cơ."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Tin vào điều tốt đẹp. Chọn theo tiêu chí có thể giải thích cho người khác."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Sự ràng buộc đến mức rất chặt, lời hào còn gắn với lễ ở Tây Sơn. Cần xét sức nặng của cam kết."
+        }
+      ],
+      "application": "Trước khi theo một hướng mới, viết rõ điều gì đáng theo và điều kiện nào khiến mình dừng."
+    },
+    {
+      "order": 18,
+      "code": "H_CAN2_TON",
+      "name": "Cổ",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%A0%B1&oldid=2106145",
+      "image": "Gió ở dưới núi, Tốn dưới Cấn, luồng lưu thông bị chặn gợi việc đã để lâu thành hỏng.",
+      "original": "元亨。利涉大川。先甲三日，後甲三日。",
+      "paraphrase": "Muốn sửa điều tích tụ có thể phải làm việc khó. Xem những ngày trước và sau mốc đổi để biết gốc và hậu quả.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Gỡ việc cha để lại gặp nguy lúc đầu. Có người kế tục chịu sửa thì cuối cùng có thể ổn."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Sửa việc mẹ để lại đòi hỏi cách làm mềm. Cứng giữ một phương án sẽ bỏ qua tình thế."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Sửa việc cũ có thể gây ít hối tiếc nhưng tránh được lỗi lớn hơn."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Dung túng điều hỏng từ trước khiến đi tiếp gặp khó. Sự nể nang có giá của nó."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Chỉnh lại việc cũ được khen khi biết tiếp nối điều có ích và sửa điều gây hại."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Người đứng ngoài việc phụng sự quyền thế vẫn có thể giữ mục tiêu riêng đáng trọng."
+        }
+      ],
+      "application": "Khi sửa một quy trình cũ, ghi nguyên nhân và hẹn kiểm lại sau khi người dùng đã thử."
+    },
+    {
+      "order": 19,
+      "code": "H_KHON_DOAI",
+      "name": "Lâm",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%87%A8&oldid=2106146",
+      "image": "Đầm ở dưới đất, Đoài dưới Khôn. Người có trách nhiệm tiến gần để nâng đỡ.",
+      "original": "元亨。利貞。至于八月有凶。",
+      "paraphrase": "Đà tiến gần có thể thuận, nhưng lời tháng tám nhắc thế ấy có lúc đổi. Giữ điều đúng khi đang có ảnh hưởng.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Tiến lại gần bằng cảm ứng và giữ nguyên tắc. Sự gần gũi cần hướng rõ."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Cảm ứng đủ mạnh để phối hợp. Quan hệ tốt tạo đường làm việc chung."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Dùng lời ngọt khi tiến gần không giúp việc. Biết lo và đổi cách tiếp cận thì tránh được lỗi."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Đến tận nơi, trực tiếp xem việc, giúp hiểu tình thế thay vì chỉ nghe báo cáo."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Biết cách đến gần và dùng đúng người là tư thế của người có trách nhiệm lớn."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Đến gần bằng sự đôn hậu giúp nâng đỡ người khác mà không gây thêm trở ngại."
+        }
+      ],
+      "application": "Gặp người trực tiếp làm việc và hẹn lúc xem lại thay vì coi một lần hỏi thăm là đủ."
+    },
+    {
+      "order": 20,
+      "code": "H_TON_KHON",
+      "name": "Quan",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%A7%80&oldid=10645159",
+      "image": "Gió đi trên đất, Tốn trên Khôn. Sự quan sát lan ra nhiều nơi như gió.",
+      "original": "盥而不薦，有孚顒若。",
+      "paraphrase": "Hình ảnh đã rửa tay nhưng chưa dâng lễ nhấn mạnh thái độ thành kính trước khi hành động.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Nhìn kiểu trẻ con là cái nhìn chưa đủ tầm. Trách nhiệm lớn cần kiểm góc nhìn hẹp."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Nhìn trộm qua khe chỉ thấy một phần. Bối cảnh cổ gắn với vai trò giới, còn giới hạn góc nhìn vẫn dễ nhận ra."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Quan sát đời mình để biết nên tiến hay lui. Quyết định xuất phát từ việc kiểm lại chính mình."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Nhìn thấy nét sáng của một nước rồi làm khách của vua. Có thể học bằng cách tiếp xúc trực tiếp với thể chế."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Người có trách nhiệm soi lại cách sống và việc mình làm. Uy tín phải chịu được sự quan sát."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Nhìn đời sống trong toàn cục để cân nhắc ảnh hưởng, thay vì chỉ xem một việc trước mắt."
+        }
+      ],
+      "application": "Trước quyết định lớn, ghi điều mình quan sát trực tiếp và điều chỉ suy ra từ báo cáo."
+    },
+    {
+      "order": 21,
+      "code": "H_LY_CHAN",
+      "name": "Phệ hạp",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%99%AC%E5%97%91&oldid=10645753",
+      "image": "Sấm và chớp, Chấn dưới Ly. Hình tượng gợi vừa phân biệt rõ vừa có sức xử lý vật cản.",
+      "original": "亨。利用獄。",
+      "paraphrase": "Như cắn qua thứ mắc trong miệng, cần tháo chướng ngại. Lời quẻ nhắc việc xét xử và áp dụng phép đúng chỗ.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Gông ở chân ngăn bước ngay khi lỗi còn nhỏ. Can thiệp sớm có thể hạn chế hậu quả."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Cắn lớp da đến khuất mũi. Việc xử lý đã chạm sâu dù lời hào vẫn nói không lỗi."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Cắn thịt khô gặp độc. Một vụ tưởng rõ có thể lộ tình tiết gây khó chịu và cần làm rõ thêm."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Cắn miếng thịt khô còn xương, gặp mũi tên kim loại. Vụ khó đòi chứng cứ cứng và sự bền chí."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Gặp vàng khi cắn thịt khô. Thẩm quyền lớn đi cùng việc giữ đúng phép dù tình thế có hiểm."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Gông vai che khuất tai. Khi đã không nghe cảnh báo, mức phạt và hậu quả đều nặng hơn."
+        }
+      ],
+      "application": "Với một tranh chấp, ghi chứng cứ, người có quyền xử lý và mức can thiệp tương xứng."
+    },
+    {
+      "order": 22,
+      "code": "H_CAN2_LY",
+      "name": "Bí",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%B3%81&oldid=2405035",
+      "image": "Lửa dưới núi, Ly dưới Cấn. Ánh sáng làm hình dáng hiện rõ mà vẫn có giới hạn.",
+      "original": "亨。小利有攸往。",
+      "paraphrase": "Trang sức giúp sự việc thông suốt ở phạm vi nhỏ. Hình thức có thể làm rõ nội dung, nhưng khó thay thế nội dung.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Trang điểm bàn chân rồi bỏ xe đi bộ. Chọn cách phù hợp với mình dù ít tiện nghi hơn."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Trang sức ở bộ râu theo gương mặt mà động. Hình thức cần đi cùng điều nó đang làm nổi."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Vẻ đẹp bóng ướt dễ thu hút. Sự bền chí giữ nó khỏi trở thành điều chỉ đẹp lúc đầu."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Ngựa trắng tới nhanh, tưởng kẻ cướp hóa ra cầu hôn. Nhìn vẻ ngoài chưa đủ để hiểu mục đích."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Lễ vật ở vườn đồi chỉ vài tấm lụa. Món ít vẫn có giá trị khi thật lòng."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Sắc trắng giản dị là điểm cuối của trang sức. Có thể bỏ phần thừa mà ý vẫn rõ."
+        }
+      ],
+      "application": "Khi trình bày một sản phẩm, bỏ một chi tiết trang trí rồi xem người đọc có hiểu nhiệm vụ dễ hơn không."
+    },
+    {
+      "order": 23,
+      "code": "H_CAN2_KHON",
+      "name": "Bác",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%89%9D&oldid=10645800",
+      "image": "Núi tựa trên đất, Cấn trên Khôn. Hình giường bị bóc từ chân gợi nền đang mục dần.",
+      "original": "",
+      "paraphrase": "Bản nháp theo cách đọc liền, chưa thuận đi tới. Cách ngắt lời quẻ vẫn cần người duyệt xác nhận.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Giường hỏng từ chân. Lỗi ở chỗ đỡ thường đến trước dấu hiệu nhìn thấy bên trên."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Sự bóc mòn lên sát khung giường. Bỏ qua nền lúc này khiến nguy cơ lan rộng."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Hào này được nói là không lỗi. Một cách đọc là còn có thể tách mình khỏi đà làm hỏng chung."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Sự bóc mòn đã sát da. Nguy hiểm chuyển từ cấu trúc sang người đang nằm trên đó."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Xâu cá và sự sắp xếp trong cung gợi đưa phần đang phân tán về một trật tự để giảm hại."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Quả lớn còn nguyên chưa ăn. Phần còn tốt có thể giữ được, trong khi cái nhà đã bị người khác bóc phá."
+        }
+      ],
+      "application": "Tìm bộ phận đang mất khả năng chịu lực và bảo vệ phần cốt lõi trước khi tính mở rộng."
+    },
+    {
+      "order": 24,
+      "code": "H_KHON_CHAN",
+      "name": "Phục",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%BE%A9&oldid=10643037",
+      "image": "Sấm ở trong đất, Chấn dưới Khôn. Sức chuyển động trở lại từ chỗ thấp và còn kín.",
+      "original": "亨。出入无疾，朋來无咎。反復其道，七日來復，利有攸往。",
+      "paraphrase": "Việc quay lại đường cũ có thể thông. Bảy ngày là nhịp trong văn bản, có thể đọc như một chu kỳ thay vì lịch hẹn thực tế.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Quay lại khi chưa đi xa, nên ít phải trả giá. Nhận ra lệch hướng sớm là lợi thế."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Quay lại trong tư thế tốt, có thể tiếp nhận ảnh hưởng của người đang đi đúng."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Lặp lại việc quay về nhiều lần có nguy, nhưng vẫn còn khả năng sửa."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Đi giữa mọi người mà tự quay lại. Có thể làm đúng dù những người cạnh mình chưa đổi."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Sự quay lại đôn hậu và có gốc. Hãy sửa thói quen chứ đừng chỉ sửa một lần."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Lạc mất đường về làm việc lớn thất bại. Lời hào dùng xuất quân để cho thấy hậu quả của cố chấp."
+        }
+      ],
+      "application": "Đặt một chỉ báo phát hiện lệch sớm, và chọn thay đổi nhỏ có thể lặp lại để trở về nhịp cũ."
+    },
+    {
+      "order": 25,
+      "code": "H_CAN_CHAN",
+      "name": "Vô vọng",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%97%A0%E5%A6%84&oldid=10645038",
+      "image": "Sấm đi dưới trời, Chấn dưới Càn. Hình tượng gợi hành động tự nhiên có quy luật.",
+      "original": "元亨。利貞。其匪正有眚，不利有攸往。",
+      "paraphrase": "Sự ngay thẳng có thể mở đường. Ý định tốt không đủ để bảo đảm việc tiến phù hợp với hoàn cảnh.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Đi tới bằng động cơ ngay thẳng khi thế còn mở. Kiểm xem mục đích thật có khớp hành động."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Hình ảnh không cày mà thu có nhiều cách đọc. Bản nháp nhấn vào làm việc mà bớt tính trước món lợi."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Người qua đường dắt bò, người trong làng chịu vạ. Có tổn thất đến ngoài phần mình gây ra."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Có thể giữ điều đang đúng. Không cần xoay hướng chỉ vì gặp biến động bên ngoài."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Bệnh đến ngoài tính toán, lời cổ nói chớ vội dùng thuốc. Ở đây chỉ đọc như hình ảnh tránh can thiệp quá sớm, không áp dụng y khoa."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Dù không gian dối, đi sai thời vẫn sinh họa. Cần phân biệt lòng ngay và việc có thể làm."
+        }
+      ],
+      "application": "Trước sự cố, tách phần trách nhiệm của mình khỏi phần ngẫu nhiên rồi xử lý điều kiểm soát được."
+    },
+    {
+      "order": 27,
+      "code": "H_CAN2_CHAN",
+      "name": "Di",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%A0%A4&oldid=10643091",
+      "image": "Sấm dưới núi, Chấn dưới Cấn. Hình tượng chiếc hàm dẫn tới chuyện ăn nói và nuôi dưỡng.",
+      "original": "貞吉。觀頤，自求口實。",
+      "paraphrase": "Xem người được nuôi bằng gì và tự kiếm thức ăn thế nào. Duy trì nếp nuôi thân là phần có thể chủ động.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Bỏ con rùa quý của mình để nhìn miệng người khác nhai. Ghen nhìn phần người khác làm mất điểm tựa riêng."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Tìm sự nuôi dưỡng trái đường rồi vội đi lên. Cần xem lại chỗ mình đang lệ thuộc."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Cách nuôi đã trái lẽ từ gốc. Cố kéo dài sẽ hại thêm thay vì tạo nguồn bền."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Dù trật tự nuôi dưỡng đảo chiều, nhìn kỹ như hổ có thể giữ được nguồn nếu biết mục tiêu."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Tạm ở yên và giữ điều đúng khi chưa tự gánh nổi. Việc lớn vượt quá nguồn nuôi hiện có."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Từ vị trí cung cấp sự nuôi dưỡng cho người khác, có thể gánh việc lớn nhưng phải nhận phần hiểm."
+        }
+      ],
+      "application": "Quan sát điều mình đang tiêu thụ mỗi ngày và xem nó có thực sự nuôi sức hoặc nuôi hiểu biết không."
+    },
+    {
+      "order": 28,
+      "code": "H_DOAI_TON",
+      "name": "Đại quá",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%A4%A7%E9%81%8E&oldid=10645184",
+      "image": "Đầm ngập cây, Đoài trên Tốn. Lời quẻ dùng đòn nóc cong vì sức nặng quá mức.",
+      "original": "棟橈，利有攸往，亨。",
+      "paraphrase": "Kết cấu đang chịu tải vượt thường lệ. Đổi cách chống đỡ hoặc chủ động chuyển thế có thể tạo đường đi.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Lót bằng cỏ tranh trắng là sự chuẩn bị kỹ ngay khi nguy cơ còn thấp."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Cây dương khô đâm chồi, hình ảnh đời cũ còn sinh sức mới. Lời hôn nhân thuộc bối cảnh cổ."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Đòn nóc cong là tín hiệu quá tải trực tiếp. Đừng tăng việc khi phần chịu lực đã biến dạng."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Đòn nóc được nâng lại là dấu hiệu ổn. Việc thêm nhánh ngoài mục tiêu có thể gây khó."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Cây khô ra hoa có vẻ hồi sinh nhưng khác với mọc chồi mới. Vẻ nở đẹp chưa chắc tạo kết quả bền."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Lội đến ngập đầu. Lời hào tách hậu quả xấu khỏi việc quy lỗi cho người cố vượt."
+        }
+      ],
+      "application": "Liệt kê phần đang gánh nhiều nhất, giảm một tải và kiểm lại khả năng chịu lực trước khi thêm việc."
+    },
+    {
+      "order": 29,
+      "code": "H_KHAM_KHAM",
+      "name": "Khảm",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%9D%8E&oldid=10646381",
+      "image": "Khảm chồng Khảm, nước liên tục qua chỗ trũng. Hình tượng hiểm lặp lại, không dừng ở một lần.",
+      "original": "有孚，維心亨。行有尚。",
+      "paraphrase": "Giữ lòng tin và sự thông suốt bên trong khi đi qua chuỗi hiểm. Việc tiến có giá trị khi nhận rõ từng bước.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Rơi xuống đáy hố sau khi đã gặp hiểm. Đường quen không bảo đảm an toàn."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Ở trong chỗ hiểm, chỉ nên tìm cái được nhỏ và rõ."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Đi tới hay lui đều gặp hố. Đừng dùng tình thế đang mắc kẹt để mở thêm việc nguy hiểm."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Rượu, đồ đựng giản dị và cửa sổ gợi giải pháp khi không có đường chính. Lời hào có dị cách chép."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Nước hố chưa đầy nhưng đã gần bằng. Chờ mức đủ để qua, không cần ép cho tràn."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Bị trói và đặt giữa bụi gai trong thời gian dài. Sự mắc kẹt kéo dài khi đã mất lối thoát."
+        }
+      ],
+      "application": "Khi gặp lỗi lặp lại, giữ một lối thoát nhỏ, ghi điều đã thử rồi xử lý lần lượt."
+    },
+    {
+      "order": 30,
+      "code": "H_LY_LY",
+      "name": "Ly",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%9B%A2&oldid=10646424",
+      "image": "Ly chồng Ly, hai lần ánh sáng tiếp nhau. Lửa cần vật để bám và lan.",
+      "original": "利貞。亨。畜牝牛，吉。",
+      "paraphrase": "Giữ cách nương dựa đúng thì thông. Hình ảnh nuôi bò cái gợi chăm đều đặn và mềm bền.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Bước chân ban đầu còn lẫn lộn. Đi với sự kính cẩn và chú ý để giảm lỗi."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Ánh sáng vàng ở mức giữa gợi độ sáng đủ soi mà không chói."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Mặt trời xế chiều. Biết chấp nhận một đoạn đã qua sẽ nhẹ hơn chỉ than vì nó đổi."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Lửa tới đột ngột rồi cháy, tàn và bị bỏ. Đà bùng nhanh thiếu chỗ dựa rất khó duy trì."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Nước mắt và tiếng than cho thấy đã nhận rõ tình thế nghiêm trọng. Từ đó mới có thể sửa."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Hình ảnh xuất quân nhấn xử lý đầu mối gây hại và cân nhắc đối tượng. Đây là hình ảnh chính trị cổ."
+        }
+      ],
+      "application": "Tìm nguồn nuôi cho một việc đang nổi lên và kiểm nó có đủ bền sau lúc được chú ý không."
+    },
+    {
+      "order": 31,
+      "code": "H_DOAI_CAN2",
+      "name": "Hàm",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%92%B8&oldid=10646450",
+      "image": "Đầm trên núi, Đoài trên Cấn. Hình tượng gợi tác động qua lại khi có chỗ để tiếp nhận.",
+      "original": "亨。利貞。取女吉。",
+      "paraphrase": "Lời quẻ nói đến sự cảm ứng có điều kiện giữ chính, và dùng hôn nhân cổ làm hình ảnh kết hợp.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Cảm ở ngón chân cái, mới là dấu hiệu nhỏ. Chưa nên coi nó là quyết định của cả người."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Cảm ở bắp chân thúc muốn động. Ở yên lúc đầu giúp xem rõ tác động."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Cảm ở đùi khiến mình chạy theo bước người khác. Cần hỏi mình có còn hướng riêng không."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Ý nghĩ đi lại bồn chồn có thể kéo bạn bè theo. Giữ vững điều đúng sẽ giảm hối tiếc."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Cảm ở phần lưng gợi tác động kín và ít phô ra. Mức tác động vừa phải tránh hối tiếc."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Hàm, má và lưỡi là biểu hiện bằng lời. Lời hấp dẫn vẫn cần được kiểm bằng hành động."
+        }
+      ],
+      "application": "Trong trao đổi quan trọng, hỏi người nghe đã hiểu gì rồi mới đánh giá ảnh hưởng của lời mình."
+    },
+    {
+      "order": 32,
+      "code": "H_CHAN_TON",
+      "name": "Hằng",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%81%92&oldid=10646486",
+      "image": "Sấm và gió, Chấn trên Tốn. Nhịp chuyển động liên tiếp gợi điều duy trì được qua thay đổi.",
+      "original": "恆：亨，无咎。利貞，利有攸往。",
+      "paraphrase": "Giữ lâu một hướng có thể thông và còn đi tới. Độ bền là sức giữ điều cốt yếu khi hoàn cảnh đổi.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Đòi đào sâu cái bền ngay lúc đầu có thể quá sức. Cần thời gian để thử một nếp."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Hào ngắn nói hối tiếc tiêu tan. Đọc như sự ổn lại khi giữ được mức vừa."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Phẩm chất thay đổi tùy lúc dẫn tới xấu hổ. Người khác khó tin khi cách cư xử không nhất quán."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Đi săn mà không có thú. Kiên trì sai địa điểm không tự đem lại kết quả."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Lời cổ đánh giá khác nhau theo vai trò vợ và chồng. Bản nháp giữ bối cảnh ấy và xét việc bám một nếp có hợp trách nhiệm không."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Biến cái bền thành rung động không ngừng làm mất ổn định. Cần nhịp nghỉ và điểm tựa."
+        }
+      ],
+      "application": "Chọn một nếp nhỏ duy trì được, định kỳ xem nó còn phục vụ mục tiêu thay vì giữ theo quán tính."
+    },
+    {
+      "order": 33,
+      "code": "H_CAN_CAN2",
+      "name": "Độn",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%81%AF&oldid=10645108",
+      "image": "Trời ở trên núi, Càn trên Cấn. Núi dừng bên dưới còn trời lùi xa, gợi giữ khoảng cách.",
+      "original": "亨。小利貞。",
+      "paraphrase": "Lui đúng lúc có thể mở đường. Giữ nguyên tắc trong phần việc nhỏ khi chưa thuận cho đối đầu.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Đang ở cuối đoàn lui nên dễ bị kẹt. Không nên mở chuyến đi mới lúc này."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Buộc chặt như da bò vàng. Một ràng buộc bền làm việc rút khó hơn và cần xem mình đang giữ điều gì."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Lui mà còn bị níu tạo mệt và nguy. Chỉ còn xử lý được những việc gần, ít phức tạp."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Lui khỏi điều mình còn thích đòi hỏi tự chủ. Có người biết dừng, có người tiếp tục vướng."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Lui được trong tư thế tốt vì quyết định rõ và giữ được điều đúng."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Lui khoáng đạt, không bị giằng lại. Có thể rời thế cũ mà không mang theo xung đột không cần thiết."
+        }
+      ],
+      "application": "Chọn cách rời một việc đã quá sức, ghi điều cần bàn giao và đường quay lại nếu hoàn cảnh đổi."
+    },
+    {
+      "order": 34,
+      "code": "H_CHAN_CAN",
+      "name": "Đại tráng",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%A4%A7%E5%A3%AF&oldid=10646529",
+      "image": "Sấm ở trên trời, Chấn trên Càn. Sức đã mạnh và dễ phát lộ thành hành động.",
+      "original": "利貞。",
+      "paraphrase": "Có sức thì cần giữ đúng. Sức lực hữu ích khi biết chỗ dùng và điểm dừng.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Sức mới dồn ở ngón chân mà đã tiến thì dễ ngã. Thành ý không thay được việc chuẩn bị."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Hào ngắn khen sự bền chính. Giữ được mức giữa giúp sức mạnh đi đúng việc."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Dê đực húc rào rồi mắc sừng. Dùng sức để thử mọi chướng ngại có thể tự trói mình."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Rào mở, sừng không mắc, sức dồn vào bộ phận chở nặng của xe. Lực có ích khi đường và phương tiện đều sẵn."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Mất dê mà không hối tiếc. Có thể buông một phần sức hoặc lợi ích thay vì tiếp tục vật lộn."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Dê không tiến cũng không lùi được. Nhận đúng khó khăn trước rồi mới tìm đường ra."
+        }
+      ],
+      "application": "Trước lúc dồn sức, kiểm xem trở ngại cần phá, cần vòng qua hay chỉ cần kiên nhẫn."
+    },
+    {
+      "order": 35,
+      "code": "H_LY_KHON",
+      "name": "Tấn",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%99%89&oldid=10646579",
+      "image": "Mặt trời mọc trên đất, Ly trên Khôn. Điều đang tiến dần lộ rõ.",
+      "original": "康侯用錫馬蕃庶，晝日三接。",
+      "paraphrase": "Hình ảnh vua tiếp và thưởng chư hầu nhiều lần diễn tả cơ hội được ghi nhận. Cơ hội đó đi cùng cách dùng vị trí mới.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Vừa tiến đã bị cản và chưa được tin. Giữ vững, chừa thời gian cho người khác thấy bằng chứng."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Tiến trong lo âu vẫn có thể nhận hỗ trợ lớn. Lời cổ đặt phúc ấy ở người bà của vua."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Được số đông tin thì hối tiếc giảm. Cần xem sự tin ấy dựa vào việc đã làm."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Tiến như chuột lớn, dễ vin vào cơ hội và lo giữ phần mình. Thế ấy khó an."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Bớt lo được mất để đi tiếp theo mục tiêu. Có dị tự ở cụm được mất, cần giữ chú thích."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Dùng sừng mà tiến chỉ hợp việc xử lý trong phạm vi mình quản. Cứ giữ cách mạnh tay sẽ gây tiếc."
+        }
+      ],
+      "application": "Khi được thêm cơ hội, chọn một kết quả có thể chứng minh thay vì tìm thêm sự chú ý."
+    },
+    {
+      "order": 36,
+      "code": "H_KHON_LY",
+      "name": "Minh di",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%98%8E%E5%A4%B7&oldid=10644507",
+      "image": "Ánh sáng chìm trong đất, Ly dưới Khôn. Điều sáng cần được giữ khi hoàn cảnh làm nó bị thương.",
+      "original": "利艱貞。",
+      "paraphrase": "Giữ điều đúng trong gian khó, đồng thời điều chỉnh cách bộc lộ. Lời quẻ ngắn, các hào cho thấy nhiều cách tự bảo vệ.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Cánh chim rủ xuống, người đi xa thiếu ăn và bị chủ nhà bàn tán. Có lúc giữ đường đi phải chịu thiếu thốn."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Bị thương ở đùi trái nhưng có ngựa khỏe để cứu. Tìm phương tiện trợ giúp kịp thời."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Đi săn phía nam gặp đầu mối gây hại. Lời hào khuyên xử lý mà đừng gấp ép trật tự trở lại."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Vào sâu mới thấy tâm điểm của sự che tối, rồi ra khỏi cổng sân. Hiểu cơ chế giúp biết lối rời."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Tấm gương Cơ Tử gợi giữ phẩm chất khi phải giấu bớt ánh sáng của mình."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Ban đầu lên trời, sau rơi xuống đất. Người làm tối sáng suốt của người khác có thể mất chính vị trí của mình."
+        }
+      ],
+      "application": "Khi góp ý trực diện gây hại, chọn kênh an toàn để lưu sự thật và giữ điều cốt yếu."
+    },
+    {
+      "order": 37,
+      "code": "H_TON_LY",
+      "name": "Gia nhân",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%AE%B6%E4%BA%BA&oldid=2405005",
+      "image": "Gió sinh từ lửa, Tốn trên Ly. Nếp trong nhà lan ra từ lời nói và việc làm có thực.",
+      "original": "利女貞。",
+      "paraphrase": "Lời cổ nhấn vai trò người nữ trong gia đình. Cách đọc biên tập tập trung vào sự ổn định nhờ trách nhiệm rõ và cách cư xử nhất quán.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Đặt ranh giới từ đầu để việc trong nhà khỏi trượt khỏi nếp."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Người lo bữa ăn ở trong nhà có trách nhiệm cụ thể. Một nếp nhỏ làm đều giúp cả nhà vận hành."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Quá nghiêm dễ khó chịu, quá buông dễ hối tiếc. Lời hào đặt hai cực bên cạnh nhau."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Làm cho nhà đủ dùng là điều tốt. Nguồn lực có giá trị khi nuôi được những người cùng sống."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Vua vào vị trí lo việc nhà, lấy nếp gần làm gốc để bớt lo điều lớn."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Lòng tin đi cùng uy nghi giữ được nếp về cuối. Gương mẫu đem lại sức nặng cho quy tắc."
+        }
+      ],
+      "application": "Thống nhất một việc chung trong nhà hoặc nhóm và viết rõ ai làm gì, lúc nào cần trao đổi lại."
+    },
+    {
+      "order": 38,
+      "code": "H_LY_DOAI",
+      "name": "Khuê",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E7%9D%BD&oldid=10646622",
+      "image": "Lửa hướng lên, nước đầm hướng xuống, Ly trên Đoài. Hai hướng khác nhau vẫn ở cùng một quẻ.",
+      "original": "小事吉。",
+      "paraphrase": "Thế trái nhau chỉ thuận cho việc nhỏ. Có thể giữ phần khác biệt và tìm chỗ cùng làm trong phạm vi hẹp.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Mất ngựa thì đừng đuổi, nó tự trở về. Gặp người mình không ưa cũng chưa hẳn có lỗi."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Gặp chủ trong ngõ hẹp. Một cuộc gặp kín đáo có thể nối lại liên hệ khó thực hiện công khai."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Xe bị kéo lại, bò bị ghìm và người mang dấu phạt. Khởi đầu bị ngăn trở vẫn có thể có kết thúc khác."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Ở thế cô lập mà gặp người đáng tin, trao chữ tín giúp vượt hiểm."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Người cùng dòng cắn qua lớp mềm. Khi chỗ ngăn đã mỏng và còn mối tin cậy, có thể đi tới."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Thấy lợn bùn và một xe ma, giương cung rồi hạ khi nhận ra ý cầu hôn. Xét lại ấn tượng ban đầu."
+        }
+      ],
+      "application": "Chọn một việc nhỏ hai bên cùng cần, để lại bất đồng lớn cho khi đã có thêm tin cậy."
+    },
+    {
+      "order": 39,
+      "code": "H_KHAM_CAN2",
+      "name": "Kiển",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%B9%87&oldid=2405036",
+      "image": "Nước ở trên núi, Khảm trên Cấn. Chỗ hiểm nằm trước bước đi, khiến cần dừng để đổi hướng.",
+      "original": "利西南，不利東北；利見大人，貞吉。",
+      "paraphrase": "Lời cổ nêu hai hướng và khuyên gặp người có tầm. Đọc như việc đổi đường hoặc tìm trợ giúp khi gặp trở ngại.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Đi tiếp gặp khó, trở về được khen. Lùi có thể là lựa chọn đúng."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Bề tôi gặp hết khó này tới khó khác vì việc chung. Cần tách trách nhiệm tập thể khỏi lợi riêng."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Đi vướng thì quay lại chỗ mình có thể đứng vững."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Đi vướng, trở về thì có mối nối. Lúc khó, tìm lại người có thể phối hợp."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Khi trở ngại lớn, bạn bè tới. Chấp nhận hỗ trợ thay vì ôm hết gánh nặng."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Lui về có thể mở lối lớn hơn. Lời hào còn khuyên gặp người giúp nhìn xa."
+        }
+      ],
+      "application": "Khi không qua được, ghi điều cản đường, hỏi một người có kinh nghiệm và thử một tuyến khác."
+    },
+    {
+      "order": 40,
+      "code": "H_CHAN_KHAM",
+      "name": "Giải",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%A7%A3&oldid=10646666",
+      "image": "Sấm và mưa, Chấn trên Khảm. Sau chỗ hiểm, tình thế được tháo như giông giải sức nén.",
+      "original": "利西南，无所往，其來復吉。有攸往，夙吉。",
+      "paraphrase": "Nếu không còn việc phải đi, trở về là tốt. Nếu còn việc cần làm, nên giải quyết sớm.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Lời hào ngắn xác nhận không lỗi. Khi vướng đã lỏng, chưa cần đặt thêm biện pháp."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Bắt được ba cáo và có mũi tên vàng. Tìm đúng chỗ lắt léo bằng cách giữ đường thẳng."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Vừa mang gánh vừa ngồi xe, tự phô sự bất tương xứng làm kẻ khác nhòm tới."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Cởi điều đang níu như buông ngón chân. Bạn bè tới khi lòng tin có chỗ trở lại."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Người có trách nhiệm chủ động gỡ trói và cho người dưới thấy sự thành thật."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Bắn trúng chim cắt trên thành. Giải quyết đúng vật cản cao và rõ thay vì hành động lan rộng."
+        }
+      ],
+      "application": "Sau sự cố, bỏ ràng buộc đã hết lý do và xử lý sớm một điểm còn gây vướng."
+    },
+    {
+      "order": 41,
+      "code": "H_CAN2_DOAI",
+      "name": "Tổn",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%90%8D&oldid=10646704",
+      "image": "Đầm dưới núi, Đoài dưới Cấn. Phần thấp giảm để phần cao được giữ, đặt câu hỏi giảm cái gì và vì ai.",
+      "original": "有孚，元吉。无咎，可貞，利有攸往。曷之用？二簋可用享。",
+      "paraphrase": "Lễ hai bát vẫn đủ khi có lòng tin. Giảm hình thức có thể giữ được điều cốt yếu và giúp việc tiến.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Làm xong việc mình thì sang giúp nhanh, nhưng phải cân lượng phần cho đi."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Giữ vững, đừng cố tiến. Có thể giúp người bằng cách không làm suy kiệt mình."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Ba người đi thì bớt một, một người đi lại gặp bạn. Thành phần quan hệ thay đổi cách đồng hành."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Bớt tật hay gánh nặng của mình để niềm vui tới nhanh hơn."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Được tăng thêm ngoài dự tính, đến mức rùa quý cũng không chống lại. Biết nhận sự hỗ trợ đúng lúc."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Giúp mà không rút phần cần thiết của ai. Lời hào mở tới việc thu hút người cùng làm ngoài vòng nhà mình."
+        }
+      ],
+      "application": "Cắt một thứ thừa có tác dụng rõ, rồi dùng phần dư đó cho chỗ đang thiếu."
+    },
+    {
+      "order": 42,
+      "code": "H_TON_CHAN",
+      "name": "Ích",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E7%9B%8A&oldid=10646726",
+      "image": "Gió và sấm, Tốn trên Chấn. Sức này hỗ trợ sức kia và làm điều tốt lan rộng.",
+      "original": "利有攸往。利涉大川。",
+      "paraphrase": "Lời quẻ thuận việc đi và vượt sông lớn. Sự gia tăng có ý nghĩa khi đủ sức làm việc cần thiết.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Có điều kiện làm việc lớn thì dùng vào việc thật, thay vì giữ nguồn lực không dùng."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Sự hỗ trợ lớn đến mà khó từ chối. Giữ được nếp đúng mới giữ được phần tăng thêm."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Trong việc bất thường, dùng phần tăng thêm để ứng phó, giữ chữ tín và trình rõ qua nghi thức."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Trình người có quyền theo cách trung chính. Việc dời chỗ cần chỗ dựa và đồng thuận."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Có lòng thật sự muốn giúp thì sự tin cậy qua lại tự có. Lợi ích không chỉ là con số."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Cứ đòi tăng mà thiếu ý định bền vững có thể khiến người khác quay lại chống."
+        }
+      ],
+      "application": "Khi nhận thêm người hoặc thời gian, dùng nó cho vấn đề nhóm đã xác định, rồi xem lợi ích tới ai."
+    },
+    {
+      "order": 43,
+      "code": "H_DOAI_CAN",
+      "name": "Quải",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%A4%AC&oldid=2405003",
+      "image": "Đầm dâng lên trên trời, Đoài trên Càn. Sức dồn cao cần có đường thoát và lời nói công khai.",
+      "original": "揚于王庭，孚號，有厲，告自邑，不利即戎，利有攸往。",
+      "paraphrase": "Đưa điều phải quyết ra trước công đường, thông báo nguy cơ và tránh vội dùng vũ lực.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Dồn sức ở ngón chân trước, đi mà không thắng sẽ mắc lỗi. Chớ lao ra khi chưa đủ lực."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Cất tiếng cảnh giác. Dù có chuyện binh đao ban đêm, chuẩn bị giúp bớt lo."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Tỏ cứng ở gò má có hiểm. Đi riêng gặp mưa ướt và chịu lời bực vẫn có thể giữ phần đúng."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Chỗ ngồi đau và bước đi khó. Có đường dẫn đi như dắt dê, nhưng cố chấp khiến lời khuyên khó lọt."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Hình ảnh rau cứng cần nhổ dứt khoát. Làm đến nơi nhưng giữ đường giữa để tránh quá tay."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Không cất tiếng báo nên việc nguy đến cuối. Im lặng làm mất cơ hội xử lý."
+        }
+      ],
+      "application": "Công khai lý do cho quyết định khó và chọn cách thi hành ít gây hại nhất trong phạm vi quyền hạn."
+    },
+    {
+      "order": 44,
+      "code": "H_CAN_TON",
+      "name": "Cấu",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%A7%A4&oldid=10646826",
+      "image": "Gió đi dưới trời, Tốn dưới Càn. Một cuộc gặp đến nhanh, ảnh hưởng nhỏ lúc đầu có thể lan rộng.",
+      "original": "女壯，勿用取女。",
+      "paraphrase": "Lời quẻ dùng hình ảnh hôn nhân cổ để khuyên cân nhắc ràng buộc mạnh và bất ngờ. Không áp định kiến ấy vào người hiện đại.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Chặn bằng hãm kim loại trước khi sức nhỏ như con lợn gầy chạy đi. Đặt giới hạn sớm."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Trong bọc còn cá, nhưng không thuận đem đãi khách. Có thể giữ nguồn lực trong phạm vi mình quản."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Bước đi khó vì chỗ ngồi đã bị tổn thương. Biết hiểm giúp tránh lỗi lớn hơn."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Bọc không còn cá. Hành động khi nguồn lực đã mất dễ sinh nguy."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Quả dưa được che dưới cây, bên trong giữ vẻ tốt, rồi có điều đến từ trời. Hãy tạo chỗ đón cơ hội chưa đoán được."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Cuộc gặp ở sừng gợi chạm vào đầu cứng, có điều khó chịu nhưng chưa thành lỗi lớn."
+        }
+      ],
+      "application": "Khi cơ hội tới đột ngột, nhận phần có thể thử và hoãn phần ràng buộc dài hạn."
+    },
+    {
+      "order": 45,
+      "code": "H_DOAI_KHON",
+      "name": "Tụy",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%90%83&oldid=10647546",
+      "image": "Đầm trên đất, Đoài trên Khôn. Nhiều dòng tụ một chỗ như người gặp nhau ở nơi có nghi thức chung.",
+      "original": "王假有廟，利見大人，亨。利貞。用大牲吉，利有攸往。",
+      "paraphrase": "Vua tới miếu và gặp người có tầm. Tụ họp thuận khi có điểm quy chiếu, chuẩn bị và người giữ trách nhiệm.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Chữ tín không theo tới cuối làm đám đông rối. Một lời gọi thật có thể chuyển tiếng than thành tiếng cười."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Được dẫn dắt thì tụ lại được. Lòng tin có thể làm một lễ đơn sơ đủ nghĩa."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Tụ lại rồi thở than vì không có phần thuận. Tiến về chỗ có thể tham gia vẫn giúp tránh lỗi."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Lời hào chỉ nói tốt lớn và không lỗi. Vai trò quy tụ ở đây được đánh giá bằng kết quả thực tế."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Có vị trí tập hợp chưa chắc được tin. Sự nhất quán lâu dài giúp giảm tiếc khi lòng tin còn thiếu."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Nước mắt và nước mũi là hình ảnh của người chưa hòa vào được. Có thể nói ra nỗi khó mà không phải tự quy lỗi."
+        }
+      ],
+      "application": "Trước buổi tập hợp, chốt mục đích, người giữ nhịp và lối tham gia cho người chưa quen."
+    },
+    {
+      "order": 46,
+      "code": "H_KHON_TON",
+      "name": "Thăng",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%8D%87&oldid=10646879",
+      "image": "Cây mọc trong đất, Tốn dưới Khôn. Sự đi lên dựa vào nền và diễn ra từng mức.",
+      "original": "元亨，用見大人，勿恤，南征吉。",
+      "paraphrase": "Lời quẻ thuận gặp người giúp và tiến theo hướng có thể làm. Đi lên là quá trình có trợ lực.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Được tin cho đi lên thì thuận. Nấc đầu cần sự chấp thuận của người có trách nhiệm."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Có lòng tin thì lễ đơn giản đủ dùng. Bớt phô trương khi tìm sự hỗ trợ."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Đi lên qua một thành trống. Có lúc đường mở vì ít vật cản, không phải vì phải thắng ai."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Lễ tại núi Kỳ là hình ảnh ghi nhận sự thăng tiến trong bối cảnh cổ."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Lên theo bậc thang. Giữ nếp đúng và tiến từng nấc thay vì nhảy quá phần mình đã vững."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Tiến trong tối dễ thành đi mà không biết hướng. Bền chí cần gắn với mục đích còn kiểm được."
+        }
+      ],
+      "application": "Chia mục tiêu tiến bộ thành vài nấc nhỏ, mỗi nấc có dấu hiệu đã đủ để bước tiếp."
+    },
+    {
+      "order": 47,
+      "code": "H_DOAI_KHAM",
+      "name": "Khốn",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%9B%B0&oldid=10647032",
+      "image": "Đầm hết nước, Đoài trên Khảm. Nguồn ở dưới mà bề mặt khô, gợi sức bị dồn vào thế khó.",
+      "original": "亨，貞大人吉，无咎，有言不信。",
+      "paraphrase": "Giữ điều đúng khi thiếu thốn. Lời nói trong thế này khó được tin nên việc thực có sức nặng hơn.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Ngồi mắc ở gốc cây rồi xuống khe tối, lâu không thấy ai. Cần nhận ra cô lập đang kéo dài."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Bị vướng cả trong rượu và thức ăn. Khi người có trách nhiệm đang tới, giữ lễ và tránh vội tiến."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Tựa đá hay bụi gai đều đau, trở về nhà cũng không gặp người mong. Nhiều điểm tựa cùng hỏng."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Người đến rất chậm, bị vướng vì xe kim loại. Sự trợ giúp chậm vẫn có thể cho một kết thúc."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Hình phạt và vật phẩm chức vị cùng xuất hiện. Sự tháo gỡ tới chậm, nên giữ nếp trong lúc chờ."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Dây leo và thế chênh làm lo bước nào cũng hối. Khi đã nhận ra chỗ mắc, tiến có thể mở lối."
+        }
+      ],
+      "application": "Trong lúc thiếu lực, hỏi giúp một việc cụ thể và cho người khác bằng chứng thay vì hứa chung."
+    },
+    {
+      "order": 48,
+      "code": "H_KHAM_TON",
+      "name": "Tỉnh",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E4%BA%95&oldid=10645240",
+      "image": "Nước được đưa lên trên cây, Khảm trên Tốn. Giếng là điểm dùng chung ngay khi khu dân cư đổi.",
+      "original": "改邑不改井，无喪无得，往來井井。汔至亦未繘井。羸其瓶，凶。",
+      "paraphrase": "Làng có thể đổi mà giếng còn. Gần kéo nước tới nơi vẫn hỏng nếu bình vỡ. Mã Tỉnh ở đây tương ứng chữ 井.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Giếng bùn không dùng được và bị bỏ đến mức không còn chim. Nguồn bỏ lâu cần được dọn lại."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Nước đọng chỉ còn cá nhỏ, vò dùng thì rò. Hỏng cả đầu nguồn lẫn dụng cụ lấy nước."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Giếng đã vét sạch mà không ai uống. Người có trách nhiệm nhận ra giá trị sẽ giúp nhiều người cùng hưởng."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Xây sửa thành giếng là việc bảo trì cần thiết. Chưa dùng ngay cũng có ích về sau."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Nước trong và lạnh dùng được. Giá trị của nguồn nằm ở việc thực sự nuôi người."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Giếng đã dùng tốt thì để mở, giữ lòng tin để người khác tiếp tục tiếp cận."
+        }
+      ],
+      "application": "Với một tài nguyên dùng chung, kiểm nguồn, cách lấy và người đang bị bỏ ngoài trước khi nói đã phục vụ tốt."
+    },
+    {
+      "order": 49,
+      "code": "H_DOAI_LY",
+      "name": "Cách",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%9D%A9&oldid=10643173",
+      "image": "Đầm ở trên lửa, Đoài trên Ly. Hai yếu tố ép nhau, gợi nhu cầu đổi và chọn thời điểm.",
+      "original": "",
+      "paraphrase": "Bản ghim ghi 已日, bản Chính nghĩa ghi 己日. Bản nháp đọc theo ý lòng tin cần thời cơ khi đổi, chờ duyệt cách hiểu cụm mở đầu.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Da bò vàng buộc chắc. Lúc đầu hãy giữ cái cần ổn để có chỗ đứng trước khi đổi."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Chỉ tiến hành đổi khi tới mốc thích hợp. Cách đọc cụm ngày vẫn cần đối chiếu dị tự."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Vội tiến gây hại. Đề nghị đổi cần được nói và kiểm nhiều lần mới có lòng tin."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Khi đã có lòng tin thì có thể đổi mệnh lệnh hay quy ước. Đổi có căn cứ sẽ giảm tiếc."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Hổ đổi rõ vằn, chưa cần bói đã có người tin. Việc làm thấy được tạo tín nhiệm."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Báo đổi vằn, có người chỉ đổi mặt. Sau khi đổi cần ổn định, phân biệt đổi thật với thay vẻ ngoài."
+        }
+      ],
+      "application": "Nêu điều kiện bắt đầu thay đổi và dấu hiệu cho thấy người dùng đã tin và thực sự làm theo quy trình mới."
+    },
+    {
+      "order": 50,
+      "code": "H_LY_TON",
+      "name": "Đỉnh",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%BC%8E&oldid=10647086",
+      "image": "Lửa ở trên gỗ, Ly trên Tốn. Vạc dùng gỗ và lửa để chuyển nguyên liệu thành thức nuôi.",
+      "original": "元吉，亨。",
+      "paraphrase": "Lời quẻ mở ra sự tốt và thông. Đồ dùng, người giữ và nguyên liệu phải làm việc cùng nhau để có kết quả.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Lật chân vạc để đổ cặn. Lời cổ còn ví việc nhận người vì đứa con. Gỡ thứ hỏng để giữ phần có ích."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Vạc đã có thức ăn. Người đối nghịch có vướng riêng nên khó đến, có thể tập trung giữ phần bên trong."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Tai vạc biến đổi nên khó nhấc, thức ngon không dùng được. Khi trở ngại dịu, đường dùng mới mở lại."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Chân vạc gãy làm đổ thức ăn của chủ. Giao tải vượt sức chống đỡ gây hậu quả cho việc chung."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Tai vàng và đòn nâng bằng kim loại gợi các điểm nối thích hợp. Giữ đúng cách nâng và phân vai."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Đòn nâng bằng ngọc gợi bộ phận vừa đẹp vừa phù hợp. Khi các phần ăn khớp, có thể dùng trọn giá trị."
+        }
+      ],
+      "application": "Kiểm tra điểm chịu lực và cách bàn giao trước khi tăng lượng việc trong một quy trình."
+    },
+    {
+      "order": 51,
+      "code": "H_CHAN_CHAN",
+      "name": "Chấn",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%9C%87&oldid=10644930",
+      "image": "Chấn chồng Chấn, sấm nối sấm. Biến động thử khả năng giữ sự tập trung vào việc quan trọng.",
+      "original": "亨。震來虩虩，笑言啞啞。震驚百里，不喪匕鬯。",
+      "paraphrase": "Ban đầu sợ, sau có thể cười nói. Dù chấn động lan xa, người coi lễ vẫn giữ được đồ cúng.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Giật mình trước rồi cười sau. Biết nhận sợ hãi giúp quay lại hành động."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Mất vật quý khi biến động, hãy lên chỗ an toàn thay vì đuổi theo. Lời bảy ngày gợi chờ vòng phục hồi."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Sợ đến rối nhưng biết hành động đúng lúc thì tránh vạ. Đừng để choáng váng kéo dài."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Chấn động đi vào bùn và mất đà. Thêm tiếng động không giúp phần việc đang lún."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Sóng đến rồi đi đều có hiểm. Giữ việc còn làm được để tránh mất điều quan trọng."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Khi hoảng đến mức nhìn không rõ, tiến dễ hại. Biến động bên cạnh cũng là tín hiệu để thận trọng."
+        }
+      ],
+      "application": "Lúc gặp sự cố, giữ một đầu việc sống còn rồi mới xử lý những gì bị gián đoạn."
+    },
+    {
+      "order": 52,
+      "code": "H_CAN2_CAN2",
+      "name": "Cấn",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%89%AE&oldid=10647135",
+      "image": "Cấn chồng Cấn, hai núi đứng yên. Biết dừng đúng chỗ giúp không bị kéo theo mọi chuyển động.",
+      "original": "艮其背，不獲其身，行其庭，不見其人，无咎。",
+      "paraphrase": "Lời quẻ nói dừng ở lưng và đi qua sân mà không bận thấy người. Một cách đọc là biết đặt sự chú ý vào đúng giới hạn.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Dừng từ ngón chân, trước khi đi xa. Giữ được điểm dừng sớm làm ít phải quay lại."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Dừng bắp chân mà không giúp được phần đang đi theo. Dừng một mình có thể vẫn còn bức bối."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Dừng gắt ở lưng dưới làm căng thân và lòng bất an. Điểm dừng ép quá mạnh cũng gây hại."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Dừng nơi thân mình. Có thể giữ phần mình làm chủ mà không ép người khác dừng theo."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Dừng ở hàm để lời nói có chừng mực. Bản ghim có dị chữ, cách đọc này nhấn việc cân lời."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Dừng đôn hậu, có độ vững. Đó là khả năng giữ giới hạn một cách tự nhiên."
+        }
+      ],
+      "application": "Đặt một khoảng nghỉ trước phản hồi quan trọng và dùng nó để chọn điều đáng nói."
+    },
+    {
+      "order": 53,
+      "code": "H_TON_CAN2",
+      "name": "Tiệm",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%BC%B8&oldid=2560535",
+      "image": "Cây trên núi, Tốn trên Cấn. Chim hồng lần lượt tìm chỗ đậu, gợi tiến theo nấc.",
+      "original": "女歸吉，利貞。",
+      "paraphrase": "Lời quẻ dùng hôn nhân cổ để nói về tiến có trình tự. Giữ đúng trong từng bước thay vì ép kết quả.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Chim mới tới bờ nước, dễ bị lời bàn. Bước đầu có rủi ro nhưng chưa phải sai."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Chim tới tảng đá và ăn uống yên. Có chỗ đứng chắc giúp nhóm cùng hưởng kết quả nhỏ."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Chim tới đất cao, lời người ra đi không về và thai không nuôi được gợi đứt mạch. Trọng tâm lúc đó là giữ an toàn."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Chim lên cây, có thể tìm cành bằng để đậu. Chọn chỗ tạm hợp sức mình khi vị trí chưa thuận."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Chim lên gò cao, lời cổ nói chờ lâu mới thông. Trì hoãn không nhất thiết làm hỏng kết cuộc."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Bản ghim đọc đất cao, có cách đọc thành đường trời. Lông chim dùng làm nghi tiết, gợi chặng cuối có thể làm gương."
+        }
+      ],
+      "application": "Xác định mỗi nấc cần chỗ đứng nào, rồi chấp nhận một nhịp chờ nếu chỗ ấy chưa vững."
+    },
+    {
+      "order": 54,
+      "code": "H_CHAN_DOAI",
+      "name": "Quy muội",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%AD%B8%E5%A6%B9&oldid=10647182",
+      "image": "Sấm trên đầm, Chấn trên Đoài. Hôn lễ cổ đặt người mới vào một trật tự đã có.",
+      "original": "征凶，无攸利。",
+      "paraphrase": "Lời quẻ cảnh báo tiến vội trong thế không chủ động. Hình ảnh người em theo chị phản ánh chế độ hôn nhân cổ, cần đọc trong bối cảnh ấy.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Người em theo làm vợ lẽ, người đi khập khiễng vẫn bước được. Tác dụng có thật dù vị trí bị giới hạn."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Mắt chỉ thấy một phần. Giữ lập trường của người ở ẩn giúp không lệ thuộc vào điều nhìn chưa rõ."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Chữ tu có cách hiểu khác nhau. Bản nháp giữ ý người kết hôn phải quay lại trong vị thế thứ yếu."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Lỡ kỳ hẹn nhưng vẫn có lúc thích hợp. Không cần ép cam kết chỉ vì mốc ban đầu đã qua."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Tay áo của người ở vị cao lại kém người đi theo. Giá trị không nhất thiết nằm ở lễ phục nổi bật."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Giỏ không có lễ vật và dê không có máu. Nghi lễ còn hình mà thiếu nội dung nên khó đem lại ích lợi."
+        }
+      ],
+      "application": "Trước khi vào một nhóm đã có thứ bậc, hỏi rõ quyền quyết định, phần việc và giới hạn cam kết của mình."
+    },
+    {
+      "order": 55,
+      "code": "H_CHAN_LY",
+      "name": "Phong",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%B1%90&oldid=10645290",
+      "image": "Sấm trên lửa, Chấn trên Ly. Sức mạnh và độ sáng cùng lên cao như mặt trời giữa trưa.",
+      "original": "亨。王假之，勿憂，宜日中。",
+      "paraphrase": "Thời phong thịnh đáng dùng khi còn sáng. Lời quẻ khuyên bớt lo và nhận ra thời điểm thuận không kéo dài mãi.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Gặp người có thể phối hợp ngang sức. Có thể dành thời gian làm quen trước khi đi xa hơn."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Màn che tối đến mức thấy sao giữa trưa. Khi người khác nghi, lòng tin cần được thể hiện rõ."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Trời tối khác thường và cánh tay phải gãy. Nhận giới hạn tác nghiệp trước khi đổ lỗi cho ai."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Giữa màn che gặp người chủ ngang vai. Có đồng minh phù hợp thì còn đường đi."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Điều sáng hoặc người có tài tới, đem lại lời khen. Biết đón nhận đóng góp có thật."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Nhà to nhưng cửa tối và không có người. Vẻ sung túc không bù được sự cô lập kéo dài."
+        }
+      ],
+      "application": "Lúc nhiều cơ hội, chọn việc tạo giá trị dài hơn ánh đèn và giữ kênh phản hồi mở."
+    },
+    {
+      "order": 56,
+      "code": "H_LY_CAN2",
+      "name": "Lữ",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%97%85&oldid=10647234",
+      "image": "Lửa trên núi, Ly trên Cấn. Lửa đi qua từng nơi, gợi người ở nhờ và chưa có chỗ định cư.",
+      "original": "小亨，旅貞吉。",
+      "paraphrase": "Chỉ có độ hanh thông nhỏ. Người đi xa cần giữ nguyên tắc và đọc đúng quy ước nơi mình tới.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Người lữ khách quá vụn vặt tự chuốc rắc rối. Điều nhỏ có thể ảnh hưởng nhiều khi chưa có chỗ dựa."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Tới nhà trọ, giữ tài vật và có người giúp đáng tin. Tạo nền tạm ổn trước khi làm thêm."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Nhà trọ cháy và mất người giúp. Cách cư xử hoặc hoàn cảnh xấu có thể làm cả chỗ nương tan."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Có nơi dừng và dụng cụ nhưng lòng chưa yên. Đủ đồ chưa có nghĩa là đã hợp chỗ."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Bắn được chim trĩ dù mất một mũi tên. Chấp nhận một hao tổn nhỏ để có uy tín từ việc làm."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Tổ chim cháy, người đi xa cười rồi khóc và mất bò. Tự tin lúc đầu dễ che việc thiếu chỗ đứng bền."
+        }
+      ],
+      "application": "Ở nơi mới, giữ nguồn dự phòng, hỏi quy ước địa phương và tránh làm đứt mối giúp đỡ."
+    },
+    {
+      "order": 57,
+      "code": "H_TON_TON",
+      "name": "Tốn",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%B7%BD&oldid=10644966",
+      "image": "Tốn chồng Tốn, gió theo gió. Sự ảnh hưởng thấm dần qua lời hướng dẫn nhất quán.",
+      "original": "小亨。利有攸往。利見大人。",
+      "paraphrase": "Có thể đạt việc nhỏ và tìm người có kinh nghiệm. Mềm dẻo cần một hướng đi để khỏi thành do dự.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Cứ tiến rồi lui. Lời hào mượn sự kiên quyết của người lính để chỉnh thế lưỡng lự."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Luồn tới dưới giường và dùng người lo nghi lễ. Tìm điều đang khuất qua phương tiện phù hợp."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Nhún lặp đi lặp lại gây tiếc. Nhượng bộ mà không biết mục tiêu làm suy yếu tác dụng."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Săn được ba loại con vật. Cách tiếp cận mềm có thể đem lại kết quả cụ thể, không chỉ thiện cảm."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Những ngày quanh Canh gợi xem trước và sau mốc sửa. Khởi đầu chưa tốt vẫn có thể làm tới cuối."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Lại luồn xuống thấp tới mức mất đồ dùng. Mềm quá khiến mình không còn phương tiện hành động."
+        }
+      ],
+      "application": "Khi thuyết phục người khác, thử từng bước và chốt mốc để quyết định tiến, đổi cách hoặc dừng."
+    },
+    {
+      "order": 58,
+      "code": "H_DOAI_DOAI",
+      "name": "Đoài",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%85%8C&oldid=2404993",
+      "image": "Đoài chồng Đoài, hai đầm nối nhau. Hình tượng gợi sự vui và việc bạn bè trao đổi học hỏi.",
+      "original": "亨。利貞。",
+      "paraphrase": "Niềm vui giúp việc thông khi giữ được nguyên tắc. Quan hệ dễ chịu vẫn cần lòng tin và khả năng nói khác ý.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Niềm vui hòa hợp đến từ cách cư xử vừa phải, không cần lôi kéo."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Có lòng tin thì vui và bớt hối tiếc. Sự dễ chịu có nền khi lời đi cùng việc."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Chạy tới để cầu vui có thể gây hại. Cần xem ai đang tạo sức hút và vì mục đích gì."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Cân nhắc trong lúc chưa yên. Nhận ra cái đang gây khó và giữ ranh giới có thể mở niềm vui khác."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Tin vào thứ đang làm suy yếu mình là nguy. Đừng để lời êm che mất dấu hiệu mòn."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Niềm vui bị dẫn dắt. Lời hào để mở câu hỏi người này đang tự vui hay chỉ bị kéo theo."
+        }
+      ],
+      "application": "Chọn nơi có thể trao đổi thẳng và học được điều mới, kể cả khi câu trả lời không dễ nghe."
+    },
+    {
+      "order": 59,
+      "code": "H_TON_KHAM",
+      "name": "Hoán",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%B8%99&oldid=10647580",
+      "image": "Gió đi trên nước, Tốn trên Khảm. Dòng bị ngăn có thể tản ra nhờ sức đẩy.",
+      "original": "亨，王假有廟，利涉大川，利貞。",
+      "paraphrase": "Sự giải tán điều vướng có thể thông. Miếu là điểm quy tụ lại và việc vượt sông đòi giữ hướng.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Dùng ngựa khỏe để cứu ngay khi thế tan. Cần một phương tiện đủ mạnh vào đúng lúc."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Chạy về chỗ dựa. Khi mọi thứ tản, tìm điểm tựa trước khi tổ chức lại."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Bỏ sự bận mình để việc chung có đường. Hào chỉ nói không hối tiếc, không yêu cầu hy sinh vô giới hạn."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Giải phe nhóm nhỏ để tạo một chỗ tụ lớn hơn. Bỏ cấu trúc cũ có thể mở cách hợp tác khác."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Lời hiệu lệnh lan ra như mồ hôi. Thông tin rõ từ người có trách nhiệm giúp nhiều người cùng gỡ việc."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Ra xa chỗ có thương tổn hoặc nguy. Rời nguồn hại trước khi quay lại xây nối kết."
+        }
+      ],
+      "application": "Tháo một rào giữa các nhóm rồi dùng một quy ước chung để họ có chỗ hợp tác trở lại."
+    },
+    {
+      "order": 60,
+      "code": "H_KHAM_DOAI",
+      "name": "Tiết",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E7%AF%80&oldid=2405027",
+      "image": "Nước ở trên đầm, Khảm trên Đoài. Đầm có sức chứa hữu hạn, gợi đặt giới hạn vừa mức.",
+      "original": "亨。苦節不可貞。",
+      "paraphrase": "Có chừng mực giúp thông, nhưng giới hạn cay nghiệt khó bền. Cần xem điều bị giới hạn và thời điểm dùng.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Chưa ra sân trong nên tránh lỗi. Giữ giới hạn ở lúc cần giữ."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Không ra sân ngoài khi nên đi thì gặp hại. Cùng là ở yên nhưng thời điểm đã khác."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Thiếu điều tiết dẫn đến than thở. Nhận ra hậu quả giúp sửa cách dùng nguồn lực."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Giới hạn đã thành nếp yên ổn. Có thể duy trì mà không cần cưỡng ép liên tục."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Giới hạn dễ chấp nhận được người khác theo. Đi tiếp có công khi quy tắc hợp tình thế."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Giữ giới hạn quá khắc có thể gây hại dù hết hối về việc đã đặt quy định. Nên phân biệt hai hệ quả."
+        }
+      ],
+      "application": "Thử quy tắc trong một tuần và hỏi nó có giúp mọi người làm việc tốt hơn hay chỉ làm họ kiệt sức."
+    },
+    {
+      "order": 61,
+      "code": "H_TON_DOAI",
+      "name": "Trung phu",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E4%B8%AD%E5%AD%9A&oldid=10647425",
+      "image": "Gió trên đầm, Tốn trên Đoài. Tượng gợi điều chân thành ở trong có thể lan ra ngoài.",
+      "original": "豚魚吉，利涉大川，利貞。",
+      "paraphrase": "Hình ảnh lợn và cá đặt cạnh việc vượt sông. Lòng tin cần đủ thực để làm chỗ dựa cho việc khó.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Chuẩn bị và giữ lòng chuyên nhất giúp an. Đổi sang một ý khác quá nhanh làm mất sự yên."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Hạc kêu trong bóng râm mà con vẫn đáp. Sự chân thành có tiếng vọng dù không nói ở nơi đông."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Gặp đối thủ khiến lúc đánh trống, lúc dừng, lúc khóc, lúc hát. Cảm xúc đang lệ thuộc vào phản ứng bên ngoài."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Trăng gần hoặc đã đầy theo dị bản, ngựa mất bạn cặp. Có lúc buông một mối lệ thuộc để giữ đúng hướng."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Lòng tin kết chặt với nhau. Cam kết hai bên giữ được khi có việc thực chứng minh."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Tiếng chim lên trời mà thiếu điểm tựa. Lời có thể vang xa hơn sức thực của người nói."
+        }
+      ],
+      "application": "Kiểm một lời hứa bằng hành động nhỏ đã làm được và xem hai bên có hiểu cam kết giống nhau không."
+    },
+    {
+      "order": 62,
+      "code": "H_CHAN_CAN2",
+      "name": "Tiểu quá",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%B0%8F%E9%81%8E&oldid=10643238",
+      "image": "Sấm trên núi, Chấn trên Cấn. Chim để tiếng lại, gợi hạ mình và chú ý điều nhỏ.",
+      "original": "亨。利貞。可小事，不可大事。飛鳥遺之音，不宜上宜下，大吉。",
+      "paraphrase": "Có thể làm việc nhỏ, tránh đẩy thành việc lớn. Lời chim khuyên chọn thấp thay vì cố lên cao.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Chim bay vào thế nguy. Vượt quá tầm ngay lúc đầu dễ gặp hậu quả."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Chưa gặp vua mà gặp bề tôi, vượt ông mà gặp bà. Có thể chọn điểm tiếp xúc trong tầm, giữ đúng vai."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Không phòng điều vượt giới hạn thì người theo sau có thể gây hại. Cần nhận sớm chỗ dễ bị vượt qua."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Không vượt mà gặp đúng mức, nên chưa lỗi. Nếu còn tiến phải dè chừng và không giữ cách ấy mãi."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Mây dày chưa mưa, người bắn chỉ lấy thứ trong hang. Làm được việc cụ thể dù điều kiện lớn chưa đến."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Vượt qua thay vì gặp đúng chỗ, chim mắc họa. Sự quá đà làm mất điểm dừng."
+        }
+      ],
+      "application": "Thu nhỏ phạm vi khi nguồn lực ít, ưu tiên một cải thiện hữu hình hơn một thay đổi lớn chưa đủ sức."
+    },
+    {
+      "order": 63,
+      "code": "H_KHAM_LY",
+      "name": "Ký tế",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%97%A2%E6%BF%9F&oldid=2572417",
+      "image": "Nước ở trên lửa, Khảm trên Ly. Hai phía vào đúng chỗ như việc vừa qua sông, vẫn cần giữ ổn định.",
+      "original": "亨小。利貞。初吉終亂。",
+      "paraphrase": "Việc đã xong còn thuận ở mức nhỏ. Lời quẻ nhắc đầu tốt mà cuối có thể rối nếu buông việc giữ.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": true,
+          "text": "Kéo giữ bánh xe và ướt đuôi. Giảm đà sớm để sự cố nhỏ không làm hỏng cả chuyến."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": false,
+          "text": "Mất vật che xe, đừng vội đuổi. Có thể lấy lại khi chu kỳ đổi, giữ an toàn trước."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": true,
+          "text": "Cao Tông mất nhiều năm mới thắng. Việc khó cần người xứng nhiệm, dù kết quả cuối đã được biết."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": false,
+          "text": "Lời hào nhắc đồ vải và sự cảnh giác suốt ngày. Chuẩn bị cho chỗ hỏng nhỏ trong lúc hệ thống còn chạy."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": true,
+          "text": "Lễ bò lớn phía đông kém lễ đơn giản phía tây về hiệu quả. Thành ý và thời cơ quan trọng hơn phô trương."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": false,
+          "text": "Ướt đến đầu, hiểm đã vượt ngưỡng. Hoàn tất một việc không cho phép đi tiếp bất kể dấu hiệu nguy."
+        }
+      ],
+      "application": "Sau khi bàn giao, chốt cách bảo trì, tín hiệu báo lỗi và người nhận trách nhiệm khi cần can thiệp."
+    },
+    {
+      "order": 64,
+      "code": "H_LY_KHAM",
+      "name": "Vị tế",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%9C%AA%E6%BF%9F&oldid=10647450",
+      "image": "Lửa ở trên nước, Ly trên Khảm. Hai hướng còn tách, như con cáo mới gần sang bờ.",
+      "original": "亨。小狐汔濟，濡其尾，无攸利。",
+      "paraphrase": "Việc chưa xong vẫn có đường thông. Cáo nhỏ ướt đuôi lúc sắp qua cho thấy đoạn cuối cần xét riêng.",
+      "lines": [
+        {
+          "lineNumber": 1,
+          "isYang": false,
+          "text": "Đuôi đã ướt dù mới khởi đầu. Việc tiến thiếu chuẩn bị để lại điều đáng tiếc."
+        },
+        {
+          "lineNumber": 2,
+          "isYang": true,
+          "text": "Kéo giữ bánh xe. Hãm đúng lúc giúp kiểm lại cách đi và giữ được hướng."
+        },
+        {
+          "lineNumber": 3,
+          "isYang": false,
+          "text": "Đi thẳng lúc chưa xong gây nguy, nhưng có thể vượt sông nếu xử lý được điều kiện cản đường."
+        },
+        {
+          "lineNumber": 4,
+          "isYang": true,
+          "text": "Chiến dịch lâu ngày rồi được thưởng. Hình ảnh cổ cho thấy công bền có thể được ghi nhận sau khi thật sự hoàn tất."
+        },
+        {
+          "lineNumber": 5,
+          "isYang": false,
+          "text": "Ánh sáng của người giữ chính đi cùng lòng tin. Khi gần hoàn thành, điều đã làm cần đủ rõ để người khác kiểm."
+        },
+        {
+          "lineNumber": 6,
+          "isYang": true,
+          "text": "Uống rượu với lòng tin ban đầu chưa lỗi, nhưng ướt đầu là quá mức và mất cái đúng. Đừng ăn mừng trước khi qua bờ."
+        }
+      ],
+      "application": "Viết tiêu chí hoàn thành và thử lại bước cuối bằng dữ kiện thật trước khi tuyên bố xong."
+    }
+  ]
+}
