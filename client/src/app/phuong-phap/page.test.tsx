@@ -13,6 +13,8 @@ describe("public method catalog", () => {
     const tamThe = screen.getByRole("region", { name: "Diễn Cầm Tam Thế" });
     expect(within(tamThe).getByText("Ngày sinh, giờ sinh, loại lịch và nội dung muốn xem.")).toBeTruthy();
     expect(screen.getAllByText("Có biểu mẫu")).toHaveLength(2);
+    expect(within(maiHoa).getByRole("link").closest(".method-catalog-action")).toBeTruthy();
+    expect(within(tamThe).getByRole("link").closest(".method-catalog-action")).toBeTruthy();
     expect(screen.getAllByRole("link").map(link => link.getAttribute("href"))).toEqual(["/mai-hoa", "/tam-the"]);
     expect(screen.queryByRole("button")).toBeNull();
   });

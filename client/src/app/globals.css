@@ -85,6 +85,11 @@ select:disabled, input:disabled, fieldset:disabled { cursor: not-allowed; }
 .page-header h1 { font-family: var(--font-heading); color: var(--primary-hover); font-weight: 400; font-size: clamp(34px, 4.5vw, 54px); margin: 12px 0 20px; overflow-wrap: anywhere; }
 .page-description { max-width: 710px; color: var(--secondary); font-size: 17px; line-height: 1.8; }
 .module-grid { display: grid; gap: 24px; margin-bottom: 32px; }
+.method-catalog-card { display: flex; flex-direction: column; gap: 12px; }
+.method-catalog-card > .section-title { margin: 0; }
+.method-catalog-card > .module-status { color: var(--muted); font-size: 13px; }
+.method-catalog-card > .reference-fields { margin-block: 4px 0; }
+.method-catalog-action { margin-top: auto; padding-top: 16px; }
 .module-card { position: relative; min-width: 0; display: flex; flex-direction: column; padding: 36px; border: 1px solid var(--border); border-radius: var(--radius); background: radial-gradient(ellipse at top right, rgb(103 58 178 / 16%), transparent 65%), var(--surface-gradient); color: var(--text); text-decoration: none; box-shadow: var(--shadow); transition: border-color .2s ease, transform .2s ease; }
 .module-card:hover { border-color: var(--primary); transform: translateY(-4px); }
 .module-card-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }

@@ -53,6 +53,14 @@ describe("consultation workspace", () => {
     expect(screen.getByText("Cuộc trò chuyện chưa có tin nhắn.")).toBeTruthy();
   });
 
+  it("shows the open room's current status while the conversation list is stale", () => {
+    render(<ConsultationWorkspace audience="user" access={{ ...authorized,
+      conversations: [{ ...authorized.room, status: "pending" }] }} />);
+    const sidebar = screen.getByRole("complementary", { name: "Thông tin tư vấn" });
+    expect(within(sidebar).getByText("Đang tư vấn")).toBeTruthy();
+    expect(within(sidebar).queryByText("Chờ tư vấn viên")).toBeNull();
+  });
+
   it("validates draft text without showing delivery or submitting", () => {
     render(<ConsultationWorkspace audience="user" access={authorized} />);
     fireEvent.click(screen.getByRole("button", { name: "Kiểm tra bản nháp" }));
@@ -133,5 +141,19 @@ describe("consultation workspace", () => {
     expect(screen.getByRole("alert").textContent).toBe("Gửi tin nhắn thất bại.");
     expect(isDisabled("Thử kết nối lại")).toBe(true);
     expect(isDisabled("Gửi tin nhắn")).toBe(true);
+  });
+
+  it("uses Enter to send without interrupting newlines or IME composition", () => {
+    const send = vi.fn();
+    render(<ConsultationWorkspace audience="user" access={authorized}
+      messaging={{ historyStatus: "ready", delivery: "idle", send }} />);
+    const input = screen.getByLabelText("Tin nhắn");
+    fireEvent.change(input, { target: { value: " Chào bạn\nMình muốn hỏi về quẻ. " } });
+    fireEvent.keyDown(input, { key: "Enter", shiftKey: true });
+    fireEvent.keyDown(input, { key: "Enter", isComposing: true });
+    expect(send).not.toHaveBeenCalled();
+    fireEvent.keyDown(input, { key: "Enter" });
+    expect(send).toHaveBeenCalledExactlyOnceWith("Chào bạn\nMình muốn hỏi về quẻ.");
+    expect(screen.queryByRole("list", { name: "Tin nhắn trong cuộc trò chuyện" })).toBeNull();
   });
 });

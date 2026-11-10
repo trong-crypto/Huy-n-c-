@@ -51,7 +51,10 @@ it("opens Hỏi AI and sends a bounded follow-up without touching Chat", async (
 
   await open();
   expect(screen.getByRole("link", { name: "Chat với tư vấn viên" }).getAttribute("href")).toBe("/tu-van");
-  await ask("Quẻ chủ là gì?");
+  const input = await screen.findByRole("textbox");
+  await waitFor(() => expect((input as HTMLTextAreaElement).disabled).toBe(false));
+  fireEvent.change(input, { target: { value: "Quẻ chủ là gì?" } });
+  fireEvent.keyDown(input, { key: "Enter" });
   expect(await screen.findByText("Quẻ chủ là hình ban đầu.")).toBeTruthy();
   expect(screen.getByRole("heading", { name: "Trợ lý AI · DEMO" })).toBeTruthy();
   await ask("Hào động là gì?");
@@ -71,6 +74,7 @@ it("passes only a Mai Hoa reference and renders Server evidence", async () => {
   }));
   await open({ calculationRequestId: id });
   await ask("Hào nào thay đổi?");
+  fireEvent.click(await screen.findByText("Nguồn đi kèm kết quả từ Server"));
   expect(await screen.findByText("Cách")).toBeTruthy();
   expect(screen.getByText("Cấu")).toBeTruthy();
   expect(screen.getByText(/H_DOAI_CHAN .*tên chưa xác minh/)).toBeTruthy();

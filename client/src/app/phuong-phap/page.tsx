@@ -27,7 +27,7 @@ function Catalog({ guides = [], loadFailed, retry }: {
       <button type="button" className="secondary-button" onClick={retry}>Tải lại bài hướng dẫn</button>
     </p>}
     <div className="module-grid">
-      {divinationCatalog.map(family => <section key={family.href} className="section-card" aria-labelledby={`method-family-${family.number}`}>
+      {divinationCatalog.map(family => <section key={family.href} className="section-card method-catalog-card" aria-labelledby={`method-family-${family.number}`}>
         <p className="eyebrow">{family.tag}</p>
         <h2 id={`method-family-${family.number}`} className="section-title">{family.title}</h2>
         <p>{family.description}</p>
@@ -48,7 +48,9 @@ function Catalog({ guides = [], loadFailed, retry }: {
             <dd>{truongXichMethod.input}</dd>
           </div>}
         </dl>
-        <Link className="secondary-button" href={family.href}>Mở biểu mẫu {family.group}</Link>
+        <footer className="method-catalog-action">
+          <Link className="secondary-button" href={family.href}>Mở biểu mẫu {family.group}</Link>
+        </footer>
       </section>)}
     </div>
   </PageContainer>;
