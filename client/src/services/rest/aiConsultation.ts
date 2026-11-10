@@ -6,7 +6,7 @@ import { requestJson } from "./transport";
 type Mode = "demo" | "live";
 type Availability = { mode: Mode | "off" };
 export type AiTurn = { question: string; answer: string };
-type AiSource = { title: string; section: string; printedPage: string; pdfPage: number | null };
+type AiSource = { title: string; section: string; printedPage: string; pdfPage: number | null; url?: string | null };
 type AiHexagram = { code: string; name: string; nameStatus: string };
 type ReadingFacts = {
   method: string; primary: AiHexagram; mutual: AiHexagram; changed: AiHexagram; movingLine: number;
@@ -21,7 +21,17 @@ function isAvailability(value: unknown): value is Availability {
 function isSource(value: unknown): value is AiSource {
   return isRecord(value) && typeof value.title === "string" && typeof value.section === "string"
     && typeof value.printedPage === "string"
+    && (value.url == null || typeof value.url === "string" && isHttpsSource(value.url))
     && (value.pdfPage === null || typeof value.pdfPage === "number" && Number.isInteger(value.pdfPage) && value.pdfPage > 0);
+}
+
+function isHttpsSource(value: string) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" && !url.username && !url.password;
+  } catch {
+    return false;
+  }
 }
 
 function isHexagram(value: unknown): value is AiHexagram {
@@ -48,6 +58,6 @@ export function getAiAvailability(signal: AbortSignal) {
 export function askAi(question: string, turns: AiTurn[], reading: AiReadingRef | undefined, csrf: string, signal: AbortSignal) {
   const options = customerOptions();
   return requestJson("/ai/ask", isAnswer, signal, { question, turns, ...reading }, {
-    ...options, headers: { ...options.headers, "X-CSRF-Token": csrf }, timeoutMs: 20_000,
+    ...options, headers: { ...options.headers, "X-CSRF-Token": csrf }, timeoutMs: 65_000,
   });
 }

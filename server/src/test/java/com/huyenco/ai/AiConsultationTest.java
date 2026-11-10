@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.huyenco.admin.HexagramInterpretations;
 import com.huyenco.auth.AccountHistoryIdentity;
 import com.huyenco.common.exception.ContractException;
 import com.huyenco.history.CompletedResults;
@@ -29,6 +30,7 @@ class AiConsultationTest {
     private final HistoryStore history = mock(HistoryStore.class);
     private final CompletedResults results = mock(CompletedResults.class);
     private final AiProvider provider = mock(AiProvider.class);
+    private final HexagramInterpretations library = mock(HexagramInterpretations.class);
     private final HistoryStore.Owner owner = new HistoryStore.Owner(UUID.randomUUID(), Instant.MAX, UUID.randomUUID());
     private final UUID readingId = UUID.randomUUID();
     private final UUID requestId = UUID.randomUUID();
@@ -52,7 +54,9 @@ class AiConsultationTest {
         when(identity.require(any(), eq(true))).thenReturn(new AccountHistoryIdentity.Access(owner, "csrf"));
         when(provider.mode()).thenReturn("demo");
         when(provider.answer(any())).thenReturn("Nội dung trả lời minh họa.");
-        var service = new AiConsultationService(history, results, mapper, provider);
+        var service = new AiConsultationService(history, results, mapper, provider, Optional.of(library));
+        when(library.published(anyString())).thenAnswer(invocation ->
+                new HexagramInterpretations.PublicReading(invocation.getArgument(0), null));
         mvc = MockMvcBuilders.standaloneSetup(new AiConsultationController(identity, new RequestGuards(ORIGIN), service, mapper)).build();
     }
 
@@ -91,6 +95,34 @@ class AiConsultationTest {
         String json = mapper.writeValueAsString(prompt);
         assertFalse(json.contains("PRIVATE") || json.contains("Chưa đối chiếu") || json.contains(readingId.toString()));
         verifyNoInteractions(results);
+    }
+
+    @Test
+    void forwardsOnlyPublishedVerifiedExcerptsAndTheMovingPrimaryLine() throws Exception {
+        when(provider.mode()).thenReturn("live");
+        when(history.detail(owner, readingId)).thenReturn(Optional.of(new HistoryStore.Detail(
+                readingId, "MAI_HOA", "PRIVATE_TITLE", Instant.EPOCH, "TEAM_DECISION", mapper.readTree(READING))));
+        var content = mapper.readTree("""
+                {"overview":"Tổng quan đã công bố.","lines":["hào 1","hào 2","Hào 3 đã công bố","hào 4","hào 5","hào 6"]}
+                """);
+        var sources = mapper.readTree("""
+                [{"title":"Chu Dịch","locator":"革 · 易經","url":"https://zh.wikisource.org/wiki/周易/革","reviewStatus":"VERIFIED"}]
+                """);
+        var publication = new HexagramInterpretations.Publication(null, 2, content, sources, null);
+        when(library.published("H_DOAI_LY")).thenReturn(new HexagramInterpretations.PublicReading("H_DOAI_LY", publication));
+        var unverified = new HexagramInterpretations.Publication(null, 1, mapper.readTree("""
+                {"overview":"NO_UNVERIFIED_EXCERPT"}
+                """), mapper.readTree("""
+                [{"title":"Chưa duyệt","locator":"Nguồn tạm","url":"https://example.invalid/draft","reviewStatus":"SOURCE_LOCATED"}]
+                """), null);
+        when(library.published("H_CAN_TON")).thenReturn(new HexagramInterpretations.PublicReading("H_CAN_TON", unverified));
+        mvc.perform(ask(reference("readingId", readingId))).andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.sources[0].title").value("Chu Dịch"))
+                .andExpect(jsonPath("$.data.sources[0].url").value("https://zh.wikisource.org/wiki/周易/革"));
+        var prompt = capturePrompt();
+        assertEquals(1, prompt.reading().library().size());
+        assertEquals("Hào 3 đã công bố", prompt.reading().library().get(0).movingLineText());
+        assertFalse(mapper.writeValueAsString(prompt).contains("NO_UNVERIFIED_EXCERPT"));
     }
 
     @Test
@@ -149,6 +181,16 @@ class AiConsultationTest {
                 .andExpect(jsonPath("$.error.code").value("AI_TIMEOUT"));
         doThrow(new ContractException("AI_UNAVAILABLE", "Chưa khả dụng.")).when(provider).answer(any());
         mvc.perform(ask("{\"question\":\"Hỏi\"}")).andExpect(status().isServiceUnavailable())
+                .andExpect(jsonPath("$.error.code").value("AI_UNAVAILABLE"));
+    }
+
+    @Test
+    void doesNotDisplayIdentifiersInventedByTheModel() throws Exception {
+        when(provider.mode()).thenReturn("live");
+        when(provider.answer(any())).thenReturn("Quẻ H_ĐỌC_12 được xác nhận ở trang 99.");
+        when(history.detail(owner, readingId)).thenReturn(Optional.of(new HistoryStore.Detail(
+                readingId, "MAI_HOA", "Bản lưu", Instant.EPOCH, "TEAM_DECISION", mapper.readTree(READING))));
+        mvc.perform(ask(reference("readingId", readingId))).andExpect(status().isServiceUnavailable())
                 .andExpect(jsonPath("$.error.code").value("AI_UNAVAILABLE"));
     }
 

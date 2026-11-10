@@ -95,7 +95,7 @@ function AiConversation({ reference, csrf, onSessionError }: {
       </>}
       {mode === "off" && <p role="status">Trợ lý AI đang tắt hoặc thiếu cấu hình. Bạn vẫn có thể chat với tư vấn viên.</p>}
       {mode === "demo" && <p>Câu trả lời minh họa có sẵn. Câu hỏi được xử lý tại Huyền Cơ.</p>}
-      {mode === "live" && <p className={styles.disclosure}>Khi bạn gửi, câu hỏi, một phần trao đổi gần đây và thông tin quẻ được chọn sẽ được chuyển tới nhà cung cấp AI bên ngoài. Tránh nhập thông tin cá nhân hoặc bí mật.</p>}
+      {mode === "live" && <p className={styles.disclosure}>Câu hỏi, một phần trao đổi gần đây và thông tin quẻ được gửi đến mô hình do Server cấu hình. Nếu dùng dịch vụ từ xa, dữ liệu sẽ được chuyển tới nhà cung cấp AI bên ngoài. Tránh nhập thông tin cá nhân hoặc bí mật.</p>}
       {reference && <details className={styles.reading}>
         <summary>Đang hỏi về kết quả Mai Hoa</summary>
         {reading ? <ReadingSummary reading={reading} />
@@ -117,7 +117,7 @@ function AiConversation({ reference, csrf, onSessionError }: {
             {reply.sources.length > 0 && <details className={styles.sources}>
               <summary>Nguồn đi kèm kết quả từ Server</summary>
               <ul>{reply.sources.map((source, sourceIndex) => <li key={sourceIndex}>
-                <strong>{source.title}</strong> · {source.section}
+                {source.url ? <a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a> : <strong>{source.title}</strong>} · {source.section}
                 {source.printedPage && <> · Trang in {source.printedPage}</>}
                 {source.pdfPage && <> · Trang PDF {source.pdfPage}</>}
               </li>)}</ul>

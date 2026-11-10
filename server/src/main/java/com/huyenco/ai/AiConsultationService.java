@@ -3,14 +3,18 @@ package com.huyenco.ai;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.huyenco.admin.HexagramInterpretations;
 import com.huyenco.common.exception.ContractException;
 import com.huyenco.history.CompletedResults;
 import com.huyenco.history.HistoryStore;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Semaphore;
+import java.util.regex.Pattern;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -19,17 +23,21 @@ import org.springframework.stereotype.Service;
 @Profile("db")
 @ConditionalOnProperty(name = "huyenco.auth.enabled", havingValue = "true")
 final class AiConsultationService {
+    private static final Pattern GENERATED_REFERENCE = Pattern.compile("(?iu)\\bH_[\\p{L}\\p{N}_]+|https?://");
     private final HistoryStore history;
     private final CompletedResults results;
     private final ObjectMapper mapper;
     private final AiProvider provider;
+    private final Optional<HexagramInterpretations> library;
     private final Semaphore requests = new Semaphore(4);
 
-    AiConsultationService(HistoryStore history, CompletedResults results, ObjectMapper mapper, AiProvider provider) {
+    AiConsultationService(HistoryStore history, CompletedResults results, ObjectMapper mapper, AiProvider provider,
+                          Optional<HexagramInterpretations> library) {
         this.history = history;
         this.results = results;
         this.mapper = mapper;
         this.provider = provider;
+        this.library = library;
     }
 
     String mode() { return provider.mode(); }
@@ -38,11 +46,28 @@ final class AiConsultationService {
         if (!requests.tryAcquire()) throw new ContractException("TOO_MANY_REQUESTS", "Trợ lý AI đang bận. Vui lòng thử lại.");
         try {
             Reading reading = readingId == null && requestId == null ? null : context(owner, readingId, requestId);
-            return new Answer(provider.answer(new Prompt(question, turns, reading)), provider.mode(),
+            String answer = provider.answer(new Prompt(question, turns, reading));
+            if (reading != null && "live".equals(provider.mode())) {
+                if (GENERATED_REFERENCE.matcher(answer).find()) {
+                    throw new ContractException("AI_UNAVAILABLE", "Mô hình đưa ra tham chiếu chưa kiểm chứng. Hãy thử hỏi lại.");
+                }
+                var facts = reading.facts();
+                String serverFacts = "Dữ kiện từ Server: quẻ chủ %s, quẻ hỗ %s, quẻ biến %s, hào động %d."
+                        .formatted(label(facts.primary()), label(facts.mutual()), label(facts.changed()), facts.movingLine());
+                if (reading.library().size() < 3) {
+                    serverFacts += "\nThư viện chưa có bài luận giải đã công bố cho một hoặc nhiều quẻ trong kết quả này.";
+                }
+                answer = serverFacts + "\n\nDiễn giải của AI:\n" + answer;
+            }
+            return new Answer(answer, provider.mode(),
                     reading == null ? List.of() : reading.sources(), reading == null ? null : reading.facts());
         } finally {
             requests.release();
         }
+    }
+
+    private static String label(Hexagram hexagram) {
+        return hexagram.name().isEmpty() ? hexagram.code() : hexagram.name();
     }
 
     private Reading context(HistoryStore.Owner owner, UUID readingId, UUID requestId) {
@@ -60,7 +85,7 @@ final class AiConsultationService {
         }
     }
 
-    private static Reading context(String type, JsonNode node) {
+    private Reading context(String type, JsonNode node) {
         if (!"MAI_HOA".equals(type) || node == null) throw missing();
         int line = node.path("movingLine").isIntegralNumber() ? node.path("movingLine").asInt() : 0;
         String method = value(node, "method", 40);
@@ -72,6 +97,12 @@ final class AiConsultationService {
         add(passages, value(detailed, "summary", 900));
         detailed.path("phases").elements().forEachRemaining(phase -> add(passages, value(phase, "content", 600)));
         var sources = new ArrayList<Source>();
+        var excerpts = new ArrayList<LibraryExcerpt>();
+        library.ifPresent(catalog -> {
+            excerpt(catalog, excerpts, sources, facts.primary(), "Quẻ chủ", line);
+            excerpt(catalog, excerpts, sources, facts.mutual(), "Quẻ hỗ", 0);
+            excerpt(catalog, excerpts, sources, facts.changed(), "Quẻ biến", 0);
+        });
         sources(sources, detailed.path("sourceReferences"));
         sources(sources, node.path("sourceReferences"));
         var decisions = new ArrayList<String>();
@@ -80,7 +111,38 @@ final class AiConsultationService {
             add(decisions, value(decision, "limitation", 400));
         }
         node.path("decisionReferences").elements().forEachRemaining(ref -> add(decisions, value(ref, "description", 400)));
-        return new Reading(facts, value(detailed, "topic", 40), List.copyOf(passages), List.copyOf(decisions), List.copyOf(sources));
+        return new Reading(facts, value(detailed, "topic", 40), List.copyOf(passages), List.copyOf(decisions),
+                List.copyOf(sources), List.copyOf(excerpts));
+    }
+
+    private static void excerpt(HexagramInterpretations catalog, List<LibraryExcerpt> excerpts, List<Source> sources,
+                                Hexagram hexagram, String role, int movingLine) {
+        var publication = catalog.published(hexagram.code()).publication();
+        if (publication == null || publication.sources().isEmpty()) return;
+        var approved = new ArrayList<Source>();
+        for (JsonNode source : publication.sources()) {
+            if (!"VERIFIED".equals(source.path("reviewStatus").asText())) return;
+            String title = value(source, "title", 200);
+            String locator = value(source, "locator", 240);
+            String url = value(source, "url", 1000);
+            if (title.isEmpty() || locator.isEmpty() || !https(url)) return;
+            approved.add(new Source(title, hexagram.code() + " · " + locator + " · v" + publication.version(), "", null, url));
+        }
+        JsonNode content = publication.content();
+        String lineText = movingLine == 0 ? "" : excerptText(content.path("lines").path(movingLine - 1), 320);
+        excerpts.add(new LibraryExcerpt(role, hexagram.code(), value(content, "overview", 450), lineText));
+        for (Source source : approved) {
+            if (sources.size() < 12 && !sources.contains(source)) sources.add(source);
+        }
+    }
+
+    private static boolean https(String value) {
+        try {
+            URI uri = URI.create(value);
+            return "https".equals(uri.getScheme()) && uri.getHost() != null && uri.getUserInfo() == null;
+        } catch (IllegalArgumentException invalid) {
+            return false;
+        }
     }
 
     private static Hexagram hexagram(JsonNode node) {
@@ -96,7 +158,7 @@ final class AiConsultationService {
             String title = value(item, "title", 200), section = value(item, "section", 240);
             if (title.isEmpty() || section.isEmpty()) continue;
             int page = item.path("pdfPage").asInt(0);
-            var source = new Source(title, section, value(item, "printedPage", 40), page > 0 ? page : null);
+            var source = new Source(title, section, value(item, "printedPage", 40), page > 0 ? page : null, null);
             if (!target.contains(source)) target.add(source);
         }
     }
@@ -106,7 +168,10 @@ final class AiConsultationService {
     }
 
     private static String value(JsonNode node, String key, int max) {
-        JsonNode field = node.path(key);
+        return excerptText(node.path(key), max);
+    }
+
+    private static String excerptText(JsonNode field, int max) {
         if (!field.isTextual()) return "";
         String text = field.textValue().strip();
         return text.substring(0, text.offsetByCodePoints(0, Math.min(max, text.codePointCount(0, text.length()))));
@@ -117,11 +182,13 @@ final class AiConsultationService {
     }
 
     record Turn(String question, String answer) {}
-    record Source(String title, String section, String printedPage, Integer pdfPage) {}
+    record Source(String title, String section, String printedPage, Integer pdfPage, String url) {}
     record Hexagram(String code, String name, String nameStatus) {}
     record ReadingFacts(String method, Hexagram primary, Hexagram mutual, Hexagram changed, int movingLine,
                         String sourceStatus, String ruleBasis) {}
-    record Reading(ReadingFacts facts, String topic, List<String> passages, List<String> decisions, List<Source> sources) {}
+    record LibraryExcerpt(String role, String code, String overview, String movingLineText) {}
+    record Reading(ReadingFacts facts, String topic, List<String> passages, List<String> decisions, List<Source> sources,
+                   List<LibraryExcerpt> library) {}
     record Prompt(String question, List<Turn> turns, Reading reading) {}
     record Answer(String answer, String mode, List<Source> sources, ReadingFacts reading) {}
 }
