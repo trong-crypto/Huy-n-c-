@@ -60,7 +60,7 @@ final class AccountAuthService {
     private final Clock clock;
     private final SecretKeySpec csrfKey;
     private final SecureRandom random = new SecureRandom();
-    private final Argon2PasswordEncoder passwords = new Argon2PasswordEncoder(16, 32, 1, 19 * 1024, 2);
+    private final Argon2PasswordEncoder passwords = passwordEncoder();
     private final Semaphore passwordSlots = new Semaphore(4);
     private final String dummyHash;
 
@@ -73,6 +73,10 @@ final class AccountAuthService {
         if (key.length != 32) throw new IllegalArgumentException("AUTH_CSRF_KEY must be 32 bytes encoded as Base64");
         this.csrfKey = new SecretKeySpec(key, "HmacSHA256");
         this.dummyHash = passwords.encode(newToken());
+    }
+
+    static Argon2PasswordEncoder passwordEncoder() {
+        return new Argon2PasswordEncoder(16, 32, 1, 19 * 1024, 2);
     }
 
     Registration register(String displayName, String identifier, String password) {
