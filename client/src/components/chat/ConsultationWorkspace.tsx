@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { customerAuthRoutes } from "@/config/customerAuthRoutes";
 import { PageContainer, PageHeader } from "@/components/ui/Page";
 import { ChatRoomPanel } from "./ChatRoomPanel";
+import { ConsultationNavigation } from "./ConsultationNavigation";
 import { chatRoutes, roomStatusLabels, type ChatAccess, type ChatAudience, type ChatMessaging, type SubscribeToRoom } from "./chatState";
 import styles from "./chat.module.css";
 
@@ -46,6 +47,7 @@ export function ConsultationWorkspace({ audience, access = { status: "blocked" }
         {consultant ? "Về trang tư vấn người dùng" : "Mở không gian tư vấn viên"} →
       </Link>
     </PageHeader>
+    {!consultant && <ConsultationNavigation current="human" />}
     {access.status !== "authorized" && <p className="status-banner"
       role={access.status === "blocked" || access.status === "loading" ? "status" : "alert"}>{accessMessages[access.status]}</p>}
     {access.status === "expired" && <Link className="source-link" href={customerAuthRoutes.login}>Đăng nhập để tiếp tục</Link>}

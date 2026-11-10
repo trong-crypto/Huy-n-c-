@@ -6,7 +6,7 @@ export class RestError extends Error {
   constructor(public readonly code: string, public readonly apiError?: ApiError) { super(code); this.name = "RestError"; }
 }
 
-type RequestOptions = { method?: "GET" | "POST" | "PUT" | "DELETE"; credentials?: "omit" | "same-origin"; headers?: Record<string, string>; successStatus?: number | readonly number[] };
+type RequestOptions = { method?: "GET" | "POST" | "PUT" | "DELETE"; credentials?: "omit" | "same-origin"; headers?: Record<string, string>; successStatus?: number | readonly number[]; timeoutMs?: number };
 // Public requests omit cookies. H01 opts into same-origin cookies explicitly; never auto-retry writes.
 export async function requestJson<T>(path: string, guard: (value: unknown) => value is T, signal: AbortSignal, body?: object, options: RequestOptions = {}): Promise<T> {
   const controller = new AbortController();
@@ -14,7 +14,7 @@ export async function requestJson<T>(path: string, guard: (value: unknown) => va
   signal.addEventListener("abort", abort, { once: true });
   if (signal.aborted) controller.abort();
   let timedOut = false;
-  const timer = setTimeout(() => { timedOut = true; controller.abort(); }, CLIENT_CONFIG.restTimeoutMs);
+  const timer = setTimeout(() => { timedOut = true; controller.abort(); }, options.timeoutMs ?? CLIENT_CONFIG.restTimeoutMs);
   try {
     const response = await fetch(`${CLIENT_CONFIG.apiBaseUrl.replace(/\/$/, "")}${path}`, {
       method: options.method ?? (body === undefined ? "GET" : "POST"), signal: controller.signal,
@@ -37,7 +37,8 @@ export async function requestJson<T>(path: string, guard: (value: unknown) => va
         VERSION_CONFLICT: 409, INVALID_TRANSITION: 409, SOURCE_CHANGED: 409, SOURCE_ALREADY_APPLIED: 409, REQUEST_ID_CONFLICT: 409,
         INVALID_SOURCE: 400,
         RULE_NOT_AVAILABLE: 422, TOO_MANY_REQUESTS: 429,
-        DATABASE_UNAVAILABLE: 503, KNOWLEDGE_DATA_INCOMPLETE: 503, INTERNAL_ERROR: 500 };
+        DATABASE_UNAVAILABLE: 503, KNOWLEDGE_DATA_INCOMPLETE: 503, INTERNAL_ERROR: 500,
+        AI_UNAVAILABLE: 503, AI_TIMEOUT: 504 };
       if (response.ok || (Object.hasOwn(statuses, value.error.code) && response.status !== statuses[value.error.code])) throw new RestError("INVALID_RESPONSE");
       throw new RestError(value.error.code, value.error);
     }

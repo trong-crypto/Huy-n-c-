@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
         { source: "/api/v1/ws/chat", destination: `${server}/api/v1/ws/chat` },
         { source: "/api/v1/chat/consultants/:path*", destination: `${server}/api/v1/chat/consultants/:path*` },
         { source: "/api/v1/chat/conversations/:path*", destination: `${server}/api/v1/chat/conversations/:path*` },
+        { source: "/api/v1/ai/:path*", destination: `${server}/api/v1/ai/:path*` },
       ] : []),
       ...(process.env.NEXT_PUBLIC_ACCOUNT_HISTORY === "1" || process.env.NEXT_PUBLIC_METHOD_GUIDES === "1"
         || process.env.NEXT_PUBLIC_ADMIN_ACCOUNTS === "1" || process.env.NEXT_PUBLIC_ADMIN_HEXAGRAM_GLOSSES === "1"

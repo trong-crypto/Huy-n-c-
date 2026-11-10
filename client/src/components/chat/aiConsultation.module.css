@@ -1,0 +1,85 @@
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+  margin-block: 1.25rem;
+}
+
+.navigation a[aria-current="page"] {
+  border-color: currentColor;
+  text-decoration: underline;
+  text-underline-offset: .25em;
+}
+
+.transcript {
+  display: grid;
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.exchange {
+  display: grid;
+  gap: .55rem;
+}
+
+.question, .answer, .reading {
+  padding: 1rem 1.25rem;
+  border: 1px solid rgb(219 180 101 / .32);
+  border-radius: .8rem;
+  overflow-wrap: anywhere;
+}
+
+.question {
+  justify-self: end;
+  max-width: 88%;
+  background: rgb(137 84 190 / .16);
+}
+
+.answer, .reading {
+  background: rgb(10 5 26 / .38);
+}
+
+.answer h3, .reading h3 {
+  color: #efcf8d;
+  font-weight: 650;
+}
+
+.question p, .answer p {
+  margin-top: .35rem;
+  white-space: pre-wrap;
+}
+
+.sources {
+  margin-top: .8rem;
+}
+
+.sources ul {
+  padding-inline-start: 1.25rem;
+  list-style: disc;
+}
+
+.reading dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 2rem;
+  margin-block: .5rem;
+}
+
+.reading dt {
+  font-weight: 650;
+}
+
+.form {
+  display: grid;
+  gap: .65rem;
+  margin-top: 1rem;
+}
+
+.form label {
+  font-weight: 650;
+}
+
+.form button {
+  justify-self: start;
+}
