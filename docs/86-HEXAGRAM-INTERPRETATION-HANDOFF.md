@@ -26,10 +26,10 @@ Các mẫu `mai_hoa_reading_templates` và `reading_source_bundles` phục vụ 
 
 ## Gói bản nháp
 
-- `data/hexagram_interpretation_sources.csv` là ma trận 64 mã, thứ tự, danh tính Hán và Hán Việt, thượng/hạ quái, sáu hào, trang E01 và đầu mối Chu Dịch. `SOURCE_LOCATED` nghĩa là đã đọc trực tiếp chương mẫu. `INDEX_LOCATED` mới xác định mục trong chỉ mục và cần đối chiếu từng chương.
+- `data/hexagram_interpretation_sources.csv` là ma trận 64 mã, thứ tự, danh tính Hán và Hán Việt, thượng/hạ quái, sáu hào, trang E01 và phiên bản chương Chu Dịch. Cả 64 quẻ đã được đọc chương trực tiếp và ghi `SOURCE_LOCATED`. Đây là trạng thái đối chiếu nguồn của bản nháp.
 - `data/hexagram_interpretation_pilot.draft.json` có ba bài Càn, Khôn và Đại súc với tổng quan, hình tượng, trích đoạn lời quẻ, diễn nghĩa, sáu đoạn giải hào và gợi ý suy ngẫm.
-- `data/hexagram_interpretation_overviews.draft.json` có 61 tổng quan bước đầu, chưa đối chiếu nguyên văn từng quái từ/hào từ. Các file chỉ dùng cho biên tập. Không import tự động và không nằm trong bundle của website.
-- Tổng cộng có 64 tổng quan và 94 phần nội dung DRAFT, gồm 33 phần của ba bài mẫu và 61 tổng quan sơ bộ. Mỗi tổng quan dài 150–300 đơn vị phân cách bằng khoảng trắng. Cả 64 quẻ có đầu mối nguồn, 61 quẻ còn chờ đối chiếu trực tiếp từng chương. Chưa có phần nào trong gói biên tập được công bố.
+- `data/hexagram_interpretation_overviews.draft.json` có 61 tổng quan đã đối chiếu với từng chương, dùng cho biên tập. Các file ở ngoài bundle của website và không được import tự động.
+- Tổng cộng có 64 tổng quan và 94 phần nội dung DRAFT, gồm 33 phần của ba bài mẫu và 61 tổng quan. Mỗi tổng quan dài 150–300 đơn vị phân cách bằng khoảng trắng. Kết quả theo từng mã quẻ, dị bản và thứ tự ưu tiên nằm trong [bảng rà soát nguồn](hexagram-interpretation/source-review.md). Cả gói chờ người duyệt độc lập.
 - Trạng thái xuất bản `DRAFT` và mức đối chiếu nguồn là hai trường khác nhau. Ngày soạn hoặc có link không tự chuyển thành VERIFIED. Các đề xuất ứng dụng là gợi ý đọc biểu tượng.
 
 ## Hợp đồng triển khai riêng

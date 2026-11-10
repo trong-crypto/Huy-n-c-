@@ -3,52 +3,52 @@
   "purpose": "EDITORIAL_REVIEW_ONLY",
   "status": "DRAFT",
   "catalog": "hexagram_interpretation_sources.csv",
-  "editorialNote": "Tổng quan bước đầu do nhóm biên soạn dựa trên tên, cấu trúc và hình tượng đối chiếu ở chỉ mục Chu Dịch. Link chương là đầu mối để người duyệt kiểm từng mục. Không dùng như bản dịch lời quẻ hoặc hào từ.",
+  "editorialNote": "Tổng quan do nhóm biên soạn bằng tiếng Việt, đã đối chiếu trực tiếp từng chương ở bản Chu Dịch được ghim. Hình tượng và lời quẻ thuộc văn bản cổ. Các ví dụ thực hành là diễn giải biên tập, chờ người duyệt độc lập.",
   "entries": [
     {
       "order": 3,
       "code": "H_KHAM_CHAN",
       "name": "Truân",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 3 · 屯",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10643482",
+        "locator": "上經 · 3 · 屯 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%B1%AF&oldid=10643482",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%B1%AF"
       },
-      "text": "Nước ở trên sấm. Sức bật ở dưới đã có, nhưng khoảng đường phía trước vẫn chưa rõ và dễ vướng. Truân gợi công việc mới bắt đầu, khi người, quy trình và nguồn lực chưa ăn khớp. Khó khăn lúc này có thể chỉ ra phần nền cần dựng trước. Hãy chọn một việc nhỏ làm được ngay, xác định ai có thể hỗ trợ và dùng phản hồi ban đầu để điều chỉnh kế hoạch. Một bước đầu có kiểm tra giúp tránh dồn sức vào hướng chưa rõ.\n\nVí dụ, một nhóm lần đầu làm sản phẩm có thể chưa thống nhất ngay cả cách mô tả vấn đề. Hãy làm một bản thử đủ nhỏ để mọi người cùng nhìn, rồi hỏi chỗ nào bị hiểu khác nhau. Nếu thiếu người, đừng mở thêm phần việc chỉ để kế hoạch trông đầy đủ. Kết quả cần nhất ở giai đoạn này là biết cách đi tiếp dựa trên điều đã học được."
+      "text": "Cấu trúc là Khảm trên Chấn. Đại Tượng dùng hình mây và sấm, còn lời quẻ khuyên chưa vội tiến và nói tới việc dựng nền tổ chức. Khi đọc theo bối cảnh hôm nay, đó có thể là lúc sức bật đã có nhưng đường đi còn dễ vướng. Truân gợi công việc mới bắt đầu, khi người, quy trình và nguồn lực chưa ăn khớp. Khó khăn lúc này có thể chỉ ra phần nền cần dựng trước. Hãy chọn một việc nhỏ làm được ngay, xác định ai có thể hỗ trợ và dùng phản hồi ban đầu để điều chỉnh kế hoạch. Một bước đầu có kiểm tra giúp tránh dồn sức vào hướng chưa rõ.\n\nVí dụ, một nhóm lần đầu làm sản phẩm có thể chưa thống nhất ngay cả cách mô tả vấn đề. Hãy làm một bản thử đủ nhỏ để mọi người cùng nhìn, rồi hỏi chỗ nào bị hiểu khác nhau. Nếu thiếu người, đừng mở thêm phần việc chỉ để kế hoạch trông đầy đủ. Kết quả cần nhất ở giai đoạn này là biết cách đi tiếp dựa trên điều đã học được."
     },
     {
       "order": 4,
       "code": "H_CAN2_KHAM",
       "name": "Mông",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 4 · 蒙",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645379",
+        "locator": "上經 · 4 · 蒙 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%92%99&oldid=10645379",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E8%92%99"
       },
-      "text": "Núi ở trên nước. Dòng nước vừa ra gặp địa hình chưa biết, gợi trạng thái người mới học đang cần định hướng. Mông đặt trọng tâm ở cách hỏi và cách tập, vì nhận thêm nhiều lời giải thích chưa chắc đã giúp hiểu sâu. Có thể nêu đúng một điều chưa hiểu, tìm người giải thích bằng ví dụ rồi tự làm lại một trường hợp khác. Nếu vẫn vướng, ghi rõ bước nào làm mình bối rối để cuộc trao đổi kế tiếp có điểm bắt đầu.\n\nTrong lớp học, câu hỏi “bài này làm thế nào” thường quá rộng. Thử chỉ ra giả thiết nào đang dùng, vì sao mình chọn bước đó và kết quả nào khiến mình nghi ngờ. Người hướng dẫn có thể trả lời vào đúng chỗ sai, còn người học có cơ hội nhận ra cách tự kiểm. Quẻ cũng đặt câu hỏi về giới hạn của việc dạy: người học cần có lượt thử của chính mình."
+      "text": "Đại Tượng lấy hình ảnh suối chảy ra dưới núi. Lời quẻ đặt người mới vào thế tự tìm đến hỏi và phân biệt lần hỏi đầu với việc hỏi đi hỏi lại. Đọc trong bối cảnh học tập, Mông gợi cách hỏi có mục đích và dành thời gian tự thử trước khi hỏi tiếp. Có thể nêu đúng một điều chưa hiểu, tìm người giải thích bằng ví dụ rồi tự làm lại một trường hợp khác. Nếu vẫn vướng, ghi rõ bước nào làm mình bối rối để cuộc trao đổi kế tiếp có điểm bắt đầu.\n\nTrong lớp học, câu hỏi “bài này làm thế nào” thường quá rộng. Thử chỉ ra giả thiết nào đang dùng, vì sao mình chọn bước đó và kết quả nào khiến mình nghi ngờ. Người hướng dẫn có thể trả lời vào đúng chỗ sai, còn người học có cơ hội nhận ra cách tự kiểm. Quẻ cũng đặt câu hỏi về giới hạn của việc dạy: người học cần có lượt thử của chính mình."
     },
     {
       "order": 5,
       "code": "H_KHAM_CAN",
       "name": "Nhu",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 5 · 需",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10643261",
+        "locator": "上經 · 5 · 需 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%9C%80&oldid=10643261",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E9%9C%80"
       },
       "text": "Nước ở trên trời, gợi mây tích lại trước khi mưa. Nhu xem chờ đợi như thời gian chuẩn bị. Việc tiến hay chưa phụ thuộc vào những điều kiện có thể quan sát, chẳng hạn thông tin còn thiếu, người chưa sẵn sàng hoặc nguồn lực chưa đủ. Có thể viết ra tín hiệu cần chờ và một mốc xem xét lại. Trong thời gian ấy, làm phần chuẩn bị có ích ngay cả khi thời cơ tới chậm hơn dự kiến.\n\nMột nhóm đang chờ dữ liệu bên ngoài vẫn có thể chuẩn bị tiêu chí chọn và dự trù kịch bản nếu dữ liệu đến muộn. Cách đó giúp mốc chờ có đầu việc và có điểm kết thúc. Trong một mối quan hệ, chờ người kia suy nghĩ có thể đi cùng một câu hỏi rõ về thời điểm trao đổi lại, để sự im lặng không buộc hai người phải tự đoán ý nhau."
@@ -58,45 +58,45 @@
       "code": "H_CAN_KHAM",
       "name": "Tụng",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 6 · 訟",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645409",
+        "locator": "上經 · 6 · 訟 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%A8%9F&oldid=10645409",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E8%A8%9F"
       },
-      "text": "Trời ở trên nước, hai hình tượng gợi những hướng đi tách nhau. Tụng tập trung vào tranh chấp khi mỗi bên theo một lý lẽ hoặc tiêu chuẩn riêng. Có thể phân biệt điều đang tranh cãi với lợi ích cần bảo vệ, rồi kiểm lại dữ kiện nào hai bên đều công nhận. Khi cuộc nói chuyện lặp lại mà không tiến thêm, một người trung lập hoặc một quy trình rõ ràng có thể giúp đưa tranh chấp về đúng phạm vi.\n\nNếu hai người tranh nhau cách chia việc, điều họ muốn bảo vệ có thể là công bằng về thời gian hoặc quyền quyết định. Hai mục tiêu này cần giải pháp khác nhau. Hãy viết một thỏa thuận thử trong thời gian ngắn và thống nhất tiêu chí đánh giá. Nếu chuyện liên quan quyền lợi lớn, giữ bản ghi sự kiện và quyết định giúp cuộc trao đổi dựa vào dữ kiện thay vì trí nhớ."
+      "text": "Trời ở trên nước, hai hình tượng gợi những hướng đi tách nhau. Tụng tập trung vào tranh chấp khi mỗi bên theo một lý lẽ hoặc tiêu chuẩn riêng. Có thể phân biệt điều đang tranh cãi với lợi ích cần bảo vệ, rồi kiểm lại dữ kiện nào hai bên đều công nhận. Lời quẻ cảnh báo việc theo đuổi tranh chấp đến cùng. Trong công việc, khi cuộc nói chuyện không tiến thêm, một người trung lập hoặc một quy trình rõ ràng có thể giúp đưa vấn đề về đúng phạm vi.\n\nNếu hai người tranh nhau cách chia việc, điều họ muốn bảo vệ có thể là công bằng về thời gian hoặc quyền quyết định. Hai mục tiêu này cần giải pháp khác nhau. Hãy viết một thỏa thuận thử trong thời gian ngắn và thống nhất tiêu chí đánh giá. Nếu chuyện liên quan quyền lợi lớn, giữ bản ghi sự kiện và quyết định giúp cuộc trao đổi dựa vào dữ kiện thay vì trí nhớ."
     },
     {
       "order": 7,
       "code": "H_KHON_KHAM",
       "name": "Sư",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 7 · 師",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 2405011",
+        "locator": "上經 · 7 · 師 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%B8%AB&oldid=2405011",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%B8%AB"
       },
-      "text": "Đất ở trên nước, gợi nguồn lực nằm dưới bề mặt. Sư nhìn vào cách tổ chức số đông để thực hiện một việc khó. Khi nhiều người cùng tham gia, mỗi người cần hiểu ai có quyền quyết định, mình chịu trách nhiệm phần nào và thông tin được truyền đi ra sao. Có thể kiểm bằng cách yêu cầu từng người diễn đạt lại vai trò của họ. Những chỗ diễn đạt khác nhau thường là nơi dễ phát sinh trục trặc.\n\nVí dụ, khi tổ chức một sự kiện, người đón khách và người xử lý sự cố cần biết cách liên lạc với nhau trước lúc đông người. Một sơ đồ đơn giản và một lần diễn tập ngắn dễ phát hiện khoảng trống hơn một danh sách nhiệm vụ dài. Câu hỏi thực tế của Sư là liệu nhóm còn làm việc được khi người điều phối chính phải rời vị trí trong một lúc."
+      "text": "Đại Tượng lấy hình ảnh nước trong đất. Lời hào đầu nói việc xuất quân cần kỷ luật. Từ bối cảnh quân đội trong văn bản cổ, bài vận dụng Sư để suy nghĩ về cách tổ chức số đông làm một việc khó. Khi nhiều người cùng tham gia, mỗi người cần hiểu ai có quyền quyết định, mình chịu trách nhiệm phần nào và thông tin được truyền đi ra sao. Có thể kiểm bằng cách yêu cầu từng người diễn đạt lại vai trò của họ. Những chỗ diễn đạt khác nhau thường là nơi dễ phát sinh trục trặc.\n\nVí dụ, khi tổ chức một sự kiện, người đón khách và người xử lý sự cố cần biết cách liên lạc với nhau trước lúc đông người. Một sơ đồ đơn giản và một lần diễn tập ngắn dễ phát hiện khoảng trống hơn một danh sách nhiệm vụ dài. Câu hỏi thực tế của Sư là liệu nhóm còn làm việc được khi người điều phối chính phải rời vị trí trong một lúc."
     },
     {
       "order": 8,
       "code": "H_KHAM_KHON",
       "name": "Tỷ",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 8 · 比",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645543",
+        "locator": "上經 · 8 · 比 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%AF%94&oldid=10645543",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E6%AF%94"
       },
       "text": "Nước ở trên đất. Nước lan theo địa hình gợi cách các thành viên tìm chỗ liên kết với nhau. Tỷ đặt câu hỏi về nền tảng của sự gần gũi. Có thể thân thiết mà vẫn cần nói rõ mục đích chung, trách nhiệm và mức độ cam kết. Khi cân nhắc tham gia một nhóm, hãy xem việc họ làm lúc có bất đồng hoặc lúc cần hỗ trợ. Những hành động lặp lại cho biết mức độ đáng tin hơn lời hứa ban đầu.\n\nTrong một nhóm mới, có thể bắt đầu bằng một cam kết nhỏ có thời hạn, chẳng hạn làm chung một buổi hoặc trao đổi một tài liệu. Sau đó xem cả hai bên đã chủ động liên hệ, báo khó và thực hiện phần đã nhận ra sao. Tỷ giúp đặt sự gần gũi vào những hành vi quan sát được. Việc giữ quyền rời đi cũng tạo điều kiện để sự liên kết được lựa chọn lại."
@@ -106,45 +106,45 @@
       "code": "H_TON_CAN",
       "name": "Tiểu súc",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 9 · 小畜",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645530",
+        "locator": "上經 · 9 · 小畜 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%B0%8F%E7%95%9C&oldid=10645530",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%B0%8F%E7%95%9C"
       },
-      "text": "Gió ở trên trời. Một tác động nhẹ đang giữ và điều chỉnh một sức lớn hơn nó. Tiểu súc gợi những lần tích lũy nhỏ giúp việc lớn dần có điều kiện thành hình. Có thể gom lại ghi chú, sửa một chi tiết thường gây lỗi hoặc tập một thói quen đủ đơn giản để duy trì. Tác dụng của các bước nhỏ dễ thấy hơn nếu có mốc đối chiếu. Khi chưa tới lúc thay đổi lớn, phần chuẩn bị ấy vẫn có giá trị riêng.\n\nNgười tập viết có thể gom mỗi ngày một đoạn ngắn và cuối tuần xem lỗi nào lặp lại. Đoạn lẻ ít tạo cảm giác tiến bộ, nhưng chuỗi đoạn cho thấy điều gì cần sửa. Nếu dự án đang chờ thêm người hoặc công cụ, một danh sách dữ liệu đã kiểm cũng là tích lũy. Hãy ưu tiên việc nhỏ có thể kết nối thành một kết quả, tránh tích góp những thứ không định dùng."
+      "text": "Đại Tượng nói gió đi trên trời, còn lời quẻ có mây dày mà chưa mưa. Hình ảnh ấy gợi điều kiện đang tích lại trong khi kết quả chưa xuất hiện. Tiểu súc gợi những lần tích lũy nhỏ giúp việc lớn dần có điều kiện thành hình. Có thể gom lại ghi chú, sửa một chi tiết thường gây lỗi hoặc tập một thói quen đủ đơn giản để duy trì. Tác dụng của các bước nhỏ dễ thấy hơn nếu có mốc đối chiếu. Khi chưa tới lúc thay đổi lớn, phần chuẩn bị ấy vẫn có giá trị riêng.\n\nNgười tập viết có thể gom mỗi ngày một đoạn ngắn và cuối tuần xem lỗi nào lặp lại. Đoạn lẻ ít tạo cảm giác tiến bộ, nhưng chuỗi đoạn cho thấy điều gì cần sửa. Nếu dự án đang chờ thêm người hoặc công cụ, một danh sách dữ liệu đã kiểm cũng là tích lũy. Hãy ưu tiên việc nhỏ có thể kết nối thành một kết quả, tránh tích góp những thứ không định dùng."
     },
     {
       "order": 10,
       "code": "H_CAN_DOAI",
       "name": "Lý",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 10 · 履",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10647513",
+        "locator": "上經 · 10 · 履 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%B1%A5&oldid=10647513",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%B1%A5"
       },
-      "text": "Trời ở trên đầm. Hình tượng gợi việc bước vào một tình thế có chênh lệch về vị trí hoặc sức mạnh. Lý mời người đọc xem kỹ cách đi đứng và ứng xử khi hành động của mình có thể chạm đến ranh giới người khác. Có thể làm rõ quyền hạn, hỏi trước khi dùng nguồn lực chung và chọn cách nói đủ thẳng mà vẫn giữ sự tôn trọng. Những quy ước rõ ràng giúp cả hai bên biết đâu là bước đi an toàn.\n\nVí dụ, một người mới góp ý vào tài liệu do người khác chịu trách nhiệm có thể hỏi trước họ muốn góp ý phần nào. Khi thấy rủi ro, nêu chỗ cụ thể và lý do thay cho đánh giá người viết. Trong việc dùng ngân sách chung, cách đi chắc là hỏi ai có quyền duyệt và lưu lại điều đã thống nhất. Những chi tiết đó khiến sự thận trọng trở thành kỹ năng thực tế."
+      "text": "Trời ở trên đầm. Lời quẻ dùng hình ảnh giẫm đuôi hổ. Hào 3 và hào 4 cũng nhắc lại hình ảnh này với kết cục khác nhau, gợi rằng vị trí và cách đặt bước đều đáng chú ý. Lý mời người đọc xem kỹ cách đi đứng và ứng xử khi hành động của mình có thể chạm đến ranh giới người khác. Có thể làm rõ quyền hạn, hỏi trước khi dùng nguồn lực chung và chọn cách nói đủ thẳng mà vẫn giữ sự tôn trọng. Những quy ước rõ ràng giúp cả hai bên biết đâu là bước đi an toàn.\n\nVí dụ, một người mới góp ý vào tài liệu do người khác chịu trách nhiệm có thể hỏi trước họ muốn góp ý phần nào. Khi thấy rủi ro, nêu chỗ cụ thể và lý do thay cho đánh giá người viết. Trong việc dùng ngân sách chung, cách đi chắc là hỏi ai có quyền duyệt và lưu lại điều đã thống nhất. Những chi tiết đó khiến sự thận trọng trở thành kỹ năng thực tế."
     },
     {
       "order": 11,
       "code": "H_KHON_CAN",
       "name": "Thái",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 11 · 泰",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 2106138",
+        "locator": "上經 · 11 · 泰 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%B3%B0&oldid=2106138",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E6%B3%B0"
       },
       "text": "Đất ở trên trời. Vị trí hai quái gợi sự gặp gỡ và trao đổi giữa hai phía. Thái là lúc luồng thông tin, công việc hoặc hỗ trợ có thể đi qua những ranh giới trước đây khó vượt. Khi việc đang thuận, có thể ghi lại cơ chế đã làm nó thuận, như lịch phản hồi đều hay quyền quyết định được giao đúng chỗ. Cơ chế rõ ràng giúp duy trì sự thông suốt khi người phụ trách hoặc hoàn cảnh thay đổi.\n\nMột dự án có thể trôi chảy vì người làm và người duyệt cùng có thời gian phản hồi, dù quy trình trên giấy chưa tốt. Hãy giữ lại ví dụ về cách thông tin đã được chuyển giao và thử để một người mới dùng quy trình đó. Nếu họ cũng làm được, sự thông suốt có cơ sở duy trì. Nếu họ phải hỏi một người duy nhất, điểm thuận hiện tại vẫn còn phụ thuộc cá nhân."
@@ -154,13 +154,13 @@
       "code": "H_CAN_KHON",
       "name": "Bĩ",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 12 · 否",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645603",
+        "locator": "上經 · 12 · 否 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%90%A6&oldid=10645603",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%90%A6"
       },
       "text": "Trời ở trên đất. Hai phía đứng riêng, gợi một hệ thống có đủ phần nhưng ít trao đổi. Bĩ phù hợp để suy nghĩ về sự đình trệ do ranh giới, thiếu lòng tin hoặc tín hiệu bị chặn. Có thể thử xem thông tin dừng ở khâu nào và việc gì còn có thể làm mà không phụ thuộc vào khâu đó. Khi chưa thể mở lại toàn bộ đường trao đổi, giữ phần đang hoạt động và chuẩn bị một cách nối lại có kiểm chứng.\n\nTrong một nhóm đang đình lại, có thể thử một kênh trao đổi nhỏ cho một quyết định cụ thể, với thời hạn và người trả lời rõ. Nếu kênh ấy vẫn không hoạt động, hãy ghi điều gì cản trở thay vì mở thêm nhiều cuộc họp. Bĩ cũng giúp nhận ra phần nào vẫn đáng duy trì, như dữ liệu đã thu thập hoặc mối liên hệ với người dùng, trong khi chờ gỡ nút chính."
@@ -170,29 +170,29 @@
       "code": "H_CAN_LY",
       "name": "Đồng nhân",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 13 · 同人",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645635",
+        "locator": "上經 · 13 · 同人 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%90%8C%E4%BA%BA&oldid=10645635",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%90%8C%E4%BA%BA"
       },
-      "text": "Trời ở trên lửa. Ánh sáng làm mục đích chung trở nên nhìn thấy được, còn phạm vi của trời gợi khả năng hợp tác rộng hơn nhóm quen biết. Đồng nhân nhấn mạnh việc gặp nhau vì điều có thể giải thích công khai. Khi lập nhóm, có thể nêu tiêu chí chung và xem ai có thể tham gia dựa trên năng lực và đóng góp. Đến lúc có ý kiến khác nhau, quay về mục đích đã thống nhất giúp cuộc họp tránh sa vào phe phái.\n\nChẳng hạn, khi lập một nhóm học, hãy nêu đầu ra muốn đạt và cách chia sẻ tài liệu để người ngoài nhóm quen biết cũng tham gia được. Đến lúc có tranh luận về phương pháp, có thể so sánh hai cách bằng một bài thử chung. Việc thống nhất mục đích không làm biến mất khác biệt, nhưng cho mọi người một căn cứ để cùng xét kết quả và sửa cách phối hợp."
+      "text": "Trời ở trên lửa. Lời quẻ nói gặp nhau ngoài đồng, trong khi hào 2 nói tới sự tụ họp trong cùng tông tộc. Từ sự tương phản ấy, bài gợi cách hợp tác mở ra ngoài nhóm quen biết. Đồng nhân nhấn mạnh việc gặp nhau vì điều có thể giải thích công khai. Khi lập nhóm, có thể nêu tiêu chí chung và xem ai có thể tham gia dựa trên năng lực và đóng góp. Đến lúc có ý kiến khác nhau, quay về mục đích đã thống nhất giúp cuộc họp tránh sa vào phe phái.\n\nChẳng hạn, khi lập một nhóm học, hãy nêu đầu ra muốn đạt và cách chia sẻ tài liệu để người ngoài nhóm quen biết cũng tham gia được. Đến lúc có tranh luận về phương pháp, có thể so sánh hai cách bằng một bài thử chung. Việc thống nhất mục đích không làm biến mất khác biệt, nhưng cho mọi người một căn cứ để cùng xét kết quả và sửa cách phối hợp."
     },
     {
       "order": 14,
       "code": "H_LY_CAN",
       "name": "Đại hữu",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 14 · 大有",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645712",
+        "locator": "上經 · 14 · 大有 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%A4%A7%E6%9C%89&oldid=10645712",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%A4%A7%E6%9C%89"
       },
       "text": "Lửa ở trên trời. Ánh sáng ở cao gợi một tình thế mà nguồn lực và khả năng ảnh hưởng được nhìn thấy rộng. Đại hữu đặt câu hỏi về cách quản lý cái đang có. Nguồn lực lớn cho phép làm nhiều việc nhưng cũng tạo trách nhiệm về chọn việc và phân bổ. Có thể ghi rõ ai hưởng lợi, ai chịu chi phí và cách kiểm tra kết quả. Sở hữu trở nên có ý nghĩa khi đi cùng cách sử dụng minh bạch và có thể giải trình.\n\nNgười được giao quản lý nhiều thiết bị hoặc thời gian hơn có thể lập quy tắc mượn, ưu tiên và trả lại trước khi nhu cầu tăng. Nhờ vậy, quyết định dễ kiểm tra hơn khi hai người cùng cần một thứ. Đại hữu cũng gợi ghi nhận những người duy trì nguồn lực hằng ngày, vì họ thường biết chi phí ẩn. Có nhiều lựa chọn đòi hỏi nói rõ tại sao một lựa chọn được ưu tiên."
@@ -202,13 +202,13 @@
       "code": "H_KHON_CAN2",
       "name": "Khiêm",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 15 · 謙",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 2106142",
+        "locator": "上經 · 15 · 謙 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%AC%99&oldid=2106142",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E8%AC%99"
       },
       "text": "Đất ở trên núi. Phần cao nằm trong đất, gợi năng lực có thể hiện diện mà không cần phô trương. Khiêm giúp xem mình đang dùng khả năng đúng mức hay đang nhận phần lớn hơn việc mình thực sự đóng góp. Có thể ghi nhận người khác cụ thể, tiếp nhận phản hồi khó nghe và dành lại quyền quyết định cho người hiểu việc. Trong một nhóm, khiêm nhường còn tạo chỗ cho thông tin đi lên từ người ít có tiếng nói.\n\nTrong một cuộc họp, người nắm quyền quyết định có thể nghe người trực tiếp làm việc phát biểu trước và hỏi điều họ chưa được cung cấp. Khi ghi nhận công lao, nêu hành động cụ thể giúp mọi người hiểu giá trị của đóng góp ấy. Khiêm cũng cho phép nói rõ phần mình đã làm để trách nhiệm không mơ hồ. Mục tiêu thực tế là phân bổ sự chú ý đúng với việc đã xảy ra."
@@ -218,29 +218,29 @@
       "code": "H_CHAN_KHON",
       "name": "Dự",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 16 · 豫",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645735",
+        "locator": "上經 · 16 · 豫 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%B1%AB&oldid=10645735",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E8%B1%AB"
       },
-      "text": "Sấm ở trên đất. Một chuyển động nổi lên từ nền đang yên gợi sự hứng khởi có sức lôi cuốn tập thể. Dự nhắc người đọc xem năng lượng chung được chuyển thành việc cụ thể như thế nào. Có thể chọn một nhịp làm việc, hẹn thời điểm phối hợp và chuẩn bị phương án khi khí thế ban đầu giảm. Một cuộc khởi động vui có ích nếu người tham gia biết bước kế tiếp và cảm thấy phần của mình có giá trị.\n\nVí dụ, một buổi khởi động có thể kết thúc bằng ba việc đã có người nhận, thời điểm gặp lại và một cách báo trở ngại. Khi khí thế giảm, nhóm vẫn có thứ để quay về. Nếu có người ít hào hứng, hãy hỏi họ thiếu thông tin hay đang thấy một rủi ro. Sự hứng khởi tốt có khả năng tiếp nhận ý kiến thận trọng và giữ người tham gia ở lại sau buổi đầu."
+      "text": "Đại Tượng dùng hình sấm bật lên từ đất và nhắc đến việc làm nhạc trong nghi lễ. Sự hứng khởi tập thể là cách bài liên hệ hình ảnh ấy với một nhóm đang bắt đầu việc chung. Dự nhắc người đọc xem năng lượng chung được chuyển thành việc cụ thể như thế nào. Có thể chọn một nhịp làm việc, hẹn thời điểm phối hợp và chuẩn bị phương án khi khí thế ban đầu giảm. Một cuộc khởi động vui có ích nếu người tham gia biết bước kế tiếp và cảm thấy phần của mình có giá trị.\n\nVí dụ, một buổi khởi động có thể kết thúc bằng ba việc đã có người nhận, thời điểm gặp lại và một cách báo trở ngại. Khi khí thế giảm, nhóm vẫn có thứ để quay về. Nếu có người ít hào hứng, hãy hỏi họ thiếu thông tin hay đang thấy một rủi ro. Sự hứng khởi tốt có khả năng tiếp nhận ý kiến thận trọng và giữ người tham gia ở lại sau buổi đầu."
     },
     {
       "order": 17,
       "code": "H_DOAI_CHAN",
       "name": "Tùy",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 17 · 隨",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645020",
+        "locator": "上經 · 17 · 隨 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%9A%A8&oldid=10645020",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E9%9A%A8"
       },
       "text": "Đầm ở trên sấm. Sức chuyển động gặp khả năng hưởng ứng, gợi việc đi theo một hướng đang có lực. Tùy xem việc thích nghi như lựa chọn chủ động. Có thể theo phương pháp của người khác khi mục tiêu và tiêu chuẩn đã rõ, rồi dừng lại nếu chứng cứ thực tế không còn ủng hộ. Khi thay đổi cách làm trong nhóm, hãy nói rõ phần nào mình đang điều chỉnh và điều gì vẫn được dùng để đánh giá kết quả.\n\nKhi nhóm chuyển sang công cụ của người khác, có thể chạy song song một việc nhỏ để so sánh kết quả. Nếu cách mới làm giảm thao tác lặp và người tham gia hiểu được, hãy mở rộng từng phần. Nếu không, giữ các ghi chú đã học và điều chỉnh. Tùy giúp biến việc đi theo thành một lựa chọn có căn cứ, với quyền xem lại khi điều kiện hoặc mục đích ban đầu thay đổi."
@@ -250,29 +250,29 @@
       "code": "H_CAN2_TON",
       "name": "Cổ",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 18 · 蠱",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 2106145",
+        "locator": "上經 · 18 · 蠱 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%A0%B1&oldid=2106145",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E8%A0%B1"
       },
-      "text": "Núi ở trên gió. Gió khó lưu thông dưới núi gợi tình trạng một hư hỏng kéo dài rồi được xem như bình thường. Cổ hướng người đọc đến việc sửa nguyên nhân đã tích tụ. Có thể phân biệt phần việc dọn hậu quả với phần cần đổi thói quen hoặc quy trình. Nên quan sát sau sửa để biết trục trặc có tái diễn hay đã giảm thật. Việc tìm người chịu trách nhiệm sửa khác với việc chỉ tìm một người để trách.\n\nMột lớp học có thể sửa lỗi nộp bài trễ bằng cách nhắc từng người, nhưng nguyên nhân lại là hạn nộp nằm ở hai nơi khác nhau. Hãy sửa nơi công bố hạn, sau đó quan sát vài kỳ xem số lỗi giảm thật không. Cổ cũng gợi giữ lại dấu vết của quy trình cũ để hiểu tại sao nó từng được chọn, tránh thay một điểm mà vô tình làm hỏng phần vẫn đang có ích."
+      "text": "Đại Tượng nói dưới núi có gió. Lời quẻ dùng các mốc trước và sau ngày Giáp. Bài đọc hình ảnh và cách đặt mốc này như dịp nhìn lại điều đã tích tụ, chuẩn bị trước và kiểm tra sau khi sửa. Cổ hướng người đọc đến việc sửa nguyên nhân đã tích tụ. Có thể phân biệt phần việc dọn hậu quả với phần cần đổi thói quen hoặc quy trình. Nên quan sát sau sửa để biết trục trặc có tái diễn hay đã giảm thật. Việc tìm người chịu trách nhiệm sửa khác với việc chỉ tìm một người để trách.\n\nMột lớp học có thể sửa lỗi nộp bài trễ bằng cách nhắc từng người, nhưng nguyên nhân lại là hạn nộp nằm ở hai nơi khác nhau. Hãy sửa nơi công bố hạn, sau đó quan sát vài kỳ xem số lỗi giảm thật không. Cổ cũng gợi giữ lại dấu vết của quy trình cũ để hiểu tại sao nó từng được chọn, tránh thay một điểm mà vô tình làm hỏng phần vẫn đang có ích."
     },
     {
       "order": 19,
       "code": "H_KHON_DOAI",
       "name": "Lâm",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 19 · 臨",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 2106146",
+        "locator": "上經 · 19 · 臨 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%87%A8&oldid=2106146",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E8%87%A8"
       },
       "text": "Đất ở trên đầm. Ranh giới gần nhau gợi bước tiến lại gần để hiểu việc đang diễn ra. Lâm có thể đọc như việc nhận trách nhiệm bằng tiếp xúc trực tiếp. Khi hướng dẫn một nhóm, hãy dành thời gian nghe người đang làm việc, xem họ gặp trở ngại ở đâu rồi phân biệt điều mình cần hỗ trợ với điều họ tự quyết được. Sự hiện diện trở nên hữu ích khi người tham gia có thể trao đổi hai chiều và cùng chỉnh cách làm.\n\nVí dụ, một người mới quản lý có thể theo một ca làm việc thay vì chỉ đọc báo cáo. Khi thấy một thao tác chậm, nên hỏi người thực hiện vì sao họ chọn cách đó trước khi yêu cầu sửa. Có thể đề xuất một hỗ trợ nhỏ và quay lại xem nó có giúp được không. Lâm đặt giá trị của sự tiếp cận vào phần hiểu biết và khả năng hành động tăng thêm cho cả hai phía."
@@ -282,13 +282,13 @@
       "code": "H_TON_KHON",
       "name": "Quan",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 20 · 觀",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645159",
+        "locator": "上經 · 20 · 觀 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%A7%80&oldid=10645159",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E8%A7%80"
       },
       "text": "Gió ở trên đất. Hình ảnh một luồng đi qua nhiều nơi gợi khả năng quan sát từ nhiều vị trí. Quan nhấn mạnh chất lượng của việc nhìn trước khi phán đoán. Hãy phân biệt điều tự mình thấy, điều người khác kể và cách mình diễn giải hai nguồn ấy. Khi được người khác quan sát, việc làm có thể nói rõ hơn lời tự giới thiệu. Một lượt quan sát tốt nên tạo ra câu hỏi kiểm chứng được cho lượt sau.\n\nNếu đọc phản hồi của người dùng, hãy tách câu họ đã nói khỏi điều mình nghĩ họ muốn. Một lần quan sát bổ sung ở thời điểm khác có thể phân biệt vấn đề lặp lại với sự kiện bất thường. Khi đưa nhận xét, nói rõ mình đã xem trường hợp nào và còn bỏ sót ai. Quan vì thế là bước làm rõ góc nhìn, để người khác có thể kiểm lại thay vì chỉ tin người quan sát."
@@ -298,13 +298,13 @@
       "code": "H_LY_CHAN",
       "name": "Phệ hạp",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 21 · 噬嗑",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645753",
+        "locator": "上經 · 21 · 噬嗑 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%99%AC%E5%97%91&oldid=10645753",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%99%AC%E5%97%91"
       },
       "text": "Lửa ở trên sấm. Ánh sáng giúp thấy chỗ vướng, còn sấm gợi một hành động dứt khoát. Phệ hạp dùng hình ảnh cắn qua vật cản để nghĩ về một trở ngại cần được xử lý rõ ràng. Có thể mô tả hành vi hoặc khâu đang gây tắc, kiểm chứng dữ kiện rồi chọn phản ứng tương xứng. Quy tắc có ý nghĩa khi người bị ảnh hưởng biết căn cứ và có cách phản hồi nếu thông tin chưa đủ.\n\nVí dụ, khi có lỗi chất lượng liên tục, hãy xác định phần tiêu chuẩn nào đã bị vi phạm và bằng chứng nào có thể cùng xem. Trước lúc áp dụng biện pháp mạnh, cân nhắc một sửa chữa có thời hạn và người theo dõi. Sau đó ghi điều kiện để bỏ biện pháp ấy. Cách đọc này giữ cả tính dứt khoát lẫn khả năng giải trình cho người chịu ảnh hưởng trực tiếp."
@@ -314,13 +314,13 @@
       "code": "H_CAN2_LY",
       "name": "Bí",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 22 · 賁",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 2405035",
+        "locator": "上經 · 22 · 賁 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%B3%81&oldid=2405035",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E8%B3%81"
       },
       "text": "Núi ở trên lửa. Ánh sáng soi phần nhìn thấy của núi, gợi vai trò của hình thức trong việc làm rõ nội dung. Bí đặt sự trau chuốt bên cạnh thực chất. Có thể dùng cách trình bày đẹp để dẫn mắt người đọc đến cấu trúc, ví dụ và kết luận. Khi chi tiết trang trí trở thành lý do chính khiến một phương án được chọn, hãy kiểm lại tiêu chí chất lượng. Hình thức tốt giúp người khác nhận ra giá trị đã có.\n\nTrong một bài thuyết trình, sơ đồ có thể làm rõ các bước và màu sắc có thể phân biệt nhóm dữ kiện. Hãy thử xem người đọc hiểu được kết luận chỉ từ nội dung trình bày hay cần người nói giải thích mọi chi tiết. Nếu một hình đẹp che mất thông tin quan trọng, nên giản lược. Bí cho phép xem phần trang sức như một lựa chọn phục vụ người tiếp nhận."
@@ -330,29 +330,29 @@
       "code": "H_CAN2_KHON",
       "name": "Bác",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 23 · 剝",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645800",
+        "locator": "上經 · 23 · 剝 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%89%9D&oldid=10645800",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%89%9D"
       },
-      "text": "Núi ở trên đất. Hình tượng gợi bề mặt mất dần lớp nâng đỡ. Bác hướng sự chú ý tới dấu hiệu xuống cấp, đặc biệt khi phần nhìn thấy vẫn đứng được nhờ một nền đang yếu. Có thể kiểm kê công việc nào phụ thuộc vào một người hoặc công cụ duy nhất và chọn phần cốt yếu để bảo vệ trước. Khi chưa phục hồi được toàn bộ, thu hẹp phạm vi một cách có chủ đích giúp giảm nguy cơ lan rộng.\n\nTrong một dự án cũ, bản trình diễn có thể vẫn chạy dù tài liệu và công cụ hỗ trợ đã lạc hậu. Kiểm một khâu khôi phục thử có thể phát hiện nền yếu trước lúc sự cố lớn. Khi phải cắt bớt, ưu tiên chức năng người khác còn dựa vào và ghi rõ phần tạm dừng. Bác giúp tập trung vào khả năng bảo toàn điều thiết yếu trong lúc chưa thể xây lại toàn bộ."
+      "text": "Đại Tượng dùng núi bám trên đất và nhấn mạnh làm vững phần nền. Cách ngắt lời quẻ trong hai bản khác nhau. Bài theo cách đọc liền của Thoán và Chu Dịch chính nghĩa để giữ ý thận trọng khi định tiến, rồi liên hệ với dấu hiệu xuống cấp. Có thể kiểm kê công việc nào phụ thuộc vào một người hoặc công cụ duy nhất và chọn phần cốt yếu để bảo vệ trước. Khi chưa phục hồi được toàn bộ, thu hẹp phạm vi một cách có chủ đích giúp giảm nguy cơ lan rộng.\n\nTrong một dự án cũ, bản trình diễn có thể vẫn chạy dù tài liệu và công cụ hỗ trợ đã lạc hậu. Kiểm một khâu khôi phục thử có thể phát hiện nền yếu trước lúc sự cố lớn. Khi phải cắt bớt, ưu tiên chức năng người khác còn dựa vào và ghi rõ phần tạm dừng. Bác giúp tập trung vào khả năng bảo toàn điều thiết yếu trong lúc chưa thể xây lại toàn bộ."
     },
     {
       "order": 24,
       "code": "H_KHON_CHAN",
       "name": "Phục",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 24 · 復",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10643037",
+        "locator": "上經 · 24 · 復 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%BE%A9&oldid=10643037",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%BE%A9"
       },
       "text": "Đất ở trên sấm. Một chuyển động mới bắt đầu dưới bề mặt yên, gợi việc trở lại sau một quãng gián đoạn. Phục không đòi hỏi ngay một thành quả lớn. Có thể phục hồi nhịp bằng việc nhỏ đã từng làm được, đồng thời xem nguyên nhân nào khiến nhịp cũ bị đứt. Một vòng thử ngắn giúp điều chỉnh trước khi đặt cam kết dài hạn. Điều đáng theo dõi là khả năng duy trì bước trở lại ấy.\n\nNếu quay lại học sau một thời gian nghỉ, hãy chọn bài đủ quen để nhận ra chỗ mất nhịp, rồi đặt lịch ngắn có thể giữ. Một ngày làm nhiều có thể tạo cảm giác đã phục hồi, nhưng vài lần lặp đều cung cấp thông tin tốt hơn. Khi thấy lại nguyên nhân từng làm bỏ cuộc, hãy thay đổi điều kiện trước khi tăng khối lượng. Phục lấy sự trở lại làm cơ hội chỉnh nền."
@@ -362,13 +362,13 @@
       "code": "H_CAN_CHAN",
       "name": "Vô vọng",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 25 · 无妄",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645038",
+        "locator": "上經 · 25 · 无妄 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%97%A0%E5%A6%84&oldid=10645038",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E6%97%A0%E5%A6%84"
       },
       "text": "Trời ở trên sấm. Sự vận động diễn ra dưới một trật tự rộng hơn, gợi hành động chân thành và bớt áp đặt kỳ vọng lên hoàn cảnh. Vô vọng mời người đọc phân biệt ý định thực sự với suy đoán mình thêm vào. Nếu phát sinh chuyện bất ngờ, hãy kiểm lại điều có thể kiểm soát và phần thông tin còn thiếu trước khi gán nguyên nhân. Một quyết định vừa sức giúp giữ sự thẳng thắn khi kết quả chưa rõ.\n\nMột dự án có thể nhận phản hồi xấu dù nhóm đã làm đúng kế hoạch. Trước khi kết luận người dùng phản đối toàn bộ ý tưởng, hãy xem họ gặp lỗi ở đâu và điều gì đã thực sự được hứa. Nếu cần sửa, sửa phần có căn cứ, đồng thời để mở điều chưa biết. Vô vọng gợi sự thẳng thắn với dữ kiện và giới hạn của khả năng giải thích."
@@ -378,13 +378,13 @@
       "code": "H_CAN2_CHAN",
       "name": "Di",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 27 · 頤",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10643091",
+        "locator": "上經 · 27 · 頤 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%A0%A4&oldid=10643091",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E9%A0%A4"
       },
       "text": "Núi ở trên sấm. Phần trên giữ lại, phần dưới chuyển động, gợi hình miệng và câu hỏi về nuôi dưỡng. Di chú ý cả thứ đi vào lẫn lời đi ra. Khi học hay làm việc, có thể kiểm xem mình tiếp nhận nguồn nào, nguồn ấy đang nuôi thói quen gì và điều gì nên giảm bớt. Trong trao đổi, một lời rõ ràng và có căn cứ giúp người nghe tiếp nhận tốt hơn việc nói nhiều cho đủ.\n\nVí dụ, khi tập đọc về một chủ đề, hãy giữ lại vài nguồn đáng tin và đặt lúc để đọc chậm thay vì luôn chuyển qua tin mới. Sau mỗi buổi có thể tự nói lại một ý bằng lời của mình. Nếu thường xuyên bị kéo vào trao đổi không ích lợi, xem lại loại thông tin mình đang tiếp nhận. Di gợi rằng đầu vào và lời nói của mình ảnh hưởng nhau qua thời gian."
@@ -394,29 +394,29 @@
       "code": "H_DOAI_TON",
       "name": "Đại quá",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 28 · 大過",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645184",
+        "locator": "上經 · 28 · 大過 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%A4%A7%E9%81%8E&oldid=10645184",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%A4%A7%E9%81%8E"
       },
-      "text": "Đầm ở trên gió hoặc cây. Hình tượng gợi sức nặng vượt quá khả năng chịu của phần nâng đỡ. Đại quá là dịp nhìn vào những cam kết đang dồn tải lên một điểm. Có thể đo phần việc đang tập trung vào một người, phân bổ lại và bổ sung chỗ dự phòng. Nếu cần làm một việc khác thường, nên giới hạn thời gian và xác định khi nào quay về cách vận hành bình thường.\n\nKhi một thành viên vừa làm phần khó nhất vừa duyệt mọi việc, nhóm có thể tưởng tiến nhanh vì ít phải phối hợp. Hãy thử giao một khâu có hướng dẫn cho người khác và xem liệu họ xử lý được tình huống thường gặp. Nếu chưa, bổ sung tài liệu hoặc cắt bớt việc. Như vậy quẻ nhắc đánh giá sức chịu của cơ cấu trước khi đặt thêm một yêu cầu lên nó."
+      "text": "Quái Tốn nằm dưới Đoài. Đại Tượng dùng hình đầm ngập cây, còn lời quẻ nói xà nhà cong. Hình xà cong gợi sức nặng đang vượt quá khả năng chịu của phần nâng đỡ. Đại quá là dịp nhìn vào những cam kết đang dồn tải lên một điểm. Có thể đo phần việc đang tập trung vào một người, phân bổ lại và bổ sung chỗ dự phòng. Nếu cần làm một việc khác thường, nên giới hạn thời gian và xác định khi nào quay về cách vận hành bình thường.\n\nKhi một thành viên vừa làm phần khó nhất vừa duyệt mọi việc, nhóm có thể tưởng tiến nhanh vì ít phải phối hợp. Hãy thử giao một khâu có hướng dẫn cho người khác và xem liệu họ xử lý được tình huống thường gặp. Nếu chưa, bổ sung tài liệu hoặc cắt bớt việc. Như vậy quẻ nhắc đánh giá sức chịu của cơ cấu trước khi đặt thêm một yêu cầu lên nó."
     },
     {
       "order": 29,
       "code": "H_KHAM_KHAM",
       "name": "Khảm",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 29 · 坎",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10646381",
+        "locator": "上經 · 29 · 坎 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%9D%8E&oldid=10646381",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%9D%8E"
       },
       "text": "Nước chồng nước. Hiểm trở lặp lại gợi một chuỗi đoạn khó, mỗi đoạn cần quan sát và xử lý riêng. Khảm khuyến khích nhận diện lối đi, dấu hiệu báo nguy và cách ứng xử có thể lặp lại. Khi một rủi ro xuất hiện nhiều lần, có thể ghi tình huống trước lúc nó xảy ra để tìm điều kiện chung. Mục đích là xây khả năng đi qua khó khăn một cách tỉnh táo, có điểm kiểm và có người hỗ trợ khi cần.\n\nKhi một quy trình dễ lỗi ở nhiều điểm, có thể lập bản kiểm ngắn ở mỗi chặng thay vì chỉ kiểm lúc kết thúc. Một người đi cùng hoặc một đường báo lỗi rõ giúp tránh che giấu điều bất thường. Sau mỗi lượt, xem dấu hiệu nào thực sự giúp nhận ra nguy cơ. Khảm vì thế hữu ích cho việc luyện một cách đi đều khi điều kiện xung quanh vẫn có thể thay đổi."
@@ -426,13 +426,13 @@
       "code": "H_LY_LY",
       "name": "Ly",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "上經 · 30 · 離",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10646424",
+        "locator": "上經 · 30 · 離 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%9B%A2&oldid=10646424",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E9%9B%A2"
       },
       "text": "Lửa chồng lửa. Ánh sáng giúp phân biệt, đồng thời lửa cần điều kiện để tiếp tục cháy. Ly gợi việc xem điều mình đang dựa vào để giữ sự sáng rõ, như nguồn thông tin, thói quen học hoặc người phản hồi. Có thể kiểm độ tin cậy của điểm tựa ấy khi hoàn cảnh thay đổi. Chọn thứ để gắn bó cũng là chọn điều mình sẽ dùng để nhìn và giải thích các sự việc tiếp theo.\n\nVí dụ, khi học theo một khóa hướng dẫn, hãy thử đối chiếu lời giải bằng bài tập có dữ liệu khác hoặc một tài liệu độc lập. Nếu điểm tựa giúp mình giải thích rõ hơn, giữ nó và ghi phần còn nghi ngờ. Khi nguồn chỉ làm tăng tự tin mà không tăng khả năng kiểm, hãy xem lại. Hình tượng lửa giúp đặt chất lượng của điều mình dựa vào bên cạnh lợi ích của ánh sáng."
@@ -442,13 +442,13 @@
       "code": "H_DOAI_CAN2",
       "name": "Hàm",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 31 · 咸",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10646450",
+        "locator": "下經 · 31 · 咸 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%92%B8&oldid=10646450",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%92%B8"
       },
       "text": "Đầm ở trên núi. Sự yên của núi gặp khả năng đáp lại của đầm, gợi cảm ứng giữa hai phía. Hàm thích hợp để suy nghĩ về cách người ta ảnh hưởng lẫn nhau trước khi nói thành cam kết. Có thể quan sát dấu hiệu hưởng ứng thực sự, hỏi lại cách người kia hiểu và dành thời gian để câu trả lời tự hình thành. Một mối liên hệ bền cần chỗ cho cả chủ động lẫn quyền từ chối.\n\nTrong một cuộc trao đổi mới, có thể đề xuất một việc nhỏ để làm chung rồi xem người kia có thoải mái điều chỉnh và từ chối hay không. Một lời đồng ý xã giao cung cấp ít thông tin hơn hành động tiếp nối. Hàm cũng gợi để ý xem cách mình xuất hiện khiến người khác dễ nói thật hay phải chiều theo. Sự hưởng ứng có giá trị khi diễn ra được từ hai phía."
@@ -458,13 +458,13 @@
       "code": "H_CHAN_TON",
       "name": "Hằng",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 32 · 恒",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10646486",
+        "locator": "下經 · 32 · 恒 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%81%92&oldid=10646486",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E6%81%92"
       },
       "text": "Sấm ở trên gió. Cả hai đều chuyển động, gợi sự lâu dài có nhịp thay đổi bên trong. Hằng nhắc xem điều gì cần giữ qua nhiều giai đoạn và phần nào có thể đổi theo tình thế. Có thể đặt một cam kết đủ rõ để kiểm tra, chọn nhịp vừa sức và định kỳ chỉnh cách thực hiện. Sự bền có thể được nhìn qua khả năng quay lại đúng mục tiêu sau mỗi lần điều kiện thay đổi.\n\nMột thói quen học đều có thể giữ nguyên mục tiêu trong khi đổi giờ hoặc giảm khối lượng vào tuần bận. Hãy nhìn cả khoảng dài, đánh giá mình có quay lại sau gián đoạn và còn đạt kết quả cần thiết hay không. Trong một nhóm, ghi rõ điều không đổi giúp người mới hiểu vì sao phương pháp được sửa. Sự lâu dài thường đến từ khả năng thích nghi có nguyên tắc."
@@ -474,13 +474,13 @@
       "code": "H_CAN_CAN2",
       "name": "Độn",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 33 · 遯",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645108",
+        "locator": "下經 · 33 · 遯 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%81%AF&oldid=10645108",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E9%81%AF"
       },
       "text": "Trời ở trên núi. Núi tạo ranh giới bên dưới, gợi việc giữ khoảng cách để còn khả năng lựa chọn. Độn có thể đọc như chủ động thu hẹp sự tham gia khi bối cảnh chưa thuận cho điều mình cần làm. Có thể chọn phần phải bàn giao, nói rõ giới hạn và giữ thông tin đủ để quay lại sau. Rút ra có kế hoạch giúp tránh kéo dài va chạm và dành năng lượng cho công việc còn có thể tác động.\n\nVí dụ, khi một cuộc họp liên tục chuyển sang công kích cá nhân, có thể kết thúc phần tranh luận và đề nghị gửi lại những quyết định còn cần xử lý. Nói rõ lúc nào có thể trao đổi tiếp giúp giữ trách nhiệm. Trong công việc, bàn giao trạng thái hiện tại trước khi rời một vai trò cũng giúp người khác tự tiếp tục. Khoảng lùi được chuẩn bị tốt có thể bảo vệ sự hợp tác về sau."
@@ -490,13 +490,13 @@
       "code": "H_CHAN_CAN",
       "name": "Đại tráng",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 34 · 大壯",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10646529",
+        "locator": "下經 · 34 · 大壯 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%A4%A7%E5%A3%AF&oldid=10646529",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%A4%A7%E5%A3%AF"
       },
       "text": "Sấm ở trên trời. Sức mạnh chuyển động rõ và dễ gây tác động rộng. Đại tráng đặt câu hỏi nên dùng sức ở đâu và tới mức nào. Có thể thử diễn đạt quyền hạn và giới hạn trước khi hành động, rồi xem liệu cách ít tốn lực hơn đã giải quyết được vấn đề. Khi đang có lợi thế, việc giữ khả năng lắng nghe phản hồi giúp người khác tham gia thay vì chỉ chịu tác động.\n\nMột người có quyền phê duyệt có thể thay đổi ngay một quy trình, nhưng cách nhỏ hơn là thử ở phạm vi một nhóm và hỏi những người sẽ chịu tác động. Đặt giới hạn thời gian cho thử nghiệm để còn cơ hội dừng. Đại tráng giúp phân biệt lực mình có với lực cần dùng. Dùng đúng mức có thể làm người khác tin rằng họ vẫn có chỗ tham gia vào quyết định."
@@ -506,13 +506,13 @@
       "code": "H_LY_KHON",
       "name": "Tấn",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 35 · 晉",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10646579",
+        "locator": "下經 · 35 · 晉 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%99%89&oldid=10646579",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E6%99%89"
       },
       "text": "Lửa ở trên đất. Ánh sáng xuất hiện trên mặt đất gợi sự tiến lên và được nhìn thấy. Tấn hữu ích khi một cá nhân hay công việc bước ra phạm vi rộng hơn. Có thể làm rõ kết quả đã có, chuẩn bị chứng cứ và chọn cách trình bày để người khác kiểm được. Sự chú ý đem lại cơ hội cùng với trách nhiệm. Vì vậy, trước khi mở rộng, nên biết điều gì mình có thể làm đều ở mức mới.\n\nVí dụ, khi một sản phẩm nhỏ bắt đầu được chú ý, hãy chuẩn bị cách mô tả khả năng hiện tại và phần còn thử nghiệm. Điều đó giúp người mới đánh giá đúng và giảm cam kết vượt sức. Nếu một vai trò mới đến với mình, có thể xin phản hồi sớm trước khi tăng phạm vi. Tấn giúp xem tiến lên như một việc cần khả năng làm rõ và giữ chất lượng."
@@ -522,13 +522,13 @@
       "code": "H_KHON_LY",
       "name": "Minh di",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 36 · 明夷",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10644507",
+        "locator": "下經 · 36 · 明夷 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%98%8E%E5%A4%B7&oldid=10644507",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E6%98%8E%E5%A4%B7"
       },
       "text": "Đất ở trên lửa. Ánh sáng nằm dưới mặt đất gợi lúc năng lực vẫn còn mà hoàn cảnh khó cho nó xuất hiện công khai. Minh di hướng về việc giữ phần cốt lõi trong khi điều chỉnh cách biểu lộ. Có thể bảo vệ tài liệu, giữ các mối hỗ trợ an toàn và cân nhắc lúc nào thích hợp để nói rõ. Sự kín đáo có ý nghĩa khi giúp duy trì công việc và giảm nguy cơ cho người liên quan.\n\nTrong một nhóm chưa sẵn sàng tiếp nhận góp ý rộng, có thể ghi rõ vấn đề, tìm người có thể kiểm chứng và trao đổi ở phạm vi nhỏ. Điều đó cũng giúp phân biệt giữ kín để bảo vệ công việc với việc bỏ qua sai sót. Khi điều kiện thay đổi, xem lại kế hoạch chia sẻ. Hình tượng ánh sáng nằm dưới đất gợi giữ năng lực có thật trong lúc chọn cách dùng cẩn thận."
@@ -538,29 +538,29 @@
       "code": "H_TON_LY",
       "name": "Gia nhân",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 37 · 家人",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 2405005",
+        "locator": "下經 · 37 · 家人 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%AE%B6%E4%BA%BA&oldid=2405005",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%AE%B6%E4%BA%BA"
       },
-      "text": "Gió ở trên lửa. Tác động từ bên trong lan ra, gợi cách một gia đình hay nhóm nhỏ tự hình thành nề nếp. Gia nhân giúp xem sự chăm sóc, trách nhiệm và ranh giới được thực hiện hàng ngày ra sao. Có thể bàn rõ ai đang gánh phần việc vô hình, cách thông báo khi bận và cách sửa một thỏa thuận không còn phù hợp. Nề nếp có ích khi người trong nhóm có thể hiểu và cùng duy trì.\n\nMột ví dụ là chia việc chăm sóc nhà chung. Việc chuẩn bị, nhắc lịch và dọn sau có thể tốn sức không kém việc được giao chính thức. Hãy liệt kê toàn bộ việc, thử một cách chia mới rồi hẹn lúc xem lại. Gia nhân giúp chuyển lời nói về hòa thuận thành những trách nhiệm và quyền nghỉ ngơi cụ thể, để quan hệ không phụ thuộc vào việc một người luôn tự bù."
+      "text": "Đại Tượng dùng hình gió từ lửa mà ra, rồi nói lời có nội dung và hành động có nề nếp. Lời quẻ thuộc bối cảnh vai trò gia đình cổ. Bài vận dụng hình ảnh ấy để nghĩ về cách một gia đình hay nhóm nhỏ cùng duy trì nề nếp. Gia nhân giúp xem sự chăm sóc, trách nhiệm và ranh giới được thực hiện hàng ngày ra sao. Có thể bàn rõ ai đang gánh phần việc vô hình, cách thông báo khi bận và cách sửa một thỏa thuận không còn phù hợp. Nề nếp có ích khi người trong nhóm có thể hiểu và cùng duy trì.\n\nMột ví dụ là chia việc chăm sóc nhà chung. Việc chuẩn bị, nhắc lịch và dọn sau có thể tốn sức không kém việc được giao chính thức. Hãy liệt kê toàn bộ việc, thử một cách chia mới rồi hẹn lúc xem lại. Gia nhân giúp chuyển lời nói về hòa thuận thành những trách nhiệm và quyền nghỉ ngơi cụ thể, để quan hệ không phụ thuộc vào việc một người luôn tự bù."
     },
     {
       "order": 38,
       "code": "H_LY_DOAI",
       "name": "Khuê",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 38 · 睽",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10646622",
+        "locator": "下經 · 38 · 睽 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E7%9D%BD&oldid=10646622",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E7%9D%BD"
       },
       "text": "Lửa ở trên đầm. Hình tượng gợi hai bên gần nhau nhưng không cùng hướng. Khuê nhắc rằng bất đồng có thể nằm ở góc nhìn, tiêu chí hoặc thứ tự ưu tiên. Thay vì vội thống nhất mọi việc, có thể tìm phạm vi nhỏ mà hai phía cùng làm được và xác định phần cần để ngỏ. Khi diễn đạt lại ý kiến khác bằng lời của mình, hãy hỏi người kia xem mình đã hiểu đúng chưa.\n\nHai người có thể cùng muốn hoàn thành việc nhưng một người ưu tiên tốc độ, người kia ưu tiên độ chắc. Hãy tách việc nào cần quyết ngay và việc nào còn thời gian kiểm chứng. Có thể thử một phương án nhỏ dùng được cho cả hai tiêu chí. Sự khác biệt được nêu cụ thể giúp biết nơi nào cần thỏa thuận và nơi nào hai phía có thể tiếp tục chọn khác nhau."
@@ -570,13 +570,13 @@
       "code": "H_KHAM_CAN2",
       "name": "Kiển",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 39 · 蹇",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 2405036",
+        "locator": "下經 · 39 · 蹇 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%B9%87&oldid=2405036",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E8%B9%87"
       },
       "text": "Nước ở trên núi. Trước mặt có hiểm trở, bên dưới lại có thế dừng, gợi đường đi cần được xem lại. Kiển tập trung vào cách xử lý khi tiến thẳng không còn hiệu quả. Có thể khảo sát một lối khác, tìm người biết địa hình và xác định phần chuẩn bị còn thiếu. Một lần tạm lùi đem lại ích lợi khi nó giúp hiểu đúng điểm nghẽn và chọn được cách tiếp cận an toàn hơn.\n\nKhi một kế hoạch vướng điều kiện không thể đổi trong ngắn hạn, thử vẽ lại các phụ thuộc để tìm việc có thể tiến từ hướng khác. Hỏi người từng qua tình huống tương tự về dấu hiệu họ dùng để chọn đường. Có thể trì hoãn một bước lớn và làm phần chuẩn bị có thể kiểm. Kiển làm nổi bật việc phân biệt kiên trì với việc lặp lại một cách tiến đã hết tác dụng."
@@ -586,45 +586,45 @@
       "code": "H_CHAN_KHAM",
       "name": "Giải",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 40 · 解",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10646666",
+        "locator": "下經 · 40 · 解 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%A7%A3&oldid=10646666",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E8%A7%A3"
       },
-      "text": "Sấm ở trên nước. Chuyển động đến sau hiểm trở gợi thời điểm nút thắt có thể được tháo. Giải đặt trọng tâm ở việc giảm căng thẳng để việc bình thường quay lại. Có thể giải quyết khâu đang làm nhiều người phải chờ trước, rồi thu gọn biện pháp tạm thời khi lý do duy trì chúng đã qua. Sau khi tình thế dịu xuống, ghi lại điều gì đã tháo nút giúp phân biệt sửa tận gốc với sự nhẹ nhõm nhất thời.\n\nVí dụ, khi một quy tắc tạm thời từng giúp xử lý khẩn cấp không còn cần thiết, hãy thông báo rõ ngày bỏ và ai xử lý trường hợp còn dở. Nếu việc đã trở lại bình thường, giữ lại cách phát hiện sớm thay vì duy trì cả bộ hạn chế. Giải gợi rằng tháo gỡ là một việc có trình tự, bao gồm hỗ trợ người còn mắc lại trong cách vận hành cũ."
+      "text": "Đại Tượng dùng hình sấm mưa. Thoán nói chuyển động để ra khỏi chỗ hiểm. Lời quẻ phân biệt lúc có việc cần đi làm sớm với lúc có thể quay về, gợi việc chọn đúng lúc để tháo nút. Giải đặt trọng tâm ở việc giảm căng thẳng để việc bình thường quay lại. Có thể giải quyết khâu đang làm nhiều người phải chờ trước, rồi thu gọn biện pháp tạm thời khi lý do duy trì chúng đã qua. Sau khi tình thế dịu xuống, ghi lại điều gì đã tháo nút giúp phân biệt sửa tận gốc với sự nhẹ nhõm nhất thời.\n\nVí dụ, khi một quy tắc tạm thời từng giúp xử lý khẩn cấp không còn cần thiết, hãy thông báo rõ ngày bỏ và ai xử lý trường hợp còn dở. Nếu việc đã trở lại bình thường, giữ lại cách phát hiện sớm thay vì duy trì cả bộ hạn chế. Giải gợi rằng tháo gỡ là một việc có trình tự, bao gồm hỗ trợ người còn mắc lại trong cách vận hành cũ."
     },
     {
       "order": 41,
       "code": "H_CAN2_DOAI",
       "name": "Tổn",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 41 · 損",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10646704",
+        "locator": "下經 · 41 · 損 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%90%8D&oldid=10646704",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E6%90%8D"
       },
-      "text": "Núi ở trên đầm. Hình tượng có thể gợi việc giảm phần dễ nhìn thấy để giữ ổn định cho toàn thể. Tổn giúp xem một khoản bớt đi có giải phóng sức cho điều quan trọng hơn hay chỉ dồn khó khăn sang chỗ khác. Có thể lập danh sách việc cần giữ, việc tạm hoãn và người chịu tác động. Một sự cắt giảm có căn cứ cần đủ minh bạch để điều chỉnh khi hệ quả thật khác dự đoán.\n\nKhi lịch bị quá tải, cắt một cuộc họp có thể hữu ích nếu quyết định vẫn có nơi ghi nhận và người cần biết vẫn nhận được thông tin. Nếu bỏ cuộc họp chỉ chuyển việc sang tin nhắn ngoài giờ, phần tổn chưa thật sự giảm. Hãy hỏi ai được lợi và ai tốn thêm công. Quẻ giúp chọn sự giản lược theo điều có ích cho cả hệ thống."
+      "text": "Đại Tượng dùng hình đầm dưới núi và nhắc tiết chế nóng giận, ham muốn. Lời quẻ còn nêu một lễ dùng hai bát. Từ đó, bài đặt câu hỏi phần nào có thể giản lược mà vẫn giữ được việc cốt yếu. Tổn giúp xem một khoản bớt đi có giải phóng sức cho điều quan trọng hơn hay chỉ dồn khó khăn sang chỗ khác. Có thể lập danh sách việc cần giữ, việc tạm hoãn và người chịu tác động. Một sự cắt giảm có căn cứ cần đủ minh bạch để điều chỉnh khi hệ quả thật khác dự đoán.\n\nKhi lịch bị quá tải, cắt một cuộc họp có thể hữu ích nếu quyết định vẫn có nơi ghi nhận và người cần biết vẫn nhận được thông tin. Nếu bỏ cuộc họp chỉ chuyển việc sang tin nhắn ngoài giờ, phần tổn chưa thật sự giảm. Hãy hỏi ai được lợi và ai tốn thêm công. Quẻ giúp chọn sự giản lược theo điều có ích cho cả hệ thống."
     },
     {
       "order": 42,
       "code": "H_TON_CHAN",
       "name": "Ích",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 42 · 益",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10646726",
+        "locator": "下經 · 42 · 益 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E7%9B%8A&oldid=10646726",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E7%9B%8A"
       },
       "text": "Gió ở trên sấm. Chuyển động này có thể hỗ trợ chuyển động kia, gợi sự gia tăng qua việc bù đúng chỗ. Ích đặt câu hỏi nguồn lực thêm vào sẽ làm ai có khả năng hành động tốt hơn. Có thể chọn một thiếu hụt rõ, cung cấp hỗ trợ vừa đủ và nhìn xem lợi ích có tiếp tục sau khi hỗ trợ kết thúc. Tăng trưởng bền cần điều kiện để người nhận sử dụng được phần tăng thêm.\n\nVí dụ, tặng thêm thời gian cho người học có thể kém hiệu quả nếu họ chưa biết phần nào cần tập. Một lời hướng dẫn cụ thể hoặc tài liệu vừa sức có thể tạo ích lợi lớn hơn. Khi hỗ trợ một nhóm, hãy đo điều họ tự làm được sau hỗ trợ, không chỉ số giờ hoặc số tiền đã cấp. Cách đọc này đặt sự gia tăng vào tác động có thể quan sát."
@@ -634,45 +634,45 @@
       "code": "H_DOAI_CAN",
       "name": "Quải",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 43 · 夬",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 2405003",
+        "locator": "下經 · 43 · 夬 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%A4%AC&oldid=2405003",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%A4%AC"
       },
-      "text": "Đầm ở trên trời. Nước tụ ở cao gợi áp lực đã đến lúc cần thoát qua một quyết định rõ. Quải nhấn mạnh việc nêu vấn đề và dùng căn cứ để chọn cách xử lý. Có thể xác định điều gì cần chấm dứt, người nào cần biết và ai có quyền quyết. Một quyết định dứt khoát có thể đi cùng cách truyền đạt bình tĩnh, giới hạn rõ và một cơ chế xem lại nếu có chứng cứ mới.\n\nTrong một dự án có việc kéo dài quá mức, hãy nêu quyết định cần chốt và thời hạn, rồi gửi kèm thông tin để người khác phản hồi. Sau quyết định, phân người chịu trách nhiệm và cách báo nếu hậu quả vượt dự tính. Quải giúp nhìn sự dứt khoát qua khả năng làm rõ việc tiếp theo. Công khai lý do còn giúp người không đồng ý biết họ có thể chất vấn ở điểm nào."
+      "text": "Đại Tượng dùng hình đầm trên trời. Lời quẻ đặt việc công bố vấn đề trước triều đình cạnh lời cảnh báo về dùng binh. Bài rút ra câu hỏi hiện đại về cách quyết định rõ ràng mà vẫn kiểm soát mức đối đầu. Quải nhấn mạnh việc nêu vấn đề và dùng căn cứ để chọn cách xử lý. Có thể xác định điều gì cần chấm dứt, người nào cần biết và ai có quyền quyết. Một quyết định dứt khoát có thể đi cùng cách truyền đạt bình tĩnh, giới hạn rõ và một cơ chế xem lại nếu có chứng cứ mới.\n\nTrong một dự án có việc kéo dài quá mức, hãy nêu quyết định cần chốt và thời hạn, rồi gửi kèm thông tin để người khác phản hồi. Sau quyết định, phân người chịu trách nhiệm và cách báo nếu hậu quả vượt dự tính. Quải giúp nhìn sự dứt khoát qua khả năng làm rõ việc tiếp theo. Công khai lý do còn giúp người không đồng ý biết họ có thể chất vấn ở điểm nào."
     },
     {
       "order": 44,
       "code": "H_CAN_TON",
       "name": "Cấu",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 44 · 姤",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10646826",
+        "locator": "下經 · 44 · 姤 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%A7%A4&oldid=10646826",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%A7%A4"
       },
-      "text": "Trời ở trên gió. Một luồng gió đến bất ngờ gợi cuộc gặp với tác động chưa kịp chuẩn bị. Cấu phù hợp để xem cách tiếp xúc với một cơ hội, lời mời hoặc người mới. Sức hút lúc đầu có thể đáng chú ý, nhưng nên kiểm điều kiện tham gia, mức cam kết và cách thoát ra nếu không phù hợp. Giữ ranh giới từ lần gặp đầu giúp hai phía có thêm không gian tìm hiểu nhau.\n\nMột lời mời hợp tác đến đúng lúc có thể làm mình muốn nhận ngay. Hãy hỏi họ mong kết quả gì, sẽ sử dụng dữ liệu ra sao và khi nào có thể dừng. Có thể đồng ý một bước thử trước khi ký cam kết dài hơn. Cấu gợi xem cuộc gặp như sự xuất hiện của một lực mới, đáng được kiểm tra bằng hành động và điều kiện cụ thể."
+      "text": "Đại Tượng dùng hình gió dưới trời, còn Thoán giải tên quẻ theo nghĩa gặp. Lời quẻ đặt cuộc gặp trong một hình ảnh hôn nhân cổ. Bài vận dụng tình thế gặp điều bất ngờ để suy nghĩ về ranh giới và mức cam kết. Cấu phù hợp để xem cách tiếp xúc với một cơ hội, lời mời hoặc người mới. Sức hút lúc đầu có thể đáng chú ý, nhưng nên kiểm điều kiện tham gia, mức cam kết và cách thoát ra nếu không phù hợp. Giữ ranh giới từ lần gặp đầu giúp hai phía có thêm không gian tìm hiểu nhau.\n\nMột lời mời hợp tác đến đúng lúc có thể làm mình muốn nhận ngay. Hãy hỏi họ mong kết quả gì, sẽ sử dụng dữ liệu ra sao và khi nào có thể dừng. Có thể đồng ý một bước thử trước khi ký cam kết dài hơn. Cấu gợi xem cuộc gặp như sự xuất hiện của một lực mới, đáng được kiểm tra bằng hành động và điều kiện cụ thể."
     },
     {
       "order": 45,
       "code": "H_DOAI_KHON",
       "name": "Tụy",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 45 · 萃",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10647546",
+        "locator": "下經 · 45 · 萃 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%90%83&oldid=10647546",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E8%90%83"
       },
       "text": "Đầm ở trên đất. Nước tụ lại gợi người và nguồn lực cùng đổ về một chỗ. Tụy hướng sự chú ý đến mục đích của việc tập hợp và cách chăm sóc cho nhóm sau khi họ đến. Có thể nêu lý do họp, sắp xếp quyền phát biểu và chuẩn bị xử lý khi số người vượt dự kiến. Sự quy tụ phát huy giá trị khi người tham gia hiểu họ có thể đóng góp gì và trách nhiệm được chia ra sao.\n\nTrong một cuộc gặp nhiều người, nên biết điều gì cần quyết tại chỗ, việc gì để trao đổi sau và ai tóm tắt kết quả. Có thể dành vài phút cho người ít phát biểu nêu khó khăn. Khi đám đông đã về, ghi lại quyết định và người thực hiện để sức tập hợp chuyển thành việc làm. Tụy đưa sự chú ý tới cả lúc mời người đến lẫn lúc giữ kết nối về sau."
@@ -682,109 +682,109 @@
       "code": "H_KHON_TON",
       "name": "Thăng",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 46 · 升",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10646879",
+        "locator": "下經 · 46 · 升 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%8D%87&oldid=10646879",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%8D%87"
       },
-      "text": "Đất ở trên gió hoặc cây. Hình ảnh cây lớn qua đất gợi một sự đi lên dựa trên nền và thời gian. Thăng giúp nhìn tiến bộ theo bước có thể duy trì. Có thể chọn mục tiêu gần, ghi điều gì làm bước đó khả thi và nhờ người có kinh nghiệm kiểm lại trước khi nhận trách nhiệm rộng hơn. Những bước tăng dần cũng cho biết phần nền nào phải được củng cố khi việc trở nên phức tạp.\n\nVí dụ, một người mới làm vai trò điều phối có thể bắt đầu với buổi họp nhỏ, lấy phản hồi rồi thử ở phạm vi nhiều người hơn. Mỗi lần chuyển cấp, xem kỹ năng nào đã ổn và việc gì còn cần nhờ hỗ trợ. Sự đi lên có ích khi người đó hiểu điều đang nâng đỡ mình. Thăng vì thế phù hợp với kế hoạch học và nhận trách nhiệm theo các mốc có thể kiểm."
+      "text": "Quái Tốn nằm dưới Khôn. Đại Tượng dùng hình cây mọc trong đất và nói đến việc góp cái nhỏ để thành cao lớn. Bài đọc đây là sự đi lên dựa trên nền và thời gian. Thăng giúp nhìn tiến bộ theo bước có thể duy trì. Có thể chọn mục tiêu gần, ghi điều gì làm bước đó khả thi và nhờ người có kinh nghiệm kiểm lại trước khi nhận trách nhiệm rộng hơn. Những bước tăng dần cũng cho biết phần nền nào phải được củng cố khi việc trở nên phức tạp.\n\nVí dụ, một người mới làm vai trò điều phối có thể bắt đầu với buổi họp nhỏ, lấy phản hồi rồi thử ở phạm vi nhiều người hơn. Mỗi lần chuyển cấp, xem kỹ năng nào đã ổn và việc gì còn cần nhờ hỗ trợ. Sự đi lên có ích khi người đó hiểu điều đang nâng đỡ mình. Thăng vì thế phù hợp với kế hoạch học và nhận trách nhiệm theo các mốc có thể kiểm."
     },
     {
       "order": 47,
       "code": "H_DOAI_KHAM",
       "name": "Khốn",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 47 · 困",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10647032",
+        "locator": "下經 · 47 · 困 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%9B%B0&oldid=10647032",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%9B%B0"
       },
-      "text": "Đầm ở trên nước. Hình tượng gợi lúc nguồn nước không còn đủ nuôi phần chứa phía trên. Khốn đưa sự chú ý về phần ít ỏi còn dùng được khi hoàn cảnh bị bó hẹp. Có thể chọn việc ưu tiên, xin sự giúp đỡ cụ thể và giữ lời nói nhất quán với khả năng thực hiện. Đặt một giới hạn tạm thời cho cam kết giúp nhận ra khi nào nên dồn lực phục hồi thay vì tiếp tục phân tán.\n\nMột nhóm thiếu người có thể phân ra việc phải duy trì, việc tạm hoãn và việc nên xin bên ngoài hỗ trợ. Nếu hứa giữ mọi đầu việc như cũ, người nhận lời hứa sẽ khó chuẩn bị khi tiến độ giảm. Khốn giúp nói rõ điều còn làm được và giới hạn hiện tại. Việc báo sớm một giới hạn có thể tạo thêm cơ hội để người khác tham gia giải quyết."
+      "text": "Quái Khảm nằm dưới Đoài, nhưng Đại Tượng mô tả đầm không có nước. Lời quẻ còn nêu tình thế nói mà người khác chưa tin. Hai hình ảnh gợi việc xem lại nguồn lực và điều mình còn có thể cam kết. Khốn đưa sự chú ý về phần ít ỏi còn dùng được khi hoàn cảnh bị bó hẹp. Có thể chọn việc ưu tiên, xin sự giúp đỡ cụ thể và giữ lời nói nhất quán với khả năng thực hiện. Đặt một giới hạn tạm thời cho cam kết giúp nhận ra khi nào nên dồn lực phục hồi thay vì tiếp tục phân tán.\n\nMột nhóm thiếu người có thể phân ra việc phải duy trì, việc tạm hoãn và việc nên xin bên ngoài hỗ trợ. Nếu hứa giữ mọi đầu việc như cũ, người nhận lời hứa sẽ khó chuẩn bị khi tiến độ giảm. Khốn giúp nói rõ điều còn làm được và giới hạn hiện tại. Việc báo sớm một giới hạn có thể tạo thêm cơ hội để người khác tham gia giải quyết."
     },
     {
       "order": 48,
       "code": "H_KHAM_TON",
       "name": "Tỉnh",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 48 · 井",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645240",
+        "locator": "下經 · 48 · 井 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E4%BA%95&oldid=10645240",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E4%BA%95"
       },
-      "text": "Nước ở trên gió hoặc cây. Tỉnh dùng hình tượng giếng để gợi nguồn dùng chung cần được bảo trì và tiếp cận đúng cách. Có thể có nguồn nước mà công cụ múc đã hỏng, hoặc có người giữ nguồn mà người cần lại không biết đường tới. Khi áp dụng, hãy kiểm chất lượng, cách sử dụng và trách nhiệm bảo dưỡng. Một nguồn có ích lâu dài khi người mới cũng tìm được cách dùng mà không phụ thuộc vào một người.\n\nVí dụ, một thư viện tài liệu có nhiều tệp nhưng tên khó hiểu và thiếu người cập nhật. Hãy kiểm một người mới có tìm được đúng tệp, biết nó còn hiệu lực và báo khi phát hiện lỗi hay không. Sau đó sửa đường truy cập hoặc cách bảo trì trước khi bổ sung thêm tệp. Hình tượng giếng gợi rằng chất lượng của nguồn và khả năng lấy được từ nguồn là hai việc cần chăm sóc."
+      "text": "Quái Tốn nằm dưới Khảm. Đại Tượng dùng hình nước trên cây, còn lời quẻ nói giếng, dây múc và chiếc bình hỏng. Bài vận dụng hình ảnh giếng để suy nghĩ về nguồn dùng chung và cách tiếp cận nguồn ấy. Có thể có nguồn nước mà công cụ múc đã hỏng, hoặc có người giữ nguồn mà người cần lại không biết đường tới. Khi áp dụng, hãy kiểm chất lượng, cách sử dụng và trách nhiệm bảo dưỡng. Một nguồn có ích lâu dài khi người mới cũng tìm được cách dùng mà không phụ thuộc vào một người.\n\nVí dụ, một thư viện tài liệu có nhiều tệp nhưng tên khó hiểu và thiếu người cập nhật. Hãy kiểm một người mới có tìm được đúng tệp, biết nó còn hiệu lực và báo khi phát hiện lỗi hay không. Sau đó sửa đường truy cập hoặc cách bảo trì trước khi bổ sung thêm tệp. Hình tượng giếng gợi rằng chất lượng của nguồn và khả năng lấy được từ nguồn là hai việc cần chăm sóc."
     },
     {
       "order": 49,
       "code": "H_DOAI_LY",
       "name": "Cách",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 49 · 革",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10643173",
+        "locator": "下經 · 49 · 革 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%9D%A9&oldid=10643173",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E9%9D%A9"
       },
-      "text": "Đầm ở trên lửa. Hai yếu tố khó đứng yên cạnh nhau gợi sự thay đổi khi cách cũ không còn đáp ứng. Cách đặt trọng tâm ở thời điểm, lý do và mức tin cậy của việc thay. Có thể nêu vấn đề bằng dữ kiện, thử một thay đổi có phạm vi nhỏ và nói trước tiêu chí mở rộng. Sau khi đổi, cần kiểm xem vấn đề đã giảm hay chỉ đổi hình thức, và ai đang phải thích nghi nhiều nhất.\n\nKhi đổi một quy trình, có thể thử với một nhóm nhỏ để biết dữ liệu nào phải chuyển và ai cần được hướng dẫn. Hãy giải thích cả vấn đề của cách cũ lẫn cách quay lại nếu thử nghiệm thất bại. Sau khi thay, xin phản hồi từ người từng dùng cả hai phiên bản. Cách giúp xem tính cần thiết của đổi mới cùng với năng lực tổ chức để đưa đổi mới vào sử dụng."
+      "text": "Đại Tượng dùng hình lửa trong đầm. Lời quẻ đặt sự thay đổi cạnh câu hỏi khi nào người ta tin vào nó. Các bản và phần chú ghi chữ khác nhau ở cụm chỉ thời điểm, nên bài giữ ý chung về thời cơ và lòng tin. Cách đặt trọng tâm ở thời điểm, lý do và mức tin cậy của việc thay. Có thể nêu vấn đề bằng dữ kiện, thử một thay đổi có phạm vi nhỏ và nói trước tiêu chí mở rộng. Sau khi đổi, cần kiểm xem vấn đề đã giảm hay chỉ đổi hình thức, và ai đang phải thích nghi nhiều nhất.\n\nKhi đổi một quy trình, có thể thử với một nhóm nhỏ để biết dữ liệu nào phải chuyển và ai cần được hướng dẫn. Hãy giải thích cả vấn đề của cách cũ lẫn cách quay lại nếu thử nghiệm thất bại. Sau khi thay, xin phản hồi từ người từng dùng cả hai phiên bản. Cách giúp xem tính cần thiết của đổi mới cùng với năng lực tổ chức để đưa đổi mới vào sử dụng."
     },
     {
       "order": 50,
       "code": "H_LY_TON",
       "name": "Đỉnh",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 50 · 鼎",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10647086",
+        "locator": "下經 · 50 · 鼎 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%BC%8E&oldid=10647086",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E9%BC%8E"
       },
-      "text": "Lửa ở trên gió hoặc cây. Hình tượng chiếc vạc gợi việc chuyển nguyên liệu thô thành thứ nuôi được nhiều người. Đỉnh có thể đọc như cách một nhóm biến năng lực riêng thành giá trị chung thông qua công cụ và quy trình. Có thể kiểm nguồn vào, cách truyền tay và chất lượng đầu ra. Một công cụ tốt cần người vận hành hiểu mục đích và biết điều chỉnh khi nguyên liệu hoặc hoàn cảnh thay đổi.\n\nMột buổi trao đổi kinh nghiệm có thể có nguyên liệu tốt nhưng vẫn chưa tạo ra tài liệu dễ dùng. Thử giao người tổng hợp, quy định cách giữ ví dụ và nhờ người chưa biết việc đọc lại. Đỉnh gợi kiểm cả phần biến đổi ở giữa, nơi thông tin thô thành hướng dẫn. Công cụ tốt được đánh giá bằng thứ nó giúp người khác thực hiện, kể cả sau khi người tạo ra đã bàn giao."
+      "text": "Quái Tốn nằm dưới Ly. Thoán dùng hình gỗ tiếp lửa để nấu, còn lời hào nhắc các phần của chiếc vạc. Hình tượng ấy gợi việc dùng công cụ và cách làm phù hợp để biến nguyên liệu thành thứ hữu ích cho nhiều người. Đỉnh có thể đọc như cách một nhóm biến năng lực riêng thành giá trị chung thông qua công cụ và quy trình. Có thể kiểm nguồn vào, cách truyền tay và chất lượng đầu ra. Một công cụ tốt cần người vận hành hiểu mục đích và biết điều chỉnh khi nguyên liệu hoặc hoàn cảnh thay đổi.\n\nMột buổi trao đổi kinh nghiệm có thể có nguyên liệu tốt nhưng vẫn chưa tạo ra tài liệu dễ dùng. Thử giao người tổng hợp, quy định cách giữ ví dụ và nhờ người chưa biết việc đọc lại. Đỉnh gợi kiểm cả phần biến đổi ở giữa, nơi thông tin thô thành hướng dẫn. Công cụ tốt được đánh giá bằng thứ nó giúp người khác thực hiện, kể cả sau khi người tạo ra đã bàn giao."
     },
     {
       "order": 51,
       "code": "H_CHAN_CHAN",
       "name": "Chấn",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 51 · 震",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10644930",
+        "locator": "下經 · 51 · 震 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%9C%87&oldid=10644930",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E9%9C%87"
       },
-      "text": "Sấm chồng sấm. Tiếng động đột ngột gợi khoảnh khắc giật mình và những lần rung tiếp theo. Chấn giúp xem phản ứng đầu tiên ảnh hưởng thế nào đến việc giữ trật tự. Có thể dừng đủ lâu để xác nhận sự cố, phân người kiểm các điểm thiết yếu và thông báo điều đã biết. Sau đó ghi việc nào đã được xử lý tốt để lần bất ngờ tiếp theo có quy trình dựa vào.\n\nNếu hệ thống gặp sự cố, người đầu tiên phát hiện có thể báo điều đã thấy và lúc bắt đầu, thay vì suy đoán ngay nguyên nhân. Người điều phối có thể nhắc lại ai đang kiểm phần nào và khi nào báo tiếp. Sau đó ghi điểm nào giúp nhóm bình tĩnh hơn. Chấn dùng khoảnh khắc bất ngờ để xem quy trình và sự tin cậy có đủ giúp mọi người trở về trạng thái làm việc."
+      "text": "Đại Tượng nói sấm đến nối tiếp. Lời quẻ đặt sự giật mình cạnh hình ảnh vẫn giữ được đồ tế trên tay. Trong bối cảnh hôm nay, có thể dùng sự đối lập này để nghĩ về điều cần giữ vững khi bị bất ngờ. Chấn giúp xem phản ứng đầu tiên ảnh hưởng thế nào đến việc giữ trật tự. Có thể dừng đủ lâu để xác nhận sự cố, phân người kiểm các điểm thiết yếu và thông báo điều đã biết. Sau đó ghi việc nào đã được xử lý tốt để lần bất ngờ tiếp theo có quy trình dựa vào.\n\nNếu hệ thống gặp sự cố, người đầu tiên phát hiện có thể báo điều đã thấy và lúc bắt đầu, thay vì suy đoán ngay nguyên nhân. Người điều phối có thể nhắc lại ai đang kiểm phần nào và khi nào báo tiếp. Sau đó ghi điểm nào giúp nhóm bình tĩnh hơn. Chấn dùng khoảnh khắc bất ngờ để xem quy trình và sự tin cậy có đủ giúp mọi người trở về trạng thái làm việc."
     },
     {
       "order": 52,
       "code": "H_CAN2_CAN2",
       "name": "Cấn",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 52 · 艮",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10647135",
+        "locator": "下經 · 52 · 艮 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%89%AE&oldid=10647135",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E8%89%AE"
       },
       "text": "Núi chồng núi. Hình tượng đứng vững gợi việc biết dừng và làm rõ giới hạn. Cấn thích hợp khi có nhiều việc kéo sự chú ý theo các hướng khác nhau. Có thể quyết định việc nào đã đủ, việc nào cần để sau và chỗ nào nên tạm tách khỏi dòng thông tin. Một lần dừng có ích khi nó giúp thấy mình đang phản ứng theo thói quen hay đang chọn hành động dựa trên hoàn cảnh.\n\nKhi một cuộc thảo luận không tạo thêm thông tin, có thể đặt giờ dừng và ghi các câu hỏi còn mở. Một khoảng nghỉ cho phép mỗi người kiểm lại dữ kiện trước lúc quay lại. Trong làm việc cá nhân, chọn một thời điểm tắt thông báo có thể giúp nhận ra việc đang thực sự cần chú ý. Cấn hướng đến việc xác định ranh giới, đồng thời biết khi nào ranh giới đó đã phục vụ đủ mục đích."
@@ -794,29 +794,29 @@
       "code": "H_TON_CAN2",
       "name": "Tiệm",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 53 · 漸",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 2560535",
+        "locator": "下經 · 53 · 漸 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%BC%B8&oldid=2560535",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E6%BC%B8"
       },
-      "text": "Gió hoặc cây ở trên núi. Cây lớn trên nền núi gợi sự tiến triển qua từng chặng có trật tự. Tiệm nhắc kiểm phần nền trước khi chuyển sang bước tiếp theo. Có thể lập mốc theo kỹ năng đã làm được, mức độ tin cậy đã hình thành hoặc khối lượng công việc đã ổn định. Thay đổi từng chặng giúp người tham gia hiểu vai trò của mình và sửa sớm những điều chưa thích hợp.\n\nMột người học nghề có thể làm theo thứ tự quan sát, thử có người hướng dẫn rồi tự làm trong phạm vi nhỏ. Mỗi lần đổi bước cần có dấu hiệu cho thấy phần trước đã đủ chắc, chẳng hạn làm lại được khi dữ liệu thay đổi. Hãy lưu phản hồi ở từng chặng để không phải đoán vì sao có tiến bộ. Tiệm cho phép tiến chậm mà vẫn kiểm được hướng đi."
+      "text": "Quái Tốn nằm trên Cấn. Đại Tượng dùng hình cây trên núi, còn các hào dùng chim hồng qua nhiều chỗ đậu. Bản chữ Hán và một số chú giải đọc khác chữ ở chỗ đậu cuối. Bài giữ ý tiến từng chặng và để người duyệt đối chiếu chi tiết đó. Tiệm nhắc kiểm phần nền trước khi chuyển sang bước tiếp theo. Có thể lập mốc theo kỹ năng đã làm được, mức độ tin cậy đã hình thành hoặc khối lượng công việc đã ổn định. Thay đổi từng chặng giúp người tham gia hiểu vai trò của mình và sửa sớm những điều chưa thích hợp.\n\nMột người học nghề có thể làm theo thứ tự quan sát, thử có người hướng dẫn rồi tự làm trong phạm vi nhỏ. Mỗi lần đổi bước cần có dấu hiệu cho thấy phần trước đã đủ chắc, chẳng hạn làm lại được khi dữ liệu thay đổi. Hãy lưu phản hồi ở từng chặng để không phải đoán vì sao có tiến bộ. Tiệm cho phép tiến chậm mà vẫn kiểm được hướng đi."
     },
     {
       "order": 54,
       "code": "H_CHAN_DOAI",
       "name": "Quy muội",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 54 · 歸妹",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10647182",
+        "locator": "下經 · 54 · 歸妹 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%AD%B8%E5%A6%B9&oldid=10647182",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E6%AD%B8%E5%A6%B9"
       },
       "text": "Sấm ở trên đầm. Sức chuyển động chạm vào một sự gắn bó, gợi quyết định được đẩy nhanh khi vai trò và điều kiện chưa cân xứng. Quy muội xuất phát từ hình ảnh hôn nhân cổ. Cách đọc hiện đại có thể hỏi ai thực sự đồng ý, ai có quyền đặt điều kiện và người nào gánh hệ quả. Trước một cam kết, viết rõ những phần chưa thống nhất giúp cả hai bên có thời gian suy xét.\n\nNếu được mời nhận một vai trò mới, hãy hỏi liệu điều kiện hiện tại có cho mình quyền thực hiện trách nhiệm đã ghi hay không. Trong quan hệ riêng, có thể dành thời gian nói rõ điều gì chỉ là mong muốn, điều gì là cam kết chung. Quy muội dùng một biểu tượng từ xã hội cổ để gợi câu hỏi hiện đại về quyền đồng ý và sự tương xứng giữa trách nhiệm với quyền lựa chọn."
@@ -826,29 +826,29 @@
       "code": "H_CHAN_LY",
       "name": "Phong",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 55 · 豐",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10645290",
+        "locator": "下經 · 55 · 豐 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%B1%90&oldid=10645290",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E8%B1%90"
       },
-      "text": "Sấm ở trên lửa. Ánh sáng đi cùng chuyển động mạnh gợi lúc việc và thông tin đều dồn đến nhiều. Phong đặt câu hỏi về cách xử lý một giai đoạn sung mãn mà không làm loãng sự chú ý. Có thể chọn việc cần giải quyết ngay, chuẩn bị cho thời điểm nhu cầu giảm và bàn giao thông tin cho người có thể tiếp tục. Giữ nhịp ở lúc cao điểm là một phần của việc sử dụng tốt thời cơ.\n\nVí dụ, khi nhu cầu sử dụng tăng nhanh, hãy giữ một bản kê việc quan trọng và cách xử lý nếu người phụ trách quá tải. Nhu cầu có thể giảm sau cao điểm, nên cân nhắc cách thu gọn nguồn lực tạm thời. Trong một buổi có nhiều thông tin, dành người ghi kết luận giúp ánh sáng lúc cao điểm còn dùng được sau đó. Phong nhấn mạnh cách quản trị điều đang nhiều."
+      "text": "Đại Tượng dùng sấm và chớp cùng đến. Lời quẻ nói giữa trưa, nhưng một số hào dùng hình vật che và thấy sao giữa ban ngày. Bài lấy sự tương phản này để nghĩ về việc tầm nhìn có thể bị khuất ngay lúc công việc nhiều nhất. Phong đặt câu hỏi về cách xử lý một giai đoạn sung mãn mà không làm loãng sự chú ý. Có thể chọn việc cần giải quyết ngay, chuẩn bị cho thời điểm nhu cầu giảm và bàn giao thông tin cho người có thể tiếp tục. Giữ nhịp ở lúc cao điểm là một phần của việc sử dụng tốt thời cơ.\n\nVí dụ, khi nhu cầu sử dụng tăng nhanh, hãy giữ một bản kê việc quan trọng và cách xử lý nếu người phụ trách quá tải. Nhu cầu có thể giảm sau cao điểm, nên cân nhắc cách thu gọn nguồn lực tạm thời. Trong một buổi có nhiều thông tin, dành người ghi kết luận giúp ánh sáng lúc cao điểm còn dùng được sau đó. Phong nhấn mạnh cách quản trị điều đang nhiều."
     },
     {
       "order": 56,
       "code": "H_LY_CAN2",
       "name": "Lữ",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 56 · 旅",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10647234",
+        "locator": "下經 · 56 · 旅 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%97%85&oldid=10647234",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E6%97%85"
       },
       "text": "Lửa ở trên núi. Ánh lửa ở một nơi rồi có thể chuyển đi, gợi hoàn cảnh của người tạm trú hoặc chưa có vị trí bền. Lữ giúp nghĩ về cách cư xử khi bước vào môi trường mới. Có thể học quy ước địa phương, giữ cam kết vừa sức và tìm chỗ dựa đáng tin. Điều có ích lúc ấy là biết điều gì mình có thể mang theo, kể cả khi nơi ở hoặc công việc tạm thời kết thúc.\n\nKhi mới đến một nhóm, có thể hỏi cách họ xử lý tài liệu và xin góp một việc vừa đủ trước khi đề xuất thay đổi lớn. Hãy giữ ghi chú về thứ mình đã học để dùng sau khi rời môi trường đó. Trong một chuyến đi, biết nơi hỏi trợ giúp có thể hữu ích hơn cố ghi hết mọi quy tắc. Lữ gợi sự linh hoạt dựa trên thông tin và cam kết thực tế."
@@ -858,13 +858,13 @@
       "code": "H_TON_TON",
       "name": "Tốn",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 57 · 巽",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10644966",
+        "locator": "下經 · 57 · 巽 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%B7%BD&oldid=10644966",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%B7%BD"
       },
       "text": "Gió chồng gió. Tác động đi sâu qua những lần lặp, gợi cách gây ảnh hưởng mềm và đều. Tốn hợp với việc hướng dẫn, thông báo hoặc thay đổi một thói quen khó sửa bằng một mệnh lệnh duy nhất. Có thể truyền đạt cùng một mục đích qua các ví dụ cụ thể và xem người nghe đã hiểu ra sao. Sự mềm dẻo cần có hướng rõ để việc điều chỉnh nhiều lần vẫn phục vụ đúng mục tiêu.\n\nVí dụ, để một nhóm hình thành thói quen ghi chú, có thể bắt đầu bằng mẫu ngắn, nhắc vào thời điểm dễ nhớ và cho họ thấy ví dụ đã giúp việc chung thế nào. Sau vài lượt, kiểm điều còn gây khó và đổi cách nhắc. Tốn giúp nhìn tác động của sự hướng dẫn liên tục, đồng thời yêu cầu quan sát xem người tiếp nhận có tự thực hiện được hay chỉ làm khi được nhắc."
@@ -874,13 +874,13 @@
       "code": "H_DOAI_DOAI",
       "name": "Đoài",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 58 · 兌",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 2404993",
+        "locator": "下經 · 58 · 兌 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%85%8C&oldid=2404993",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%85%8C"
       },
       "text": "Đầm chồng đầm. Hình tượng hai vùng nước kề nhau gợi sự trao đổi cởi mở và niềm vui khi cùng học hỏi. Đoài hướng người đọc đến cuộc trò chuyện mà mỗi bên có thể nói và nghe. Có thể thử tạo một dịp chia sẻ kinh nghiệm với câu hỏi cụ thể, rồi ghi nhận điều mình học được từ người kia. Bầu không khí dễ chịu trở nên có giá trị khi vẫn đủ chỗ cho ý kiến khó nghe.\n\nTrong một buổi học chung, có thể dành lượt để mỗi người kể một điều mình làm được và một chỗ còn khó. Người nghe thử diễn đạt lại trước khi góp ý để tránh hiểu nhầm. Nếu không khí quá thiên về đồng tình, hãy đặt câu hỏi cụ thể về lựa chọn khác. Đoài gợi sự cởi mở có giá trị khi nó giúp mọi người nói được điều hữu ích, kể cả khi điều đó khó nghe."
@@ -890,29 +890,29 @@
       "code": "H_TON_KHAM",
       "name": "Hoán",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 59 · 渙",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10647580",
+        "locator": "下經 · 59 · 渙 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%B8%99&oldid=10647580",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E6%B8%99"
       },
-      "text": "Gió ở trên nước. Gió làm mặt nước tản ra, gợi khả năng làm lỏng một chỗ kết cứng hoặc phân tán có chủ đích. Hoán hữu ích khi các nhóm đã giữ ranh giới quá lâu, hoặc khi công việc bị nghẽn vì thông tin chỉ đi qua một đầu mối. Có thể mở thêm kênh trao đổi nhưng vẫn nêu mục tiêu chung để mọi người giữ liên hệ. Phân tán tác động khác với làm mất trách nhiệm.\n\nVí dụ, nếu thông tin về một dự án chỉ nằm trong tin nhắn riêng, hãy tạo chỗ chia sẻ quyết định để ai cần cũng đọc được. Chỉ mở rộng quyền đến mức phù hợp và giữ người chịu trách nhiệm cập nhật. Trong mâu thuẫn kéo dài, một người trung gian có thể giúp hai phía nối lại trao đổi. Hoán đặt việc làm tan điểm nghẽn bên cạnh việc giữ một mục đích chung."
+      "text": "Đại Tượng dùng hình gió đi trên nước. Văn bản cũng nhắc việc quy tụ ở miếu. Bài đọc hai hình ảnh cùng nhau để phân biệt tháo một điểm kết cứng với việc giữ mục đích chung sau khi tháo. Hoán hữu ích khi các nhóm đã giữ ranh giới quá lâu, hoặc khi công việc bị nghẽn vì thông tin chỉ đi qua một đầu mối. Có thể mở thêm kênh trao đổi nhưng vẫn nêu mục tiêu chung để mọi người giữ liên hệ. Phân tán tác động khác với làm mất trách nhiệm.\n\nVí dụ, nếu thông tin về một dự án chỉ nằm trong tin nhắn riêng, hãy tạo chỗ chia sẻ quyết định để ai cần cũng đọc được. Chỉ mở rộng quyền đến mức phù hợp và giữ người chịu trách nhiệm cập nhật. Trong mâu thuẫn kéo dài, một người trung gian có thể giúp hai phía nối lại trao đổi. Hoán đặt việc làm tan điểm nghẽn bên cạnh việc giữ một mục đích chung."
     },
     {
       "order": 60,
       "code": "H_KHAM_DOAI",
       "name": "Tiết",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 60 · 節",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 2405027",
+        "locator": "下經 · 60 · 節 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E7%AF%80&oldid=2405027",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E7%AF%80"
       },
       "text": "Nước ở trên đầm. Dung tích của đầm gợi một giới hạn giúp chứa nước và điều tiết. Tiết xem quy định như điều kiện để việc chung vận hành. Có thể đặt giới hạn đủ rõ để ai cũng áp dụng được, kèm cách xem lại khi điều kiện thay đổi. Một giới hạn quá chặt dễ làm người tham gia tìm đường vòng. Một giới hạn hữu ích cần có lý do, mức vừa phải và thời điểm đánh giá.\n\nKhi một nhóm đặt giới hạn thời gian phản hồi, có thể nói rõ trường hợp nào cần xử lý gấp và trường hợp nào được để đến ngày làm việc sau. Sau vài tuần, xem liệu giới hạn có giảm áp lực hay làm mất thông tin quan trọng. Tiết giúp coi giới hạn là thứ có thể thiết kế và điều chỉnh. Người áp dụng cần hiểu lý do để phân biệt quy tắc với ngoại lệ."
@@ -922,13 +922,13 @@
       "code": "H_TON_DOAI",
       "name": "Trung phu",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 61 · 中孚",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10647425",
+        "locator": "下經 · 61 · 中孚 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E4%B8%AD%E5%AD%9A&oldid=10647425",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E4%B8%AD%E5%AD%9A"
       },
       "text": "Gió ở trên đầm. Tác động bên trên làm phần bên dưới đáp lại, gợi niềm tin dựa trên sự tương ứng giữa lời nói và việc làm. Trung phu mời người đọc nhìn vào cách giữ lời trong những việc nhỏ và cách thừa nhận khi khả năng thực hiện thay đổi. Có thể nói rõ điều mình cam kết, xác nhận điều người khác đã hiểu và chủ động báo sớm khi có khó khăn. Lòng tin lớn dần qua các lần đối chiếu được.\n\nVí dụ, khi hẹn hoàn thành một phần việc, hãy nói mình sẽ bàn giao thứ gì, vào lúc nào và ai xác nhận đã nhận. Nếu tiến độ đổi, báo trước mốc hẹn và đề xuất cách xử lý. Người khác có thể tin hơn vì họ thấy lời nói được nối với thông tin có thể kiểm. Trung phu cũng gợi dành cơ hội để bên kia nói thật về điều họ chưa thể cam kết."
@@ -938,29 +938,29 @@
       "code": "H_CHAN_CAN2",
       "name": "Tiểu quá",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 62 · 小過",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10643238",
+        "locator": "下經 · 62 · 小過 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%B0%8F%E9%81%8E&oldid=10643238",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E5%B0%8F%E9%81%8E"
       },
-      "text": "Sấm ở trên núi. Một chuyển động đi qua nơi có giới hạn gợi việc quan tâm đến độ vừa của bước đi. Tiểu quá nhấn mạnh những sai lệch nhỏ dễ bị bỏ qua trong lúc tập trung vào việc lớn. Có thể kiểm danh sách, chừa khoảng đệm và thử một cách xử lý nhỏ trước. Sự thận trọng này phù hợp khi chi phí sửa một lỗi nhỏ thấp hơn nhiều so với hậu quả nếu để nó tích tụ.\n\nKhi chuẩn bị một lần bàn giao, có thể chạy thử từ tài khoản của người nhận để phát hiện quyền còn thiếu hoặc tài liệu chưa mở được. Một bản kiểm vài mục giúp bắt lỗi nhỏ mà không biến việc chuẩn bị thành một dự án khác. Nếu môi trường khác với nơi mình thử, chừa đủ thời gian để sửa. Tiểu quá nhấn mạnh cách chọn bước nhỏ và đúng mức khi điều kiện chưa hoàn toàn chắc chắn."
+      "text": "Đại Tượng dùng hình sấm trên núi. Lời quẻ nói có thể làm việc nhỏ, dè dặt với việc lớn, rồi dùng tiếng chim và hình ảnh hướng xuống. Bài vận dụng cách chọn quy mô vừa sức khi điều kiện còn chưa chắc. Có thể kiểm danh sách, chừa khoảng đệm và thử một cách xử lý nhỏ trước. Sự thận trọng này phù hợp khi chi phí sửa một lỗi nhỏ thấp hơn nhiều so với hậu quả nếu để nó tích tụ.\n\nKhi chuẩn bị một lần bàn giao, có thể chạy thử từ tài khoản của người nhận để phát hiện quyền còn thiếu hoặc tài liệu chưa mở được. Một bản kiểm vài mục giúp bắt lỗi nhỏ mà không biến việc chuẩn bị thành một dự án khác. Nếu môi trường khác với nơi mình thử, chừa đủ thời gian để sửa. Tiểu quá nhấn mạnh cách chọn bước nhỏ và đúng mức khi điều kiện chưa hoàn toàn chắc chắn."
     },
     {
       "order": 63,
       "code": "H_KHAM_LY",
       "name": "Ký tế",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 63 · 既濟",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 2572417",
+        "locator": "下經 · 63 · 既濟 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%97%A2%E6%BF%9F&oldid=2572417",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E6%97%A2%E6%BF%9F"
       },
       "text": "Nước ở trên lửa. Hai yếu tố được đặt vào thế có thể phối hợp nhưng vẫn cần điều tiết. Ký tế gợi việc đã qua mốc hoàn tất và bắt đầu cần bảo trì. Có thể kiểm ai chịu trách nhiệm sau bàn giao, điều gì báo hệ thống lệch và ai có quyền sửa. Thành quả lúc kết thúc một đợt cần một cơ chế theo dõi để khi điều kiện đổi, nhóm còn biết phần nào phải chỉnh.\n\nVí dụ, bàn giao hệ thống có thể kết thúc đúng ngày nhưng nhóm vẫn cần kiểm xem báo lỗi đến được người phụ trách hay không. Hãy đặt lịch xem lại sau một khoảng sử dụng, ghi rõ người nhận việc và dữ liệu dùng để đánh giá. Nếu xuất hiện sự cố nhỏ, sửa trước khi nó kéo dài. Ký tế giúp nhìn lúc hoàn thành như điểm mở đầu cho công việc giữ sự cân bằng."
@@ -970,16 +970,16 @@
       "code": "H_LY_KHAM",
       "name": "Vị tế",
       "kind": "OVERVIEW",
-      "verificationStatus": "INDEX_LOCATED",
+      "verificationStatus": "SOURCE_LOCATED",
       "source": {
         "title": "Chu Dịch (周易)",
         "author": "Khuyết danh (văn bản cổ truyền)",
-        "edition": "Chỉ mục Wikisource tiếng Trung, oldid 7907208",
-        "locator": "下經 · 64 · 未濟",
-        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93&oldid=7907208#上下經卦名次序",
+        "edition": "Chương Chu Dịch trên Wikisource tiếng Trung, oldid 10647450",
+        "locator": "下經 · 64 · 未濟 · 易經／彖／象",
+        "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%9C%AA%E6%BF%9F&oldid=10647450",
         "chapterUrl": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93/%E6%9C%AA%E6%BF%9F"
       },
-      "text": "Lửa ở trên nước. Hai yếu tố chưa vào thế phối hợp ổn định, gợi một việc còn thiếu điều kiện để hoàn tất. Vị tế giúp nhìn đoạn cuối như một phần riêng cần chuẩn bị. Có thể ghi rõ bước còn thiếu, kiểm điểm chuyển giao và đặt một điều kiện xác nhận hoàn thành. Khi đã gần đích, việc giữ chú ý ở các khâu nhỏ có thể giúp tránh phải quay lại sửa cả một chuỗi công việc.\n\nVí dụ, một tài liệu gần xong vẫn có thể chưa dùng được nếu thiếu hướng dẫn mở, thiếu người duyệt hoặc chưa kiểm ví dụ. Hãy hoàn tất từng điều kiện và nhờ người nhận thử dùng trước khi tuyên bố đã xong. Nếu một điểm chưa rõ, ghi thành việc riêng với người chịu trách nhiệm. Vị tế gợi xem đoạn cuối như thời gian tổ chức bước chuyển, với tiêu chí kết thúc có thể quan sát."
+      "text": "Lửa ở trên nước. Lời quẻ dùng hình cáo nhỏ gần qua sông nhưng làm ướt đuôi. Bài lấy hình ảnh ấy để suy nghĩ về điều kiện cuối cùng còn thiếu, kể cả khi phần lớn công việc đã xong. Vị tế giúp nhìn đoạn cuối như một phần riêng cần chuẩn bị. Có thể ghi rõ bước còn thiếu, kiểm điểm chuyển giao và đặt một điều kiện xác nhận hoàn thành. Khi đã gần đích, việc giữ chú ý ở các khâu nhỏ có thể giúp tránh phải quay lại sửa cả một chuỗi công việc.\n\nVí dụ, một tài liệu gần xong vẫn có thể chưa dùng được nếu thiếu hướng dẫn mở, thiếu người duyệt hoặc chưa kiểm ví dụ. Hãy hoàn tất từng điều kiện và nhờ người nhận thử dùng trước khi tuyên bố đã xong. Nếu một điểm chưa rõ, ghi thành việc riêng với người chịu trách nhiệm. Vị tế gợi xem đoạn cuối như thời gian tổ chức bước chuyển, với tiêu chí kết thúc có thể quan sát."
     }
   ]
 }

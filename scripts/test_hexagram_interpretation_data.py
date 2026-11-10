@@ -42,6 +42,8 @@ class InterpretationDraftsTest(unittest.TestCase):
                 for key in ("zhou_yi_index_url", "zhou_yi_chapter_url"):
                     link = urlsplit(entry[key])
                     self.assertEqual((link.scheme, link.hostname), ("https", "zh.wikisource.org"))
+                self.assertRegex(urlsplit(entry["zhou_yi_chapter_url"]).query, r"(?:^|&)oldid=[1-9]\d*$")
+                self.assertEqual("SOURCE_LOCATED", entry["source_status"])
         self.assertEqual((self.catalog[47]["code"], self.catalog[47]["e01_printed_label"]), ("H_KHAM_TON", "Ích"))
 
     def test_drafts_cover_exactly_the_catalog_and_remain_unpublished(self):
@@ -49,11 +51,13 @@ class InterpretationDraftsTest(unittest.TestCase):
         self.assertEqual(64, len(entries))
         self.assertCountEqual((row["code"] for row in self.catalog), (row["code"] for row in entries))
         self.assertEqual("DRAFT", self.overviews["status"])
-        self.assertTrue(all(row["verificationStatus"] == "INDEX_LOCATED" for row in self.overviews["entries"]))
         self.assertEqual(61, len({row["text"] for row in self.overviews["entries"]}))
         for row in self.overviews["entries"]:
+            self.assertEqual("SOURCE_LOCATED", row["verificationStatus"])
             self.assertIn(len(row["text"].split()), range(150, 301))
-            self.assertEqual(row["source"]["url"], self.catalog[row["order"] - 1]["zhou_yi_index_url"])
+            catalog = self.catalog[row["order"] - 1]
+            self.assertEqual(row["code"], catalog["code"])
+            self.assertEqual(row["source"]["url"], catalog["zhou_yi_chapter_url"])
 
     def test_pilots_have_provenance_and_correct_positional_lines(self):
         self.assertEqual([1, 2, 26], [row["order"] for row in self.pilots["entries"]])
