@@ -9,6 +9,7 @@ import { LookupFailure, NameVerification, TrigramPair } from "./LookupPresentati
 import { SourceReferences } from "@/components/results/Evidence";
 import { getHexagram } from "@/services/rest/hexagrams";
 import { useLookup } from "@/services/rest/useLookup";
+import { PublishedInterpretation } from "./PublishedInterpretation";
 
 export function HexagramDetailPanel({ code }: { code: string }) {
   const load = useCallback((signal: AbortSignal) => getHexagram(code, signal), [code]);
@@ -16,7 +17,7 @@ export function HexagramDetailPanel({ code }: { code: string }) {
   return <PageContainer>
     <Link className="source-link lookup-back" href="/hexagrams">← Về danh sách quẻ</Link>
     <PageHeader eyebrow="THƯ VIỆN / CHI TIẾT QUẺ" title={result.status === "completed" ? result.data.name : "Chi tiết quẻ"}>
-      <p><code className="lookup-code">{code}</code></p><p>Cấu trúc và nghĩa tên từ kho dữ liệu nguồn; không phải luận giải hào hoặc dự đoán.</p>
+      <p><code className="lookup-code">{code}</code></p><p>Tra cứu cấu trúc, nghĩa tên và nội dung biên soạn đã công bố.</p>
     </PageHeader>
     <div aria-busy={result.status === "loading"}>
       <p role="status" aria-live="polite">{result.status === "loading" ? "Đang tải chi tiết quẻ…" : result.status === "completed" ? "Đã tải chi tiết quẻ." : "Chưa tải được chi tiết quẻ."}</p>
@@ -43,6 +44,7 @@ export function HexagramDetailPanel({ code }: { code: string }) {
               <h3>Nguồn của nghĩa tên</h3><SourceReferences sources={gloss.sourceReferences} />
             </SectionCard>)}
         </section>
+        <PublishedInterpretation code={result.data.code} lines={result.data.linesBottomUp} />
       </>}
     </div>
   </PageContainer>;

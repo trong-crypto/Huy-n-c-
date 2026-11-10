@@ -7,6 +7,8 @@ import { getHistory, historyErrorMessage } from "@/services/rest/history";
 import { useLookup } from "@/services/rest/useLookup";
 import { MaiHoaResultView } from "@/components/results/MaiHoaResultView";
 import { TamTheResultView } from "@/components/results/TamTheResultView";
+import { aiReadingHref } from "@/config/aiConsultation";
+import { CLIENT_CONFIG } from "@/config/client";
 
 export function HistoryDetailPanel({ id }: { id: string }) {
   const session = useSession();
@@ -26,7 +28,12 @@ function SavedResult({ id }: { id: string }) {
     {result.status === "failed" && <><p role="alert" className="response-error">{historyErrorMessage(result.error)}</p><button type="button" className="secondary-button" onClick={result.retry}>Tải lại bản lưu</button></>}
     {result.status === "completed" && <><p>Đã lưu: <time dateTime={result.data.createdAt}>{result.data.createdAt}</time></p>
       <p className="field-hint">Phiên bản quy tắc của snapshot: {result.data.result.ruleVersion}</p>
-      {result.data.type === "MAI_HOA" && "method" in result.data.result && <MaiHoaResultView data={result.data.result} />}
+      {result.data.type === "MAI_HOA" && "method" in result.data.result && <>
+        <MaiHoaResultView data={result.data.result} />
+        {CLIENT_CONFIG.accountHistory && <Link className="secondary-button" href={aiReadingHref({ readingId: id })}>
+          Hỏi AI về kết quả này
+        </Link>}
+      </>}
       {result.data.type === "TAM_THE" && "categories" in result.data.result && <TamTheResultView data={result.data.result} />}
     </>}
   </>;

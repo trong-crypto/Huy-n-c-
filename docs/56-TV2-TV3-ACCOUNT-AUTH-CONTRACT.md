@@ -9,9 +9,11 @@ Hợp đồng 1.0 cho AUTH-01–07 và DATA-01–05. Backend đã triển khai v
 | `POST /api/v1/auth/register` | JSON gồm `displayName`, `identifier`, `password` | `201` và thông tin tài khoản mới có role `USER`. Client chuyển tới `/dang-nhap`. |
 | `POST /api/v1/auth/login` | JSON gồm `identifier`, `password` | `200`, cấp cookie khách hàng và trả dữ liệu phiên. Nhận tài khoản `USER` hoặc `CONSULTANT`. |
 | `GET /api/v1/auth/session` | Cookie khách hàng | `200`, trả dữ liệu phiên hiện hành. |
+| `POST /api/v1/auth/password/change` | Cookie khách hàng, Origin và CSRF | `204`, đổi mật khẩu USER hoặc CONSULTANT và xóa cookie khách hàng. |
 | `POST /api/v1/auth/logout` | Cookie khách hàng và header CSRF, body `{}` | `204`, thu hồi phiên và xóa cookie khách hàng. |
 | `POST /api/v1/auth/admin/login` | JSON gồm `identifier`, `password` | `200`, cấp cookie Admin và trả dữ liệu phiên. Chỉ nhận tài khoản `ADMIN`. |
 | `GET /api/v1/auth/admin/session` | Cookie Admin | `200`, trả dữ liệu phiên Admin. |
+| `POST /api/v1/auth/admin/password/change` | Cookie Admin, Origin và CSRF | `204`, đổi mật khẩu ADMIN và xóa cookie quản trị. |
 | `POST /api/v1/auth/admin/logout` | Cookie Admin và header CSRF, body `{}` | `204`, thu hồi phiên và xóa cookie Admin. |
 
 - Form khách hàng gửi `identifier` theo tên trường hiện có. Form Admin ánh xạ ô “Tài khoản” sang cùng trường. Trường xác nhận mật khẩu ở form đăng ký chỉ dùng để kiểm tra trên Client. API từ chối trường ngoài hợp đồng, kể cả `role` và `confirmation`.
@@ -23,6 +25,9 @@ Hợp đồng 1.0 cho AUTH-01–07 và DATA-01–05. Backend đã triển khai v
 - `displayName` bỏ khoảng trắng đầu/cuối, dài 1–80 ký tự Unicode và loại ký tự điều khiển.
 - `identifier` là một username hoặc một email cho mỗi tài khoản. Sau khi bỏ khoảng trắng đầu/cuối, username dùng `[a-zA-Z0-9._-]{3,32}`. Email dài tối đa 254 ký tự ASCII và có một dấu `@`. Phần trước `@` dài 1–64 ký tự, gồm các nhóm `[a-zA-Z0-9_+%-]+` phân cách bằng dấu chấm. Tên miền có ít nhất hai nhãn phân cách bằng dấu chấm. Mỗi nhãn dài 1–63 ký tự, gồm chữ cái ASCII, chữ số hoặc dấu gạch ngang, với đầu và cuối là chữ cái hoặc chữ số. Chuẩn hóa ASCII sang chữ thường trước khi so trùng và tìm kiếm. Đăng ký bằng email trong mốc này chỉ dùng địa chỉ làm định danh nhập liệu.
 - `password` khi đăng ký dài 8–128 điểm mã Unicode. Giữ nguyên ký tự và khoảng trắng, không yêu cầu pha trộn các loại ký tự. Mỗi định danh là duy nhất; hai tài khoản có thể chọn cùng mật khẩu và mỗi bản băm Argon2id có salt riêng. Login giữ giới hạn 1–128 điểm mã Unicode và tiếp tục hỗ trợ mật khẩu đã đăng ký. Ngưỡng 8 là chính sách bản thử nghiệm localhost; nhóm phải đánh giá lại nguy cơ mật khẩu dễ đoán và biện pháp xác thực trước khi triển khai Internet. Mọi POST dùng đối tượng JSON UTF-8 với giới hạn 16 KiB. Từ chối khóa trùng, giá trị sai kiểu và tham số query ngoài hợp đồng.
+- Hai endpoint đổi mật khẩu chỉ nhận `currentPassword` (1–128) và `newPassword` (8–128), tính theo điểm mã Unicode và giữ nguyên khoảng trắng. Ô xác nhận thuộc biểu mẫu Client. Ví dụ minh họa với giá trị mẫu: `{"currentPassword":"old-example","newPassword":"new-example"}`.
+- Client gửi `X-HuyenCo-Request: 1` và `X-CSRF-Token` gắn với phiên đúng cổng. Server giới hạn lượt đổi theo IP và tài khoản bằng hai bộ đếm riêng trong 15 phút, tái sử dụng ngưỡng `AUTH_LOGIN_PER_IP` và `AUTH_LOGIN_PER_IDENTIFIER`. Sai mật khẩu hiện tại trả `401 INVALID_CREDENTIALS`, phiên không hợp lệ trả `401 INVALID_SESSION`, Origin hoặc CSRF sai trả `403 CSRF_REJECTED`. Giới hạn lượt trả `429 TOO_MANY_REQUESTS`.
+- Đổi thành công cập nhật hash Argon2id và thu hồi các phiên còn hiệu lực của cùng tài khoản trong một giao dịch. Server trả `204` kèm cookie hết hạn của cổng hiện tại. Client yêu cầu đăng nhập lại bằng mật khẩu mới. Các endpoint này yêu cầu biết mật khẩu hiện tại và không phục vụ khôi phục tài khoản.
 - Mọi phản hồi có body dùng envelope `requestId` (UUID do Server cấp), `status` (`COMPLETED` hoặc `FAILED`), `data`, `error`. Phản hồi Auth có `Cache-Control: no-store`, kể cả khi thất bại.
 
 Ví dụ `data` khi đăng nhập hoặc đọc phiên. Đăng ký chỉ trả trường `account` trong `data`. `expiresAt` là thời điểm UTC theo ISO 8601.

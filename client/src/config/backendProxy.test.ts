@@ -4,6 +4,18 @@ import { getPathMatch } from "next/dist/shared/lib/router/utils/path-match";
 
 afterEach(() => vi.unstubAllEnvs());
 
+it("routes the AI API through the account proxy without changing Chat routes", async () => {
+  vi.stubEnv("NEXT_PUBLIC_ACCOUNT_HISTORY", "1");
+  vi.stubEnv("HUYENCO_API_URL", "http://127.0.0.1:18108");
+  const rewrites = await nextConfig.rewrites!();
+  if (!Array.isArray(rewrites)) throw new Error("Expected a flat rewrite list");
+  for (const path of ["/api/v1/ai/status", "/api/v1/ai/ask"]) {
+    expect(rewrites.filter(rewrite => getPathMatch(rewrite.source)(path) !== false)).toEqual([
+      { source: "/api/v1/ai/:path*", destination: "http://127.0.0.1:18108/api/v1/ai/:path*" },
+    ]);
+  }
+});
+
 it.each(["consultants", "conversations"])("proxies chat %s routes with account sessions enabled", async (resource) => {
   vi.stubEnv("NEXT_PUBLIC_ACCOUNT_HISTORY", "1");
   vi.stubEnv("HUYENCO_API_URL", "http://127.0.0.1:18108");

@@ -44,6 +44,7 @@ it("loads the user directory, retries C3 with one UUID, and opens the saved room
   render(<ConsultationPage />);
   fireEvent.click(await screen.findByRole("radio", { name: consultant.displayName }));
   expect(screen.queryByRole("link", { name: /Mở không gian tư vấn viên/ })).toBeNull();
+  expect(screen.getByRole("link", { name: "Hỏi AI" }).getAttribute("href")).toBe("/tu-van/hoi-ai");
   fireEvent.click(screen.getByRole("button", { name: "Gửi yêu cầu tư vấn" }));
   await screen.findByRole("alert", { name: "" });
   expect(screen.getByText("Chưa xác nhận được yêu cầu. Bạn có thể bấm gửi lại.")).toBeTruthy();

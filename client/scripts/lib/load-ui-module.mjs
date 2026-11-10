@@ -24,6 +24,10 @@ function moduleUrl(file) {
     const base = specifier.startsWith("@/") ? new URL(specifier.slice(2), sourceRoot) : new URL(specifier, file);
     const dependency = [base, new URL(`${base.href}.tsx`), new URL(`${base.href}.ts`)].find(candidate => fs.existsSync(candidate));
     if (!dependency) throw new Error(`UI test dependency not found: ${specifier}`);
+    if (dependency.pathname.endsWith(".module.css")) {
+      // Node renders the real components without Next.js's CSS bundler.
+      return 'from "data:text/javascript,export default new Proxy({}, {get: (_, name) => name})"';
+    }
     return `from ${JSON.stringify(moduleUrl(dependency))}`;
   });
   const result = `data:text/javascript;base64,${Buffer.from(code).toString("base64")}`;

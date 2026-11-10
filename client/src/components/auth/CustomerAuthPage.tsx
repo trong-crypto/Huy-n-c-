@@ -3,6 +3,7 @@ import { CelestialArt } from "@/components/ui/CelestialArt";
 import { customerAuthRoutes } from "@/config/customerAuthRoutes";
 import { CLIENT_CONFIG } from "@/config/client";
 import { CustomerAuthForm } from "./CustomerAuthForm";
+import { PasswordChangedNotice } from "./PasswordChangeForm";
 import styles from "./customerAuth.module.css";
 
 export function CustomerAuthPage({ mode }: { mode: keyof typeof customerAuthRoutes }) {
@@ -21,6 +22,7 @@ export function CustomerAuthPage({ mode }: { mode: keyof typeof customerAuthRout
       <section className={`section-card ${styles.panel}`} aria-labelledby="customer-auth-title">
         <p className="eyebrow">TÀI KHOẢN KHÁCH HÀNG</p>
         <h1 id="customer-auth-title">{title}</h1>
+        {!registering && <PasswordChangedNotice />}
         <p id="customer-auth-availability" className="status-banner status-banner--warning">
           {CLIENT_CONFIG.accountHistory ? "Dùng tài khoản của bạn để lưu và xem lại lá số." :
             `Tính năng ${registering ? "đăng ký" : "đăng nhập"} đang chờ kết nối với máy chủ. Bạn có thể dùng dữ liệu mẫu để kiểm tra biểu mẫu.`}

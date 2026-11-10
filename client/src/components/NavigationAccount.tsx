@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CLIENT_CONFIG } from "@/config/client";
-import { customerAuthRoutes } from "@/config/customerAuthRoutes";
+import { customerAuthRoutes, passwordChangeRoutes } from "@/config/customerAuthRoutes";
 import { getCustomerSession, logoutCustomer } from "@/services/rest/customerAuth";
 import { RestError } from "@/services/rest/transport";
 import { useLookup } from "@/services/rest/useLookup";
@@ -105,6 +105,9 @@ function CustomerAccount({ pathname }: { pathname: string }) {
     </>}
     {session && <>
       <span className="navigation-account-name" title={session.account.displayName}>{session.account.displayName}</span>
+      <Link href={passwordChangeRoutes.customer} aria-current={pathname === passwordChangeRoutes.customer ? "page" : undefined}>
+        Đổi mật khẩu
+      </Link>
       <button type="button" disabled={signingOut} onClick={() => void signOut()}>
         {signingOut ? "Đang đăng xuất…" : "Đăng xuất"}
       </button>

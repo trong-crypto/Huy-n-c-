@@ -3,6 +3,7 @@ package com.huyenco.auth;
 import java.time.Clock;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
@@ -41,6 +42,12 @@ final class AuthAttemptLimits {
 
     synchronized void register(String ip) {
         consume("register:" + ip, registerPerIp, prune());
+    }
+
+    synchronized void passwordChange(String ip, UUID accountId) {
+        long now = prune();
+        consume("password-change-ip:" + ip, loginPerIp, now);
+        consume("password-change-account:" + accountId, loginPerIdentifier, now);
     }
 
     private long prune() {

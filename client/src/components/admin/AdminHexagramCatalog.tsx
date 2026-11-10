@@ -9,6 +9,7 @@ import { useLookup } from "@/services/rest/useLookup";
 import { CLIENT_CONFIG } from "@/config/client";
 import { AdminContentForm } from "./AdminContentForm";
 import { HexagramGlossWorkspace } from "./HexagramGlossWorkspace";
+import { HexagramInterpretationWorkspace } from "./HexagramInterpretationWorkspace";
 import styles from "./admin.module.css";
 
 const loadCatalog = (signal: AbortSignal) => listHexagrams({ q: "", upper: "", lower: "", page: 0, size: 64 }, signal);
@@ -34,6 +35,7 @@ function HexagramReadingEditor({ code }: { code: string }) {
     </section>}
     {CLIENT_CONFIG.adminHexagramGlosses ? <HexagramGlossWorkspace code={code} refreshPublic={result.retry} />
       : hexagram && <AdminContentForm heading="Soạn đề xuất giải nghĩa" initialTitle={hexagram.name} requiresProvenance />}
+    {CLIENT_CONFIG.hexagramInterpretations && hexagram && <HexagramInterpretationWorkspace code={code} lines={hexagram.linesBottomUp} />}
   </div>;
 }
 

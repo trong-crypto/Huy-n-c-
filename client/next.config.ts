@@ -14,10 +14,12 @@ const nextConfig: NextConfig = {
         { source: "/api/v1/ws/chat", destination: `${server}/api/v1/ws/chat` },
         { source: "/api/v1/chat/consultants/:path*", destination: `${server}/api/v1/chat/consultants/:path*` },
         { source: "/api/v1/chat/conversations/:path*", destination: `${server}/api/v1/chat/conversations/:path*` },
+        { source: "/api/v1/ai/:path*", destination: `${server}/api/v1/ai/:path*` },
       ] : []),
       ...(process.env.NEXT_PUBLIC_ACCOUNT_HISTORY === "1" || process.env.NEXT_PUBLIC_METHOD_GUIDES === "1"
         || process.env.NEXT_PUBLIC_ADMIN_ACCOUNTS === "1" || process.env.NEXT_PUBLIC_ADMIN_HEXAGRAM_GLOSSES === "1"
-        || process.env.NEXT_PUBLIC_ADMIN_SOURCE_CATALOG === "1" || process.env.NEXT_PUBLIC_WEBSITE_CONTENT === "1" ? [
+        || process.env.NEXT_PUBLIC_ADMIN_SOURCE_CATALOG === "1" || process.env.NEXT_PUBLIC_WEBSITE_CONTENT === "1"
+        || process.env.NEXT_PUBLIC_HEXAGRAM_INTERPRETATIONS === "1" ? [
         { source: "/api/v1/auth/:path*", destination: `${server}/api/v1/auth/:path*` },
       ] : []),
       ...(process.env.NEXT_PUBLIC_WEBSITE_CONTENT === "1" ? [
@@ -27,7 +29,7 @@ const nextConfig: NextConfig = {
       ...(process.env.NEXT_PUBLIC_ADMIN_SOURCE_CATALOG === "1" ? [
         { source: "/api/v1/admin/sources/:path*", destination: `${server}/api/v1/admin/sources/:path*` },
       ] : []),
-      ...(process.env.NEXT_PUBLIC_ADMIN_HEXAGRAM_GLOSSES === "1" ? [
+      ...(process.env.NEXT_PUBLIC_ADMIN_HEXAGRAM_GLOSSES === "1" || process.env.NEXT_PUBLIC_HEXAGRAM_INTERPRETATIONS === "1" ? [
         { source: "/api/v1/admin/hexagrams/:path*", destination: `${server}/api/v1/admin/hexagrams/:path*` },
       ] : []),
       ...(process.env.NEXT_PUBLIC_METHOD_GUIDES === "1" ? [

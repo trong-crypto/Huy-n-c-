@@ -4,6 +4,8 @@ import { SectionCard } from "@/components/ui/Controls";
 import { DecisionReferences, EvidenceSummary, RuleEvidenceList, SourceReferences } from "./Evidence";
 import { DetailedReadingView } from "./DetailedReadingView";
 import { CopyReadingForChat } from "./CopyReadingForChat";
+import { CLIENT_CONFIG } from "@/config/client";
+import { PublishedInterpretation } from "@/components/hexagrams/PublishedInterpretation";
 
 const methodLabels: Record<MaiHoaResult["method"], string> = {
   LINES: "Nhập sáu hào", OBJECT_COUNT: "Theo số vật", TIME: "Theo thời gian", TRUONG_XICH: "Trượng xích chiêm",
@@ -35,7 +37,7 @@ export function CalculationSteps({ steps }: { steps: readonly CalculationStep[] 
   </li>)}</ol>;
 }
 
-// Receives the existing validated DTO. No lookups, mutation or calculation here.
+// The Server result identifies the quẻ and hào. Library lookups are display-only.
 export function MaiHoaResultView({ data }: { data: MaiHoaResult }) {
   const describeHexagram = (label: string, value: MaiHoaResult["primaryHexagram"]) =>
     `${label}: ${value.name ?? value.code ?? "Chưa có tên"} · Sáu hào từ dưới lên: ${value.linesBottomUp.map(line => line ? "Dương" : "Âm").join(", ")}`;
@@ -71,6 +73,16 @@ export function MaiHoaResultView({ data }: { data: MaiHoaResult }) {
     </section>
     <section className="moving-line-summary" aria-label="Hào động của quẻ chủ"><span aria-hidden="true">↔</span><div><h3>Hào động: {data.movingLine}</h3><p>Vị trí tính từ hào 1 ở dưới cùng của quẻ chủ.</p></div></section>
     <CopyReadingForChat text={shareText} />
+    {CLIENT_CONFIG.hexagramInterpretations && <section aria-label="Luận giải từ thư viện">
+      <p className="field-hint">Các mục dưới đây diễn giải biểu tượng trong thư viện. Kết quả lập quẻ nằm ở trên.</p>
+      {([
+        { hexagram: data.primaryHexagram, title: "Luận giải quẻ chủ", movingLine: data.movingLine },
+        { hexagram: data.mutualHexagram, title: "Luận giải quẻ hỗ" },
+        { hexagram: data.changedHexagram, title: "Luận giải quẻ biến" },
+      ]).map(({ hexagram, title, movingLine }) => hexagram.code
+        ? <PublishedInterpretation key={title} code={hexagram.code} lines={hexagram.linesBottomUp} title={title} compact movingLine={movingLine} />
+        : <SectionCard key={title} title={title}><p>Kết quả này chưa có mã để tra luận giải.</p></SectionCard>)}
+    </section>}
     {data.detailedReading && <DetailedReadingView reading={data.detailedReading} />}
     {data.calculationSteps.length > 0 && <SectionCard title="Các bước tính"><CalculationSteps steps={data.calculationSteps} /></SectionCard>}
     <SectionCard title="Nguồn tham chiếu">

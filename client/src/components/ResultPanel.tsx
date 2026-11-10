@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { CLIENT_CONFIG } from "@/config/client";
+import { aiReadingHref } from "@/config/aiConsultation";
 import type { CalculationResponse, ProgressEvent } from "@/types/contract";
 import type { ConnectionState, RequestState } from "@/services/websocket/useCalculation";
 import { isCalculationResponse, isKnownServerErrorCode } from "@/types/contractValidation";
@@ -67,6 +70,9 @@ export function ResultPanel({ connection, requestState, response, progress, loca
           )}
           {hexagramResult && response.type === "MAI_HOA" && response.status === "COMPLETED" ? <>
             <MaiHoaResultView data={response.data} />
+            {CLIENT_CONFIG.accountHistory && <Link className="secondary-button" href={aiReadingHref({ calculationRequestId: response.requestId })}>
+              Hỏi AI về kết quả này
+            </Link>}
             <details className="result-technical"><summary>Thông tin kỹ thuật</summary>
               <p className="response-request-id">requestId: {response.requestId}</p>
               <p className="field-hint">Phiên bản bộ quy tắc: {response.data.ruleVersion}</p>
