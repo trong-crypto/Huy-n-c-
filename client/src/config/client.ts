@@ -5,11 +5,12 @@ export const CLIENT_CONFIG = Object.freeze({
   methodGuides: process.env.NEXT_PUBLIC_METHOD_GUIDES === "1",
   adminAccounts: process.env.NEXT_PUBLIC_ADMIN_ACCOUNTS === "1",
   adminHexagramGlosses: process.env.NEXT_PUBLIC_ADMIN_HEXAGRAM_GLOSSES === "1",
+  hexagramInterpretations: process.env.NEXT_PUBLIC_HEXAGRAM_INTERPRETATIONS === "1",
   adminSourceCatalog: process.env.NEXT_PUBLIC_ADMIN_SOURCE_CATALOG === "1",
   websiteContent: process.env.NEXT_PUBLIC_WEBSITE_CONTENT === "1",
   adminEnabled: process.env.NEXT_PUBLIC_METHOD_GUIDES === "1" || process.env.NEXT_PUBLIC_ADMIN_ACCOUNTS === "1"
     || process.env.NEXT_PUBLIC_ADMIN_HEXAGRAM_GLOSSES === "1" || process.env.NEXT_PUBLIC_ADMIN_SOURCE_CATALOG === "1"
-    || process.env.NEXT_PUBLIC_WEBSITE_CONTENT === "1",
+    || process.env.NEXT_PUBLIC_WEBSITE_CONTENT === "1" || process.env.NEXT_PUBLIC_HEXAGRAM_INTERPRETATIONS === "1",
   apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api/v1",
   restTimeoutMs: 10_000,
   hexagramPageSize: 20,

@@ -112,7 +112,8 @@ export function AdminContentWorkspace({ module }: { module: ContentModule }) {
   const liveMethods = module.id === "methods" && CLIENT_CONFIG.methodGuides;
   const liveSources = module.id === "sources" && CLIENT_CONFIG.adminSourceCatalog;
   const liveWebsite = module.id === "website" && CLIENT_CONFIG.websiteContent;
-  const liveContent = liveMethods || liveSources || liveWebsite || module.id === "readings" && CLIENT_CONFIG.adminHexagramGlosses;
+  const liveContent = liveMethods || liveSources || liveWebsite
+    || module.id === "readings" && (CLIENT_CONFIG.adminHexagramGlosses || CLIENT_CONFIG.hexagramInterpretations);
   return <div className={styles.contentStack}>
     <header className={styles.dashboardIntro}>
       <p className="eyebrow">HUYỀN CƠ / QUẢN TRỊ NỘI DUNG</p>

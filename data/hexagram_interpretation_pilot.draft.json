@@ -1,0 +1,426 @@
+{
+  "schemaVersion": 1,
+  "purpose": "EDITORIAL_REVIEW_ONLY",
+  "entries": [
+    {
+      "order": 1,
+      "code": "H_CAN_CAN",
+      "name": "Càn",
+      "hanVietTitle": "Thuần Càn",
+      "hanTitle": "乾",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "version": 1,
+      "upperTrigramCode": "CAN",
+      "lowerTrigramCode": "CAN",
+      "linesBottomUp": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "references": [
+        {
+          "id": "ZHOUYI",
+          "title": "Chu Dịch (周易)",
+          "author": "Khuyết danh (văn bản cổ truyền)",
+          "edition": "Văn bản Hán cổ trên Wikisource tiếng Trung",
+          "locator": "易經 / 彖曰 / 象曰",
+          "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E4%B9%BE&oldid=2404991"
+        },
+        {
+          "id": "E01",
+          "title": "Mai Hoa Dịch Số",
+          "author": "Thiệu Khang Tiết; Ông Văn Tùng dịch/chú thích",
+          "edition": "Bản scan E01; ấn bản in chưa xác minh đầy đủ",
+          "locator": "MH-64-QUE-NAMES-276",
+          "printedPage": "276",
+          "pdfPage": 269,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de"
+        }
+      ],
+      "sections": [
+        {
+          "kind": "OVERVIEW",
+          "text": "Càn có hai quái Càn và sáu hào dương. Tượng trời gợi một sức vận động đều đặn, tạo ra điều mới bằng việc tự rèn luyện và tiếp tục hành động có mục đích. Chuỗi hình ảnh về rồng trong lời hào giúp đọc quẻ như một chuỗi tình thế. Khi còn ở thấp, năng lực đã có nhưng thời cơ chưa tới. Khi xuất hiện, người có năng lực cần gặp người chỉ dẫn, cộng tác hoặc phản biện. Trong quá trình tiến lên, việc tự kiểm tra đều đặn có ý nghĩa ngang với ý chí hành động.\n\nĐiểm dễ hiểu lầm là xem sức mạnh của Càn như một lý do để luôn tiến. Hào trên cùng nêu hệ quả của việc lên quá cao mà không biết dừng. Bởi vậy, người đọc có thể chú ý hai câu hỏi song song. Mình đã chuẩn bị đủ để chủ động chưa, và tín hiệu nào cho thấy nên giảm tốc? Cách đọc này nhấn mạnh năng lực chọn thời điểm và giữ nguyên tắc, đồng thời để ngỏ kết quả thực tế.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "IMAGE",
+          "text": "Trời chồng trời. Hình ảnh vận động bền bỉ đặt câu hỏi về cách dùng sức chủ động qua từng thời điểm.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "HEXAGRAM_TEXT",
+          "text": "元亨。利貞。",
+          "textKind": "CLASSICAL_CHINESE_EXCERPT",
+          "locator": "易經 · 卦辭 (trích đoạn)",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "HEXAGRAM_PARAPHRASE",
+          "text": "Một cách diễn nghĩa là sự khởi đầu có thể mở đường cho phát triển, với điều kiện hành động bền bỉ và giữ đúng nguyên tắc. Ý nghĩa của chữ trinh có nhiều cách chú giải. Bản nháp dùng cách đọc về sự vững chính.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 1,
+          "isYang": true,
+          "locator": "易經 · 爻辭 · hào 1",
+          "text": "Rồng còn ẩn gợi giai đoạn luyện tập và quan sát. Có thể giữ năng lực ở trạng thái sẵn sàng cho tới khi có việc phù hợp để dùng.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 2,
+          "isYang": true,
+          "locator": "易經 · 爻辭 · hào 2",
+          "text": "Rồng xuất hiện ngoài đồng gợi bước ra khỏi phạm vi chuẩn bị. Người có kinh nghiệm hoặc đối tác phù hợp có thể giúp kiểm tra khả năng đang hình thành.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 3,
+          "isYang": true,
+          "locator": "易經 · 爻辭 · hào 3",
+          "text": "Hình ảnh cố gắng cả ngày và còn thận trọng về tối gợi việc tự rà soát khi trách nhiệm tăng. Nỗ lực cần đi cùng khả năng nhận ra rủi ro.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 4,
+          "isYang": true,
+          "locator": "易經 · 爻辭 · hào 4",
+          "text": "Bước nhảy nơi vực sâu gợi một ngưỡng chuyển tiếp. Có thể thử bước có giới hạn và chừa khả năng quay lại nếu điều kiện chưa chín.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 5,
+          "isYang": true,
+          "locator": "易經 · 爻辭 · hào 5",
+          "text": "Rồng bay trên trời gợi lúc năng lực có phạm vi phát huy rộng. Hãy cân nhắc ai có thể cùng gánh trách nhiệm và bổ sung phần mình còn thiếu.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 6,
+          "isYang": true,
+          "locator": "易經 · 爻辭 · hào 6",
+          "text": "Rồng lên quá cao gợi thế dễ hối tiếc. Có thể chọn tiêu chí dừng để sự quyết tâm không biến thành cố chấp.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "APPLICATION",
+          "text": "Công việc và học tập — chọn một kỹ năng để luyện đều, sau đó thử nó trong nhiệm vụ có phản hồi rõ.\nQuan hệ — khi chủ động dẫn dắt, dành chỗ cho người khác nêu giới hạn hoặc cách làm tốt hơn.\nNguồn lực — chia cam kết lớn thành mốc có thể dừng và kiểm tra chi phí trước mỗi mốc.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        }
+      ],
+      "editorialNote": "Tổng quan, hình tượng, lời diễn nghĩa, hào và ứng dụng là bản biên soạn mới tiếng Việt; chờ người duyệt độc lập. E01 chỉ đối chiếu danh tính, không làm nguồn lời hào."
+    },
+    {
+      "order": 2,
+      "code": "H_KHON_KHON",
+      "name": "Khôn",
+      "hanVietTitle": "Thuần Khôn",
+      "hanTitle": "坤",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "version": 1,
+      "upperTrigramCode": "KHON",
+      "lowerTrigramCode": "KHON",
+      "linesBottomUp": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "references": [
+        {
+          "id": "ZHOUYI",
+          "title": "Chu Dịch (周易)",
+          "author": "Khuyết danh (văn bản cổ truyền)",
+          "edition": "Văn bản Hán cổ trên Wikisource tiếng Trung",
+          "locator": "易經 / 彖曰 / 象曰",
+          "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%9D%A4&oldid=2404999"
+        },
+        {
+          "id": "E01",
+          "title": "Mai Hoa Dịch Số",
+          "author": "Thiệu Khang Tiết; Ông Văn Tùng dịch/chú thích",
+          "edition": "Bản scan E01; ấn bản in chưa xác minh đầy đủ",
+          "locator": "MH-64-QUE-NAMES-276",
+          "printedPage": "276",
+          "pdfPage": 269,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de"
+        }
+      ],
+      "sections": [
+        {
+          "kind": "OVERVIEW",
+          "text": "Khôn có hai quái Khôn và sáu hào âm. Hình tượng đất hướng người đọc đến những công việc thường ít được chú ý như tạo điều kiện, giữ nền và nâng đỡ người khác. Hình ảnh ngựa cái trong lời quẻ kết hợp sự mềm dẻo với sức đi đường dài. Cách đọc đó đặt Khôn cạnh Càn. Càn gợi sức khởi động, còn Khôn giúp nhìn xem điều gì khiến công việc được tiếp tục khi hứng khởi ban đầu đã qua.\n\nCác hào đưa ra nhiều mặt của khả năng nâng đỡ. Sương mỏng báo sự thay đổi từ dấu hiệu nhỏ. Hình chiếc túi được thắt lại gợi thận trọng khi chưa nên nói hoặc làm. Ở hào cuối, xung đột cho thấy sự căng thẳng khi một tình thế bị đẩy tới cực điểm. Vì vậy, người đọc có thể hỏi mình đang hỗ trợ việc gì, ranh giới hỗ trợ đến đâu và dấu hiệu nào cần phản hồi sớm. Khôn hữu ích để suy nghĩ về trách nhiệm hậu trường cũng như chất lượng của một sự phối hợp lâu dài.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "IMAGE",
+          "text": "Đất chồng đất. Hình tượng nhấn mạnh khả năng tiếp nhận, nâng đỡ và duy trì điều kiện để việc khác phát triển.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "HEXAGRAM_TEXT",
+          "text": "元亨。利牝馬之貞。",
+          "textKind": "CLASSICAL_CHINESE_EXCERPT",
+          "locator": "易經 · 卦辭 (trích đoạn)",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "HEXAGRAM_PARAPHRASE",
+          "text": "Mở đầu lời quẻ gợi sự thông thuận gắn với tính bền của ngựa cái. Các câu tiếp theo nói về đi, tìm hướng và bạn đồng hành. Bản nháp đọc các hướng cổ như chi tiết của văn bản, không chuyển thành chỉ dẫn di chuyển hiện đại.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 1,
+          "isYang": false,
+          "locator": "易經 · 爻辭 · hào 1",
+          "text": "Sương dưới chân gợi việc chú ý dấu hiệu nhỏ trước khi vấn đề tích tụ. Có thể kiểm tra thay đổi đang lặp lại thay vì chỉ nhìn sự cố lớn.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 2,
+          "isYang": false,
+          "locator": "易經 · 爻辭 · hào 2",
+          "text": "Hình dung thẳng, vuông và rộng gợi một nền tảng rõ ràng mà người khác có thể dựa vào. Chất lượng của nền quan trọng hơn phô bày công sức.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 3,
+          "isYang": false,
+          "locator": "易經 · 爻辭 · hào 3",
+          "text": "Giữ điều tốt bên trong rồi hoàn tất việc chung gợi làm tròn phần việc và chia sẻ thành quả. Cần biết ranh giới giữa khiêm nhường và tự xóa vai trò.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 4,
+          "isYang": false,
+          "locator": "易經 · 爻辭 · hào 4",
+          "text": "Hình ảnh thắt miệng túi gợi sự kín đáo khi hoàn cảnh chưa rõ. Có thể nghe thêm trước khi cam kết hoặc phát biểu.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 5,
+          "isYang": false,
+          "locator": "易經 · 爻辭 · hào 5",
+          "text": "Áo dưới màu vàng có thể đọc như hình ảnh vừa mực và có phẩm chất mà ít phô trương. Việc đúng mực có thể tạo tin cậy lâu dài.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 6,
+          "isYang": false,
+          "locator": "易經 · 爻辭 · hào 6",
+          "text": "Rồng giao chiến ngoài đồng gợi lúc căng thẳng bộc lộ. Hãy nhận diện ranh giới bị vượt qua và đưa mâu thuẫn trở lại thành vấn đề cụ thể.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "APPLICATION",
+          "text": "Công việc và học tập — xác định một điều kiện chung cần giữ ổn định để cả nhóm tiến được.\nQuan hệ — hỏi người kia cần được lắng nghe, hỗ trợ thực tế hay có thêm không gian riêng.\nNguồn lực — cân nhắc phần công sức hậu trường và khả năng duy trì nó qua nhiều kỳ.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        }
+      ],
+      "editorialNote": "Tổng quan, hình tượng, lời diễn nghĩa, hào và ứng dụng là bản biên soạn mới tiếng Việt; chờ người duyệt độc lập. E01 chỉ đối chiếu danh tính, không làm nguồn lời hào."
+    },
+    {
+      "order": 26,
+      "code": "H_CAN2_CAN",
+      "name": "Đại súc",
+      "hanVietTitle": "Sơn Thiên Đại Súc",
+      "hanTitle": "大畜",
+      "status": "DRAFT",
+      "verificationStatus": "SOURCE_LOCATED",
+      "version": 1,
+      "upperTrigramCode": "CAN2",
+      "lowerTrigramCode": "CAN",
+      "linesBottomUp": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        true
+      ],
+      "references": [
+        {
+          "id": "ZHOUYI",
+          "title": "Chu Dịch (周易)",
+          "author": "Khuyết danh (văn bản cổ truyền)",
+          "edition": "Văn bản Hán cổ trên Wikisource tiếng Trung",
+          "locator": "易經 / 彖曰 / 象曰",
+          "url": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%A4%A7%E7%95%9C&oldid=10646304"
+        },
+        {
+          "id": "E01",
+          "title": "Mai Hoa Dịch Số",
+          "author": "Thiệu Khang Tiết; Ông Văn Tùng dịch/chú thích",
+          "edition": "Bản scan E01; ấn bản in chưa xác minh đầy đủ",
+          "locator": "MH-64-QUE-NAMES-277",
+          "printedPage": "277",
+          "pdfPage": 270,
+          "sha256": "225e9506f4f7481e56618e3f46738467a64cf6231148c959664a23469faf22de"
+        }
+      ],
+      "sections": [
+        {
+          "kind": "OVERVIEW",
+          "text": "Đại súc có Cấn ở trên và Càn ở dưới. Hình tượng trời trong núi đặt một nguồn năng lượng mạnh vào một giới hạn có chủ đích. Tích lũy ở đây có thể hiểu là làm cho sức mạnh trở nên dùng được. Một người có kỹ năng vẫn cần phương pháp, một nhóm có nguồn lực vẫn cần nguyên tắc phân bổ, và một ý tưởng tốt vẫn cần lúc thích hợp để triển khai. Phần Tượng truyện gợi việc tìm hiểu lời nói và việc làm của người đi trước như một cách nuôi dưỡng phẩm chất.\n\nSáu hào tạo nên các thế khác nhau. Đầu quẻ có lúc nên dừng hoặc chưa thể đi. Những hình ảnh liên quan đến xe ngựa và vật nuôi gợi việc rèn công cụ, quản lý sức kéo và xử lý nguồn rủi ro từ sớm. Ở hào cuối, đường lớn mở ra, cho thấy ý nghĩa của việc chuẩn bị có đích. Khi áp dụng như một gợi ý suy ngẫm, người đọc có thể liệt kê mình đang tích lũy gì, hạn chế nào đang bảo vệ quá trình đó và điều kiện nào cho phép bắt đầu việc lớn.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "IMAGE",
+          "text": "Trời ở trong núi. Sức vận động của Càn được Cấn giữ lại để tích lũy và định hướng.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "HEXAGRAM_TEXT",
+          "text": "利貞，不家食吉，利涉大川。",
+          "textKind": "CLASSICAL_CHINESE_EXCERPT",
+          "locator": "易經 · 卦辭 (trích đoạn)",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "HEXAGRAM_PARAPHRASE",
+          "text": "Lời quẻ kết hợp việc giữ vững nguyên tắc, một hình ảnh liên quan đến việc ra ngoài phạm vi gia đình, và khả năng vượt sông lớn. Thoán truyện nối câu ở giữa với việc nuôi dưỡng người có năng lực. Đây là cách diễn nghĩa theo văn bản, chưa chốt cách dịch từng chữ.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 1,
+          "isYang": true,
+          "locator": "易經 · 爻辭 · hào 1",
+          "text": "Có nguy nên dừng gợi việc nhận ra tín hiệu sớm. Dừng có thể là cách bảo toàn nguồn lực để xử lý trở ngại.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 2,
+          "isYang": true,
+          "locator": "易經 · 爻辭 · hào 2",
+          "text": "Xe chưa vận hành được gợi việc mất điều kiện để tiến. Văn bản có dị tự ở hình ảnh bộ phận xe, nên bản nháp giữ cách giải thích khái quát.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 3,
+          "isYang": true,
+          "locator": "易經 · 爻辭 · hào 3",
+          "text": "Ngựa tốt vẫn cần luyện việc điều khiển và phòng vệ. Có thể đọc đây là lúc tiến sau khi có chuẩn bị và kỷ luật.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 4,
+          "isYang": false,
+          "locator": "易經 · 爻辭 · hào 4",
+          "text": "Dụng cụ ngăn bò non gây hại gợi phòng ngừa từ khi rủi ro còn nhỏ. Trang nguồn ghi dị tự, cần đối chiếu khi trích nguyên văn.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 5,
+          "isYang": false,
+          "locator": "易經 · 爻辭 · hào 5",
+          "text": "Hình ảnh liên quan đến răng hoặc nanh lợn gợi xử lý điều kiện tạo ra nguy hiểm. Bản nháp dùng hình ảnh như ẩn dụ và không chốt nghĩa dị bản.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "LINE",
+          "lineNumber": 6,
+          "isYang": true,
+          "locator": "易經 · 爻辭 · hào 6",
+          "text": "Đường trời rộng mở gợi lúc giới hạn đã hoàn thành vai trò và năng lực có thể được sử dụng vào việc lớn hơn.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        },
+        {
+          "kind": "APPLICATION",
+          "text": "Công việc và học tập — thiết kế bài thử cho kỹ năng hoặc công cụ trước khi triển khai ở quy mô lớn.\nQuan hệ — thỏa thuận giới hạn và cách xử lý rủi ro sớm để người tham gia có thể chủ động trong phạm vi đã biết.\nNguồn lực — đặt điều kiện cụ thể để chuyển từ tích lũy sang sử dụng, thay vì giữ hoặc chi theo cảm hứng.",
+          "sources": [
+            "ZHOUYI"
+          ]
+        }
+      ],
+      "editorialNote": "Tổng quan, hình tượng, lời diễn nghĩa, hào và ứng dụng là bản biên soạn mới tiếng Việt; chờ người duyệt độc lập. E01 chỉ đối chiếu danh tính, không làm nguồn lời hào."
+    }
+  ]
+}
