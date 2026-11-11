@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.huyenco.admin.HexagramInterpretations;
 import com.huyenco.auth.AccountHistoryIdentity;
 import com.huyenco.common.exception.ContractException;
 import com.huyenco.history.CompletedResults;
@@ -17,6 +18,8 @@ import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,6 +32,7 @@ class AiConsultationTest {
     private final HistoryStore history = mock(HistoryStore.class);
     private final CompletedResults results = mock(CompletedResults.class);
     private final AiProvider provider = mock(AiProvider.class);
+    private final HexagramInterpretations library = mock(HexagramInterpretations.class);
     private final HistoryStore.Owner owner = new HistoryStore.Owner(UUID.randomUUID(), Instant.MAX, UUID.randomUUID());
     private final UUID readingId = UUID.randomUUID();
     private final UUID requestId = UUID.randomUUID();
@@ -52,7 +56,9 @@ class AiConsultationTest {
         when(identity.require(any(), eq(true))).thenReturn(new AccountHistoryIdentity.Access(owner, "csrf"));
         when(provider.mode()).thenReturn("demo");
         when(provider.answer(any())).thenReturn("Nội dung trả lời minh họa.");
-        var service = new AiConsultationService(history, results, mapper, provider);
+        var service = new AiConsultationService(history, results, mapper, provider, Optional.of(library));
+        when(library.published(anyString())).thenAnswer(invocation ->
+                new HexagramInterpretations.PublicReading(invocation.getArgument(0), null));
         mvc = MockMvcBuilders.standaloneSetup(new AiConsultationController(identity, new RequestGuards(ORIGIN), service, mapper)).build();
     }
 
@@ -91,6 +97,34 @@ class AiConsultationTest {
         String json = mapper.writeValueAsString(prompt);
         assertFalse(json.contains("PRIVATE") || json.contains("Chưa đối chiếu") || json.contains(readingId.toString()));
         verifyNoInteractions(results);
+    }
+
+    @Test
+    void forwardsOnlyPublishedVerifiedExcerptsAndTheMovingPrimaryLine() throws Exception {
+        when(provider.mode()).thenReturn("live");
+        when(history.detail(owner, readingId)).thenReturn(Optional.of(new HistoryStore.Detail(
+                readingId, "MAI_HOA", "PRIVATE_TITLE", Instant.EPOCH, "TEAM_DECISION", mapper.readTree(READING))));
+        var content = mapper.readTree("""
+                {"overview":"Tổng quan đã công bố.","lines":["hào 1","hào 2","Hào 3 đã công bố","hào 4","hào 5","hào 6"]}
+                """);
+        var sources = mapper.readTree("""
+                [{"title":"Chu Dịch","locator":"革 · 易經","url":"https://zh.wikisource.org/wiki/周易/革","reviewStatus":"VERIFIED"}]
+                """);
+        var publication = new HexagramInterpretations.Publication(null, 2, content, sources, null);
+        when(library.published("H_DOAI_LY")).thenReturn(new HexagramInterpretations.PublicReading("H_DOAI_LY", publication));
+        var unverified = new HexagramInterpretations.Publication(null, 1, mapper.readTree("""
+                {"overview":"NO_UNVERIFIED_EXCERPT"}
+                """), mapper.readTree("""
+                [{"title":"Chưa duyệt","locator":"Nguồn tạm","url":"https://example.invalid/draft","reviewStatus":"SOURCE_LOCATED"}]
+                """), null);
+        when(library.published("H_CAN_TON")).thenReturn(new HexagramInterpretations.PublicReading("H_CAN_TON", unverified));
+        mvc.perform(ask(reference("readingId", readingId))).andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.sources[0].title").value("Chu Dịch"))
+                .andExpect(jsonPath("$.data.sources[0].url").value("https://zh.wikisource.org/wiki/周易/革"));
+        var prompt = capturePrompt();
+        assertEquals(1, prompt.reading().library().size());
+        assertEquals("Hào 3 đã công bố", prompt.reading().library().get(0).movingLineText());
+        assertFalse(mapper.writeValueAsString(prompt).contains("NO_UNVERIFIED_EXCERPT"));
     }
 
     @Test
@@ -150,6 +184,90 @@ class AiConsultationTest {
         doThrow(new ContractException("AI_UNAVAILABLE", "Chưa khả dụng.")).when(provider).answer(any());
         mvc.perform(ask("{\"question\":\"Hỏi\"}")).andExpect(status().isServiceUnavailable())
                 .andExpect(jsonPath("$.error.code").value("AI_UNAVAILABLE"));
+    }
+
+    @Test
+    void doesNotDisplayIdentifiersInventedByTheModel() throws Exception {
+        when(provider.mode()).thenReturn("live");
+        when(provider.answer(any())).thenReturn("Quẻ H_ĐỌC_12 được xác nhận ở trang 99.");
+        when(history.detail(owner, readingId)).thenReturn(Optional.of(new HistoryStore.Detail(
+                readingId, "MAI_HOA", "Bản lưu", Instant.EPOCH, "TEAM_DECISION", mapper.readTree(READING))));
+        mvc.perform(ask(reference("readingId", readingId))).andExpect(status().isServiceUnavailable())
+                .andExpect(jsonPath("$.error.code").value("AI_UNAVAILABLE"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"**Các nguồn được Server cung cấp là:**", "Server cung cấp nguồn đối chiếu như sau:",
+            "Server cung cấp nguồn cho câu hỏi \"Quẻ chủ: Cách\".", "Dữ kiện từ Server: quẻ chủ Cách."})
+    void usesServerSourceTitlesAndDropsTheModelsMisattributedBibliography(String heading) throws Exception {
+        when(provider.mode()).thenReturn("live");
+        when(provider.answer(any())).thenReturn("""
+                Hào động ở vị trí 3.
+
+                %s
+                1. Quẻ Cách
+                2. Quẻ Cấu
+                """.formatted(heading));
+        when(results.find(owner, requestId)).thenReturn(Optional.of(new CompletedResults.Result("MAI_HOA", "TEAM_DECISION", READING)));
+        var response = mvc.perform(ask(reference("calculationRequestId", requestId))).andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.sources[0].title").value("Mai Hoa Dịch Số"))
+                .andReturn().getResponse().getContentAsByteArray();
+        var answer = mapper.readTree(response).path("data").path("answer").asText();
+        assertTrue(answer.contains("Tên nguồn do Server ghi nhận: Mai Hoa Dịch Số."));
+        assertTrue(answer.contains("Diễn giải của AI:\nHào động ở vị trí 3."));
+        assertFalse(answer.contains(heading) || answer.contains("1. Quẻ Cách"));
+    }
+
+    @Test
+    void keepsExplanationAfterEchoedFactsAndUsesTheServerRuleForTheOriginalHexagram() throws Exception {
+        when(provider.mode()).thenReturn("live");
+        when(provider.answer(any())).thenReturn("""
+                Dữ kiện từ Server: quẻ chủ bị ghi đè.
+                Tên nguồn do Server ghi nhận: Quẻ Cách.
+
+                **Diễn giải của AI:**
+                Việc đổi hào tạo ra quẻ biến.
+
+                Các nguồn được Server cung cấp là:
+                1. Quẻ Cách
+                """);
+        when(results.find(owner, requestId)).thenReturn(Optional.of(new CompletedResults.Result("MAI_HOA", "TEAM_DECISION", READING)));
+        var response = mvc.perform(ask(reference("calculationRequestId", requestId))).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsByteArray();
+        var answer = mapper.readTree(response).path("data").path("answer").asText();
+        assertTrue(answer.contains("Quẻ chủ giữ nguyên như kết quả ban đầu."));
+        assertTrue(answer.contains("Diễn giải của AI:\nViệc đổi hào tạo ra quẻ biến."));
+        assertFalse(answer.contains("quẻ chủ bị ghi đè") || answer.contains("1. Quẻ Cách"));
+    }
+
+    @Test
+    void usesOnlyServerFactsWhenTheModelOnlyEchoesMetadata() throws Exception {
+        when(provider.mode()).thenReturn("live");
+        when(provider.answer(any())).thenReturn("Dữ kiện từ Server: quẻ chủ bị ghi đè.");
+        when(results.find(owner, requestId)).thenReturn(Optional.of(new CompletedResults.Result("MAI_HOA", "TEAM_DECISION", READING)));
+        var response = mvc.perform(ask(reference("calculationRequestId", requestId))).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsByteArray();
+        var answer = mapper.readTree(response).path("data").path("answer").asText();
+        assertTrue(answer.contains("Quẻ biến được lập riêng bằng cách đảo âm/dương tại hào động."));
+        assertTrue(answer.contains("Mô hình chưa đưa ra diễn giải phù hợp"));
+        assertFalse(answer.contains("quẻ chủ bị ghi đè"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Quẻ chủ và quẻ biến khác nhau thế nào? Quẻ chủ có bị ghi đè không?",
+            "Có thể giải thích theo lời hào 6 cho kết quả hào động 3 không?"})
+    void answersFactualRoleAndMismatchedLineQuestionsFromTheServer(String question) throws Exception {
+        when(provider.mode()).thenReturn("live");
+        when(results.find(owner, requestId)).thenReturn(Optional.of(new CompletedResults.Result("MAI_HOA", "TEAM_DECISION", READING)));
+        var request = mapper.createObjectNode().put("question", question).put("calculationRequestId", requestId.toString());
+        var response = mvc.perform(ask(request.toString())).andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.reading.movingLine").value(3))
+                .andReturn().getResponse().getContentAsByteArray();
+        var answer = mapper.readTree(response).path("data").path("answer").asText();
+        assertTrue(answer.contains("Quẻ chủ giữ nguyên như kết quả ban đầu."));
+        assertTrue(answer.contains(question.contains("hào 6") ? "không dùng lời hào 6" : "Cách là quẻ chủ và H_DOAI_CHAN là quẻ biến"));
+        assertFalse(answer.contains("Diễn giải của AI:"));
+        verify(provider, never()).answer(any());
     }
 
     private AiConsultationService.Prompt capturePrompt() {

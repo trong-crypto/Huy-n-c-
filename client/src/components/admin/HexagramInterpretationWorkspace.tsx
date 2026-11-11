@@ -4,7 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { InterpretationText } from "@/components/hexagrams/PublishedInterpretation";
 import { FormField } from "@/components/ui/Controls";
 import { getInterpretationRevision, getInterpretationState, reviewInterpretation, saveInterpretation,
-  type InterpretationContent, type InterpretationRevision, type InterpretationState, type WorkflowAction } from "@/services/rest/hexagramInterpretations";
+  type InterpretationContent, type InterpretationRevision, type InterpretationSource,
+  type InterpretationState, type WorkflowAction } from "@/services/rest/hexagramInterpretations";
 import { methodGuideError } from "@/services/rest/methodGuides";
 import { RestError } from "@/services/rest/transport";
 import { useLookup } from "@/services/rest/useLookup";
@@ -18,6 +19,11 @@ const fields = [
 ] as const;
 const statusLabels = { DRAFT: "Bản nháp", PENDING_REVIEW: "Chờ duyệt", PUBLISHED: "Đã công bố" };
 const empty = (): InterpretationContent => ({ overview: "", image: "", original: "", paraphrase: "", lines: Array(6).fill(""), application: "" });
+function sameSource(current: InterpretationSource, saved: InterpretationSource) {
+  return current.id === saved.id && current.title === saved.title && current.author === saved.author
+    && current.edition === saved.edition && current.locator === saved.locator && current.url === saved.url
+    && current.reuseNote === saved.reuseNote && current.reviewStatus === saved.reviewStatus;
+}
 const messages: Record<string, string> = {
   VERSION_CONFLICT: "Một Admin khác đã thay đổi dữ liệu. Hãy tải lại trước khi sửa.",
   INVALID_TRANSITION: "Thao tác không hợp lệ với trạng thái hoặc nguồn hiện tại.",
@@ -71,12 +77,13 @@ function Workspace({ initial, lines, auth, reload }: {
 
   const sources = state.sources.filter(source => selected.includes(source.id));
   const pending = state.status === "PENDING_REVIEW";
+  const savedSources = state.latest?.sources ?? [];
+  const sourcesMatch = sources.length === savedSources.length
+    && sources.every(source => savedSources.some(saved => sameSource(source, saved)));
   const mayPublish = state.latest && state.latest.createdBy !== auth.session.account.id
-    && state.latest.sources.every(source => source.reviewStatus === "VERIFIED");
+    && sourcesMatch && savedSources.every(source => source.reviewStatus === "VERIFIED");
   const latestContent = state.latest?.content ?? empty();
-  const dirty = JSON.stringify(content) !== JSON.stringify(latestContent)
-    || selected.length !== (state.latest?.sources.length ?? 0)
-    || selected.some(id => !state.latest?.sources.some(source => source.id === id));
+  const dirty = JSON.stringify(content) !== JSON.stringify(latestContent) || !sourcesMatch;
   const valid = content.overview.trim().length > 0 && sources.length === selected.length && selected.length > 0;
 
   async function perform(work: (signal: AbortSignal) => Promise<void>) {
@@ -165,6 +172,7 @@ function Workspace({ initial, lines, auth, reload }: {
       <FormField id="interpretation-review-note" label="Ghi chú đối chiếu">
         <textarea id="interpretation-review-note" rows={2} maxLength={500} value={note} onChange={event => setNote(event.target.value)} />
       </FormField>
+      {!sourcesMatch && <p className="field-hint">Thông tin nguồn đã thay đổi. Hãy trả về bản nháp để biên tập viên lưu lại nguồn trước khi gửi duyệt.</p>}
       {!mayPublish && <p className="field-hint">Công bố cần Admin khác người soạn và nguồn đã xác minh.</p>}
       <div className={styles.contentActions}>
         <button type="button" className="secondary-button" disabled={busy || !note.trim()} onClick={() => review("RETURN")}>Trả về bản nháp</button>

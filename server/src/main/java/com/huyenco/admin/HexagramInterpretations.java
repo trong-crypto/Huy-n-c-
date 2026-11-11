@@ -22,7 +22,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 @Service
 @Profile("db")
 @ConditionalOnProperty(name = "huyenco.hexagram.interpretation.enabled", havingValue = "true")
-final class HexagramInterpretations {
+public final class HexagramInterpretations {
     enum Action { SUBMIT, RETURN, PUBLISH }
     enum Status { DRAFT, PENDING_REVIEW, PUBLISHED }
 
@@ -30,8 +30,8 @@ final class HexagramInterpretations {
     record Source(String id, String title, String author, String edition, String locator, String url, String reuseNote,
                   String reviewStatus) {}
     record Revision(int version, JsonNode content, JsonNode sources, UUID createdBy, OffsetDateTime createdAt) {}
-    record Publication(Status status, int version, JsonNode content, JsonNode sources, OffsetDateTime publishedAt) {}
-    record PublicReading(String code, Publication publication) {}
+    public record Publication(Status status, int version, JsonNode content, JsonNode sources, OffsetDateTime publishedAt) {}
+    public record PublicReading(String code, Publication publication) {}
     record State(String code, int version, Status status, Revision latest, List<Integer> revisions,
                  Integer publishedVersion, List<Source> sources, String reviewNote) {}
 
@@ -54,7 +54,7 @@ final class HexagramInterpretations {
         write.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
     }
 
-    PublicReading published(String code) {
+    public PublicReading published(String code) {
         return read.execute(tx -> {
             requireHexagram(code, false);
             var publication = db.query("""

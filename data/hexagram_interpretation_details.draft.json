@@ -12,7 +12,7 @@
       "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E5%B1%AF&oldid=10643482",
       "image": "Mây và sấm dồn lại, Chấn ở dưới Khảm, sức khởi động gặp chỗ hiểm.",
       "original": "元亨，利貞。勿用有攸往，利建侯。",
-      "paraphrase": "Lời quẻ đặt việc dựng người đứng đầu và nền tổ chức trước chuyện đi xa.",
+      "paraphrase": "Khởi đầu có thể thông thuận, giữ điều chính thì có lợi. Chưa nên vội đi tới, nên dựng người đứng đầu để ổn định buổi đầu.",
       "lines": [
         {
           "lineNumber": 1,
@@ -37,7 +37,7 @@
         {
           "lineNumber": 5,
           "isYang": true,
-          "text": "Ân trạch còn bị giữ lại. Việc nhỏ có thể làm chắc, việc lớn chưa đủ nguồn lực."
+          "text": "Ân trạch bị giữ lại. Giữ điều chính ở việc nhỏ thì tốt, còn ở việc lớn thì xấu. Trong vận dụng hiện đại, có thể đọc như lời nhắc cân nhắc quy mô khi điều kiện còn hạn chế."
         },
         {
           "lineNumber": 6,
@@ -56,7 +56,7 @@
       "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%92%99&oldid=10645379",
       "image": "Suối chảy ra dưới núi, Khảm ở dưới Cấn, gợi sự hiểu biết đang tìm lối.",
       "original": "亨。匪我求童蒙，童蒙求我。初筮告，再三瀆，瀆則不告。利貞。",
-      "paraphrase": "Người học chủ động hỏi, nhận hướng dẫn rồi tự thử. Lặp lại lời hỏi mà không học từ câu trả lời làm mất ý nghĩa trao đổi.",
+      "paraphrase": "Thông thuận. Người còn non tìm đến hỏi. Lần hỏi bói đầu được đáp, hỏi đi hỏi lại đến mức khinh nhờn thì không được đáp. Giữ điều chính thì có lợi.",
       "lines": [
         {
           "lineNumber": 1,
@@ -66,7 +66,7 @@
         {
           "lineNumber": 2,
           "isYang": true,
-          "text": "Bao dung người còn non giúp họ đảm nhận được việc nhà. Dạy dỗ cần chỗ cho sai sót."
+          "text": "Bao dung người còn non thì tốt. Lời hào còn nêu việc cưới vợ và người con có thể đảm đương việc nhà. Có thể vận dụng như lời nhắc cho người học thời gian để trưởng thành."
         },
         {
           "lineNumber": 3,
@@ -86,7 +86,7 @@
         {
           "lineNumber": 6,
           "isYang": true,
-          "text": "Có thể mạnh tay để ngăn điều gây hại. Đừng biến quyền sửa sai thành quyền xâm phạm."
+          "text": "Có thể sửa sự mê muội để ngăn hại. Gây hại cho người khác thì bất lợi, chống điều gây hại thì có lợi."
         }
       ],
       "application": "Viết đúng điều chưa hiểu, hỏi một lần rõ ràng, rồi đem câu trả lời thử trên bài khác."
@@ -100,7 +100,7 @@
       "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E9%9C%80&oldid=10643261",
       "image": "Nước trên trời, mây đã tụ mà chưa mưa, gợi thời gian chuẩn bị.",
       "original": "有孚，光亨。貞吉，利涉大川。",
-      "paraphrase": "Lời quẻ đặt lòng tin và sự bền chí làm điều kiện để chờ rồi mới vượt việc lớn.",
+      "paraphrase": "Có lòng tin thì sáng rõ, thông thuận. Giữ điều chính thì tốt. Vượt sông lớn có lợi. Có thể đọc chủ đề chờ đợi như lời nhắc chuẩn bị trước việc lớn.",
       "lines": [
         {
           "lineNumber": 1,
@@ -130,7 +130,7 @@
         {
           "lineNumber": 6,
           "isYang": false,
-          "text": "Khách bất ngờ tới hang. Tiếp họ bằng sự tôn trọng có thể chuyển tình thế."
+          "text": "Vào hang, có ba người khách không mời mà đến. Đối đãi với họ bằng sự tôn trọng thì cuối cùng tốt."
         }
       ],
       "application": "Khi phải đợi dữ liệu, đặt trước mốc xem lại và việc chuẩn bị vẫn hữu ích nếu dữ liệu tới trễ."
@@ -144,7 +144,7 @@
       "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E8%A8%9F&oldid=10645409",
       "image": "Trời và nước đi ngược hướng, Càn trên Khảm. Hai bên càng tiến càng tách xa.",
       "original": "有孚，窒，惕，中吉，終凶。利見大人，不利涉大川。",
-      "paraphrase": "Dù tin mình có lý, kéo tranh chấp đến tận cùng gây hại. Lời quẻ khuyên tìm người xét xử và hoãn việc lớn.",
+      "paraphrase": "Có lòng tin mà gặp ngăn trở, cần thận trọng. Dừng ở mức vừa phải thì tốt, theo đuổi tới cùng thì xấu. Gặp bậc đại nhân có lợi. Vượt sông lớn bất lợi.",
       "lines": [
         {
           "lineNumber": 1,
@@ -174,7 +174,7 @@
         {
           "lineNumber": 6,
           "isYang": true,
-          "text": "Đai thưởng vừa được ban đã bị tước nhiều lần. Thắng bằng tranh chấp có thể đem lại danh vị không bền."
+          "text": "Có khi được ban đai thưởng, nhưng trong một buổi sáng lại bị tước ba lần. Danh vị do tranh kiện mà có dễ mất."
         }
       ],
       "application": "Trước khi tranh luận tiếp, viết ra điều có thể hòa giải và việc thực sự cần bên thứ ba."
@@ -213,12 +213,12 @@
         {
           "lineNumber": 5,
           "isYang": false,
-          "text": "Có mục tiêu rõ mới nên huy động. Lời hào phân biệt người đủ sức chỉ huy với việc giao quyền tùy tiện."
+          "text": "Lời hào mở bằng hình ảnh có thú trong ruộng. Theo Chu Dịch chính nghĩa, đáp lại sự xâm phạm khi có lý do chính đáng thì không lỗi. Lời hào phân biệt người trưởng đủ sức thống lĩnh với người non tay được giao quyền. Theo cách đọc ‘xe chở xác’ của bản nháp, hình ảnh này gợi hậu quả của việc giao quyền sai người."
         },
         {
           "lineNumber": 6,
           "isYang": false,
-          "text": "Khi đã lập lại trật tự, việc chia trách nhiệm cần xem phẩm chất của người nhận."
+          "text": "Khi vua ban lệnh phong nước và nối nhà, lời hào khuyên tránh giao quyền cho người không xứng. Có thể vận dụng như lời nhắc xem phẩm chất và năng lực khi phân trách nhiệm."
         }
       ],
       "application": "Khi giao việc nhóm, chốt ai có quyền quyết định và ai thay thế khi tình huống đổi."
@@ -232,7 +232,7 @@
       "sourceUrl": "https://zh.wikisource.org/w/index.php?title=%E5%91%A8%E6%98%93%2F%E6%AF%94&oldid=10645543",
       "image": "Nước ở trên đất, Khảm trên Khôn, nhiều dòng tụ lại thành mối liên kết.",
       "original": "吉。原筮元永貞，无咎。不寧方來，後夫凶。",
-      "paraphrase": "Việc liên kết cần xem lại cam kết và giữ được lâu. Người đến muộn có thể đã bỏ lỡ cơ hội cùng dựng nền.",
+      "paraphrase": "Liên kết thì tốt. Xét kỹ căn nguyên và dùng bói để quyết việc liên kết. Giữ điều chính bền lâu thì không lỗi. Người đang bất an tìm đến, người đến sau gặp điều xấu.",
       "lines": [
         {
           "lineNumber": 1,
@@ -257,12 +257,12 @@
         {
           "lineNumber": 5,
           "isYang": true,
-          "text": "Cuộc săn để lối thoát cho thú. Liên kết minh bạch không buộc tất cả phải đứng về một bên."
+          "text": "Vua săn và để thú chạy về phía trước thoát, người trong ấp không phải đề phòng. Từ hình ảnh ấy có thể suy ngẫm về liên kết cởi mở và tự nguyện."
         },
         {
           "lineNumber": 6,
           "isYang": false,
-          "text": "Liên kết không có đầu mối sẽ mất hướng. Cần biết ai chịu trách nhiệm."
+          "text": "Liên kết không có đầu mối thì xấu. Tiểu Tượng nhấn mạnh tình thế không có chỗ đi đến cùng."
         }
       ],
       "application": "Trong một liên minh, xem tiêu chí tham gia, cách rút lui và người chịu trách nhiệm đã rõ chưa."
