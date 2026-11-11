@@ -63,6 +63,21 @@ class AiProviderTest {
             assertEquals("user", json.path("messages").path(1).path("role").asText());
             assertEquals("Hào động là gì?", json.path("messages").path(1).path("content").asText());
             assertFalse(body.get().contains("fixture-key"));
+
+            var can = new AiConsultationService.Hexagram("H_CAN_CAN", "Càn", "VERIFIED");
+            var other = new AiConsultationService.Hexagram("H_CAN_TON", "Cấu", "VERIFIED");
+            var facts = new AiConsultationService.ReadingFacts("LINES", can, can, other, 1, "VERIFIED", "");
+            var reading = new AiConsultationService.Reading(facts, "", List.of("PRIVATE_CALCULATION_PASSAGE"), List.of(),
+                    List.of(new AiConsultationService.Source("Chu Dịch", "乾", "", null, "https://example.org/can")),
+                    List.of(new AiConsultationService.LibraryExcerpt("Quẻ chủ", "H_CAN_CAN", "Tổng quan đã duyệt", "Rồng còn ẩn")));
+            provider.answer(new AiConsultationService.Prompt("Nguồn nào?", List.of(), reading));
+            var grounded = mapper.readTree(body.get()).path("messages");
+            assertEquals("Nguồn nào?", grounded.path(1).path("content").asText());
+            var context = grounded.path(0).path("content").asText();
+            assertTrue(context.contains("Quẻ chủ: Càn"));
+            assertTrue(context.contains("NGUỒN ĐỐI CHIẾU DO SERVER HIỂN THỊ\nChu Dịch"));
+            assertTrue(context.contains("Đoạn giải hào động 1 của quẻ chủ: Rồng còn ẩn"));
+            assertFalse(context.contains("PRIVATE_CALCULATION_PASSAGE") || context.contains("https://example.org/can"));
         } finally {
             server.stop(0);
         }

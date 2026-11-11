@@ -33,7 +33,8 @@ Cả hai endpoint dùng envelope `requestId`, `status`, `data`, `error` và tr�
 - `question` có từ 1 đến 1.000 ký tự sau khi bỏ khoảng trắng đầu/cuối. Có thể gửi tối đa ba `turns`, mỗi lượt gồm `question` cùng giới hạn và `answer` tối đa 1.200 ký tự.
 - `readingId` và `calculationRequestId` là UUID tùy chọn và loại trừ lẫn nhau. Nếu có `readingId`, Backend chỉ tra bản đã lưu theo chủ sở hữu. Nếu có `calculationRequestId`, Backend ưu tiên bản đã lưu của chủ sở hữu rồi tra bộ nhớ đệm của đúng tài khoản và phiên tính. Kết quả chưa lưu phụ thuộc thời hạn của bộ nhớ đệm hiện có, mặc định tối đa 15 phút.
 - Thành công trả `data.answer`, `data.mode`, `data.sources` và `data.reading`. Với hỏi thông thường, `sources` là mảng rỗng và `reading` là `null`. Với kết quả Mai Hoa, trường `reading` chứa phương pháp, ba quẻ, hào động, trạng thái nguồn và căn cứ áp dụng từ Server.
-- Khi thư viện đã bật, Backend lấy trích đoạn từ bản PUBLISHED có snapshot nguồn VERIFIED của từng mã quẻ. Chỉ quẻ chủ có trích đoạn đúng vị trí hào động. Nguồn thư viện trong `sources` có trường tùy chọn `url` để mở bản đọc; các nguồn tính quẻ giữ nguyên thông tin trang in và PDF. Nếu thiếu bản công bố, Backend báo rõ trong phản hồi LIVE.
+- Khi thư viện đã bật, Backend lấy trích đoạn từ bản PUBLISHED có snapshot nguồn VERIFIED của từng mã quẻ. Chỉ quẻ chủ có trích đoạn đúng vị trí hào động. Nếu thiếu bản công bố, Backend báo rõ trong phản hồi LIVE.
+- Backend gửi kết quả Mai Hoa, tên nguồn và trích đoạn đã công bố thành các mục riêng trong ngữ cảnh của mô hình. Phản hồi lấy tên sách và danh mục nguồn từ Server. Nếu mô hình tự lập danh mục nguồn, Backend bỏ phần đó. Nguồn thư viện trong `sources` có thể kèm `url`. Các nguồn tính quẻ giữ thông tin trang in và PDF.
 
 ```json
 {

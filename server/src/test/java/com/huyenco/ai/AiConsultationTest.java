@@ -18,6 +18,8 @@ import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -192,6 +194,28 @@ class AiConsultationTest {
                 readingId, "MAI_HOA", "Bản lưu", Instant.EPOCH, "TEAM_DECISION", mapper.readTree(READING))));
         mvc.perform(ask(reference("readingId", readingId))).andExpect(status().isServiceUnavailable())
                 .andExpect(jsonPath("$.error.code").value("AI_UNAVAILABLE"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"**Các nguồn được Server cung cấp là:**", "Server cung cấp nguồn đối chiếu như sau:",
+            "Server cung cấp nguồn cho câu hỏi \"Quẻ chủ: Cách\".", "Dữ kiện từ Server: quẻ chủ Cách."})
+    void usesServerSourceTitlesAndDropsTheModelsMisattributedBibliography(String heading) throws Exception {
+        when(provider.mode()).thenReturn("live");
+        when(provider.answer(any())).thenReturn("""
+                Hào động ở vị trí 3.
+
+                %s
+                1. Quẻ Cách
+                2. Quẻ Cấu
+                """.formatted(heading));
+        when(results.find(owner, requestId)).thenReturn(Optional.of(new CompletedResults.Result("MAI_HOA", "TEAM_DECISION", READING)));
+        var response = mvc.perform(ask(reference("calculationRequestId", requestId))).andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.sources[0].title").value("Mai Hoa Dịch Số"))
+                .andReturn().getResponse().getContentAsByteArray();
+        var answer = mapper.readTree(response).path("data").path("answer").asText();
+        assertTrue(answer.contains("Tên nguồn do Server ghi nhận: Mai Hoa Dịch Số."));
+        assertTrue(answer.contains("Diễn giải của AI:\nHào động ở vị trí 3."));
+        assertFalse(answer.contains(heading) || answer.contains("1. Quẻ Cách"));
     }
 
     private AiConsultationService.Prompt capturePrompt() {

@@ -24,6 +24,12 @@ import org.springframework.stereotype.Service;
 @ConditionalOnProperty(name = "huyenco.auth.enabled", havingValue = "true")
 final class AiConsultationService {
     private static final Pattern GENERATED_REFERENCE = Pattern.compile("(?iu)\\bH_[\\p{L}\\p{N}_]+|https?://");
+    private static final Pattern GENERATED_METADATA = Pattern.compile(
+            "(?imU)^\\h*[-*>#]*\\h*(?:"
+                    + "server\\h+(?:cung\\h+cấp|ghi\\h+nhận|liệt\\h+kê)\\h+(?:các\\h+)?nguồn\\b"
+                    + "|(?:dữ\\h+kiện\\h+từ\\h+server|tên\\h+nguồn\\h+do\\h+server\\h+ghi\\h+nhận)\\h*[:：]"
+                    + "|(?:các\\h+)?(?:nguồn|tài\\h+liệu\\h+tham\\h+khảo)"
+                    + "(?:\\h*[:：]|\\h+là\\b|\\h+(?:được|do|đối\\h+chiếu|tham\\h+khảo|trích\\h+dẫn|gồm)\\b[^\\r\\n]*[:：]))");
     private final HistoryStore history;
     private final CompletedResults results;
     private final ObjectMapper mapper;
@@ -54,10 +60,18 @@ final class AiConsultationService {
                 var facts = reading.facts();
                 String serverFacts = "Dữ kiện từ Server: quẻ chủ %s, quẻ hỗ %s, quẻ biến %s, hào động %d."
                         .formatted(label(facts.primary()), label(facts.mutual()), label(facts.changed()), facts.movingLine());
+                if (!reading.sources().isEmpty()) {
+                    var titles = reading.sources().stream().map(Source::title).distinct().toList();
+                    serverFacts += "\nTên nguồn do Server ghi nhận: " + String.join(" · ", titles) + ".";
+                }
                 if (reading.library().size() < 3) {
                     serverFacts += "\nThư viện chưa có bài luận giải đã công bố cho một hoặc nhiều quẻ trong kết quả này.";
                 }
-                answer = serverFacts + "\n\nDiễn giải của AI:\n" + answer;
+                var metadata = GENERATED_METADATA.matcher(answer);
+                if (metadata.find()) answer = answer.substring(0, metadata.start()).strip();
+                answer = answer.isEmpty()
+                        ? serverFacts + "\n\nXem chi tiết ở mục nguồn đi kèm kết quả từ Server."
+                        : serverFacts + "\n\nDiễn giải của AI:\n" + answer;
             }
             return new Answer(answer, provider.mode(),
                     reading == null ? List.of() : reading.sources(), reading == null ? null : reading.facts());
