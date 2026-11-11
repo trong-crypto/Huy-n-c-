@@ -218,6 +218,58 @@ class AiConsultationTest {
         assertFalse(answer.contains(heading) || answer.contains("1. Quẻ Cách"));
     }
 
+    @Test
+    void keepsExplanationAfterEchoedFactsAndUsesTheServerRuleForTheOriginalHexagram() throws Exception {
+        when(provider.mode()).thenReturn("live");
+        when(provider.answer(any())).thenReturn("""
+                Dữ kiện từ Server: quẻ chủ bị ghi đè.
+                Tên nguồn do Server ghi nhận: Quẻ Cách.
+
+                **Diễn giải của AI:**
+                Việc đổi hào tạo ra quẻ biến.
+
+                Các nguồn được Server cung cấp là:
+                1. Quẻ Cách
+                """);
+        when(results.find(owner, requestId)).thenReturn(Optional.of(new CompletedResults.Result("MAI_HOA", "TEAM_DECISION", READING)));
+        var response = mvc.perform(ask(reference("calculationRequestId", requestId))).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsByteArray();
+        var answer = mapper.readTree(response).path("data").path("answer").asText();
+        assertTrue(answer.contains("Quẻ chủ giữ nguyên như kết quả ban đầu."));
+        assertTrue(answer.contains("Diễn giải của AI:\nViệc đổi hào tạo ra quẻ biến."));
+        assertFalse(answer.contains("quẻ chủ bị ghi đè") || answer.contains("1. Quẻ Cách"));
+    }
+
+    @Test
+    void usesOnlyServerFactsWhenTheModelOnlyEchoesMetadata() throws Exception {
+        when(provider.mode()).thenReturn("live");
+        when(provider.answer(any())).thenReturn("Dữ kiện từ Server: quẻ chủ bị ghi đè.");
+        when(results.find(owner, requestId)).thenReturn(Optional.of(new CompletedResults.Result("MAI_HOA", "TEAM_DECISION", READING)));
+        var response = mvc.perform(ask(reference("calculationRequestId", requestId))).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsByteArray();
+        var answer = mapper.readTree(response).path("data").path("answer").asText();
+        assertTrue(answer.contains("Quẻ biến được lập riêng bằng cách đảo âm/dương tại hào động."));
+        assertTrue(answer.contains("Mô hình chưa đưa ra diễn giải phù hợp"));
+        assertFalse(answer.contains("quẻ chủ bị ghi đè"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Quẻ chủ và quẻ biến khác nhau thế nào? Quẻ chủ có bị ghi đè không?",
+            "Có thể giải thích theo lời hào 6 cho kết quả hào động 3 không?"})
+    void answersFactualRoleAndMismatchedLineQuestionsFromTheServer(String question) throws Exception {
+        when(provider.mode()).thenReturn("live");
+        when(results.find(owner, requestId)).thenReturn(Optional.of(new CompletedResults.Result("MAI_HOA", "TEAM_DECISION", READING)));
+        var request = mapper.createObjectNode().put("question", question).put("calculationRequestId", requestId.toString());
+        var response = mvc.perform(ask(request.toString())).andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.reading.movingLine").value(3))
+                .andReturn().getResponse().getContentAsByteArray();
+        var answer = mapper.readTree(response).path("data").path("answer").asText();
+        assertTrue(answer.contains("Quẻ chủ giữ nguyên như kết quả ban đầu."));
+        assertTrue(answer.contains(question.contains("hào 6") ? "không dùng lời hào 6" : "Cách là quẻ chủ và H_DOAI_CHAN là quẻ biến"));
+        assertFalse(answer.contains("Diễn giải của AI:"));
+        verify(provider, never()).answer(any());
+    }
+
     private AiConsultationService.Prompt capturePrompt() {
         var captor = ArgumentCaptor.forClass(AiConsultationService.Prompt.class);
         verify(provider).answer(captor.capture());
