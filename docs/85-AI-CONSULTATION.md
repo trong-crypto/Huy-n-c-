@@ -1,6 +1,10 @@
 # Trợ lý AI Huyền Cơ
 
+**Cấu hình Gemini ngày 11/11/2026:** dùng chế độ `openai-compatible`, endpoint `https://generativelanguage.googleapis.com/v1beta/openai/chat/completions` và model `gemini-3.1-flash-lite`. Khóa máy chủ nằm ở `server/.local/gemini-key.dpapi`, mã hóa bằng Windows DPAPI và được Git bỏ qua. `scripts/load_gemini_config.ps1` nạp bốn biến AI cho tiến trình Backend. Model 2.5 đã trả 404 trên khóa hiện tại, nên model mặc định dùng bản Flash-Lite mới. Đã kiểm yêu cầu mẫu HTTP 200 trong khoảng 2,2 giây.
+
 Trang `/tu-van` có hai lối vào. **Chat với tư vấn viên** dùng luồng REST/STOMP và cơ chế lưu tin hiện có. **Hỏi AI** mở `/tu-van/hoi-ai` và giữ các lượt trao đổi trong bộ nhớ của trang. Tải lại hoặc rời trang sẽ kết thúc phiên hỏi AI.
+
+Lượt kiểm ngày 11/11/2026 dùng database tạm khôi phục riêng, đăng ký và đăng nhập USER qua HTTP. `GET /api/v1/ai/status` xác nhận `live`; `POST /api/v1/ai/ask` qua Backend với cookie, Origin và CSRF trả HTTP 200 cùng câu trả lời thật của Gemini. Bằng chứng ở `server/target/gemini-smoke/evidence.json`. Lượt này kiểm endpoint Backend trực tiếp. Bản build Client cũ của bộ thử chưa có tuyến proxy AI, nên khi dùng giao diện hiện tại cần build lại theo hướng dẫn 82.
 
 ## Chạy trên localhost
 

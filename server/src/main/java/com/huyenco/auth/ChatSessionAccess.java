@@ -14,9 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Profile("db")
 @ConditionalOnProperty(name = "huyenco.auth.enabled", havingValue = "true")
 public class ChatSessionAccess {
-    public enum Role { USER, CONSULTANT }
+    public enum Role { USER, CONSULTANT, ADMIN }
     public record Actor(UUID accountId, Role role, String expiresAt) {}
-    public record SocketIdentity(UUID sessionId, UUID accountId, Role role) {}
+    public enum Scope { CHAT, ACCOUNT, ADMIN }
+    public record SocketIdentity(UUID sessionId, UUID accountId, Role role, Scope scope) {}
 
     public static final class SocketHandshake {
         private final SocketIdentity identity;
@@ -63,15 +64,16 @@ public class ChatSessionAccess {
     }
 
     @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
-    public SocketHandshake handshake(HttpServletRequest request) {
+    public SocketHandshake handshake(HttpServletRequest request, Scope scope) {
         try {
             guards.origin(request);
-            var realm = AccountAuthService.Realm.CUSTOMER;
+            var realm = realm(scope);
             String token = AccountRequestGuards.token(request, realm);
             var stored = accounts.requireStoredSession(realm, token);
-            Actor actor = actor(stored.account(), stored.expiresAt().toInstant().toString());
+            Role role = Role.valueOf(stored.account().role());
+            if (scope == Scope.CHAT) actor(stored.account(), stored.expiresAt().toInstant().toString());
             String csrf = accounts.session(stored.account(), stored.expiresAt(), realm, token).csrfToken();
-            return new SocketHandshake(new SocketIdentity(stored.sessionId(), actor.accountId(), actor.role()), csrf);
+            return new SocketHandshake(new SocketIdentity(stored.sessionId(), stored.account().id(), role, scope), csrf);
         } catch (AuthFailure failure) {
             throw new ContractException(failure.code, failure.getMessage());
         }
@@ -90,14 +92,20 @@ public class ChatSessionAccess {
 
     public Actor requireSocket(SocketIdentity identity) {
         try {
-            var stored = accounts.requireStoredSessionById(AccountAuthService.Realm.CUSTOMER, identity.sessionId());
+            var stored = accounts.requireStoredSessionById(realm(identity.scope()), identity.sessionId());
             if (!stored.account().id().equals(identity.accountId()) || !stored.account().role().equals(identity.role().name())) {
                 throw AuthFailure.session();
             }
-            return actor(stored.account(), stored.expiresAt().toInstant().toString());
+            String expiresAt = stored.expiresAt().toInstant().toString();
+            return identity.scope() == Scope.CHAT ? actor(stored.account(), expiresAt)
+                    : new Actor(identity.accountId(), identity.role(), expiresAt);
         } catch (AuthFailure failure) {
             throw new ContractException(failure.code, failure.getMessage());
         }
+    }
+
+    private static AccountAuthService.Realm realm(Scope scope) {
+        return scope == Scope.ADMIN ? AccountAuthService.Realm.ADMIN : AccountAuthService.Realm.CUSTOMER;
     }
 
     private Actor actor(AccountAuthService.Account account, String expiresAt) {

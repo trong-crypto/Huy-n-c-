@@ -39,12 +39,12 @@ it("proxies STOMP on the same origin when explicitly enabled", async () => {
   });
 });
 
-it("proxies the account Chat WebSocket separately from the calculation socket", async () => {
+it.each(["chat", "account", "admin"])("proxies the %s WebSocket separately from the calculation socket", async endpoint => {
   vi.stubEnv("NEXT_PUBLIC_ACCOUNT_HISTORY", "1");
   vi.stubEnv("HUYENCO_API_URL", "http://127.0.0.1:18108");
   const rewrites = await nextConfig.rewrites!();
   if (!Array.isArray(rewrites)) throw new Error("Expected a flat rewrite list");
-  const path = "/api/v1/ws/chat";
+  const path = `/api/v1/ws/${endpoint}`;
   expect(rewrites.filter(rewrite => getPathMatch(rewrite.source)(path) !== false)).toEqual([
     { source: path, destination: `http://127.0.0.1:18108${path}` },
   ]);

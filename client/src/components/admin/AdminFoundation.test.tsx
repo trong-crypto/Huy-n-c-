@@ -1,8 +1,33 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import AdminLoginPage from "@/app/admin/login/page";
 import AdminWorkspaceLayout from "@/app/admin/(workspace)/layout";
 import AdminDashboardPage from "@/app/admin/(workspace)/page";
+import { AdminSessionGate } from "./AdminSessionGate";
+
+const adminSocket = vi.hoisted(() => vi.fn());
+vi.mock("@/services/websocket/useAuthenticatedSocket", () => ({
+  useAuthenticatedSocket: adminSocket,
+}));
+
+it("shows a review notification to an authenticated admin and clears the workspace after revocation", async () => {
+  const id = "905b2f9f-c230-4887-9369-7b5500964f59";
+  vi.stubGlobal("fetch", vi.fn(async () => Response.json({
+    requestId: id, status: "COMPLETED", error: null,
+    data: { account: { id, displayName: "Admin TEST", role: "ADMIN" },
+      expiresAt: new Date(Date.now() + 60_000).toISOString(), csrfToken: "a".repeat(43) },
+  })));
+  render(<AdminSessionGate><h2>Nội dung quản trị thử</h2></AdminSessionGate>);
+  await screen.findByRole("heading", { name: "Nội dung quản trị thử" });
+  const socket = adminSocket.mock.lastCall?.[0];
+  expect(socket).toMatchObject({ endpoint: "admin", destination: "/queue/admin/reviews" });
+  act(() => socket.onMessage(JSON.stringify({ type: "REVIEW_PENDING", area: "SOURCE" })));
+  const notices = screen.getByRole("complementary", { name: "Thông báo chờ duyệt" });
+  expect(within(notices).getByRole("link", { name: "Dữ liệu nguồn" }).getAttribute("href")).toBe("/admin/sources");
+  act(() => socket.onAccessError("INVALID_SESSION"));
+  expect(screen.getByRole("heading", { name: "Cần đăng nhập quản trị" })).toBeTruthy();
+  expect(screen.queryByText("Nội dung quản trị thử")).toBeNull();
+});
 
 describe("Admin foundation while authentication is unavailable", () => {
   it("focuses the first missing field and describes each validation error", () => {

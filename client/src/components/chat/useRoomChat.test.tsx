@@ -41,6 +41,7 @@ const emit = (socket: FakeSocket, event: unknown) => socket.receive?.({ body: JS
 const connected = (socket: FakeSocket) => {
   socket.connected = true;
   socket.config.onConnect?.({} as IMessage);
+  emit(socket, { type: "READY", conversationId });
 };
 const closed = (socket: FakeSocket) => {
   socket.connected = false;
@@ -68,7 +69,8 @@ it("catches up with REST after reconnect without skipping earlier sequence or re
   await waitFor(() => expect(result.current.messages.map(item => item.text)).toEqual(["Tin đầu"]));
   act(() => emit(first, { type: "MESSAGE", ...message(thirdId, "3", "Tin trực tiếp") }));
   act(() => result.current.messaging!.send("Bản nháp"));
-  const publication = first.publish.mock.calls[0][0];
+  expect(first.publish.mock.calls[0][0]).toEqual({ destination: `/app/chat/rooms/${conversationId}/sync` });
+  const publication = first.publish.mock.calls[1][0];
   expect(JSON.parse(publication.body).text).toBe("Bản nháp");
   act(() => closed(first));
   expect(result.current.messaging!.delivery).toBe("unknown");
@@ -81,7 +83,7 @@ it("catches up with REST after reconnect without skipping earlier sequence or re
   await waitFor(() => expect(result.current.messages.map(item => item.text))
     .toEqual(["Tin đầu", "Tin bỏ lỡ", "Tin trực tiếp"]));
   expect(cursors).toContain("1");
-  expect(second.publish).not.toHaveBeenCalled();
+  expect(second.publish.mock.calls).toEqual([[{ destination: `/app/chat/rooms/${conversationId}/sync` }]]);
   act(() => {
     emit(first, { type: "MESSAGE", ...message(sentId, "4", "Socket cũ") });
     emit(second, { type: "MESSAGE", ...message(sentId, "4", "Phòng khác"), conversationId: otherId });

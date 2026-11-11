@@ -5,6 +5,7 @@ import { SiteNavigation } from "./SiteNavigation";
 
 const state = vi.hoisted(() => ({
   enabled: true, pathname: "/history", historyReady: false, replace: vi.fn(), invalidate: vi.fn(),
+  socket: vi.fn(),
 }));
 vi.mock("next/navigation", () => ({
   usePathname: () => state.pathname,
@@ -16,6 +17,9 @@ vi.mock("@/config/client", async (importOriginal) => {
 });
 vi.mock("@/services/session/SessionProvider", () => ({
   useSession: () => state.historyReady ? { status: "ready", invalidate: state.invalidate } : null,
+}));
+vi.mock("@/services/websocket/useAuthenticatedSocket", () => ({
+  useAuthenticatedSocket: state.socket,
 }));
 
 const id = "905b2f9f-c230-4887-9369-7b5500964f59";
@@ -34,7 +38,7 @@ function useFetchMock() {
 }
 
 describe("customer navigation session", () => {
-  beforeEach(() => { state.enabled = true; state.pathname = "/history"; state.historyReady = false; });
+  beforeEach(() => { state.enabled = true; state.pathname = "/history"; state.historyReady = false; state.socket.mockClear(); });
 
   it("renders guest links and makes no Auth request when the feature is off", () => {
     const fetch = useFetchMock();
@@ -100,6 +104,20 @@ describe("customer navigation session", () => {
     expect(await screen.findByRole("link", { name: "Đăng nhập" })).toBeTruthy();
     expect(screen.queryByText("Tên hết hạn")).toBeNull();
     await waitFor(() => expect(state.invalidate).toHaveBeenCalledWith(expect.objectContaining({ code: "INVALID_SESSION" })));
+  });
+
+  it("clears the account and private history as soon as the session socket reports revocation", async () => {
+    state.historyReady = true;
+    const fetch = useFetchMock().mockResolvedValueOnce(session());
+    render(<SiteNavigation />);
+    await screen.findByText("Khách A");
+    const socket = state.socket.mock.lastCall?.[0];
+    expect(socket.endpoint).toBe("account");
+    act(() => socket.onAccessError("INVALID_SESSION"));
+    expect(screen.getByRole("link", { name: "Đăng nhập" })).toBeTruthy();
+    expect(screen.queryByText("Khách A")).toBeNull();
+    expect(state.invalidate).toHaveBeenCalledWith(expect.objectContaining({ code: "INVALID_SESSION" }));
+    expect(fetch).toHaveBeenCalledTimes(1);
   });
 
   it("revalidates a displayed account when its session expires", async () => {

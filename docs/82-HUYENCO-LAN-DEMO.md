@@ -1,5 +1,9 @@
 # Huyền Cơ · Hướng dẫn chạy Client và Admin
 
+**Cập nhật ngày 11/11/2026:** `huyenco` đã được sao lưu và nâng từ V12 lên V34. Lượt nâng thử trên bản khôi phục đạt trước khi áp dụng vào database chính. Đối chiếu 17 bảng cũ giữ nguyên mọi bản ghi. Migration thêm một mục nguồn và một quy tắc Trượng xích chiêm. Kiểm toán tri thức đạt `FAIL=0 | PENDING=0`; Backend kiểm chỉ đọc đạt health, readiness READY, tra quẻ Tỉnh và API nội dung V34. Sau đó đã nhập và công bố 64 bài cùng 384 đoạn giải hào theo phê duyệt của chủ dự án. Hai quẻ Bác và Cách để trống nguyên văn lời quẻ do dị bản; phần diễn nghĩa và giải hào vẫn có. Xem [hồ sơ công bố](86-HEXAGRAM-INTERPRETATION-HANDOFF.md).
+
+Bản sao lưu tại `scripts/generated/db-backups/huyenco-before-v34-20261111T025742Z.dump`, SHA-256 `72e1027d27190c8fc70e48d6aef18d82eb11e1be4f2733930ded7b5f677cad44`. Hồ sơ kiểm tra ở `server/target/huyenco-v34-upgrade/`. Flyway đã validate 34 migration; có cảnh báo PostgreSQL 18.6 mới hơn mốc 17 mà phiên bản Flyway hiện tại công bố đã thử.
+
 Chuẩn bị JDK 17, Node 24, Python và PostgreSQL 18. Máy chủ chạy một tiến trình Next.js cho cả Client và Admin, cùng Backend và PostgreSQL TEST V33. Khi thử một máy, dùng loopback. Khi thử hai máy cùng Wi-Fi, thiết bị thứ hai chỉ cần trình duyệt. Next.js chuyển tiếp REST và WebSocket, còn Backend và PostgreSQL nghe trên loopback.
 
 | Thành phần | Địa chỉ mẫu |
@@ -61,15 +65,15 @@ Lưu riêng tên database và thông tin ba tài khoản `user`, `consultant`, `
 
 ## 2. Chạy Backend trong PowerShell A
 
-Khi được hỏi tên database, nhập tên TEST mà bước chuẩn bị đã in ra. Khối này xác nhận phiên bản schema bằng truy vấn chỉ đọc rồi chạy Backend. Flyway tắt trong lần khởi động này.
+Khi được hỏi tên database, nhập tên TEST mà bước chuẩn bị đã in ra, hoặc nhập `huyenco` để dùng dữ liệu chính đã nâng cấp. Khối này kiểm schema V33/V34 bằng truy vấn chỉ đọc rồi chạy Backend. Flyway tắt trong lần khởi động này. Khi chọn `huyenco`, đăng ký, lịch sử, quản trị và Chat ghi vào database chính. Khi bật Auth, tác vụ Chat dọn nội dung tin quá 30 ngày.
 
 ```powershell
 cd 'C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server'
 $lanIp = (Read-Host 'Nhap IPv4 Wi-Fi cua may chu, hoac 127.0.0.1 neu chi thu tren mot may').Trim()
 $webPort = 18100
-$dbName = (Read-Host 'Nhap ten database TEST da tao').Trim()
-if ($dbName -cnotmatch '^huyenco_chat_fixture_test(?:_[a-z0-9]+)?$') {
-    throw 'Can ten database TEST tu muc 1, vi du huyenco_chat_fixture_test_20261110090000'
+$dbName = (Read-Host 'Nhap huyenco hoac ten database TEST da tao').Trim()
+if ($dbName -ne 'huyenco' -and $dbName -cnotmatch '^huyenco_chat_fixture_test(?:_[a-z0-9]+)?$') {
+    throw 'Can huyenco hoac ten database TEST tu muc 1'
 }
 $pgBin = 'C:\Program Files\PostgreSQL\18\bin'
 $env:JAVA_HOME = 'C:\Program Files\Java\jdk-17'
@@ -83,9 +87,9 @@ try {
     if ($LASTEXITCODE -ne 0) {
         throw "Khong truy van duoc Flyway tren '$dbName'. Xem loi psql ngay phia tren."
     }
-    if ($version -ne '33') {
+    if ($version -notin @('33', '34')) {
         $current = if ($version) { "V$version" } else { 'chua co migration thanh cong' }
-        throw "Database '$dbName' hien o $current. Can TEST V33. Xem muc 1 de chuan bi ban TEST."
+        throw "Database '$dbName' hien o $current. Can V33 hoac V34. Xem muc 1 de chuan bi ban TEST."
     }
 } catch {
     Remove-Item Env:DB_PASSWORD -ErrorAction SilentlyContinue
@@ -101,13 +105,17 @@ $env:SPRING_FLYWAY_ENABLED = 'false'
 $env:SERVER_ADDRESS = '127.0.0.1'
 $env:SERVER_PORT = '18117'
 $env:AUTH_ENABLED = 'true'
+$env:HUYENCO_HEXAGRAM_INTERPRETATION_ENABLED = 'true'
 $env:AUTH_SECURE_COOKIE = 'false' # HTTP noi bo
 $env:SESSION_SECURE_COOKIE = 'false'
 $websiteUrl = "http://${lanIp}:$webPort"
 $env:ALLOWED_ORIGINS = ($websiteUrl, "http://127.0.0.1:$webPort", "http://localhost:$webPort" | Select-Object -Unique) -join ','
 Write-Host "URL website sau khi chay Client: $websiteUrl"
+if (Test-Path -LiteralPath '.local/gemini-key.dpapi') {
+    & ../scripts/load_gemini_config.ps1
+}
 try { .\mvnw.cmd -Pdatabase spring-boot:run }
-finally { Remove-Item Env:DB_PASSWORD, Env:AUTH_CSRF_KEY -ErrorAction SilentlyContinue }
+finally { Remove-Item Env:DB_PASSWORD, Env:AUTH_CSRF_KEY, Env:AI_API_KEY -ErrorAction SilentlyContinue }
 ```
 
 Giữ cửa sổ A mở. Nếu dùng HTTPS cho demo, dùng URL HTTPS trong `ALLOWED_ORIGINS` và bật `AUTH_SECURE_COOKIE=true`.
@@ -139,6 +147,7 @@ $env:NEXT_PUBLIC_ACCOUNT_HISTORY = '1'
 $env:NEXT_PUBLIC_ADMIN_ACCOUNTS = '1'
 $env:NEXT_PUBLIC_METHOD_GUIDES = '1'
 $env:NEXT_PUBLIC_ADMIN_HEXAGRAM_GLOSSES = '1'
+$env:NEXT_PUBLIC_HEXAGRAM_INTERPRETATIONS = '1'
 $env:NEXT_PUBLIC_ADMIN_SOURCE_CATALOG = '1'
 $env:NEXT_PUBLIC_WEBSITE_CONTENT = '1'
 $clientBind = '0.0.0.0' # Neu chi thu tren mot may, doi thanh 127.0.0.1
@@ -151,6 +160,8 @@ npm.cmd run start -- --hostname $clientBind --port 18100
 - **Một máy:** chọn `127.0.0.1` ở mục 2 và cho `$clientBind` ở mục 3, rồi mở [trang đăng ký local](http://127.0.0.1:18100/dang-ky).
 
 Giữ `HUYENCO_API_URL=http://127.0.0.1:18117` trong PowerShell B vì Next.js gọi Backend trên cùng máy chủ.
+
+Để thử WebSocket tư vấn, mở cùng URL website trong hai phiên trình duyệt riêng và đăng nhập một USER cùng một CONSULTANT đã duyệt. Giữ trang tư vấn viên mở khi USER gửi yêu cầu. Kiểm yêu cầu tự xuất hiện, thử chấp nhận, gửi tin và kết thúc từ một trong hai phía. Trong DevTools → Network → WS, luồng tư vấn đi qua `/api/v1/ws/chat`. Kênh `/api/v1/ws/account` nhận thông báo thu hồi phiên người dùng. Nếu thử thông báo chờ duyệt, dùng hai phiên ADMIN và theo dõi `/api/v1/ws/admin` trong khi một phiên gửi nội dung CMS đi duyệt.
 
 ## 4. Sửa cấu hình khi đổi Wi-Fi, IP hoặc cổng
 
@@ -196,6 +207,8 @@ Khi đăng ký thất bại, mở **F12 → Network → register → Response**.
 [Biên bản localhost V33](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#ph6-ph-01)
 
 ## 6. Truy cập Client và Admin cùng lúc
+
+**Hỏi AI:** khi máy chủ có khóa cục bộ `server/.local/gemini-key.dpapi`, khối chạy Backend ở mục 2 nạp Gemini qua `scripts/load_gemini_config.ps1`. Model mặc định là `gemini-3.1-flash-lite`. Khóa được mã hóa cho tài khoản Windows đã lưu và nằm ngoài Git. Máy Client dùng chung API Backend. Sau khi khởi động Backend, đăng nhập USER hoặc CONSULTANT, mở `/tu-van/hoi-ai` và gửi câu hỏi. Nếu chạy Backend bằng IDE, cần cấp cùng bốn biến `AI_PROVIDER`, `AI_API_URL`, `AI_API_MODEL`, `AI_API_KEY` cho tiến trình đó. Thay đổi biến ở một cửa sổ PowerShell có hiệu lực với Backend khởi chạy từ chính cửa sổ đó.
 
 1. Chọn URL gốc đã in ở PowerShell A. Mở Client ở `/`, đăng ký ở `/dang-ky`, đăng nhập ở `/dang-nhap`. Giữ tài khoản USER riêng để demo lập quẻ, tra cứu, lịch và lịch sử.
 2. Nếu đã có tài khoản ADMIN trong đúng database TEST, chuyển sang bước 4. Nếu chưa, đăng ký một tài khoản TEST riêng có tên `admin-demo` qua `/dang-ky`.

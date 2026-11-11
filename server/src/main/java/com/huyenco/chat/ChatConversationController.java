@@ -141,7 +141,7 @@ final class ChatConversationController {
         }
     }
 
-    private static UUID uuid(String value) {
+    static UUID uuid(String value) {
         if (value == null || value.length() != 36) throw invalid();
         try {
             UUID parsed = UUID.fromString(value);
@@ -180,7 +180,7 @@ final class ChatConversationController {
         return new ContractException("INVALID_INPUT", "Dữ liệu yêu cầu hội thoại không hợp lệ.");
     }
 
-    private static ConversationView view(Conversation room) {
+    static ConversationView view(Conversation room) {
         var state = room.state();
         return new ConversationView(room.conversationId(), room.userId(), room.consultantId(), room.createdAt().toInstant(),
                 state.status(), instant(state.startedAt()), instant(state.endedAt()), state.endReason(), state.endedByAccountId());

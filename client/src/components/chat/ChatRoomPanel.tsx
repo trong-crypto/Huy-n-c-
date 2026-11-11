@@ -87,6 +87,9 @@ export function ChatRoomPanel({ state, subscribe, retry, messaging, lifecycleCon
     <div className={styles.roomStatus}>
       {roomStatus}
       {room?.ending && <p>{room.ending}</p>}
+      {room?.peerPresent && <p>Người bên kia đang mở phòng.</p>}
+      {room?.peerOnline && !room.peerPresent && <p>Người bên kia đang trực tuyến.</p>}
+      {room?.peerTyping && <p role="status">Người bên kia đang nhập tin nhắn…</p>}
       {(room || messagingAvailable) && (!messaging || room?.status === "active") &&
         <p role="status">{connectionLabels[state.connection]}</p>}
       {(state.connection === "disconnected" || state.connection === "unresponsive") &&
@@ -123,7 +126,7 @@ export function ChatRoomPanel({ state, subscribe, retry, messaging, lifecycleCon
       placeholder={draftDisabled ? "Chỉ gửi trong phòng đang tư vấn" : "Nhập tin nhắn…"}
       hint={draftDisabled ? "Bạn có thể đọc lại các tin nhắn đã có." : `Tối đa ${draftLimit} ký tự · Shift + Enter để xuống dòng`}
       invalid={!!draftError} error={draftError} onSend={send}
-      onChange={text => { setDraft(text); setChecked(false); setDraftError(null); }}>
+      onChange={text => { setDraft(text); setChecked(false); setDraftError(null); if (text.trim()) messaging?.notifyTyping?.(); }}>
       {checked && !draftError && <p role="status">Bản nháp hợp lệ · Chưa gửi.</p>}
       {!messaging && !draftDisabled && <button type="button" className="secondary-button" onClick={() => {
         setDraftError(validateChatDraft(draft)); setChecked(true);

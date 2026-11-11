@@ -4,6 +4,7 @@ import static com.huyenco.common.validation.CmsInput.expectedVersion;
 import static com.huyenco.common.validation.CmsInput.invalid;
 import static com.huyenco.common.validation.CmsInput.text;
 
+import com.huyenco.websocket.AdminReviewNotifications;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -50,9 +51,11 @@ final class MethodGuideController {
     private static final Logger LOG = LoggerFactory.getLogger(MethodGuideController.class);
     private final MethodGuideService service;
     private final Optional<AdminRequestAccess> admin;
+    private final AdminReviewNotifications notifications;
     private final ObjectReader reader;
 
-    MethodGuideController(MethodGuideService service, Optional<AdminRequestAccess> admin, ObjectMapper mapper) {
+    MethodGuideController(MethodGuideService service, Optional<AdminRequestAccess> admin, ObjectMapper mapper, AdminReviewNotifications notifications) {
+        this.notifications = notifications;
         this.service = service;
         this.admin = admin;
         this.reader = mapper.copy().enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION)
@@ -124,7 +127,9 @@ final class MethodGuideController {
             boolean returning = action == Action.RETURN_TO_DRAFT;
             JsonNode json = body(request, returning ? Set.of("expectedVersion", "reason") : Set.of("expectedVersion"));
             String reason = returning ? text(json, "reason", 500, true, false) : null;
-            return service.update(method(methodCode), expectedVersion(json), action, null, reason, actor);
+            var updated = service.update(method(methodCode), expectedVersion(json), action, null, reason, actor);
+            if (action == Action.SUBMIT_REVIEW) notifications.submitted(AdminReviewNotifications.Area.METHOD_GUIDE);
+            return updated;
         });
     }
 

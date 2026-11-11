@@ -27,6 +27,7 @@ export function ConsultationWorkspace({ audience, access = { status: "blocked" }
     consultantId: string;
     selectConsultant: (id: string) => void;
     create: () => void;
+    ready?: boolean;
     sending: boolean;
     transitioning: boolean;
     roomId: string | null;
@@ -97,7 +98,7 @@ export function ConsultationWorkspace({ audience, access = { status: "blocked" }
               <ChatIcon /><p>{authorized?.consultants ? "Chưa có tư vấn viên trong danh sách." : "Danh sách tư vấn viên chưa khả dụng."}</p>
             </div>}
             {controls?.directoryStatus}
-            <button type="button" className="secondary-button" disabled={!controls?.consultantId || controls.sending || controls.transitioning}
+            <button type="button" className="secondary-button" disabled={!controls?.consultantId || controls.sending || controls.transitioning || controls.ready === false}
               onClick={controls?.create}>{controls?.sending ? "Đang gửi yêu cầu…" : "Gửi yêu cầu tư vấn"}</button>
           </section>
         </details>}

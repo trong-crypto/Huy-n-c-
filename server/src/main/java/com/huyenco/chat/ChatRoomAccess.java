@@ -48,6 +48,7 @@ public class ChatRoomAccess {
         return switch (role) {
             case USER -> "user_account_id";
             case CONSULTANT -> "consultant_account_id";
+            case ADMIN -> throw roomNotFound();
         };
     }
 

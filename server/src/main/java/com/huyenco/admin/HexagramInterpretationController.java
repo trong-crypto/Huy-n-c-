@@ -3,6 +3,7 @@ package com.huyenco.admin;
 import static com.huyenco.admin.AdminDirectoryHttp.*;
 import static com.huyenco.common.validation.CmsInput.text;
 
+import com.huyenco.websocket.AdminReviewNotifications;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -27,9 +28,11 @@ final class HexagramInterpretationController {
     private static final Logger LOG = LoggerFactory.getLogger(HexagramInterpretationController.class);
     private final HexagramInterpretations interpretations;
     private final Optional<AdminRequestAccess> access;
+    private final AdminReviewNotifications notifications;
     private final ObjectReader reader;
 
-    HexagramInterpretationController(HexagramInterpretations interpretations, Optional<AdminRequestAccess> access, ObjectMapper mapper) {
+    HexagramInterpretationController(HexagramInterpretations interpretations, Optional<AdminRequestAccess> access, ObjectMapper mapper, AdminReviewNotifications notifications) {
+        this.notifications = notifications;
         this.interpretations = interpretations;
         this.access = access;
         this.reader = reader(mapper);
@@ -99,7 +102,9 @@ final class HexagramInterpretationController {
             var action = option(HexagramInterpretations.Action.class, text(body, "action", 16, false, false));
             String note = action == HexagramInterpretations.Action.SUBMIT ? null : text(body, "reviewNote", 500, false, false);
             if (action == HexagramInterpretations.Action.SUBMIT && body.has("reviewNote")) throw invalid();
-            return interpretations.transition(code, expectedVersion(body), action, note, reviewer);
+            var updated = interpretations.transition(code, expectedVersion(body), action, note, reviewer);
+            if (action == HexagramInterpretations.Action.SUBMIT) notifications.submitted(AdminReviewNotifications.Area.INTERPRETATION);
+            return updated;
         });
     }
 

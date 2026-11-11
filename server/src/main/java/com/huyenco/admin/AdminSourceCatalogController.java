@@ -10,6 +10,7 @@ import static com.huyenco.admin.AdminDirectoryHttp.respond;
 import static com.huyenco.common.validation.CmsInput.expectedVersion;
 import static com.huyenco.common.validation.CmsInput.text;
 
+import com.huyenco.websocket.AdminReviewNotifications;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -45,10 +46,12 @@ final class AdminSourceCatalogController {
     private final AdminSourceProposals proposals;
     private final AdminSourceProposalApplications applications;
     private final Optional<AdminRequestAccess> access;
+    private final AdminReviewNotifications notifications;
     private final ObjectReader reader;
 
     AdminSourceCatalogController(AdminSourceCatalog sources, AdminSourceProposals proposals, AdminSourceProposalApplications applications,
-                                 Optional<AdminRequestAccess> access, ObjectMapper mapper) {
+                                 Optional<AdminRequestAccess> access, ObjectMapper mapper, AdminReviewNotifications notifications) {
+        this.notifications = notifications;
         this.sources = sources;
         this.proposals = proposals;
         this.applications = applications;
@@ -125,8 +128,10 @@ final class AdminSourceCatalogController {
             input.fieldNames().forEachRemaining(field -> {
                 if (!fields.contains(field)) throw invalid();
             });
-            return proposals.transition(sourceKind(kind, id), id, expectedVersion(input), action,
+            var updated = proposals.transition(sourceKind(kind, id), id, expectedVersion(input), action,
                     submit ? null : text(input, "note", 500, true, false), admin);
+            if (submit) notifications.submitted(AdminReviewNotifications.Area.SOURCE);
+            return updated;
         });
     }
 

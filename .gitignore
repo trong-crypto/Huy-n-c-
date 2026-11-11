@@ -9,6 +9,7 @@ target/
 *.tsbuildinfo
 work/
 .idea/
+/server/.local/
 .vscode/
 *.iml
 .DS_Store

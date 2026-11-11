@@ -3,6 +3,7 @@ package com.huyenco.chat;
 import com.huyenco.auth.ChatSessionAccess;
 import com.huyenco.auth.ChatSessionAccess.Actor;
 import com.huyenco.auth.ChatSessionAccess.Role;
+import com.huyenco.auth.ChatSessionAccess.SocketIdentity;
 import com.huyenco.chat.ChatConversationLifecycle.State;
 import com.huyenco.common.exception.ContractException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
@@ -29,9 +31,9 @@ public class ChatConversations {
 
     record Creation(Conversation conversation, boolean created) {}
 
-    private static final String COLUMNS = "id, user_account_id, consultant_account_id, created_at, "
+    static final String COLUMNS = "id, user_account_id, consultant_account_id, created_at, "
             + ChatConversationLifecycle.STATE_COLUMNS;
-    private static final RowMapper<Conversation> CONVERSATION = (row, index) -> new Conversation(
+    static final RowMapper<Conversation> CONVERSATION = (row, index) -> new Conversation(
             row.getObject("id", UUID.class), row.getObject("user_account_id", UUID.class),
             row.getObject("consultant_account_id", UUID.class), row.getObject("created_at", OffsetDateTime.class),
             ChatConversationLifecycle.readState(row));
@@ -39,11 +41,13 @@ public class ChatConversations {
     private final ChatSessionAccess sessions;
     private final ChatConsultantProfiles profiles;
     private final JdbcTemplate db;
+    private final ApplicationEventPublisher events;
 
-    ChatConversations(ChatSessionAccess sessions, ChatConsultantProfiles profiles, JdbcTemplate db) {
+    ChatConversations(ChatSessionAccess sessions, ChatConsultantProfiles profiles, JdbcTemplate db, ApplicationEventPublisher events) {
         this.sessions = sessions;
         this.profiles = profiles;
         this.db = db;
+        this.events = events;
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
@@ -55,7 +59,17 @@ public class ChatConversations {
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public Creation create(HttpServletRequest request, UUID consultantId, UUID requestId) {
-        var actor = requireRequester(request);
+        return create(requireRequester(request), consultantId, requestId);
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public Creation create(SocketIdentity identity, UUID consultantId, UUID requestId) {
+        var actor = sessions.requireSocket(identity);
+        if (actor.role() != Role.USER) throw new ContractException("FORBIDDEN", "Chỉ người dùng được tạo yêu cầu tư vấn.");
+        return create(actor, consultantId, requestId);
+    }
+
+    private Creation create(Actor actor, UUID consultantId, UUID requestId) {
         if (requestId == null) {
             throw new ContractException("INVALID_INPUT", "Cần mã yêu cầu tư vấn.");
         }
@@ -87,13 +101,15 @@ public class ChatConversations {
     }
 
     private Optional<Conversation> insert(UUID userId, UUID consultantId, UUID requestId) {
-        return db.query("""
+        var inserted = db.query("""
                 INSERT INTO chat_conversations (id, user_account_id, consultant_account_id, create_request_id)
                 VALUES (?, ?, ?, ?)
                 ON CONFLICT (user_account_id, create_request_id) DO NOTHING
                 RETURNING
                 """ + COLUMNS, CONVERSATION, UUID.randomUUID(), userId, consultantId, requestId)
                 .stream().findFirst();
+        inserted.ifPresent(room -> events.publishEvent(new ChatWorkspaceEvents.Changed(room, true)));
+        return inserted;
     }
 
     private Optional<Conversation> findByRequest(UUID userId, UUID requestId) {
@@ -126,7 +142,15 @@ public class ChatConversations {
 
     @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public Conversation detail(HttpServletRequest request, UUID conversationId) {
-        var actor = sessions.requireRead(request);
+        return detail(sessions.requireRead(request), conversationId);
+    }
+
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    public Conversation detail(SocketIdentity identity, UUID conversationId) {
+        return detail(sessions.requireSocket(identity), conversationId);
+    }
+
+    private Conversation detail(Actor actor, UUID conversationId) {
         return db.query("SELECT " + COLUMNS + " FROM chat_conversations WHERE id = ? AND "
                         + ChatRoomAccess.participantColumn(actor.role()) + " = ?",
                 CONVERSATION, conversationId, actor.accountId()).stream().findFirst()

@@ -9,6 +9,7 @@ import static com.huyenco.admin.AdminDirectoryHttp.respond;
 import static com.huyenco.common.validation.CmsInput.expectedVersion;
 import static com.huyenco.common.validation.CmsInput.text;
 
+import com.huyenco.websocket.AdminReviewNotifications;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -39,9 +40,11 @@ final class AdminHexagramGlossDraftController {
     private static final int MAX_BODY = 8192;
     private final AdminHexagramGlossDrafts drafts;
     private final Optional<AdminRequestAccess> access;
+    private final AdminReviewNotifications notifications;
     private final ObjectReader reader;
 
-    AdminHexagramGlossDraftController(AdminHexagramGlossDrafts drafts, Optional<AdminRequestAccess> access, ObjectMapper mapper) {
+    AdminHexagramGlossDraftController(AdminHexagramGlossDrafts drafts, Optional<AdminRequestAccess> access, ObjectMapper mapper, AdminReviewNotifications notifications) {
+        this.notifications = notifications;
         this.drafts = drafts;
         this.access = access;
         this.reader = AdminDirectoryHttp.reader(mapper);
@@ -93,7 +96,9 @@ final class AdminHexagramGlossDraftController {
             return switch (command) {
                 case "submit-review" -> {
                     JsonNode data = input(request, Set.of("expectedVersion"));
-                    yield drafts.transition(code, expectedVersion(data), AdminHexagramGlossDrafts.Action.SUBMIT, actorId, null, null, null);
+                    var updated = drafts.transition(code, expectedVersion(data), AdminHexagramGlossDrafts.Action.SUBMIT, actorId, null, null, null);
+                    notifications.submitted(AdminReviewNotifications.Area.NAME_GLOSS);
+                    yield updated;
                 }
                 case "return-to-draft" -> {
                     JsonNode data = input(request, Set.of("expectedVersion", "reason"));

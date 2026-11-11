@@ -190,9 +190,22 @@ HistoryItem: `{id,type,title,createdAt,ruleBasis}`. HistoryDetail thêm result s
 
 Chốt bàn giao TV1: REST qua proxy cùng origin `/api/v1`,backend dev `http://localhost:8080`; NEXT_PUBLIC_API_BASE_URL dự kiến `/api/v1`,HUYENCO_API_URL là biến Next.js server-only cho đích nội bộ. Proxy/UI thuộc TV1. H01 đã xác thực cookie ở handshake và gắn owner vào bộ giữ kết quả; không dùng owner làm Principal để tránh phát kết quả lẫn tab. **Client bootstrap session trước WebSocket**,hoặc kết nối lại nếu socket đã mở vô danh. WebSocket không cookie vẫn tính được nhưng không có kết quả thuộc owner để lưu; không nhận owner từ STOMP header. Sau refresh/bootstrap lại lấy CSRF vào bộ nhớ trang,không cần đọc HttpOnly cookie.
 
-### REST Chat tư vấn
+### Chat tư vấn và thông báo thời gian thực
 
-Danh bạ C1/C2, tạo và đọc hội thoại C3–C5, vòng đời C6/C9 và phiên CUSTOMER C10 dùng envelope REST và `Cache-Control: no-store`. C3 lưu khóa gửi lại theo tài khoản trên PostgreSQL V31. Xem [hợp đồng phiên và danh bạ](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md), [hợp đồng tạo, liệt kê, đọc hội thoại](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-02) và [hợp đồng thao tác vòng đời](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md#chat-06).
+Client mở `/api/v1/ws/chat` và SUBSCRIBE `/user/queue/chat/workspace` trước khi SEND tới `/app/chat/workspace`. Kết nối dùng cookie CUSTOMER, Origin hợp lệ và `X-CSRF-Token` trong STOMP CONNECT.
+
+| Lệnh | JSON gửi | Xử lý |
+| --- | --- | --- |
+| `SYNC` | `action` | Sau SUBSCRIBE, Client đợi `READY` trên chính hàng đợi rồi tải snapshot để bù thay đổi. |
+| `CREATE` | `action`, `requestId`, `consultantId` | USER tạo yêu cầu. Gửi lại cùng UUID và tư vấn viên trả về phòng đã tạo. |
+| `ACCEPT`, `DECLINE`, `CANCEL`, `END` | `action`, `requestId`, `conversationId` | Server kiểm người tham gia, vai trò và trạng thái hiện tại trong transaction. |
+| `PRESENCE`, `TYPING` | `action`, `conversationId` | Chỉ phòng ACTIVE. Server gửi tín hiệu sang người bên kia. PRESENCE còn trả `PEER_ONLINE` với trường `online` về phiên gửi. |
+
+Server trả `ACK` gồm `requestId` và `conversation`, hoặc `ERROR` gồm `requestId` và `code`, chỉ về WebSocket gửi lệnh. Server phát `ROOM_CREATED` hoặc `ROOM_CHANGED` cho hai tài khoản tham gia sau khi commit. Payload sự kiện gồm `conversationId`, `status` và `endReason`. Client tải lại danh sách hoặc phòng được thông báo, đồng thời tải lại khi kết nối lại để bắt kịp thay đổi lúc mất mạng. Tin nhắn dùng kênh phòng C7. Sau khi đăng ký kênh phòng, Client gửi frame rỗng đến `/app/chat/rooms/{conversationId}/sync` và đợi `READY` trước khi đọc bù. Client đồng bộ lịch sử qua REST khi mở phòng, kết nối lại hoặc phát hiện thiếu sequence.
+
+Trình duyệt mở `/api/v1/ws/account` để nhận STOMP ERROR `INVALID_SESSION` khi phiên CUSTOMER bị thu hồi. Admin mở `/api/v1/ws/admin` bằng cookie ADMIN và subscribe `/queue/admin/reviews`. Server gửi `REVIEW_PENDING` với `area` là `WEBSITE`, `METHOD_GUIDE`, `SOURCE`, `NAME_GLOSS` hoặc `INTERPRETATION` sau khi lưu thao tác gửi duyệt. Thông báo phục vụ Admin đang kết nối. Các mục chờ duyệt vẫn tra cứu được trong CMS. Server kiểm lại hiệu lực phiên WebSocket theo chu kỳ mặc định 5 giây.
+
+REST phục vụ đăng ký, đăng nhập, đọc phiên, danh bạ, danh sách và chi tiết hội thoại, lịch sử tin nhắn, quản trị nội dung và tra cứu. Các route tạo và đổi trạng thái hội thoại qua REST tiếp tục phục vụ Client cũ và phát cùng sự kiện sau khi ghi thành công. Xem [hợp đồng Chat tư vấn](81-TV2-TV3-CHAT-SESSION-AND-CONSULTANT-DATA.md).
 
 ## 9. Mã lỗi và reason
 

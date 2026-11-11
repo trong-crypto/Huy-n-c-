@@ -1,11 +1,52 @@
-import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
-import { expect, it, vi } from "vitest";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { beforeEach, expect, it, vi } from "vitest";
 import ConsultationPage from "@/app/tu-van/page";
 import ConsultantWorkspacePage from "@/app/tu-van-vien/page";
 
 vi.mock("@/config/client", async importOriginal => {
   const actual = await importOriginal<typeof import("@/config/client")>();
   return { ...actual, CLIENT_CONFIG: { ...actual.CLIENT_CONFIG, accountHistory: true, apiBaseUrl: "/api/v1" } };
+});
+
+const stomp = vi.hoisted(() => ({
+  publish: vi.fn(),
+  subscriptions: new Map<string, (frame: { body: string }) => void>(),
+  connect: vi.fn(),
+  error: (() => {}) as (frame: { headers: { message: string } }) => void,
+}));
+vi.mock("@stomp/stompjs", () => ({
+  Client: class {
+    connected = false;
+    constructor(private options: {
+      onConnect: () => void; onStompError: typeof stomp.error; connectHeaders: Record<string, string>;
+    }) {}
+    activate() {
+      this.connected = true;
+      stomp.connect(this.options.connectHeaders);
+      stomp.error = this.options.onStompError;
+      this.options.onConnect();
+    }
+    deactivate() { this.connected = false; }
+    subscribe(destination: string, receive: (frame: { body: string }) => void) { stomp.subscriptions.set(destination, receive); }
+    publish(command: { destination: string; body?: string }) {
+      if (command.body === JSON.stringify({ action: "SYNC" })) emit({ type: "READY" });
+      else if (command.destination.endsWith("/sync")) {
+        const conversationId = command.destination.split("/").at(-2);
+        stomp.subscriptions.get(`/user/queue/chat/rooms/${conversationId}`)?.({
+          body: JSON.stringify({ type: "READY", conversationId }),
+        });
+      } else stomp.publish(command);
+    }
+  },
+}));
+const workspaceQueue = "/user/queue/chat/workspace";
+function emit(value: object) {
+  stomp.subscriptions.get(workspaceQueue)?.({ body: JSON.stringify(value) });
+}
+beforeEach(() => {
+  stomp.publish.mockReset();
+  stomp.connect.mockClear();
+  stomp.subscriptions.clear();
 });
 
 const userId = "550e8400-e29b-41d4-a716-446655440003";
@@ -25,19 +66,20 @@ const failure = (code: string, status: number) => Response.json({ requestId, sta
   error: { code, message: code, ruleCode: null, reason: null } }, { status });
 
 it("loads the user directory, retries C3 with one UUID, and opens the saved room through C5", async () => {
-  const writes: { body: { consultantId: string; requestId: string }; options: RequestInit }[] = [];
-  const socket = vi.fn();
-  vi.stubGlobal("WebSocket", socket);
-  vi.stubGlobal("fetch", vi.fn(async (path: string, options: RequestInit) => {
+  const writes: { consultantId: string; requestId: string }[] = [];
+  stomp.publish.mockImplementation(({ destination, body }) => {
+    expect(destination).toBe("/app/chat/workspace");
+    const command = JSON.parse(body);
+    writes.push(command);
+    emit(writes.length === 1 ? { type: "ERROR", requestId: command.requestId, code: "DATABASE_UNAVAILABLE" }
+      : { type: "ACK", requestId: command.requestId, conversation: room });
+  });
+  vi.stubGlobal("fetch", vi.fn(async (path: string) => {
     if (path.endsWith("/auth/chat/session")) return success({ accountId: userId, role: "USER", expiresAt: expiresAt() });
     if (path.endsWith("/auth/session")) return success({ account: { id: userId, role: "USER", displayName: "Người dùng" }, expiresAt: expiresAt(), csrfToken });
     if (path.includes("/chat/consultants?")) return success(page([consultant]));
     if (path.includes("/chat/conversations?")) return success(page(writes.length ? [room] : []));
     if (path.endsWith(`/chat/conversations/${conversationId}`)) return success(room);
-    if (path.endsWith("/chat/conversations") && options.method === "POST") {
-      writes.push({ body: JSON.parse(String(options.body)), options });
-      return writes.length === 1 ? failure("DATABASE_UNAVAILABLE", 503) : success(room);
-    }
     throw new Error(`Unexpected request ${path}`);
   }));
 
@@ -45,6 +87,7 @@ it("loads the user directory, retries C3 with one UUID, and opens the saved room
   fireEvent.click(await screen.findByRole("radio", { name: consultant.displayName }));
   expect(screen.queryByRole("link", { name: /Mở không gian tư vấn viên/ })).toBeNull();
   expect(screen.getByRole("link", { name: "Hỏi AI" }).getAttribute("href")).toBe("/tu-van/hoi-ai");
+  await waitFor(() => expect(stomp.subscriptions.has(workspaceQueue)).toBe(true));
   fireEvent.click(screen.getByRole("button", { name: "Gửi yêu cầu tư vấn" }));
   await screen.findByRole("alert", { name: "" });
   expect(screen.getByText("Chưa xác nhận được yêu cầu. Bạn có thể bấm gửi lại.")).toBeTruthy();
@@ -53,30 +96,32 @@ it("loads the user directory, retries C3 with one UUID, and opens the saved room
   expect(await panel.findByText("Chờ tư vấn viên")).toBeTruthy();
   expect(await screen.findByRole("button", { name: /^Tư vấn viên An ·/ })).toBeTruthy();
   expect(writes).toHaveLength(2);
-  expect(writes[0].body).toEqual({ consultantId, requestId: expect.stringMatching(/^[0-9a-f-]{36}$/i) });
-  expect(writes[0].body).toEqual(writes[1].body);
-  expect(writes[1].options).toMatchObject({ credentials: "same-origin", cache: "no-store", headers: {
-    "X-HuyenCo-Request": "1", "X-CSRF-Token": csrfToken,
-  } });
+  expect(writes[0]).toEqual({ action: "CREATE", consultantId, requestId: expect.stringMatching(/^[0-9a-f-]{36}$/i) });
+  expect(writes[0]).toEqual(writes[1]);
+  expect(stomp.connect).toHaveBeenCalledWith({ "X-CSRF-Token": csrfToken });
   expect((panel.getByRole("button", { name: "Gửi tin nhắn" }) as HTMLButtonElement).disabled).toBe(true);
-  expect(socket).not.toHaveBeenCalled();
 });
 
-it("opens assigned rooms for a consultant and removes room data after session revocation", async () => {
-  let revoked = false;
+it("pushes new assigned rooms to a consultant and clears their data on session revocation", async () => {
+  let assigned = false;
   const fetch = vi.fn(async (path: string) => {
     if (path.endsWith("/auth/chat/session")) return success({ accountId: consultantId, role: "CONSULTANT", expiresAt: expiresAt() });
-    if (path.includes("/chat/conversations?")) return success(page([room]));
-    if (path.endsWith(`/chat/conversations/${conversationId}`)) return revoked ? failure("INVALID_SESSION", 401) : success(room);
+    if (path.endsWith("/auth/session")) return success({ account: { id: consultantId, role: "CONSULTANT", displayName: "Tư vấn viên" },
+      expiresAt: expiresAt(), csrfToken });
+    if (path.includes("/chat/conversations?")) return success(page(assigned ? [room] : []));
+    if (path.endsWith(`/chat/conversations/${conversationId}`)) return success(room);
     throw new Error(`Unexpected request ${path}`);
   });
   vi.stubGlobal("fetch", fetch);
   render(<ConsultantWorkspacePage />);
+  await screen.findByText("Chưa có cuộc trò chuyện.");
+  await waitFor(() => expect(stomp.subscriptions.has(workspaceQueue)).toBe(true));
+  assigned = true;
+  act(() => emit({ type: "ROOM_CREATED", conversationId }));
   fireEvent.click(await screen.findByRole("button", { name: /^Hội thoại ·/ }));
   const panel = within(screen.getByRole("region", { name: "Khung trò chuyện" }));
   await panel.findByText("Chờ tư vấn viên");
-  revoked = true;
-  fireEvent.click(panel.getByRole("button", { name: "Tải lại phòng" }));
+  act(() => stomp.error({ headers: { message: "INVALID_SESSION" } }));
   expect(await screen.findByRole("link", { name: "Đăng nhập để tiếp tục" })).toBeTruthy();
   expect(screen.queryByRole("button", { name: /^Hội thoại ·/ })).toBeNull();
   expect(fetch.mock.calls.some(([path]) => path.includes("/chat/consultants"))).toBe(false);
@@ -104,22 +149,20 @@ it("lets a consultant accept a pending room and end the active room using the cu
   const writes: string[] = [];
   let current = { ...room, startedAt: null as string | null, endedAt: null as string | null,
     endedByAccountId: null as string | null, endReason: null as string | null };
-  vi.stubGlobal("fetch", vi.fn(async (path: string, options: RequestInit) => {
+  stomp.publish.mockImplementation(({ body }) => {
+    const { action, requestId: id } = JSON.parse(body);
+    if (!id) return;
+    writes.push(action);
+    current = action === "ACCEPT" ? { ...current, status: "ACTIVE", startedAt }
+      : { ...current, status: "ENDED", endedAt, endReason: "COMPLETED", endedByAccountId: consultantId };
+    emit({ type: "ACK", requestId: id, conversation: current });
+  });
+  vi.stubGlobal("fetch", vi.fn(async (path: string) => {
     if (path.endsWith("/auth/chat/session")) return success({ accountId: consultantId, role: "CONSULTANT", expiresAt: expiresAt() });
     if (path.endsWith("/auth/session")) return success({ account: { id: consultantId, role: "CONSULTANT", displayName: "Tư vấn viên" },
       expiresAt: expiresAt(), csrfToken });
     if (path.includes("/chat/conversations?")) return success(page([current]));
     if (path.endsWith(`/chat/conversations/${conversationId}`)) return success(current);
-    if (path.endsWith(`/chat/conversations/${conversationId}/transition`)) {
-      expect(options).toMatchObject({ method: "POST", credentials: "same-origin", headers: {
-        "X-HuyenCo-Request": "1", "X-CSRF-Token": csrfToken,
-      } });
-      const { action } = JSON.parse(String(options.body));
-      writes.push(action);
-      current = action === "ACCEPT" ? { ...current, status: "ACTIVE", startedAt }
-        : { ...current, status: "ENDED", endedAt, endReason: "COMPLETED", endedByAccountId: consultantId };
-      return success(current);
-    }
     throw new Error(`Unexpected request ${path}`);
   }));
   render(<ConsultantWorkspacePage />);
@@ -137,18 +180,20 @@ it("lets a consultant accept a pending room and end the active room using the cu
 
 it("refreshes the user room after a conflicting cancel and offers only active-room actions", async () => {
   let current = { ...room };
-  vi.stubGlobal("fetch", vi.fn(async (path: string, options: RequestInit) => {
+  stomp.publish.mockImplementation(({ body }) => {
+    const { action, requestId: id } = JSON.parse(body);
+    if (!id) return;
+    expect(action).toBe("CANCEL");
+    current = { ...current, status: "ACTIVE" };
+    emit({ type: "ERROR", requestId: id, code: "INVALID_TRANSITION" });
+  });
+  vi.stubGlobal("fetch", vi.fn(async (path: string) => {
     if (path.endsWith("/auth/chat/session")) return success({ accountId: userId, role: "USER", expiresAt: expiresAt() });
     if (path.endsWith("/auth/session")) return success({ account: { id: userId, role: "USER", displayName: "Người dùng" },
       expiresAt: expiresAt(), csrfToken });
     if (path.includes("/chat/consultants?")) return success(page([]));
     if (path.includes("/chat/conversations?")) return success(page([current]));
     if (path.endsWith(`/chat/conversations/${conversationId}`)) return success(current);
-    if (path.endsWith(`/chat/conversations/${conversationId}/transition`)) {
-      expect(JSON.parse(String(options.body))).toEqual({ action: "CANCEL" });
-      current = { ...current, status: "ACTIVE" };
-      return failure("INVALID_TRANSITION", 409);
-    }
     throw new Error(`Unexpected request ${path}`);
   }));
   render(<ConsultationPage />);
@@ -158,4 +203,43 @@ it("refreshes the user room after a conflicting cancel and offers only active-ro
   expect(await panel.findByText(/Trạng thái hội thoại đã thay đổi/)).toBeTruthy();
   expect(await panel.findByRole("button", { name: "Kết thúc cuộc trò chuyện" })).toBeTruthy();
   expect(panel.queryByRole("button", { name: "Hủy yêu cầu" })).toBeNull();
+});
+
+it("shows room presence and typing and updates the selected room when the other participant ends it", async () => {
+  let current = { ...room, status: "ACTIVE", startedAt: "2026-11-09T03:01:00Z" as string | null,
+    endedAt: null as string | null, endedByAccountId: null as string | null, endReason: null as string | null };
+  vi.stubGlobal("fetch", vi.fn(async (path: string) => {
+    if (path.endsWith("/auth/chat/session")) return success({ accountId: userId, role: "USER", expiresAt: expiresAt() });
+    if (path.endsWith("/auth/session")) return success({ account: { id: userId, role: "USER", displayName: "Người dùng" },
+      expiresAt: expiresAt(), csrfToken });
+    if (path.includes("/chat/consultants?")) return success(page([]));
+    if (path.includes("/chat/conversations?")) return success(page([current]));
+    if (path.endsWith(`/chat/conversations/${conversationId}`)) return success(current);
+    if (path.includes("/messages?")) return success({ items: [], nextAfterSequence: "0", hasMore: false });
+    throw new Error(`Unexpected request ${path}`);
+  }));
+  render(<ConsultationPage />);
+  fireEvent.click(await screen.findByRole("button", { name: /^Hội thoại ·/ }));
+  const panel = within(screen.getByRole("region", { name: "Khung trò chuyện" }));
+  await panel.findByText("Đang tư vấn");
+  await waitFor(() => expect(stomp.publish).toHaveBeenCalledWith(expect.objectContaining({
+    body: JSON.stringify({ action: "PRESENCE", conversationId }),
+  })));
+  act(() => emit({ type: "TYPING", conversationId: consultantId }));
+  expect(panel.queryByText("Người bên kia đang nhập tin nhắn…")).toBeNull();
+  act(() => {
+    emit({ type: "PEER_ONLINE", conversationId, online: true });
+    emit({ type: "TYPING", conversationId });
+  });
+  expect(panel.getByText("Người bên kia đang trực tuyến.")).toBeTruthy();
+  expect(panel.getByText("Người bên kia đang nhập tin nhắn…")).toBeTruthy();
+  fireEvent.change(panel.getByRole("textbox", { name: "Tin nhắn" }), { target: { value: "Chào bạn" } });
+  expect(stomp.publish).toHaveBeenCalledWith(expect.objectContaining({
+    body: JSON.stringify({ action: "TYPING", conversationId }),
+  }));
+  current = { ...current, status: "ENDED", endedAt: "2026-11-09T03:02:00Z",
+    endedByAccountId: consultantId, endReason: "COMPLETED" };
+  act(() => emit({ type: "ROOM_CHANGED", conversationId }));
+  expect(await panel.findByText("Phiên tư vấn đã kết thúc.")).toBeTruthy();
+  expect(panel.queryByText("Người bên kia đang nhập tin nhắn…")).toBeNull();
 });

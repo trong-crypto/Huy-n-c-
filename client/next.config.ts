@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
       ...(process.env.NEXT_PUBLIC_ACCOUNT_HISTORY === "1" ? [
         { source: "/api/v1/ws", destination: `${server}/api/v1/ws` },
         { source: "/api/v1/ws/chat", destination: `${server}/api/v1/ws/chat` },
+        { source: "/api/v1/ws/account", destination: `${server}/api/v1/ws/account` },
         { source: "/api/v1/chat/consultants/:path*", destination: `${server}/api/v1/chat/consultants/:path*` },
         { source: "/api/v1/chat/conversations/:path*", destination: `${server}/api/v1/chat/conversations/:path*` },
         { source: "/api/v1/ai/:path*", destination: `${server}/api/v1/ai/:path*` },
@@ -21,6 +22,7 @@ const nextConfig: NextConfig = {
         || process.env.NEXT_PUBLIC_ADMIN_SOURCE_CATALOG === "1" || process.env.NEXT_PUBLIC_WEBSITE_CONTENT === "1"
         || process.env.NEXT_PUBLIC_HEXAGRAM_INTERPRETATIONS === "1" ? [
         { source: "/api/v1/auth/:path*", destination: `${server}/api/v1/auth/:path*` },
+        { source: "/api/v1/ws/admin", destination: `${server}/api/v1/ws/admin` },
       ] : []),
       ...(process.env.NEXT_PUBLIC_WEBSITE_CONTENT === "1" ? [
         { source: "/api/v1/admin/website-content/:path*", destination: `${server}/api/v1/admin/website-content/:path*` },

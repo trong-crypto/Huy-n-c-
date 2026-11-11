@@ -6,9 +6,9 @@ import { CLIENT_CONFIG } from "@/config/client";
 import { readChatCsrf, readChatSession, readRoomMessages } from "@/services/rest/chat";
 import { RestError } from "@/services/rest/transport";
 import { readChatEvent, type ChatSend, type ChatSession, type Conversation, type RoomMessage } from "@/types/chatContract";
+import { isRecord } from "@/types/contractValidation";
 import type { ChatConnection, ChatMessage, ChatMessaging } from "./chatState";
 
-const SYNC_INTERVAL_MS = 10_000;
 const MAX_PAGES_PER_SYNC = 10;
 type Pending = { id: string; text: string };
 type View = Pick<ChatMessaging, "delivery" | "acknowledgedId" | "historyStatus" | "notice"> & {
@@ -43,10 +43,12 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
     let client: Client | null = null;
     let connecting = false;
     let syncing = false;
+    let syncRequested = false;
     let blocked = false;
     let pending: Pending | null = null;
     let reconnectTimer: ReturnType<typeof setTimeout> | undefined;
     let ackTimer: ReturnType<typeof setTimeout> | undefined;
+    let readyTimer: ReturnType<typeof setTimeout> | undefined;
     const alive = () => !signal.aborted && !blocked;
 
     function update(patch: Partial<View>) {
@@ -79,7 +81,8 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
     }
 
     async function synchronize() {
-      if (!alive() || syncing) return;
+      if (!alive()) return;
+      if (syncing) { syncRequested = true; return; }
       syncing = true;
       try {
         const currentSession = await readChatSession(signal);
@@ -92,12 +95,17 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
           cursor = page.nextAfterSequence;
           merge(page.items);
           if (!page.hasMore) break;
+          if (index === MAX_PAGES_PER_SYNC - 1) syncRequested = true;
         }
         if (alive()) update({ historyStatus: "ready" });
       } catch (error) {
         if (alive() && !failAccess(error)) update({ historyStatus: "error" });
       } finally {
         syncing = false;
+        if (syncRequested) {
+          syncRequested = false;
+          void synchronize();
+        }
       }
     }
 
@@ -109,10 +117,17 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
     function receive(body: string) {
       let value: unknown;
       try { value = JSON.parse(body); } catch { return; }
+      if (isRecord(value) && value.type === "READY" && value.conversationId === roomId) {
+        clearTimeout(readyTimer);
+        update({ connection: "connected" });
+        void synchronize();
+        return;
+      }
       const event = readChatEvent(value, activeRoom);
       if (!event) return;
       if (event.type === "MESSAGE") {
         merge([event]);
+        checkSequence(event.sequence);
         return;
       }
       if (!pending || event.clientMessageId !== pending.id) return;
@@ -122,6 +137,7 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
         pending = null;
         merge([{ conversationId: roomId, messageId: event.messageId, senderAccountId: session.accountId,
           sequence: event.sequence, text: sent.text, createdAt: event.createdAt }]);
+        checkSequence(event.sequence);
         update({ delivery: "idle", acknowledgedId: sent.id, notice: undefined });
       } else {
         clearTimeout(ackTimer);
@@ -133,6 +149,12 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
             : event.code === "ROOM_NOT_ACTIVE" ? "Phòng hiện không nhận tin mới." : "Máy chủ từ chối tin nhắn." });
         }
       }
+    }
+
+    function checkSequence(sequence: string) {
+      const next = BigInt(cursor) + BigInt(1);
+      if (BigInt(sequence) > next) void synchronize();
+      else if (!syncing && BigInt(sequence) === next) cursor = sequence;
     }
 
     function reconnect() {
@@ -157,8 +179,8 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
               socket.subscribe(`/user/queue/chat/rooms/${roomId}`, frame => {
                 if (alive() && client === socket) receive(frame.body);
               });
-              update({ connection: "connected" });
-              void synchronize();
+              readyTimer = setTimeout(disconnect, CLIENT_CONFIG.requestTimeoutMs);
+              socket.publish({ destination: `/app/chat/rooms/${roomId}/sync` });
             } catch {
               disconnect();
             }
@@ -168,6 +190,7 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
         });
         function disconnect() {
           if (!alive() || client !== socket) return;
+          clearTimeout(readyTimer);
           client = null;
           void socket.deactivate();
           update({ connection: "disconnected" });
@@ -188,7 +211,8 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
 
     commands.current = {
       send(text) {
-        if (!alive() || !client?.connected || view.delivery === "waiting" || pending && pending.text !== text) return;
+        if (!alive() || !client?.connected || view.connection !== "connected" || view.delivery === "waiting"
+            || pending && pending.text !== text) return;
         pending ??= { id: chatRequestId(), text };
         update({ delivery: "waiting", notice: undefined });
         ackTimer = setTimeout(deliveryUnknown, CLIENT_CONFIG.requestTimeoutMs);
@@ -210,12 +234,11 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
     update({});
     void synchronize();
     void connect();
-    const poll = setInterval(() => void synchronize(), SYNC_INTERVAL_MS);
     return () => {
       controller.abort();
-      clearInterval(poll);
       clearTimeout(reconnectTimer);
       clearTimeout(ackTimer);
+      clearTimeout(readyTimer);
       commands.current = null;
       void client?.deactivate();
     };

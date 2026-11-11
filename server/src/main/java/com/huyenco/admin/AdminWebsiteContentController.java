@@ -3,6 +3,7 @@ package com.huyenco.admin;
 import static com.huyenco.admin.AdminDirectoryHttp.*;
 import static com.huyenco.common.validation.CmsInput.text;
 
+import com.huyenco.websocket.AdminReviewNotifications;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -34,9 +35,11 @@ final class AdminWebsiteContentController {
     private static final Logger LOG = LoggerFactory.getLogger(AdminWebsiteContentController.class);
     private final AdminWebsiteContent service;
     private final Optional<AdminRequestAccess> access;
+    private final AdminReviewNotifications notifications;
     private final ObjectReader reader;
 
-    AdminWebsiteContentController(AdminWebsiteContent service, Optional<AdminRequestAccess> access, ObjectMapper mapper) {
+    AdminWebsiteContentController(AdminWebsiteContent service, Optional<AdminRequestAccess> access, ObjectMapper mapper, AdminReviewNotifications notifications) {
+        this.notifications = notifications;
         this.service = service;
         this.access = access;
         this.reader = reader(mapper);
@@ -96,8 +99,10 @@ final class AdminWebsiteContentController {
             };
             boolean returning = action == Action.RETURN_TO_DRAFT;
             JsonNode input = input(request, returning ? Set.of("expectedVersion", "reason") : Set.of("expectedVersion"));
-            return service.update(option(Section.class, sectionCode), expectedVersion(input), action, null,
+            var updated = service.update(option(Section.class, sectionCode), expectedVersion(input), action, null,
                     returning ? text(input, "reason", 500, true, false) : null, admin);
+            if (action == Action.SUBMIT_REVIEW) notifications.submitted(AdminReviewNotifications.Area.WEBSITE);
+            return updated;
         });
     }
 

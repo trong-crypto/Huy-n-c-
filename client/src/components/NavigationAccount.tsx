@@ -9,6 +9,7 @@ import { getCustomerSession, logoutCustomer } from "@/services/rest/customerAuth
 import { RestError } from "@/services/rest/transport";
 import { useLookup } from "@/services/rest/useLookup";
 import { useSession } from "@/services/session/SessionProvider";
+import { useAuthenticatedSocket } from "@/services/websocket/useAuthenticatedSocket";
 
 function GuestLinks({ pathname }: { pathname: string }) {
   return <>
@@ -38,12 +39,31 @@ function CustomerAccount({ pathname }: { pathname: string }) {
   const [signingOut, setSigningOut] = useState(false);
   const [signedOut, setSignedOut] = useState(false);
   const [logoutFailed, setLogoutFailed] = useState(false);
+  const [revokedCsrf, setRevokedCsrf] = useState<string>();
   const logoutRequest = useRef<AbortController | null>(null);
   const refresh = useCallback(() => {
     if (logoutRequest.current) return;
     setSignedOut(false);
     setRevision(value => value + 1);
   }, []);
+  const accountId = session?.account.id;
+  const role = session?.account.role;
+  const csrf = session?.csrfToken;
+  const revoked = !!csrf && revokedCsrf === csrf;
+  const credentials = useCallback(async (signal: AbortSignal, reconnecting: boolean) => {
+    if (csrf && !reconnecting) return csrf;
+    const current = await getCustomerSession(signal);
+    if (current.account.id !== accountId || current.account.role !== role) throw new RestError("INVALID_SESSION");
+    return current.csrfToken;
+  }, [accountId, role, csrf]);
+  useAuthenticatedSocket({
+    endpoint: "account",
+    credentials: accountId && !signedOut && !revoked ? credentials : null,
+    onAccessError: code => {
+      setRevokedCsrf(csrf);
+      historySession?.invalidate(new RestError(code));
+    },
+  });
 
   useEffect(() => {
     function restore(event: PageTransitionEvent) {
@@ -94,7 +114,7 @@ function CustomerAccount({ pathname }: { pathname: string }) {
     router.replace(customerAuthRoutes.login);
   }
 
-  if (signedOut || invalidSession) {
+  if (signedOut || invalidSession || revoked) {
     return <GuestLinks pathname={pathname} />;
   }
   return <>

@@ -272,7 +272,7 @@ UUID, tham số lặp, tham số lạ, kích thước hoặc cursor sai trả `4
 <a id="chat-08"></a>
 ## CHAT-08 · Kết nối lại và đồng bộ tin
 
-Khi mở phòng đang hoạt động, Client tải lịch sử bằng C8 và đăng ký hàng đợi của phòng qua C7. Mỗi lần mở lại socket đều kiểm C10 và lấy CSRF từ phiên CUSTOMER. Client đọc bù sau khi đăng ký và kiểm lại lịch sử mỗi 10 giây trong lúc mở phòng, kể cả khi socket tạm mất kết nối. Lượt định kỳ xử lý cả trường hợp tin đến trong lúc subscription chưa được broker đăng ký. Phòng đã kết thúc chỉ dùng C8.
+Khi mở phòng đang hoạt động, Client tải lịch sử bằng C8 và đăng ký hàng đợi của phòng qua C7. Mỗi lần mở lại socket đều kiểm C10 và lấy CSRF từ phiên CUSTOMER. Client gửi frame rỗng tới `/app/chat/rooms/{conversationId}/sync` sau SUBSCRIBE và đọc bù khi nhận `READY`. Client cũng đọc bù nếu nhận sequence vượt quá tin kế tiếp. Phòng đã kết thúc chỉ dùng C8. Xem [hợp đồng WebSocket hiện hành](02-API-CONTRACT.md#chat-tư-vấn-và-thông-báo-thời-gian-thực).
 
 Chỉ kết quả C8 tiến cursor đọc bù. Tin WebSocket và ACK hợp nhất theo `messageId` rồi sắp xếp theo `sequence`, giữ chính xác cả số thứ tự lớn. Khi chưa có ACK, Client giữ bản nháp trong trang và báo trạng thái chưa xác định. Người dùng có thể chủ động gửi lại cùng nội dung và cùng mã. Client không tự gửi lại. Đổi phòng, hết phiên hoặc mất quyền sẽ hủy các yêu cầu đang chạy và dọn dữ liệu của phòng cũ khỏi màn hình.
 

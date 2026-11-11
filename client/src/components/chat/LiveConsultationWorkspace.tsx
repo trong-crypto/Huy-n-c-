@@ -2,13 +2,14 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CLIENT_CONFIG } from "@/config/client";
-import { createConversation, listChatConsultants, listConversations, readChatSession, readConversation, transitionConversation } from "@/services/rest/chat";
+import { listChatConsultants, listConversations, readChatSession, readConversation } from "@/services/rest/chat";
 import { RestError } from "@/services/rest/transport";
 import type { Page } from "@/types/contract";
 import type { ChatSession, Conversation, ConversationAction } from "@/types/chatContract";
 import { ConsultationWorkspace } from "./ConsultationWorkspace";
 import type { ChatAudience, ChatRoom } from "./chatState";
 import { chatRequestId, useRoomChat } from "./useRoomChat";
+import { useConsultationSocket } from "./useConsultationSocket";
 import styles from "./chat.module.css";
 
 type Loader<T> = (signal: AbortSignal) => Promise<T>;
@@ -22,7 +23,7 @@ const accessFailure = (code: string): AccessFailure | null => {
   return null;
 };
 
-function useResource<T>(load: Loader<T> | null, onError?: (code: string) => void): Resource<T> {
+function useResource<T>(load: Loader<T> | null, onError?: (code: string) => void, keepData = false): Resource<T> {
   const [revision, setRevision] = useState(0);
   const [result, setResult] = useState<{ load: Loader<T>; revision: number; data?: T; error?: string }>();
   const reload = useCallback(() => setRevision(value => value + 1), []);
@@ -33,7 +34,10 @@ function useResource<T>(load: Loader<T> | null, onError?: (code: string) => void
     async function run(loader: Loader<T>) {
       try {
         const data = await loader(signal);
-        if (!signal.aborted) setResult({ load: loader, revision, data });
+        if (!signal.aborted) setResult(previous => {
+          const same = keepData && previous?.load === loader && JSON.stringify(previous.data) === JSON.stringify(data);
+          return { load: loader, revision, data: same ? previous.data : data };
+        });
       } catch (error) {
         if (signal.aborted) return;
         const code = errorCode(error);
@@ -43,9 +47,10 @@ function useResource<T>(load: Loader<T> | null, onError?: (code: string) => void
     }
     void run(load);
     return () => controller.abort();
-  }, [load, onError, revision]);
-  const current = result?.load === load && result.revision === revision ? result : undefined;
-  return { data: current?.data, error: current?.error, busy: !!load && !current, reload };
+  }, [load, onError, revision, keepData]);
+  const current = result?.load === load ? result : undefined;
+  const busy = !!load && current?.revision !== revision;
+  return { data: keepData || !busy ? current?.data : undefined, error: busy ? undefined : current?.error, busy, reload };
 }
 
 export function LiveConsultationWorkspace({ audience }: { audience: ChatAudience }) {
@@ -101,8 +106,8 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
   const loadConversations = useCallback((signal: AbortSignal) => listConversations(session, conversationPage, signal), [session, conversationPage]);
   const loadRoom = useCallback((signal: AbortSignal) => readConversation(session, roomId!, signal), [session, roomId]);
   const directory = useResource(audience === "user" ? loadDirectory : null, onAuthError);
-  const conversations = useResource(loadConversations, onAuthError);
-  const detail = useResource(roomId ? loadRoom : null, onAuthError);
+  const conversations = useResource(loadConversations, onAuthError, true);
+  const detail = useResource(roomId ? loadRoom : null, onAuthError, true);
   const onChatAccessError = useCallback((code: string) => {
     if (code === "NOT_FOUND") {
       setRoomId(null);
@@ -112,11 +117,16 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     }
   }, [onAuthError]);
   const chat = useRoomChat(session, detail.data, onChatAccessError);
+  const workspace = useConsultationSocket(session, detail.data?.status === "ACTIVE" ? detail.data.conversationId : undefined,
+    changedRoom => {
+      conversations.reload();
+      if (roomId && (!changedRoom || roomId === changedRoom)) detail.reload();
+    }, onAuthError);
   const consultants = directory.data?.items;
   const consultantId = consultants?.find(item => item.consultantId === selectedConsultant)?.consultantId ?? "";
 
   async function create() {
-    if (!consultantId || pending.current) return;
+    if (!consultantId || !workspace.connected || pending.current) return;
     const controller = new AbortController();
     pending.current = controller;
     setSending(true);
@@ -124,7 +134,7 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     try {
       const requestId = requestIds.current.get(consultantId) ?? chatRequestId();
       requestIds.current.set(consultantId, requestId);
-      const created = await createConversation(session, consultantId, requestId, controller.signal);
+      const created = await workspace.command({ action: "CREATE", consultantId, requestId }, controller.signal);
       if (controller.signal.aborted) return;
       requestIds.current.delete(consultantId);
       setSelectedConsultant("");
@@ -157,13 +167,13 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
   }
 
   async function changeRoom(action: ConversationAction) {
-    if (!detail.data || pending.current) return;
+    if (!detail.data || !workspace.connected || pending.current) return;
     const controller = new AbortController();
     pending.current = controller;
     setTransitioning(true);
     setRoomNotice("");
     try {
-      await transitionConversation(session, detail.data.conversationId, action, controller.signal);
+      await workspace.command({ action, conversationId: detail.data.conversationId, requestId: chatRequestId() }, controller.signal);
     } catch (error) {
       if (controller.signal.aborted) return;
       const code = errorCode(error);
@@ -190,14 +200,16 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
   }
 
   const room: ChatRoom | null = detail.data ? { ...roomSummary(detail.data), history: chat.messages,
+    peerPresent: workspace.peerPresent, peerTyping: workspace.peerTyping, peerOnline: workspace.peerOnline,
     ending: detail.data.endReason ? endingLabels[detail.data.endReason] : undefined } : null;
   const actions: readonly ConversationAction[] = room?.status === "pending" ? pendingActions[audience]
     : room?.status === "active" ? ["END"] : [];
   return <ConsultationWorkspace audience={audience} access={{ status: "authorized", accessKey: session.accountId,
     connection: chat.connection, room, conversations: conversations.data?.items.map(roomSummary),
     consultants: consultants?.map(item => ({ id: item.consultantId, name: item.displayName, profile: item.summary ?? undefined })),
-  }} messaging={chat.messaging} retry={chat.retry} controls={{
+  }} messaging={chat.messaging && { ...chat.messaging, notifyTyping: workspace.notifyTyping }} retry={chat.retry} controls={{
     consultantId, selectConsultant: id => { setSelectedConsultant(id); setSendNotice(""); }, create, sending, transitioning, roomId,
+    ready: workspace.connected,
     openRoom: id => { setRoomId(id); setRoomNotice(""); detail.reload(); },
     directoryStatus: <>
       <PageStatus resource={directory} label="danh bạ tư vấn viên" changePage={setDirectoryPage} />
@@ -205,6 +217,7 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     </>,
     listStatus: <PageStatus resource={conversations} label="danh sách hội thoại" changePage={setConversationPage} />,
     roomStatus: <>
+      {!workspace.connected && <p role="status">Đang kết nối để gửi yêu cầu và cập nhật hội thoại…</p>}
       {transitioning && <p role="status">Đang cập nhật hội thoại…</p>}
       {roomNotice && <p role="alert">{roomNotice}</p>}
       {roomId && detail.busy && <p role="status">Đang mở hội thoại…</p>}
@@ -214,7 +227,7 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     </>,
     lifecycleControls: actions.length > 0 && <div className={styles.actions} aria-label="Thao tác hội thoại">
       {actions.map(action => <button key={action} type="button" className="secondary-button"
-        disabled={sending || transitioning} onClick={() => void changeRoom(action)}>{actionLabels[action]}</button>)}
+        disabled={sending || transitioning || !workspace.connected} onClick={() => void changeRoom(action)}>{actionLabels[action]}</button>)}
     </div>,
   }} />;
 }

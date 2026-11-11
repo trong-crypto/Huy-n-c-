@@ -9,6 +9,7 @@ export type ChatMessaging = {
   acknowledgedId?: string;
   notice?: string;
   send: (text: string) => void;
+  notifyTyping?: () => void;
 };
 export type ChatRoom = {
   id: string;
@@ -16,6 +17,9 @@ export type ChatRoom = {
   status: "pending" | "active" | "ended";
   history: readonly ChatMessage[];
   ending?: string;
+  peerPresent?: boolean;
+  peerTyping?: boolean;
+  peerOnline?: boolean;
 };
 
 // View model shared by the REST workspace and the message panel.

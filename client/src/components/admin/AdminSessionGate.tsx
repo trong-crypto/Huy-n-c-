@@ -6,6 +6,8 @@ import { useLookup } from "@/services/rest/useLookup";
 import { logoutAdmin, methodGuideError, readAdminSession, type AdminSession } from "@/services/rest/methodGuides";
 import { RestError } from "@/services/rest/transport";
 import { passwordChangeRoutes } from "@/config/customerAuthRoutes";
+import { useAuthenticatedSocket } from "@/services/websocket/useAuthenticatedSocket";
+import { isRecord } from "@/types/contractValidation";
 import styles from "./admin.module.css";
 
 const AdminContext = createContext<{ session: AdminSession; handleError: (error: unknown) => void } | null>(null);
@@ -34,7 +36,47 @@ export function AdminSessionGate({ children }: { children: ReactNode }) {
       {!loginRequired && <button type="button" className="secondary-button" onClick={state.retry}>Thử lại</button>}
     </main>;
   }
-  return <AdminContext.Provider value={{ session, handleError }}>{children}</AdminContext.Provider>;
+  return <AdminContext.Provider value={{ session, handleError }}>
+    <AdminReviewNotices session={session} handleError={handleError} />
+    {children}
+  </AdminContext.Provider>;
+}
+
+const reviewAreas = {
+  WEBSITE: { title: "Nội dung website", href: "/admin/website" },
+  METHOD_GUIDE: { title: "Hướng dẫn phương pháp", href: "/admin/methods" },
+  SOURCE: { title: "Dữ liệu nguồn", href: "/admin/sources" },
+  NAME_GLOSS: { title: "Nghĩa tên quẻ", href: "/admin/readings" },
+  INTERPRETATION: { title: "Lời giải nghĩa quẻ", href: "/admin/readings" },
+};
+
+function AdminReviewNotices({ session, handleError }: { session: AdminSession; handleError: (error: unknown) => void }) {
+  const accountId = session.account.id;
+  const csrf = session.csrfToken;
+  const [areas, setAreas] = useState<(keyof typeof reviewAreas)[]>([]);
+  const credentials = useCallback(async (signal: AbortSignal, reconnecting: boolean) => {
+    if (!reconnecting) return csrf;
+    const current = await readAdminSession(signal);
+    if (current.account.id !== accountId) throw new RestError("INVALID_SESSION");
+    return current.csrfToken;
+  }, [accountId, csrf]);
+  useAuthenticatedSocket({
+    endpoint: "admin", destination: "/queue/admin/reviews", credentials,
+    onAccessError: () => handleError(new RestError("INVALID_SESSION")),
+    onMessage(body) {
+      let event: unknown;
+      try { event = JSON.parse(body); } catch { return; }
+      if (!isRecord(event) || event.type !== "REVIEW_PENDING" || typeof event.area !== "string" || !Object.hasOwn(reviewAreas, event.area)) return;
+      const area = event.area as keyof typeof reviewAreas;
+      setAreas(previous => previous.includes(area) ? previous : [...previous, area]);
+    },
+  });
+  if (areas.length === 0) return null;
+  return <aside className={styles.notice} aria-label="Thông báo chờ duyệt">
+    <p role="status">Có nội dung mới được gửi duyệt.</p>
+    <ul>{areas.map(area => <li key={area}><a className={styles.textLink} href={reviewAreas[area].href}>{reviewAreas[area].title}</a></li>)}</ul>
+    <button className="secondary-button" type="button" onClick={() => setAreas([])}>Đóng thông báo</button>
+  </aside>;
 }
 
 export function AdminSessionActions() {

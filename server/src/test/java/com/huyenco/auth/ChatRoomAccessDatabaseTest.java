@@ -22,6 +22,7 @@ import com.huyenco.chat.ChatMessageRetention;
 import com.huyenco.chat.ChatRoomAccess;
 import com.huyenco.common.exception.ContractException;
 import com.huyenco.websocket.ChatSocketSecurity;
+import com.huyenco.websocket.AdminReviewNotifications;
 import jakarta.servlet.http.Cookie;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -51,6 +52,7 @@ import org.springframework.messaging.SubscribableChannel;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -91,6 +93,8 @@ class ChatRoomAccessDatabaseTest {
     @Autowired ObjectMapper json;
     @Autowired @Qualifier("clientInboundChannel") SubscribableChannel inbound;
     @Autowired SimpMessagingTemplate broker;
+    @Autowired SimpUserRegistry socketUsers;
+    @Autowired AdminReviewNotifications reviewNotices;
     @LocalServerPort int port;
     private final String password = UUID.randomUUID().toString();
 
@@ -336,9 +340,13 @@ class ChatRoomAccessDatabaseTest {
         UUID room = room(user.id(), consultant.id());
         var userRequest = request(user, AccountAuthService.Realm.CUSTOMER);
         var consultantRequest = request(consultant, AccountAuthService.Realm.CUSTOMER);
-        try (var customer = connected(userRequest); var advisor = connected(consultantRequest)) {
+        try (var customer = connected(userRequest); var advisor = connected(consultantRequest);
+             var anotherCustomerTab = connected(userRequest)) {
             subscribeToMessages(customer, user.id(), room);
             subscribeToMessages(advisor, consultant.id(), room);
+            subscribeToMessages(anotherCustomerTab, user.id(), room);
+            customer.send("SEND\ndestination:/app/chat/rooms/" + room + "/sync\n\n");
+            assertEquals(room.toString(), readChat(customer, "READY").path("conversationId").asText());
             UUID firstId = UUID.randomUUID();
             String first = json.writeValueAsString(java.util.Map.of("clientMessageId", firstId, "text", "Xin chào"));
             sendChat(customer, room, first);
@@ -357,6 +365,7 @@ class ChatRoomAccessDatabaseTest {
             assertEquals(ack.path("createdAt"), incoming.path("createdAt"));
             assertEquals(user.id().toString(), incoming.path("senderAccountId").asText());
             assertEquals("Xin chào", incoming.path("text").asText());
+            assertEquals(incoming, readChat(anotherCustomerTab, "MESSAGE"));
 
             sendChat(customer, room, first);
             assertEquals(ack, readChat(customer, "ACK"));
@@ -401,14 +410,125 @@ class ChatRoomAccessDatabaseTest {
     }
 
     private void subscribeToMessages(TestSocket socket, UUID accountId, UUID room) throws InterruptedException {
-        socket.send("SUBSCRIBE\nid:messages\ndestination:/user/queue/chat/rooms/" + room + "\n\n");
+        subscribePrivate(socket, accountId, "/queue/chat/rooms/" + room);
+    }
+
+    private void subscribeWorkspace(TestSocket socket, UUID accountId) throws InterruptedException {
+        subscribePrivate(socket, accountId, ChatSocketSecurity.WORKSPACE_QUEUE);
+    }
+
+    private void subscribePrivate(TestSocket socket, UUID accountId, String destination) throws InterruptedException {
+        String subscription = UUID.randomUUID().toString();
+        socket.send("SUBSCRIBE\nid:" + subscription + "\ndestination:/user" + destination + "\n\n");
+        awaitSubscription(socket, () -> {
+            var account = socketUsers.getUser(ChatSocketSecurity.accountDestination(accountId));
+            if (account == null) return;
+            account.getSessions().stream()
+                    .filter(session -> session.getSubscriptions().stream().anyMatch(item -> subscription.equals(item.getId())))
+                    .findFirst().ifPresent(session -> {
+                        var headers = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
+                        headers.setSessionId(session.getId());
+                        headers.setLeaveMutable(true);
+                        broker.convertAndSendToUser(session.getId(), destination, "ready-probe", headers.getMessageHeaders());
+                    });
+        });
+    }
+
+    private void awaitSubscription(TestSocket socket, Runnable probe) throws InterruptedException {
         for (int attempt = 0; attempt < 12; attempt++) {
-            broker.convertAndSendToUser(ChatSocketSecurity.accountDestination(accountId),
-                    "/queue/chat/rooms/" + room, "ready-probe");
+            probe.run();
             String frame = socket.frames.poll(250, TimeUnit.MILLISECONDS);
             if (frame != null && frame.startsWith("MESSAGE") && frame.contains("ready-probe")) return;
         }
-        throw new AssertionError("Room subscription did not receive the probe");
+        throw new AssertionError("Subscription did not receive the probe");
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    void workspaceCommandsNotifyBothParticipantsAndKeepOutsidersIsolated() throws Exception {
+        Account admin = account("ADMIN");
+        Account user = account("USER");
+        Account outsider = account("USER");
+        Account consultant = approvedConsultant(admin);
+        var realm = AccountAuthService.Realm.CUSTOMER;
+        try (var customer = connected(request(user, realm)); var advisor = connected(request(consultant, realm));
+             var other = connected(request(outsider, realm))) {
+            subscribeWorkspace(customer, user.id());
+            subscribeWorkspace(advisor, consultant.id());
+            subscribeWorkspace(other, outsider.id());
+            customer.send("SEND\ndestination:" + ChatSocketSecurity.WORKSPACE_COMMAND + "\n\n{\"action\":\"SYNC\"}");
+            readChat(customer, "READY");
+            for (String firstAction : java.util.List.of("ACCEPT", "DECLINE", "CANCEL")) {
+                UUID createId = UUID.randomUUID();
+                sendWorkspace(customer, "CREATE", "consultantId", consultant.id(), createId);
+                var created = readChat(customer, "ROOM_CREATED");
+                var room = UUID.fromString(created.path("conversationId").asText());
+                assertEquals(created, readChat(advisor, "ROOM_CREATED"));
+                var ack = readChat(customer, "ACK");
+                assertEquals(createId.toString(), ack.path("requestId").asText());
+                assertEquals(room.toString(), ack.path("conversation").path("conversationId").asText());
+                sendWorkspace(customer, "CREATE", "consultantId", consultant.id(), createId);
+                assertEquals(ack, readChat(customer, "ACK"));
+                sendWorkspace(other, "END", "conversationId", room, UUID.randomUUID());
+                assertEquals("NOT_FOUND", readChat(other, "ERROR").path("code").asText());
+
+                var actor = "CANCEL".equals(firstAction) ? customer : advisor;
+                sendWorkspace(actor, firstAction, "conversationId", room, UUID.randomUUID());
+                var changed = readChat(customer, "ROOM_CHANGED");
+                assertEquals(changed, readChat(advisor, "ROOM_CHANGED"));
+                assertEquals(room.toString(), changed.path("conversationId").asText());
+                assertEquals("ACCEPT".equals(firstAction) ? "ACTIVE" : "ENDED", changed.path("status").asText());
+                readChat(actor, "ACK");
+
+                if ("ACCEPT".equals(firstAction)) {
+                    sendWorkspace(customer, "TYPING", "conversationId", room, null);
+                    assertEquals(room.toString(), readChat(advisor, "TYPING").path("conversationId").asText());
+                    sendWorkspace(advisor, "PRESENCE", "conversationId", room, null);
+                    assertEquals(room.toString(), readChat(customer, "PRESENCE").path("conversationId").asText());
+                    assertTrue(readChat(advisor, "PEER_ONLINE").path("online").asBoolean());
+                    sendWorkspace(customer, "END", "conversationId", room, UUID.randomUUID());
+                    var ended = readChat(customer, "ROOM_CHANGED");
+                    assertEquals("COMPLETED", ended.path("endReason").asText());
+                    assertEquals(ended, readChat(advisor, "ROOM_CHANGED"));
+                    readChat(customer, "ACK");
+                }
+                assertNull(other.frames.poll(100, TimeUnit.MILLISECONDS));
+            }
+        } finally {
+            db.update("DELETE FROM chat_conversations WHERE user_account_id = ?", user.id());
+            db.update("DELETE FROM consultant_profiles WHERE account_id = ?", consultant.id());
+            db.update("DELETE FROM accounts WHERE id IN (?, ?, ?, ?)", user.id(), consultant.id(), admin.id(), outsider.id());
+        }
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    void reviewQueueRequiresAdminAndAccountSocketPushesRevocation() throws Exception {
+        Account admin = account("ADMIN");
+        Account user = account("USER");
+        var userRequest = request(user, AccountAuthService.Realm.CUSTOMER);
+        try (var adminSocket = connected(request(admin, AccountAuthService.Realm.ADMIN), ChatSocketSecurity.ADMIN_ENDPOINT);
+             var accountSocket = connected(userRequest, ChatSocketSecurity.ACCOUNT_ENDPOINT);
+             var wrongRealm = connected(userRequest)) {
+            adminSocket.send("SUBSCRIBE\nid:reviews\ndestination:" + ChatSocketSecurity.ADMIN_QUEUE + "\n\n");
+            awaitSubscription(adminSocket, () -> broker.convertAndSend(ChatSocketSecurity.ADMIN_QUEUE, "ready-probe"));
+            wrongRealm.send("SUBSCRIBE\nid:reviews\ndestination:" + ChatSocketSecurity.ADMIN_QUEUE + "\n\n");
+            assertTrue(wrongRealm.next().startsWith("ERROR"));
+            reviewNotices.submitted(AdminReviewNotifications.Area.METHOD_GUIDE);
+            assertEquals("METHOD_GUIDE", readChat(adminSocket, "REVIEW_PENDING").path("area").asText());
+            accounts.logout(AccountAuthService.Realm.CUSTOMER, userRequest.getCookies()[0].getValue(),
+                    userRequest.getHeader("X-CSRF-Token"));
+            var revoked = accountSocket.frames.poll(10, TimeUnit.SECONDS);
+            assertTrue(revoked != null && revoked.startsWith("ERROR") && revoked.contains("message:INVALID_SESSION"), revoked);
+        } finally {
+            db.update("DELETE FROM accounts WHERE id IN (?, ?)", admin.id(), user.id());
+        }
+    }
+
+    private void sendWorkspace(TestSocket socket, String action, String field, UUID id, UUID requestId) throws Exception {
+        var payload = json.createObjectNode().put("action", action).put(field, id.toString());
+        if (requestId != null) payload.put("requestId", requestId.toString());
+        socket.send("SEND\ndestination:" + ChatSocketSecurity.WORKSPACE_COMMAND + "\ncontent-type:application/json\n\n" + payload);
     }
 
     private static void sendChat(TestSocket socket, UUID room, String payload) {
@@ -429,7 +549,11 @@ class ChatRoomAccessDatabaseTest {
     }
 
     private TestSocket connected(MockHttpServletRequest request) throws Exception {
-        var socket = newSocket(request, "http://127.0.0.1:3173");
+        return connected(request, ChatSocketSecurity.ENDPOINT);
+    }
+
+    private TestSocket connected(MockHttpServletRequest request, String endpoint) throws Exception {
+        var socket = newSocket(request, "http://127.0.0.1:3173", endpoint);
         socket.connect(request.getHeader("X-CSRF-Token"));
         if (socket.next().startsWith("CONNECTED")) return socket;
         socket.close();
@@ -437,13 +561,17 @@ class ChatRoomAccessDatabaseTest {
     }
 
     private TestSocket newSocket(MockHttpServletRequest request, String origin) {
+        return newSocket(request, origin, ChatSocketSecurity.ENDPOINT);
+    }
+
+    private TestSocket newSocket(MockHttpServletRequest request, String origin, String endpoint) {
         var listener = new TestSocket();
         var builder = HttpClient.newHttpClient().newWebSocketBuilder().header("Origin", origin).subprotocols("v12.stomp");
         if (request != null) {
             var cookie = request.getCookies()[0];
             builder.header("Cookie", cookie.getName() + "=" + cookie.getValue());
         }
-        listener.socket = builder.buildAsync(URI.create("ws://127.0.0.1:" + port + ChatSocketSecurity.ENDPOINT), listener)
+        listener.socket = builder.buildAsync(URI.create("ws://127.0.0.1:" + port + endpoint), listener)
                 .orTimeout(5, TimeUnit.SECONDS).join();
         return listener;
     }

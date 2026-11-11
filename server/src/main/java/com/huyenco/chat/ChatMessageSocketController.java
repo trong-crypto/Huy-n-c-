@@ -20,8 +20,6 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessageType;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.TransactionException;
 
@@ -32,15 +30,23 @@ class ChatMessageSocketController {
     private static final Logger LOG = LoggerFactory.getLogger(ChatMessageSocketController.class);
     private static final String ROOM_QUEUE = "/queue/chat/rooms/";
     private final ChatMessages messages;
-    private final SimpMessagingTemplate broker;
+    private final ChatSocketDelivery delivery;
     private final ObjectReader json;
     private final Semaphore writeSlots = new Semaphore(4);
 
-    ChatMessageSocketController(ChatMessages messages, SimpMessagingTemplate broker, ObjectMapper mapper) {
+    ChatMessageSocketController(ChatMessages messages, ChatSocketDelivery delivery, ObjectMapper mapper) {
         this.messages = messages;
-        this.broker = broker;
+        this.delivery = delivery;
         this.json = mapper.copy().enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION)
                 .readerFor(JsonNode.class).with(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
+    }
+
+    @MessageMapping("/chat/rooms/{conversationId}/sync")
+    void sync(@DestinationVariable("conversationId") UUID conversationId, Message<byte[]> frame) {
+        String sessionId = SimpMessageHeaderAccessor.getSessionId(frame.getHeaders());
+        if (sessionId == null || !(frame.getHeaders().get(ChatSocketSecurity.ACTOR_HEADER) instanceof Actor)
+                || frame.getPayload().length != 0) return;
+        delivery.sendToSocket(sessionId, ROOM_QUEUE + conversationId, new Ready("READY", conversationId));
     }
 
     @MessageMapping("/chat/rooms/{conversationId}/send")
@@ -65,33 +71,27 @@ class ChatMessageSocketController {
                 writeSlots.release();
             }
         } catch (IOException failure) {
-            sendToSocket(sessionId, destination, new SendError("ERROR", conversationId, clientMessageId, "INVALID_INPUT"));
+            delivery.sendToSocket(sessionId, destination, new SendError("ERROR", conversationId, clientMessageId, "INVALID_INPUT"));
             return;
         } catch (ContractException failure) {
-            sendToSocket(sessionId, destination, new SendError("ERROR", conversationId, clientMessageId, failure.code()));
+            delivery.sendToSocket(sessionId, destination, new SendError("ERROR", conversationId, clientMessageId, failure.code()));
             return;
         } catch (DataAccessException | TransactionException failure) {
             LOG.warn("Chat message storage unavailable for room {}", conversationId);
-            sendToSocket(sessionId, destination, new SendError("ERROR", conversationId, clientMessageId, "DATABASE_UNAVAILABLE"));
+            delivery.sendToSocket(sessionId, destination, new SendError("ERROR", conversationId, clientMessageId, "DATABASE_UNAVAILABLE"));
             return;
         }
         var saved = appended.message();
         String sequence = Long.toString(saved.sequence());
         String createdAt = saved.createdAt().toInstant().toString();
-        sendToSocket(sessionId, destination,
+        delivery.sendToSocket(sessionId, destination,
                 new Ack("ACK", conversationId, saved.clientMessageId(), saved.messageId(), sequence, createdAt));
         if (appended.created()) {
-            broker.convertAndSendToUser(ChatSocketSecurity.accountDestination(appended.recipientAccountId()), destination,
-                    new Incoming("MESSAGE", conversationId, saved.messageId(), saved.senderAccountId(),
-                            sequence, saved.text(), createdAt));
+            var incoming = new Incoming("MESSAGE", conversationId, saved.messageId(), saved.senderAccountId(),
+                    sequence, saved.text(), createdAt);
+            delivery.sendToAccount(appended.recipientAccountId(), destination, incoming, null);
+            delivery.sendToAccount(actor.accountId(), destination, incoming, sessionId);
         }
-    }
-
-    private void sendToSocket(String sessionId, String destination, Object payload) {
-        var headers = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
-        headers.setSessionId(sessionId);
-        headers.setLeaveMutable(true);
-        broker.convertAndSendToUser(sessionId, destination, payload, headers.getMessageHeaders());
     }
 
     private static UUID readId(JsonNode value) {
@@ -114,4 +114,5 @@ class ChatMessageSocketController {
     record Incoming(String type, UUID conversationId, UUID messageId, UUID senderAccountId,
                     String sequence, String text, String createdAt) {}
     record SendError(String type, UUID conversationId, UUID clientMessageId, String code) {}
+    record Ready(String type, UUID conversationId) {}
 }

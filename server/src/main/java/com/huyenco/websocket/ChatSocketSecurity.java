@@ -1,6 +1,7 @@
 package com.huyenco.websocket;
 
 import com.huyenco.auth.ChatSessionAccess;
+import com.huyenco.auth.ChatSessionAccess.Scope;
 import com.huyenco.auth.ChatSessionAccess.SocketHandshake;
 import com.huyenco.auth.ChatSessionAccess.SocketIdentity;
 import com.huyenco.chat.ChatRoomAccess;
@@ -12,6 +13,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -29,6 +32,7 @@ import org.springframework.messaging.support.ExecutorChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.TransactionException;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
@@ -38,6 +42,11 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 @ConditionalOnProperty(name = "huyenco.auth.enabled", havingValue = "true")
 public class ChatSocketSecurity implements HandshakeInterceptor {
     public static final String ENDPOINT = "/api/v1/ws/chat";
+    public static final String ADMIN_ENDPOINT = "/api/v1/ws/admin";
+    public static final String ACCOUNT_ENDPOINT = "/api/v1/ws/account";
+    public static final String WORKSPACE_QUEUE = "/queue/chat/workspace";
+    public static final String WORKSPACE_COMMAND = "/app/chat/workspace";
+    public static final String ADMIN_QUEUE = "/queue/admin/reviews";
     public static final String SEND_PREFIX = "/app/chat/rooms/";
     public static final String SUBSCRIBE_PREFIX = "/user/queue/chat/rooms/";
     public static final String ACTOR_HEADER = "huyencoChatActor";
@@ -48,11 +57,14 @@ public class ChatSocketSecurity implements HandshakeInterceptor {
 
     private final ChatSessionAccess sessions;
     private final ChatRoomAccess rooms;
+    private final ObjectProvider<MessageChannel> outbound;
     private final Map<String, SocketIdentity> connected = new ConcurrentHashMap<>();
 
-    ChatSocketSecurity(ChatSessionAccess sessions, ChatRoomAccess rooms) {
+    ChatSocketSecurity(ChatSessionAccess sessions, ChatRoomAccess rooms,
+                       @Qualifier("clientOutboundChannel") ObjectProvider<MessageChannel> outbound) {
         this.sessions = sessions;
         this.rooms = rooms;
+        this.outbound = outbound;
     }
 
     @Override
@@ -63,7 +75,12 @@ public class ChatSocketSecurity implements HandshakeInterceptor {
             return false;
         }
         try {
-            attributes.put(HANDSHAKE, sessions.handshake(servlet.getServletRequest()));
+            Scope scope = switch (servlet.getServletRequest().getServletPath()) {
+                case ADMIN_ENDPOINT -> Scope.ADMIN;
+                case ACCOUNT_ENDPOINT -> Scope.ACCOUNT;
+                default -> Scope.CHAT;
+            };
+            attributes.put(HANDSHAKE, sessions.handshake(servlet.getServletRequest(), scope));
             attributes.put(CHAT_ENDPOINT, true);
             return true;
         } catch (ContractException failure) {
@@ -98,7 +115,8 @@ public class ChatSocketSecurity implements HandshakeInterceptor {
                 var identity = sessions.connect(handshake, singleNativeHeader(headers, "X-CSRF-Token"));
                 var transportHeaders = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
                 if (transportHeaders == null || !transportHeaders.isMutable()) return deny(sessionId, outbound);
-                transportHeaders.setUser(() -> accountDestination(identity.accountId()));
+                transportHeaders.setUser(() -> identity.scope() == Scope.CHAT
+                        ? accountDestination(identity.accountId()) : identity.scope().name() + ":" + identity.accountId());
                 connected.put(sessionId, identity);
                 return message;
             }
@@ -107,8 +125,21 @@ public class ChatSocketSecurity implements HandshakeInterceptor {
             if (command == null || command == StompCommand.UNSUBSCRIBE) return message;
 
             String destination = singleNativeHeader(headers, "destination");
+            if (identity.scope() == Scope.ACCOUNT) return deny(sessionId, outbound);
+            if (identity.scope() == Scope.ADMIN) {
+                if (command != StompCommand.SUBSCRIBE || !ADMIN_QUEUE.equals(destination)) return deny(sessionId, outbound);
+                sessions.requireSocket(identity);
+                return message;
+            }
+            if (command == StompCommand.SUBSCRIBE && ("/user" + WORKSPACE_QUEUE).equals(destination)) {
+                sessions.requireSocket(identity);
+                return message;
+            }
+            if (command == StompCommand.SEND && WORKSPACE_COMMAND.equals(destination)) {
+                return MessageBuilder.fromMessage(message).setHeader(ACTOR_HEADER, identity).build();
+            }
             UUID room = switch (command) {
-                case SEND -> roomId(destination, SEND_PREFIX, "/send");
+                case SEND -> roomId(destination, SEND_PREFIX, destination != null && destination.endsWith("/sync") ? "/sync" : "/send");
                 case SUBSCRIBE -> roomId(destination, SUBSCRIBE_PREFIX, "");
                 default -> null;
             };
@@ -125,6 +156,11 @@ public class ChatSocketSecurity implements HandshakeInterceptor {
         return "chat:" + accountId;
     }
 
+    public boolean customerOnline(UUID accountId) {
+        return connected.values().stream().anyMatch(identity -> identity.scope() != Scope.ADMIN
+                && identity.accountId().equals(accountId));
+    }
+
     public ExecutorChannelInterceptor outboundGuard(Supplier<MessageChannel> outbound) {
         return new ExecutorChannelInterceptor() {
             @Override
@@ -132,11 +168,24 @@ public class ChatSocketSecurity implements HandshakeInterceptor {
                 if (SimpMessageHeaderAccessor.getMessageType(message.getHeaders()) != SimpMessageType.MESSAGE) return message;
                 String destination = SimpMessageHeaderAccessor.getDestination(message.getHeaders());
                 boolean chatDestination = destination != null
-                        && (destination.startsWith(PHYSICAL_PREFIX) || destination.startsWith(SUBSCRIBE_PREFIX));
+                        && (destination.startsWith(PHYSICAL_PREFIX) || destination.startsWith(SUBSCRIBE_PREFIX)
+                            || destination.startsWith(WORKSPACE_QUEUE) || destination.equals("/user" + WORKSPACE_QUEUE));
+                boolean adminDestination = ADMIN_QUEUE.equals(destination);
                 String sessionId = SimpMessageHeaderAccessor.getSessionId(message.getHeaders());
                 SocketIdentity identity = sessionId == null ? null : connected.get(sessionId);
-                if (identity == null) return chatDestination ? null : message;
-                if (!chatDestination) return null;
+                if (identity == null) return chatDestination || adminDestination ? null : message;
+                if (identity.scope() == Scope.ACCOUNT) return null;
+                if (identity.scope() == Scope.ADMIN || destination != null && (destination.equals("/user" + WORKSPACE_QUEUE)
+                        || destination.equals(WORKSPACE_QUEUE + "-user" + sessionId))) {
+                    if (identity.scope() == Scope.ADMIN && !adminDestination) return null;
+                    try {
+                        sessions.requireSocket(identity);
+                        return message;
+                    } catch (ContractException | DataAccessException | TransactionException failure) {
+                        return deny(sessionId, outbound.get());
+                    }
+                }
+                if (!chatDestination || adminDestination) return null;
                 UUID room = destination.startsWith(SUBSCRIBE_PREFIX)
                         ? roomId(destination, SUBSCRIBE_PREFIX, "")
                         : roomId(destination, PHYSICAL_PREFIX, "-user" + sessionId);
@@ -149,6 +198,22 @@ public class ChatSocketSecurity implements HandshakeInterceptor {
                 }
             }
         };
+    }
+
+    @Scheduled(fixedDelayString = "${huyenco.chat.socket-session-check-ms:5000}")
+    void checkConnectedSessions() {
+        connected.forEach((sessionId, identity) -> {
+            try {
+                sessions.requireSocket(identity);
+            } catch (ContractException failure) {
+                if (connected.remove(sessionId, identity)) {
+                    outbound.getObject().send(SafeStompErrorHandler.sessionInvalid(sessionId,
+                            "FORBIDDEN".equals(failure.code())));
+                }
+            } catch (DataAccessException | TransactionException failure) {
+                // A database interruption does not revoke otherwise valid sessions.
+            }
+        });
     }
 
     private Message<?> deny(String sessionId, MessageChannel outbound) {

@@ -43,7 +43,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.setPreserveReceiveOrder(true);
         registry.setErrorHandler(new SafeStompErrorHandler());
         registry.addEndpoint("/ws", "/api/v1/ws").addInterceptors(historyHandshake).setAllowedOriginPatterns(allowedOrigins);
-        chatSecurity.ifPresent(chat -> registry.addEndpoint(ChatSocketSecurity.ENDPOINT)
+        chatSecurity.ifPresent(chat -> registry.addEndpoint(ChatSocketSecurity.ENDPOINT, ChatSocketSecurity.ADMIN_ENDPOINT,
+                        ChatSocketSecurity.ACCOUNT_ENDPOINT)
                 .addInterceptors(chat).setAllowedOriginPatterns(allowedOrigins));
     }
 

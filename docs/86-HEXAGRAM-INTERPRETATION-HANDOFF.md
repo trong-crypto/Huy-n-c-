@@ -1,5 +1,15 @@
 # Kho luận giải 64 quẻ · bàn giao TV1 / TV2 / TV3
 
+## Công bố theo phê duyệt của chủ dự án ngày 11/11/2026
+
+Chủ dự án yêu cầu duyệt toàn bộ gói hiện có và bổ sung vào database `huyenco`. Đã sao lưu database V34, khôi phục một bản riêng, nhập thử và chạy lặp để kiểm chống trùng trước khi áp dụng. Đã công bố 64 tổng quan, 64 phần hình tượng, 64 phần diễn nghĩa, 64 phần gợi ý và 384 đoạn giải hào. Có 62 nguyên văn lời quẻ; hai bài Bác và Cách tiếp tục để trống trường này vì dị bản đã ghi nhận. Toàn bộ phần tiếng Việt là nội dung biên soạn theo nguồn Chu Dịch Hán cổ, ngoài phạm vi nghĩa tên E01 từ sách Mai Hoa.
+
+Nguồn CMS được ghi `VERIFIED` theo phê duyệt của chủ dự án cho gói biên tập, kèm URL phiên bản ghim và ghi chú phạm vi trong `reuseNote`. Các tệp nguồn trong `data/` vẫn giữ nguyên trạng thái bản nháp để truy vết. Lượt nhập dùng hai tài khoản lưu vết `system.editorial-import` và `system.owner-approval`, đều `LOCKED`, đại diện cho thao tác nhập và phê duyệt của chủ dự án. Đây là lưu vết phê duyệt đã nhận trong cuộc trò chuyện, không phải một lượt đối chiếu độc lập mới của người thứ hai.
+
+Công cụ `scripts/publish_hexagram_interpretations.py` mặc định chỉ kiểm gói. Với `--database huyenco --apply`, công cụ chỉ chấp nhận SHA-256 của gói đã duyệt, sau đó sao lưu, thử trên bản khôi phục và nhập trong một giao dịch. Gói đã nhập được nhận diện bằng SHA-256 và không tạo thêm phiên bản khi chạy lại. Các bản nháp mới được nhập vào database TEST bằng `scripts/import_hexagram_interpretations.py` theo hướng dẫn trong [local-demo.md](hexagram-interpretation/local-demo.md).
+
+Gói SHA-256 `2012ab61cad531b8429a9527990b12cc97f90c1b8810b9a2ea053bcd49ef33cb`. Bản sao lưu ở `scripts/generated/db-backups/huyenco-before-editorial-20261111031049.dump`; bằng chứng nằm tại `server/target/hexagram-publication/publication-evidence.json`. Các mục bên dưới giữ mốc khảo sát và kiểm thử trước khi công bố.
+
 Baseline thực tế là `d026a86` trên `bmanh812`. Commit này nối tiếp trực tiếp baseline `1ecebe1` và bổ sung Trợ lý AI.
 
 ## Kiểm kê V33

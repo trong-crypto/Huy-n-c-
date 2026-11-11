@@ -27,7 +27,7 @@ const isConversation = (value: unknown): value is Conversation => isRecord(value
   && (value.status === "PENDING" || value.status === "ACTIVE" || value.status === "ENDED")
   && (value.endReason === null || value.endReason === "DECLINED" || value.endReason === "CANCELLED" || value.endReason === "COMPLETED");
 
-function ownRoom(value: unknown, session: ChatSession): value is Conversation {
+export function ownRoom(value: unknown, session: ChatSession): value is Conversation {
   return isConversation(value) && (session.role === "USER" ? value.userId : value.consultantId) === session.accountId;
 }
 
