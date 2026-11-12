@@ -91,14 +91,14 @@ export function ChatRoomPanel({ state, subscribe, retry, messaging, lifecycleCon
       <div className={styles.roomHeading}>
         <h2>{room?.title ?? "Khung trò chuyện"}</h2>
         {room && <span className={styles.badge} data-status={room.status}>{roomStatusLabels[room.status]}</span>}
+        {room?.status === "active" && <span className={styles.onlineLabel} data-online={!!(room.peerOnline || room.peerPresent)}>
+          <i aria-hidden="true" />{room.peerPresent ? "Đang mở phòng" : room.peerOnline ? "Đang online" : "Ngoại tuyến"}</span>}
       </div>
       {lifecycleControls}
     </header>
     <div className={styles.roomStatus}>
       {roomStatus}
       {room?.ending && <p>{room.ending}</p>}
-      {room?.peerPresent && <p>Người bên kia đang mở phòng.</p>}
-      {room?.peerOnline && !room.peerPresent && <p>Người bên kia đang trực tuyến.</p>}
       {room?.peerTyping && <p role="status">Người bên kia đang nhập tin nhắn…</p>}
       {(room || messagingAvailable) && (!messaging || room?.status === "active") &&
         <p role="status">{connectionLabels[state.connection]}</p>}

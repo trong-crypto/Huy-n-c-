@@ -85,7 +85,10 @@ export function ConsultationWorkspace({ audience, access = { status: "blocked" }
         {!consultant && <details className={styles.newRequest} open={controls?.prioritizeRequest || !authorized?.conversations?.length}>
           <summary><ChatIcon kind="plus" /> Yêu cầu tư vấn mới</summary>
           <section className={styles.directory} aria-labelledby="consultants-title">
-            <h3 id="consultants-title" className={styles.directoryLabel}>Tư vấn viên</h3>
+            <h3 id="consultants-title" className={styles.directoryLabel}>Tư vấn viên
+              {authorized?.onlineConsultantCount !== undefined && <span className={styles.onlineCount}>
+                {authorized.onlineConsultantCount} đang online</span>}
+            </h3>
             {authorized?.consultants?.length ? <ul className={styles.entries}>
               {authorized.consultants.map(person => <li key={person.id}>
                 {controls ? <label className={styles.choice}>
@@ -93,6 +96,8 @@ export function ConsultationWorkspace({ audience, access = { status: "blocked" }
                     aria-label={person.name}
                     onChange={() => controls.selectConsultant(person.id)} disabled={controls.sending} />
                   <span className={styles.choiceText}><strong>{person.name}</strong>
+                    {person.online !== undefined && <span className={styles.onlineLabel} data-online={person.online}>
+                      <i aria-hidden="true" />{person.online ? "Đang online" : "Ngoại tuyến"}</span>}
                     {person.profile && <span>{person.profile}</span>}
                     {person.availability && <span>{person.availability}</span>}</span>
                 </label> : <strong>{person.name}</strong>}

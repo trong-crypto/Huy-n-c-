@@ -36,25 +36,33 @@ it("lets the editor save an updated source snapshot with unchanged text and sour
     ...draft, version: 2, latest: { ...draft.latest, version: 2, sources: [source] }, revisions: [2, 1],
   });
   render(<HexagramInterpretationWorkspace code={code} lines={lines} />);
-  const save = await screen.findByRole<HTMLButtonElement>("button", { name: "Lưu bản nháp" });
-  const submit = screen.getByRole<HTMLButtonElement>("button", { name: "Gửi duyệt" });
+  const save = await screen.findByRole<HTMLButtonElement>("button", { name: "Lưu và cập nhật" });
   expect(save.disabled).toBe(false);
-  expect(submit.disabled).toBe(true);
   fireEvent.click(save);
   await waitFor(() => expect(fixtures.save).toHaveBeenCalledWith(code, 1, content, [source.id], "test-csrf", expect.any(AbortSignal)));
-  await waitFor(() => expect(submit.disabled).toBe(false));
-  expect(save.disabled).toBe(true);
+  await waitFor(() => expect(save.disabled).toBe(true));
+  expect(screen.getByRole("status").textContent).toContain("Đã lưu và cập nhật luận giải");
+  expect(screen.queryByRole("button", { name: "Gửi duyệt" })).toBeNull();
 });
 
-it("blocks publication when a verified source has changed since the saved revision", async () => {
-  fixtures.load.mockResolvedValue({
-    ...draft, status: "PENDING_REVIEW", latest: { ...draft.latest, sources: [{ ...source, locator: "Càn, bản trước" }] },
+it("updates a legacy pending revision directly after its verified source snapshot changes", async () => {
+  const legacy = {
+    ...draft, status: "PENDING_REVIEW", latest: { ...draft.latest!, sources: [{ ...source, locator: "Càn, bản trước" }] },
+  } satisfies InterpretationState;
+  fixtures.load.mockResolvedValue(legacy);
+  fixtures.save.mockResolvedValue({
+    ...draft, status: "PUBLISHED", version: 2,
+    latest: { ...draft.latest, version: 2, sources: [source] }, publishedVersion: 2, revisions: [2, 1],
   });
   render(<HexagramInterpretationWorkspace code={code} lines={lines} />);
-  const note = await screen.findByLabelText("Ghi chú đối chiếu");
-  fireEvent.change(note, { target: { value: "Đã xem bản biên soạn" } });
-  expect(screen.getByRole<HTMLButtonElement>("button", { name: "Công bố luận giải" }).disabled).toBe(true);
-  expect(screen.getByRole<HTMLButtonElement>("button", { name: "Trả về bản nháp" }).disabled).toBe(false);
+  expect(await screen.findByText(/Chờ duyệt bản cũ · Bản 1/)).toBeTruthy();
+  const save = screen.getByRole<HTMLButtonElement>("button", { name: "Lưu và cập nhật" });
+  expect(save.disabled).toBe(false);
+  fireEvent.click(save);
+  await waitFor(() => expect(fixtures.save).toHaveBeenCalledWith(code, 1, content, [source.id], "test-csrf", expect.any(AbortSignal)));
+  await waitFor(() => expect(screen.getByText(/Đã cập nhật trực tiếp · Bản 2/)).toBeTruthy());
+  expect(screen.queryByLabelText("Ghi chú đối chiếu")).toBeNull();
+  expect(screen.queryByRole("button", { name: "Công bố luận giải" })).toBeNull();
 });
 
 it("adds, edits and removes an optional poem through the existing draft save", async () => {
@@ -68,7 +76,7 @@ it("adds, edits and removes an optional poem through the existing draft save", a
   render(<HexagramInterpretationWorkspace code={code} lines={lines} />);
 
   fireEvent.click(await screen.findByRole("button", { name: "Thêm bài thơ" }));
-  const save = screen.getByRole<HTMLButtonElement>("button", { name: "Lưu bản nháp" });
+  const save = screen.getByRole<HTMLButtonElement>("button", { name: "Lưu và cập nhật" });
   expect(save.disabled).toBe(true);
   fireEvent.change(screen.getByLabelText("Tiêu đề bài thơ"), { target: { value: poem.title } });
   fireEvent.change(screen.getByLabelText("Nội dung bài thơ"), { target: { value: poem.body } });

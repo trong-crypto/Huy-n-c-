@@ -39,6 +39,11 @@ public class ChatConsultantProfiles {
                 PUBLIC_PROFILE, consultantId).stream().findFirst();
     }
 
+    public List<UUID> eligibleIds() {
+        return db.query("SELECT p.account_id\n" + ELIGIBLE_PROFILES,
+                (row, index) -> row.getObject("account_id", UUID.class));
+    }
+
     @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public Page listEligible(int page, int size) {
         long total = db.queryForObject("SELECT COUNT(*)\n" + ELIGIBLE_PROFILES, Long.class);

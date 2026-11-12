@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CLIENT_CONFIG } from "@/config/client";
-import { listChatConsultants, listConversations, readChatSession, readConversation } from "@/services/rest/chat";
+import { listChatConsultants, listConversations, listOnlineConsultants, readChatSession, readConversation } from "@/services/rest/chat";
 import { RestError } from "@/services/rest/transport";
 import type { Page } from "@/types/contract";
 import type { ChatSession, Conversation, ConversationAction } from "@/types/chatContract";
@@ -114,6 +114,25 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
   const loadConversations = useCallback((signal: AbortSignal) => listConversations(session, conversationPage, signal), [session, conversationPage]);
   const loadRoom = useCallback((signal: AbortSignal) => readConversation(session, roomId!, signal), [session, roomId]);
   const directory = useResource(audience === "user" ? loadDirectory : null, onAuthError);
+  const [onlineConsultants, setOnlineConsultants] = useState<ReadonlySet<string>>();
+  useEffect(() => {
+    if (audience !== "user") return;
+    let current: AbortController | undefined;
+    async function refresh() {
+      current?.abort();
+      const controller = new AbortController();
+      current = controller;
+      try {
+        const snapshot = await listOnlineConsultants(controller.signal);
+        if (!controller.signal.aborted) setOnlineConsultants(new Set(snapshot.consultantIds));
+      } catch {
+        if (!controller.signal.aborted) setOnlineConsultants(undefined);
+      }
+    }
+    void refresh();
+    const timer = window.setInterval(() => { if (!document.hidden) void refresh(); }, 10_000);
+    return () => { window.clearInterval(timer); current?.abort(); };
+  }, [audience]);
   const conversations = useResource(loadConversations, onAuthError, true);
   const detail = useResource(roomId ? loadRoom : null, onAuthError, true);
   const onChatAccessError = useCallback((code: string) => {
@@ -245,7 +264,9 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     : room?.status === "active" ? ["END"] : [];
   return <ConsultationWorkspace audience={audience} access={{ status: "authorized", accessKey: session.accountId,
     connection: chat.connection, room, conversations: conversations.data?.items.map(roomSummary),
-    consultants: consultants?.map(item => ({ id: item.consultantId, name: item.displayName, profile: item.summary ?? undefined })),
+    consultants: consultants?.map(item => ({ id: item.consultantId, name: item.displayName, profile: item.summary ?? undefined,
+      online: onlineConsultants?.has(item.consultantId) })),
+    onlineConsultantCount: onlineConsultants?.size,
   }} messaging={chat.messaging && { ...chat.messaging, notifyTyping: workspace.notifyTyping }} retry={chat.retry} controls={{
     consultantId, selectConsultant: id => { setSelectedConsultant(id); setSendNotice(""); }, create, sending, transitioning, roomId,
     unreadConversations: chatNotifications.unreadConversations,

@@ -116,7 +116,6 @@ it("binds a reading to the requested room, restores it after reload and sends it
   await screen.findByText(/Lá số sẽ sẵn sàng/);
   current = { ...current, status: "ACTIVE", startedAt: "2026-11-09T03:01:00Z" };
   act(() => emit({ type: "ROOM_CHANGED", conversationId, status: "ACTIVE" }));
-  expect(screen.getByText("Tư vấn viên đã chấp nhận yêu cầu. Phòng chat đã mở.")).toBeTruthy();
   const sendReading = await screen.findByRole<HTMLButtonElement>("button", { name: "Gửi lá số" });
   await waitFor(() => expect(sendReading.disabled).toBe(false));
   expect(stomp.publish.mock.calls.some(([frame]) => frame.destination.endsWith("/send"))).toBe(false);
@@ -178,9 +177,7 @@ it("pushes new assigned rooms to a consultant and clears their data on session r
   await waitFor(() => expect(stomp.subscriptions.has(workspaceQueue)).toBe(true));
   assigned = true;
   act(() => emit({ type: "ROOM_CREATED", conversationId, status: "PENDING" }));
-  expect(screen.getByText("Bạn có yêu cầu tư vấn mới.")).toBeTruthy();
-  fireEvent.click(screen.getByRole("button", { name: "Xem yêu cầu" }));
-  expect(screen.queryByText("Bạn có yêu cầu tư vấn mới.")).toBeNull();
+  fireEvent.click(await screen.findByRole("button", { name: /^Hội thoại ·/ }));
   const panel = within(screen.getByRole("region", { name: "Khung trò chuyện" }));
   await panel.findByText("Chờ tư vấn viên");
   act(() => stomp.error({ headers: { message: "INVALID_SESSION" } }));
@@ -318,7 +315,7 @@ it("shows room presence and typing and updates the selected room when the other 
     emit({ type: "PEER_ONLINE", conversationId, online: true });
     emit({ type: "TYPING", conversationId });
   });
-  expect(panel.getByText("Người bên kia đang trực tuyến.")).toBeTruthy();
+  expect(panel.getByText("Đang online")).toBeTruthy();
   expect(panel.getByText("Người bên kia đang nhập tin nhắn…")).toBeTruthy();
   fireEvent.change(panel.getByRole("textbox", { name: "Tin nhắn" }), { target: { value: "Chào bạn" } });
   expect(stomp.publish).toHaveBeenCalledWith(expect.objectContaining({

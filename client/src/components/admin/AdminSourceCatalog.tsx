@@ -41,12 +41,20 @@ function Catalog({ csrf, handleError }: { csrf: string; handleError: HandleError
   }
 
   return <div className={styles.contentGrid}>
-    <section className={styles.contentPanel} aria-labelledby="admin-source-catalog" aria-busy={result.status === "loading"}>
-      <h2 id="admin-source-catalog">Danh sách dữ liệu nguồn</h2>
-      <p className="field-hint">Tra cứu ấn bản, trang và các bản ghi tham chiếu trực tiếp.</p>
-      <form className={styles.inlineFields} onSubmit={search}>
+    <section className={`${styles.contentPanel} ${styles.sourceCatalogPanel}`} aria-labelledby="admin-source-catalog"
+      aria-busy={result.status === "loading"}>
+      <header className={styles.sourceCatalogHeader}>
+        <div>
+          <p className={styles.sourceCatalogEyebrow}>Kho tri thức đã đăng ký</p>
+          <h2 id="admin-source-catalog">Danh sách dữ liệu nguồn</h2>
+          <p className="field-hint">Tìm nhanh ấn bản, mục sách, trang PDF hoặc nguồn thuật toán bên ngoài.</p>
+        </div>
+      </header>
+      <form className={styles.sourceCatalogFilters} onSubmit={search}>
         <FormField id="admin-source-search" label="Tìm tên, mục hoặc trang">
-          <input id="admin-source-search" type="search" value={text} maxLength={100} onChange={event => setText(event.target.value)} />
+          <input id="admin-source-search" type="search" value={text} maxLength={100}
+            placeholder="Ví dụ: Mai Hoa, MH-TIME hoặc trang 43"
+            onChange={event => setText(event.target.value)} />
         </FormField>
         <FormField id="admin-source-kind" label="Loại nguồn">
           <select id="admin-source-kind" value={kind} onChange={event => {
@@ -59,17 +67,25 @@ function Catalog({ csrf, handleError }: { csrf: string; handleError: HandleError
         </FormField>
         <button type="submit" className="secondary-button">Tìm nguồn</button>
       </form>
-      {result.status === "loading" && <p role="status">Đang tải dữ liệu nguồn…</p>}
+      {result.status === "loading" && <p className={styles.sourceCatalogState} role="status">Đang tải dữ liệu nguồn…</p>}
       {result.status === "failed" && <><p role="alert">{sourceCatalogError(result.error)}</p>
         <button type="button" className="secondary-button" onClick={result.retry}>Tải lại danh sách</button></>}
       {result.data && <>
-        <p role="status">{result.data.totalElements} mục phù hợp</p>
-        {result.data.items.length === 0 ? <p>Không có dữ liệu nguồn phù hợp.</p> : <ul className={styles.recordList}>
+        <div className={styles.sourceCatalogToolbar}>
+          <p role="status"><strong>{result.data.totalElements}</strong> mục phù hợp</p>
+        </div>
+        {result.data.items.length === 0 ? <p className={styles.sourceCatalogEmpty}>Không có dữ liệu nguồn phù hợp.</p>
+          : <ul className={styles.sourceCatalogList}>
           {result.data.items.map(item => <li key={`${item.kind}:${item.id}`}>
-            <button type="button" aria-pressed={selected?.kind === item.kind && selected.id === item.id}
+            <button type="button" className={styles.sourceCatalogCard}
+              aria-pressed={selected?.kind === item.kind && selected.id === item.id}
               onClick={() => setSelected(item)}>
-              {item.reference.title}
-              <small>{item.reference.section} · {item.reference.pdfPage === null ? sourceKinds[item.kind] : `PDF ${item.reference.pdfPage}`}</small>
+              <span className={styles.sourceCatalogCardTop}>
+                <span className={styles.sourceCatalogKind}>{sourceKinds[item.kind]}</span>
+                {item.reference.pdfPage !== null && <span className={styles.sourceCatalogPage}>PDF {item.reference.pdfPage}</span>}
+              </span>
+              <strong>{item.reference.title}</strong>
+              <span className={styles.sourceCatalogSection}>{item.reference.section}</span>
             </button>
           </li>)}
         </ul>}

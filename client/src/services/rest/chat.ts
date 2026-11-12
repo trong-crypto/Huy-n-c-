@@ -3,7 +3,7 @@ import { isRecord } from "@/types/contractValidation";
 import { isUuid } from "@/types/historyValidation";
 import { isChatTime as time, isRoomMessage, type ChatSession, type Consultant, type Conversation,
   type ConversationAction, type ConversationTransition, type CreateConversationRequest, type MessagePage,
-  type TransitionRequest } from "@/types/chatContract";
+  type TransitionRequest, type OnlineConsultants } from "@/types/chatContract";
 import { customerOptions, readCustomerSession } from "./customerAuth";
 import { requestJson, RestError } from "./transport";
 
@@ -46,6 +46,14 @@ export function readChatSession(signal: AbortSignal) {
 
 export function listChatConsultants(page: number, signal: AbortSignal) {
   return list("/chat/consultants", page, isConsultant, signal);
+}
+
+export function listOnlineConsultants(signal: AbortSignal) {
+  const valid = (value: unknown): value is OnlineConsultants => isRecord(value)
+    && Array.isArray(value.consultantIds) && value.consultantIds.every(isUuid)
+    && new Set(value.consultantIds).size === value.consultantIds.length
+    && value.count === value.consultantIds.length;
+  return requestJson("/chat/consultants/online", valid, signal, undefined, customerOptions());
 }
 
 export function listConversations(session: ChatSession, page: number, signal: AbortSignal) {

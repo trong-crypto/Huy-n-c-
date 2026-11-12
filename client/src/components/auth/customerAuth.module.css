@@ -27,3 +27,10 @@
   .intro { padding-block: 0; }
   .art { display: none; }
 }
+
+@media (max-width: 520px) {
+  .page { gap: 18px; padding-block: 24px; }
+  .intro { font-size: 14px; }
+  .tagline { font-size: 34px; }
+  .panel h1 { margin-bottom: 18px; font-size: 34px; }
+}

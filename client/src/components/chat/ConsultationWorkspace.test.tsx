@@ -53,6 +53,23 @@ describe("consultation workspace", () => {
     expect(screen.getByText("Cuộc trò chuyện chưa có tin nhắn.")).toBeTruthy();
   });
 
+  it("shows the online consultant count and status in the directory", () => {
+    render(<ConsultationWorkspace audience="user" access={{ ...authorized,
+      onlineConsultantCount: 1,
+      consultants: [
+        { id: "online", name: "Tư vấn viên An", online: true },
+        { id: "offline", name: "Tư vấn viên Bình", online: false },
+      ],
+    }} controls={{ consultantId: "", selectConsultant: vi.fn(), create: vi.fn(), sending: false,
+      transitioning: false, roomId: null, unreadConversations: new Set(), openRoom: vi.fn(),
+      directoryStatus: null, listStatus: null, roomStatus: null, lifecycleControls: null }} />);
+    expect(screen.getByText("1 đang online")).toBeTruthy();
+    const online = screen.getByText("Tư vấn viên An").parentElement;
+    const offline = screen.getByText("Tư vấn viên Bình").parentElement;
+    expect(online?.querySelector('[data-online="true"]')?.textContent).toContain("Đang online");
+    expect(offline?.querySelector('[data-online="false"]')?.textContent).toContain("Ngoại tuyến");
+  });
+
   it("shows the open room's current status while the conversation list is stale", () => {
     render(<ConsultationWorkspace audience="user" access={{ ...authorized,
       conversations: [{ ...authorized.room, status: "pending" }] }} />);

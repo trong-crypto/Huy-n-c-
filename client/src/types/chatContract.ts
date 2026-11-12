@@ -3,6 +3,7 @@ import { isUuid } from "./historyValidation";
 
 export type ChatSession = { accountId: string; role: "USER" | "CONSULTANT"; expiresAt: string };
 export type Consultant = { consultantId: string; displayName: string; summary: string | null };
+export type OnlineConsultants = { count: number; consultantIds: string[] };
 export type ConversationAction = "ACCEPT" | "DECLINE" | "CANCEL" | "END";
 export type ConversationTransition = {
   conversationId: string;

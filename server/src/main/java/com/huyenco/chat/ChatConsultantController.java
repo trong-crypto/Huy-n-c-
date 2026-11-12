@@ -3,6 +3,7 @@ package com.huyenco.chat;
 import com.huyenco.auth.ChatSessionAccess;
 import com.huyenco.common.dto.ApiError;
 import com.huyenco.common.exception.ContractException;
+import com.huyenco.websocket.ChatSocketSecurity;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Set;
 import java.util.UUID;
@@ -32,10 +33,21 @@ final class ChatConsultantController {
     private static final Pattern PAGE_NUMBER = Pattern.compile("[0-9]{1,10}");
     private final ChatSessionAccess sessions;
     private final ChatConsultantProfiles profiles;
+    private final ChatSocketSecurity sockets;
 
-    ChatConsultantController(ChatSessionAccess sessions, ChatConsultantProfiles profiles) {
+    ChatConsultantController(ChatSessionAccess sessions, ChatConsultantProfiles profiles, ChatSocketSecurity sockets) {
         this.sessions = sessions;
         this.profiles = profiles;
+        this.sockets = sockets;
+    }
+
+    @GetMapping("/online")
+    ResponseEntity<Envelope> online(HttpServletRequest request) {
+        return respond(request, () -> {
+            validateQuery(request, Set.of());
+            var ids = profiles.eligibleIds().stream().filter(sockets::customerOnline).toList();
+            return new OnlineConsultants(ids.size(), ids);
+        });
     }
 
     @GetMapping
@@ -114,4 +126,5 @@ final class ChatConsultantController {
     }
 
     record Envelope(String requestId, String status, Object data, ApiError error) {}
+    record OnlineConsultants(int count, java.util.List<UUID> consultantIds) {}
 }

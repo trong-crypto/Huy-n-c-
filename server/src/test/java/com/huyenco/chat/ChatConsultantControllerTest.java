@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.huyenco.auth.ChatSessionAccess;
 import com.huyenco.common.exception.ContractException;
+import com.huyenco.websocket.ChatSocketSecurity;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,8 +25,23 @@ class ChatConsultantControllerTest {
     private static final UUID PROFILE_ID = UUID.fromString("550e8400-e29b-41d4-a716-446655440001");
     private final ChatSessionAccess sessions = mock(ChatSessionAccess.class);
     private final ChatConsultantProfiles profiles = mock(ChatConsultantProfiles.class);
+    private final ChatSocketSecurity sockets = mock(ChatSocketSecurity.class);
     private final MockMvc mvc =
-            MockMvcBuilders.standaloneSetup(new ChatConsultantController(sessions, profiles)).build();
+            MockMvcBuilders.standaloneSetup(new ChatConsultantController(sessions, profiles, sockets)).build();
+
+    @Test
+    void onlineDirectoryContainsOnlyConnectedEligibleConsultants() throws Exception {
+        authenticate(ChatSessionAccess.Role.USER);
+        when(profiles.eligibleIds()).thenReturn(List.of(PROFILE_ID));
+        when(sockets.customerOnline(PROFILE_ID)).thenReturn(true);
+        mvc.perform(get(DIRECTORY + "/online")).andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.count").value(1))
+                .andExpect(jsonPath("$.data.consultantIds[0]").value(PROFILE_ID.toString()));
+        when(sockets.customerOnline(PROFILE_ID)).thenReturn(false);
+        mvc.perform(get(DIRECTORY + "/online")).andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.count").value(0))
+                .andExpect(jsonPath("$.data.consultantIds.length()").value(0));
+    }
 
     @Test
     void successReturnsOnlyPublicFieldsIncludingNullSummary() throws Exception {
@@ -60,6 +76,7 @@ class ChatConsultantControllerTest {
         authenticate(ChatSessionAccess.Role.CONSULTANT);
         mvc.perform(get(DIRECTORY + "/" + PROFILE_ID))
                 .andExpect(status().isForbidden()).andExpect(jsonPath("$.error.code").value("FORBIDDEN"));
+        mvc.perform(get(DIRECTORY + "/online")).andExpect(status().isForbidden());
         when(sessions.requireRead(any())).thenThrow(new ContractException("INVALID_SESSION", "Invalid session"));
         mvc.perform(get(DIRECTORY))
                 .andExpect(status().isUnauthorized()).andExpect(header().string("Cache-Control", "no-store"));

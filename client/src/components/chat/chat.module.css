@@ -81,6 +81,11 @@
 .sidebarEmpty { padding: 7px 8px 10px; }
 .directory { display: grid; gap: 8px; min-width: 0; }
 .directoryLabel { margin: 3px 0 0; font-size: 13px; font-weight: 700; }
+.onlineCount { margin-left: 8px; color: var(--muted); font-size: 12px; font-weight: 500; }
+.onlineLabel { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; font-weight: 500; }
+.onlineLabel i { width: 8px; height: 8px; flex: 0 0 8px; border-radius: 50%; background: #81758e; }
+.onlineLabel[data-online="true"] { color: #a6e2bd; }
+.onlineLabel[data-online="true"] i { background: #74d89d; box-shadow: 0 0 8px rgb(116 216 157 / 45%); }
 .entries, .messages { margin: 0; padding: 0; list-style: none; }
 .entries { display: grid; gap: 4px; }
 .entries > li { min-width: 0; overflow-wrap: anywhere; }
@@ -289,8 +294,21 @@
 .composerFoot { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; margin-top: 4px; color: var(--muted); font-size: 12px; }
 .composerFoot p { margin: 0; }
 
-@media (max-width: 720px) {
+@media (max-width: 860px) {
   .workspace { height: auto; grid-template-columns: minmax(0, 1fr); }
   .sidebar { max-height: 230px; border-right: 0; border-bottom: 1px solid var(--chat-line); }
   .workspace .room { height: 65vh; min-height: 390px; }
+}
+
+@media (max-width: 520px) {
+  .page { padding-block: 20px; }
+  .masthead { align-items: flex-start; }
+  .navigation { width: 100%; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; }
+  .navigation a { flex: 0 0 auto; }
+  .workspace, .aiRoom { border-radius: 14px; }
+  .sidebar { max-height: 200px; padding: 14px 10px; }
+  .workspace .room { height: 70vh; min-height: 460px; }
+  .roomHeader, .timeline { padding-inline: 12px; }
+  .composer { padding-inline: 10px; }
+  .message { max-width: 88%; }
 }
