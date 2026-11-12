@@ -14,6 +14,13 @@ export function InterpretationText({ content, sources, lines, compact = false, m
   const displayed = compact ? (movingLine ? [movingLine] : []) : [1, 2, 3, 4, 5, 6];
   return <div className={styles.content}>
     <section><h3>Ý nghĩa tổng quan</h3><p className="interpretation-text">{content.overview}</p></section>
+    {content.poem && <section>
+      <h3>Thơ diễn nghĩa quẻ</h3>
+      <h4>{content.poem.title}</h4>
+      <p className="interpretation-text">{content.poem.body}</p>
+      <p>Tác giả hoặc đơn vị biên soạn: {content.poem.author}</p>
+      {content.poem.source && <p>Nguồn: {content.poem.source}</p>}
+    </section>}
     {!compact && <>
       {content.image && <section><h3>Hình tượng quẻ</h3><p className="interpretation-text">{content.image}</p></section>}
       {content.original && <section><h3>Lời quẻ Hán cổ</h3><p lang="zh" className="interpretation-text">{content.original}</p></section>}

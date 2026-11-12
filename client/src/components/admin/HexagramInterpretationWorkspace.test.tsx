@@ -56,3 +56,37 @@ it("blocks publication when a verified source has changed since the saved revisi
   expect(screen.getByRole<HTMLButtonElement>("button", { name: "Công bố luận giải" }).disabled).toBe(true);
   expect(screen.getByRole<HTMLButtonElement>("button", { name: "Trả về bản nháp" }).disabled).toBe(false);
 });
+
+it("adds, edits and removes an optional poem through the existing draft save", async () => {
+  const existing = { ...draft, latest: { ...draft.latest!, sources: [source] } };
+  fixtures.load.mockResolvedValue(existing);
+  const poem = { title: "Bài thơ", body: "Dòng một\n\nDòng hai", author: "Nhóm biên soạn", source: "Ghi chú nguồn" };
+  const amended = { ...poem, title: "Bài thơ đã sửa" };
+  fixtures.save.mockResolvedValueOnce({ ...existing, version: 2, latest: { ...existing.latest, content: { ...content, poem } } });
+  fixtures.save.mockResolvedValueOnce({ ...existing, version: 3, latest: { ...existing.latest, content: { ...content, poem: amended } } });
+  fixtures.save.mockResolvedValueOnce({ ...existing, version: 4 });
+  render(<HexagramInterpretationWorkspace code={code} lines={lines} />);
+
+  fireEvent.click(await screen.findByRole("button", { name: "Thêm bài thơ" }));
+  const save = screen.getByRole<HTMLButtonElement>("button", { name: "Lưu bản nháp" });
+  expect(save.disabled).toBe(true);
+  fireEvent.change(screen.getByLabelText("Tiêu đề bài thơ"), { target: { value: poem.title } });
+  fireEvent.change(screen.getByLabelText("Nội dung bài thơ"), { target: { value: poem.body } });
+  fireEvent.change(screen.getByLabelText("Tác giả hoặc đơn vị biên soạn"), { target: { value: poem.author } });
+  fireEvent.change(screen.getByLabelText("Nguồn tham khảo bài thơ (tùy chọn)"), { target: { value: poem.source } });
+  fireEvent.click(save);
+  await waitFor(() => expect(save.disabled).toBe(true));
+  expect(fixtures.save).toHaveBeenNthCalledWith(1, code, 1, { ...content, poem }, [source.id], "test-csrf", expect.any(AbortSignal));
+
+  fireEvent.change(screen.getByLabelText("Tiêu đề bài thơ"), { target: { value: amended.title } });
+  fireEvent.click(save);
+  await waitFor(() => expect(save.disabled).toBe(true));
+  expect(fixtures.save).toHaveBeenNthCalledWith(2, code, 2, { ...content, poem: amended }, [source.id], "test-csrf", expect.any(AbortSignal));
+
+  fireEvent.click(screen.getByRole("button", { name: "Xóa bài thơ khỏi bản nháp" }));
+  fireEvent.click(save);
+  await waitFor(() => expect(save.disabled).toBe(true));
+  expect(fixtures.save).toHaveBeenNthCalledWith(3, code, 3, { ...content, poem: null }, [source.id], "test-csrf", expect.any(AbortSignal));
+  expect(screen.getByText("Chưa có bài thơ.")).toBeTruthy();
+  expect(screen.getByLabelText<HTMLTextAreaElement>("Ý nghĩa tổng quan").value).toBe(content.overview);
+});

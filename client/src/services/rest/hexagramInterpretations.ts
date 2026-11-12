@@ -4,8 +4,11 @@ import { isUuid } from "@/types/historyValidation";
 import { adminOptions } from "./methodGuides";
 import { requestJson, RestError } from "./transport";
 
+export type InterpretationPoem = { title: string; body: string; author: string; source?: string };
+
 export type InterpretationContent = {
   overview: string; image: string; original: string; paraphrase: string; lines: string[]; application: string;
+  poem?: InterpretationPoem | null;
 };
 export type InterpretationSource = {
   id: string; title: string; author: string | null; edition: string; locator: string; url: string;
@@ -29,8 +32,14 @@ function isSource(v: unknown): v is InterpretationSource {
   return isRecord(v) && [v.id, v.title, v.edition, v.locator, v.url, v.reuseNote].every(text)
     && (v.author === null || text(v.author)) && (v.reviewStatus === "SOURCE_LOCATED" || v.reviewStatus === "VERIFIED");
 }
+function isPoem(v: unknown): v is InterpretationPoem {
+  return isRecord(v) && [v.title, v.body, v.author].every(part => text(part) && part.trim().length > 0)
+    && (v.source === undefined || text(v.source));
+}
+
 function isDocument(v: unknown): v is Document {
   return isRecord(v) && positive(v.version) && isRecord(v.content)
+    && (v.content.poem == null || isPoem(v.content.poem))
     && [v.content.overview, v.content.image, v.content.original, v.content.paraphrase, v.content.application].every(text)
     && Array.isArray(v.content.lines) && v.content.lines.length === 6 && v.content.lines.every(text)
     && Array.isArray(v.sources) && v.sources.length > 0 && v.sources.every(isSource);

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { InterpretationText } from "@/components/hexagrams/PublishedInterpretation";
 import { FormField } from "@/components/ui/Controls";
 import { getInterpretationRevision, getInterpretationState, reviewInterpretation, saveInterpretation,
-  type InterpretationContent, type InterpretationRevision, type InterpretationSource,
+  type InterpretationContent, type InterpretationPoem, type InterpretationRevision, type InterpretationSource,
   type InterpretationState, type WorkflowAction } from "@/services/rest/hexagramInterpretations";
 import { methodGuideError } from "@/services/rest/methodGuides";
 import { RestError } from "@/services/rest/transport";
@@ -84,7 +84,13 @@ function Workspace({ initial, lines, auth, reload }: {
     && sourcesMatch && savedSources.every(source => source.reviewStatus === "VERIFIED");
   const latestContent = state.latest?.content ?? empty();
   const dirty = JSON.stringify(content) !== JSON.stringify(latestContent) || !sourcesMatch;
-  const valid = content.overview.trim().length > 0 && sources.length === selected.length && selected.length > 0;
+  const poem = content.poem;
+  const validPoem = !poem || [poem.title, poem.body, poem.author].every(value => value.trim().length > 0);
+  const valid = validPoem && content.overview.trim().length > 0 && sources.length === selected.length && selected.length > 0;
+
+  function changePoem(next: InterpretationPoem | null) {
+    setContent(current => ({ ...current, poem: next ?? (latestContent.poem ? null : undefined) }));
+  }
 
   async function perform(work: (signal: AbortSignal) => Promise<void>) {
     if (request.current) return;
@@ -148,6 +154,33 @@ function Workspace({ initial, lines, auth, reload }: {
             <textarea id={`interpretation-line-${index + 1}`} rows={3} maxLength={2000} value={content.lines[index]}
               onChange={event => setContent({ ...content, lines: content.lines.map((value, position) => position === index ? event.target.value : value) })} />
           </FormField>)}
+        </fieldset>
+        <fieldset className={styles.interpretationGroup}>
+          <legend>Bài thơ diễn nghĩa</legend>
+          {poem ? <>
+            <p className="field-hint">Cần nhập tiêu đề, nội dung và tác giả hoặc đơn vị biên soạn. Thơ chỉ thay đổi trên trang người dùng sau khi bản mới được công bố.</p>
+            <FormField id="interpretation-poem-title" label="Tiêu đề bài thơ">
+              <input id="interpretation-poem-title" maxLength={120} required value={poem.title}
+                onChange={event => changePoem({ ...poem, title: event.target.value })} />
+            </FormField>
+            <FormField id="interpretation-poem-body" label="Nội dung bài thơ">
+              <textarea id="interpretation-poem-body" rows={6} maxLength={8000} required value={poem.body}
+                onChange={event => changePoem({ ...poem, body: event.target.value })} />
+            </FormField>
+            <FormField id="interpretation-poem-author" label="Tác giả hoặc đơn vị biên soạn">
+              <input id="interpretation-poem-author" maxLength={160} required value={poem.author}
+                onChange={event => changePoem({ ...poem, author: event.target.value })} />
+            </FormField>
+            <FormField id="interpretation-poem-source" label="Nguồn tham khảo bài thơ (tùy chọn)">
+              <input id="interpretation-poem-source" maxLength={500} value={poem.source ?? ""}
+                onChange={event => changePoem({ ...poem, source: event.target.value })} />
+            </FormField>
+            <button type="button" className="secondary-button" onClick={() => changePoem(null)}>Xóa bài thơ khỏi bản nháp</button>
+          </> : <>
+            <p>Chưa có bài thơ.</p>
+            <button type="button" className="secondary-button"
+              onClick={() => changePoem({ title: "", body: "", author: "" })}>Thêm bài thơ</button>
+          </>}
         </fieldset>
         <fieldset className={styles.interpretationGroup}>
           <legend>Nguồn tham khảo đã đăng ký</legend>
