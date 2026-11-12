@@ -2,6 +2,7 @@ package com.huyenco.knowledge;
 
 import static org.junit.jupiter.api.Assertions.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.huyenco.maihoa.MaiHoaInterpretationService;
 import com.huyenco.maihoa.MaiHoaService;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ class LinesDatabaseIntegrationTest {
             context.registerBean(ObjectMapper.class, () -> new ObjectMapper());
             context.registerBean(DataSource.class, () -> new JdbcKnowledgeRepositoryTest.Connections(false));
             context.register(RuleRegistryConfig.class, KnowledgeDatabaseConfig.class, MaiHoaService.class,
+                    MaiHoaInterpretationService.class,
                     com.huyenco.calendar.CalendarService.class, com.huyenco.calendar.VietnameseLunarCalendar.class);
             context.refresh();
             assertEquals(1, context.getBeansOfType(HexagramRepository.class).size());

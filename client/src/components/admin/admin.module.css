@@ -494,3 +494,24 @@
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabs button {
+  min-height: 44px;
+  padding: 9px 16px;
+  border: 1px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-radius: 8px 8px 0 0;
+  background: transparent;
+  color: var(--secondary);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tabs button:hover, .tabs button[aria-selected="true"] { background: var(--soft); color: var(--primary-hover); }
+.tabs button[aria-selected="true"] { border-bottom-color: var(--primary); }

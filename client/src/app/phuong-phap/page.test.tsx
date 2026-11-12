@@ -10,6 +10,7 @@ describe("public method catalog", () => {
     expect(within(maiHoa).getByText("Ngày và giờ lập quẻ theo giờ Việt Nam (UTC+07:00).")).toBeTruthy();
     expect(within(maiHoa).getByText("Số vật đếm được và giờ Chi.")).toBeTruthy();
     expect(within(maiHoa).getByText("Sáu hào từ dưới lên và một hào động.")).toBeTruthy();
+    expect(within(maiHoa).getByText("Trượng xích chiêm")).toBeTruthy();
     const tamThe = screen.getByRole("region", { name: "Diễn Cầm Tam Thế" });
     expect(within(tamThe).getByText("Ngày sinh, giờ sinh, loại lịch và nội dung muốn xem.")).toBeTruthy();
     expect(screen.getAllByText("Có biểu mẫu")).toHaveLength(2);

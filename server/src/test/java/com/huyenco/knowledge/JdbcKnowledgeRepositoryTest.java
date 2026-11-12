@@ -124,7 +124,8 @@ class JdbcKnowledgeRepositoryTest {
         assertFalse(report.businessFeaturesReady());
         assertEquals(12L, report.counts().get("verified_rules"));
         assertEquals(64L, report.counts().get("verified_hexagram_names"));
-        assertEquals(14, report.rules().size());
+        assertEquals(catalog().all().stream().map(RuleDefinition::ruleCode).toList(),
+                report.rules().stream().map(KnowledgeReadiness.RuleReadiness::ruleCode).toList());
         assertEquals(64L, report.counts().get("interpretations"));
         assertFalse(report.pending().contains("INTERPRETATIONS_MISSING"));
         try (var connection = new Connections(false).getConnection(); var statement = connection.createStatement()) {

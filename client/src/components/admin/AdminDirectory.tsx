@@ -168,13 +168,17 @@ function DirectoryRecords({ data, consultant }: { data: DirectoryData; consultan
   </div>;
 }
 
-export function AdminDirectory({ module, state = { status: "blocked" } }: { module: DirectoryModule; state?: AdminData<DirectoryData> }) {
+export function AdminDirectory({ module, state = { status: "blocked" }, showHeading = true }: {
+  module: DirectoryModule;
+  state?: AdminData<DirectoryData>;
+  showHeading?: boolean;
+}) {
   const consultant = module.id === "consultants";
   return <div className={styles.contentStack}>
-    <header className={styles.dashboardIntro}>
+    {showHeading && <header className={styles.dashboardIntro}>
       <p className="eyebrow">HUYỀN CƠ / QUẢN TRỊ TÀI KHOẢN</p>
       <h1>{module.title}</h1><p>{module.description}</p>
-    </header>
+    </header>}
     {CLIENT_CONFIG.adminAccounts ? (consultant ? <ConsultantDirectoryLive /> : <AccountDirectoryLive />) : state.status !== "ready" ? <>
       <AdminDataState state={state} />
       <div className={styles.contentGrid}>
