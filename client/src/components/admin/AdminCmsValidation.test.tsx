@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { expect, it, vi } from "vitest";
 import { cmsTextError } from "./adminContentValidation";
 import { HexagramGlossWorkspace } from "./HexagramGlossWorkspace";
-import { MethodGuideWorkspace } from "./MethodGuideWorkspace";
+import { MethodGuideEditor } from "./MethodGuideWorkspace";
 
 vi.mock("./AdminSessionGate", () => {
   const auth = { session: { account: { id: "550e8400-e29b-41d4-a716-446655440001" }, csrfToken: "token" }, handleError: vi.fn() };
@@ -24,13 +24,11 @@ it("counts Unicode code points and allows line breaks only for multiline CMS fie
 });
 
 it("connects a guide validation error to its field and retains the unsaved title", async () => {
-  const fetch = vi.fn().mockImplementation((url: string, init: RequestInit) => Promise.resolve(
+  const fetch = vi.fn().mockImplementation((_url: string, init: RequestInit) => Promise.resolve(
     init.method === "POST" ? failed(400, "INVALID_INPUT", "title")
-      : url.endsWith("/admin/method-guides") ? completed({ items: [], page: 0, size: 20, totalElements: 0, totalPages: 0 })
-        : failed(404, "NOT_FOUND")));
+      : failed(404, "NOT_FOUND")));
   vi.stubGlobal("fetch", fetch);
-  render(<MethodGuideWorkspace />);
-  fireEvent.click(screen.getByRole("button", { name: /Theo thời điểm/ }));
+  render(<MethodGuideEditor method={{ code: "TIME", title: "Theo thời điểm", body: "Lập quẻ theo thời điểm." }} />);
   const title = await screen.findByLabelText("Tiêu đề") as HTMLInputElement;
   fireEvent.change(title, { target: { value: "Bản nhập chưa lưu" } });
   fireEvent.change(screen.getByLabelText("Nội dung"), { target: { value: "Nội dung kiểm thử" } });

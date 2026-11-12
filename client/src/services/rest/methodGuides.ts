@@ -19,13 +19,13 @@ export type GuideEvent = { version: number; action: string; revision: number; ac
 const timestamp = (value: unknown): value is string => typeof value === "string" && Number.isFinite(Date.parse(value));
 const integer = (value: unknown): value is number => Number.isSafeInteger(value) && (value as number) >= 0;
 const positive = (value: unknown): value is number => integer(value) && value > 0;
-const methodCode = (value: unknown): value is MethodCode => typeof value === "string" && ["TIME", "OBJECT_COUNT", "LINES", "TAM_THE"].includes(value);
+export const isGuideMethodCode = (value: unknown): value is MethodCode => typeof value === "string" && ["TIME", "OBJECT_COUNT", "LINES", "TAM_THE"].includes(value);
 const isAdminSession = (value: unknown): value is AdminSession =>
   isRecord(value) && isRecord(value.account) && value.account.role === "ADMIN" && isUuid(value.account.id)
   && typeof value.account.displayName === "string" && timestamp(value.expiresAt)
   && typeof value.csrfToken === "string" && /^[A-Za-z0-9_-]{43}$/.test(value.csrfToken);
 const isSummary = (value: unknown): value is GuideSummary =>
-  isRecord(value) && methodCode(value.methodCode) && value.group === (value.methodCode === "TAM_THE" ? "TAM_THE" : "MAI_HOA")
+  isRecord(value) && isGuideMethodCode(value.methodCode) && value.group === (value.methodCode === "TAM_THE" ? "TAM_THE" : "MAI_HOA")
   && typeof value.title === "string" && typeof value.status === "string" && ["DRAFT", "PENDING_REVIEW", "PUBLISHED"].includes(value.status)
   && typeof value.visible === "boolean" && positive(value.version) && timestamp(value.updatedAt);
 const isRevision = (value: unknown): value is Revision => isRecord(value) && positive(value.revision)
@@ -38,7 +38,7 @@ function isGuide(value: unknown): value is Guide {
     && isSummary(value) && (value.status === "PUBLISHED" ? working === null && published !== null : working !== null)
     && (!value.visible || published !== null);
 }
-const isPublicGuide = (value: unknown): value is PublicGuide => isRecord(value) && methodCode(value.methodCode)
+const isPublicGuide = (value: unknown): value is PublicGuide => isRecord(value) && isGuideMethodCode(value.methodCode)
   && typeof value.title === "string" && typeof value.body === "string" && positive(value.revision) && timestamp(value.publishedAt);
 export const isEvent = (value: unknown): value is GuideEvent => isRecord(value) && positive(value.version) && positive(value.revision)
   && typeof value.action === "string" && isUuid(value.actorId) && timestamp(value.occurredAt)

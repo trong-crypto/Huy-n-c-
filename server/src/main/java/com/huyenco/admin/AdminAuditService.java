@@ -14,10 +14,11 @@ import org.springframework.transaction.support.TransactionTemplate;
 @Service
 @Profile("db")
 final class AdminAuditService {
-    enum TargetType { METHOD_GUIDE, ACCOUNT, CONSULTANT_PROFILE }
+    enum TargetType { METHOD_GUIDE, METHOD_CATALOG, ACCOUNT, CONSULTANT_PROFILE }
     enum Action {
         CREATE, SAVE_DRAFT, SUBMIT_REVIEW, RETURN_TO_DRAFT, PUBLISH, SHOW, HIDE,
-        LOCK_ACCOUNT, UNLOCK_ACCOUNT, CHANGE_ROLE, SUBMIT_PROFILE, APPROVE_PROFILE, REJECT_PROFILE
+        LOCK_ACCOUNT, UNLOCK_ACCOUNT, CHANGE_ROLE, SUBMIT_PROFILE, APPROVE_PROFILE, REJECT_PROFILE,
+        CREATE_METHOD, UPDATE_METHOD, SHOW_METHOD, HIDE_METHOD, DELETE_METHOD
     }
 
     record Filters(TargetType targetType, String targetId, Action action, UUID actorId,

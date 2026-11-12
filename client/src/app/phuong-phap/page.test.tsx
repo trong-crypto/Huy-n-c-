@@ -1,7 +1,15 @@
 import { render, screen, within } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import Home from "@/app/page";
 import MethodCatalogPage from "./page";
+
+const flags = vi.hoisted(() => ({ methodGuides: false }));
+vi.mock("@/config/client", async importOriginal => {
+  const actual = await importOriginal<typeof import("@/config/client")>();
+  return { ...actual, CLIENT_CONFIG: { ...actual.CLIENT_CONFIG, get methodGuides() { return flags.methodGuides; } } };
+});
+afterEach(() => { flags.methodGuides = false; });
+
 
 describe("public method catalog", () => {
   it("explains the input for each existing method and only links to current forms", () => {
@@ -26,4 +34,21 @@ describe("public method catalog", () => {
     expect(screen.getByRole("link", { name: /^Khám phá Mai Hoa$/ }).getAttribute("href")).toBe("/mai-hoa");
     expect(screen.getByRole("link", { name: /^Tìm hiểu Tam Thế$/ }).getAttribute("href")).toBe("/tam-the");
   });
+});
+
+it("uses the published database catalog and never advertises hidden methods", async () => {
+  flags.methodGuides = true;
+  const entry = { method: { code: "TRUONG_XICH", group: "MAI_HOA", name: "Trượng xích từ danh mục",
+    summary: "Mô tả đã sửa", state: "LISTED", version: 2, formPath: "/mai-hoa", guideSupported: false },
+    introduction: "Giới thiệu", instructions: "Cách làm", requiredInput: "Số trượng và số thước" };
+  vi.stubGlobal("fetch", vi.fn(async (url: string) => Response.json({
+    requestId: "550e8400-e29b-41d4-a716-446655440001", status: "COMPLETED", error: null,
+    data: { items: url.endsWith("/methods") ? [entry] : [] },
+  })));
+  render(<MethodCatalogPage />);
+  expect(await screen.findByText(entry.method.name)).toBeTruthy();
+  expect(screen.getByText(entry.method.summary)).toBeTruthy();
+  expect(screen.queryByText("Theo thời gian")).toBeNull();
+  expect(screen.queryByRole("region", { name: "Diễn Cầm Tam Thế" })).toBeNull();
+  expect(screen.getByRole("link", { name: "Mở biểu mẫu Mai Hoa" }).getAttribute("href")).toBe("/mai-hoa");
 });

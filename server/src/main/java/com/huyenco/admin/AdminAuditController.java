@@ -59,6 +59,10 @@ final class AdminAuditController {
 
     private static String target(TargetType type, String value) {
         if (value == null) return null;
+        if (type == TargetType.METHOD_CATALOG) {
+            if (!MethodCatalogController.validCode(value)) throw invalid();
+            return value;
+        }
         if (METHOD_CODES.contains(value)) {
             if (type != null && type != TargetType.METHOD_GUIDE) throw invalid();
             return value;

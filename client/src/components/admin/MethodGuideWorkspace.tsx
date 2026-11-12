@@ -1,9 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
-import { divinationCatalog } from "@/config/divinationCatalog";
 import { FieldError, FormField, PrimaryButton } from "@/components/ui/Controls";
-import { createGuide, listGuideEvents, listGuides, methodGuideError, readGuide, reviewGuide, saveGuide, setGuideVisibility,
+import { createGuide, listGuideEvents, methodGuideError, readGuide, reviewGuide, saveGuide, setGuideVisibility,
   type Guide, type GuideDraft, type GuideEvent, type GuideStatus, type MethodCode, type Page } from "@/services/rest/methodGuides";
 import { RestError } from "@/services/rest/transport";
 import { useLookup } from "@/services/rest/useLookup";
@@ -11,7 +10,6 @@ import { cmsFieldError, cmsFieldProps, cmsTextError, contentLimits, stripCmsText
 import { useAdminSession } from "./AdminSessionGate";
 import styles from "./admin.module.css";
 
-const methods = divinationCatalog.flatMap(family => family.methods.map(method => ({ ...method, group: family.group })));
 const statuses: Record<GuideStatus, string> = { DRAFT: "Bản nháp", PENDING_REVIEW: "Chờ duyệt", PUBLISHED: "Đã công bố" };
 const actions: Record<string, string> = { CREATE: "Tạo bài", SAVE_DRAFT: "Lưu bản nháp", SUBMIT_REVIEW: "Gửi duyệt",
   RETURN_TO_DRAFT: "Trả về bản nháp", PUBLISH: "Công bố", SHOW: "Hiện bài", HIDE: "Ẩn bài" };
@@ -40,56 +38,10 @@ type EditorApi<Code extends string> = {
 const methodApi: EditorApi<MethodCode> = { read: readGuide, create: createGuide, save: saveGuide,
   review: reviewGuide, events: listGuideEvents, visibility: setGuideVisibility };
 
-export function MethodGuideWorkspace() {
-  const [selected, setSelected] = useState<MethodCode | null>(null);
-  const [query, setQuery] = useState("");
-  const [group, setGroup] = useState("");
-  const [revision, setRevision] = useState(0);
+export function MethodGuideEditor({ method }: { method: Editable<MethodCode> }) {
   const auth = useAdminSession();
-  const handleError = auth?.handleError;
-  const load = useCallback(async (signal: AbortSignal) => {
-    try { return await listGuides(signal); }
-    catch (failure) { if (!signal.aborted) handleError?.(failure); throw failure; }
-  }, [handleError]);
-  const list = useLookup(String(revision), load);
-  const refreshList = useCallback(() => setRevision(value => value + 1), []);
-  const q = query.trim().toLocaleLowerCase("vi");
-  const method = methods.find(item => item.code === selected);
   if (!auth) return <p role="status">Cần phiên Admin để quản lý bài hướng dẫn.</p>;
-
-  return <div className={styles.contentGrid}>
-    <section className={styles.contentPanel}>
-      <h2>Chọn phương pháp</h2>
-      <div className={styles.inlineFields}>
-        <FormField id="admin-guide-search" label="Tìm phương pháp">
-          <input id="admin-guide-search" type="search" value={query} onChange={event => setQuery(event.target.value)} />
-        </FormField>
-        <FormField id="admin-guide-group" label="Nhóm phương pháp">
-          <select id="admin-guide-group" value={group} onChange={event => setGroup(event.target.value)}>
-            <option value="">Tất cả</option>
-            {divinationCatalog.map(family => <option key={family.href}>{family.group}</option>)}
-          </select>
-        </FormField>
-      </div>
-      {list.status === "loading" && <p role="status">Đang tải trạng thái bài hướng dẫn…</p>}
-      {list.status === "failed" && <><p role="alert">{methodGuideError(list.error)}</p>
-        <button type="button" className="secondary-button" onClick={list.retry}>Tải lại danh sách</button></>}
-      <ul className={styles.recordList}>
-        {methods.map(item => ({ item, summary: list.data?.items.find(row => row.methodCode === item.code) }))
-          .filter(({ item, summary }) => (!group || item.group === group)
-            && `${item.title} ${item.code} ${summary?.title ?? ""}`.toLocaleLowerCase("vi").includes(q))
-          .map(({ item, summary }) => <li key={item.code}>
-            <button type="button" aria-pressed={selected === item.code} onClick={() => setSelected(item.code)}>
-              {item.title}<small>{item.group} · {summary ? statuses[summary.status] : list.data ? "Chưa có bài" : item.code}</small>
-            </button>
-          </li>)}
-      </ul>
-    </section>
-    {method ? <LoadContentEditor key={method.code} method={method} api={methodApi} csrf={auth.session.csrfToken}
-      handleError={auth.handleError} onUpdated={refreshList} /> : <section className={styles.contentPanel}>
-      <p>Chọn một phương pháp để tạo hoặc chỉnh sửa bài hướng dẫn.</p>
-    </section>}
-  </div>;
+  return <LoadContentEditor method={method} api={methodApi} csrf={auth.session.csrfToken} handleError={auth.handleError} />;
 }
 
 export function LoadContentEditor<Code extends string>({ method, api, csrf, handleError, onUpdated, actorId }: {

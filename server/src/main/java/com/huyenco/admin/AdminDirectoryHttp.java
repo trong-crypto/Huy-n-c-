@@ -102,7 +102,8 @@ final class AdminDirectoryHttp {
                 case "NOT_FOUND" -> 404;
                 case "VERSION_CONFLICT", "INVALID_TRANSITION", "ACCOUNT_LOCKED", "CONSULTANT_APPROVAL_REQUIRED",
                         "PROFILE_EXISTS", "GLOSS_DRAFT_EXISTS", "SOURCE_PROPOSAL_EXISTS",
-                        "SOURCE_CHANGED", "SOURCE_ALREADY_APPLIED" -> 409;
+                        "SOURCE_CHANGED", "SOURCE_ALREADY_APPLIED", "METHOD_EXISTS", "METHOD_PROTECTED",
+                        "METHOD_IN_USE", "METHOD_UNAVAILABLE" -> 409;
                 default -> 400;
             };
             String field = failure instanceof FieldFailure input ? input.field() : null;

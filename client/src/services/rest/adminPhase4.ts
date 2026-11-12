@@ -48,11 +48,13 @@ const isConsultant = (value: unknown): value is ConsultantDetail => isRecord(val
   && optional(value.summary, text) && optional(value.submittedBy, isUuid) && optional(value.reviewedBy, isUuid)
   && optional(value.reviewedAt, timestamp) && optional(value.rejectionReason, text);
 
-export const auditTargets = { METHOD_GUIDE: "Bài hướng dẫn", ACCOUNT: "Tài khoản", CONSULTANT_PROFILE: "Hồ sơ tư vấn viên" } as const;
+export const auditTargets = { METHOD_GUIDE: "Bài hướng dẫn", METHOD_CATALOG: "Danh mục phương pháp", ACCOUNT: "Tài khoản", CONSULTANT_PROFILE: "Hồ sơ tư vấn viên" } as const;
 export const auditActions = { CREATE: "Tạo bài", SAVE_DRAFT: "Lưu bản nháp", SUBMIT_REVIEW: "Gửi duyệt bài",
   RETURN_TO_DRAFT: "Trả về bản nháp", PUBLISH: "Công bố", SHOW: "Hiện bài", HIDE: "Ẩn bài",
   LOCK_ACCOUNT: "Khóa tài khoản", UNLOCK_ACCOUNT: "Mở khóa tài khoản", CHANGE_ROLE: "Đổi vai trò",
-  SUBMIT_PROFILE: "Tạo hồ sơ", APPROVE_PROFILE: "Duyệt hồ sơ", REJECT_PROFILE: "Từ chối hồ sơ" } as const;
+  SUBMIT_PROFILE: "Tạo hồ sơ", APPROVE_PROFILE: "Duyệt hồ sơ", REJECT_PROFILE: "Từ chối hồ sơ",
+  CREATE_METHOD: "Thêm phương pháp", UPDATE_METHOD: "Sửa phương pháp", SHOW_METHOD: "Hiện phương pháp",
+  HIDE_METHOD: "Ẩn phương pháp", DELETE_METHOD: "Xóa phương pháp" } as const;
 export type AuditEvent = { id: string; occurredAt: string; actorId: string; targetId: string;
   targetType: keyof typeof auditTargets; action: keyof typeof auditActions; outcome: "COMPLETED" };
 const isAuditEvent = (value: unknown): value is AuditEvent => isRecord(value) && text(value.id)

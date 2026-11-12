@@ -515,3 +515,46 @@
 
 .tabs button:hover, .tabs button[aria-selected="true"] { background: var(--soft); color: var(--primary-hover); }
 .tabs button[aria-selected="true"] { border-bottom-color: var(--primary); }
+
+.methodCatalogHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.methodCatalogHeader :is(h2, p:last-child) { margin-bottom: 0; }
+.methodCatalogHeader > :global(.primary-button), .methodDeleteDialog :global(.primary-button),
+.methodEditorFields + .contentActions :global(.primary-button) { width: auto; }
+.methodFilters {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)) auto auto;
+  align-items: end;
+  gap: 12px;
+}
+.methodFilters :is(input, select) { width: 100%; min-width: 0; }
+.methodFilters button, .methodRowActions button { white-space: nowrap; }
+.methodRowActions { display: flex; flex-wrap: wrap; gap: 6px; }
+.methodRowActions button { min-height: 36px; padding: 6px 10px; }
+.methodEditorFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 12px 0;
+}
+.methodEditorFields textarea { resize: vertical; }
+.methodDeleteDialog {
+  width: min(520px, calc(100% - 32px));
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-secondary);
+  color: var(--text);
+}
+.methodDeleteDialog::backdrop { background: rgb(9 4 17 / 72%); }
+.methodDeleteDialog h2 { margin-top: 0; color: var(--primary-hover); }
+.badge[data-method-state="LISTED"] { color: #a8e0c2; }
+.badge[data-method-state="UNAVAILABLE"] { color: var(--secondary); }
+@media (max-width: 1024px) {
+  .methodFilters, .methodEditorFields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

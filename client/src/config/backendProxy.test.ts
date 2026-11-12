@@ -50,14 +50,15 @@ it.each(["chat", "account", "admin"])("proxies the %s WebSocket separately from 
   ]);
 });
 
-it("proxies Admin authentication and both CMS routes when method guides are enabled", async () => {
+it("proxies Admin authentication and guide and catalog routes when method guides are enabled", async () => {
   vi.stubEnv("NEXT_PUBLIC_METHOD_GUIDES", "1");
   vi.stubEnv("NEXT_PUBLIC_ACCOUNT_HISTORY", "0");
   vi.stubEnv("HUYENCO_API_URL", "http://127.0.0.1:18108");
   const rewrites = await nextConfig.rewrites!();
   if (!Array.isArray(rewrites)) throw new Error("Expected a flat rewrite list");
   for (const path of ["/api/v1/auth/admin/login", "/api/v1/admin/method-guides",
-    "/api/v1/admin/method-guides/TIME/visibility", "/api/v1/method-guides"]) {
+    "/api/v1/admin/method-guides/TIME/visibility", "/api/v1/method-guides",
+    "/api/v1/admin/methods", "/api/v1/admin/methods/TIME", "/api/v1/methods"]) {
     expect(rewrites.filter(rewrite => getPathMatch(rewrite.source)(path) !== false)).toHaveLength(1);
   }
 });

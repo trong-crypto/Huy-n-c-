@@ -37,6 +37,8 @@ const nextConfig: NextConfig = {
       ...(process.env.NEXT_PUBLIC_METHOD_GUIDES === "1" ? [
         { source: "/api/v1/admin/method-guides/:path*", destination: `${server}/api/v1/admin/method-guides/:path*` },
         { source: "/api/v1/method-guides", destination: `${server}/api/v1/method-guides` },
+        { source: "/api/v1/admin/methods/:path*", destination: `${server}/api/v1/admin/methods/:path*` },
+        { source: "/api/v1/methods", destination: `${server}/api/v1/methods` },
       ] : []),
       ...(process.env.NEXT_PUBLIC_ADMIN_ACCOUNTS === "1" ? [
         { source: "/api/v1/admin/accounts/:path*", destination: `${server}/api/v1/admin/accounts/:path*` },
