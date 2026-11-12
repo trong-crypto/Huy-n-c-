@@ -7,6 +7,8 @@ import com.huyenco.websocket.AdminReviewNotifications;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.huyenco.common.validation.CmsInput;
 import com.huyenco.auth.AdminRequestAccess;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -68,9 +70,9 @@ final class HexagramInterpretationController {
     ResponseEntity<Envelope> save(HttpServletRequest request, @PathVariable String code) {
         return respond(LOG, 200, () -> {
             var author = actor(access, request, true);
-            JsonNode body = input(request, Set.of("expectedVersion", "content", "sourceIds"));
+            JsonNode body = input(request, Set.of("expectedVersion", "content", "sourceIds"), 192_000);
             JsonNode content = body.path("content");
-            fields(content, Set.of("overview", "image", "original", "paraphrase", "lines", "application"));
+            fields(content, Set.of("overview", "image", "original", "paraphrase", "lines", "application", "poem"));
             var lines = content.path("lines");
             var sources = body.path("sourceIds");
             if (!lines.isArray() || lines.size() != 6 || !sources.isArray() || sources.isEmpty() || sources.size() > 8) throw invalid();
@@ -90,7 +92,7 @@ final class HexagramInterpretationController {
                     lineTexts, field(content, "application", 4000));
             var version = body.path("expectedVersion");
             if (!version.isIntegralNumber() || !version.canConvertToInt() || version.intValue() < 0) throw invalid();
-            return interpretations.save(code, version.intValue(), document, ids, author);
+            return interpretations.save(code, version.intValue(), document, poem(content.path("poem")), ids, author);
         });
     }
 
@@ -98,7 +100,7 @@ final class HexagramInterpretationController {
     ResponseEntity<Envelope> workflow(HttpServletRequest request, @PathVariable String code) {
         return respond(LOG, 200, () -> {
             var reviewer = actor(access, request, true);
-            var body = input(request, Set.of("expectedVersion", "action", "reviewNote"));
+            var body = input(request, Set.of("expectedVersion", "action", "reviewNote"), 96_000);
             var action = option(HexagramInterpretations.Action.class, text(body, "action", 16, false, false));
             String note = action == HexagramInterpretations.Action.SUBMIT ? null : text(body, "reviewNote", 500, false, false);
             if (action == HexagramInterpretations.Action.SUBMIT && body.has("reviewNote")) throw invalid();
@@ -108,11 +110,25 @@ final class HexagramInterpretationController {
         });
     }
 
-    private JsonNode input(HttpServletRequest request, Set<String> allowed) {
+    private JsonNode input(HttpServletRequest request, Set<String> allowed, int maxBody) {
         query(request, Set.of());
-        JsonNode value = body(request, reader, 96000);
+        JsonNode value = body(request, reader, maxBody);
         fields(value, allowed);
         return value;
+    }
+
+    private static JsonNode poem(JsonNode value) {
+        if (value.isMissingNode() || value.isNull()) return value;
+        fields(value, Set.of("title", "body", "author", "source"));
+        String title = text(value, "title", 120, false, false);
+        text(value, "body", 8000, true, false);
+        String body = value.path("body").textValue();
+        if (body.codePointCount(0, body.length()) > 8000) throw CmsInput.invalid("body");
+        String author = text(value, "author", 160, false, false);
+        String source = text(value, "source", 500, false, true);
+        var poem = JsonNodeFactory.instance.objectNode().put("title", title).put("body", body).put("author", author);
+        if (source != null) poem.put("source", source);
+        return poem;
     }
 
     private static void fields(JsonNode value, Set<String> allowed) {

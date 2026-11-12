@@ -3,6 +3,7 @@ package com.huyenco.admin;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.huyenco.common.exception.ContractException;
 import com.huyenco.knowledge.KnowledgeDataException;
 import java.sql.ResultSet;
@@ -84,7 +85,7 @@ public final class HexagramInterpretations {
                 this::revision, code, version).stream().findFirst().orElseThrow(HexagramInterpretations::missing);
     }
 
-    State save(String code, int expected, Content content, Set<String> sourceIds, UUID author) {
+    State save(String code, int expected, Content content, JsonNode poem, Set<String> sourceIds, UUID author) {
         return write.execute(tx -> {
             requireHexagram(code, true);
             var state = load(code);
@@ -93,8 +94,12 @@ public final class HexagramInterpretations {
             var selected = state.sources().stream().filter(s -> sourceIds.contains(s.id())).toList();
             if (selected.size() != sourceIds.size()) throw new ContractException("INVALID_SOURCE", "Chọn nguồn đã đăng ký cho quẻ.");
             int next = state.latest() == null ? 1 : Math.incrementExact(state.latest().version());
+            // Legacy editors can save the other fields without clearing a poem.
+            JsonNode storedPoem = poem.isMissingNode() && state.latest() != null ? state.latest().content().path("poem") : poem;
+            ObjectNode document = mapper.valueToTree(content);
+            if (storedPoem.isObject()) document.set("poem", storedPoem);
             db.update("INSERT INTO " + REVISIONS + " (hexagram_code, version, content, source_snapshot, created_by) VALUES (?,?,?::jsonb,?::jsonb,?)",
-                    code, next, serialize(content), serialize(selected), author);
+                    code, next, serialize(document), serialize(selected), author);
             return load(code);
         });
     }

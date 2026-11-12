@@ -73,3 +73,9 @@ TV2/TV3 cần duyệt độ chính xác, đối chiếu quyền sử dụng và 
 - Frontend Admin gồm `client/src/components/admin/AdminContentWorkspace.tsx`, `client/src/components/admin/AdminHexagramCatalog.tsx` và `client/src/components/admin/HexagramInterpretationWorkspace.tsx`.
 - Frontend công khai gồm `client/src/components/hexagrams/HexagramDetailPanel.tsx`, `client/src/components/hexagrams/PublishedInterpretation.tsx`, `client/src/components/hexagrams/publishedInterpretation.module.css` và `client/src/components/results/MaiHoaResultView.tsx`. Cấu hình và API client ở `client/next.config.ts`, `client/src/config/client.ts` và `client/src/services/rest/hexagramInterpretations.ts`.
 - Kiểm thử Frontend ở `client/src/components/hexagrams/PublishedInterpretation.test.tsx`. Trình nạp `client/scripts/lib/load-ui-module.mjs` ánh xạ CSS Module khi render component thật bằng Node. Kiểu dáng thực tế được kiểm qua Next.js và Chromium.
+
+## Bài thơ diễn nghĩa
+
+Mỗi phiên bản luận giải có thể lưu một bài thơ trong `cms_hexagram_interpretation_revisions.content` (JSONB). `PUT /api/v1/admin/hexagrams/{code}/interpretation` nhận trường `content.poem` với `title` (tối đa 120 ký tự), `body` (8.000), `author` (160) và `source` tùy chọn (500). Ba trường đầu bắt buộc khi có bài thơ. Nội dung giữ nguyên xuống dòng.
+
+Khi yêu cầu lưu không gửi `poem`, Backend giữ bài thơ của bản mới nhất. Gửi `poem: null` để lưu một phiên bản không có bài thơ. Bản đã công bố chỉ thay đổi sau khi phiên bản mới được công bố theo quy trình hiện có. Bản ghi phiên bản lưu người soạn và thời điểm lưu. Các sự kiện gửi duyệt, trả về và công bố ghi người thực hiện và thời điểm trong `cms_hexagram_interpretation_events`.

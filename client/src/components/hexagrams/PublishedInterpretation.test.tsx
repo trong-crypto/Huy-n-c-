@@ -95,3 +95,24 @@ it("offers Chat and AI together on a Tam Thế result", () => {
   expect(ask.getAttribute("href")).toBe(`/tu-van/hoi-ai?calculationRequestId=${tamTheResponse.requestId}`);
   expect(copy.closest(".result-actions")).toBe(ask.closest(".result-actions"));
 });
+
+it("shows a published poem verbatim alongside the existing interpretation", async () => {
+  const poem = { title: "Bài thơ thử nghiệm", body: "Dòng một\n\nDòng hai\n", author: "Nhóm biên soạn", source: "Nguồn thử nghiệm" };
+  const publication = { content, status: "PUBLISHED", version: 2, sources: [source], publishedAt: "2026-11-10T01:00:00Z" };
+  response(publication);
+  const { unmount } = render(<PublishedInterpretation code={code} lines={lines} />);
+  expect(await screen.findByText(content.overview)).toBeTruthy();
+  expect(screen.queryByRole("heading", { name: "Thơ diễn nghĩa quẻ" })).toBeNull();
+  unmount();
+
+  response({ ...publication, content: { ...content, poem } });
+  render(<PublishedInterpretation code={code} lines={lines} />);
+  const heading = await screen.findByRole("heading", { name: "Thơ diễn nghĩa quẻ" });
+  expect(heading.parentElement?.querySelector(".interpretation-text")?.textContent).toBe(poem.body);
+  expect(screen.getByRole("heading", { name: poem.title })).toBeTruthy();
+  expect(screen.getByText("Tác giả hoặc đơn vị biên soạn: " + poem.author)).toBeTruthy();
+  expect(screen.getByText("Nguồn: " + poem.source)).toBeTruthy();
+  for (const text of [content.overview, content.image, content.original, content.paraphrase, "Đoạn 6"]) {
+    expect(screen.getByText(text)).toBeTruthy();
+  }
+});
