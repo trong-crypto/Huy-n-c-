@@ -7,8 +7,9 @@ export type ChatMessaging = {
   historyStatus: "idle" | "loading" | "ready" | "error";
   delivery: "idle" | "waiting" | "unknown";
   acknowledgedId?: string;
+  pendingId?: string;
   notice?: string;
-  send: (text: string) => void;
+  send: (text: string, messageId?: string) => void;
   notifyTyping?: () => void;
 };
 export type ChatRoom = {

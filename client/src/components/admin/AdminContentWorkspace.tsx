@@ -28,7 +28,7 @@ function MethodManagement() {
     <section className={styles.contentPanel} aria-labelledby="method-list-title">
       <h2 id="method-list-title">Phương pháp có trên website</h2>
       <p className="field-hint">Danh mục theo tính năng hiện có. Trạng thái quản trị chưa có dữ liệu.</p>
-      <div className="form-stack">
+      <div className={styles.inlineFields}>
         <FormField id="admin-method-search" label="Tìm phương pháp">
           <input type="search" id="admin-method-search" value={query} onChange={event => setQuery(event.target.value)} />
         </FormField>
@@ -114,7 +114,7 @@ export function AdminContentWorkspace({ module }: { module: ContentModule }) {
   const liveWebsite = module.id === "website" && CLIENT_CONFIG.websiteContent;
   const liveContent = liveMethods || liveSources || liveWebsite
     || module.id === "readings" && (CLIENT_CONFIG.adminHexagramGlosses || CLIENT_CONFIG.hexagramInterpretations);
-  return <div className={styles.contentStack}>
+  return <div className={`${styles.contentStack} ${styles.horizontalWorkspace}`}>
     <header className={styles.dashboardIntro}>
       <p className="eyebrow">HUYỀN CƠ / QUẢN TRỊ NỘI DUNG</p>
       <h1>{module.title}</h1><p>{module.description}</p>

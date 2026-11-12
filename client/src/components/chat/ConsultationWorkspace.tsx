@@ -28,6 +28,7 @@ export function ConsultationWorkspace({ audience, access = { status: "blocked" }
     selectConsultant: (id: string) => void;
     create: () => void;
     ready?: boolean;
+    prioritizeRequest?: boolean;
     sending: boolean;
     transitioning: boolean;
     roomId: string | null;
@@ -79,7 +80,7 @@ export function ConsultationWorkspace({ audience, access = { status: "blocked" }
             <button type="button" className="secondary-button" disabled>Từ chối yêu cầu</button>
           </div>}
         </div>
-        {!consultant && <details className={styles.newRequest} open={!authorized?.conversations?.length}>
+        {!consultant && <details className={styles.newRequest} open={controls?.prioritizeRequest || !authorized?.conversations?.length}>
           <summary><ChatIcon kind="plus" /> Yêu cầu tư vấn mới</summary>
           <section className={styles.directory} aria-labelledby="consultants-title">
             <h3 id="consultants-title" className={styles.directoryLabel}>Tư vấn viên</h3>

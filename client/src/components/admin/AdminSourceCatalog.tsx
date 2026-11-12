@@ -44,7 +44,7 @@ function Catalog({ csrf, actorId, handleError }: { csrf: string; actorId: string
     <section className={styles.contentPanel} aria-labelledby="admin-source-catalog" aria-busy={result.status === "loading"}>
       <h2 id="admin-source-catalog">Danh sách dữ liệu nguồn</h2>
       <p className="field-hint">Tra cứu ấn bản, trang và các bản ghi tham chiếu trực tiếp.</p>
-      <form className="form-stack" onSubmit={search}>
+      <form className={styles.inlineFields} onSubmit={search}>
         <FormField id="admin-source-search" label="Tìm tên, mục hoặc trang">
           <input id="admin-source-search" type="search" value={text} maxLength={100} onChange={event => setText(event.target.value)} />
         </FormField>

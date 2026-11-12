@@ -22,6 +22,9 @@ function SavedResult({ id }: { id: string }) {
     try { return await getHistory(id, signal); } catch (error) { if (!signal.aborted) handleError(error); throw error; }
   }, [id, handleError]);
   const result = useLookup(id, load);
+  const ask = CLIENT_CONFIG.accountHistory && <Link className="secondary-button" href={aiReadingHref({ readingId: id })}>
+    Hỏi AI về kết quả này
+  </Link>;
   return <><PageHeader eyebrow="LỊCH SỬ / BẢN ĐÃ LƯU" title={result.status === "completed" ? result.data.title : "Kết quả đã lưu"}>
     <p>Bản lưu được đọc từ Server sau kiểm tra phiên. Giữ nguyên quy tắc, nguồn và quyết định tại thời điểm lưu; không tính lại.</p>
   </PageHeader><p role="status" aria-live="polite">{result.status === "loading" ? "Đang tải bản đã lưu…" : result.status === "completed" ? "Đã tải bản lịch sử." : "Chưa tải được bản lịch sử."}</p>
@@ -29,12 +32,9 @@ function SavedResult({ id }: { id: string }) {
     {result.status === "completed" && <><p>Đã lưu: <time dateTime={result.data.createdAt}>{result.data.createdAt}</time></p>
       <p className="field-hint">Phiên bản quy tắc của snapshot: {result.data.result.ruleVersion}</p>
       {result.data.type === "MAI_HOA" && "method" in result.data.result && <>
-        <MaiHoaResultView data={result.data.result} />
-        {CLIENT_CONFIG.accountHistory && <Link className="secondary-button" href={aiReadingHref({ readingId: id })}>
-          Hỏi AI về kết quả này
-        </Link>}
+        <MaiHoaResultView data={result.data.result} actions={ask} />
       </>}
-      {result.data.type === "TAM_THE" && "categories" in result.data.result && <TamTheResultView data={result.data.result} />}
+      {result.data.type === "TAM_THE" && "categories" in result.data.result && <TamTheResultView data={result.data.result} actions={ask} />}
     </>}
   </>;
 }

@@ -4,6 +4,11 @@ import { ResultPanel } from "@/components/ResultPanel";
 import { isCalculationResponse } from "@/types/contractValidation";
 import linesResponse from "../../../../docs/examples/mai-hoa-lines.response.json";
 import { PublishedInterpretation } from "./PublishedInterpretation";
+import tamTheResponse from "../../../../docs/examples/tam-the-love.response.json";
+import { readReadingHandoff } from "@/components/chat/readingHandoff";
+
+const push = vi.hoisted(() => vi.fn());
+vi.mock("next/navigation", () => ({ useRouter: () => ({ push }) }));
 
 vi.mock("@/config/client", async importOriginal => {
   const original = await importOriginal<typeof import("@/config/client")>();
@@ -45,12 +50,16 @@ it("rejects drafts and shows a meaningful empty state for an unpublished quẻ",
   expect(await screen.findByText("Quẻ này chưa có bài luận giải được công bố.")).toBeTruthy();
 });
 
-it("keeps chat copy, published readings and the AI link together on a Mai Hoa result", async () => {
+it("opens consultation with a Mai Hoa reading even when clipboard access is unavailable", async () => {
   const result: unknown = linesResponse;
   if (!isCalculationResponse(result)) throw new Error("Invalid Mai Hoa test fixture");
-  const writeText = vi.fn(async (_text: string) => {});
-  vi.stubGlobal("navigator", { clipboard: { writeText } });
+  const accountId = "550e8400-e29b-41d4-a716-446655440003";
+  push.mockClear();
+  sessionStorage.clear();
   vi.stubGlobal("fetch", vi.fn(async (path: string) => {
+    if (path.endsWith("/auth/session")) return Response.json({ requestId: linesResponse.requestId,
+      status: "COMPLETED", error: null, data: { account: { id: accountId, role: "USER", displayName: "Khách" },
+        csrfToken: "a".repeat(43), expiresAt: "2099-01-01T00:00:00Z" } });
     const requestedCode = path.split("/").at(-2);
     const publication = { content: { ...content, overview: `Tổng quan ${requestedCode}` },
       status: "PUBLISHED", version: 2, sources: [source], publishedAt: "2026-11-10T01:00:00Z" };
@@ -68,10 +77,21 @@ it("keeps chat copy, published readings and the AI link together on a Mai Hoa re
   expect(screen.getByRole("link", { name: "Hỏi AI về kết quả này" }).getAttribute("href"))
     .toBe(`/tu-van/hoi-ai?calculationRequestId=${linesResponse.requestId}`);
   fireEvent.click(screen.getByRole("button", { name: "Sao chép lá số để gửi tư vấn" }));
-  await waitFor(() => expect(writeText).toHaveBeenCalledTimes(1));
-  expect(writeText.mock.calls[0][0]).toContain("Quẻ chủ: Ký tế");
-  expect(writeText.mock.calls[0][0]).toContain("Quẻ hỗ: Vị tế");
-  expect(writeText.mock.calls[0][0]).toContain("Quẻ biến: Nhu");
-  expect(writeText.mock.calls[0][0]).toContain("Hào động: 2");
-  expect(await screen.findByText(/^Đã sao chép\./)).toBeTruthy();
+  await waitFor(() => expect(push).toHaveBeenCalledWith("/tu-van"));
+  const message = readReadingHandoff(accountId)?.text;
+  expect(message).toContain("Quẻ chủ: Ký tế");
+  expect(message).toContain("Quẻ hỗ: Vị tế");
+  expect(message).toContain("Quẻ biến: Nhu");
+  expect(message).toContain("Hào động: 2");
+  sessionStorage.clear();
+});
+
+it("offers Chat and AI together on a Tam Thế result", () => {
+  const response: unknown = tamTheResponse;
+  if (!isCalculationResponse(response)) throw new Error("Invalid Tam Thế test fixture");
+  render(<ResultPanel connection="connected" requestState="completed" response={response} progress={[]} localError={null} />);
+  const copy = screen.getByRole("button", { name: "Sao chép lá số để gửi tư vấn" });
+  const ask = screen.getByRole("link", { name: "Hỏi AI về kết quả này" });
+  expect(ask.getAttribute("href")).toBe(`/tu-van/hoi-ai?calculationRequestId=${tamTheResponse.requestId}`);
+  expect(copy.closest(".result-actions")).toBe(ask.closest(".result-actions"));
 });

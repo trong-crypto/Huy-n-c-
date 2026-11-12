@@ -141,13 +141,35 @@ class AiConsultationTest {
     }
 
     @Test
-    void rejectsOtherOwnersAndNonMaiHoaWithoutSendingToProvider() throws Exception {
+    void rejectsOtherOwnersAndMalformedTamTheWithoutSendingToProvider() throws Exception {
         mvc.perform(ask(reference("readingId", readingId))).andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.error.code").value("NOT_FOUND"));
         when(history.detail(owner, readingId)).thenReturn(Optional.of(new HistoryStore.Detail(readingId, "TAM_THE",
                 "Bản lưu", Instant.EPOCH, "SOURCE_VERIFIED", mapper.readTree(READING))));
         mvc.perform(ask(reference("readingId", readingId))).andExpect(status().isNotFound());
         verifyNoInteractions(provider, results);
+    }
+
+    @Test
+    void groundsTamTheInTheOwnedResultAndPreservesMissingSource() throws Exception {
+        var snapshot = mapper.readTree("""
+                {"ruleBasis":"SOURCE_VERIFIED","sourceStatus":"VERIFIED","birthDate":"1999-01-01",
+                 "categories":[{"category":"WEALTH","entries":[],"subreadings":[
+                   {"code":"LOC","status":"NO_SOURCE_MATCH","entries":[]},
+                   {"code":"DIEN_SAN","status":"MATCHED","entries":[{"title":"Điền sản",
+                    "content":"Nội dung đã tra","sourceReferences":[{"title":"Diễn Cầm Tam Thế","section":"Điền sản"}]}]}
+                 ]}]}
+                """);
+        when(history.detail(owner, readingId)).thenReturn(Optional.of(new HistoryStore.Detail(readingId, "TAM_THE",
+                "Bản lưu", Instant.EPOCH, "SOURCE_VERIFIED", snapshot)));
+        mvc.perform(ask(reference("readingId", readingId))).andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.reading.type").value("TAM_THE"))
+                .andExpect(jsonPath("$.data.reading.categories[0]").value("Tài lộc"))
+                .andExpect(jsonPath("$.data.sources[0].title").value("Diễn Cầm Tam Thế"));
+        var prompt = capturePrompt();
+        assertTrue(prompt.reading().passages().get(0).contains("Chưa có lời luận"));
+        assertTrue(prompt.reading().passages().get(1).contains("Nội dung đã tra"));
+        assertFalse(mapper.writeValueAsString(prompt).contains("1999-01-01"));
     }
 
     @Test

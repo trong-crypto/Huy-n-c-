@@ -36,7 +36,7 @@ export function AdminContentForm({ heading, initialTitle = "", initialBody = "",
   return <section className={styles.contentPanel} aria-labelledby="content-form-title">
     <h2 id="content-form-title">{heading}</h2>
     <p className="field-hint">Bản nhập chỉ có trên trang này và sẽ mất khi chuyển mục hoặc tải lại.</p>
-    <form className="form-stack" onSubmit={showPreview} noValidate>
+    <form className={styles.inlineFields} onSubmit={showPreview} noValidate>
       <FormField id="content-title" label="Tiêu đề">
         <input id="content-title" value={draft.title} required maxLength={contentLimits.title} onChange={event => update("title", event.target.value)}
           aria-invalid={!!errors.title || undefined} aria-describedby={errors.title ? "content-title-error" : undefined} />

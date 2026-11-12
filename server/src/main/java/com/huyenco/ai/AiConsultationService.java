@@ -59,11 +59,11 @@ final class AiConsultationService {
         try {
             Reading reading = readingId == null && requestId == null ? null : context(owner, readingId, requestId);
             String mode = provider.mode();
-            boolean liveReading = reading != null && "live".equals(mode);
-            String clarification = liveReading ? serverClarification(question, reading.facts()) : "";
+            var maiHoa = reading != null && reading.facts() instanceof ReadingFacts facts && "live".equals(mode) ? facts : null;
+            String clarification = maiHoa == null ? "" : serverClarification(question, maiHoa);
             String answer = clarification.isEmpty() ? provider.answer(new Prompt(question, turns, reading)) : clarification;
-            if (liveReading) {
-                var facts = reading.facts();
+            if (maiHoa != null) {
+                var facts = maiHoa;
                 String serverFacts = "Dữ kiện từ Server: quẻ chủ %s, quẻ hỗ %s, quẻ biến %s, hào động %d."
                         .formatted(label(facts.primary()), label(facts.mutual()), label(facts.changed()), facts.movingLine());
                 serverFacts += "\n" + TRANSFORMATION_RULE;
@@ -85,6 +85,12 @@ final class AiConsultationService {
                 } else {
                     answer = serverFacts + "\n\n" + clarification;
                 }
+            } else if (reading != null && reading.facts() instanceof TamTheFacts && "live".equals(mode)) {
+                if (GENERATED_REFERENCE.matcher(answer).find()) {
+                    throw new ContractException("AI_UNAVAILABLE", "Mô hình đưa ra tham chiếu chưa kiểm chứng. Hãy thử hỏi lại.");
+                }
+                answer = explanation(answer);
+                if (answer.isEmpty()) throw new ContractException("AI_UNAVAILABLE", "Mô hình chưa trả về diễn giải phù hợp.");
             }
             return new Answer(answer, mode,
                     reading == null ? List.of() : reading.sources(), reading == null ? null : reading.facts());
@@ -142,7 +148,9 @@ final class AiConsultationService {
     }
 
     private Reading context(String type, JsonNode node) {
-        if (!"MAI_HOA".equals(type) || node == null) throw missing();
+        if (node == null) throw missing();
+        if ("TAM_THE".equals(type)) return tamTheContext(node);
+        if (!"MAI_HOA".equals(type)) throw missing();
         int line = node.path("movingLine").isIntegralNumber() ? node.path("movingLine").asInt() : 0;
         String method = value(node, "method", 40);
         if (line < 1 || line > 6 || !Set.of("TIME", "OBJECT_COUNT", "LINES", "TRUONG_XICH").contains(method)) throw missing();
@@ -169,6 +177,48 @@ final class AiConsultationService {
         node.path("decisionReferences").elements().forEachRemaining(ref -> add(decisions, value(ref, "description", 400)));
         return new Reading(facts, value(detailed, "topic", 40), List.copyOf(passages), List.copyOf(decisions),
                 List.copyOf(sources), List.copyOf(excerpts));
+    }
+
+    private Reading tamTheContext(JsonNode node) {
+        var categories = new ArrayList<String>();
+        var passages = new ArrayList<String>();
+        var sources = new ArrayList<Source>();
+        for (JsonNode category : node.path("categories")) {
+            String label = switch (category.path("category").asText()) {
+                case "CAREER" -> "Công danh";
+                case "WEALTH" -> "Tài lộc";
+                case "LOVE" -> "Tình duyên";
+                default -> throw missing();
+            };
+            categories.add(label);
+            tamTheEntries(category.path("entries"), label, passages, sources);
+            for (JsonNode subreading : category.path("subreadings")) {
+                String sublabel = switch (subreading.path("code").asText()) {
+                    case "LOC" -> "Lộc";
+                    case "SANG_HEN" -> "Sang hèn";
+                    case "DIEN_SAN" -> "Điền sản";
+                    default -> throw missing();
+                };
+                if ("NO_SOURCE_MATCH".equals(subreading.path("status").asText())) {
+                    passages.add(sublabel + ": Chưa có lời luận tương ứng trong nguồn.");
+                } else {
+                    tamTheEntries(subreading.path("entries"), sublabel, passages, sources);
+                }
+                sources(sources, subreading.path("sourceReferences"));
+            }
+        }
+        if (categories.isEmpty() || passages.isEmpty()) throw missing();
+        sources(sources, node.path("sourceReferences"));
+        return new Reading(new TamTheFacts("TAM_THE", List.copyOf(categories), value(node, "sourceStatus", 40),
+                value(node, "ruleBasis", 40)), "", List.copyOf(passages), List.of(), List.copyOf(sources), List.of());
+    }
+
+    private static void tamTheEntries(JsonNode entries, String label, List<String> passages, List<Source> sources) {
+        for (JsonNode entry : entries) {
+            String text = value(entry, "content", 600);
+            if (!text.isEmpty() && passages.size() < 10) passages.add(label + " · " + value(entry, "title", 120) + ": " + text);
+            sources(sources, entry.path("sourceReferences"));
+        }
     }
 
     private static void excerpt(HexagramInterpretations catalog, List<LibraryExcerpt> excerpts, List<Source> sources,
@@ -234,17 +284,19 @@ final class AiConsultationService {
     }
 
     private static ContractException missing() {
-        return new ContractException("NOT_FOUND", "Kết quả Mai Hoa không còn khả dụng trong tài khoản hoặc phiên này.");
+        return new ContractException("NOT_FOUND", "Kết quả không còn khả dụng trong tài khoản hoặc phiên này.");
     }
 
     record Turn(String question, String answer) {}
     record Source(String title, String section, String printedPage, Integer pdfPage, String url) {}
     record Hexagram(String code, String name, String nameStatus) {}
+    sealed interface Facts permits ReadingFacts, TamTheFacts {}
     record ReadingFacts(String method, Hexagram primary, Hexagram mutual, Hexagram changed, int movingLine,
-                        String sourceStatus, String ruleBasis) {}
+                        String sourceStatus, String ruleBasis) implements Facts {}
+    record TamTheFacts(String type, List<String> categories, String sourceStatus, String ruleBasis) implements Facts {}
     record LibraryExcerpt(String role, String code, String overview, String movingLineText) {}
-    record Reading(ReadingFacts facts, String topic, List<String> passages, List<String> decisions, List<Source> sources,
+    record Reading(Facts facts, String topic, List<String> passages, List<String> decisions, List<Source> sources,
                    List<LibraryExcerpt> library) {}
     record Prompt(String question, List<Turn> turns, Reading reading) {}
-    record Answer(String answer, String mode, List<Source> sources, ReadingFacts reading) {}
+    record Answer(String answer, String mode, List<Source> sources, Facts reading) {}
 }

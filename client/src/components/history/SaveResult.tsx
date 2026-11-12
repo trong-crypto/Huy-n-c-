@@ -30,8 +30,9 @@ function SaveForm({ requestId, type }: { requestId: string; type: CalculationTyp
     } catch (failure) { if (!controller.signal.aborted) { session.handleError(failure); setError(failure); } }
     finally { if (!controller.signal.aborted) { pending.current = null; setBusy(false); } }
   }
-  return <section className="history-save" aria-label="Lưu kết quả vào lịch sử">
-    <h3>Lưu vào lịch sử riêng tư</h3><p className="field-hint">Kết quả chỉ được lưu khi bạn bấm nút. Hãy lưu sớm: kết quả chưa lưu chỉ khả dụng tối đa 15 phút và có thể hết hạn sớm hơn.</p>
+  return <details className="history-save" aria-label="Lưu kết quả vào lịch sử">
+    <summary className="secondary-button">Lưu vào lịch sử riêng tư</summary>
+    <p className="field-hint">Kết quả chưa lưu chỉ khả dụng tối đa 15 phút và có thể hết hạn sớm hơn.</p>
     {saved ? <p role="status">Đã lưu thành công. <a className="source-link" href={`/history/${saved.id}`}>Xem bản đã lưu</a></p> : <form onSubmit={save} noValidate className="form-stack" aria-label="Lưu kết quả">
       <FormField id="history-save-title" label="Tiêu đề lịch sử (tùy chọn)" hint="Để trống để dùng tên mặc định. Không cần nhập ngày sinh hoặc câu hỏi riêng tư.">
         <input id="history-save-title" ref={titleRef} value={title} maxLength={100} disabled={busy} aria-invalid={typeof error === "string" || undefined}
@@ -41,5 +42,5 @@ function SaveForm({ requestId, type }: { requestId: string; type: CalculationTyp
       <PrimaryButton type="submit" disabled={busy}>{busy ? "Đang lưu…" : "Lưu kết quả"}</PrimaryButton>
       {error !== null && typeof error !== "string" && <p role="alert" className="response-error">{historyErrorMessage(error)}</p>}
     </form>}
-  </section>;
+  </details>;
 }

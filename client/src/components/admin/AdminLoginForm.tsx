@@ -45,7 +45,7 @@ export function AdminLoginForm() {
       if (!controller.signal.aborted) window.location.replace(CLIENT_CONFIG.adminAccounts ? "/admin/users"
         : CLIENT_CONFIG.methodGuides ? "/admin/methods"
           : CLIENT_CONFIG.adminHexagramGlosses ? "/admin/readings"
-            : CLIENT_CONFIG.adminSourceCatalog ? "/admin/sources" : "/admin/website");
+            : CLIENT_CONFIG.adminSourceCatalog ? "/admin/sources" : "/admin");
     } catch (failure) {
       if (!controller.signal.aborted) setServerError(failure);
     } finally {

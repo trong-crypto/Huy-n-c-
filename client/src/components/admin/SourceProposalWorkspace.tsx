@@ -165,35 +165,12 @@ function ProposalEditor({ entry, initial, csrf, actorId, handleError, onApplied 
     <p className="field-hint">Ghi thay đổi và căn cứ để người duyệt đối chiếu với nguồn.</p>
     {workflow && <p>{statuses[workflow.status]} · Phiên bản {workflow.draftVersion}</p>}
     {workflow?.approvedVersion && <p>Phiên bản được phê duyệt gần nhất: {workflow.approvedVersion}</p>}
-    {workflow?.lastEvent && <div className={styles.preview}>
-      <p>Thao tác gần nhất: {events[workflow.lastEvent.action]} · Phiên bản {workflow.lastEvent.revision}</p>
-      <p>Admin <code>{workflow.lastEvent.actorId}</code> · <time dateTime={workflow.lastEvent.occurredAt}>
-        {new Date(workflow.lastEvent.occurredAt).toLocaleString("vi-VN")}
-      </time></p>
-      {workflow.lastEvent.note && <p>{workflow.lastEvent.note}</p>}
-    </div>}
-    {revision ? <details className={styles.preview} open={pending || undefined}>
-      <summary>Bản nháp đã lưu · Phiên bản {revision.version}</summary>
-      <p>{revision.proposal}</p>
-      <p>{revision.reason}</p>
-      {revision.bookChange && <p>Thay đổi trên toàn ấn bản · {bookFields[revision.bookChange.field]} → {revision.bookChange.value}</p>}
-      <p>Admin <code>{revision.createdBy}</code> · <time dateTime={revision.createdAt}>{new Date(revision.createdAt).toLocaleString("vi-VN")}</time></p>
-      <h4>Nguồn tại lúc lưu</h4><SourceReferences sources={[revision.sourceSnapshot.entry.reference]} />
-      {revision.sourceSnapshot.book && <dl className={styles.workflow}>
-        <div><dt>Tác giả</dt><dd>{revision.sourceSnapshot.book.author ?? "Chưa có dữ liệu"}</dd></div>
-        <div><dt>Nhà xuất bản</dt><dd>{revision.sourceSnapshot.book.publisher ?? "Chưa có dữ liệu"}</dd></div>
-        <div><dt>Năm xuất bản</dt><dd>{revision.sourceSnapshot.book.publicationYear ?? "Chưa có dữ liệu"}</dd></div>
-        <div><dt>Số trang PDF</dt><dd>{revision.sourceSnapshot.book.pdfPageCount ?? "Chưa có dữ liệu"}</dd></div>
-      </dl>}
-    </details> : <p>Chưa có bản nháp đề xuất cho mục nguồn này.</p>}
-    {notice && <p role="status">{notice}</p>}
-    {error !== null && !serverField && <p role="alert">{typeof error === "string" ? error : sourceCatalogError(error)}</p>}
     {(revision || needsReload) && <button type="button" className="secondary-button" disabled={busy}
       onClick={() => void run("Đã tải phiên bản mới.")}>
       Tải phiên bản mới
     </button>}
     <form className="form-stack" noValidate onSubmit={submit}>
-      <fieldset className="form-stack" disabled={busy || pending}>
+      <fieldset className={styles.inlineFields} disabled={busy || pending}>
         <FormField id="source-proposal-content" label="Nội dung đề xuất" hint="Tối đa 2.000 ký tự.">
           <textarea id="source-proposal-content" rows={5} required value={input.proposal}
             aria-describedby="source-proposal-content-hint" {...cmsFieldProps("source-proposal-content", proposalIssue)}
@@ -232,7 +209,7 @@ function ProposalEditor({ entry, initial, csrf, actorId, handleError, onApplied 
     </form>
     {workflow?.status === "DRAFT" && <button type="button" className="secondary-button" disabled={busy || needsReload || dirty}
       onClick={() => review("submit-review")}>Gửi duyệt đề xuất</button>}
-    {pending && <fieldset className="form-stack" disabled={busy || needsReload}>
+    {pending && <fieldset className={styles.inlineFields} disabled={busy || needsReload}>
       <legend>Đối chiếu phiên bản đã lưu</legend>
       <FormField id="source-proposal-review-note" label="Ghi chú duyệt hoặc lý do trả về">
         <textarea id="source-proposal-review-note" rows={3} value={note} {...cmsFieldProps("source-proposal-review-note", noteIssue)}
@@ -272,5 +249,28 @@ function ProposalEditor({ entry, initial, csrf, actorId, handleError, onApplied 
             onClick={() => void inspectApplication(true)}>Xác nhận áp dụng</button>}
         </>}
       </section>}
+    {workflow?.lastEvent && <div className={styles.preview}>
+      <p>Thao tác gần nhất: {events[workflow.lastEvent.action]} · Phiên bản {workflow.lastEvent.revision}</p>
+      <p>Admin <code>{workflow.lastEvent.actorId}</code> · <time dateTime={workflow.lastEvent.occurredAt}>
+        {new Date(workflow.lastEvent.occurredAt).toLocaleString("vi-VN")}
+      </time></p>
+      {workflow.lastEvent.note && <p>{workflow.lastEvent.note}</p>}
+    </div>}
+    {revision ? <details className={styles.preview} open={pending || undefined}>
+      <summary>Bản nháp đã lưu · Phiên bản {revision.version}</summary>
+      <p>{revision.proposal}</p>
+      <p>{revision.reason}</p>
+      {revision.bookChange && <p>Thay đổi trên toàn ấn bản · {bookFields[revision.bookChange.field]} → {revision.bookChange.value}</p>}
+      <p>Admin <code>{revision.createdBy}</code> · <time dateTime={revision.createdAt}>{new Date(revision.createdAt).toLocaleString("vi-VN")}</time></p>
+      <h4>Nguồn tại lúc lưu</h4><SourceReferences sources={[revision.sourceSnapshot.entry.reference]} />
+      {revision.sourceSnapshot.book && <dl className={styles.workflow}>
+        <div><dt>Tác giả</dt><dd>{revision.sourceSnapshot.book.author ?? "Chưa có dữ liệu"}</dd></div>
+        <div><dt>Nhà xuất bản</dt><dd>{revision.sourceSnapshot.book.publisher ?? "Chưa có dữ liệu"}</dd></div>
+        <div><dt>Năm xuất bản</dt><dd>{revision.sourceSnapshot.book.publicationYear ?? "Chưa có dữ liệu"}</dd></div>
+        <div><dt>Số trang PDF</dt><dd>{revision.sourceSnapshot.book.pdfPageCount ?? "Chưa có dữ liệu"}</dd></div>
+      </dl>}
+    </details> : <p>Chưa có bản nháp đề xuất cho mục nguồn này.</p>}
+    {notice && <p role="status">{notice}</p>}
+    {error !== null && !serverField && <p role="alert">{typeof error === "string" ? error : sourceCatalogError(error)}</p>}
   </div>;
 }

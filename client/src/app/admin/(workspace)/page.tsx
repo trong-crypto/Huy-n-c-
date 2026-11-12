@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { adminModules } from "@/components/admin/adminModules";
+import { workspaceModules } from "@/components/admin/adminModules";
 import { AdminMetrics } from "@/components/admin/AdminMetrics";
 import { AdminMetricsLive } from "@/components/admin/AdminReportingLive";
 import { CLIENT_CONFIG } from "@/config/client";
@@ -24,12 +24,11 @@ export default function AdminDashboardPage() {
     <section aria-labelledby="admin-modules-title">
       <h2 id="admin-modules-title" className={styles.modulesTitle}>Các module quản trị</h2>
       <ul className={styles.cards}>
-        {adminModules.map(module => <li key={module.id} className={styles.card}>
+        {workspaceModules.map(module => <li key={module.id} className={styles.card}>
           <span className={styles.badge}>{(CLIENT_CONFIG.methodGuides && module.id === "methods")
-            || (CLIENT_CONFIG.adminHexagramGlosses && module.id === "readings")
+            || ((CLIENT_CONFIG.adminHexagramGlosses || CLIENT_CONFIG.hexagramInterpretations) && module.id === "readings")
             || (CLIENT_CONFIG.adminSourceCatalog && module.id === "sources")
-            || (CLIENT_CONFIG.websiteContent && module.id === "website")
-            || (CLIENT_CONFIG.adminAccounts && ["users", "consultants", "audit"].includes(module.id))
+            || (CLIENT_CONFIG.adminAccounts && (module.id === "users" || module.id === "audit"))
             ? "Đã kết nối" : "Giao diện · chờ Backend"}</span>
           <h3>{module.title}</h3>
           <p>{module.description}</p>

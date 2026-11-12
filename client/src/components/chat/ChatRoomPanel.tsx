@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ChatComposer, ChatIcon } from "./ChatComposer";
 import { useChatScroll } from "./useChatScroll";
 import { draftLimit, isChatMessage, roomStatusLabels, validateChatDraft,
@@ -31,12 +31,16 @@ export function ChatRoomPanel({ state, subscribe, retry, messaging, lifecycleCon
   const [draftError, setDraftError] = useState<string | null>(null);
   const [checked, setChecked] = useState(false);
   const acknowledgedId = messaging?.acknowledgedId;
+  const awaitingDraft = useRef(false);
   useEffect(() => {
-    if (acknowledgedId) {
+    if (acknowledgedId && awaitingDraft.current) {
       setDraft("");
       setDraftError(null);
     }
   }, [acknowledgedId]);
+  useEffect(() => {
+    if (messaging?.delivery === "idle") awaitingDraft.current = false;
+  }, [messaging?.delivery, acknowledgedId]);
 
   useEffect(() => {
     if (!listening || !subscribe || !roomId) return;
@@ -66,13 +70,17 @@ export function ChatRoomPanel({ state, subscribe, retry, messaging, lifecycleCon
   const historyAvailable = messaging !== undefined || messagingAvailable;
   const scroll = useChatScroll(historyAvailable ? messages.size : 0);
   const draftDisabled = !messagingAvailable || room?.status !== "active";
-  const sendDisabled = !messaging || state.connection !== "connected" || messaging.delivery === "waiting";
+  const sendDisabled = !messaging || state.connection !== "connected" || messaging.delivery === "waiting"
+    || messaging.delivery === "unknown" && !awaitingDraft.current;
 
   function send() {
     if (!messaging || draftDisabled || sendDisabled) return;
     const error = validateChatDraft(draft);
     setDraftError(error);
-    if (!error) messaging.send(draft.trim());
+    if (!error) {
+      awaitingDraft.current = true;
+      messaging.send(draft.trim());
+    }
   }
 
   return <>

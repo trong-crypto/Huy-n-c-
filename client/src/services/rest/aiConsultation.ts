@@ -12,7 +12,8 @@ type ReadingFacts = {
   method: string; primary: AiHexagram; mutual: AiHexagram; changed: AiHexagram; movingLine: number;
   sourceStatus: string; ruleBasis: string;
 };
-export type AiAnswer = { answer: string; mode: Mode; sources: AiSource[]; reading: ReadingFacts | null };
+type TamTheFacts = { type: "TAM_THE"; categories: string[]; sourceStatus: string; ruleBasis: string };
+export type AiAnswer = { answer: string; mode: Mode; sources: AiSource[]; reading: ReadingFacts | TamTheFacts | null };
 
 function isAvailability(value: unknown): value is Availability {
   return isRecord(value) && (value.mode === "demo" || value.mode === "live" || value.mode === "off");
@@ -38,11 +39,13 @@ function isHexagram(value: unknown): value is AiHexagram {
   return isRecord(value) && typeof value.code === "string" && typeof value.name === "string" && typeof value.nameStatus === "string";
 }
 
-function isReading(value: unknown): value is ReadingFacts {
-  return isRecord(value) && typeof value.method === "string" && isHexagram(value.primary)
+function isReading(value: unknown): value is ReadingFacts | TamTheFacts {
+  if (!isRecord(value) || typeof value.sourceStatus !== "string" || typeof value.ruleBasis !== "string") return false;
+  if (value.type === "TAM_THE") return Array.isArray(value.categories) && value.categories.length > 0
+    && value.categories.every(item => ["Công danh", "Tài lộc", "Tình duyên"].includes(item));
+  return typeof value.method === "string" && isHexagram(value.primary)
     && isHexagram(value.mutual) && isHexagram(value.changed) && typeof value.movingLine === "number"
-    && Number.isInteger(value.movingLine) && value.movingLine >= 1 && value.movingLine <= 6
-    && typeof value.sourceStatus === "string" && typeof value.ruleBasis === "string";
+    && Number.isInteger(value.movingLine) && value.movingLine >= 1 && value.movingLine <= 6;
 }
 
 function isAnswer(value: unknown): value is AiAnswer {

@@ -21,6 +21,9 @@ function HexagramReadingEditor({ code }: { code: string }) {
   return <div className={styles.contentStack}>
     {result.status === "loading" && <p role="status">Đang tải chi tiết quẻ…</p>}
     {result.status === "failed" && <LookupFailure error={result.error} retry={result.retry} />}
+    {CLIENT_CONFIG.adminHexagramGlosses ? <HexagramGlossWorkspace code={code} refreshPublic={result.retry} />
+      : hexagram && <AdminContentForm heading="Soạn đề xuất giải nghĩa" initialTitle={hexagram.name} requiresProvenance />}
+    {CLIENT_CONFIG.hexagramInterpretations && hexagram && <HexagramInterpretationWorkspace code={code} lines={hexagram.linesBottomUp} />}
     {hexagram && <section className={styles.contentPanel} aria-label="Chi tiết quẻ công khai">
       <h2>{hexagram.name}</h2><code>{hexagram.code}</code>
       <NameVerification status={hexagram.verificationStatus} structural={hexagram.nameKind === "STRUCTURAL_LABEL"} />
@@ -33,9 +36,6 @@ function HexagramReadingEditor({ code }: { code: string }) {
       </div>)}
       <p className="field-hint">Trạng thái đối chiếu nguồn ở trên thuộc dữ liệu công khai.</p>
     </section>}
-    {CLIENT_CONFIG.adminHexagramGlosses ? <HexagramGlossWorkspace code={code} refreshPublic={result.retry} />
-      : hexagram && <AdminContentForm heading="Soạn đề xuất giải nghĩa" initialTitle={hexagram.name} requiresProvenance />}
-    {CLIENT_CONFIG.hexagramInterpretations && hexagram && <HexagramInterpretationWorkspace code={code} lines={hexagram.linesBottomUp} />}
   </div>;
 }
 

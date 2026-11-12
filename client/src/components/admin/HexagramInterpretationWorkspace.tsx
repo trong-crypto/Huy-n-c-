@@ -136,23 +136,26 @@ function Workspace({ initial, lines, auth, reload }: {
       {state.publishedVersion && ` · Đang công bố bản ${state.publishedVersion}`}</p>
     {state.reviewNote && <p className="field-hint">Ghi chú duyệt · {state.reviewNote}</p>}
     <form className={styles.contentStack} onSubmit={event => { event.preventDefault(); if (valid && dirty) save(); }}>
-      <fieldset disabled={pending || busy} className={styles.contentStack}>
+      <fieldset disabled={pending || busy} className={styles.interpretationFields}>
         {fields.map(([key, label, max]) => <FormField key={key} id={`interpretation-${key}`} label={label}>
-          <textarea id={`interpretation-${key}`} rows={key === "overview" ? 6 : 3} maxLength={max}
+          <textarea id={`interpretation-${key}`} rows={key === "overview" ? 4 : 3} maxLength={max}
             value={content[key]} onChange={event => setContent({ ...content, [key]: event.target.value })} />
         </FormField>)}
-        {lines.map((yang, index) => <FormField key={index} id={`interpretation-line-${index + 1}`}
-          label={`Hào ${index + 1} · ${yang ? "Dương" : "Âm"}`}>
-          <textarea id={`interpretation-line-${index + 1}`} rows={2} maxLength={2000} value={content.lines[index]}
-            onChange={event => setContent({ ...content, lines: content.lines.map((value, position) => position === index ? event.target.value : value) })} />
-        </FormField>)}
-        <fieldset>
+        <fieldset className={styles.interpretationGroup}>
+          <legend>Luận giải từng hào</legend>
+          {lines.map((yang, index) => <FormField key={index} id={`interpretation-line-${index + 1}`}
+            label={`Hào ${index + 1} · ${yang ? "Dương" : "Âm"}`}>
+            <textarea id={`interpretation-line-${index + 1}`} rows={3} maxLength={2000} value={content.lines[index]}
+              onChange={event => setContent({ ...content, lines: content.lines.map((value, position) => position === index ? event.target.value : value) })} />
+          </FormField>)}
+        </fieldset>
+        <fieldset className={styles.interpretationGroup}>
           <legend>Nguồn tham khảo đã đăng ký</legend>
           {state.sources.length === 0 && <p>Chưa có nguồn chi tiết cho quẻ. TV3 cần đăng ký nguồn trước khi lưu bản nháp.</p>}
-          {state.sources.map(source => <label key={source.id} className={styles.preview}>
+          {state.sources.map(source => <label key={source.id} className={styles.interpretationSource}>
             <input type="checkbox" checked={selected.includes(source.id)} disabled={!selected.includes(source.id) && selected.length >= 8}
               onChange={event => setSelected(event.target.checked ? [...selected, source.id] : selected.filter(id => id !== source.id))} />
-            {" "}{source.title} · {source.locator} · {source.reviewStatus === "VERIFIED" ? "Đã đối chiếu" : "Chờ đối chiếu"}
+            <span>{source.title} · {source.locator} · {source.reviewStatus === "VERIFIED" ? "Đã đối chiếu" : "Chờ đối chiếu"}</span>
           </label>)}
         </fieldset>
       </fieldset>
@@ -162,13 +165,9 @@ function Workspace({ initial, lines, auth, reload }: {
         <button type="button" className="secondary-button" disabled={busy} onClick={reload}>Tải lại từ Server</button>
       </div>
     </form>
-    {preview && <div className={styles.preview} aria-label="Bản xem trước luận giải">
-      <p className="field-hint">Bản xem trước dành cho Admin.</p>
-      <InterpretationText content={content} sources={sources} lines={lines} />
-    </div>}
     {state.latest && state.status === "DRAFT" &&
       <button type="button" className="secondary-button" disabled={dirty || busy} onClick={() => review("SUBMIT")}>Gửi duyệt</button>}
-    {pending && <>
+    {pending && <div className={styles.inlineFields}>
       <FormField id="interpretation-review-note" label="Ghi chú đối chiếu">
         <textarea id="interpretation-review-note" rows={2} maxLength={500} value={note} onChange={event => setNote(event.target.value)} />
       </FormField>
@@ -178,13 +177,17 @@ function Workspace({ initial, lines, auth, reload }: {
         <button type="button" className="secondary-button" disabled={busy || !note.trim()} onClick={() => review("RETURN")}>Trả về bản nháp</button>
         <button type="button" className="secondary-button" disabled={busy || !mayPublish || !note.trim()} onClick={() => review("PUBLISH")}>Công bố luận giải</button>
       </div>
-    </>}
+    </div>}
     {state.revisions.length > 0 && <FormField id="interpretation-revisions" label="Xem lại phiên bản">
       <select id="interpretation-revisions" disabled={busy} onChange={event => readVersion(event.target.value)}>
         <option value="">Chọn phiên bản</option>
         {state.revisions.map(version => <option key={version} value={version}>Bản {version}</option>)}
       </select>
     </FormField>}
+    {preview && <div className={styles.preview} aria-label="Bản xem trước luận giải">
+      <p className="field-hint">Bản xem trước dành cho Admin.</p>
+      <InterpretationText content={content} sources={sources} lines={lines} />
+    </div>}
     {old && <div className={styles.preview} aria-label={`Nội dung phiên bản ${old.version}`}>
       <h3>Phiên bản {old.version}</h3>
       <InterpretationText content={old.content} sources={old.sources} lines={lines} />

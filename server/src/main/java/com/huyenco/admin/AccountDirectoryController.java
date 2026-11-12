@@ -88,8 +88,11 @@ final class AccountDirectoryController {
             query(request, Set.of());
             JsonNode body = body(request, reader, MAX_BODY);
             JsonNode role = body.path("role");
-            if (body.size() != 2 || !role.isTextual()) throw invalid();
-            return service.changeRole(uuid(id), expectedVersion(body), option(AccountDirectoryService.Role.class, role.textValue()), actor);
+            boolean approveProfile = body.has("approveProfile");
+            if (body.size() != (approveProfile ? 3 : 2) || !role.isTextual()
+                    || approveProfile && (!body.path("approveProfile").isBoolean()
+                    || !body.path("approveProfile").booleanValue() || !"CONSULTANT".equals(role.textValue()))) throw invalid();
+            return service.changeRole(uuid(id), expectedVersion(body), option(AccountDirectoryService.Role.class, role.textValue()), actor, approveProfile);
         });
     }
 

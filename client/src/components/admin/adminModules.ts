@@ -10,3 +10,4 @@ export const adminModules = [
 
 export type ContentModule = Extract<typeof adminModules[number], { kind: "content" }>;
 export type DirectoryModule = Extract<typeof adminModules[number], { kind: "directory" }>;
+export const workspaceModules = adminModules.filter(module => module.id !== "website" && module.id !== "consultants");

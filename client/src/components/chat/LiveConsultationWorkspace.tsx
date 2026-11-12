@@ -10,6 +10,7 @@ import { ConsultationWorkspace } from "./ConsultationWorkspace";
 import type { ChatAudience, ChatRoom } from "./chatState";
 import { chatRequestId, useRoomChat } from "./useRoomChat";
 import { useConsultationSocket } from "./useConsultationSocket";
+import { clearReadingHandoff, readReadingHandoff, storeReadingHandoff, type ReadingHandoff } from "./readingHandoff";
 import styles from "./chat.module.css";
 
 type Loader<T> = (signal: AbortSignal) => Promise<T>;
@@ -92,8 +93,9 @@ const roomDate = new Intl.DateTimeFormat("vi-VN", { dateStyle: "short", timeStyl
 function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSession; audience: ChatAudience; onAuthError: (code: string) => void }) {
   const [directoryPage, setDirectoryPage] = useState(0);
   const [conversationPage, setConversationPage] = useState(0);
-  const [selectedConsultant, setSelectedConsultant] = useState("");
-  const [roomId, setRoomId] = useState<string | null>(null);
+  const [reading, setReading] = useState(() => audience === "user" ? readReadingHandoff(session.accountId) : undefined);
+  const [selectedConsultant, setSelectedConsultant] = useState(reading?.request?.consultantId ?? "");
+  const [roomId, setRoomId] = useState<string | null>(reading?.conversationId ?? null);
   const [sending, setSending] = useState(false);
   const [sendNotice, setSendNotice] = useState("");
   const [transitioning, setTransitioning] = useState(false);
@@ -117,6 +119,13 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     }
   }, [onAuthError]);
   const chat = useRoomChat(session, detail.data, onChatAccessError);
+  const acknowledgedId = chat.messaging?.acknowledgedId;
+  useEffect(() => {
+    if (reading && reading.conversationId === roomId && reading.messageId === acknowledgedId) {
+      clearReadingHandoff(reading);
+      setReading(undefined);
+    }
+  }, [reading, roomId, acknowledgedId]);
   const workspace = useConsultationSocket(session, detail.data?.status === "ACTIVE" ? detail.data.conversationId : undefined,
     changedRoom => {
       conversations.reload();
@@ -124,6 +133,18 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     }, onAuthError);
   const consultants = directory.data?.items;
   const consultantId = consultants?.find(item => item.consultantId === selectedConsultant)?.consultantId ?? "";
+  const roomReading = reading?.conversationId && reading.conversationId === roomId ? reading : undefined;
+  const unattached = reading && !reading.conversationId ? reading : undefined;
+
+  function updateReading(draft: ReadingHandoff) {
+    try { storeReadingHandoff(draft); } catch { /* Keep the draft in this view if storage becomes unavailable. */ }
+    setReading(draft);
+  }
+
+  function discardReading() {
+    if (reading) clearReadingHandoff(reading);
+    setReading(undefined);
+  }
 
   async function create() {
     if (!consultantId || !workspace.connected || pending.current) return;
@@ -132,10 +153,13 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     setSending(true);
     setSendNotice("");
     try {
-      const requestId = requestIds.current.get(consultantId) ?? chatRequestId();
+      const requestId = (unattached?.request?.consultantId === consultantId ? unattached.request.id : undefined)
+        ?? requestIds.current.get(consultantId) ?? chatRequestId();
       requestIds.current.set(consultantId, requestId);
+      if (unattached) updateReading({ ...unattached, request: { id: requestId, consultantId } });
       const created = await workspace.command({ action: "CREATE", consultantId, requestId }, controller.signal);
       if (controller.signal.aborted) return;
+      if (unattached) updateReading({ ...unattached, conversationId: created.conversationId, request: { id: requestId, consultantId } });
       requestIds.current.delete(consultantId);
       setSelectedConsultant("");
       setRoomNotice("");
@@ -148,11 +172,13 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
       const code = errorCode(error);
       onAuthError(code);
       if (code === "NOT_FOUND") {
+        if (unattached) updateReading({ ...unattached, request: undefined });
         requestIds.current.delete(consultantId);
         setSelectedConsultant("");
         directory.reload();
         setSendNotice("Tư vấn viên này không còn trong danh bạ. Hãy chọn người khác.");
       } else if (code === "REQUEST_ID_CONFLICT") {
+        if (unattached) updateReading({ ...unattached, request: undefined });
         requestIds.current.delete(consultantId);
         setSendNotice("Mã yêu cầu đã được sử dụng. Bấm gửi lại để tạo yêu cầu mới.");
       } else {
@@ -210,13 +236,30 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
   }} messaging={chat.messaging && { ...chat.messaging, notifyTyping: workspace.notifyTyping }} retry={chat.retry} controls={{
     consultantId, selectConsultant: id => { setSelectedConsultant(id); setSendNotice(""); }, create, sending, transitioning, roomId,
     ready: workspace.connected,
+    prioritizeRequest: !!unattached,
     openRoom: id => { setRoomId(id); setRoomNotice(""); detail.reload(); },
     directoryStatus: <>
+      {unattached && <p role="status">Chọn tư vấn viên để gửi yêu cầu kèm lá số khi phòng được chấp nhận.</p>}
+      {unattached && <button type="button" className="secondary-button" disabled={sending} onClick={discardReading}>Bỏ lá số</button>}
       <PageStatus resource={directory} label="danh bạ tư vấn viên" changePage={setDirectoryPage} />
       {sendNotice && <p role="alert">{sendNotice}</p>}
     </>,
     listStatus: <PageStatus resource={conversations} label="danh sách hội thoại" changePage={setConversationPage} />,
     roomStatus: <>
+      {roomReading && room?.status === "pending" && <p role="status">Lá số sẽ sẵn sàng để gửi khi tư vấn viên chấp nhận.</p>}
+      {roomReading && (room?.status === "ended" || detail.error === "NOT_FOUND") && <button type="button" className="secondary-button"
+        onClick={() => updateReading({ ...roomReading, conversationId: undefined, request: undefined })}>Dùng lá số cho yêu cầu mới</button>}
+      {roomReading && room?.status === "active" && <section aria-label="Lá số đính kèm">
+        <details><summary>Lá số đính kèm</summary><p className="interpretation-text">{roomReading.text}</p></details>
+        <div className={styles.actions}>
+          <button type="button" className="secondary-button"
+            disabled={chat.connection !== "connected" || !chat.messaging || chat.messaging.delivery === "waiting"
+              || chat.messaging.delivery === "unknown" && chat.messaging.pendingId !== roomReading.messageId}
+            onClick={() => chat.messaging?.send(roomReading.text, roomReading.messageId)}>Gửi lá số</button>
+          <button type="button" className="secondary-button" disabled={chat.messaging?.pendingId === roomReading.messageId}
+            onClick={discardReading}>Bỏ lá số</button>
+        </div>
+      </section>}
       {!workspace.connected && <p role="status">Đang kết nối để gửi yêu cầu và cập nhật hội thoại…</p>}
       {transitioning && <p role="status">Đang cập nhật hội thoại…</p>}
       {roomNotice && <p role="alert">{roomNotice}</p>}

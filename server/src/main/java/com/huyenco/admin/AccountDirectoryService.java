@@ -86,7 +86,7 @@ final class AccountDirectoryService {
         });
     }
 
-    Detail changeRole(UUID id, int expectedVersion, Role requested, UUID actor) {
+    Detail changeRole(UUID id, int expectedVersion, Role requested, UUID actor, boolean approveProfile) {
         return writes.execute(tx -> {
             // Login and status updates take this same account lock. Review writers must take it before the profile lock.
             Account current = load(id, true);
@@ -98,11 +98,19 @@ final class AccountDirectoryService {
                 throw new ContractException("ACCOUNT_LOCKED", "Hãy mở khóa tài khoản trước khi đổi vai trò.");
             }
             if (current.role() == requested) throw new ContractException("INVALID_TRANSITION", "Vai trò tài khoản chưa thay đổi.");
-            if (requested == Role.CONSULTANT && !approvedConsultant(id, true)) {
-                throw new ContractException("CONSULTANT_APPROVAL_REQUIRED", "Tài khoản cần hồ sơ tư vấn viên đã được duyệt.");
-            }
-
             OffsetDateTime now = clock.instant().atOffset(ZoneOffset.UTC);
+            if (requested == Role.CONSULTANT && !approvedConsultant(id, true)) {
+                if (!approveProfile) {
+                    throw new ContractException("CONSULTANT_APPROVAL_REQUIRED", "Tài khoản cần hồ sơ tư vấn viên đã được duyệt.");
+                }
+                db.update("""
+                        INSERT INTO consultant_profiles(account_id,review_status,reviewed_by,reviewed_at)
+                        VALUES (?,'APPROVED',?,?)
+                        ON CONFLICT (account_id) DO UPDATE SET review_status='APPROVED',
+                        reviewed_by=EXCLUDED.reviewed_by, reviewed_at=EXCLUDED.reviewed_at,
+                        rejection_reason=NULL, review_version=consultant_profiles.review_version+1
+                        """, id, actor, now);
+            }
             int version = Math.incrementExact(current.version());
             db.update("UPDATE accounts SET role=?, status_version=? WHERE id=?", requested.name(), version, id);
             int revoked = revokeSessions(id, now);

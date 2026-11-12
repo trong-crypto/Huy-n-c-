@@ -158,20 +158,11 @@ function Editor({ code, initial, auth, refreshPublic }: { code: string; initial:
     </details>}
     {workflow?.lastEvent?.action === "RETURN" && workflow.lastEvent.revision === workflow.draftVersion
       && <p>Lý do trả về: {workflow.lastEvent.reason}</p>}
-    {notice && <p role="status">{notice}</p>}
-    {error !== null && !fieldError && <p role="alert">{typeof error === "string" ? error : glossError(error)}</p>}
     <button type="button" className="secondary-button" disabled={busy} onClick={() => void refresh("Đã tải phiên bản mới.")}>
       Tải phiên bản mới
     </button>
-    {revision && <div className={styles.preview}>
-      <h3>Nội dung đã lưu</h3>
-      <p>{revision.content}</p>
-      <p>{revision.source.title} · {revision.source.edition} · {revision.source.section}</p>
-      <p>Trang in {revision.source.printedPage} · Trang PDF {revision.source.pdfPage}</p>
-      <details><summary>Dấu vân tay nguồn đã lưu</summary><code>{revision.source.sha256}</code></details>
-    </div>}
     <form className="form-stack" onSubmit={save} aria-label="Soạn nghĩa tên">
-      <fieldset className="form-stack" disabled={busy || pending || needsReload}>
+      <fieldset className={styles.inlineFields} disabled={busy || pending || needsReload}>
         <FormField id="hexagram-gloss-content" label="Nghĩa tên đề xuất" hint="Một dòng, tối đa 500 ký tự.">
           <input id="hexagram-gloss-content" value={input.content} required aria-describedby="hexagram-gloss-content-hint"
             {...cmsFieldProps("hexagram-gloss-content", contentIssue)}
@@ -200,7 +191,7 @@ function Editor({ code, initial, auth, refreshPublic }: { code: string; initial:
         onClick={() => review({ action: "submit-review" })}>Gửi duyệt</button>
       {dirty && <small className="field-hint">Lưu nội dung đang nhập trước khi gửi duyệt.</small>}
     </div>}
-    {pending && <fieldset className="form-stack" disabled={busy || needsReload}>
+    {pending && <fieldset className={styles.inlineFields} disabled={busy || needsReload}>
       <legend>Xử lý bản đang chờ duyệt</legend>
       <FormField id="hexagram-gloss-reason" label="Lý do trả về">
         <input id="hexagram-gloss-reason" value={reason} {...cmsFieldProps("hexagram-gloss-reason", reasonIssue)}
@@ -226,5 +217,14 @@ function Editor({ code, initial, auth, refreshPublic }: { code: string; initial:
         </button>
       </> : <p className="field-hint">Cần Admin khác người soạn để công bố phiên bản này.</p>}
     </fieldset>}
+    {notice && <p role="status">{notice}</p>}
+    {error !== null && !fieldError && <p role="alert">{typeof error === "string" ? error : glossError(error)}</p>}
+    {revision && <div className={styles.preview}>
+      <h3>Nội dung đã lưu</h3>
+      <p>{revision.content}</p>
+      <p>{revision.source.title} · {revision.source.edition} · {revision.source.section}</p>
+      <p>Trang in {revision.source.printedPage} · Trang PDF {revision.source.pdfPage}</p>
+      <details><summary>Dấu vân tay nguồn đã lưu</summary><code>{revision.source.sha256}</code></details>
+    </div>}
   </section>;
 }

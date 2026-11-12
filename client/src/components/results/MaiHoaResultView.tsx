@@ -1,4 +1,5 @@
 import type { CalculationStep, MaiHoaResult } from "@/types/contract";
+import type { ReactNode } from "react";
 import { HexagramView } from "@/components/hexagrams/HexagramView";
 import { SectionCard } from "@/components/ui/Controls";
 import { DecisionReferences, EvidenceSummary, RuleEvidenceList, SourceReferences } from "./Evidence";
@@ -38,7 +39,7 @@ export function CalculationSteps({ steps }: { steps: readonly CalculationStep[] 
 }
 
 // The Server result identifies the quẻ and hào. Library lookups are display-only.
-export function MaiHoaResultView({ data }: { data: MaiHoaResult }) {
+export function MaiHoaResultView({ data, actions, save }: { data: MaiHoaResult; actions?: ReactNode; save?: ReactNode }) {
   const describeHexagram = (label: string, value: MaiHoaResult["primaryHexagram"]) =>
     `${label}: ${value.name ?? value.code ?? "Chưa có tên"} · Sáu hào từ dưới lên: ${value.linesBottomUp.map(line => line ? "Dương" : "Âm").join(", ")}`;
   const shareText = [
@@ -72,7 +73,7 @@ export function MaiHoaResultView({ data }: { data: MaiHoaResult }) {
       <HexagramView roleLabel="Quẻ biến" {...data.changedHexagram} />
     </section>
     <section className="moving-line-summary" aria-label="Hào động của quẻ chủ"><span aria-hidden="true">↔</span><div><h3>Hào động: {data.movingLine}</h3><p>Vị trí tính từ hào 1 ở dưới cùng của quẻ chủ.</p></div></section>
-    <CopyReadingForChat text={shareText} />
+    <div className="result-actions"><CopyReadingForChat text={shareText} />{actions}{save}</div>
     {CLIENT_CONFIG.hexagramInterpretations && <section aria-label="Luận giải từ thư viện">
       <p className="field-hint">Các mục dưới đây diễn giải biểu tượng trong thư viện. Kết quả lập quẻ nằm ở trên.</p>
       {([

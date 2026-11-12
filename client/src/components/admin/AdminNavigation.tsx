@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { adminModules } from "./adminModules";
+import { workspaceModules } from "./adminModules";
 import styles from "./admin.module.css";
 
 export function AdminNavigation() {
@@ -11,7 +11,7 @@ export function AdminNavigation() {
     <p className="eyebrow">KHU VỰC QUẢN TRỊ</p>
     <Link href="/admin" className={styles.overview} aria-current={pathname === "/admin" ? "page" : undefined}>Tổng quan</Link>
     <ul className={styles.moduleMenu}>
-      {adminModules.map(module => <li key={module.id}>
+      {workspaceModules.map(module => <li key={module.id}>
         <Link href={module.href} aria-current={pathname === module.href ? "page" : undefined}>{module.title}</Link>
       </li>)}
     </ul>

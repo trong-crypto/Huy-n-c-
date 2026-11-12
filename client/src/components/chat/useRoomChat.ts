@@ -11,7 +11,7 @@ import type { ChatConnection, ChatMessage, ChatMessaging } from "./chatState";
 
 const MAX_PAGES_PER_SYNC = 10;
 type Pending = { id: string; text: string };
-type View = Pick<ChatMessaging, "delivery" | "acknowledgedId" | "historyStatus" | "notice"> & {
+type View = Pick<ChatMessaging, "delivery" | "acknowledgedId" | "pendingId" | "historyStatus" | "notice"> & {
   connection: ChatConnection; messages: ChatMessage[];
 };
 
@@ -28,7 +28,7 @@ export function chatRequestId() {
 
 export function useRoomChat(session: ChatSession, room: Conversation | undefined, onAccessError: (code: string) => void) {
   const [current, setCurrent] = useState<{ room: Conversation; view: View }>();
-  const commands = useRef<{ send: (text: string) => void; retry: () => void } | null>(null);
+  const commands = useRef<{ send: (text: string, messageId?: string) => void; retry: () => void } | null>(null);
 
   useEffect(() => {
     if (!room || room.status === "PENDING") return;
@@ -138,14 +138,14 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
         merge([{ conversationId: roomId, messageId: event.messageId, senderAccountId: session.accountId,
           sequence: event.sequence, text: sent.text, createdAt: event.createdAt }]);
         checkSequence(event.sequence);
-        update({ delivery: "idle", acknowledgedId: sent.id, notice: undefined });
+        update({ delivery: "idle", acknowledgedId: sent.id, pendingId: undefined, notice: undefined });
       } else {
         clearTimeout(ackTimer);
         if (event.code === "SERVER_BUSY" || event.code === "DATABASE_UNAVAILABLE") {
           update({ delivery: "unknown", notice: "Máy chủ chưa xác nhận tin. Bạn có thể gửi lại cùng nội dung." });
         } else {
           pending = null;
-          update({ delivery: "idle", notice: event.code === "MESSAGE_EXPIRED" ? "Mã tin đã hết thời hạn lưu."
+          update({ delivery: "idle", pendingId: undefined, notice: event.code === "MESSAGE_EXPIRED" ? "Mã tin đã hết thời hạn lưu."
             : event.code === "ROOM_NOT_ACTIVE" ? "Phòng hiện không nhận tin mới." : "Máy chủ từ chối tin nhắn." });
         }
       }
@@ -210,11 +210,11 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
     }
 
     commands.current = {
-      send(text) {
+      send(text, messageId) {
         if (!alive() || !client?.connected || view.connection !== "connected" || view.delivery === "waiting"
-            || pending && pending.text !== text) return;
-        pending ??= { id: chatRequestId(), text };
-        update({ delivery: "waiting", notice: undefined });
+            || pending && (pending.text !== text || messageId !== undefined && pending.id !== messageId)) return;
+        pending ??= { id: messageId ?? chatRequestId(), text };
+        update({ delivery: "waiting", pendingId: pending.id, notice: undefined });
         ackTimer = setTimeout(deliveryUnknown, CLIENT_CONFIG.requestTimeoutMs);
         try {
           const payload: ChatSend = { clientMessageId: pending.id, text };
@@ -246,8 +246,8 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
 
   const view = room && current?.room === room ? current.view : initialView;
   const messaging: ChatMessaging | undefined = room && room.status !== "PENDING" ? {
-    delivery: view.delivery, historyStatus: view.historyStatus, acknowledgedId: view.acknowledgedId, notice: view.notice,
-    send: text => commands.current?.send(text),
+    delivery: view.delivery, historyStatus: view.historyStatus, acknowledgedId: view.acknowledgedId, pendingId: view.pendingId, notice: view.notice,
+    send: (text, messageId) => commands.current?.send(text, messageId),
   } : undefined;
   return { connection: view.connection, messages: view.messages, messaging, retry: () => commands.current?.retry() };
 }

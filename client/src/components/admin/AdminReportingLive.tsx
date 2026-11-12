@@ -50,7 +50,8 @@ export function AdminAuditLive() {
   const audit = useLookup(JSON.stringify([query, page]), load);
   const data = audit.data;
   return <>
-    <form className={styles.contentActions} onSubmit={event => { event.preventDefault(); setQuery({ ...filters }); setPage(0); audit.retry(); }}>
+    <form className={styles.auditFilters} aria-label="Bộ lọc nhật ký"
+      onSubmit={event => { event.preventDefault(); setQuery({ ...filters }); setPage(0); audit.retry(); }}>
       <FormField id="audit-type" label="Loại đối tượng">
         <select id="audit-type" value={filters.targetType} onChange={event => setFilters({ ...filters, targetType: event.target.value })}>
           <option value="">Tất cả</option>{Object.entries(auditTargets).map(([key, name]) => <option key={key} value={key}>{name}</option>)}

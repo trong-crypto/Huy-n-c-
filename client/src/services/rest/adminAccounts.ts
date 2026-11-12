@@ -65,7 +65,8 @@ export async function setAccountStatus(account: Account, status: Status, csrf: s
 
 export async function setAccountRole(account: Account, role: CustomerRole, csrf: string, signal: AbortSignal) {
   const result = await requestJson(`${path}/${account.id}/role`, isDetail, signal,
-    { expectedVersion: account.version, role }, { ...adminOptions(csrf), method: "PUT" });
+    { expectedVersion: account.version, role, ...(role === "CONSULTANT" && { approveProfile: true }) },
+    { ...adminOptions(csrf), method: "PUT" });
   if (result.account.id !== account.id || result.account.role !== role
       || result.account.version !== account.version + 1) throw new RestError("INVALID_RESPONSE");
   return result;

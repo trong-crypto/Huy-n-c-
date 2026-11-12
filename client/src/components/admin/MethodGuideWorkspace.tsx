@@ -60,7 +60,7 @@ export function MethodGuideWorkspace() {
   return <div className={styles.contentGrid}>
     <section className={styles.contentPanel}>
       <h2>Chọn phương pháp</h2>
-      <div className="form-stack">
+      <div className={styles.inlineFields}>
         <FormField id="admin-guide-search" label="Tìm phương pháp">
           <input id="admin-guide-search" type="search" value={query} onChange={event => setQuery(event.target.value)} />
         </FormField>
@@ -206,14 +206,12 @@ function Editor<Code extends string>({ method, api, initial, csrf, handleError, 
       <h2>{method.title}</h2>
       <p>{guide ? `${statuses[guide.status]} · Phiên bản quản trị ${guide.version}` : "Chưa có bài hướng dẫn."}</p>
       {guide?.published && <p>Bản công bố số {guide.published.revision}{visibility && (guide.visible ? " · Đang hiện" : " · Đang ẩn")}</p>}
-      {notice && <p role="status">{notice}</p>}
-      {error !== null && !fieldError && <p role="alert">{methodGuideError(error)}</p>}
       {conflict && <button type="button" className="secondary-button" disabled={busy}
         onClick={() => void run(signal => api.read(code, signal), "Đã tải phiên bản mới. Nội dung đang nhập được giữ lại.")}>
         Tải phiên bản mới
       </button>}
       <form className="form-stack" onSubmit={save} noValidate aria-label="Soạn bài hướng dẫn">
-        <fieldset className="form-stack" disabled={busy || !editing}>
+        <fieldset className={styles.guideEditorFields} disabled={busy || !editing}>
           <FormField id="guide-title" label="Tiêu đề">
             <input id="guide-title" value={editing ? draft.title : saved.title} required {...cmsFieldProps("guide-title", titleIssue)}
               onChange={event => change("title", event.target.value)} />
@@ -238,11 +236,10 @@ function Editor<Code extends string>({ method, api, initial, csrf, handleError, 
           </div>
         </fieldset>
       </form>
-      {preview && <section className={styles.preview}><h3>{draft.title}</h3><p className={styles.guideText}>{draft.body}</p></section>}
       {guide?.status === "DRAFT" && <button type="button" className="secondary-button" disabled={busy || conflict || dirty}
         onClick={() => review("submit-review", "Đã gửi duyệt.")}>Gửi duyệt</button>}
       {guide?.status === "DRAFT" && dirty && <p className="field-hint">Lưu nội dung đang nhập trước khi gửi duyệt.</p>}
-      {guide?.status === "PENDING_REVIEW" && <div className="form-stack">
+      {guide?.status === "PENDING_REVIEW" && <div className={styles.inlineFields}>
         <FormField id="guide-return-reason" label="Lý do trả về">
           <textarea id="guide-return-reason" rows={2} value={reason} disabled={busy}
             {...cmsFieldProps("guide-return-reason", reasonIssue)}
@@ -269,6 +266,9 @@ function Editor<Code extends string>({ method, api, initial, csrf, handleError, 
           guide.visible ? "Đã ẩn bài hướng dẫn." : "Đã hiện bài hướng dẫn.")}>
         {guide.visible ? "Ẩn bài hướng dẫn" : "Hiện bài hướng dẫn"}
       </button>}
+      {notice && <p role="status">{notice}</p>}
+      {error !== null && !fieldError && <p role="alert">{methodGuideError(error)}</p>}
+      {preview && <section className={styles.preview}><h3>{draft.title}</h3><p className={styles.guideText}>{draft.body}</p></section>}
     </section>
     {guide && <GuideEvents code={code} version={guide.version} listEvents={api.events} handleError={handleError} />}
   </div>;

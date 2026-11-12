@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -865,6 +866,39 @@ class ChatRoomAccessDatabaseTest {
         return mvc.perform(post(CONVERSATIONS).contentType("application/json").content(createBody(requestId, consultantId))
                 .cookie(session.getCookies()).header("Origin", session.getHeader("Origin"))
                 .header("X-HuyenCo-Request", "1").header("X-CSRF-Token", session.getHeader("X-CSRF-Token")));
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    void adminCanApproveProfileAndGrantConsultantInOneAccountAction() throws Exception {
+        var admin = account("ADMIN");
+        var user = account("USER");
+        var session = request(admin, AccountAuthService.Realm.ADMIN);
+        var previous = request(user, AccountAuthService.Realm.CUSTOMER);
+        String path = "/api/v1/admin/accounts/" + user.id() + "/role";
+        try {
+            changeRole(path, session, "{\"expectedVersion\":1,\"role\":\"CONSULTANT\"}")
+                    .andExpect(status().isConflict()).andExpect(jsonPath("$.error.code").value("CONSULTANT_APPROVAL_REQUIRED"));
+            changeRole(path, session, "{\"expectedVersion\":1,\"role\":\"CONSULTANT\",\"approveProfile\":true}")
+                    .andExpect(status().isOk()).andExpect(jsonPath("$.data.account.role").value("CONSULTANT"))
+                    .andExpect(jsonPath("$.data.lastRoleChange.revokedSessions").value(1));
+            assertEquals("APPROVED", db.queryForObject("SELECT review_status FROM consultant_profiles WHERE account_id=?", String.class, user.id()));
+            assertEquals("INVALID_SESSION", assertThrows(ContractException.class, () -> chatSessions.requireRead(previous)).code());
+            assertEquals(ChatSessionAccess.Role.CONSULTANT,
+                    chatSessions.requireRead(request(user, AccountAuthService.Realm.CUSTOMER)).role());
+            changeRole(path, session, "{\"expectedVersion\":2,\"role\":\"USER\"}")
+                    .andExpect(status().isOk()).andExpect(jsonPath("$.data.account.role").value("USER"));
+        } finally {
+            db.update("DELETE FROM admin_account_role_events WHERE account_id=?", user.id());
+            db.update("DELETE FROM consultant_profiles WHERE account_id=?", user.id());
+            db.update("DELETE FROM accounts WHERE id IN (?,?)", user.id(), admin.id());
+        }
+    }
+
+    private ResultActions changeRole(String path, MockHttpServletRequest session, String body) throws Exception {
+        return mvc.perform(put(path).cookie(session.getCookies()).header("Origin", session.getHeader("Origin"))
+                .header("X-HuyenCo-Request", "1").header("X-CSRF-Token", session.getHeader("X-CSRF-Token"))
+                .contentType("application/json").content(body));
     }
 
     private static String createBody(UUID requestId, UUID consultantId) {

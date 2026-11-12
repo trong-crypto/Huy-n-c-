@@ -4,11 +4,46 @@ import AdminLoginPage from "@/app/admin/login/page";
 import AdminWorkspaceLayout from "@/app/admin/(workspace)/layout";
 import AdminDashboardPage from "@/app/admin/(workspace)/page";
 import { AdminSessionGate } from "./AdminSessionGate";
+import { AccountDirectoryLive } from "./AccountDirectoryLive";
 
 const adminSocket = vi.hoisted(() => vi.fn());
 vi.mock("@/services/websocket/useAuthenticatedSocket", () => ({
   useAuthenticatedSocket: adminSocket,
 }));
+
+it("shows account details in a side panel and toggles the consultant action in the same row", async () => {
+  const adminId = "905b2f9f-c230-4887-9369-7b5500964f59";
+  const id = "550e8400-e29b-41d4-a716-446655440001";
+  const expiresAt = new Date(Date.now() + 60_000).toISOString();
+  let account = { id, identifier: "demo-user", displayName: "Người dùng mẫu", role: "USER", status: "ACTIVE",
+    version: 1, createdAt: "2026-11-09T03:00:00Z", canChangeStatus: true };
+  const writes: object[] = [];
+  vi.stubGlobal("fetch", vi.fn(async (path: string, options?: RequestInit) => {
+    if (path.endsWith("/role")) {
+      const body = JSON.parse(String(options?.body));
+      writes.push(body);
+      account = { ...account, role: body.role, version: account.version + 1 };
+    }
+    const data = path.endsWith("/auth/admin/session")
+      ? { account: { id: adminId, displayName: "Admin", role: "ADMIN" }, expiresAt, csrfToken: "a".repeat(43) }
+      : path.includes("/accounts?")
+        ? { items: [account], page: 0, size: 20, totalElements: 1, totalPages: 1 }
+        : { account, lastStatusChange: null };
+    return Response.json({ requestId: id, status: "COMPLETED", error: null, data });
+  }));
+  render(<AdminSessionGate><AccountDirectoryLive /></AdminSessionGate>);
+  fireEvent.click(await screen.findByRole("button", { name: "Người dùng mẫu" }));
+  const side = screen.getByRole("complementary", { name: "Chi tiết tài khoản" });
+  expect(await within(side).findByText("demo-user")).toBeTruthy();
+  fireEvent.click(within(side).getByRole("button", { name: "Đóng" }));
+  expect(screen.queryByRole("complementary", { name: "Chi tiết tài khoản" })).toBeNull();
+  fireEvent.click(screen.getByRole("button", { name: "Cấp lên thành tư vấn viên" }));
+  fireEvent.click(await screen.findByRole("button", { name: "Xác nhận đổi vai trò" }));
+  fireEvent.click(await screen.findByRole("button", { name: "Thu hồi quyền tư vấn viên" }));
+  fireEvent.click(await screen.findByRole("button", { name: "Xác nhận đổi vai trò" }));
+  expect(await screen.findByRole("button", { name: "Cấp lên thành tư vấn viên" })).toBeTruthy();
+  expect(writes).toEqual([{ expectedVersion: 1, role: "CONSULTANT", approveProfile: true }, { expectedVersion: 2, role: "USER" }]);
+});
 
 it("shows a review notification to an authenticated admin and clears the workspace after revocation", async () => {
   const id = "905b2f9f-c230-4887-9369-7b5500964f59";
@@ -74,8 +109,8 @@ describe("Admin foundation while authentication is unavailable", () => {
     const overview = within(sidebar).getByRole("link", { name: "Tổng quan" });
     expect(overview.getAttribute("href")).toBe("/admin");
     expect(overview.getAttribute("aria-current")).toBe("page");
-    expect(within(sidebar).getAllByRole("link")).toHaveLength(8);
-    expect(within(sidebar).getByRole("link", { name: "Quản lý nội dung website" }).getAttribute("href")).toBe("/admin/website");
+    expect(within(sidebar).getAllByRole("link")).toHaveLength(6);
+    expect(screen.queryByRole("link", { name: /Quản lý nội dung website|Quản lý tư vấn viên/ })).toBeNull();
     expect(within(sidebar).getByRole("link", { name: "Quản lý người dùng" }).getAttribute("href")).toBe("/admin/users");
     expect(within(sidebar).getByRole("link", { name: "Nhật ký quản trị" }).getAttribute("href")).toBe("/admin/audit");
     expect(screen.getByRole("link", { name: "Đăng nhập" }).getAttribute("href")).toBe("/admin/login");

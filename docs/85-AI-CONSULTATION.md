@@ -36,7 +36,7 @@ Cả hai endpoint dùng envelope `requestId`, `status`, `data`, `error` và tr�
 - `POST /api/v1/ai/ask` cần cookie phiên tài khoản USER/CONSULTANT, Origin hợp lệ nếu có, `X-HuyenCo-Request: 1` và `X-CSRF-Token` của phiên. Dùng `Content-Type: application/json`.
 - `question` có từ 1 đến 1.000 ký tự sau khi bỏ khoảng trắng đầu/cuối. Có thể gửi tối đa ba `turns`, mỗi lượt gồm `question` cùng giới hạn và `answer` tối đa 1.200 ký tự.
 - `readingId` và `calculationRequestId` là UUID tùy chọn và loại trừ lẫn nhau. Nếu có `readingId`, Backend chỉ tra bản đã lưu theo chủ sở hữu. Nếu có `calculationRequestId`, Backend ưu tiên bản đã lưu của chủ sở hữu rồi tra bộ nhớ đệm của đúng tài khoản và phiên tính. Kết quả chưa lưu phụ thuộc thời hạn của bộ nhớ đệm hiện có, mặc định tối đa 15 phút.
-- Thành công trả `data.answer`, `data.mode`, `data.sources` và `data.reading`. Với hỏi thông thường, `sources` là mảng rỗng và `reading` là `null`. Với kết quả Mai Hoa, trường `reading` chứa phương pháp, ba quẻ, hào động, trạng thái nguồn và căn cứ áp dụng từ Server.
+- Thành công trả `data.answer`, `data.mode`, `data.sources` và `data.reading`. Với hỏi thông thường, `sources` là mảng rỗng và `reading` là `null`. Với Mai Hoa, `reading` chứa phương pháp, ba quẻ, hào động, trạng thái nguồn và căn cứ áp dụng. Với Tam Thế, `reading` gồm `type: "TAM_THE"`, `categories`, `sourceStatus` và `ruleBasis`. Backend lấy trích đoạn từ kết quả đã tra và giữ thông tin về những tiểu mục thiếu nguồn.
 - Khi thư viện đã bật, Backend lấy trích đoạn từ bản PUBLISHED có snapshot nguồn VERIFIED của từng mã quẻ. Chỉ quẻ chủ có trích đoạn đúng vị trí hào động. Nếu thiếu bản công bố, Backend báo rõ trong phản hồi LIVE.
 - Backend gửi kết quả Mai Hoa, tên nguồn và trích đoạn đã công bố thành các mục riêng trong ngữ cảnh của mô hình. Phản hồi lấy tên sách và danh mục nguồn từ Server. Nếu mô hình tự lập danh mục nguồn, Backend bỏ phần đó. Nguồn thư viện trong `sources` có thể kèm `url`. Các nguồn tính quẻ giữ thông tin trang in và PDF.
 
@@ -53,15 +53,15 @@ Cả hai endpoint dùng envelope `requestId`, `status`, `data`, `error` và tr�
 | 400 | `INVALID_INPUT` | Câu hỏi, lượt trao đổi hoặc tham chiếu sai hợp đồng |
 | 401 | `LOGIN_REQUIRED`, `INVALID_SESSION` | Thiếu phiên tài khoản hợp lệ |
 | 403 | `CSRF_REJECTED`, `FORBIDDEN` | Yêu cầu không đạt kiểm tra quyền hoặc CSRF |
-| 404 | `NOT_FOUND` | Thiếu quẻ Mai Hoa khả dụng trong phạm vi của người hỏi |
+| 404 | `NOT_FOUND` | Kết quả Mai Hoa hoặc Tam Thế không khả dụng trong phạm vi của người hỏi |
 | 429 | `TOO_MANY_REQUESTS` | Backend đang xử lý đủ số yêu cầu AI đồng thời |
 | 503 | `AI_UNAVAILABLE`, `DATABASE_UNAVAILABLE` | Dịch vụ AI hoặc kho dữ liệu chưa khả dụng |
 | 504 | `AI_TIMEOUT` | Provider quá thời gian chờ |
 
 ## Dữ liệu gửi và lưu trữ
 
-Khi dùng provider ngoài, giao diện báo trước khi người dùng gửi. Backend chỉ chuyển câu hỏi, tối đa ba lượt trao đổi gần nhất, cùng các dữ kiện Mai Hoa được chọn từ bản gốc. Dữ kiện gồm tên đã xác minh hoặc mã quẻ, hào động, chủ đề, đoạn luận, trạng thái nguồn, quy ước nhóm và một số vị trí tham chiếu. Trình duyệt chỉ gửi mã tra cứu, quyền đọc được kiểm tra lại trên Server.
+Khi dùng provider ngoài, giao diện báo trước khi người dùng gửi. Backend chỉ chuyển câu hỏi, tối đa ba lượt trao đổi gần nhất và phần ngữ cảnh chọn lọc. Với Mai Hoa, ngữ cảnh gồm ba quẻ, hào động, tên nguồn và trích đoạn đã công bố nếu có. Với Tam Thế, ngữ cảnh gồm trích đoạn công danh, tài lộc hoặc tình duyên đã tra, ghi chú thiếu nguồn và tên sách. Trình duyệt chỉ gửi mã tra cứu. Server kiểm tra lại quyền đọc.
 
 Cookie, CSRF, ID tài khoản, mã lịch sử, ngày giờ đầu vào và toàn bộ lịch sử không nằm trong nội dung gửi provider. Câu hỏi do người dùng gõ có thể chứa thông tin cá nhân, vì vậy giao diện nhắc người dùng tránh nhập thông tin đó. Các nguồn hiển thị bên dưới phản hồi do Backend trích từ kết quả đã xác minh quyền. Phần giải thích của provider là văn bản do mô hình sinh và vẫn có thể sai.
 
-Backend AI dùng phiên tài khoản hiện có và đọc kết quả Mai Hoa cùng các bản thư viện đã công bố. AI và Chat tư vấn viên có API, trạng thái và lịch sử độc lập.
+Backend AI dùng phiên tài khoản hiện có để đọc kết quả Mai Hoa hoặc Tam Thế. Với Mai Hoa, Backend có thể lấy thêm trích đoạn từ thư viện đã công bố. AI và Chat tư vấn viên có API, trạng thái và lịch sử độc lập.

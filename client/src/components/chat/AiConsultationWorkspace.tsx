@@ -31,7 +31,7 @@ const errorLabels: Record<string, string> = {
 export function AiConsultationWorkspace({ reference, invalidReference }: { reference?: AiReadingRef; invalidReference?: boolean }) {
   const session = useSession();
   if (invalidReference) return <AiShell><div className={chat.empty}>
-    <p role="alert">Liên kết kết quả Mai Hoa không hợp lệ.</p>
+    <p role="alert">Liên kết kết quả không hợp lệ.</p>
     <Link className="secondary-button" href={aiConsultationPath}>Hỏi AI không kèm kết quả</Link>
   </div></AiShell>;
   if (!CLIENT_CONFIG.accountHistory) return <AiShell badge="Không khả dụng"><div className={chat.empty}>
@@ -97,7 +97,7 @@ function AiConversation({ reference, csrf, onSessionError }: {
       {mode === "demo" && <p>Câu trả lời minh họa có sẵn. Câu hỏi được xử lý tại Huyền Cơ.</p>}
       {mode === "live" && <p className={styles.disclosure}>Câu hỏi, một phần trao đổi gần đây và thông tin quẻ được gửi đến mô hình do Server cấu hình. Nếu dùng dịch vụ từ xa, dữ liệu sẽ được chuyển tới nhà cung cấp AI bên ngoài. Tránh nhập thông tin cá nhân hoặc bí mật.</p>}
       {reference && <details className={styles.reading}>
-        <summary>Đang hỏi về kết quả Mai Hoa</summary>
+        <summary>Đang hỏi về kết quả này</summary>
         {reading ? <ReadingSummary reading={reading} />
           : <p>Server sẽ kiểm tra quyền truy cập khi bạn gửi câu hỏi.</p>}
       </details>}
@@ -106,7 +106,7 @@ function AiConversation({ reference, csrf, onSessionError }: {
       {!exchanges.length && !waiting && <div className={chat.empty}>
         <span className={chat.emptyIcon}><ChatIcon kind="spark" /></span>
         <h3>Bắt đầu cuộc trò chuyện</h3>
-        <p>{reference ? "Hỏi về quẻ, hào động hoặc căn cứ của kết quả Mai Hoa." : "Hỏi về cách đọc quẻ hoặc ý nghĩa của một thuật ngữ."}</p>
+        <p>{reference ? "Hỏi về ý nghĩa hoặc căn cứ của kết quả." : "Hỏi về cách đọc quẻ hoặc ý nghĩa của một thuật ngữ."}</p>
       </div>}
       <ol className={chat.messages} aria-label="Trao đổi với trợ lý AI" aria-live="polite" aria-relevant="additions">
         {exchanges.map(({ question, reply }, index) => <li key={index} className={styles.exchange}>
@@ -134,7 +134,7 @@ function AiConversation({ reference, csrf, onSessionError }: {
     </div> : <ChatComposer id="ai-question" label={exchanges.length ? "Hỏi tiếp" : "Câu hỏi của bạn"} value={draft}
       disabled={!canSend || waiting} sendDisabled={!count || count > aiQuestionLimit}
       sendLabel={failure ? "Thử lại" : "Gửi câu hỏi"} invalid={count > aiQuestionLimit}
-      placeholder={reference ? "Hỏi về kết quả Mai Hoa…" : "Nhập câu hỏi cho trợ lý AI…"}
+      placeholder={reference ? "Hỏi về kết quả này…" : "Nhập câu hỏi cho trợ lý AI…"}
       hint={`${count} / ${aiQuestionLimit} ký tự · Shift + Enter để xuống dòng`}
       onChange={text => { setDraft(text); setFailure(undefined); }} onSend={() => void send()} />}
   </AiShell>;
@@ -152,6 +152,9 @@ function AiShell({ badge, bare, children }: { badge?: string; bare?: boolean; ch
 }
 
 function ReadingSummary({ reading }: { reading: NonNullable<AiAnswer["reading"]> }) {
+  if ("type" in reading) return <div className={styles.readingBody} aria-label="Kết quả Tam Thế từ Server">
+    <h3>Kết quả Tam Thế từ Server</h3><p>{reading.categories.join(" · ")}</p>
+  </div>;
   const hexagrams = [
     ["Quẻ chủ", reading.primary], ["Quẻ hỗ", reading.mutual], ["Quẻ biến", reading.changed],
   ] as const;

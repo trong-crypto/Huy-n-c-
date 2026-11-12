@@ -1,4 +1,5 @@
 import type { InterpretationEntry, TamTheCategory, TamTheResult } from "@/types/contract";
+import type { ReactNode } from "react";
 import { SectionCard } from "@/components/ui/Controls";
 import { DecisionReferences, EvidenceSummary, ReadingDecisions, RuleEvidenceList, SourceReferences } from "./Evidence";
 import { explainTamTheEntry } from "./tamTheExplanation";
@@ -40,7 +41,7 @@ function Entries({ entries, category }: { entries: readonly InterpretationEntry[
   })}</div>;
 }
 
-export function TamTheResultView({ data }: { data: TamTheResult }) {
+export function TamTheResultView({ data, actions, save }: { data: TamTheResult; actions?: ReactNode; save?: ReactNode }) {
   const entryText = (entry: InterpretationEntry) => `${entry.title}\n${entry.content}`;
   const sections = data.categories.map(category => {
     const content = category.subreadings
@@ -54,7 +55,7 @@ export function TamTheResultView({ data }: { data: TamTheResult }) {
       <p>{data.coverageMode === "EXTENDED" ? "Tài lộc mở rộng · Lộc, Sang hèn, Điền sản" : "Tra cứu cơ bản"}</p></div>
       <section aria-label="Căn cứ nội dung Tam Thế"><EvidenceSummary ruleBasis={data.ruleBasis} sourceStatus={data.sourceStatus} /></section>
     </header>
-    <CopyReadingForChat text={["Diễn Cầm Tam Thế", ...sections].join("\n\n")} />
+    <div className="result-actions"><CopyReadingForChat text={["Diễn Cầm Tam Thế", ...sections].join("\n\n")} />{actions}{save}</div>
     <p className="result-section-note">Phần giải nghĩa là nội dung biên tập hỗ trợ đọc văn bản. Lời gốc và nguồn được giữ để đối chiếu; các mô tả trong sách cổ không phải kết luận về cuộc đời bạn.</p>
     {data.coverageMode === "EXTENDED" && <p className="field-hint">Lộc, Sang hèn và Điền sản có dữ liệu riêng. Một mục thiếu dữ liệu không làm mất kết quả của các mục còn lại; các liên kết biên tập được ghi trong phần căn cứ.</p>}
     {data.categories.map(category => <section key={category.category} aria-label={`Kết quả ${categoryLabels[category.category]}`}>

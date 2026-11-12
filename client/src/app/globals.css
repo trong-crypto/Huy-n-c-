@@ -249,6 +249,13 @@ select:disabled, input:disabled, fieldset:disabled { cursor: not-allowed; }
 .maihoa-result { display: grid; gap: 24px; margin-top: 24px; }
 .maihoa-result > *, .hexagram-grid > * { min-width: 0; }
 .result-summary { display: grid; gap: 24px; padding: 24px 0; border-block: 1px solid var(--border); }
+.result-actions { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; }
+.result-actions .history-save { margin: 0; padding: 0; border: 0; }
+.result-actions .history-save[open] { flex: 1 1 100%; }
+.result-actions .history-save[open] > .field-hint { margin-block: 12px; }
+@media (max-width: 560px) {
+  .result-actions > * { width: 100%; }
+}
 .result-summary h2 { font-family: var(--font-heading); font-size: clamp(28px, 3.5vw, 38px); font-weight: 400; color: var(--primary-hover); margin: 12px 0; }
 .result-summary > div > p:last-child { color: var(--muted); font-size: 14px; }
 .evidence-summary { display: grid; gap: 12px; margin: 0; font-size: 14px; }

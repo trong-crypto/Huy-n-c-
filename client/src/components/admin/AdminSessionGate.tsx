@@ -43,7 +43,6 @@ export function AdminSessionGate({ children }: { children: ReactNode }) {
 }
 
 const reviewAreas = {
-  WEBSITE: { title: "Nội dung website", href: "/admin/website" },
   METHOD_GUIDE: { title: "Hướng dẫn phương pháp", href: "/admin/methods" },
   SOURCE: { title: "Dữ liệu nguồn", href: "/admin/sources" },
   NAME_GLOSS: { title: "Nghĩa tên quẻ", href: "/admin/readings" },

@@ -1,32 +1,67 @@
 "use client";
 
-import { useState } from "react";
-import { draftLimit } from "@/components/chat/chatState";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { CLIENT_CONFIG } from "@/config/client";
+import { customerAuthRoutes } from "@/config/customerAuthRoutes";
+import { getCustomerSession } from "@/services/rest/customerAuth";
+import { RestError } from "@/services/rest/transport";
+import { chatRoutes } from "@/components/chat/chatState";
+import { chatRequestId } from "@/components/chat/useRoomChat";
+import { readingMessage, storeReadingHandoff } from "@/components/chat/readingHandoff";
 
 export function CopyReadingForChat({ text }: { text: string }) {
-  const cleanText = text.replaceAll("\0", "");
-  const suffix = "\n… (đã rút gọn để gửi qua chat)";
-  const message = cleanText.length > draftLimit
-    ? cleanText.slice(0, draftLimit - suffix.length).replace(/[\uD800-\uDBFF]$/, "").trimEnd() + suffix
-    : cleanText;
-  const [feedback, setFeedback] = useState<{ message: string; copied: boolean }>();
-  const current = feedback?.message === message ? feedback : undefined;
+  const router = useRouter();
+  const [notice, setNotice] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [login, setLogin] = useState(false);
+  const pending = useRef<AbortController | null>(null);
+  useEffect(() => () => pending.current?.abort(), []);
 
-  async function copy() {
+  async function openConsultation() {
+    if (pending.current) return;
+    const message = readingMessage(text);
+    const controller = new AbortController();
+    pending.current = controller;
+    setNotice("");
+    setLogin(false);
+    setBusy(true);
     try {
-      await navigator.clipboard.writeText(message);
-      setFeedback({ message, copied: true });
-    } catch {
-      setFeedback({ message, copied: false });
+      if (!CLIENT_CONFIG.accountHistory) {
+        await navigator.clipboard.writeText(message);
+        if (!controller.signal.aborted) setNotice("Đã sao chép lá số.");
+        return;
+      }
+      const { account } = await getCustomerSession(controller.signal);
+      if (controller.signal.aborted) return;
+      if (account.role !== "USER") {
+        setNotice("Cần tài khoản người dùng để gửi yêu cầu tư vấn.");
+        return;
+      }
+      storeReadingHandoff({ accountId: account.id, messageId: chatRequestId(), text: message });
+      void Promise.resolve().then(() => navigator.clipboard?.writeText(message)).catch(() => {});
+      router.push(chatRoutes.user);
+    } catch (error) {
+      if (controller.signal.aborted) return;
+      if (error instanceof RestError && ["INVALID_SESSION", "LOGIN_REQUIRED"].includes(error.code)) {
+        setNotice("Hãy đăng nhập rồi mở lại kết quả để gửi tư vấn.");
+        setLogin(true);
+      } else {
+        setNotice("Chưa thể chuẩn bị lá số để chuyển sang tư vấn. Vui lòng thử lại.");
+      }
+    } finally {
+      if (!controller.signal.aborted) {
+        pending.current = null;
+        setBusy(false);
+      }
     }
   }
 
   return <div>
-    <button type="button" className="secondary-button" onClick={copy}>Sao chép lá số để gửi tư vấn</button>
-    {current && <p role="status" className="field-hint">{current.copied
-      ? "Đã sao chép. Mở cuộc trò chuyện đang hoạt động, dán vào ô Tin nhắn rồi bấm Gửi."
-      : "Trình duyệt không cho sao chép tự động. Chọn nội dung bên dưới để sao chép thủ công."}</p>}
-    {current && !current.copied && <textarea aria-label="Nội dung lá số để sao chép" readOnly rows={6}
-      value={message} onFocus={event => event.currentTarget.select()} />}
+    <button type="button" className="secondary-button" disabled={busy} onClick={() => void openConsultation()}>
+      {busy ? "Đang mở tư vấn…" : "Sao chép lá số để gửi tư vấn"}
+    </button>
+    {notice && <p role="status" className="field-hint">{notice} {login && <Link href={customerAuthRoutes.login}>Đăng nhập</Link>}</p>}
   </div>;
 }

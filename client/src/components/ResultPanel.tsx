@@ -25,6 +25,9 @@ export function ResultPanel({ connection, requestState, response, progress, loca
   const hexagramResult = completed && response.type === "MAI_HOA";
   const serverFailed = requestState === "failed" && response?.status === "FAILED";
   const latestProgress = progress.at(-1);
+  const ask = completed && CLIENT_CONFIG.accountHistory && <Link className="secondary-button"
+    href={aiReadingHref({ calculationRequestId: response.requestId })}>Hỏi AI về kết quả này</Link>;
+  const save = completed && <SaveResult requestId={response.requestId} ownerRevision={historyOwnerRevision} type={response.type} />;
   const announcement = requestState === "waiting"
     ? latestProgress ? `Bước ${latestProgress.sequence}: ${latestProgress.message}` : "Đang chờ phản hồi cho yêu cầu."
     : invalidResult ? "Phản hồi không hợp lệ. Không thể hiển thị kết quả."
@@ -69,23 +72,19 @@ export function ResultPanel({ connection, requestState, response, progress, loca
             </p>
           )}
           {hexagramResult && response.type === "MAI_HOA" && response.status === "COMPLETED" ? <>
-            <MaiHoaResultView data={response.data} />
-            {CLIENT_CONFIG.accountHistory && <Link className="secondary-button" href={aiReadingHref({ calculationRequestId: response.requestId })}>
-              Hỏi AI về kết quả này
-            </Link>}
+            <MaiHoaResultView data={response.data} actions={ask} save={save} />
             <details className="result-technical"><summary>Thông tin kỹ thuật</summary>
               <p className="response-request-id">requestId: {response.requestId}</p>
               <p className="field-hint">Phiên bản bộ quy tắc: {response.data.ruleVersion}</p>
               <details><summary>Xem JSON phản hồi</summary><pre className="response-json">{JSON.stringify(response.data, null, 2)}</pre></details>
             </details>
           </> : completed && response.type === "TAM_THE" && response.status === "COMPLETED" && <>
-            <TamTheResultView data={response.data} />
+            <TamTheResultView data={response.data} actions={ask} save={save} />
             <details className="result-technical"><summary>Thông tin kỹ thuật</summary>
               <p className="field-hint">Phiên bản bộ quy tắc: {response.data.ruleVersion}</p>
               <details><summary>Xem JSON phản hồi</summary><pre className="response-json">{JSON.stringify(response.data, null, 2)}</pre></details>
             </details>
           </>}
-          {completed && response.status === "COMPLETED" && <SaveResult requestId={response.requestId} ownerRevision={historyOwnerRevision} type={response.type} />}
         </div>
       )}
       {!localError && !response && requestState === "idle" && <p className="response-copy">Nhập thông tin và gửi yêu cầu để xem tiến trình cùng kết quả.</p>}
