@@ -53,21 +53,40 @@ class AccountAuthRegistrationPolicyTest {
     void acceptsBoundaryAndPassesExactPasswordToService(int length) throws Exception {
         String password = " " + "🔑".repeat(length - 2) + " ";
         var account = new Account(UUID.randomUUID(), "Policy fixture", "USER");
-        when(auth.register("Policy fixture", IDENTIFIER, password)).thenReturn(new Registration(account));
+        when(auth.register("Policy fixture", IDENTIFIER, password, null)).thenReturn(new Registration(account));
 
         mvc.perform(register(password))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.account.id").value(account.id().toString()));
-        verify(auth).register("Policy fixture", IDENTIFIER, password);
+        verify(auth).register("Policy fixture", IDENTIFIER, password, null);
     }
 
     @Test
     void preservesLeadingZeroInNumericPassword() throws Exception {
         String password = "01234567";
         var account = new Account(UUID.randomUUID(), "Policy fixture", "USER");
-        when(auth.register("Policy fixture", IDENTIFIER, password)).thenReturn(new Registration(account));
+        when(auth.register("Policy fixture", IDENTIFIER, password, null)).thenReturn(new Registration(account));
         mvc.perform(register(password)).andExpect(status().isCreated());
-        verify(auth).register("Policy fixture", IDENTIFIER, password);
+        verify(auth).register("Policy fixture", IDENTIFIER, password, null);
+    }
+
+    @Test
+    void normalizesOptionalPhoneAndKeepsItOutOfThePublicResponse() throws Exception {
+        String password = "01234567";
+        var account = new Account(UUID.randomUUID(), "Policy fixture", "USER");
+        when(auth.register("Policy fixture", IDENTIFIER, password, "+84900000000")).thenReturn(new Registration(account));
+        mvc.perform(authPost("/register", Map.of("displayName", "Policy fixture", "identifier", IDENTIFIER,
+                        "password", password, "phoneNumber", "+84 900-000-000")))
+                .andExpect(status().isCreated()).andExpect(jsonPath("$.data.account.phoneNumber").doesNotExist());
+        verify(auth).register("Policy fixture", IDENTIFIER, password, "+84900000000");
+    }
+
+    @Test
+    void rejectsInvalidPhoneBeforeCreatingAnAccount() throws Exception {
+        mvc.perform(authPost("/register", Map.of("displayName", "Policy fixture", "identifier", IDENTIFIER,
+                        "password", "01234567", "phoneNumber", "090abc")))
+                .andExpect(status().isBadRequest()).andExpect(jsonPath("$.error.code").value("INVALID_INPUT"));
+        verifyNoInteractions(auth);
     }
 
     @Test

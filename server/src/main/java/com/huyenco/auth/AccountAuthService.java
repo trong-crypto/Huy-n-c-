@@ -53,6 +53,9 @@ final class AccountAuthService {
     record Issued(String token, Session session) {}
     private record Credentials(Account account, String hash, boolean active) {}
     record StoredSession(Account account, OffsetDateTime expiresAt, UUID sessionId) {}
+    private record PendingPassword(UUID id, String fingerprint, String replacementHash) {}
+    enum PasswordDecision { APPROVE, REJECT }
+    record RecoveryGrant(String code, String expiresAt) {}
 
     private static final Base64.Encoder TOKEN_ENCODER = Base64.getUrlEncoder().withoutPadding();
     private final JdbcTemplate db;
@@ -79,13 +82,13 @@ final class AccountAuthService {
         return new Argon2PasswordEncoder(16, 32, 1, 19 * 1024, 2);
     }
 
-    Registration register(String displayName, String identifier, String password) {
+    Registration register(String displayName, String identifier, String password, String phoneNumber) {
         Account account = new Account(UUID.randomUUID(), displayName, "USER");
         String hash = passwordWork(() -> passwords.encode(password));
         int created = db.update("""
-                INSERT INTO accounts(id, identifier_normalized, display_name, password_hash, role, created_at)
-                VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT (identifier_normalized) DO NOTHING
-                """, account.id(), identifier, displayName, hash, account.role(), now());
+                INSERT INTO accounts(id, identifier_normalized, display_name, password_hash, role, created_at, phone_number)
+                VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT (identifier_normalized) DO NOTHING
+                """, account.id(), identifier, displayName, hash, account.role(), now(), phoneNumber);
         if (created == 0) throw new AuthFailure(409, "IDENTIFIER_TAKEN", "Định danh đã được sử dụng.");
         return new Registration(account);
     }
@@ -172,12 +175,120 @@ final class AccountAuthService {
             OffsetDateTime changedAt = now();
             // A concurrent logout or expiry must prevent the password update.
             if (revoke(realm, token, changedAt) == 0) throw AuthFailure.session();
-            db.update("UPDATE accounts SET password_hash = ? WHERE id = ?", replacement, accountId);
+            replacePassword(accountId, replacement, changedAt);
             db.update("""
-                    UPDATE account_sessions SET revoked_at = greatest(created_at, ?)
-                    WHERE account_id = ? AND revoked_at IS NULL AND expires_at > ?
-                    """, changedAt, accountId, changedAt);
+                    UPDATE password_change_requests SET status='CANCELLED', expected_hash_fingerprint=NULL,
+                        replacement_hash=NULL, decided_at=?
+                    WHERE account_id=? AND status='PENDING'
+                    """, changedAt, accountId);
         });
+    }
+
+    void requestPasswordChange(String token, UUID accountId, String currentPassword, String newPassword) {
+        Credentials initial = credentials("id", accountId, false).orElseThrow(AuthFailure::session);
+        String replacement = passwordWork(() -> {
+            if (!passwords.matches(currentPassword, initial.hash())) throw invalidCredentials();
+            return passwords.encode(newPassword);
+        });
+        transactions.executeWithoutResult(tx -> {
+            Credentials locked = credentials("id", accountId, true).orElseThrow(AuthFailure::session);
+            if (!locked.hash().equals(initial.hash()) || !requireSession(Realm.CUSTOMER, token).account().id().equals(accountId)) {
+                throw AuthFailure.session();
+            }
+            int inserted = db.update("""
+                    INSERT INTO password_change_requests(id, account_id, requested_at, status, expected_hash_fingerprint, replacement_hash)
+                    VALUES (?, ?, ?, 'PENDING', ?, ?) ON CONFLICT (account_id) WHERE status='PENDING' DO NOTHING
+                    """, UUID.randomUUID(), accountId, now(), tokenHash(locked.hash()), replacement);
+            if (inserted == 0) throw new AuthFailure(409, "PASSWORD_REQUEST_PENDING", "Tài khoản đã có yêu cầu chờ duyệt.");
+        });
+    }
+
+    void decidePasswordChange(UUID accountId, UUID requestId, UUID adminId, PasswordDecision decision) {
+        transactions.executeWithoutResult(tx -> {
+            Credentials locked = credentials("id", accountId, true).orElseThrow(AccountAuthService::passwordRequestChanged);
+            if (!Realm.CUSTOMER.allows(locked.account().role())) throw passwordRequestChanged();
+            var request = db.query("""
+                    SELECT id, expected_hash_fingerprint, replacement_hash FROM password_change_requests
+                    WHERE id=? AND account_id=? AND status='PENDING'
+                    """, (row, index) -> new PendingPassword(row.getObject("id", UUID.class), row.getString(2), row.getString(3)),
+                    requestId, accountId).stream().findFirst().orElseThrow(AccountAuthService::passwordRequestChanged);
+            OffsetDateTime decidedAt = now();
+            if (decision == PasswordDecision.APPROVE) {
+                if (!locked.active() || !tokenHash(locked.hash()).equals(request.fingerprint())) throw passwordRequestChanged();
+                replacePassword(accountId, request.replacementHash(), decidedAt);
+            }
+            db.update("""
+                    UPDATE password_change_requests SET status=?, expected_hash_fingerprint=NULL, replacement_hash=NULL,
+                        decided_by=?, decided_at=? WHERE id=?
+                    """, decision == PasswordDecision.APPROVE ? "APPROVED" : "REJECTED", adminId, decidedAt, request.id());
+        });
+    }
+
+    RecoveryGrant issueRecovery(UUID accountId, UUID adminId) {
+        return transactions.execute(tx -> {
+            Credentials locked = credentials("id", accountId, true)
+                    .orElseThrow(AccountAuthService::recoveryUnavailable);
+            if (!locked.active() || !Realm.CUSTOMER.allows(locked.account().role())) throw recoveryUnavailable();
+            OffsetDateTime issued = now();
+            OffsetDateTime expires = issued.plusMinutes(15);
+            db.update("""
+                    UPDATE account_password_recovery SET revoked_at = ?
+                    WHERE account_id = ? AND used_at IS NULL AND revoked_at IS NULL
+                    """, issued, accountId);
+            String code = newToken();
+            db.update("""
+                    INSERT INTO account_password_recovery(id, account_id, issued_by, token_hash, issued_at, expires_at)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                    """, UUID.randomUUID(), accountId, adminId, tokenHash(code), issued, expires);
+            return new RecoveryGrant(code, expires.toInstant().toString());
+        });
+    }
+
+    void recoverPassword(String identifier, String code, String replacementPassword) {
+        Credentials initial = credentials("identifier_normalized", identifier, false).orElse(null);
+        // Hash a replacement even for unknown accounts so the public response reveals less timing information.
+        String replacement = passwordWork(() -> passwords.encode(replacementPassword));
+        if (initial == null) throw recoveryUnavailable();
+        transactions.executeWithoutResult(tx -> {
+            Credentials locked = credentials("id", initial.account().id(), true)
+                    .orElseThrow(AccountAuthService::recoveryUnavailable);
+            if (!locked.active() || !Realm.CUSTOMER.allows(locked.account().role())) throw recoveryUnavailable();
+            int consumed = db.update("""
+                    UPDATE account_password_recovery SET used_at = ?
+                    WHERE account_id = ? AND token_hash = ? AND used_at IS NULL AND revoked_at IS NULL AND expires_at > ?
+                    """, now(), locked.account().id(), tokenHash(code), now());
+            if (consumed != 1) throw recoveryUnavailable();
+            OffsetDateTime changed = now();
+            replacePassword(locked.account().id(), replacement, changed);
+            db.update("""
+                    UPDATE account_password_recovery SET revoked_at = ?
+                    WHERE account_id = ? AND used_at IS NULL AND revoked_at IS NULL
+                    """, changed, locked.account().id());
+            db.update("""
+                    UPDATE password_change_requests SET status='CANCELLED', expected_hash_fingerprint=NULL,
+                        replacement_hash=NULL, decided_at=? WHERE account_id=? AND status='PENDING'
+                    """, changed, locked.account().id());
+        });
+    }
+
+    private static AuthFailure recoveryUnavailable() {
+        return new AuthFailure(400, "INVALID_RECOVERY", "Mã khôi phục không hợp lệ hoặc đã hết hạn.");
+    }
+
+    private void replacePassword(UUID accountId, String replacement, OffsetDateTime changedAt) {
+        db.update("UPDATE accounts SET password_hash = ? WHERE id = ?", replacement, accountId);
+        db.update("""
+                UPDATE account_password_recovery SET revoked_at = ?
+                WHERE account_id = ? AND used_at IS NULL AND revoked_at IS NULL
+                """, changedAt, accountId);
+        db.update("""
+                UPDATE account_sessions SET revoked_at = greatest(created_at, ?)
+                WHERE account_id = ? AND revoked_at IS NULL AND expires_at > ?
+                """, changedAt, accountId, changedAt);
+    }
+
+    private static AuthFailure passwordRequestChanged() {
+        return new AuthFailure(409, "PASSWORD_REQUEST_CHANGED", "Yêu cầu đã thay đổi hoặc tài khoản không thể đổi mật khẩu.");
     }
 
     void checkCsrf(Session session, String supplied) {

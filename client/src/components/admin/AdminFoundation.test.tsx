@@ -28,13 +28,14 @@ it("shows account details in a side panel and toggles the consultant action in t
       ? { account: { id: adminId, displayName: "Admin", role: "ADMIN" }, expiresAt, csrfToken: "a".repeat(43) }
       : path.includes("/accounts?")
         ? { items: [account], page: 0, size: 20, totalElements: 1, totalPages: 1 }
-        : { account, lastStatusChange: null };
+        : { account, lastStatusChange: null, phoneNumber: "0900000000" };
     return Response.json({ requestId: id, status: "COMPLETED", error: null, data });
   }));
   render(<AdminSessionGate><AccountDirectoryLive /></AdminSessionGate>);
   fireEvent.click(await screen.findByRole("button", { name: "Người dùng mẫu" }));
   const side = screen.getByRole("complementary", { name: "Chi tiết tài khoản" });
   expect(await within(side).findByText("demo-user")).toBeTruthy();
+  expect(within(side).getByText("0900000000")).toBeTruthy();
   fireEvent.click(within(side).getByRole("button", { name: "Đóng" }));
   expect(screen.queryByRole("complementary", { name: "Chi tiết tài khoản" })).toBeNull();
   fireEvent.click(screen.getByRole("button", { name: "Cấp lên thành tư vấn viên" }));
@@ -43,6 +44,34 @@ it("shows account details in a side panel and toggles the consultant action in t
   fireEvent.click(await screen.findByRole("button", { name: "Xác nhận đổi vai trò" }));
   expect(await screen.findByRole("button", { name: "Cấp lên thành tư vấn viên" })).toBeTruthy();
   expect(writes).toEqual([{ expectedVersion: 1, role: "CONSULTANT", approveProfile: true }, { expectedVersion: 2, role: "USER" }]);
+});
+
+it("filters and approves pending password requests in the account drawer", async () => {
+  const id = "550e8400-e29b-41d4-a716-446655440001";
+  const requestId = "550e8400-e29b-41d4-a716-446655440002";
+  const account = { id, identifier: "demo-user", displayName: "Người dùng mẫu", role: "USER", status: "ACTIVE",
+    version: 1, createdAt: "2026-11-09T03:00:00Z", canChangeStatus: true };
+  const csrfToken = "a".repeat(43);
+  const fetch = vi.fn(async (path: string, options?: RequestInit) => {
+    if (path.endsWith("/auth/admin/password/requests")) {
+      expect(options?.body).toBe(JSON.stringify({ accountId: id, requestId, decision: "APPROVE" }));
+      return new Response(null, { status: 204 });
+    }
+    const data = path.endsWith("/auth/admin/session")
+      ? { account: { id, displayName: "Admin", role: "ADMIN" }, expiresAt: new Date(Date.now() + 60_000).toISOString(), csrfToken }
+      : path.includes("/accounts?")
+        ? { items: [account], page: 0, size: 20, totalElements: 1, totalPages: 1 }
+        : { account, lastStatusChange: null, passwordRequest: { id: requestId, requestedAt: account.createdAt } };
+    return Response.json({ requestId: id, status: "COMPLETED", error: null, data });
+  });
+  vi.stubGlobal("fetch", fetch);
+  render(<AdminSessionGate><AccountDirectoryLive /></AdminSessionGate>);
+  fireEvent.click(await screen.findByRole("button", { name: "Yêu cầu đổi mật khẩu đang chờ" }));
+  fireEvent.click(await screen.findByRole("button", { name: "Người dùng mẫu" }));
+  fireEvent.click(await screen.findByRole("button", { name: "Duyệt đổi mật khẩu" }));
+  fireEvent.click(screen.getByRole("button", { name: "Xác nhận duyệt yêu cầu" }));
+  expect(await screen.findByText(/Đã duyệt yêu cầu/)).toBeTruthy();
+  expect(fetch.mock.calls.some(([path]) => path.includes("passwordRequest=pending"))).toBe(true);
 });
 
 it("shows a review notification to an authenticated admin and clears the workspace after revocation", async () => {

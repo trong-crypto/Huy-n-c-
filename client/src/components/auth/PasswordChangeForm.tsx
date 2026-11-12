@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
 import { FieldError, FormField, PrimaryButton } from "@/components/ui/Controls";
-import { changePassword, type PasswordRealm } from "@/services/rest/passwordChange";
+import { changePassword, requestPasswordChange, type PasswordRealm } from "@/services/rest/passwordChange";
 import { RestError } from "@/services/rest/transport";
 import styles from "./customerAuth.module.css";
 
@@ -24,6 +24,7 @@ const errorsByCode: Record<string, string> = {
   CSRF_REJECTED: "Không xác minh được yêu cầu. Hãy tải lại trang và thử lại.",
   TOO_MANY_REQUESTS: "Bạn đã thử quá nhiều lần. Vui lòng thử lại sau.",
   REQUEST_TIMEOUT: "Chưa xác nhận được kết quả. Hãy kiểm tra phiên trước khi thử lại.",
+  PASSWORD_REQUEST_PENDING: "Bạn đã có yêu cầu đổi mật khẩu đang chờ Admin xử lý.",
 };
 
 function changedFromUrl() {
@@ -44,12 +45,15 @@ export function PasswordChangeForm({ realm, csrfToken, loginUrl }: {
   const [errors, setErrors] = useState<Partial<Record<Field, string>>>({});
   const [visible, setVisible] = useState<Partial<Record<Field, boolean>>>({});
   const [failure, setFailure] = useState("");
+  const [requested, setRequested] = useState(false);
   const expired = failure === "INVALID_SESSION";
   useEffect(() => () => pending.current?.abort(), []);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (pending.current || expired) return;
+    const submitter = (event.nativeEvent as SubmitEvent).submitter;
+    const reviewRequired = realm === "customer" && submitter instanceof HTMLButtonElement && submitter.value === "request";
     const form = event.currentTarget;
     const values = new FormData(form);
     const currentPassword = String(values.get("currentPassword") ?? "");
@@ -62,6 +66,7 @@ export function PasswordChangeForm({ realm, csrfToken, loginUrl }: {
     if (confirmation !== newPassword) next.confirmation = "Mật khẩu xác nhận chưa trùng khớp.";
     setErrors(next);
     setFailure("");
+    setRequested(false);
     const first = fields.find(field => next[field.key]);
     if (first) {
       (form.elements.namedItem(first.key) as HTMLInputElement | null)?.focus();
@@ -72,6 +77,14 @@ export function PasswordChangeForm({ realm, csrfToken, loginUrl }: {
     pending.current = controller;
     setBusy(true);
     try {
+      if (reviewRequired) {
+        await requestPasswordChange({ currentPassword, newPassword }, csrfToken, controller.signal);
+        if (controller.signal.aborted) return;
+        form.reset();
+        setVisible({});
+        setRequested(true);
+        return;
+      }
       await changePassword(realm, { currentPassword, newPassword }, csrfToken, controller.signal);
       if (controller.signal.aborted) return;
       form.reset();
@@ -81,8 +94,11 @@ export function PasswordChangeForm({ realm, csrfToken, loginUrl }: {
     } catch (error) {
       if (controller.signal.aborted) return;
       setFailure(error instanceof RestError ? error.code : "NETWORK_ERROR");
-      pending.current = null;
-      setBusy(false);
+    } finally {
+      if (!controller.signal.aborted) {
+        pending.current = null;
+        setBusy(false);
+      }
     }
   }
 
@@ -107,9 +123,11 @@ export function PasswordChangeForm({ realm, csrfToken, loginUrl }: {
         </FormField>;
       })}
       <PrimaryButton type="submit">{busy ? "Đang lưu…" : "Lưu mật khẩu"}</PrimaryButton>
+      {realm === "customer" && <button type="submit" value="request" className="secondary-button">Gửi yêu cầu đổi mật khẩu</button>}
     </fieldset>
     {failure && <p className={styles.feedback} role="alert">{Object.hasOwn(errorsByCode, failure)
       ? errorsByCode[failure] : "Không thể xác nhận yêu cầu. Vui lòng thử lại."}</p>}
+    {requested && <p className={styles.feedback} role="status">Đã gửi yêu cầu. Mật khẩu mới có hiệu lực sau khi Admin duyệt.</p>}
     {expired && <Link href={loginUrl} className={styles.link}>Đăng nhập lại</Link>}
   </form>;
 }

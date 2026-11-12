@@ -16,7 +16,8 @@ describe("customer registration", () => {
     expect(screen.getByRole("heading", { name: "Đăng ký tài khoản" })).toBeTruthy();
     expect(screen.getByRole("link", { name: "Đăng nhập" }).getAttribute("href")).toBe("/dang-nhap");
     expect(Array.from(form.querySelectorAll("input, select")).map(field => field.id)).toEqual([
-      "customer-auth-displayName", "customer-auth-identifier", "customer-auth-password", "customer-auth-confirmation",
+      "customer-auth-displayName", "customer-auth-identifier", "customer-auth-phoneNumber",
+      "customer-auth-password", "customer-auth-confirmation",
     ]);
 
     fireEvent.click(within(form).getByRole("button", { name: "Đăng ký" }));
@@ -40,6 +41,23 @@ describe("customer registration", () => {
     fireEvent.click(button);
     expect(screen.getByText("Mật khẩu xác nhận chưa trùng khớp.")).toBeTruthy();
     expect(document.activeElement).toBe(confirmation);
+  });
+
+  it("rejects an invalid optional phone and accepts a formatted number", () => {
+    render(<RegistrationPage />);
+    enter("Tên hiển thị", "Khách thử");
+    enter("Tài khoản hoặc email", "sample-user");
+    enter("Mật khẩu", "sample one");
+    enter("Xác nhận mật khẩu", "sample one");
+    const phone = enter("Số điện thoại (tùy chọn)", "090abc");
+    const button = screen.getByRole("button", { name: "Đăng ký" });
+    fireEvent.click(button);
+    expect(screen.getByRole("alert").textContent).toBe("Số điện thoại chưa đúng định dạng.");
+    expect(document.activeElement).toBe(phone);
+    enter("Số điện thoại (tùy chọn)", "090-000-0000");
+    fireEvent.click(button);
+    expect(screen.queryByRole("alert")).toBeNull();
+    expect(screen.getByRole("status").textContent).toContain("chưa được gửi");
   });
 
   it.each([7, 129])("rejects a registration password of %i code points and keeps it editable", (length) => {

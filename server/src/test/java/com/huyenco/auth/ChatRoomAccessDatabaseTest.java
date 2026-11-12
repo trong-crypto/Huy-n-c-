@@ -342,10 +342,13 @@ class ChatRoomAccessDatabaseTest {
         var userRequest = request(user, AccountAuthService.Realm.CUSTOMER);
         var consultantRequest = request(consultant, AccountAuthService.Realm.CUSTOMER);
         try (var customer = connected(userRequest); var advisor = connected(consultantRequest);
-             var anotherCustomerTab = connected(userRequest)) {
+             var anotherCustomerTab = connected(userRequest); var customerWorkspace = connected(userRequest);
+             var advisorWorkspace = connected(consultantRequest)) {
             subscribeToMessages(customer, user.id(), room);
             subscribeToMessages(advisor, consultant.id(), room);
             subscribeToMessages(anotherCustomerTab, user.id(), room);
+            subscribeWorkspace(customerWorkspace, user.id());
+            subscribeWorkspace(advisorWorkspace, consultant.id());
             customer.send("SEND\ndestination:/app/chat/rooms/" + room + "/sync\n\n");
             assertEquals(room.toString(), readChat(customer, "READY").path("conversationId").asText());
             UUID firstId = UUID.randomUUID();
@@ -353,6 +356,8 @@ class ChatRoomAccessDatabaseTest {
             sendChat(customer, room, first);
             assertEquals("ROOM_NOT_ACTIVE", readChat(customer, "ERROR").path("code").asText());
             lifecycle.transition(consultantRequest, room, Action.ACCEPT);
+            readChat(customerWorkspace, "ROOM_CHANGED");
+            readChat(advisorWorkspace, "ROOM_CHANGED");
 
             sendChat(customer, room, first);
             JsonNode ack = readChat(customer, "ACK");
@@ -367,10 +372,15 @@ class ChatRoomAccessDatabaseTest {
             assertEquals(user.id().toString(), incoming.path("senderAccountId").asText());
             assertEquals("Xin chào", incoming.path("text").asText());
             assertEquals(incoming, readChat(anotherCustomerTab, "MESSAGE"));
+            var advisorNotice = readChat(advisorWorkspace, "MESSAGE_RECEIVED");
+            assertEquals(room.toString(), advisorNotice.path("conversationId").asText());
+            assertEquals(2, advisorNotice.size());
+            assertNull(customerWorkspace.frames.poll(300, TimeUnit.MILLISECONDS));
 
             sendChat(customer, room, first);
             assertEquals(ack, readChat(customer, "ACK"));
             assertNull(advisor.frames.poll(300, TimeUnit.MILLISECONDS));
+            assertNull(advisorWorkspace.frames.poll(300, TimeUnit.MILLISECONDS));
             sendChat(customer, room, first.replace("Xin chào", "Sửa nội dung"));
             var conflict = readChat(customer, "ERROR");
             assertEquals(firstId.toString(), conflict.path("clientMessageId").asText());
@@ -385,6 +395,8 @@ class ChatRoomAccessDatabaseTest {
             assertEquals(replyAck.path("messageId"), replyEvent.path("messageId"));
             assertEquals("2", replyEvent.path("sequence").textValue());
             assertEquals(consultant.id().toString(), replyEvent.path("senderAccountId").asText());
+            assertEquals(room.toString(), readChat(customerWorkspace, "MESSAGE_RECEIVED").path("conversationId").asText());
+            assertNull(advisorWorkspace.frames.poll(300, TimeUnit.MILLISECONDS));
             lifecycle.transition(userRequest, room, Action.END);
             sendChat(customer, room, first);
             assertEquals(ack, readChat(customer, "ACK"));
@@ -895,6 +907,82 @@ class ChatRoomAccessDatabaseTest {
         }
     }
 
+    @Test
+    void optionalPhoneIsStoredAndVisibleInAdminDetailOnly() throws Exception {
+        var admin = account("ADMIN");
+        var session = request(admin, AccountAuthService.Realm.ADMIN);
+        var user = account("USER");
+        String detailPath = "/api/v1/admin/accounts/" + user.id();
+        mvc.perform(get(detailPath).cookie(session.getCookies()))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.data.phoneNumber").doesNotExist());
+
+        String identifier = "phone-" + UUID.randomUUID() + "@example.test";
+        var registration = mvc.perform(post("/api/v1/auth/register").header("Origin", session.getHeader("Origin"))
+                        .header("X-HuyenCo-Request", "1").contentType("application/json")
+                        .content(json.writeValueAsString(java.util.Map.of("identifier", identifier, "displayName", "Phone TEST",
+                                "password", password, "phoneNumber", "090-000-0000"))))
+                .andExpect(status().isCreated()).andExpect(jsonPath("$.data.account.phoneNumber").doesNotExist())
+                .andReturn();
+        String registeredId = json.readTree(registration.getResponse().getContentAsString()).path("data").path("account").path("id").asText();
+        assertEquals("0900000000", db.queryForObject("SELECT phone_number FROM accounts WHERE id=?", String.class,
+                UUID.fromString(registeredId)));
+        mvc.perform(get("/api/v1/admin/accounts/" + registeredId).cookie(session.getCookies()))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.data.phoneNumber").value("0900000000"));
+        mvc.perform(get("/api/v1/admin/accounts").cookie(session.getCookies()).param("q", identifier))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.data.items[0].id").value(registeredId))
+                .andExpect(jsonPath("$.data.items[0].phoneNumber").doesNotExist());
+    }
+
+    @org.junit.jupiter.params.ParameterizedTest
+    @org.junit.jupiter.params.provider.ValueSource(strings = {"APPROVE", "REJECT", "DIRECT"})
+    void passwordRequestsApplyOnlyTheCurrentDecision(String decision) throws Exception {
+        var user = account("USER");
+        var admin = account("ADMIN");
+        var realm = AccountAuthService.Realm.CUSTOMER;
+        var userSession = request(user, realm);
+        var adminSession = request(admin, AccountAuthService.Realm.ADMIN);
+        String replacement = "moi-" + UUID.randomUUID();
+        var credentials = java.util.Map.of("currentPassword", password, "newPassword", replacement);
+        passwordPost("/password/requests", userSession, credentials).andExpect(status().isAccepted());
+        UUID pending = db.queryForObject("SELECT id FROM password_change_requests WHERE account_id=? AND status='PENDING'", UUID.class, user.id());
+        assertThrows(AuthFailure.class, () -> accounts.login(realm, user.identifier(), replacement, null));
+        passwordPost("/password/requests", userSession, credentials)
+                .andExpect(status().isConflict()).andExpect(jsonPath("$.error.code").value("PASSWORD_REQUEST_PENDING"));
+        mvc.perform(get("/api/v1/admin/accounts").cookie(adminSession.getCookies()).param("passwordRequest", "pending")
+                        .param("q", user.identifier()))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.data.items[0].id").value(user.id().toString()));
+        mvc.perform(get("/api/v1/admin/accounts/" + user.id()).cookie(adminSession.getCookies()))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.data.passwordRequest.id").value(pending.toString()))
+                .andExpect(jsonPath("$.data.passwordRequest.replacementHash").doesNotExist());
+
+        var review = java.util.Map.of("accountId", user.id().toString(), "requestId", pending.toString(),
+                "decision", "DIRECT".equals(decision) ? "APPROVE" : decision);
+        passwordPost("/admin/password/requests", userSession, review).andExpect(status().isUnauthorized());
+        if ("DIRECT".equals(decision)) {
+            passwordPost("/password/change", userSession, credentials).andExpect(status().isNoContent());
+        } else {
+            passwordPost("/admin/password/requests", adminSession, review).andExpect(status().isNoContent());
+        }
+        passwordPost("/admin/password/requests", adminSession, review).andExpect(status().isConflict());
+        String expected = "DIRECT".equals(decision) ? "CANCELLED" : "APPROVE".equals(decision) ? "APPROVED" : "REJECTED";
+        assertEquals(expected, db.queryForObject("SELECT status FROM password_change_requests WHERE id=?", String.class, pending));
+        assertNull(db.queryForObject("SELECT replacement_hash FROM password_change_requests WHERE id=?", String.class, pending));
+        String oldToken = userSession.getCookies()[0].getValue();
+        if ("REJECT".equals(decision)) {
+            accounts.requireSession(realm, oldToken);
+            accounts.login(realm, user.identifier(), password, null);
+        } else {
+            assertThrows(AuthFailure.class, () -> accounts.requireSession(realm, oldToken));
+            accounts.login(realm, user.identifier(), replacement, null);
+        }
+    }
+
+    private ResultActions passwordPost(String path, MockHttpServletRequest session, java.util.Map<String, String> body) throws Exception {
+        return mvc.perform(post("/api/v1/auth" + path).cookie(session.getCookies()).header("Origin", session.getHeader("Origin"))
+                .header("X-HuyenCo-Request", "1").header("X-CSRF-Token", session.getHeader("X-CSRF-Token"))
+                .contentType("application/json").content(json.writeValueAsBytes(body)));
+    }
+
     private ResultActions changeRole(String path, MockHttpServletRequest session, String body) throws Exception {
         return mvc.perform(put(path).cookie(session.getCookies()).header("Origin", session.getHeader("Origin"))
                 .header("X-HuyenCo-Request", "1").header("X-CSRF-Token", session.getHeader("X-CSRF-Token"))
@@ -1187,7 +1275,7 @@ class ChatRoomAccessDatabaseTest {
 
     private Account account(String role) {
         String identifier = "room-test-" + UUID.randomUUID();
-        UUID id = accounts.register("Chat room TEST", identifier, password).account().id();
+        UUID id = accounts.register("Chat room TEST", identifier, password, null).account().id();
         db.update("UPDATE accounts SET role = ? WHERE id = ?", role, id);
         return new Account(id, identifier);
     }

@@ -115,7 +115,8 @@ it("binds a reading to the requested room, restores it after reload and sends it
   fireEvent.click(await screen.findByRole("button", { name: /550e8400/, pressed: false }));
   await screen.findByText(/Lá số sẽ sẵn sàng/);
   current = { ...current, status: "ACTIVE", startedAt: "2026-11-09T03:01:00Z" };
-  act(() => emit({ type: "ROOM_CHANGED", conversationId }));
+  act(() => emit({ type: "ROOM_CHANGED", conversationId, status: "ACTIVE" }));
+  expect(screen.getByText("Tư vấn viên đã chấp nhận yêu cầu. Phòng chat đã mở.")).toBeTruthy();
   const sendReading = await screen.findByRole<HTMLButtonElement>("button", { name: "Gửi lá số" });
   await waitFor(() => expect(sendReading.disabled).toBe(false));
   expect(stomp.publish.mock.calls.some(([frame]) => frame.destination.endsWith("/send"))).toBe(false);
@@ -176,14 +177,44 @@ it("pushes new assigned rooms to a consultant and clears their data on session r
   await screen.findByText("Chưa có cuộc trò chuyện.");
   await waitFor(() => expect(stomp.subscriptions.has(workspaceQueue)).toBe(true));
   assigned = true;
-  act(() => emit({ type: "ROOM_CREATED", conversationId }));
-  fireEvent.click(await screen.findByRole("button", { name: /^Hội thoại ·/ }));
+  act(() => emit({ type: "ROOM_CREATED", conversationId, status: "PENDING" }));
+  expect(screen.getByText("Bạn có yêu cầu tư vấn mới.")).toBeTruthy();
+  fireEvent.click(screen.getByRole("button", { name: "Xem yêu cầu" }));
+  expect(screen.queryByText("Bạn có yêu cầu tư vấn mới.")).toBeNull();
   const panel = within(screen.getByRole("region", { name: "Khung trò chuyện" }));
   await panel.findByText("Chờ tư vấn viên");
   act(() => stomp.error({ headers: { message: "INVALID_SESSION" } }));
   expect(await screen.findByRole("link", { name: "Đăng nhập để tiếp tục" })).toBeTruthy();
   expect(screen.queryByRole("button", { name: /^Hội thoại ·/ })).toBeNull();
   expect(fetch.mock.calls.some(([path]) => path.includes("/chat/consultants"))).toBe(false);
+});
+
+it.each([
+  { Page: ConsultationPage, accountId: userId, role: "USER", peer: "tư vấn viên" },
+  { Page: ConsultantWorkspacePage, accountId: consultantId, role: "CONSULTANT", peer: "người dùng" },
+])("notifies $role of messages before the room is open", async ({ Page, accountId, role, peer }) => {
+  vi.stubGlobal("fetch", vi.fn(async (path: string) => {
+    if (path.endsWith("/auth/chat/session")) return success({ accountId, role, expiresAt: expiresAt() });
+    if (path.endsWith("/auth/session")) return success({ account: { id: accountId, role, displayName: "Demo" },
+      expiresAt: expiresAt(), csrfToken });
+    if (path.includes("/chat/consultants?")) return success(page([]));
+    if (path.includes("/chat/conversations?")) return success(page([]));
+    if (path.endsWith(conversationId)) return success(room);
+    throw new Error(`Unexpected request ${path}`);
+  }));
+  render(<Page />);
+  await waitFor(() => expect(stomp.subscriptions.has(workspaceQueue)).toBe(true));
+  const roomQueue = `/user/queue/chat/rooms/${conversationId}`;
+  expect(stomp.subscriptions.has(roomQueue)).toBe(false);
+  act(() => {
+    emit({ type: "MESSAGE_RECEIVED", conversationId });
+    emit({ type: "MESSAGE_RECEIVED", conversationId });
+  });
+  const notices = within(screen.getByRole("region", { name: "Thông báo tư vấn" }));
+  expect(notices.getByText(`Từ ${peer}.`)).toBeTruthy();
+  fireEvent.click(notices.getByRole("button", { name: "Mở hội thoại" }));
+  expect(screen.queryByRole("region", { name: "Thông báo tư vấn" })).toBeNull();
+  expect(await within(screen.getByRole("region", { name: "Khung trò chuyện" })).findByText("Chờ tư vấn viên")).toBeTruthy();
 });
 
 it("blocks the wrong role before loading any room data", async () => {

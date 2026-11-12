@@ -6,10 +6,14 @@ Hợp đồng 1.0 cho AUTH-01–07 và DATA-01–05. Backend đã triển khai v
 
 | Phương thức và đường dẫn | Request | Thành công |
 | --- | --- | --- |
-| `POST /api/v1/auth/register` | JSON gồm `displayName`, `identifier`, `password` | `201` và thông tin tài khoản mới có role `USER`. Client chuyển tới `/dang-nhap`. |
+| `POST /api/v1/auth/register` | JSON gồm `displayName`, `identifier`, `password` và `phoneNumber` tùy chọn | `201` và thông tin tài khoản mới có role `USER`. Client chuyển tới `/dang-nhap`. |
 | `POST /api/v1/auth/login` | JSON gồm `identifier`, `password` | `200`, cấp cookie khách hàng và trả dữ liệu phiên. Nhận tài khoản `USER` hoặc `CONSULTANT`. |
 | `GET /api/v1/auth/session` | Cookie khách hàng | `200`, trả dữ liệu phiên hiện hành. |
 | `POST /api/v1/auth/password/change` | Cookie khách hàng, Origin và CSRF | `204`, đổi mật khẩu USER hoặc CONSULTANT và xóa cookie khách hàng. |
+| `POST /api/v1/auth/password/requests` | Cookie khách hàng, Origin, CSRF và JSON `currentPassword`, `newPassword` | `202`, xác minh mật khẩu hiện tại và tạo một yêu cầu `PENDING` cho tài khoản. |
+| `POST /api/v1/auth/admin/password/requests` | Cookie Admin, Origin, CSRF và JSON `accountId`, `requestId`, `decision` (`APPROVE` hoặc `REJECT`) | `204`, xử lý đúng yêu cầu. Duyệt sẽ thay mật khẩu và thu hồi các phiên đăng nhập của tài khoản. |
+| `POST /api/v1/auth/admin/password/recovery` | Cookie Admin, Origin, CSRF và JSON `accountId` | `201`, cấp mã khôi phục một lần cho USER/CONSULTANT đang hoạt động, hết hạn sau 15 phút. Mã chỉ trả trong phản hồi này. |
+| `POST /api/v1/auth/password/recover` | Origin và JSON `identifier`, `code`, `newPassword` | `204`, đặt mật khẩu mới khi mã còn hạn; thu hồi mọi phiên cũ và yêu cầu đổi mật khẩu đang chờ. |
 | `POST /api/v1/auth/logout` | Cookie khách hàng và header CSRF, body `{}` | `204`, thu hồi phiên và xóa cookie khách hàng. |
 | `POST /api/v1/auth/admin/login` | JSON gồm `identifier`, `password` | `200`, cấp cookie Admin và trả dữ liệu phiên. Chỉ nhận tài khoản `ADMIN`. |
 | `GET /api/v1/auth/admin/session` | Cookie Admin | `200`, trả dữ liệu phiên Admin. |
@@ -19,10 +23,13 @@ Hợp đồng 1.0 cho AUTH-01–07 và DATA-01–05. Backend đã triển khai v
 - Form khách hàng gửi `identifier` theo tên trường hiện có. Form Admin ánh xạ ô “Tài khoản” sang cùng trường. Trường xác nhận mật khẩu ở form đăng ký chỉ dùng để kiểm tra trên Client. API từ chối trường ngoài hợp đồng, kể cả `role` và `confirmation`.
 - TV1 điều hướng từ role do Server trả về. `USER` về trang công khai, `ADMIN` vào `/admin`. Chỉ bật điều hướng `CONSULTANT` tới workspace sau khi workspace và quyền tương ứng sẵn sàng.
 - Mọi API Admin kiểm phiên Admin và quyền trên Server. Thiếu phiên hợp lệ trả `401`, gồm cả trường hợp chỉ có cookie khách hàng. Đăng nhập đúng mật khẩu nhưng sai cổng theo role, hoặc thao tác với phiên hợp lệ nhưng thiếu quyền yêu cầu, trả `403 FORBIDDEN`. Role lấy từ DB. Các API sửa dữ liệu Admin kiểm thêm Origin và CSRF.
+- Với V36, khách hàng đã đăng nhập có thể gửi yêu cầu từ trang Đổi mật khẩu. Admin lọc `GET /api/v1/admin/accounts?passwordRequest=pending` và xử lý trong chi tiết tài khoản. Chỉ bản băm Argon2id của mật khẩu mới được lưu khi chờ duyệt. Sau duyệt, từ chối hoặc đổi trực tiếp, bản ghi giữ trạng thái xử lý và xóa dữ liệu băm của yêu cầu.
+- V37 bổ sung khôi phục khi quên mật khẩu. Email và số điện thoại hiện chưa được xác minh quyền sở hữu, nên Admin phải kiểm tra danh tính qua kênh khác trước khi cấp mã. Admin trao mã riêng cho đúng người; hệ thống không gửi mật khẩu mới cho Admin. Mã ngẫu nhiên 256 bit, lưu SHA-256, dùng một lần và có hạn 15 phút. Cấp mã mới vô hiệu mã cũ. Đổi mật khẩu thành công vô hiệu mọi mã còn lại và thu hồi các phiên. Không cấp mã cho ADMIN theo luồng này.
 
 ## Dữ liệu gửi và nhận
 
 - `displayName` bỏ khoảng trắng đầu/cuối, dài 1–80 ký tự Unicode và loại ký tự điều khiển.
+- Từ Flyway V35, `phoneNumber` nhận chuỗi có 7–15 chữ số và dấu `+` tùy chọn ở đầu. Khoảng trắng, dấu chấm và gạch nối được bỏ khi lưu. Bỏ trường này nếu người dùng để trống. Trường chỉ được trả qua chi tiết tài khoản dành cho Admin.
 - `identifier` là một username hoặc một email cho mỗi tài khoản. Sau khi bỏ khoảng trắng đầu/cuối, username dùng `[a-zA-Z0-9._-]{3,32}`. Email dài tối đa 254 ký tự ASCII và có một dấu `@`. Phần trước `@` dài 1–64 ký tự, gồm các nhóm `[a-zA-Z0-9_+%-]+` phân cách bằng dấu chấm. Tên miền có ít nhất hai nhãn phân cách bằng dấu chấm. Mỗi nhãn dài 1–63 ký tự, gồm chữ cái ASCII, chữ số hoặc dấu gạch ngang, với đầu và cuối là chữ cái hoặc chữ số. Chuẩn hóa ASCII sang chữ thường trước khi so trùng và tìm kiếm. Đăng ký bằng email trong mốc này chỉ dùng địa chỉ làm định danh nhập liệu.
 - `password` khi đăng ký dài 8–128 điểm mã Unicode. Giữ nguyên ký tự và khoảng trắng, không yêu cầu pha trộn các loại ký tự. Mỗi định danh là duy nhất; hai tài khoản có thể chọn cùng mật khẩu và mỗi bản băm Argon2id có salt riêng. Login giữ giới hạn 1–128 điểm mã Unicode và tiếp tục hỗ trợ mật khẩu đã đăng ký. Ngưỡng 8 là chính sách bản thử nghiệm localhost; nhóm phải đánh giá lại nguy cơ mật khẩu dễ đoán và biện pháp xác thực trước khi triển khai Internet. Mọi POST dùng đối tượng JSON UTF-8 với giới hạn 16 KiB. Từ chối khóa trùng, giá trị sai kiểu và tham số query ngoài hợp đồng.
 - Hai endpoint đổi mật khẩu chỉ nhận `currentPassword` (1–128) và `newPassword` (8–128), tính theo điểm mã Unicode và giữ nguyên khoảng trắng. Ô xác nhận thuộc biểu mẫu Client. Ví dụ minh họa với giá trị mẫu: `{"currentPassword":"old-example","newPassword":"new-example"}`.
@@ -49,6 +56,7 @@ Khi thất bại, `data=null` và `error` gồm `code` cùng `message`. Sai mậ
 | HTTP | Mã | Trường hợp |
 | --- | --- | --- |
 | 400 | `INVALID_INPUT` | Sai định dạng, thiếu trường, dư trường hoặc giá trị ngoài giới hạn. |
+| 400 | `INVALID_RECOVERY` | Định danh hoặc mã khôi phục không hợp lệ, đã dùng hoặc hết hạn; cùng phản hồi để hạn chế dò tài khoản. |
 | 401 | `INVALID_CREDENTIALS` | Đăng nhập thất bại. |
 | 401 | `INVALID_SESSION` | Thiếu phiên phù hợp, phiên hết hạn, đã thu hồi hoặc tài khoản bị khóa. |
 | 403 | `FORBIDDEN` | Đúng thông tin đăng nhập nhưng sai cổng, hoặc phiên hợp lệ thiếu quyền thao tác. |

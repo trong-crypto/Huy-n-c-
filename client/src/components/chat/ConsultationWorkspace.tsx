@@ -6,6 +6,7 @@ import { ChatComposer, ChatIcon } from "./ChatComposer";
 import { ChatRoomPanel } from "./ChatRoomPanel";
 import { ConsultationNavigation } from "./ConsultationNavigation";
 import { chatRoutes, roomStatusLabels, type ChatAccess, type ChatAudience, type ChatMessaging, type SubscribeToRoom } from "./chatState";
+import type { ConsultationNotice } from "./useConsultationSocket";
 import styles from "./chat.module.css";
 
 const accessMessages = {
@@ -14,6 +15,12 @@ const accessMessages = {
   expired: "Phiên chat đã hết hạn. Cần xác thực lại để tiếp tục.",
   forbidden: "Bạn không có quyền mở cuộc trò chuyện này.",
   error: "Không tải được thông tin tư vấn. Máy chủ có thể chưa phản hồi.",
+};
+
+const noticeMessages = {
+  request: "Bạn có yêu cầu tư vấn mới.",
+  accepted: "Tư vấn viên đã chấp nhận yêu cầu. Phòng chat đã mở.",
+  message: "Bạn có tin nhắn mới.",
 };
 
 export function ConsultationWorkspace({ audience, access = { status: "blocked" }, canOpenConsultantWorkspace, subscribe, retry, messaging, controls }: {
@@ -33,6 +40,8 @@ export function ConsultationWorkspace({ audience, access = { status: "blocked" }
     transitioning: boolean;
     roomId: string | null;
     openRoom: (id: string) => void;
+    notices: readonly ConsultationNotice[];
+    dismissNotice: (notice: ConsultationNotice) => void;
     directoryStatus: ReactNode;
     listStatus: ReactNode;
     roomStatus: ReactNode;
@@ -52,6 +61,23 @@ export function ConsultationWorkspace({ audience, access = { status: "blocked" }
         {consultant ? "Về trang tư vấn người dùng" : "Mở không gian tư vấn viên"} →
       </Link>}
     </header>
+    {authorized && controls && <div aria-live="polite" aria-relevant="additions text">
+      {controls.notices.length > 0 && <section className={styles.notifications} aria-label="Thông báo tư vấn">
+        <ul className={styles.entries}>
+          {controls.notices.map(notice => <li className={styles.notification} key={`${notice.conversationId}:${notice.kind}`}>
+            <p><strong>{noticeMessages[notice.kind]}</strong>
+              {notice.kind === "message" && ` Từ ${consultant ? "người dùng" : "tư vấn viên"}.`}</p>
+            <div className={styles.notificationActions}>
+              <button type="button" className="secondary-button" disabled={controls.sending || controls.transitioning}
+                onClick={() => controls.openRoom(notice.conversationId)}>
+                {notice.kind === "request" ? "Xem yêu cầu" : "Mở hội thoại"}
+              </button>
+              <button type="button" className="secondary-button" onClick={() => controls.dismissNotice(notice)}>Bỏ qua</button>
+            </div>
+          </li>)}
+        </ul>
+      </section>}
+    </div>}
     <div className={styles.workspace} aria-busy={access.status === "loading"}>
       <aside className={styles.sidebar} aria-label="Thông tin tư vấn">
         <div className={styles.sidebarHeader}>

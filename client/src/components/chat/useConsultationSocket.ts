@@ -16,8 +16,14 @@ type PeerSignal = { conversationId: string; marker: symbol };
 const signalTimeouts = { PRESENCE: 20_000, TYPING: 4_000, PEER_ONLINE: 20_000 };
 type OutgoingSignal = "PRESENCE" | "TYPING";
 
+export type ConsultationNotice = {
+  conversationId: string;
+  kind: "request" | "accepted" | "message";
+};
+
 export function useConsultationSocket(session: ChatSession, activeRoomId: string | undefined,
-  onRoomChanged: (conversationId?: string) => void, onAccessError: (code: string) => void) {
+  onRoomChanged: (conversationId?: string) => void, onAccessError: (code: string) => void,
+  onNotice: (notice: ConsultationNotice) => void) {
   const credentials = useCallback((signal: AbortSignal) => readChatCsrf(session, signal), [session]);
   const pending = useRef<Pending | null>(null);
   const [ready, setReady] = useState(false);
@@ -56,6 +62,13 @@ export function useConsultationSocket(session: ChatSession, activeRoomId: string
         onRoomChanged();
       } else if ((value.type === "ROOM_CREATED" || value.type === "ROOM_CHANGED") && isUuid(value.conversationId)) {
         onRoomChanged(value.conversationId);
+        if (value.type === "ROOM_CREATED" && session.role === "CONSULTANT" && value.status === "PENDING") {
+          onNotice({ conversationId: value.conversationId, kind: "request" });
+        } else if (value.type === "ROOM_CHANGED" && session.role === "USER" && value.status === "ACTIVE") {
+          onNotice({ conversationId: value.conversationId, kind: "accepted" });
+        }
+      } else if (value.type === "MESSAGE_RECEIVED" && isUuid(value.conversationId)) {
+        onNotice({ conversationId: value.conversationId, kind: "message" });
       } else if ((value.type === "PRESENCE" || value.type === "TYPING" || value.type === "PEER_ONLINE")
           && isUuid(value.conversationId)
           && value.conversationId === activeRoomId) {

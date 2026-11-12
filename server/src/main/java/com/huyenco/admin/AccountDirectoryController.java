@@ -50,11 +50,13 @@ final class AccountDirectoryController {
     ResponseEntity<Envelope> list(HttpServletRequest request) {
         return respond(LOG, 200, () -> {
             actor(access, request, false);
-            query(request, Set.of("q", "role", "status", "page", "size"));
+            query(request, Set.of("q", "role", "status", "page", "size", "passwordRequest"));
             String q = request.getParameter("q");
             if (q != null && (q.length() > 100 || q.codePoints().anyMatch(Character::isISOControl))) throw invalid();
+            String passwordRequest = request.getParameter("passwordRequest");
+            if (passwordRequest != null && !"pending".equals(passwordRequest)) throw invalid();
             return service.list(q == null ? "" : q.strip(), option(AccountDirectoryService.Role.class, request.getParameter("role")),
-                    option(AccountDirectoryService.Status.class, request.getParameter("status")),
+                    option(AccountDirectoryService.Status.class, request.getParameter("status")), passwordRequest != null,
                     number(request.getParameter("page"), 0, 0, Integer.MAX_VALUE),
                     number(request.getParameter("size"), 20, 1, 50));
         });

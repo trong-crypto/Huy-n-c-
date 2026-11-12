@@ -48,6 +48,7 @@ final class AccountAuthController {
     private static final int MAX_BODY = 16 * 1024;
     private static final int REGISTRATION_PASSWORD_MIN_LENGTH = 8;
     private static final Pattern USERNAME = Pattern.compile("[a-zA-Z0-9._-]{3,32}");
+    private static final Pattern RECOVERY_CODE = Pattern.compile("[a-zA-Z0-9_-]{43}");
     private static final Pattern EMAIL_LOCAL = Pattern.compile("[a-zA-Z0-9_+%-]+(?:\\.[a-zA-Z0-9_+%-]+)*");
     private static final Pattern DOMAIN_LABEL = Pattern.compile("[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?");
     private final AccountAuthService service;
@@ -73,14 +74,15 @@ final class AccountAuthController {
     ResponseEntity<Envelope> register(HttpServletRequest request) {
         return handle(request, () -> {
             guards.mutation(request);
-            JsonNode body = body(request, Set.of("displayName", "identifier", "password"));
+            JsonNode body = body(request, Set.of("displayName", "identifier", "password"), "phoneNumber");
             String name = text(body, "displayName").strip();
             if (name.isEmpty() || name.codePointCount(0, name.length()) > 80
                     || name.codePoints().anyMatch(Character::isISOControl)) throw AuthFailure.invalid();
             String identifier = identifier(text(body, "identifier"));
             String password = password(body, "password", REGISTRATION_PASSWORD_MIN_LENGTH);
+            String phone = body.has("phoneNumber") ? phoneNumber(text(body, "phoneNumber")) : null;
             limits.register(request.getRemoteAddr());
-            return success(201, service.register(name, identifier, password), null);
+            return success(201, service.register(name, identifier, password, phone), null);
         });
     }
 
@@ -134,24 +136,91 @@ final class AccountAuthController {
     @PostMapping({"/password/change", "/{portal:admin}/password/change"})
     ResponseEntity<Envelope> changePassword(HttpServletRequest request,
                                             @PathVariable(name = "portal", required = false) String portal) {
+        return submitPassword(request, realm(portal), false);
+    }
+
+    @PostMapping("/password/requests")
+    ResponseEntity<Envelope> requestPasswordChange(HttpServletRequest request) {
+        return submitPassword(request, Realm.CUSTOMER, true);
+    }
+
+    private ResponseEntity<Envelope> submitPassword(HttpServletRequest request, Realm realm, boolean reviewRequired) {
         return handle(request, () -> {
             guards.mutation(request);
             var body = body(request, Set.of("currentPassword", "newPassword"));
             String current = password(body, "currentPassword", 1);
             String replacement = password(body, "newPassword", REGISTRATION_PASSWORD_MIN_LENGTH);
-            Realm realm = realm(portal);
             String token = token(request, realm);
             var session = service.requireSession(realm, token);
             service.checkCsrf(session, header(request, "X-CSRF-Token"));
             UUID accountId = session.account().id();
             limits.passwordChange(request.getRemoteAddr(), accountId);
+            if (reviewRequired) {
+                service.requestPasswordChange(token, accountId, current, replacement);
+                return success(202, java.util.Map.of("status", "PENDING"), null);
+            }
             service.changePassword(realm, token, accountId, current, replacement);
             return ResponseEntity.noContent().cacheControl(CacheControl.noStore())
                     .header(HttpHeaders.SET_COOKIE, cookie(realm, "", Duration.ZERO, request).toString()).build();
         });
     }
 
-    private JsonNode body(HttpServletRequest request, Set<String> fields) {
+    @PostMapping("/admin/password/requests")
+    ResponseEntity<Envelope> decidePasswordChange(HttpServletRequest request) {
+        return handle(request, () -> {
+            guards.mutation(request);
+            var session = service.requireSession(Realm.ADMIN, token(request, Realm.ADMIN));
+            service.checkCsrf(session, header(request, "X-CSRF-Token"));
+            var body = body(request, Set.of("accountId", "requestId", "decision"));
+            try {
+                String accountId = text(body, "accountId");
+                String requestId = text(body, "requestId");
+                UUID account = UUID.fromString(accountId);
+                UUID pending = UUID.fromString(requestId);
+                if (!account.toString().equals(accountId) || !pending.toString().equals(requestId)) throw AuthFailure.invalid();
+                service.decidePasswordChange(account, pending, session.account().id(),
+                        AccountAuthService.PasswordDecision.valueOf(text(body, "decision")));
+                return ResponseEntity.noContent().cacheControl(CacheControl.noStore()).build();
+            } catch (IllegalArgumentException invalid) {
+                throw AuthFailure.invalid();
+            }
+        });
+    }
+
+    @PostMapping("/admin/password/recovery")
+    ResponseEntity<Envelope> issuePasswordRecovery(HttpServletRequest request) {
+        return handle(request, () -> {
+            guards.mutation(request);
+            var session = service.requireSession(Realm.ADMIN, token(request, Realm.ADMIN));
+            service.checkCsrf(session, header(request, "X-CSRF-Token"));
+            var body = body(request, Set.of("accountId"));
+            try {
+                String value = text(body, "accountId");
+                UUID accountId = UUID.fromString(value);
+                if (!accountId.toString().equals(value)) throw AuthFailure.invalid();
+                return success(201, service.issueRecovery(accountId, session.account().id()), null);
+            } catch (IllegalArgumentException invalid) {
+                throw AuthFailure.invalid();
+            }
+        });
+    }
+
+    @PostMapping("/password/recover")
+    ResponseEntity<Envelope> recoverPassword(HttpServletRequest request) {
+        return handle(request, () -> {
+            guards.mutation(request);
+            var body = body(request, Set.of("identifier", "code", "newPassword"));
+            String identifier = identifier(text(body, "identifier"));
+            String code = text(body, "code");
+            if (!RECOVERY_CODE.matcher(code).matches()) throw AuthFailure.invalid();
+            String replacement = password(body, "newPassword", REGISTRATION_PASSWORD_MIN_LENGTH);
+            limits.passwordRecovery(request.getRemoteAddr(), identifier);
+            service.recoverPassword(identifier, code, replacement);
+            return ResponseEntity.noContent().cacheControl(CacheControl.noStore()).build();
+        });
+    }
+
+    private JsonNode body(HttpServletRequest request, Set<String> fields, String... optionalFields) {
         try {
             if (request.getContentType() == null) throw AuthFailure.invalid();
             MediaType type = MediaType.parseMediaType(request.getContentType());
@@ -163,7 +232,15 @@ final class AccountAuthController {
             if (bytes.length > MAX_BODY || bytes.length == 0) throw AuthFailure.invalid();
             String json = StandardCharsets.UTF_8.newDecoder().decode(ByteBuffer.wrap(bytes)).toString();
             JsonNode value = reader.readValue(json);
-            if (value == null || !value.isObject() || value.size() != fields.size()) throw AuthFailure.invalid();
+            if (value == null || !value.isObject()) throw AuthFailure.invalid();
+            int expectedSize = fields.size();
+            for (String field : optionalFields) {
+                if (value.has(field)) {
+                    text(value, field);
+                    expectedSize++;
+                }
+            }
+            if (value.size() != expectedSize) throw AuthFailure.invalid();
             for (String field : fields) text(value, field);
             return value;
         } catch (IOException | IllegalArgumentException failure) {
@@ -186,6 +263,13 @@ final class AccountAuthController {
         int length = password.codePointCount(0, password.length());
         if (length < minimum || length > 128) throw AuthFailure.invalid();
         return password;
+    }
+
+    private static String phoneNumber(String input) {
+        if (input.length() > 32) throw AuthFailure.invalid();
+        String normalized = input.strip().replaceAll("[ .-]", "");
+        if (!normalized.matches("[+]?[0-9]{7,15}")) throw AuthFailure.invalid();
+        return normalized;
     }
 
     private static String identifier(String input) {

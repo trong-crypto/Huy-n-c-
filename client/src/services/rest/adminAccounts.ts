@@ -13,8 +13,9 @@ export type Account = { id: string; identifier: string; displayName: string; rol
 type Change = { actorId: string; previousStatus: Status; status: Status; revokedSessions: number; occurredAt: string };
 type RoleChange = { actorId: string; previousRole: CustomerRole; role: CustomerRole; revokedSessions: number; occurredAt: string };
 export type AccountDetail = { account: Account; lastStatusChange: Change | null; lastRoleChange?: RoleChange | null;
-  allowedRoleChanges?: CustomerRole[] };
-export type AccountQuery = { q: string; role: string; status: string; page: number };
+  allowedRoleChanges?: CustomerRole[]; phoneNumber?: string | null;
+  passwordRequest?: { id: string; requestedAt: string } | null };
+export type AccountQuery = { q: string; role: string; status: string; page: number; passwordPending?: boolean };
 type Page = { items: Account[]; page: number; size: number; totalElements: number; totalPages: number };
 
 const path = "/admin/accounts";
@@ -28,6 +29,9 @@ const isAccount = (value: unknown): value is Account => isRecord(value) && isUui
   && integer(value.version) && value.version > 0 && timestamp(value.createdAt)
   && value.canChangeStatus === (value.role !== "ADMIN");
 const isDetail = (value: unknown): value is AccountDetail => isRecord(value) && isAccount(value.account)
+  && (value.phoneNumber == null || typeof value.phoneNumber === "string" && /^[+]?[0-9]{7,15}$/.test(value.phoneNumber))
+  && (value.passwordRequest == null || isRecord(value.passwordRequest) && isUuid(value.passwordRequest.id)
+    && timestamp(value.passwordRequest.requestedAt))
   && (value.lastStatusChange === null || isRecord(value.lastStatusChange) && isUuid(value.lastStatusChange.actorId)
     && status(value.lastStatusChange.previousStatus) && value.lastStatusChange.status === value.account.status
     && value.lastStatusChange.previousStatus !== value.lastStatusChange.status
@@ -44,6 +48,7 @@ export async function listAccounts(query: AccountQuery, signal: AbortSignal) {
   const params = new URLSearchParams({ q: query.q, page: String(query.page), size: "20" });
   if (query.role) params.set("role", query.role);
   if (query.status) params.set("status", query.status);
+  if (query.passwordPending) params.set("passwordRequest", "pending");
   const data = await requestJson(`${path}?${params}`, isPage, signal, undefined, adminOptions());
   if (data.page !== query.page || data.size !== 20) throw new RestError("INVALID_RESPONSE");
   return data;
@@ -81,6 +86,7 @@ export function accountError(error: unknown): string {
     INVALID_TRANSITION: "Tài khoản đang ở trạng thái này.",
     INVALID_INPUT: "Dữ liệu quản lý tài khoản không hợp lệ.",
     NOT_FOUND: "Không tìm thấy tài khoản.",
+    PASSWORD_REQUEST_CHANGED: "Yêu cầu đã được xử lý hoặc tài khoản không thể đổi mật khẩu. Hãy tải lại chi tiết.",
   };
   return Object.hasOwn(messages, error.code) ? messages[error.code] : methodGuideError(error);
 }

@@ -31,12 +31,15 @@ class ChatMessageSocketController {
     private static final String ROOM_QUEUE = "/queue/chat/rooms/";
     private final ChatMessages messages;
     private final ChatSocketDelivery delivery;
+    private final ChatWorkspaceEvents workspace;
     private final ObjectReader json;
     private final Semaphore writeSlots = new Semaphore(4);
 
-    ChatMessageSocketController(ChatMessages messages, ChatSocketDelivery delivery, ObjectMapper mapper) {
+    ChatMessageSocketController(ChatMessages messages, ChatSocketDelivery delivery, ChatWorkspaceEvents workspace,
+                                ObjectMapper mapper) {
         this.messages = messages;
         this.delivery = delivery;
+        this.workspace = workspace;
         this.json = mapper.copy().enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION)
                 .readerFor(JsonNode.class).with(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
     }
@@ -91,6 +94,8 @@ class ChatMessageSocketController {
                     sequence, saved.text(), createdAt);
             delivery.sendToAccount(appended.recipientAccountId(), destination, incoming, null);
             delivery.sendToAccount(actor.accountId(), destination, incoming, sessionId);
+            workspace.notifyAccount(appended.recipientAccountId(),
+                    new ChatWorkspaceEvents.MessageNotice("MESSAGE_RECEIVED", conversationId));
         }
     }
 

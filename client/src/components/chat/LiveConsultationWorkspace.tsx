@@ -9,7 +9,7 @@ import type { ChatSession, Conversation, ConversationAction } from "@/types/chat
 import { ConsultationWorkspace } from "./ConsultationWorkspace";
 import type { ChatAudience, ChatRoom } from "./chatState";
 import { chatRequestId, useRoomChat } from "./useRoomChat";
-import { useConsultationSocket } from "./useConsultationSocket";
+import { useConsultationSocket, type ConsultationNotice } from "./useConsultationSocket";
 import { clearReadingHandoff, readReadingHandoff, storeReadingHandoff, type ReadingHandoff } from "./readingHandoff";
 import styles from "./chat.module.css";
 
@@ -89,6 +89,7 @@ const endingLabels = { DECLINED: "Tư vấn viên đã từ chối yêu cầu.",
 const actionLabels = { ACCEPT: "Chấp nhận yêu cầu", DECLINE: "Từ chối yêu cầu", CANCEL: "Hủy yêu cầu", END: "Kết thúc cuộc trò chuyện" };
 const pendingActions = { user: ["CANCEL"], consultant: ["ACCEPT", "DECLINE"] } as const;
 const roomDate = new Intl.DateTimeFormat("vi-VN", { dateStyle: "short", timeStyle: "short", timeZone: "Asia/Ho_Chi_Minh" });
+const maxNotices = 8;
 
 function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSession; audience: ChatAudience; onAuthError: (code: string) => void }) {
   const [directoryPage, setDirectoryPage] = useState(0);
@@ -100,6 +101,7 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
   const [sendNotice, setSendNotice] = useState("");
   const [transitioning, setTransitioning] = useState(false);
   const [roomNotice, setRoomNotice] = useState("");
+  const [notices, setNotices] = useState<ConsultationNotice[]>([]);
   const requestIds = useRef(new Map<string, string>());
   const pending = useRef<AbortController | null>(null);
   useEffect(() => () => pending.current?.abort(), []);
@@ -130,7 +132,10 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     changedRoom => {
       conversations.reload();
       if (roomId && (!changedRoom || roomId === changedRoom)) detail.reload();
-    }, onAuthError);
+    }, onAuthError, notice => setNotices(current => [
+      notice,
+      ...current.filter(item => item.conversationId !== notice.conversationId || item.kind !== notice.kind),
+    ].slice(0, maxNotices)));
   const consultants = directory.data?.items;
   const consultantId = consultants?.find(item => item.consultantId === selectedConsultant)?.consultantId ?? "";
   const roomReading = reading?.conversationId && reading.conversationId === roomId ? reading : undefined;
@@ -237,7 +242,14 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     consultantId, selectConsultant: id => { setSelectedConsultant(id); setSendNotice(""); }, create, sending, transitioning, roomId,
     ready: workspace.connected,
     prioritizeRequest: !!unattached,
-    openRoom: id => { setRoomId(id); setRoomNotice(""); detail.reload(); },
+    notices,
+    dismissNotice: notice => setNotices(current => current.filter(item => item !== notice)),
+    openRoom: id => {
+      setRoomId(id);
+      setRoomNotice("");
+      setNotices(current => current.filter(notice => notice.conversationId !== id));
+      detail.reload();
+    },
     directoryStatus: <>
       {unattached && <p role="status">Chọn tư vấn viên để gửi yêu cầu kèm lá số khi phòng được chấp nhận.</p>}
       {unattached && <button type="button" className="secondary-button" disabled={sending} onClick={discardReading}>Bỏ lá số</button>}

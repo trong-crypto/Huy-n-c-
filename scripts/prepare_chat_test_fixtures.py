@@ -1,4 +1,4 @@
-"""Create one synthetic CHAT-DATA-06 cohort in a dedicated local V33 TEST database."""
+"""Create one synthetic CHAT-DATA-06 cohort in a dedicated local TEST database."""
 from __future__ import annotations
 
 import argparse
@@ -77,10 +77,10 @@ SET LOCAL statement_timeout = '15s';
 DO $fixture_guard$
 BEGIN
     IF current_database() <> {literal(database)}
-        OR (SELECT max(version::int) FROM public.flyway_schema_history WHERE success) IS DISTINCT FROM 33
+        OR COALESCE((SELECT max(version::int) FROM public.flyway_schema_history WHERE success), 0) NOT BETWEEN 33 AND 37
         OR EXISTS (SELECT 1 FROM public.flyway_schema_history WHERE NOT success)
     THEN
-        RAISE EXCEPTION 'Expected the selected dedicated TEST database with successful Flyway V33';
+        RAISE EXCEPTION 'Expected the selected dedicated TEST database with successful Flyway V33 to V37';
     END IF;
 END
 $fixture_guard$;
@@ -135,7 +135,7 @@ def prepare(args: argparse.Namespace) -> dict:
         text=True, encoding="utf-8", capture_output=True, timeout=30,
     )
     if result.returncode:
-        raise RuntimeError("Fixture transaction failed. Check the TEST datasource, Flyway V33 and database permissions.")
+        raise RuntimeError("Fixture transaction failed. Check the TEST datasource, Flyway V33–V37 and database permissions.")
     return {
         "database": args.database,
         "batch": batch,

@@ -20,6 +20,7 @@ class ChatWorkspaceEvents {
     record Changed(ChatConversations.Conversation room, boolean created) {}
     record Notice(String type, UUID conversationId, ChatConversationLifecycle.Status status,
                   ChatConversationLifecycle.EndReason endReason) {}
+    record MessageNotice(String type, UUID conversationId) {}
     record Signal(String type, UUID conversationId) {}
     record Presence(String type, UUID conversationId, boolean online) {}
 

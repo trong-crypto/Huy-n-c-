@@ -26,7 +26,7 @@ export function customerOptions() {
   return { credentials: "same-origin" as const, headers: { "X-HuyenCo-Request": "1" } };
 }
 
-export function registerCustomer(data: Credentials & { displayName: string }, signal: AbortSignal) {
+export function registerCustomer(data: Credentials & { displayName: string; phoneNumber?: string }, signal: AbortSignal) {
   return requestJson("/auth/register", isRegistration, signal, data, { ...customerOptions(), successStatus: 201 });
 }
 

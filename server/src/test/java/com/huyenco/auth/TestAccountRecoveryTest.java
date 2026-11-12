@@ -134,7 +134,7 @@ class TestAccountRecoveryTest {
     private record Fixture(JdbcTemplate db, AccountAuthService auth) {
         Account account(String label) {
             String identifier = "recovery-" + label + "-" + UUID.randomUUID().toString().substring(0, 8);
-            return new Account(auth.register("Disposable " + label, identifier, OLD).account().id(), identifier);
+            return new Account(auth.register("Disposable " + label, identifier, OLD, null).account().id(), identifier);
         }
 
         AccountAuthService.Issued login(Account account, String password) {

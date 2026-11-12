@@ -46,6 +46,30 @@
   color: var(--primary-hover);
 }
 
+.notifications {
+  max-height: 15rem;
+  overflow: auto;
+  margin-bottom: 16px;
+}
+
+.notification {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 10px 14px;
+  border: 1px solid var(--chat-line);
+  border-inline-start: 3px solid var(--primary);
+  border-radius: 12px;
+  background: var(--chat-sidebar);
+  color: var(--chat-text);
+}
+
+.notification p { margin: 0; }
+.notificationActions { display: flex; flex-wrap: wrap; gap: 8px; }
+.notificationActions > button { width: auto; min-height: 44px; padding: 6px 12px; }
+
 .workspace, .aiRoom {
   height: clamp(460px, 76vh, 820px);
   overflow: hidden;

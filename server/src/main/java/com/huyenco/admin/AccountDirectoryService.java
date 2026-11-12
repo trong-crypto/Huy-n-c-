@@ -24,7 +24,9 @@ final class AccountDirectoryService {
                    String createdAt, boolean canChangeStatus) {}
     record StatusChange(UUID actorId, Status previousStatus, Status status, int revokedSessions, String occurredAt) {}
     record RoleChange(UUID actorId, Role previousRole, Role role, int revokedSessions, String occurredAt) {}
-    record Detail(Account account, StatusChange lastStatusChange, RoleChange lastRoleChange, List<Role> allowedRoleChanges) {}
+    record Detail(Account account, StatusChange lastStatusChange, RoleChange lastRoleChange, List<Role> allowedRoleChanges,
+                  String phoneNumber, PasswordRequest passwordRequest) {}
+    record PasswordRequest(UUID id, String requestedAt) {}
     record Page(List<Account> items, int page, int size, long totalElements, long totalPages) {}
 
     private static final String COLUMNS = "id,identifier_normalized,display_name,role,status,status_version,created_at";
@@ -42,7 +44,7 @@ final class AccountDirectoryService {
         reads.setIsolationLevel(TransactionDefinition.ISOLATION_REPEATABLE_READ);
     }
 
-    Page list(String query, Role role, Status status, int page, int size) {
+    Page list(String query, Role role, Status status, boolean passwordPending, int page, int size) {
         String filter = """
                 FROM accounts
                 WHERE (strpos(lower(identifier_normalized),lower(?)) > 0 OR strpos(lower(display_name),lower(?)) > 0)
@@ -50,6 +52,7 @@ final class AccountDirectoryService {
         var parameters = new java.util.ArrayList<Object>(List.of(query, query));
         if (role != null) { filter += " AND role=?"; parameters.add(role.name()); }
         if (status != null) { filter += " AND status=?"; parameters.add(status.name()); }
+        if (passwordPending) filter += " AND EXISTS (SELECT 1 FROM password_change_requests r WHERE r.account_id=accounts.id AND r.status='PENDING')";
         String where = filter;
         return reads.execute(tx -> {
             long total = db.queryForObject("SELECT count(*) " + where, Long.class, parameters.toArray());
@@ -155,7 +158,12 @@ final class AccountDirectoryService {
                 Role.valueOf(row.getString("previous_role")), Role.valueOf(row.getString("role")),
                 row.getInt("revoked_sessions"), instant(row, "occurred_at")), account.id())
                 .stream().findFirst().orElse(null);
-        return new Detail(account, statusChange, roleChange, allowedRoleChanges(account));
+        String phoneNumber = db.queryForObject("SELECT phone_number FROM accounts WHERE id=?", String.class, account.id());
+        var passwordRequest = db.query("""
+                SELECT id, requested_at FROM password_change_requests WHERE account_id=? AND status='PENDING'
+                """, (row, index) -> new PasswordRequest(row.getObject("id", UUID.class), instant(row, "requested_at")), account.id())
+                .stream().findFirst().orElse(null);
+        return new Detail(account, statusChange, roleChange, allowedRoleChanges(account), phoneNumber, passwordRequest);
     }
 
     private List<Role> allowedRoleChanges(Account account) {

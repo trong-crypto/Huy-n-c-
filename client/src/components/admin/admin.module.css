@@ -393,6 +393,7 @@
 .accountDetailsList dt { color: var(--muted); font-size: 13px; }
 .accountDetailsList dd { margin: 0; font-size: 14px; }
 .accountDrawer code { font-size: 12px; }
+.accountDrawer .recoveryCode { display: block; overflow-wrap: anywhere; padding: 10px; border: 1px solid var(--border); border-radius: 6px; user-select: all; }
 .accountChanges { list-style: none; }
 .accountChanges > li { display: grid; gap: 3px; padding-block: 9px; }
 .accountDetailsList > div + div, .accountChanges > li + li { border-top: 1px solid var(--border); }

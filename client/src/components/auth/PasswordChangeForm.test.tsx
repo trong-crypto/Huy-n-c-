@@ -1,10 +1,10 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { PasswordChangeForm, PasswordChangedNotice } from "./PasswordChangeForm";
-import { changePassword } from "@/services/rest/passwordChange";
+import { changePassword, requestPasswordChange } from "@/services/rest/passwordChange";
 import { RestError } from "@/services/rest/transport";
 
-vi.mock("@/services/rest/passwordChange", () => ({ changePassword: vi.fn() }));
+vi.mock("@/services/rest/passwordChange", () => ({ changePassword: vi.fn(), requestPasswordChange: vi.fn() }));
 
 const labels = ["Mật khẩu hiện tại", "Mật khẩu mới", "Xác nhận mật khẩu mới"];
 function form(realm: "customer" | "admin" = "customer") {
@@ -19,6 +19,30 @@ const submit = () => fireEvent.submit(screen.getByRole("form", { name: "Đổi m
 afterEach(() => { vi.clearAllMocks(); window.history.replaceState({}, "", "/"); });
 
 describe("password change form", () => {
+  it("queues a customer request and clears the password fields", async () => {
+    vi.mocked(requestPasswordChange).mockResolvedValueOnce({ status: "PENDING" });
+    form();
+    fill("old", "12345678", "12345678");
+    fireEvent.click(screen.getByRole("button", { name: "Gửi yêu cầu đổi mật khẩu" }));
+    expect((await screen.findByRole("status")).textContent).toContain("Đã gửi yêu cầu");
+    expect(requestPasswordChange).toHaveBeenCalledWith({ currentPassword: "old", newPassword: "12345678" }, "test-csrf", expect.any(AbortSignal));
+    expect(changePassword).not.toHaveBeenCalled();
+    expect((screen.getByLabelText("Mật khẩu mới") as HTMLInputElement).value).toBe("");
+  });
+
+  it("explains that a request is already pending", async () => {
+    vi.mocked(requestPasswordChange).mockRejectedValueOnce(new RestError("PASSWORD_REQUEST_PENDING"));
+    form();
+    fill("old", "12345678", "12345678");
+    fireEvent.click(screen.getByRole("button", { name: "Gửi yêu cầu đổi mật khẩu" }));
+    expect((await screen.findByRole("alert")).textContent).toContain("đang chờ Admin");
+  });
+
+  it("keeps the approval request out of the admin's own password form", () => {
+    form("admin");
+    expect(screen.queryByRole("button", { name: "Gửi yêu cầu đổi mật khẩu" })).toBeNull();
+  });
+
   it("toggles each password independently", () => {
     form();
     for (const label of labels) {
