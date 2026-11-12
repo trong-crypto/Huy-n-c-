@@ -73,9 +73,9 @@ final class MethodGuideService {
         return writes.execute(tx -> {
             OffsetDateTime now = now();
             int created = db.update("""
-                    INSERT INTO cms_method_guides(method_code,version,working_revision,working_status,created_at,updated_at)
-                    VALUES (?,1,1,'DRAFT',?,?) ON CONFLICT (method_code) DO NOTHING
-                    """, method.name(), now, now);
+                    INSERT INTO cms_method_guides(method_code,version,published_revision,published_at,visible,created_at,updated_at)
+                    VALUES (?,1,1,?,TRUE,?,?) ON CONFLICT (method_code) DO NOTHING
+                    """, method.name(), now, now, now);
             if (created == 0) throw new ContractException("GUIDE_EXISTS", "Phương pháp đã có bài hướng dẫn.");
             insertRevision(method, 1, draft, actor, now);
             event(method, 1, 1, "CREATE", actor, now, null);
@@ -118,13 +118,16 @@ final class MethodGuideService {
         boolean visible = current.visible();
         switch (action) {
             case SAVE_DRAFT -> {
-                require(status == null || status == Status.DRAFT);
                 int last = db.queryForObject("""
                         SELECT max(revision) FROM cms_method_guide_revisions WHERE method_code=?
                         """, Integer.class, method.name());
-                working = Math.incrementExact(last);
-                insertRevision(method, working, draft, actor, now);
-                status = Status.DRAFT;
+                int revision = Math.incrementExact(last);
+                insertRevision(method, revision, draft, actor, now);
+                working = null;
+                status = null;
+                published = revision;
+                publishedAt = now;
+                visible = true;
             }
             case SUBMIT_REVIEW -> {
                 require(status == Status.DRAFT);

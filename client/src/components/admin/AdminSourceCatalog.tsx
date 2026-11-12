@@ -14,11 +14,11 @@ type HandleError = (error: unknown) => void;
 
 export function AdminSourceCatalog() {
   const auth = useAdminSession();
-  return auth ? <Catalog csrf={auth.session.csrfToken} actorId={auth.session.account.id} handleError={auth.handleError} />
+  return auth ? <Catalog csrf={auth.session.csrfToken} handleError={auth.handleError} />
     : <p role="status">Cần phiên Admin để xem dữ liệu nguồn.</p>;
 }
 
-function Catalog({ csrf, actorId, handleError }: { csrf: string; actorId: string; handleError: HandleError }) {
+function Catalog({ csrf, handleError }: { csrf: string; handleError: HandleError }) {
   const [text, setText] = useState("");
   const [filters, setFilters] = useState<{ query: string; kind: SourceKind | ""; page: number }>({ query: "", kind: "", page: 0 });
   const [selected, setSelected] = useState<SourceEntry | null>(null);
@@ -80,12 +80,12 @@ function Catalog({ csrf, actorId, handleError }: { csrf: string; actorId: string
         </div>
       </>}
     </section>
-    {selected ? <SourceDetail key={`${selected.kind}:${selected.id}`} entry={selected} csrf={csrf} actorId={actorId} handleError={handleError} />
+    {selected ? <SourceDetail key={`${selected.kind}:${selected.id}`} entry={selected} csrf={csrf} handleError={handleError} />
       : <p className={styles.notice}>Chọn một mục để xem chi tiết nguồn.</p>}
   </div>;
 }
 
-function SourceDetail({ entry, csrf, actorId, handleError }: { entry: SourceEntry; csrf: string; actorId: string; handleError: HandleError }) {
+function SourceDetail({ entry, csrf, handleError }: { entry: SourceEntry; csrf: string; handleError: HandleError }) {
   const [applied, setApplied] = useState<{ author?: string; publisher?: string }>({});
   const load = useCallback(async (signal: AbortSignal) => {
     try { return await readAdminSource(entry, signal); }
@@ -100,21 +100,35 @@ function SourceDetail({ entry, csrf, actorId, handleError }: { entry: SourceEntr
     {state.data && <>
       <p>{sourceKinds[state.data.entry.kind]} · <code>{state.data.entry.id}</code></p>
       <SourceReferences sources={[state.data.entry.reference]} />
-      {state.data.book && <dl className={styles.workflow}>
+      {state.data.book && <dl className={styles.sourceBookGrid} aria-label="Thông tin ấn bản">
         <div><dt>Tác giả</dt><dd>{applied.author ?? state.data.book.author ?? "Chưa có dữ liệu"}</dd></div>
         <div><dt>Nhà xuất bản</dt><dd>{applied.publisher ?? state.data.book.publisher ?? "Chưa có dữ liệu"}</dd></div>
         <div><dt>Năm xuất bản</dt><dd>{state.data.book.publicationYear ?? "Chưa có dữ liệu"}</dd></div>
         <div><dt>Số trang PDF</dt><dd>{state.data.book.pdfPageCount ?? "Chưa có dữ liệu"}</dd></div>
       </dl>}
-      <h3>Quy tắc tham chiếu trực tiếp</h3>
-      {state.data.rules.length ? <ul>{state.data.rules.map(rule => <li key={`${rule.module}:${rule.code}:${rule.version}`}>
-        <code>{rule.code}</code> · {rule.module} · {rule.version} · {sourceStatuses[rule.status]}
-      </li>)}</ul> : <p>Không có quy tắc tham chiếu trực tiếp.</p>}
-      <h3>Bản ghi diễn giải gốc tham chiếu trực tiếp</h3>
-      {state.data.interpretations.length ? <ul>{state.data.interpretations.map(item => <li key={`${item.category}:${item.status}`}>
-        <code>{item.category}</code> · {sourceStatuses[item.status]} · {item.count} bản ghi
-      </li>)}</ul> : <p>Không có bản ghi diễn giải gốc tham chiếu trực tiếp.</p>}
-      <SourceProposalWorkspace entry={state.data.entry} csrf={csrf} actorId={actorId} handleError={handleError}
+      <div className={styles.sourceEvidenceGrid}>
+        <section className={styles.sourceEvidenceCard} aria-labelledby="source-direct-rules">
+          <header className={styles.sourceEvidenceHeader}>
+            <h3 id="source-direct-rules">Quy tắc tham chiếu trực tiếp</h3>
+            <span className={styles.sourceEvidenceCount}>{state.data.rules.length} quy tắc</span>
+          </header>
+          {state.data.rules.length ? <ul className={styles.sourceEvidenceList}>{state.data.rules.map(rule => <li key={`${rule.module}:${rule.code}:${rule.version}`}>
+            <code>{rule.code}</code><span>{rule.module}</span><span className={styles.sourceEvidenceVersion}>Bản {rule.version}</span>
+            <span className={styles.sourceEvidenceStatus}>{sourceStatuses[rule.status]}</span>
+          </li>)}</ul> : <p className={styles.sourceEvidenceEmpty}>Chưa có quy tắc nào tham chiếu trực tiếp đến nguồn này.</p>}
+        </section>
+        <section className={styles.sourceEvidenceCard} aria-labelledby="source-direct-interpretations">
+          <header className={styles.sourceEvidenceHeader}>
+            <h3 id="source-direct-interpretations">Bản ghi diễn giải gốc</h3>
+            <span className={styles.sourceEvidenceCount}>{state.data.interpretations.length} loại</span>
+          </header>
+          {state.data.interpretations.length ? <ul className={styles.sourceEvidenceList}>{state.data.interpretations.map(item => <li key={`${item.category}:${item.status}`}>
+            <code>{item.category}</code><span className={styles.sourceEvidenceStatus}>{sourceStatuses[item.status]}</span>
+            <span className={styles.sourceEvidenceVersion}>{item.count} bản ghi</span>
+          </li>)}</ul> : <p className={styles.sourceEvidenceEmpty}>Chưa có bản ghi diễn giải gốc nào tham chiếu trực tiếp đến nguồn này.</p>}
+        </section>
+      </div>
+      <SourceProposalWorkspace entry={state.data.entry} csrf={csrf} handleError={handleError}
         onApplied={(field, value) => setApplied(current => ({ ...current, [field === "AUTHOR" ? "author" : "publisher"]: value }))} />
     </>}
   </section>;

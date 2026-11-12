@@ -3,9 +3,13 @@
 
 **Cập nhật ngày 11/11/2026:** `huyenco` đã được sao lưu và nâng từ V12 lên V34. Lượt nâng thử trên bản khôi phục đạt trước khi áp dụng vào database chính. Đối chiếu 17 bảng cũ giữ nguyên mọi bản ghi. Migration thêm một mục nguồn và một quy tắc Trượng xích chiêm. Kiểm toán tri thức đạt `FAIL=0 | PENDING=0`; Backend kiểm chỉ đọc đạt health, readiness READY, tra quẻ Tỉnh và API nội dung V34. Sau đó đã nhập và công bố 64 bài cùng 384 đoạn giải hào theo phê duyệt của chủ dự án. Hai quẻ Bác và Cách để trống nguyên văn lời quẻ do dị bản; phần diễn nghĩa và giải hào vẫn có. Xem [hồ sơ công bố](86-HEXAGRAM-INTERPRETATION-HANDOFF.md).
 
+**Cập nhật ngày 12/11/2026:** `huyenco` được sao lưu ở V37 rồi áp dụng V38 thành công. Kiểm tra chỉ đọc xác nhận phiên bản cao nhất V38, không có migration thất bại, có 5 phương pháp lõi được liệt kê và 64 quẻ đã công bố. Migration V38 tạo danh mục phương pháp; không nhập bài thơ. Tại thời điểm kiểm tra chưa có bài thơ nào trong nội dung đã công bố. Bản sao trước migration: `scripts/generated/db-backups/huyenco-before-v38-20261112T074817Z.dump`, SHA-256 `44314f2d06abe2b5d640f186f390561fa6ace087a03f3d5b7cff096b721b2273`. PostgreSQL 18.6 phát cảnh báo phiên bản Flyway hiện tại chưa công bố hỗ trợ thử nghiệm tới PostgreSQL 18.
+
+**Lưu ý cập nhật sau V38:** V38 vẫn có trigger yêu cầu người thứ hai duyệt bản luận giải. Chính sách một Admin được lưu và công bố trực tiếp cần migration V39. Nếu thao tác “Lưu và cập nhật” báo lỗi chung, hãy dừng Backend, sao lưu database, chạy Flyway đến V39 và xác nhận phiên bản trước khi mở lại Backend. V39 chỉ gỡ trigger duyệt độc lập; không xóa nội dung, phiên bản hay nhật ký.
+
 Bản sao lưu tại `scripts/generated/db-backups/huyenco-before-v34-20261111T025742Z.dump`, SHA-256 `72e1027d27190c8fc70e48d6aef18d82eb11e1be4f2733930ded7b5f677cad44`. Hồ sơ kiểm tra ở `server/target/huyenco-v34-upgrade/`. Flyway đã validate 34 migration; có cảnh báo PostgreSQL 18.6 mới hơn mốc 17 mà phiên bản Flyway hiện tại công bố đã thử.
 
-Chuẩn bị JDK 17, Node 24, Python và PostgreSQL 18. Máy chủ chạy một tiến trình Next.js cho cả Client và Admin, cùng Backend và PostgreSQL V37. Khi thử một máy, dùng loopback. Khi thử hai máy cùng Wi-Fi, thiết bị thứ hai chỉ cần trình duyệt. Next.js chuyển tiếp REST và WebSocket, còn Backend và PostgreSQL nghe trên loopback.
+Chuẩn bị JDK 17, Node 24, Python và PostgreSQL 18. Máy chủ chạy một tiến trình Next.js cho cả Client và Admin, cùng Backend và PostgreSQL V39. Khi thử một máy, dùng loopback. Khi thử hai máy cùng Wi-Fi, thiết bị thứ hai chỉ cần trình duyệt. Next.js chuyển tiếp REST và WebSocket, còn Backend và PostgreSQL nghe trên loopback.
 
 | Thành phần | Địa chỉ mẫu |
 | --- | --- |
@@ -13,7 +17,7 @@ Chuẩn bị JDK 17, Node 24, Python và PostgreSQL 18. Máy chủ chạy một 
 | Backend, dùng trên máy chủ | `http://127.0.0.1:18117` |
 | PostgreSQL, dùng trên máy chủ | `127.0.0.1:5432` |
 
-**Thứ tự chạy:** chuẩn bị database V37 ở mục 1, chạy Backend ở mục 2, rồi mở một PowerShell khác để chạy Client ở mục 3. Chỉ chạy các lệnh trên máy chủ. Máy thứ hai cùng Wi-Fi chỉ mở URL website qua IPv4 Wi-Fi của máy chủ. Cổng `18117` dành cho Backend. Nếu đang mở `http://127.0.0.1:18117/`, hãy chuyển sang URL website ở cổng `18100` sau khi Client khởi động.
+**Thứ tự chạy:** chuẩn bị database V39 ở mục 1, chạy Backend ở mục 2, rồi mở một PowerShell khác để chạy Client ở mục 3. Chỉ chạy các lệnh trên máy chủ. Máy thứ hai cùng Wi-Fi chỉ mở URL website qua IPv4 Wi-Fi của máy chủ. Cổng `18117` dành cho Backend. Nếu đang mở `http://127.0.0.1:18117/`, hãy chuyển sang URL website ở cổng `18100` sau khi Client khởi động.
 
 ## 1. Chuẩn bị PostgreSQL
 
@@ -24,7 +28,7 @@ $pgBin = 'C:\Program Files\PostgreSQL\18\bin'
 & "$pgBin\pg_isready.exe" -h 127.0.0.1 -p 5432
 ```
 
-Dùng **database TEST riêng có dữ liệu nguồn và Flyway V37**. Nếu đã có TEST V37, chuyển tới mục 2. Nếu chưa, có thể tạo TEST mới theo các bước dưới đây. Để nâng một database đã có dữ liệu, dừng Backend đang dùng database đó, sao lưu bằng `pg_dump`, đặt `DB_URL`, `DB_USERNAME` và `DB_PASSWORD` cho đúng đích rồi chạy `.\mvnw.cmd -Pdatabase '-Dflyway.target=37' flyway:migrate` từ thư mục `server`. V35 thêm số điện thoại tùy chọn. V36 thêm bảng yêu cầu đổi mật khẩu.
+Dùng **database TEST riêng có dữ liệu nguồn và Flyway V39**. Nếu đã có TEST V39, chuyển tới mục 2. Nếu chưa, có thể tạo TEST mới theo các bước dưới đây. Để nâng một database đã có dữ liệu, dừng Backend đang dùng database đó, sao lưu bằng `pg_dump`, đặt `DB_URL`, `DB_USERNAME` và `DB_PASSWORD` cho đúng đích rồi chạy `.\mvnw.cmd -Pdatabase '-Dflyway.target=39' flyway:migrate` từ thư mục `server`. V35 thêm số điện thoại tùy chọn. V36 thêm bảng yêu cầu đổi mật khẩu.
 
 ### Tạo database TEST mới nếu cần
 
@@ -49,7 +53,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Khoi phuc TEST that bai' }
     Push-Location server
     try {
-        .\mvnw.cmd -Pdatabase '-Dflyway.target=37' flyway:migrate
+        .\mvnw.cmd -Pdatabase '-Dflyway.target=39' flyway:migrate
         if ($LASTEXITCODE -ne 0) { throw 'Flyway migrate that bai' }
         .\mvnw.cmd -Pdatabase -DskipTests package
         if ($LASTEXITCODE -ne 0) { throw 'Build Backend that bai' }
@@ -66,7 +70,7 @@ Lưu riêng tên database và thông tin ba tài khoản `user`, `consultant`, `
 
 ## 2. Chạy Backend trong PowerShell A
 
-Khi được hỏi tên database, nhập tên TEST mà bước chuẩn bị đã in ra, hoặc nhập `huyenco` nếu đã nâng database chính lên V37. Khối này kiểm schema V37 bằng truy vấn chỉ đọc rồi chạy Backend. Flyway tắt trong lần khởi động này. Khi chọn `huyenco`, đăng ký, lịch sử, quản trị và Chat ghi vào database chính. Khi bật Auth, tác vụ Chat dọn nội dung tin quá 30 ngày.
+Khi được hỏi tên database, nhập tên TEST mà bước chuẩn bị đã in ra, hoặc nhập `huyenco` nếu đã nâng database chính lên V39. Khối này kiểm schema V39 bằng truy vấn chỉ đọc rồi chạy Backend. Flyway tắt trong lần khởi động này. Khi chọn `huyenco`, đăng ký, lịch sử, quản trị và Chat ghi vào database chính. Khi bật Auth, tác vụ Chat dọn nội dung tin quá 30 ngày.
 
 ```powershell
 cd 'C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM\server'
@@ -88,9 +92,9 @@ try {
     if ($LASTEXITCODE -ne 0) {
         throw "Khong truy van duoc Flyway tren '$dbName'. Xem loi psql ngay phia tren."
     }
-    if ($version -ne '37') {
+    if ($version -ne '39') {
         $current = if ($version) { "V$version" } else { 'chua co migration thanh cong' }
-        throw "Database '$dbName' hien o $current. Can V37. Xem muc 1 de chuan bi database."
+        throw "Database '$dbName' hien o $current. Can V39. Xem muc 1 de chuan bi database."
     }
 } catch {
     Remove-Item Env:DB_PASSWORD -ErrorAction SilentlyContinue
@@ -126,7 +130,7 @@ Giữ cửa sổ A mở. Nếu dùng HTTPS cho demo, dùng URL HTTPS trong `ALLO
 | `database ... does not exist` | Kiểm tra tên TEST đã nhập, hoặc tạo TEST theo mục 1. |
 | `password authentication failed` hoặc `connection refused` | Kiểm tra mật khẩu của role PostgreSQL, dịch vụ và cổng 5432. |
 | `relation "flyway_schema_history" does not exist` | Database chưa có schema Flyway. Chuẩn bị lại database TEST theo mục 1. |
-| In phiên bản khác V37 | Chọn database V37 hoặc áp dụng migration theo mục 1. |
+| In phiên bản khác V39 | Chọn database V39 hoặc áp dụng migration theo mục 1. |
 
 ## 3. Chạy Next.js trong PowerShell B
 

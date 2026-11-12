@@ -70,7 +70,9 @@ public final class AdminHexagramGlossDrafts {
             if (latestVersion(code) != null) {
                 throw new ContractException("GLOSS_DRAFT_EXISTS", "Quẻ đã có bản nháp nghĩa tên.");
             }
-            return insert(code, 1, content, section, actor);
+            Revision revision = insert(code, 1, content, section, actor);
+            publishDirectly(code, revision, actor);
+            return revision;
         });
     }
 
@@ -82,8 +84,9 @@ public final class AdminHexagramGlossDrafts {
             if (current.draftVersion() != expectedVersion) {
                 throw new ContractException("VERSION_CONFLICT", "Bản nháp đã thay đổi. Hãy tải phiên bản mới.");
             }
-            if (current.status() == Status.PENDING_REVIEW) throw invalidTransition();
-            return insert(code, Math.incrementExact(current.draftVersion()), content, section, actor);
+            Revision revision = insert(code, Math.incrementExact(current.draftVersion()), content, section, actor);
+            publishDirectly(code, revision, actor);
+            return revision;
         });
     }
 
@@ -149,6 +152,20 @@ public final class AdminHexagramGlossDrafts {
                 VALUES (?,?,?,?,?,?,?,?,?)
                 """, code, sequence, revision, action.name(), actor, clock.instant().atOffset(ZoneOffset.UTC),
                 reason, printedLabel, note);
+    }
+
+    private void publishDirectly(String code, Revision revision, UUID actor) {
+        if (!Boolean.TRUE.equals(db.queryForObject("""
+                SELECT EXISTS (SELECT 1 FROM interpretations WHERE hexagram_code=?
+                  AND category='NAME_GLOSS' AND verification_status='VERIFIED')
+                """, Boolean.class, code))) {
+            throw new ContractException("INVALID_TRANSITION", "Quẻ cần nghĩa tên E01 đã duyệt để đối chiếu thứ tự.");
+        }
+        Workflow current = loadWorkflow(code);
+        JsonNode source = revision.source();
+        String printedLabel = "Trang in " + source.path("printedPage").asText();
+        recordEvent(code, current, revision.version(), Action.PUBLISH, actor, null, printedLabel,
+                "Công bố trực tiếp bởi Admin; thông tin bản in và dấu vân tay nguồn được lưu cùng phiên bản.");
     }
 
     private Workflow loadWorkflow(String code) {

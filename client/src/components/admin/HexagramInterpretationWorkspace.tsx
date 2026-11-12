@@ -3,9 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { InterpretationText } from "@/components/hexagrams/PublishedInterpretation";
 import { FormField } from "@/components/ui/Controls";
-import { getInterpretationRevision, getInterpretationState, reviewInterpretation, saveInterpretation,
+import { getInterpretationRevision, getInterpretationState, saveInterpretation,
   type InterpretationContent, type InterpretationPoem, type InterpretationRevision, type InterpretationSource,
-  type InterpretationState, type WorkflowAction } from "@/services/rest/hexagramInterpretations";
+  type InterpretationState } from "@/services/rest/hexagramInterpretations";
 import { methodGuideError } from "@/services/rest/methodGuides";
 import { RestError } from "@/services/rest/transport";
 import { useLookup } from "@/services/rest/useLookup";
@@ -17,7 +17,7 @@ const fields = [
   ["original", "Lời quẻ Hán cổ", 2000], ["paraphrase", "Diễn nghĩa tiếng Việt", 4000],
   ["application", "Gợi ý suy ngẫm", 4000],
 ] as const;
-const statusLabels = { DRAFT: "Bản nháp", PENDING_REVIEW: "Chờ duyệt", PUBLISHED: "Đã công bố" };
+const statusLabels = { DRAFT: "Bản nháp cũ", PENDING_REVIEW: "Chờ duyệt bản cũ", PUBLISHED: "Đã cập nhật trực tiếp" };
 const empty = (): InterpretationContent => ({ overview: "", image: "", original: "", paraphrase: "", lines: Array(6).fill(""), application: "" });
 function sameSource(current: InterpretationSource, saved: InterpretationSource) {
   return current.id === saved.id && current.title === saved.title && current.author === saved.author
@@ -27,9 +27,11 @@ function sameSource(current: InterpretationSource, saved: InterpretationSource) 
 const messages: Record<string, string> = {
   VERSION_CONFLICT: "Một Admin khác đã thay đổi dữ liệu. Hãy tải lại trước khi sửa.",
   INVALID_TRANSITION: "Thao tác không hợp lệ với trạng thái hoặc nguồn hiện tại.",
-  INVALID_SOURCE: "Chọn nguồn đã đăng ký cho đúng quẻ.",
+  INVALID_SOURCE: "Chỉ chọn nguồn đã xác minh cho đúng quẻ trước khi cập nhật luận giải.",
   INVALID_INPUT: "Kiểm tra nội dung, độ dài và nguồn.",
   FORBIDDEN: "Tài khoản hiện tại không được công bố bản này.",
+  DATABASE_UNAVAILABLE: "Cơ sở dữ liệu đã từ chối cập nhật. Hãy xác nhận Flyway V39 đã chạy; V38 vẫn yêu cầu Admin thứ hai duyệt. Sau khi nâng cấp, khởi động lại Backend rồi tải lại trang này.",
+  INTERNAL_ERROR: "Backend gặp lỗi khi lưu luận giải. Kiểm tra log Backend và tải lại trang trước khi thử lại.",
 };
 const errorText = (error: unknown) => error instanceof RestError && Object.hasOwn(messages, error.code)
   ? messages[error.code] : methodGuideError(error);
@@ -67,7 +69,6 @@ function Workspace({ initial, lines, auth, reload }: {
   const [content, setContent] = useState(() => initial.latest?.content ?? empty());
   const [selected, setSelected] = useState(() => initial.latest?.sources.map(source => source.id) ?? []);
   const [preview, setPreview] = useState(false);
-  const [note, setNote] = useState("");
   const [notice, setNotice] = useState("");
   const [error, setError] = useState<unknown>(null);
   const [busy, setBusy] = useState(false);
@@ -76,12 +77,9 @@ function Workspace({ initial, lines, auth, reload }: {
   useEffect(() => () => request.current?.abort(), []);
 
   const sources = state.sources.filter(source => selected.includes(source.id));
-  const pending = state.status === "PENDING_REVIEW";
   const savedSources = state.latest?.sources ?? [];
   const sourcesMatch = sources.length === savedSources.length
     && sources.every(source => savedSources.some(saved => sameSource(source, saved)));
-  const mayPublish = state.latest && state.latest.createdBy !== auth.session.account.id
-    && sourcesMatch && savedSources.every(source => source.reviewStatus === "VERIFIED");
   const latestContent = state.latest?.content ?? empty();
   const dirty = JSON.stringify(content) !== JSON.stringify(latestContent) || !sourcesMatch;
   const poem = content.poem;
@@ -110,21 +108,13 @@ function Workspace({ initial, lines, auth, reload }: {
     setState(next);
     setContent(next.latest?.content ?? empty());
     setSelected(next.latest?.sources.map(source => source.id) ?? []);
-    setNote("");
     setNotice(notice);
   }
 
   function save() {
     void perform(async signal => {
       const next = await saveInterpretation(state.code, state.version, content, selected, auth.session.csrfToken, signal);
-      if (!signal.aborted) saved(next, "Đã lưu bản nháp trên Server.");
-    });
-  }
-
-  function review(action: WorkflowAction) {
-    void perform(async signal => {
-      const next = await reviewInterpretation(state.code, state.version, action, note.trim(), auth.session.csrfToken, signal);
-      if (!signal.aborted) saved(next, action === "PUBLISH" ? "Đã công bố." : action === "RETURN" ? "Đã trả bản nháp." : "Đã gửi duyệt.");
+      if (!signal.aborted) saved(next, "Đã lưu và cập nhật luận giải.");
     });
   }
 
@@ -140,9 +130,10 @@ function Workspace({ initial, lines, auth, reload }: {
   return <div className={styles.contentStack} aria-busy={busy}>
     <p>{state.latest ? `${statusLabels[state.status]} · Bản ${state.latest.version}` : "Chưa có bản biên soạn."}
       {state.publishedVersion && ` · Đang công bố bản ${state.publishedVersion}`}</p>
-    {state.reviewNote && <p className="field-hint">Ghi chú duyệt · {state.reviewNote}</p>}
+    <p className="field-hint">Khi lưu, luận giải được cập nhật ngay nếu các nguồn đã xác minh. Mỗi lần lưu vẫn tạo phiên bản và nhật ký.</p>
+    {state.reviewNote && <p className="field-hint">Ghi chú nhật ký · {state.reviewNote}</p>}
     <form className={styles.contentStack} onSubmit={event => { event.preventDefault(); if (valid && dirty) save(); }}>
-      <fieldset disabled={pending || busy} className={styles.interpretationFields}>
+      <fieldset disabled={busy} className={styles.interpretationFields}>
         {fields.map(([key, label, max]) => <FormField key={key} id={`interpretation-${key}`} label={label}>
           <textarea id={`interpretation-${key}`} rows={key === "overview" ? 4 : 3} maxLength={max}
             value={content[key]} onChange={event => setContent({ ...content, [key]: event.target.value })} />
@@ -194,23 +185,10 @@ function Workspace({ initial, lines, auth, reload }: {
       </fieldset>
       <div className={styles.contentActions}>
         <button type="button" className="secondary-button" aria-expanded={preview} onClick={() => setPreview(!preview)}>Xem trước luận giải</button>
-        <button type="submit" className="secondary-button" disabled={!valid || !dirty || pending || busy}>Lưu bản nháp</button>
+        <button type="submit" className="secondary-button" disabled={!valid || !dirty || busy}>Lưu và cập nhật</button>
         <button type="button" className="secondary-button" disabled={busy} onClick={reload}>Tải lại từ Server</button>
       </div>
     </form>
-    {state.latest && state.status === "DRAFT" &&
-      <button type="button" className="secondary-button" disabled={dirty || busy} onClick={() => review("SUBMIT")}>Gửi duyệt</button>}
-    {pending && <div className={styles.inlineFields}>
-      <FormField id="interpretation-review-note" label="Ghi chú đối chiếu">
-        <textarea id="interpretation-review-note" rows={2} maxLength={500} value={note} onChange={event => setNote(event.target.value)} />
-      </FormField>
-      {!sourcesMatch && <p className="field-hint">Thông tin nguồn đã thay đổi. Hãy trả về bản nháp để biên tập viên lưu lại nguồn trước khi gửi duyệt.</p>}
-      {!mayPublish && <p className="field-hint">Công bố cần Admin khác người soạn và nguồn đã xác minh.</p>}
-      <div className={styles.contentActions}>
-        <button type="button" className="secondary-button" disabled={busy || !note.trim()} onClick={() => review("RETURN")}>Trả về bản nháp</button>
-        <button type="button" className="secondary-button" disabled={busy || !mayPublish || !note.trim()} onClick={() => review("PUBLISH")}>Công bố luận giải</button>
-      </div>
-    </div>}
     {state.revisions.length > 0 && <FormField id="interpretation-revisions" label="Xem lại phiên bản">
       <select id="interpretation-revisions" disabled={busy} onChange={event => readVersion(event.target.value)}>
         <option value="">Chọn phiên bản</option>

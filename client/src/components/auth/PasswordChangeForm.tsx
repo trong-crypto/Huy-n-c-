@@ -52,8 +52,8 @@ export function PasswordChangeForm({ realm, csrfToken, loginUrl }: {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (pending.current || expired) return;
-    const submitter = (event.nativeEvent as SubmitEvent).submitter;
-    const reviewRequired = realm === "customer" && submitter instanceof HTMLButtonElement && submitter.value === "request";
+    // Customer password changes always go through Admin approval, including Enter-key submission.
+    const reviewRequired = realm === "customer";
     const form = event.currentTarget;
     const values = new FormData(form);
     const currentPassword = String(values.get("currentPassword") ?? "");
@@ -122,8 +122,9 @@ export function PasswordChangeForm({ realm, csrfToken, loginUrl }: {
           {error && <FieldError id={`${id}-error`}>{error}</FieldError>}
         </FormField>;
       })}
-      <PrimaryButton type="submit">{busy ? "Đang lưu…" : "Lưu mật khẩu"}</PrimaryButton>
-      {realm === "customer" && <button type="submit" value="request" className="secondary-button">Gửi yêu cầu đổi mật khẩu</button>}
+      {realm === "customer"
+        ? <PrimaryButton type="submit" value="request">{busy ? "Đang gửi yêu cầu…" : "Gửi yêu cầu đổi mật khẩu"}</PrimaryButton>
+        : <PrimaryButton type="submit">{busy ? "Đang lưu…" : "Lưu mật khẩu"}</PrimaryButton>}
     </fieldset>
     {failure && <p className={styles.feedback} role="alert">{Object.hasOwn(errorsByCode, failure)
       ? errorsByCode[failure] : "Không thể xác nhận yêu cầu. Vui lòng thử lại."}</p>}

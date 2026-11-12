@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.time.Clock;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -73,9 +74,6 @@ public class AdminSourceProposals {
         if (expectedVersion != null && !expectedVersion.equals(latest)) {
             throw new ContractException("VERSION_CONFLICT", "Bản nháp đề xuất nguồn đã thay đổi. Hãy tải phiên bản mới.");
         }
-        if (latest != null && status(latest, lastEvent(kind, key)) == Status.PENDING_REVIEW) {
-            throw invalidTransition();
-        }
         int version = latest == null ? 1 : Math.incrementExact(latest);
         JsonNode snapshot = mapper.valueToTree(catalog.snapshot(kind, id));
         if (bookChange != null) {
@@ -84,7 +82,7 @@ public class AdminSourceProposals {
                 throw CmsInput.invalid("bookValue");
             }
         }
-        return db.queryForObject("""
+        Revision saved = db.queryForObject("""
                 INSERT INTO cms_source_proposal_revisions(source_section_id,external_source_id,
                     version,proposal,reason,source_snapshot,created_by,created_at,book_field,book_value)
                 VALUES (?,?,?,?,?,?::jsonb,?,?,?,?) RETURNING
@@ -92,6 +90,8 @@ public class AdminSourceProposals {
                 kind == Kind.EXTERNAL_ALGORITHM ? key : null, version, proposal, reason, snapshot.toString(), actor,
                 clock.instant().atOffset(ZoneOffset.UTC), bookChange == null ? null : bookChange.field().name(),
                 bookChange == null ? null : bookChange.value());
+        approveDirectly(kind, key, saved, actor);
+        return saved;
     }
 
     @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
@@ -109,9 +109,6 @@ public class AdminSourceProposals {
         }
         if (current.status() != (action == Action.SUBMIT ? Status.DRAFT : Status.PENDING_REVIEW)) {
             throw invalidTransition();
-        }
-        if (action == Action.APPROVE && read(kind, id, current.draftVersion()).createdBy().equals(actor)) {
-            throw new ContractException("FORBIDDEN", "Người soạn phiên bản này không thể tự phê duyệt.");
         }
         int sequence = current.lastEvent() == null ? 1 : Math.incrementExact(current.lastEvent().sequence());
         db.update("""
@@ -155,9 +152,39 @@ public class AdminSourceProposals {
     }
 
     private void lockSource(Kind kind, Object key) {
-        String lock = kind == Kind.BOOK_PAGE ? "SELECT 1 FROM source_sections WHERE id=? FOR UPDATE"
+        String lock = kind == Kind.BOOK_PAGE ? "SELECT 1 FROM source_sections s JOIN source_books b ON b.id=s.source_book_id WHERE s.id=? FOR UPDATE OF s,b"
                 : "SELECT 1 FROM external_sources WHERE source_id=? FOR UPDATE";
         if (db.queryForList(lock, Integer.class, key).isEmpty()) throw AdminSourceCatalog.missing();
+    }
+
+    private void approveDirectly(Kind kind, Object key, Revision revision, UUID actor) {
+        int sequence = db.queryForObject("SELECT COALESCE(max(sequence),0)+1 FROM cms_source_proposal_events WHERE "
+                + column(kind) + "=?", Integer.class, key);
+        OffsetDateTime now = clock.instant().truncatedTo(ChronoUnit.MICROS).atOffset(ZoneOffset.UTC);
+        db.update("""
+                INSERT INTO cms_source_proposal_events(source_section_id,external_source_id,sequence,revision,action,actor_id,
+                    occurred_at,note) VALUES (?,?,?,?, 'APPROVE',?,?,?)
+                """, kind == Kind.BOOK_PAGE ? key : null, kind == Kind.EXTERNAL_ALGORITHM ? key : null,
+                sequence, revision.version(), actor, now, "Cập nhật trực tiếp bởi Admin; đã lưu căn cứ và ảnh chụp nguồn.");
+        if (revision.bookChange() == null) return;
+        if (kind != Kind.BOOK_PAGE) throw CmsInput.invalid("bookField");
+        long section = (Long) key;
+        var rows = db.query("""
+                SELECT b.id,b.author,b.publisher FROM source_sections s JOIN source_books b ON b.id=s.source_book_id
+                WHERE s.id=? FOR UPDATE OF s,b
+                """, (row, index) -> new Object[]{row.getLong("id"), row.getString("author"), row.getString("publisher")}, section);
+        if (rows.isEmpty()) throw AdminSourceCatalog.missing();
+        Object[] book = rows.get(0);
+        long bookId = (long) book[0];
+        String before = revision.bookChange().field() == BookField.AUTHOR ? (String) book[1] : (String) book[2];
+        String statement = revision.bookChange().field() == BookField.AUTHOR
+                ? "UPDATE source_books SET author=? WHERE id=?" : "UPDATE source_books SET publisher=? WHERE id=?";
+        db.update(statement, revision.bookChange().value(), bookId);
+        db.update("""
+                INSERT INTO cms_source_proposal_applications(source_section_id,revision,book_id,field,before_value,
+                    after_value,applied_by,applied_at) VALUES (?,?,?,?,?,?,?,?)
+                """, section, revision.version(), bookId, revision.bookChange().field().name(), before,
+                revision.bookChange().value(), actor, now);
     }
 
     private static ContractException missing() {

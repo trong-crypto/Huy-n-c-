@@ -2,6 +2,8 @@
 
 Phiên bản 1.0 · Phạm vi đầu tiên của Phase 3 · Schema, API và giao diện bài hướng dẫn đã nghiệm thu trên localhost.
 
+> **Cập nhật chính sách:** quy trình gửi duyệt/công bố mô tả trong tài liệu này là lịch sử. Từ V39, thao tác lưu của Admin cập nhật nội dung công khai ngay; xem [chính sách hiện tại](89-ADMIN-CONTENT-DIRECT-PUBLISH.md).
+
 Mỗi phương pháp hiện có có thể có một bài hướng dẫn biên tập. Admin soạn bài, gửi duyệt, công bố và quản lý hiển thị. Website đọc bài đã công bố. Danh mục phương pháp, thuật toán lập quẻ, dữ liệu giải nghĩa, dữ liệu nguồn đã duyệt và lịch sử tài khoản tiếp tục dùng các mô hình riêng.
 
 ## Phạm vi và đối chiếu giao diện TV1

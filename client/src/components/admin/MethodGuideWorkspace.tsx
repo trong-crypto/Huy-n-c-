@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { FieldError, FormField, PrimaryButton } from "@/components/ui/Controls";
-import { createGuide, listGuideEvents, methodGuideError, readGuide, reviewGuide, saveGuide, setGuideVisibility,
+import { createGuide, listGuideEvents, methodGuideError, readGuide, saveGuide, setGuideVisibility,
   type Guide, type GuideDraft, type GuideEvent, type GuideStatus, type MethodCode, type Page } from "@/services/rest/methodGuides";
 import { RestError } from "@/services/rest/transport";
 import { useLookup } from "@/services/rest/useLookup";
@@ -10,8 +10,8 @@ import { cmsFieldError, cmsFieldProps, cmsTextError, contentLimits, stripCmsText
 import { useAdminSession } from "./AdminSessionGate";
 import styles from "./admin.module.css";
 
-const statuses: Record<GuideStatus, string> = { DRAFT: "Bản nháp", PENDING_REVIEW: "Chờ duyệt", PUBLISHED: "Đã công bố" };
-const actions: Record<string, string> = { CREATE: "Tạo bài", SAVE_DRAFT: "Lưu bản nháp", SUBMIT_REVIEW: "Gửi duyệt",
+const statuses: Record<GuideStatus, string> = { DRAFT: "Bản nháp cũ", PENDING_REVIEW: "Chờ duyệt bản cũ", PUBLISHED: "Đã cập nhật trực tiếp" };
+const actions: Record<string, string> = { CREATE: "Tạo và công bố bài", SAVE_DRAFT: "Cập nhật nội dung", SUBMIT_REVIEW: "Gửi duyệt (lịch sử)",
   RETURN_TO_DRAFT: "Trả về bản nháp", PUBLISH: "Công bố", SHOW: "Hiện bài", HIDE: "Ẩn bài" };
 const fieldMessages = {
   title: "Kiểm tra tiêu đề bài hướng dẫn.",
@@ -26,27 +26,25 @@ type EditorState = Pick<Guide, "status" | "version"> & {
   visible?: boolean;
 };
 type Editable<Code extends string> = { code: Code; title: string; body: string };
-type ReviewAction = "submit-review" | "return-to-draft" | "publish";
 type EditorApi<Code extends string> = {
   read: (code: Code, signal: AbortSignal) => Promise<EditorState | null>;
   create: (code: Code, draft: GuideDraft, csrf: string, signal: AbortSignal) => Promise<EditorState>;
   save: (code: Code, version: number, draft: GuideDraft, csrf: string, signal: AbortSignal) => Promise<EditorState>;
-  review: (code: Code, version: number, action: ReviewAction, reason: string | undefined, csrf: string, signal: AbortSignal) => Promise<EditorState>;
   events: (code: Code, page: number, signal: AbortSignal) => Promise<Page<GuideEvent>>;
   visibility?: (code: Code, version: number, visible: boolean, csrf: string, signal: AbortSignal) => Promise<EditorState>;
 };
 const methodApi: EditorApi<MethodCode> = { read: readGuide, create: createGuide, save: saveGuide,
-  review: reviewGuide, events: listGuideEvents, visibility: setGuideVisibility };
+  events: listGuideEvents, visibility: setGuideVisibility };
 
-export function MethodGuideEditor({ method }: { method: Editable<MethodCode> }) {
+export function MethodGuideEditor({ method, compact = false }: { method: Editable<MethodCode>; compact?: boolean }) {
   const auth = useAdminSession();
   if (!auth) return <p role="status">Cần phiên Admin để quản lý bài hướng dẫn.</p>;
-  return <LoadContentEditor method={method} api={methodApi} csrf={auth.session.csrfToken} handleError={auth.handleError} />;
+  return <LoadContentEditor method={method} api={methodApi} csrf={auth.session.csrfToken} handleError={auth.handleError} compact={compact} />;
 }
 
-export function LoadContentEditor<Code extends string>({ method, api, csrf, handleError, onUpdated, actorId }: {
+export function LoadContentEditor<Code extends string>({ method, api, csrf, handleError, onUpdated, compact = false }: {
   method: Editable<Code>; api: EditorApi<Code>; csrf: string; handleError: (error: unknown) => void;
-  onUpdated?: () => void; actorId?: string;
+  onUpdated?: () => void; compact?: boolean;
 }) {
   const load = useCallback(async (signal: AbortSignal) => {
     try { return await api.read(method.code, signal); }
@@ -59,7 +57,7 @@ export function LoadContentEditor<Code extends string>({ method, api, csrf, hand
     <button type="button" className="secondary-button" onClick={state.retry}>Thử lại</button>
   </section>;
   return <Editor method={method} api={api} initial={state.data} csrf={csrf} handleError={handleError}
-    onUpdated={onUpdated} actorId={actorId} />;
+    onUpdated={onUpdated} compact={compact} />;
 }
 
 function fields(method: Editable<string>, guide: EditorState | null) {
@@ -67,9 +65,9 @@ function fields(method: Editable<string>, guide: EditorState | null) {
   return { title: version?.title ?? method.title, body: version?.body ?? method.body, editorNote: version?.editorNote ?? "" };
 }
 
-function Editor<Code extends string>({ method, api, initial, csrf, handleError, onUpdated, actorId }: {
+function Editor<Code extends string>({ method, api, initial, csrf, handleError, onUpdated, compact = false }: {
   method: Editable<Code>; api: EditorApi<Code>; initial: EditorState | null; csrf: string;
-  handleError: (error: unknown) => void; onUpdated?: () => void; actorId?: string;
+  handleError: (error: unknown) => void; onUpdated?: () => void; compact?: boolean;
 }) {
   const [guide, setGuide] = useState(initial);
   const [draft, setDraft] = useState(() => fields(method, initial));
@@ -79,7 +77,6 @@ function Editor<Code extends string>({ method, api, initial, csrf, handleError, 
   const [error, setError] = useState<unknown>(null);
   const [conflict, setConflict] = useState(false);
   const [notice, setNotice] = useState("");
-  const [reason, setReason] = useState("");
   const pending = useRef<AbortController | null>(null);
   useEffect(() => () => pending.current?.abort(), []);
   const code = method.code;
@@ -89,15 +86,12 @@ function Editor<Code extends string>({ method, api, initial, csrf, handleError, 
   const titleError = cmsTextError(draft.title, contentLimits.title, "Tiêu đề");
   const bodyError = cmsTextError(draft.body, contentLimits.body, "Nội dung", true);
   const noteError = cmsTextError(draft.editorNote, contentLimits.provenance, "Ghi chú biên tập", true, true);
-  const reasonError = cmsTextError(reason, 500, "Lý do trả về", true);
   const issue = (field: keyof typeof fieldMessages, local: string, show: boolean) =>
     fieldError?.field === field ? fieldError.message : show ? local : "";
   const titleIssue = issue("title", titleError, validation);
   const bodyIssue = issue("body", bodyError, validation);
   const noteIssue = issue("editorNote", noteError, validation);
-  const reasonIssue = issue("reason", reasonError, reason.length > 0);
-  const editing = guide?.status !== "PENDING_REVIEW";
-  const canPublish = actorId === undefined || guide?.working?.createdBy !== actorId;
+  const editing = true;
   const visibility = api.visibility;
 
   async function run(operation: (signal: AbortSignal) => Promise<EditorState | null>, message: string, resetDraft = false) {
@@ -142,21 +136,14 @@ function Editor<Code extends string>({ method, api, initial, csrf, handleError, 
     if (busy || conflict || !editing || titleError || bodyError || noteError) return;
     const input: GuideDraft = { title: stripCmsText(draft.title), body: stripCmsText(draft.body), editorNote: stripCmsText(draft.editorNote) };
     void run(signal => guide ? api.save(code, guide.version, input, csrf, signal) : api.create(code, input, csrf, signal),
-      "Đã lưu bản nháp.", true);
+      "Đã lưu và cập nhật nội dung.", true);
   }
 
-  function review(action: ReviewAction, message: string) {
-    if (!guide || busy || conflict || (action === "submit-review" && dirty)) return;
-    if (action === "return-to-draft" && reasonError) return;
-    if (action === "publish" && !canPublish) return;
-    const note = action === "return-to-draft" ? stripCmsText(reason) : undefined;
-    void run(signal => api.review(code, guide.version, action, note, csrf, signal), message, action === "publish");
-  }
-
-  return <div className={styles.contentStack}>
+  return <div className={`${styles.contentStack} ${compact ? styles.compactGuide : ""}`}>
     <section className={styles.contentPanel}>
-      <h2>{method.title}</h2>
+      {!compact && <h2>{method.title}</h2>}
       <p>{guide ? `${statuses[guide.status]} · Phiên bản quản trị ${guide.version}` : "Chưa có bài hướng dẫn."}</p>
+      <p className="field-hint">Khi lưu, nội dung được cập nhật ngay trên website và lưu thành phiên bản mới trong nhật ký Admin.</p>
       {guide?.published && <p>Bản công bố số {guide.published.revision}{visibility && (guide.visible ? " · Đang hiện" : " · Đang ẩn")}</p>}
       {conflict && <button type="button" className="secondary-button" disabled={busy}
         onClick={() => void run(signal => api.read(code, signal), "Đã tải phiên bản mới. Nội dung đang nhập được giữ lại.")}>
@@ -180,7 +167,7 @@ function Editor<Code extends string>({ method, api, initial, csrf, handleError, 
             {noteIssue && <FieldError id="guide-note-error">{noteIssue}</FieldError>}
           </FormField>
           <div className={styles.contentActions}>
-            <PrimaryButton type="submit" disabled={conflict}>Lưu bản nháp</PrimaryButton>
+            <PrimaryButton type="submit" disabled={conflict}>Lưu và cập nhật</PrimaryButton>
             <button type="button" className="secondary-button" onClick={() => setPreview(true)}>Xem trước</button>
             {dirty && <button type="button" className="secondary-button" onClick={() => { setDraft(saved); setPreview(false); }}>
               Dùng nội dung đã lưu
@@ -188,27 +175,6 @@ function Editor<Code extends string>({ method, api, initial, csrf, handleError, 
           </div>
         </fieldset>
       </form>
-      {guide?.status === "DRAFT" && <button type="button" className="secondary-button" disabled={busy || conflict || dirty}
-        onClick={() => review("submit-review", "Đã gửi duyệt.")}>Gửi duyệt</button>}
-      {guide?.status === "DRAFT" && dirty && <p className="field-hint">Lưu nội dung đang nhập trước khi gửi duyệt.</p>}
-      {guide?.status === "PENDING_REVIEW" && <div className={styles.inlineFields}>
-        <FormField id="guide-return-reason" label="Lý do trả về">
-          <textarea id="guide-return-reason" rows={2} value={reason} disabled={busy}
-            {...cmsFieldProps("guide-return-reason", reasonIssue)}
-            onChange={event => {
-              setReason(event.target.value);
-              if (fieldError?.field === "reason") setError(null);
-            }} />
-          {reasonIssue && <FieldError id="guide-return-reason-error">{reasonIssue}</FieldError>}
-        </FormField>
-        <div className={styles.contentActions}>
-          <button type="button" className="secondary-button" disabled={busy || conflict || !!reasonError}
-            onClick={() => review("return-to-draft", "Đã trả về bản nháp.")}>Trả về bản nháp</button>
-          {canPublish ? <PrimaryButton type="button" disabled={busy || conflict}
-            onClick={() => review("publish", "Đã công bố bài hướng dẫn.")}>Duyệt và công bố</PrimaryButton>
-            : <p className="field-hint">Cần Admin khác người soạn để công bố phiên bản này.</p>}
-        </div>
-      </div>}
       {guide?.published && <details>
         <summary>Xem bản đã công bố</summary>
         <h3>{guide.published.title}</h3><p className={styles.guideText}>{guide.published.body}</p>
@@ -222,7 +188,10 @@ function Editor<Code extends string>({ method, api, initial, csrf, handleError, 
       {error !== null && !fieldError && <p role="alert">{methodGuideError(error)}</p>}
       {preview && <section className={styles.preview}><h3>{draft.title}</h3><p className={styles.guideText}>{draft.body}</p></section>}
     </section>
-    {guide && <GuideEvents code={code} version={guide.version} listEvents={api.events} handleError={handleError} />}
+    {guide && (compact
+      ? <details className={styles.guideHistory}><summary>Nhật ký bài hướng dẫn</summary>
+        <GuideEvents code={code} version={guide.version} listEvents={api.events} handleError={handleError} /></details>
+      : <GuideEvents code={code} version={guide.version} listEvents={api.events} handleError={handleError} />)}
   </div>;
 }
 

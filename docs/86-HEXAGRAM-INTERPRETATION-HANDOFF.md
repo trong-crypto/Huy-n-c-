@@ -79,3 +79,9 @@ TV2/TV3 cần duyệt độ chính xác, đối chiếu quyền sử dụng và 
 Mỗi phiên bản luận giải có thể lưu một bài thơ trong `cms_hexagram_interpretation_revisions.content` (JSONB). `PUT /api/v1/admin/hexagrams/{code}/interpretation` nhận trường `content.poem` với `title` (tối đa 120 ký tự), `body` (8.000), `author` (160) và `source` tùy chọn (500). Ba trường đầu bắt buộc khi có bài thơ. Nội dung giữ nguyên xuống dòng.
 
 Khi yêu cầu lưu không gửi `poem`, Backend giữ bài thơ của bản mới nhất. Gửi `poem: null` để lưu một phiên bản không có bài thơ. Bản đã công bố chỉ thay đổi sau khi phiên bản mới được công bố theo quy trình hiện có. Bản ghi phiên bản lưu người soạn và thời điểm lưu. Các sự kiện gửi duyệt, trả về và công bố ghi người thực hiện và thời điểm trong `cms_hexagram_interpretation_events`.
+
+### Nhập bộ thơ biên soạn mới ngày 12/11/2026
+
+Đã nhập 64 bài từ `data/hexagram_poems.draft.json` vào database `huyenco` bằng `scripts/import_hexagram_poems.py`. Mỗi bài tạo một revision mới ở trạng thái **DRAFT**, sao chép nội dung và snapshot nguồn của bản hiện hành rồi thêm trường `poem`. Không gửi duyệt hoặc công bố; 64 phiên bản đã công bố được giữ nguyên và trang công khai chưa hiển thị các bài thơ này. Tác giả lưu trong nội dung là “Nhóm Huyền Cơ (AI hỗ trợ biên soạn)”; `source` để trống vì đây là sáng tác mới, không phải trích dẫn sách.
+
+Kiểm toán sau nhập xác nhận 64/64 bài khớp gói, 64 phiên bản công bố không đổi và 0 bài thơ được công bố. Gói SHA-256 `84c300fbe798d884985b8034ca504e79b88df1b72d32d9f2a1bdd254f0194be5`. Backup trước khi nhập: `scripts/generated/db-backups/huyenco-before-poems-20261112T075452Z.dump`, SHA-256 `3b0d8b4cbfd77de30313bb09bc53ceac546c0eec60fc840333b6af4ec04b4268`. Bằng chứng kiểm toán: `server/target/hexagram-poem-import-evidence.json`; bản khôi phục diễn tập giữ tại `huyenco_poem_rehearsal_20261112075452`.

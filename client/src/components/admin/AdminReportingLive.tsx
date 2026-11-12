@@ -20,13 +20,13 @@ export function AdminMetricsLive() {
   const metrics = useLookup(date, load);
   const data = metrics.data;
   return <>
-    <form className={styles.contentActions} onSubmit={event => { event.preventDefault(); setDate(input); metrics.retry(); }}>
+    <form className={styles.metricsFilters} onSubmit={event => { event.preventDefault(); setDate(input); metrics.retry(); }}>
       <FormField id="metrics-date" label="Ngày thống kê theo giờ Việt Nam">
         <input type="date" id="metrics-date" value={input} onChange={event => setInput(event.target.value)} />
       </FormField>
       <button type="submit" className="secondary-button">Xem thống kê</button>
     </form>
-    {data && <p role="status">Ngày {data.date} · {data.timeZone}.
+    {data && <p className={styles.metricsDateStatus} role="status">Ngày {data.date} · {data.timeZone}.
       {data.calculationCoverage === "PARTIAL" && " Số liệu lượt tính chỉ bao phủ một phần ngày."}
       {data.calculationCoverage === "UNAVAILABLE" && " Chưa có dữ liệu lượt tính cho ngày này."}</p>}
     {metrics.status === "failed" && <p role="alert">{phase4Error(metrics.error)}</p>}

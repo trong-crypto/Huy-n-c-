@@ -151,28 +151,47 @@ function MethodDetails({ detail, onEdit, onClose }: { detail: MethodDetail; onEd
   const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => { heading.current?.focus(); }, []);
   return <section className={styles.contentStack} aria-label="Chi tiết phương pháp">
-    <div className={styles.contentPanel}>
-      <div className={styles.methodCatalogHeader}>
-        <h2 ref={heading} tabIndex={-1}>{method.name}</h2>
+    <div className={`${styles.contentPanel} ${styles.methodDetails}`}>
+      <div className={styles.methodDetailsHeader}>
+        <div>
+          <p className={styles.methodDetailsEyebrow}>CHI TIẾT PHƯƠNG PHÁP</p>
+          <h2 ref={heading} tabIndex={-1}>{method.name}</h2>
+          <div className={styles.methodMeta}>
+            <code>{method.code}</code><span>{methodGroups[method.group]}</span><MethodBadge state={method.state} />
+          </div>
+        </div>
         <div className={styles.methodRowActions}>
           <button type="button" className="secondary-button" onClick={onEdit}>Chỉnh sửa</button>
           <button type="button" className="secondary-button" onClick={onClose}>Đóng chi tiết</button>
         </div>
       </div>
-      <p><code>{method.code}</code> · {methodGroups[method.group]} · <MethodBadge state={method.state} /></p>
-      <p>{method.summary}</p>
-      <h3>Nội dung giới thiệu</h3><p className={styles.guideText}>{detail.introduction || "Chưa có nội dung."}</p>
-      <h3>Thông tin đầu vào</h3><p>{detail.requiredInput || "Chưa có thông tin."}</p>
-      <h3>Hướng dẫn và các bước thực hiện</h3><p className={styles.guideText}>{detail.instructions || "Chưa có nội dung."}</p>
-      <h3>Tích hợp hệ thống</h3>
-      {method.formPath ? <p>{method.code === "TAM_THE" ? "Tra cứu và luận giải theo dữ kiện sinh."
-        : method.code === "TRUONG_XICH" ? "Hỗ trợ lập quẻ." : "Hỗ trợ lập quẻ và luận giải theo chủ đề."}
-        {" "}<Link className={styles.textLink} href={method.formPath}>Mở biểu mẫu người dùng</Link></p>
-        : <p>Chưa có bộ tính hoặc biểu mẫu người dùng.</p>}
+      <p className={styles.methodSummary}>{method.summary || "Chưa có mô tả ngắn."}</p>
+      <div className={styles.methodInfoGrid}>
+        <article className={styles.methodInfoCard}>
+          <h3>Giới thiệu</h3>
+          <p className={styles.guideText}>{detail.introduction || "Chưa có nội dung giới thiệu."}</p>
+        </article>
+        <article className={styles.methodInfoCard}>
+          <h3>Thông tin đầu vào</h3>
+          <p>{detail.requiredInput || "Chưa có thông tin đầu vào."}</p>
+        </article>
+        <article className={`${styles.methodInfoCard} ${styles.methodInstructions}`}>
+          <h3>Cách thực hiện</h3>
+          <p className={styles.guideText}>{detail.instructions || "Chưa có hướng dẫn thực hiện."}</p>
+        </article>
+      </div>
+      <div className={styles.methodIntegration}>
+        <div><h3>Tích hợp hệ thống</h3><p>{method.formPath
+          ? method.code === "TAM_THE" ? "Tra cứu và luận giải theo dữ kiện sinh."
+            : method.code === "TRUONG_XICH" ? "Hỗ trợ lập quẻ." : "Hỗ trợ lập quẻ và luận giải theo chủ đề."
+          : "Chưa có bộ tính hoặc biểu mẫu người dùng."}</p></div>
+        {method.formPath && <Link className={styles.textLink} href={method.formPath}>Mở biểu mẫu người dùng →</Link>}
+      </div>
     </div>
     {method.guideSupported && isGuideMethodCode(method.code) && <section aria-label="Hướng dẫn sử dụng">
-      <h3>Hướng dẫn sử dụng</h3>
-      <MethodGuideEditor method={{ code: method.code, title: method.name, body: detail.instructions || method.summary }} />
+      <div className={styles.methodGuideHeading}><div><p className={styles.methodDetailsEyebrow}>NỘI DUNG BIÊN TẬP</p>
+        <h3>Hướng dẫn sử dụng</h3></div><p>Soạn, xem trước và công bố hướng dẫn cho người dùng.</p></div>
+      <MethodGuideEditor compact method={{ code: method.code, title: method.name, body: detail.instructions || method.summary }} />
     </section>}
   </section>;
 }

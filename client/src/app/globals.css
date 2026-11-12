@@ -447,9 +447,9 @@ summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; bo
 .subreading-heading .evidence-badge { white-space: normal; }
 
 /* REST hexagram lookup shares the existing cards and evidence styles. */
-.lookup-search { display: grid; gap: 20px; align-items: start; }
+.lookup-search { display: grid; gap: 20px; align-items: end; }
 .lookup-search-actions { display: flex; flex-wrap: wrap; gap: 12px; align-self: end; }
-.lookup-search-actions > * { min-height: 44px; }
+.lookup-search-actions > * { width: auto; min-height: 48px; white-space: nowrap; }
 .lookup-results { margin-top: 32px; min-width: 0; }
 .lookup-count { color: var(--primary-hover); }
 .lookup-grid { display: grid; gap: 20px; padding: 0; list-style: none; }
@@ -509,6 +509,10 @@ summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; bo
   .lookup-search { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .lookup-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .lookup-detail-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+}
+@media (min-width: 1280px) {
+  .lookup-search { grid-template-columns: minmax(0, 1.6fr) minmax(190px, 1fr) minmax(190px, 1fr) auto; }
+  .lookup-search-actions { flex-wrap: nowrap; }
 }
 @media (min-width: 1100px) { .lookup-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 768px) { .reading-role-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

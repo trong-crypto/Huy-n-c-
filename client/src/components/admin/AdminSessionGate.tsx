@@ -71,7 +71,7 @@ function AdminReviewNotices({ session, handleError }: { session: AdminSession; h
     },
   });
   if (areas.length === 0) return null;
-  return <aside className={styles.notice} aria-label="Thông báo chờ duyệt">
+  return <aside className={styles.reviewToast} aria-label="Thông báo chờ duyệt">
     <p role="status">Có nội dung mới được gửi duyệt.</p>
     <ul>{areas.map(area => <li key={area}><a className={styles.textLink} href={reviewAreas[area].href}>{reviewAreas[area].title}</a></li>)}</ul>
     <button className="secondary-button" type="button" onClick={() => setAreas([])}>Đóng thông báo</button>

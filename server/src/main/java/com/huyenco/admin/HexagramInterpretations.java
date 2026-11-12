@@ -90,9 +90,11 @@ public final class HexagramInterpretations {
             requireHexagram(code, true);
             var state = load(code);
             checkVersion(state, expected);
-            if (state.status() == Status.PENDING_REVIEW) throw invalidTransition();
             var selected = state.sources().stream().filter(s -> sourceIds.contains(s.id())).toList();
             if (selected.size() != sourceIds.size()) throw new ContractException("INVALID_SOURCE", "Chọn nguồn đã đăng ký cho quẻ.");
+            if (selected.isEmpty() || selected.stream().anyMatch(source -> !"VERIFIED".equals(source.reviewStatus()))) {
+                throw new ContractException("INVALID_SOURCE", "Chỉ có thể cập nhật luận giải khi mọi nguồn đã được xác minh.");
+            }
             int next = state.latest() == null ? 1 : Math.incrementExact(state.latest().version());
             // Legacy editors can save the other fields without clearing a poem.
             JsonNode storedPoem = poem.isMissingNode() && state.latest() != null ? state.latest().content().path("poem") : poem;
@@ -100,6 +102,10 @@ public final class HexagramInterpretations {
             if (storedPoem.isObject()) document.set("poem", storedPoem);
             db.update("INSERT INTO " + REVISIONS + " (hexagram_code, version, content, source_snapshot, created_by) VALUES (?,?,?::jsonb,?::jsonb,?)",
                     code, next, serialize(document), serialize(selected), author);
+            int sequence = db.queryForObject("SELECT COALESCE(max(sequence),0)+1 FROM " + EVENTS + " WHERE hexagram_code=?",
+                    Integer.class, code);
+            db.update("INSERT INTO " + EVENTS + " (hexagram_code, sequence, revision, action, actor_id, review_note) VALUES (?,?,?,'PUBLISH',?,?)",
+                    code, sequence, next, author, "Công bố trực tiếp bởi Admin; nguồn đã xác minh.");
             return load(code);
         });
     }

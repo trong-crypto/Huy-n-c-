@@ -25,6 +25,6 @@ export function WebsiteContentWorkspace() {
       <p>Mô tả từng phương pháp dùng nội dung đã quản lý tại <Link href="/admin/methods">Bài hướng dẫn phương pháp</Link>.</p>
     </section>
     <LoadContentEditor key={selected.code} method={selected} api={websiteEditorApi} csrf={auth.session.csrfToken}
-      handleError={auth.handleError} actorId={auth.session.account.id} />
+      handleError={auth.handleError} />
   </div>;
 }

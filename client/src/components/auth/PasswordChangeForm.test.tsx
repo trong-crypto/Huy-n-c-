@@ -86,12 +86,12 @@ describe("password change form", () => {
   });
 
   it("asks for a new login when the session is invalid", async () => {
-    vi.mocked(changePassword).mockRejectedValueOnce(new RestError("INVALID_SESSION"));
+    vi.mocked(requestPasswordChange).mockRejectedValueOnce(new RestError("INVALID_SESSION"));
     form();
     fill("old", "12345678", "12345678");
-    submit();
+    fireEvent.click(screen.getByRole("button", { name: "Gửi yêu cầu đổi mật khẩu" }));
     expect((await screen.findByRole("link", { name: "Đăng nhập lại" })).getAttribute("href")).toBe("/dang-nhap");
-    expect((screen.getByRole("button", { name: "Lưu mật khẩu" }).closest("fieldset") as HTMLFieldSetElement).disabled).toBe(true);
+    expect((screen.getByRole("button", { name: "Gửi yêu cầu đổi mật khẩu" }).closest("fieldset") as HTMLFieldSetElement).disabled).toBe(true);
   });
 
   it("shows the login notice after a completed change", () => {

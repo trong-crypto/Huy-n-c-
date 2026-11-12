@@ -68,13 +68,15 @@ public class AdminWebsiteContent {
         OffsetDateTime now = clock.instant().truncatedTo(ChronoUnit.MICROS).atOffset(ZoneOffset.UTC);
         int revision;
         if (action == Action.SAVE_DRAFT) {
-            require(status != Status.PENDING_REVIEW);
             revision = next;
             db.update("""
                     INSERT INTO cms_website_revisions(section_code,revision,title,body,editor_note,created_by,created_at)
                     VALUES (?,?,?,?,?,?,?)
                     """, code, revision, draft.title(), draft.body(), draft.editorNote(), actor, now);
-            setWorking(code, next, revision, Status.DRAFT);
+            db.update("""
+                    UPDATE cms_website_sections SET version=?, working_revision=NULL, working_status=NULL,
+                        published_revision=?, published_at=? WHERE section_code=?
+                    """, next, revision, now, code);
         } else {
             require(action == Action.SUBMIT_REVIEW ? status == Status.DRAFT : status == Status.PENDING_REVIEW);
             revision = current.working().revision();

@@ -1,5 +1,7 @@
 # Duyệt và công bố nghĩa tên quẻ
 
+> **Cập nhật chính sách:** các bước gửi duyệt/công bố bên dưới là biên bản lịch sử. Từ V39, khi Admin lưu nghĩa tên, phiên bản mới được cập nhật trực tiếp. Ràng buộc E01 và thông tin nguồn vẫn được giữ; xem [chính sách hiện tại](89-ADMIN-CONTENT-DIRECT-PUBLISH.md).
+
 CONTENT-04 và CMS-DATA-04 trong phạm vi `NAME_GLOSS`. Bản nháp tiếp tục được lưu theo từng phiên bản như tài liệu 66. Một Admin khác người soạn đối chiếu nguồn, xác nhận nhãn in và ghi chú trước khi công bố.
 
 Từ V23, Admin có thể điều khiển mức hiển thị của nghĩa tên đã công bố theo [hợp đồng CONTENT-03](69-TV2-TV3-CONTENT03-HEXAGRAM-GLOSS-VISIBILITY.md). Các ca nghiệm thu bên dưới ghi nhận mốc V22.

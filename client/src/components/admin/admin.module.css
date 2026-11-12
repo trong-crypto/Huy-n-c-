@@ -98,6 +98,30 @@
   font-size: 14px;
   line-height: 1.65;
 }
+.reviewToast {
+  position: fixed;
+  z-index: 1300;
+  top: max(12px, env(safe-area-inset-top));
+  right: max(12px, env(safe-area-inset-right));
+  box-sizing: border-box;
+  width: min(360px, calc(100vw - 24px));
+  max-height: min(70vh, 420px);
+  overflow: auto;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  box-shadow: 0 12px 35px rgb(0 0 0 / 35%);
+}
+.reviewToast p { margin: 0 0 8px; }
+.reviewToast ul { display: grid; gap: 4px; margin: 0 0 12px; padding-left: 18px; }
+.reviewToast button { width: auto; min-height: 36px; }
 
 .header {
   display: flex;
@@ -433,6 +457,20 @@
 
 .contentPanel h2 { margin: 0 0 12px; color: var(--primary-hover); font: 26px var(--font-heading); }
 .contentPanel h3 { color: var(--primary-hover); font-size: 16px; }
+.sourceBookGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 16px 0 22px; }
+.sourceBookGrid > div, .sourceEvidenceCard { min-width: 0; padding: 14px; border: 1px solid var(--border); border-radius: 10px; background: color-mix(in srgb, var(--bg-secondary) 72%, transparent); }
+.sourceBookGrid dt { color: var(--muted); font-size: 12px; font-weight: 700; }
+.sourceBookGrid dd { margin: 6px 0 0; color: var(--text); font-weight: 600; overflow-wrap: anywhere; }
+.sourceEvidenceGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 22px 0; }
+.sourceEvidenceHeader { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.sourceEvidenceHeader h3 { margin: 0; }
+.sourceEvidenceCount, .sourceEvidenceVersion, .sourceEvidenceStatus { display: inline-flex; align-items: center; width: fit-content; max-width: 100%; padding: 3px 8px; border: 1px solid var(--border); border-radius: 999px; background: var(--soft); color: var(--secondary); font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+.sourceEvidenceCount { flex: 0 0 auto; color: var(--primary-hover); }
+.sourceEvidenceList { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.sourceEvidenceList > li { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 10px; padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: rgb(9 6 23 / 24%); }
+.sourceEvidenceList code { color: var(--primary-hover); }
+.sourceEvidenceStatus { border-color: rgb(112 190 139 / 35%); color: #b7e6c3; }
+.sourceEvidenceEmpty { margin: 0; padding: 14px; border-radius: 8px; background: var(--bg-secondary); color: var(--muted); font-size: 14px; }
 
 .recordList {
   display: grid;
@@ -463,6 +501,10 @@
 .contentActions, .workflow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
 .contentActions button { width: auto; }
 .contentActions button:disabled { opacity: .55; cursor: not-allowed; }
+.metricsFilters { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 16px; }
+.metricsFilters > :global(.form-field) { flex: 0 1 280px; margin: 0; }
+.metricsFilters > button { flex: 0 0 auto; width: auto; min-height: 48px; white-space: nowrap; }
+.metricsDateStatus { margin: 6px 0 0; color: var(--muted); }
 .workflow { padding-left: 0; list-style: none; }
 .workflow dd { margin: 4px 0 0; color: var(--secondary); }
 .reviewDetails summary { color: var(--primary-hover); cursor: pointer; }
@@ -535,6 +577,27 @@
 .methodFilters button, .methodRowActions button { white-space: nowrap; }
 .methodRowActions { display: flex; flex-wrap: wrap; gap: 6px; }
 .methodRowActions button { min-height: 36px; padding: 6px 10px; }
+.methodDetails { display: grid; gap: 18px; }
+.methodDetailsHeader { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.methodDetailsHeader h2 { margin: 2px 0 10px; }
+.methodDetailsEyebrow { margin: 0; color: var(--primary); font-size: 12px; font-weight: 800; letter-spacing: .12em; }
+.methodMeta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--secondary); }
+.methodMeta code { padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-secondary); }
+.methodSummary { margin: 0; padding: 14px 16px; border-left: 3px solid var(--primary); border-radius: 0 8px 8px 0; background: var(--soft); color: var(--text); font-size: 16px; }
+.methodInfoGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.methodInfoCard { min-width: 0; padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px; background: color-mix(in srgb, var(--bg-secondary) 55%, transparent); }
+.methodInfoCard h3, .methodIntegration h3 { margin: 0 0 8px; color: var(--primary-hover); font-size: 15px; }
+.methodInfoCard p, .methodIntegration p { margin: 0; color: var(--secondary); }
+.methodInstructions { grid-column: 1 / -1; }
+.methodIntegration { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1px solid var(--border); }
+.methodGuideHeading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 18px; margin-bottom: 10px; }
+.methodGuideHeading h3 { margin: 3px 0 0; color: var(--primary-hover); font: 22px var(--font-heading); }
+.methodGuideHeading > p { margin: 0; color: var(--secondary); }
+.compactGuide { gap: 10px; }
+.compactGuide > .contentPanel { padding: 16px; }
+.guideHistory { padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-secondary); }
+.guideHistory > summary { color: var(--primary-hover); font-weight: 700; cursor: pointer; }
+.guideHistory > .contentPanel { margin-top: 12px; }
 .methodEditorFields {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -554,6 +617,46 @@
 .methodDeleteDialog h2 { margin-top: 0; color: var(--primary-hover); }
 .badge[data-method-state="LISTED"] { color: #a8e0c2; }
 .badge[data-method-state="UNAVAILABLE"] { color: var(--secondary); }
+.sourceUpdate { margin-top: 14px; padding: clamp(16px, 2vw, 24px); border: 1px solid var(--border); border-radius: 12px; background: rgb(17 10 31 / 42%); }
+.sourceUpdateHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.sourceUpdateHeader h3 { margin: 0 0 6px; color: var(--primary-hover); font-family: var(--font-heading); font-size: 22px; font-weight: 400; }
+.sourceUpdateHeader p { margin: 0; }
+.sourceUpdateStatus { flex: 0 0 auto; padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px; color: var(--primary-hover); background: var(--soft); font-size: 12px; font-weight: 700; }
+.sourceUpdateNotice { margin: 12px 0 0; padding: 10px 12px; border-left: 3px solid var(--primary); border-radius: 6px; background: var(--soft); color: var(--secondary); font-size: 13px; line-height: 1.55; }
+.sourceUpdateForm { display: grid; gap: 16px; }
+.sourceUpdateFields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; min-width: 0; margin: 0; padding: 0; border: 0; }
+.sourceProposalBlock { grid-column: 1 / -1; }
+.sourceProposalBlock textarea { min-height: 116px; }
+.sourceMetadataBlock, .sourceReasonBlock { min-width: 0; padding: 14px; border: 1px solid var(--border); border-radius: 10px; background: rgb(14 8 27 / 34%); }
+.sourceMetadataBlock { display: grid; align-content: start; gap: 12px; }
+.sourceReasonBlock { display: grid; align-content: start; gap: 12px; }
+.sourceReasonBlock textarea { min-height: 112px; }
+.sourceReasonWide { grid-column: 1 / -1; }
+.sourceUpdateStep { display: flex; align-items: center; gap: 9px; margin: 0; color: var(--primary-hover); font-size: 14px; font-weight: 700; }
+.sourceUpdateStepNumber { display: grid; place-items: center; flex: 0 0 24px; width: 24px; height: 24px; border-radius: 50%; background: var(--soft); color: var(--primary); font-size: 12px; }
+.sourceUpdateActions { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+.sourceUpdateActions > span { color: var(--muted); font-size: 13px; }
+.sourceUpdateActions > button { width: auto; min-width: 190px; }
+@media (max-width: 760px) {
+  .sourceUpdateFields { grid-template-columns: minmax(0, 1fr); }
+  .sourceProposalBlock, .sourceReasonWide { grid-column: auto; }
+  .sourceUpdateHeader { flex-direction: column; }
+}
+@media (max-width: 520px) {
+  .sourceUpdate { padding: 14px; }
+  .sourceUpdateActions { align-items: stretch; flex-direction: column; }
+  .sourceUpdateActions > button { width: 100%; }
+}
 @media (max-width: 1024px) {
+  .sourceBookGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .methodFilters, .methodEditorFields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .sourceEvidenceGrid { grid-template-columns: minmax(0, 1fr); }
+  .methodInfoGrid { grid-template-columns: minmax(0, 1fr); }
+  .methodInstructions { grid-column: auto; }
+  .methodIntegration { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 520px) {
+  .sourceBookGrid { grid-template-columns: minmax(0, 1fr); }
 }

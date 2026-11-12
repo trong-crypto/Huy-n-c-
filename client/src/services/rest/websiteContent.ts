@@ -47,7 +47,7 @@ async function read(code: SectionCode, signal: AbortSignal) {
 async function save(code: SectionCode, version: number, draft: GuideDraft, csrf: string, signal: AbortSignal) {
   const item = await requestJson(`${path(code)}/draft`, matching(code), signal,
     { ...draft, expectedVersion: version }, { ...adminOptions(csrf), method: "PUT" });
-  if (item.status !== "DRAFT" || item.version !== version + 1) throw new RestError("INVALID_RESPONSE");
+  if (item.status !== "PUBLISHED" || item.version !== version + 1) throw new RestError("INVALID_RESPONSE");
   return item;
 }
 const reviewStatus = { "submit-review": "PENDING_REVIEW", "return-to-draft": "DRAFT", publish: "PUBLISHED" } as const;

@@ -2,21 +2,17 @@
 
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { FieldError, FormField } from "@/components/ui/Controls";
-import { glossError, readGloss, reviewGloss, saveGloss, setGlossVisibility,
-  type GlossAction, type GlossInput, type GlossState, type GlossWorkflow } from "@/services/rest/adminHexagramGlosses";
+import { glossError, readGloss, saveGloss, setGlossVisibility,
+  type GlossInput, type GlossState, type GlossWorkflow } from "@/services/rest/adminHexagramGlosses";
 import { useLookup } from "@/services/rest/useLookup";
 import { useAdminSession } from "./AdminSessionGate";
 import { cmsFieldError, cmsFieldProps, cmsTextError, stripCmsText } from "./adminContentValidation";
 import styles from "./admin.module.css";
 
-const statuses: Record<GlossWorkflow["status"], string> = { DRAFT: "Bản nháp", PENDING_REVIEW: "Chờ duyệt", PUBLISHED: "Đã công bố" };
-const success = { "submit-review": "Đã gửi duyệt.", "return-to-draft": "Đã trả về bản nháp.", publish: "Đã công bố nghĩa tên." };
+const statuses: Record<GlossWorkflow["status"], string> = { DRAFT: "Bản nháp cũ", PENDING_REVIEW: "Chờ duyệt bản cũ", PUBLISHED: "Đã cập nhật trực tiếp" };
 const fieldMessages = {
   content: "Kiểm tra nghĩa tên đề xuất.",
   sourceSectionId: "Chọn trang nguồn có đủ thông tin đối chiếu.",
-  reason: "Kiểm tra lý do trả về.",
-  printedSourceLabel: "Kiểm tra nhãn theo bản in.",
-  verificationNote: "Kiểm tra ghi chú đối chiếu.",
 };
 
 function savedFields({ revision, detail }: GlossState): GlossInput {
@@ -50,9 +46,6 @@ function LoadEditor({ code, auth, refreshPublic }: { code: string; auth: Auth; r
 function Editor({ code, initial, auth, refreshPublic }: { code: string; initial: GlossState; auth: Auth; refreshPublic: () => void }) {
   const [state, setState] = useState(initial);
   const [input, setInput] = useState(() => savedFields(initial));
-  const [reason, setReason] = useState("");
-  const [label, setLabel] = useState("");
-  const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
   const [needsReload, setNeedsReload] = useState(false);
   const [error, setError] = useState<unknown>(null);
@@ -63,20 +56,12 @@ function Editor({ code, initial, auth, refreshPublic }: { code: string; initial:
   const { detail, revision, workflow } = state;
   const saved = savedFields(state);
   const dirty = input.content !== saved.content || input.sourceSectionId !== saved.sourceSectionId;
-  const pending = workflow?.status === "PENDING_REVIEW";
-  const mayPublish = revision !== null && revision.createdBy !== auth.session.account.id;
   const fieldError = cmsFieldError(error, fieldMessages);
   const contentError = cmsTextError(input.content, 500, "Nghĩa tên đề xuất");
-  const reasonError = cmsTextError(reason, 500, "Lý do trả về");
-  const labelError = cmsTextError(label, 120, "Nhãn theo bản in");
-  const noteError = cmsTextError(note, 500, "Ghi chú đối chiếu");
   const issue = (field: keyof typeof fieldMessages, local = "", value = "") =>
     fieldError?.field === field ? fieldError.message : value ? local : "";
   const contentIssue = issue("content", contentError, input.content);
   const sourceIssue = issue("sourceSectionId");
-  const reasonIssue = issue("reason", reasonError, reason);
-  const labelIssue = issue("printedSourceLabel", labelError, label);
-  const noteIssue = issue("verificationNote", noteError, note);
   function clearFieldError(field: keyof typeof fieldMessages) {
     if (fieldError?.field === field) setError(null);
   }
@@ -104,11 +89,7 @@ function Editor({ code, initial, auth, refreshPublic }: { code: string; initial:
       if (controller.signal.aborted) return;
       setState(next);
       if (!dirty || write && !preserveEdits) setInput(savedFields(next));
-      if (write && !preserveEdits || next.workflow?.draftVersion !== workflow?.draftVersion) {
-        setReason("");
-        setLabel("");
-        setNote("");
-      }
+      if (write && !preserveEdits || next.workflow?.draftVersion !== workflow?.draftVersion) setError(null);
       setNeedsReload(false);
       setNotice((!write || preserveEdits) && dirty ? `${message} Nội dung đang nhập được giữ lại.` : message);
       refreshPublic();
@@ -126,14 +107,9 @@ function Editor({ code, initial, auth, refreshPublic }: { code: string; initial:
 
   function save(event: FormEvent) {
     event.preventDefault();
-    if (busy || needsReload || pending || !dirty || !input.sourceSectionId || contentError) return;
-    void refresh("Đã lưu bản nháp.", signal => saveGloss(code, revision?.version,
+    if (busy || needsReload || !dirty || !input.sourceSectionId || contentError) return;
+    void refresh("Đã lưu và cập nhật nghĩa tên.", signal => saveGloss(code, revision?.version,
       { ...input, content: stripCmsText(input.content) }, auth.session.csrfToken, signal));
-  }
-
-  function review(command: GlossAction) {
-    if (!workflow || busy || needsReload) return;
-    void refresh(success[command.action], signal => reviewGloss(code, workflow.version, command, auth.session.csrfToken, signal));
   }
 
   function changeVisibility() {
@@ -143,9 +119,10 @@ function Editor({ code, initial, auth, refreshPublic }: { code: string; initial:
       signal => setGlossVisibility(code, workflow.version, visible, auth.session.csrfToken, signal), true);
   }
 
-  return <section className={styles.contentPanel} aria-label="Duyệt nghĩa tên quẻ" aria-busy={busy}>
-    <h2>Duyệt nghĩa tên quẻ</h2>
-    <p>{workflow ? `${statuses[workflow.status]} · Phiên bản nháp ${workflow.draftVersion}` : "Chưa có bản nháp."}</p>
+  return <section className={styles.contentPanel} aria-label="Biên tập nghĩa tên quẻ" aria-busy={busy}>
+    <h2>Biên tập nghĩa tên quẻ</h2>
+    <p>{workflow ? `${statuses[workflow.status]} · Phiên bản ${workflow.draftVersion}` : "Chưa có bản biên tập."}</p>
+    <p className="field-hint">Lưu sẽ cập nhật ngay nghĩa tên; trang nguồn và dấu vân tay được ghi lại trong lịch sử.</p>
     <p>{workflow?.publishedVersion ? `Bản công bố số ${workflow.publishedVersion} · ${workflow.visible ? "Đang hiện" : "Đang ẩn"}`
       : "Nghĩa tên công khai lấy từ bộ E01."}</p>
     {workflow?.publishedVersion && <details key={String(workflow.visible)} className={styles.reviewDetails}>
@@ -162,7 +139,7 @@ function Editor({ code, initial, auth, refreshPublic }: { code: string; initial:
       Tải phiên bản mới
     </button>
     <form className="form-stack" onSubmit={save} aria-label="Soạn nghĩa tên">
-      <fieldset className={styles.inlineFields} disabled={busy || pending || needsReload}>
+      <fieldset className={styles.inlineFields} disabled={busy || needsReload}>
         <FormField id="hexagram-gloss-content" label="Nghĩa tên đề xuất" hint="Một dòng, tối đa 500 ký tự.">
           <input id="hexagram-gloss-content" value={input.content} required aria-describedby="hexagram-gloss-content-hint"
             {...cmsFieldProps("hexagram-gloss-content", contentIssue)}
@@ -183,40 +160,9 @@ function Editor({ code, initial, auth, refreshPublic }: { code: string; initial:
           </select>
           {sourceIssue && <FieldError id="hexagram-gloss-source-error">{sourceIssue}</FieldError>}
         </FormField>
-        <button type="submit" className="secondary-button" disabled={!dirty || !!contentError || !input.sourceSectionId}>Lưu bản nháp</button>
+        <button type="submit" className="secondary-button" disabled={!dirty || !!contentError || !input.sourceSectionId}>Lưu và cập nhật</button>
       </fieldset>
     </form>
-    {workflow?.status === "DRAFT" && <div className={styles.contentActions}>
-      <button type="button" className="secondary-button" disabled={busy || needsReload || dirty}
-        onClick={() => review({ action: "submit-review" })}>Gửi duyệt</button>
-      {dirty && <small className="field-hint">Lưu nội dung đang nhập trước khi gửi duyệt.</small>}
-    </div>}
-    {pending && <fieldset className={styles.inlineFields} disabled={busy || needsReload}>
-      <legend>Xử lý bản đang chờ duyệt</legend>
-      <FormField id="hexagram-gloss-reason" label="Lý do trả về">
-        <input id="hexagram-gloss-reason" value={reason} {...cmsFieldProps("hexagram-gloss-reason", reasonIssue)}
-          onChange={event => { clearFieldError("reason"); setReason(event.target.value); }} />
-        {reasonIssue && <FieldError id="hexagram-gloss-reason-error">{reasonIssue}</FieldError>}
-      </FormField>
-      <button type="button" className="secondary-button" disabled={!!reasonError}
-        onClick={() => review({ action: "return-to-draft", reason: stripCmsText(reason) })}>Trả về bản nháp</button>
-      {mayPublish ? <>
-        <FormField id="hexagram-gloss-label" label="Nhãn theo bản in">
-          <input id="hexagram-gloss-label" value={label} {...cmsFieldProps("hexagram-gloss-label", labelIssue)}
-            onChange={event => { clearFieldError("printedSourceLabel"); setLabel(event.target.value); }} />
-          {labelIssue && <FieldError id="hexagram-gloss-label-error">{labelIssue}</FieldError>}
-        </FormField>
-        <FormField id="hexagram-gloss-note" label="Ghi chú đối chiếu">
-          <input id="hexagram-gloss-note" value={note} {...cmsFieldProps("hexagram-gloss-note", noteIssue)}
-            onChange={event => { clearFieldError("verificationNote"); setNote(event.target.value); }} />
-          {noteIssue && <FieldError id="hexagram-gloss-note-error">{noteIssue}</FieldError>}
-        </FormField>
-        <button type="button" className="primary-button" disabled={!!labelError || !!noteError}
-          onClick={() => review({ action: "publish", printedSourceLabel: stripCmsText(label), verificationNote: stripCmsText(note) })}>
-          Xác nhận công bố
-        </button>
-      </> : <p className="field-hint">Cần Admin khác người soạn để công bố phiên bản này.</p>}
-    </fieldset>}
     {notice && <p role="status">{notice}</p>}
     {error !== null && !fieldError && <p role="alert">{typeof error === "string" ? error : glossError(error)}</p>}
     {revision && <div className={styles.preview}>
