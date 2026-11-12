@@ -28,7 +28,6 @@ export function CustomerAuthPage({ mode }: { mode: keyof typeof customerAuthRout
             `Tính năng ${registering ? "đăng ký" : "đăng nhập"} đang chờ kết nối với máy chủ. Bạn có thể dùng dữ liệu mẫu để kiểm tra biểu mẫu.`}
         </p>
         <CustomerAuthForm registering={registering} />
-        {!registering && <p><Link className={styles.link} href="/quen-mat-khau">Quên mật khẩu?</Link></p>}
         <p className={styles.switchLink}>
           {registering ? "Đã có tài khoản?" : "Chưa có tài khoản?"}{" "}
           <Link className={styles.link} href={registering ? customerAuthRoutes.login : customerAuthRoutes.register}>

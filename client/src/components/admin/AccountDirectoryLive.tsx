@@ -5,7 +5,7 @@ import { FormField } from "@/components/ui/Controls";
 import { accountError, accountRoles, accountStatuses, listAccounts, readAccount, setAccountRole, setAccountStatus,
   type Account, type AccountDetail, type AccountQuery, type CustomerRole, type Status } from "@/services/rest/adminAccounts";
 import { RestError } from "@/services/rest/transport";
-import { decidePasswordChange, issuePasswordRecovery, type PasswordDecision } from "@/services/rest/passwordChange";
+import { decidePasswordChange, type PasswordDecision } from "@/services/rest/passwordChange";
 import { useLookup } from "@/services/rest/useLookup";
 import { useAdminSession } from "./AdminSessionGate";
 import styles from "./admin.module.css";
@@ -41,6 +41,7 @@ export function AccountDirectoryLive() {
   }, [query, handleError]);
   const list = useLookup(JSON.stringify([query, refresh]), load);
   if (!auth) return <p role="status">Cần phiên Admin để quản lý tài khoản.</p>;
+  const adminAuth = auth;
 
   function select(id: string, action: AccountAction | null, button: HTMLButtonElement) {
     opener.current = button;
@@ -57,6 +58,7 @@ export function AccountDirectoryLive() {
     setSelected(null);
     setQuery(current => ({ ...current, page: number }));
   }
+
 
   return <div className={styles.contentStack}>
     <section className={styles.contentPanel} aria-label="Danh sách tài khoản">
@@ -148,8 +150,6 @@ function AccountStatusEditor({ initial, action, csrf, handleError, onChanged, re
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<unknown>(null);
   const [notice, setNotice] = useState("");
-  const [recovery, setRecovery] = useState<{ code: string; expiresAt: string } | null>(null);
-  const [confirmRecovery, setConfirmRecovery] = useState(false);
   const pending = useRef<AbortController | null>(null);
   useEffect(() => () => pending.current?.abort(), []);
   const { account, lastStatusChange, lastRoleChange, passwordRequest } = detail;
@@ -211,28 +211,6 @@ function AccountStatusEditor({ initial, action, csrf, handleError, onChanged, re
     }
   }
 
-  async function issueRecovery() {
-    if (pending.current || account.status !== "ACTIVE" || account.role === "ADMIN") return;
-    const controller = new AbortController();
-    pending.current = controller;
-    setBusy(true);
-    setError(null);
-    setRecovery(null);
-    try {
-      const grant = await issuePasswordRecovery(account.id, csrf, controller.signal);
-      if (!controller.signal.aborted) {
-        setRecovery(grant);
-        setNotice("Đã tạo mã khôi phục. Mã chỉ hiển thị một lần và hết hạn sau 15 phút.");
-        setConfirmRecovery(false);
-      }
-    } catch (failure) {
-      if (!controller.signal.aborted) { setError(failure); handleError(failure); }
-    } finally {
-      pending.current = null;
-      if (!controller.signal.aborted) setBusy(false);
-    }
-  }
-
   return <>
     <div className={styles.accountIdentity}>
       <h3>{account.displayName}</h3>
@@ -268,19 +246,6 @@ function AccountStatusEditor({ initial, action, csrf, handleError, onChanged, re
         <button type="button" className="secondary-button" disabled={busy || conflict || !!confirming}
           onClick={() => setPasswordDecision("REJECT")}>Từ chối yêu cầu</button>
       </div>}
-    </section>}
-    {account.role !== "ADMIN" && <section className={styles.accountDetailsSection} aria-label="Khôi phục mật khẩu">
-      <h4>Khôi phục mật khẩu khi quên</h4>
-      <p>Chỉ cấp mã sau khi đã xác minh danh tính người dùng qua kênh khác. Không dùng tên đăng nhập hoặc số điện thoại chưa xác minh làm bằng chứng duy nhất.</p>
-      {recovery ? <><p role="status">Mã khôi phục (chỉ hiện lần này):</p>
-        <p><code className={styles.recoveryCode}>{recovery.code}</code></p>
-        <p>Hết hạn: <AccountTime value={recovery.expiresAt} />. Gửi riêng mã này cho đúng chủ tài khoản. Người dùng nhập tại trang Quên mật khẩu.</p></>
-      : confirmRecovery ? <div className={styles.contentActions}>
-        <p>Xác nhận đã kiểm tra danh tính? Cấp mã mới sẽ vô hiệu mã cũ.</p>
-        <button type="button" className="primary-button" disabled={busy} onClick={() => void issueRecovery()}>Xác nhận cấp mã</button>
-        <button type="button" className="secondary-button" disabled={busy} onClick={() => setConfirmRecovery(false)}>Hủy</button>
-      </div> : <button type="button" className="secondary-button" disabled={busy || account.status !== "ACTIVE"}
-        onClick={() => setConfirmRecovery(true)}>Cấp mã khôi phục</button>}
     </section>}
     {!account.canChangeStatus && <p>Trạng thái tài khoản Admin chỉ được quản lý qua quy trình cấp quyền riêng.</p>}
     {account.canChangeStatus && !conflict && confirming && <div className={`${styles.contentActions} ${styles.accountConfirmation}`}>

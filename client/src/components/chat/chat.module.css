@@ -46,30 +46,6 @@
   color: var(--primary-hover);
 }
 
-.notifications {
-  max-height: 15rem;
-  overflow: auto;
-  margin-bottom: 16px;
-}
-
-.notification {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px 16px;
-  padding: 10px 14px;
-  border: 1px solid var(--chat-line);
-  border-inline-start: 3px solid var(--primary);
-  border-radius: 12px;
-  background: var(--chat-sidebar);
-  color: var(--chat-text);
-}
-
-.notification p { margin: 0; }
-.notificationActions { display: flex; flex-wrap: wrap; gap: 8px; }
-.notificationActions > button { width: auto; min-height: 44px; padding: 6px 12px; }
-
 .workspace, .aiRoom {
   height: clamp(460px, 76vh, 820px);
   overflow: hidden;
@@ -108,6 +84,8 @@
 .entries, .messages { margin: 0; padding: 0; list-style: none; }
 .entries { display: grid; gap: 4px; }
 .entries > li { min-width: 0; overflow-wrap: anywhere; }
+.roomChoice { position: relative; padding-right: 30px; }
+.unreadDot { position: absolute; top: 50%; right: 13px; width: 10px; height: 10px; transform: translateY(-50%); border-radius: 50%; background: #fff; box-shadow: 0 0 0 2px #38274f, 0 0 9px rgb(255 255 255 / 55%); }
 
 .roomChoice, .choice {
   display: flex;
@@ -153,6 +131,8 @@
 .directory :global(.secondary-button), .roomStatus :global(.secondary-button), .actions :global(.secondary-button),
 .composerFoot :global(.secondary-button) { min-height: 36px; padding: 5px 10px; font-size: 13px; }
 .actions { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.roomReading { width: 100%; min-width: 0; }
+.roomReading > details { margin-bottom: 6px; }
 .directory button:disabled, .actions button:disabled { opacity: .6; cursor: not-allowed; }
 
 .room { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
@@ -266,6 +246,7 @@
   font-weight: 700;
 }
 .message > p { margin: 3px 0 0; white-space: pre-wrap; }
+.messageTime { display: block; margin-top: 4px; color: rgb(235 224 250 / 68%); font-size: 11px; line-height: 1.2; text-align: right; }
 
 .composer {
   flex: none;

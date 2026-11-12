@@ -60,7 +60,7 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
       for (const item of items) stored.set(item.messageId, item);
       const messages = [...stored.values()].sort((a, b) => BigInt(a.sequence) < BigInt(b.sequence) ? -1
         : BigInt(a.sequence) > BigInt(b.sequence) ? 1 : a.messageId.localeCompare(b.messageId))
-        .map(item => ({ id: item.messageId, roomId, text: item.text, author: item.senderAccountId === session.accountId
+        .map(item => ({ id: item.messageId, roomId, text: item.text, createdAt: item.createdAt, author: item.senderAccountId === session.accountId
           ? "Bạn" : session.role === "USER" ? "Tư vấn viên" : "Người dùng" }));
       update({ messages });
     }

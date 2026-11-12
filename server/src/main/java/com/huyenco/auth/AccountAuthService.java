@@ -55,7 +55,6 @@ final class AccountAuthService {
     record StoredSession(Account account, OffsetDateTime expiresAt, UUID sessionId) {}
     private record PendingPassword(UUID id, String fingerprint, String replacementHash) {}
     enum PasswordDecision { APPROVE, REJECT }
-    record RecoveryGrant(String code, String expiresAt) {}
 
     private static final Base64.Encoder TOKEN_ENCODER = Base64.getUrlEncoder().withoutPadding();
     private final JdbcTemplate db;
@@ -224,63 +223,8 @@ final class AccountAuthService {
         });
     }
 
-    RecoveryGrant issueRecovery(UUID accountId, UUID adminId) {
-        return transactions.execute(tx -> {
-            Credentials locked = credentials("id", accountId, true)
-                    .orElseThrow(AccountAuthService::recoveryUnavailable);
-            if (!locked.active() || !Realm.CUSTOMER.allows(locked.account().role())) throw recoveryUnavailable();
-            OffsetDateTime issued = now();
-            OffsetDateTime expires = issued.plusMinutes(15);
-            db.update("""
-                    UPDATE account_password_recovery SET revoked_at = ?
-                    WHERE account_id = ? AND used_at IS NULL AND revoked_at IS NULL
-                    """, issued, accountId);
-            String code = newToken();
-            db.update("""
-                    INSERT INTO account_password_recovery(id, account_id, issued_by, token_hash, issued_at, expires_at)
-                    VALUES (?, ?, ?, ?, ?, ?)
-                    """, UUID.randomUUID(), accountId, adminId, tokenHash(code), issued, expires);
-            return new RecoveryGrant(code, expires.toInstant().toString());
-        });
-    }
-
-    void recoverPassword(String identifier, String code, String replacementPassword) {
-        Credentials initial = credentials("identifier_normalized", identifier, false).orElse(null);
-        // Hash a replacement even for unknown accounts so the public response reveals less timing information.
-        String replacement = passwordWork(() -> passwords.encode(replacementPassword));
-        if (initial == null) throw recoveryUnavailable();
-        transactions.executeWithoutResult(tx -> {
-            Credentials locked = credentials("id", initial.account().id(), true)
-                    .orElseThrow(AccountAuthService::recoveryUnavailable);
-            if (!locked.active() || !Realm.CUSTOMER.allows(locked.account().role())) throw recoveryUnavailable();
-            int consumed = db.update("""
-                    UPDATE account_password_recovery SET used_at = ?
-                    WHERE account_id = ? AND token_hash = ? AND used_at IS NULL AND revoked_at IS NULL AND expires_at > ?
-                    """, now(), locked.account().id(), tokenHash(code), now());
-            if (consumed != 1) throw recoveryUnavailable();
-            OffsetDateTime changed = now();
-            replacePassword(locked.account().id(), replacement, changed);
-            db.update("""
-                    UPDATE account_password_recovery SET revoked_at = ?
-                    WHERE account_id = ? AND used_at IS NULL AND revoked_at IS NULL
-                    """, changed, locked.account().id());
-            db.update("""
-                    UPDATE password_change_requests SET status='CANCELLED', expected_hash_fingerprint=NULL,
-                        replacement_hash=NULL, decided_at=? WHERE account_id=? AND status='PENDING'
-                    """, changed, locked.account().id());
-        });
-    }
-
-    private static AuthFailure recoveryUnavailable() {
-        return new AuthFailure(400, "INVALID_RECOVERY", "Mã khôi phục không hợp lệ hoặc đã hết hạn.");
-    }
-
     private void replacePassword(UUID accountId, String replacement, OffsetDateTime changedAt) {
         db.update("UPDATE accounts SET password_hash = ? WHERE id = ?", replacement, accountId);
-        db.update("""
-                UPDATE account_password_recovery SET revoked_at = ?
-                WHERE account_id = ? AND used_at IS NULL AND revoked_at IS NULL
-                """, changedAt, accountId);
         db.update("""
                 UPDATE account_sessions SET revoked_at = greatest(created_at, ?)
                 WHERE account_id = ? AND revoked_at IS NULL AND expires_at > ?

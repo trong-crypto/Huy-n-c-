@@ -17,6 +17,8 @@ const connectionLabels = {
   unresponsive: "Máy chủ chưa phản hồi.",
   unavailable: "Đã mở phòng. Gửi nhận tin nhắn sẽ khả dụng khi kết nối chat được triển khai.",
 };
+const messageTime = new Intl.DateTimeFormat("vi-VN", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Ho_Chi_Minh" });
+const messageDateTime = new Intl.DateTimeFormat("vi-VN", { dateStyle: "short", timeStyle: "short", timeZone: "Asia/Ho_Chi_Minh" });
 
 export function ChatRoomPanel({ state, subscribe, retry, messaging, lifecycleControls, roomStatus }: {
   state: Authorized; subscribe?: SubscribeToRoom; retry?: () => void; messaging?: ChatMessaging; lifecycleControls?: ReactNode; roomStatus?: ReactNode;
@@ -120,6 +122,8 @@ export function ChatRoomPanel({ state, subscribe, retry, messaging, lifecycleCon
         {Array.from(messages.values(), message => <li key={message.id} className={styles.message}
           data-own={message.author === "Bạn" ? "true" : undefined}>
           <strong>{message.author}</strong><p>{message.text}</p>
+          {message.createdAt && <time className={styles.messageTime} dateTime={message.createdAt}
+            title={messageDateTime.format(new Date(message.createdAt))}>{messageTime.format(new Date(message.createdAt))}</time>}
         </li>)}
       </ol> : <div className={styles.empty}>
         <span className={styles.emptyIcon}><ChatIcon /></span>

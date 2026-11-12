@@ -190,9 +190,9 @@ it("pushes new assigned rooms to a consultant and clears their data on session r
 });
 
 it.each([
-  { Page: ConsultationPage, accountId: userId, role: "USER", peer: "tư vấn viên" },
-  { Page: ConsultantWorkspacePage, accountId: consultantId, role: "CONSULTANT", peer: "người dùng" },
-])("notifies $role of messages before the room is open", async ({ Page, accountId, role, peer }) => {
+  { Page: ConsultationPage, accountId: userId, role: "USER" },
+  { Page: ConsultantWorkspacePage, accountId: consultantId, role: "CONSULTANT" },
+])("does not show a large message alert for $role while the room is closed", async ({ Page, accountId, role }) => {
   vi.stubGlobal("fetch", vi.fn(async (path: string) => {
     if (path.endsWith("/auth/chat/session")) return success({ accountId, role, expiresAt: expiresAt() });
     if (path.endsWith("/auth/session")) return success({ account: { id: accountId, role, displayName: "Demo" },
@@ -210,11 +210,8 @@ it.each([
     emit({ type: "MESSAGE_RECEIVED", conversationId });
     emit({ type: "MESSAGE_RECEIVED", conversationId });
   });
-  const notices = within(screen.getByRole("region", { name: "Thông báo tư vấn" }));
-  expect(notices.getByText(`Từ ${peer}.`)).toBeTruthy();
-  fireEvent.click(notices.getByRole("button", { name: "Mở hội thoại" }));
   expect(screen.queryByRole("region", { name: "Thông báo tư vấn" })).toBeNull();
-  expect(await within(screen.getByRole("region", { name: "Khung trò chuyện" })).findByText("Chờ tư vấn viên")).toBeTruthy();
+  expect(screen.getByText("Chọn một cuộc trò chuyện trong danh sách để bắt đầu.")).toBeTruthy();
 });
 
 it("blocks the wrong role before loading any room data", async () => {

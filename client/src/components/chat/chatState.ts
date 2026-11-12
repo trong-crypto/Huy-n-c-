@@ -2,7 +2,7 @@ export const chatRoutes = { user: "/tu-van", consultant: "/tu-van-vien" } as con
 
 export type ChatAudience = keyof typeof chatRoutes;
 export type ChatConnection = "connecting" | "connected" | "disconnected" | "reconnecting" | "unresponsive" | "unavailable";
-export type ChatMessage = { id: string; roomId: string; author: string; text: string };
+export type ChatMessage = { id: string; roomId: string; author: string; text: string; createdAt?: string };
 export type ChatMessaging = {
   historyStatus: "idle" | "loading" | "ready" | "error";
   delivery: "idle" | "waiting" | "unknown";
@@ -42,10 +42,12 @@ export const roomStatusLabels = {
 export function isChatMessage(value: unknown): value is ChatMessage {
   if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
   const record = value as Record<string, unknown>;
-  return ["id", "roomId", "author", "text"].every(key => {
+  const validTextFields = ["id", "roomId", "author", "text"].every(key => {
     const field = record[key];
     return Object.hasOwn(record, key) && typeof field === "string" && field.trim().length > 0;
   });
+  return validTextFields && (record.createdAt === undefined || typeof record.createdAt === "string"
+    && Number.isFinite(Date.parse(record.createdAt)));
 }
 
 export const draftLimit = 2000;

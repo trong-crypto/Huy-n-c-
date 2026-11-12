@@ -7,6 +7,7 @@ import { SiteNavigation } from "@/components/SiteNavigation";
 import { chatRoutes } from "@/components/chat/chatState";
 import { customerAuthRoutes, passwordChangeRoutes } from "@/config/customerAuthRoutes";
 import { SessionProvider } from "@/services/session/SessionProvider";
+import { ChatNotificationsProvider } from "@/components/chat/ChatNotifications";
 
 export function PublicSiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -14,7 +15,7 @@ export function PublicSiteShell({ children }: { children: ReactNode }) {
   const chatPage = pathname === chatRoutes.user || pathname === chatRoutes.consultant;
   const accountPage = pathname === customerAuthRoutes.login || pathname === customerAuthRoutes.register
     || pathname === passwordChangeRoutes.customer;
-  const content = <><SiteNavigation />{children}</>;
+  const content = <ChatNotificationsProvider><SiteNavigation />{children}</ChatNotificationsProvider>;
 
   return <>
     {chatPage || accountPage ? content : <SessionProvider>{content}</SessionProvider>}

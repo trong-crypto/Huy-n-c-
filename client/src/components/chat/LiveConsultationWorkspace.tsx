@@ -10,6 +10,7 @@ import { ConsultationWorkspace } from "./ConsultationWorkspace";
 import type { ChatAudience, ChatRoom } from "./chatState";
 import { chatRequestId, useRoomChat } from "./useRoomChat";
 import { useConsultationSocket, type ConsultationNotice } from "./useConsultationSocket";
+import { useChatNotifications } from "./ChatNotifications";
 import { clearReadingHandoff, readReadingHandoff, storeReadingHandoff, type ReadingHandoff } from "./readingHandoff";
 import styles from "./chat.module.css";
 
@@ -89,19 +90,22 @@ const endingLabels = { DECLINED: "Tư vấn viên đã từ chối yêu cầu.",
 const actionLabels = { ACCEPT: "Chấp nhận yêu cầu", DECLINE: "Từ chối yêu cầu", CANCEL: "Hủy yêu cầu", END: "Kết thúc cuộc trò chuyện" };
 const pendingActions = { user: ["CANCEL"], consultant: ["ACCEPT", "DECLINE"] } as const;
 const roomDate = new Intl.DateTimeFormat("vi-VN", { dateStyle: "short", timeStyle: "short", timeZone: "Asia/Ho_Chi_Minh" });
-const maxNotices = 8;
 
 function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSession; audience: ChatAudience; onAuthError: (code: string) => void }) {
+  const chatNotifications = useChatNotifications();
   const [directoryPage, setDirectoryPage] = useState(0);
   const [conversationPage, setConversationPage] = useState(0);
   const [reading, setReading] = useState(() => audience === "user" ? readReadingHandoff(session.accountId) : undefined);
   const [selectedConsultant, setSelectedConsultant] = useState(reading?.request?.consultantId ?? "");
   const [roomId, setRoomId] = useState<string | null>(reading?.conversationId ?? null);
+  useEffect(() => {
+    chatNotifications.activeConversation(roomId);
+    return () => chatNotifications.activeConversation(null);
+  }, [chatNotifications.activeConversation, roomId]);
   const [sending, setSending] = useState(false);
   const [sendNotice, setSendNotice] = useState("");
   const [transitioning, setTransitioning] = useState(false);
   const [roomNotice, setRoomNotice] = useState("");
-  const [notices, setNotices] = useState<ConsultationNotice[]>([]);
   const requestIds = useRef(new Map<string, string>());
   const pending = useRef<AbortController | null>(null);
   useEffect(() => () => pending.current?.abort(), []);
@@ -132,10 +136,9 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     changedRoom => {
       conversations.reload();
       if (roomId && (!changedRoom || roomId === changedRoom)) detail.reload();
-    }, onAuthError, notice => setNotices(current => [
-      notice,
-      ...current.filter(item => item.conversationId !== notice.conversationId || item.kind !== notice.kind),
-    ].slice(0, maxNotices)));
+    }, onAuthError, (notice: ConsultationNotice) => {
+      chatNotifications.markUnread(notice.conversationId, notice.kind !== "message");
+    });
   const consultants = directory.data?.items;
   const consultantId = consultants?.find(item => item.consultantId === selectedConsultant)?.consultantId ?? "";
   const roomReading = reading?.conversationId && reading.conversationId === roomId ? reading : undefined;
@@ -149,6 +152,11 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
   function discardReading() {
     if (reading) clearReadingHandoff(reading);
     setReading(undefined);
+  }
+
+  function reloadRoom() {
+    setRoomNotice("");
+    detail.reload();
   }
 
   async function create() {
@@ -240,14 +248,12 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     consultants: consultants?.map(item => ({ id: item.consultantId, name: item.displayName, profile: item.summary ?? undefined })),
   }} messaging={chat.messaging && { ...chat.messaging, notifyTyping: workspace.notifyTyping }} retry={chat.retry} controls={{
     consultantId, selectConsultant: id => { setSelectedConsultant(id); setSendNotice(""); }, create, sending, transitioning, roomId,
+    unreadConversations: chatNotifications.unreadConversations,
     ready: workspace.connected,
     prioritizeRequest: !!unattached,
-    notices,
-    dismissNotice: notice => setNotices(current => current.filter(item => item !== notice)),
     openRoom: id => {
       setRoomId(id);
       setRoomNotice("");
-      setNotices(current => current.filter(notice => notice.conversationId !== id));
       detail.reload();
     },
     directoryStatus: <>
@@ -261,7 +267,7 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
       {roomReading && room?.status === "pending" && <p role="status">Lá số sẽ sẵn sàng để gửi khi tư vấn viên chấp nhận.</p>}
       {roomReading && (room?.status === "ended" || detail.error === "NOT_FOUND") && <button type="button" className="secondary-button"
         onClick={() => updateReading({ ...roomReading, conversationId: undefined, request: undefined })}>Dùng lá số cho yêu cầu mới</button>}
-      {roomReading && room?.status === "active" && <section aria-label="Lá số đính kèm">
+      {roomReading && room?.status === "active" && <section className={styles.roomReading} aria-label="Lá số đính kèm">
         <details><summary>Lá số đính kèm</summary><p className="interpretation-text">{roomReading.text}</p></details>
         <div className={styles.actions}>
           <button type="button" className="secondary-button"
@@ -270,6 +276,8 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
             onClick={() => chat.messaging?.send(roomReading.text, roomReading.messageId)}>Gửi lá số</button>
           <button type="button" className="secondary-button" disabled={chat.messaging?.pendingId === roomReading.messageId}
             onClick={discardReading}>Bỏ lá số</button>
+          {roomId && !detail.busy && <button type="button" className="secondary-button" disabled={transitioning}
+            onClick={reloadRoom}>Tải lại phòng</button>}
         </div>
       </section>}
       {!workspace.connected && <p role="status">Đang kết nối để gửi yêu cầu và cập nhật hội thoại…</p>}
@@ -277,8 +285,8 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
       {roomNotice && <p role="alert">{roomNotice}</p>}
       {roomId && detail.busy && <p role="status">Đang mở hội thoại…</p>}
       {roomId && detail.error && <p role="alert">{detail.error === "NOT_FOUND" ? "Hội thoại này không còn khả dụng." : "Không tải được hội thoại."}</p>}
-      {roomId && !detail.busy && <button type="button" className="secondary-button" disabled={transitioning}
-        onClick={() => { setRoomNotice(""); detail.reload(); }}>Tải lại phòng</button>}
+      {roomId && !detail.busy && !(roomReading && room?.status === "active") && <button type="button" className="secondary-button" disabled={transitioning}
+        onClick={reloadRoom}>Tải lại phòng</button>}
     </>,
     lifecycleControls: actions.length > 0 && <div className={styles.actions} aria-label="Thao tác hội thoại">
       {actions.map(action => <button key={action} type="button" className="secondary-button"

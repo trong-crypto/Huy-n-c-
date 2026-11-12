@@ -50,11 +50,6 @@ final class AuthAttemptLimits {
         consume("password-change-account:" + accountId, loginPerIdentifier, now);
     }
 
-    synchronized void passwordRecovery(String ip, String identifier) {
-        long now = prune();
-        consume("password-recovery-ip:" + ip, loginPerIp, now);
-        consume("password-recovery-identifier:" + ip + ":" + identifier, loginPerIdentifier, now);
-    }
 
     private long prune() {
         long now = clock.instant().getEpochSecond();

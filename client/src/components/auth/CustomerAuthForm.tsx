@@ -56,8 +56,8 @@ export function CustomerAuthForm({ registering }: { registering: boolean }) {
         }
       } else if (!(field.type === "text" ? value.trim() : value)) {
         nextErrors[field.key] = field.requiredError;
-      } else if (field.key === "identifier" && value.includes("@") && !emailFormat.test(value.trim())) {
-        nextErrors.identifier = "Vui lòng nhập email đúng định dạng.";
+      } else if ((field.key === "identifier" && value.includes("@")) && !emailFormat.test(value.trim())) {
+        nextErrors[field.key] = "Vui lòng nhập email đúng định dạng.";
       } else if (registering && field.key === "password") {
         const length = Array.from(value).length;
         if (length < registrationPasswordLength.min || length > registrationPasswordLength.max) {

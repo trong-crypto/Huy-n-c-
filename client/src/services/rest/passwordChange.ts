@@ -7,18 +7,6 @@ export type PasswordChange = { currentPassword: string; newPassword: string };
 export type PasswordRealm = "customer" | "admin";
 export type PasswordDecision = "APPROVE" | "REJECT";
 
-export function issuePasswordRecovery(accountId: string, csrfToken: string, signal: AbortSignal) {
-  return requestJson("/auth/admin/password/recovery",
-    (value): value is { code: string; expiresAt: string } => isRecord(value)
-      && typeof value.code === "string" && /^[A-Za-z0-9_-]{43}$/.test(value.code)
-      && typeof value.expiresAt === "string" && Number.isFinite(Date.parse(value.expiresAt)),
-    signal, { accountId }, { ...adminOptions(csrfToken), method: "POST", successStatus: 201 });
-}
-
-export function recoverPassword(data: { identifier: string; code: string; newPassword: string }, signal: AbortSignal) {
-  return requestJson("/auth/password/recover", (value): value is null => value === null,
-    signal, data, { ...customerOptions(), method: "POST", successStatus: 204 });
-}
 
 export function requestPasswordChange(data: PasswordChange, csrfToken: string, signal: AbortSignal) {
   const options = customerOptions();

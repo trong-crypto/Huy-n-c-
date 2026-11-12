@@ -12,8 +12,6 @@ Hợp đồng 1.0 cho AUTH-01–07 và DATA-01–05. Backend đã triển khai v
 | `POST /api/v1/auth/password/change` | Cookie khách hàng, Origin và CSRF | `204`, đổi mật khẩu USER hoặc CONSULTANT và xóa cookie khách hàng. |
 | `POST /api/v1/auth/password/requests` | Cookie khách hàng, Origin, CSRF và JSON `currentPassword`, `newPassword` | `202`, xác minh mật khẩu hiện tại và tạo một yêu cầu `PENDING` cho tài khoản. |
 | `POST /api/v1/auth/admin/password/requests` | Cookie Admin, Origin, CSRF và JSON `accountId`, `requestId`, `decision` (`APPROVE` hoặc `REJECT`) | `204`, xử lý đúng yêu cầu. Duyệt sẽ thay mật khẩu và thu hồi các phiên đăng nhập của tài khoản. |
-| `POST /api/v1/auth/admin/password/recovery` | Cookie Admin, Origin, CSRF và JSON `accountId` | `201`, cấp mã khôi phục một lần cho USER/CONSULTANT đang hoạt động, hết hạn sau 15 phút. Mã chỉ trả trong phản hồi này. |
-| `POST /api/v1/auth/password/recover` | Origin và JSON `identifier`, `code`, `newPassword` | `204`, đặt mật khẩu mới khi mã còn hạn; thu hồi mọi phiên cũ và yêu cầu đổi mật khẩu đang chờ. |
 | `POST /api/v1/auth/logout` | Cookie khách hàng và header CSRF, body `{}` | `204`, thu hồi phiên và xóa cookie khách hàng. |
 | `POST /api/v1/auth/admin/login` | JSON gồm `identifier`, `password` | `200`, cấp cookie Admin và trả dữ liệu phiên. Chỉ nhận tài khoản `ADMIN`. |
 | `GET /api/v1/auth/admin/session` | Cookie Admin | `200`, trả dữ liệu phiên Admin. |
@@ -24,7 +22,6 @@ Hợp đồng 1.0 cho AUTH-01–07 và DATA-01–05. Backend đã triển khai v
 - TV1 điều hướng từ role do Server trả về. `USER` về trang công khai, `ADMIN` vào `/admin`. Chỉ bật điều hướng `CONSULTANT` tới workspace sau khi workspace và quyền tương ứng sẵn sàng.
 - Mọi API Admin kiểm phiên Admin và quyền trên Server. Thiếu phiên hợp lệ trả `401`, gồm cả trường hợp chỉ có cookie khách hàng. Đăng nhập đúng mật khẩu nhưng sai cổng theo role, hoặc thao tác với phiên hợp lệ nhưng thiếu quyền yêu cầu, trả `403 FORBIDDEN`. Role lấy từ DB. Các API sửa dữ liệu Admin kiểm thêm Origin và CSRF.
 - Với V36, khách hàng đã đăng nhập có thể gửi yêu cầu từ trang Đổi mật khẩu. Admin lọc `GET /api/v1/admin/accounts?passwordRequest=pending` và xử lý trong chi tiết tài khoản. Chỉ bản băm Argon2id của mật khẩu mới được lưu khi chờ duyệt. Sau duyệt, từ chối hoặc đổi trực tiếp, bản ghi giữ trạng thái xử lý và xóa dữ liệu băm của yêu cầu.
-- V37 bổ sung khôi phục khi quên mật khẩu. Email và số điện thoại hiện chưa được xác minh quyền sở hữu, nên Admin phải kiểm tra danh tính qua kênh khác trước khi cấp mã. Admin trao mã riêng cho đúng người; hệ thống không gửi mật khẩu mới cho Admin. Mã ngẫu nhiên 256 bit, lưu SHA-256, dùng một lần và có hạn 15 phút. Cấp mã mới vô hiệu mã cũ. Đổi mật khẩu thành công vô hiệu mọi mã còn lại và thu hồi các phiên. Không cấp mã cho ADMIN theo luồng này.
 
 ## Dữ liệu gửi và nhận
 

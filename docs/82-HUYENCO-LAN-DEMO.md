@@ -1,6 +1,5 @@
 # Huyền Cơ · Hướng dẫn chạy Client và Admin
 
-**Cập nhật ngày 12/11/2026:** database chính `huyenco` đã được sao lưu và nâng lên Flyway V37 để hỗ trợ khôi phục mật khẩu. Bản sao lưu: `scripts/generated/db-backups/huyenco-before-v37-20261112T113903.dump`. Để dùng chức năng mới, khởi động lại Backend bằng source hiện tại; đăng nhập và mở `/admin/users` để Admin cấp mã sau khi xác minh danh tính, còn người dùng mở `/quen-mat-khau` để đặt lại mật khẩu. Không cần gửi mật khẩu mới cho Admin.
 
 **Cập nhật ngày 11/11/2026:** `huyenco` đã được sao lưu và nâng từ V12 lên V34. Lượt nâng thử trên bản khôi phục đạt trước khi áp dụng vào database chính. Đối chiếu 17 bảng cũ giữ nguyên mọi bản ghi. Migration thêm một mục nguồn và một quy tắc Trượng xích chiêm. Kiểm toán tri thức đạt `FAIL=0 | PENDING=0`; Backend kiểm chỉ đọc đạt health, readiness READY, tra quẻ Tỉnh và API nội dung V34. Sau đó đã nhập và công bố 64 bài cùng 384 đoạn giải hào theo phê duyệt của chủ dự án. Hai quẻ Bác và Cách để trống nguyên văn lời quẻ do dị bản; phần diễn nghĩa và giải hào vẫn có. Xem [hồ sơ công bố](86-HEXAGRAM-INTERPRETATION-HANDOFF.md).
 
@@ -25,7 +24,7 @@ $pgBin = 'C:\Program Files\PostgreSQL\18\bin'
 & "$pgBin\pg_isready.exe" -h 127.0.0.1 -p 5432
 ```
 
-Dùng **database TEST riêng có dữ liệu nguồn và Flyway V37**. Nếu đã có TEST V37, chuyển tới mục 2. Nếu chưa, có thể tạo TEST mới theo các bước dưới đây. Để nâng một database đã có dữ liệu, dừng Backend đang dùng database đó, sao lưu bằng `pg_dump`, đặt `DB_URL`, `DB_USERNAME` và `DB_PASSWORD` cho đúng đích rồi chạy `.\mvnw.cmd -Pdatabase '-Dflyway.target=37' flyway:migrate` từ thư mục `server`. V35 thêm số điện thoại tùy chọn. V36 thêm bảng yêu cầu đổi mật khẩu. V37 thêm mã khôi phục mật khẩu.
+Dùng **database TEST riêng có dữ liệu nguồn và Flyway V37**. Nếu đã có TEST V37, chuyển tới mục 2. Nếu chưa, có thể tạo TEST mới theo các bước dưới đây. Để nâng một database đã có dữ liệu, dừng Backend đang dùng database đó, sao lưu bằng `pg_dump`, đặt `DB_URL`, `DB_USERNAME` và `DB_PASSWORD` cho đúng đích rồi chạy `.\mvnw.cmd -Pdatabase '-Dflyway.target=37' flyway:migrate` từ thư mục `server`. V35 thêm số điện thoại tùy chọn. V36 thêm bảng yêu cầu đổi mật khẩu.
 
 ### Tạo database TEST mới nếu cần
 

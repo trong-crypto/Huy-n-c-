@@ -69,6 +69,12 @@ select:disabled, input:disabled, fieldset:disabled { cursor: not-allowed; }
 .navigation-links { gap: 4px; }
 .navigation-links a { padding-inline: 7px; }
 .navigation-links a:hover, .navigation-account a:hover, .navigation-account button:not(:disabled):hover { color: var(--primary-hover); background: var(--soft); }
+.navigation-links a[href="/tu-van"] { position: relative; }
+.navigation-unread-dot { display: inline-block; width: 9px; height: 9px; flex: 0 0 9px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2px #291a3d, 0 0 10px rgb(255 255 255 / 45%); }
+.navigation-unread-dot { position: absolute; top: 7px; right: 8px; }
+.chat-toast { position: fixed; z-index: 1200; top: 16px; right: 18px; display: flex; align-items: center; gap: 16px; max-width: min(420px, calc(100vw - 32px)); padding: 14px 16px; border: 1px solid var(--gold-muted); border-radius: 12px; background: #211735; color: var(--primary-hover); box-shadow: 0 12px 35px rgb(0 0 0 / 35%); }
+.chat-toast a { color: inherit; text-decoration: none; }
+.chat-toast button { width: auto; min-height: 32px; padding: 2px 8px; border: 0; background: transparent; color: inherit; cursor: pointer; font-size: 22px; }
 .navigation-links a[aria-current="page"], .navigation-account a[aria-current="page"] { color: var(--primary-hover); background: rgb(215 180 106 / 9%); border-color: var(--border); }
 .navigation-account { min-height: 44px; align-items: center; min-width: 0; padding-left: 12px; border-left: 1px solid var(--border); }
 .navigation-account .navigation-register { color: var(--primary-hover); border-color: var(--gold-muted); }

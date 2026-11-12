@@ -48,7 +48,6 @@ final class AccountAuthController {
     private static final int MAX_BODY = 16 * 1024;
     private static final int REGISTRATION_PASSWORD_MIN_LENGTH = 8;
     private static final Pattern USERNAME = Pattern.compile("[a-zA-Z0-9._-]{3,32}");
-    private static final Pattern RECOVERY_CODE = Pattern.compile("[a-zA-Z0-9_-]{43}");
     private static final Pattern EMAIL_LOCAL = Pattern.compile("[a-zA-Z0-9_+%-]+(?:\\.[a-zA-Z0-9_+%-]+)*");
     private static final Pattern DOMAIN_LABEL = Pattern.compile("[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?");
     private final AccountAuthService service;
@@ -187,38 +186,6 @@ final class AccountAuthController {
         });
     }
 
-    @PostMapping("/admin/password/recovery")
-    ResponseEntity<Envelope> issuePasswordRecovery(HttpServletRequest request) {
-        return handle(request, () -> {
-            guards.mutation(request);
-            var session = service.requireSession(Realm.ADMIN, token(request, Realm.ADMIN));
-            service.checkCsrf(session, header(request, "X-CSRF-Token"));
-            var body = body(request, Set.of("accountId"));
-            try {
-                String value = text(body, "accountId");
-                UUID accountId = UUID.fromString(value);
-                if (!accountId.toString().equals(value)) throw AuthFailure.invalid();
-                return success(201, service.issueRecovery(accountId, session.account().id()), null);
-            } catch (IllegalArgumentException invalid) {
-                throw AuthFailure.invalid();
-            }
-        });
-    }
-
-    @PostMapping("/password/recover")
-    ResponseEntity<Envelope> recoverPassword(HttpServletRequest request) {
-        return handle(request, () -> {
-            guards.mutation(request);
-            var body = body(request, Set.of("identifier", "code", "newPassword"));
-            String identifier = identifier(text(body, "identifier"));
-            String code = text(body, "code");
-            if (!RECOVERY_CODE.matcher(code).matches()) throw AuthFailure.invalid();
-            String replacement = password(body, "newPassword", REGISTRATION_PASSWORD_MIN_LENGTH);
-            limits.passwordRecovery(request.getRemoteAddr(), identifier);
-            service.recoverPassword(identifier, code, replacement);
-            return ResponseEntity.noContent().cacheControl(CacheControl.noStore()).build();
-        });
-    }
 
     private JsonNode body(HttpServletRequest request, Set<String> fields, String... optionalFields) {
         try {

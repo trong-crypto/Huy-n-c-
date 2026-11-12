@@ -6,9 +6,11 @@ import { BrandSymbol } from "@/components/ui/CelestialArt";
 import { divinationCatalog, methodCatalogHref } from "@/config/divinationCatalog";
 import { chatRoutes } from "@/components/chat/chatState";
 import { NavigationAccount } from "./NavigationAccount";
+import { useChatNotifications } from "@/components/chat/ChatNotifications";
 
 export function SiteNavigation() {
   const pathname = usePathname();
+  const { unreadConversations } = useChatNotifications();
   const onMethodForm = divinationCatalog.some(({ href }) => pathname === href || pathname.startsWith(`${href}/`));
   return (
     <header className="site-header">
@@ -24,6 +26,7 @@ export function SiteNavigation() {
               || (link.href === methodCatalogHref && onMethodForm)
               || (link.href === chatRoutes.user && pathname === chatRoutes.consultant) ? "page" : undefined}>
               {link.label}
+              {link.href === chatRoutes.user && unreadConversations.size > 0 && <span className="navigation-unread-dot" aria-hidden="true" />}
             </Link>
           ))}
         </div>

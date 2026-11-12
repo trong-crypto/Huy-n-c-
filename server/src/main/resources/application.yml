@@ -29,4 +29,3 @@ huyenco:
     login-per-identifier: ${AUTH_LOGIN_PER_IDENTIFIER:10}
     register-per-ip: ${AUTH_REGISTER_PER_IP:10}
 
-
