@@ -120,7 +120,7 @@ class MethodCatalogDatabaseTest {
         var guidePath = "/api/v1/admin/method-guides";
         mvc.perform(admin.send(post(guidePath), json.createObjectNode().put("methodCode", "TIME")
                         .put("title", "Hướng dẫn gốc").put("body", "Các bước hướng dẫn.")))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated()).andExpect(jsonPath("$.data.published.title").value("Hướng dẫn gốc"));
         mvc.perform(admin.send(put(time), metadata("MAI_HOA", false).put("expectedVersion", 1)))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.data.method.state").value("HIDDEN"));
         mvc.perform(get(PUBLIC)).andExpect(status().isOk())
@@ -128,7 +128,7 @@ class MethodCatalogDatabaseTest {
                 .andExpect(jsonPath("$.data.items[?(@.method.code=='TAM_THE')]").isNotEmpty());
         mvc.perform(admin.send(put(guidePath + "/TIME/draft"), version(1).put("title", "Hướng dẫn đã sửa")
                         .put("body", "Nội dung hướng dẫn tiếp tục chỉnh sửa.")))
-                .andExpect(status().isOk()).andExpect(jsonPath("$.data.working.title").value("Hướng dẫn đã sửa"));
+                .andExpect(status().isOk()).andExpect(jsonPath("$.data.published.title").value("Hướng dẫn đã sửa"));
         mvc.perform(admin.send(put(time), metadata("MAI_HOA", true).put("expectedVersion", 2)))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.data.method.state").value("LISTED"));
         mvc.perform(get(PUBLIC)).andExpect(status().isOk())

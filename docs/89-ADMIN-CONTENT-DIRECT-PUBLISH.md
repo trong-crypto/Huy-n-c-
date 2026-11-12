@@ -24,4 +24,3 @@ Trong mô hình một Admin, thao tác **Lưu và cập nhật** ghi một phiê
 Migration `V39__single_admin_direct_content_publication.sql` gỡ ràng buộc bắt buộc Admin thứ hai cho việc công bố luận giải. Flyway áp dụng migration khi Backend khởi động theo cấu hình hiện có. Không cần chỉnh tay dữ liệu hoặc bảng trong PostgreSQL.
 
 Các trạng thái `PENDING_REVIEW` và các endpoint duyệt cũ vẫn được giữ để đọc lịch sử và tương thích bản ghi cũ. Giao diện biên tập hiện tại không tạo thêm bước chờ duyệt.
-

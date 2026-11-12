@@ -78,7 +78,7 @@ TV2/TV3 cần duyệt độ chính xác, đối chiếu quyền sử dụng và 
 
 Mỗi phiên bản luận giải có thể lưu một bài thơ trong `cms_hexagram_interpretation_revisions.content` (JSONB). `PUT /api/v1/admin/hexagrams/{code}/interpretation` nhận trường `content.poem` với `title` (tối đa 120 ký tự), `body` (8.000), `author` (160) và `source` tùy chọn (500). Ba trường đầu bắt buộc khi có bài thơ. Nội dung giữ nguyên xuống dòng.
 
-Khi yêu cầu lưu không gửi `poem`, Backend giữ bài thơ của bản mới nhất. Gửi `poem: null` để lưu một phiên bản không có bài thơ. Bản đã công bố chỉ thay đổi sau khi phiên bản mới được công bố theo quy trình hiện có. Bản ghi phiên bản lưu người soạn và thời điểm lưu. Các sự kiện gửi duyệt, trả về và công bố ghi người thực hiện và thời điểm trong `cms_hexagram_interpretation_events`.
+Khi yêu cầu lưu không gửi `poem`, Backend giữ bài thơ của bản mới nhất. Gửi `poem: null` để lưu một phiên bản không có bài thơ. Từ V39, lưu với nguồn `VERIFIED` sẽ công bố phiên bản mới ngay. Các bản nháp cũ hoặc được nhập từ gói biên tập chỉ hiển thị trong CMS cho đến khi Admin lưu và cập nhật. Bản ghi phiên bản lưu người soạn và thời điểm lưu. Các sự kiện gửi duyệt, trả về và công bố ghi người thực hiện và thời điểm trong `cms_hexagram_interpretation_events`.
 
 ### Nhập bộ thơ biên soạn mới ngày 12/11/2026
 

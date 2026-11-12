@@ -2,6 +2,7 @@ import { act, fireEvent, render, screen, waitFor, within } from "@testing-librar
 import { beforeEach, expect, it, vi } from "vitest";
 import ConsultationPage from "@/app/tu-van/page";
 import ConsultantWorkspacePage from "@/app/tu-van-vien/page";
+import { ChatNotificationsProvider } from "./ChatNotifications";
 import { readReadingHandoff, storeReadingHandoff } from "./readingHandoff";
 
 vi.mock("@/config/client", async importOriginal => {
@@ -11,29 +12,43 @@ vi.mock("@/config/client", async importOriginal => {
 
 const stomp = vi.hoisted(() => ({
   publish: vi.fn(),
-  subscriptions: new Map<string, (frame: { body: string }) => void>(),
+  subscriptions: new Map<string, Set<(frame: { body: string }) => void>>(),
   connect: vi.fn(),
-  error: (() => {}) as (frame: { headers: { message: string } }) => void,
+  errors: new Set<(frame: { headers: { message: string } }) => void>(),
 }));
 vi.mock("@stomp/stompjs", () => ({
   Client: class {
     connected = false;
+    private readonly subscriptions = new Map<string, (frame: { body: string }) => void>();
     constructor(private options: {
-      onConnect: () => void; onStompError: typeof stomp.error; connectHeaders: Record<string, string>;
+      onConnect: () => void; onStompError: (frame: { headers: { message: string } }) => void; connectHeaders: Record<string, string>;
     }) {}
     activate() {
       this.connected = true;
       stomp.connect(this.options.connectHeaders);
-      stomp.error = this.options.onStompError;
+      stomp.errors.add(this.options.onStompError);
       this.options.onConnect();
     }
-    deactivate() { this.connected = false; }
-    subscribe(destination: string, receive: (frame: { body: string }) => void) { stomp.subscriptions.set(destination, receive); }
+    deactivate() {
+      this.connected = false;
+      stomp.errors.delete(this.options.onStompError);
+      for (const [destination, receive] of this.subscriptions) {
+        const listeners = stomp.subscriptions.get(destination);
+        listeners?.delete(receive);
+        if (!listeners?.size) stomp.subscriptions.delete(destination);
+      }
+    }
+    subscribe(destination: string, receive: (frame: { body: string }) => void) {
+      this.subscriptions.set(destination, receive);
+      const listeners = stomp.subscriptions.get(destination) ?? new Set();
+      listeners.add(receive);
+      stomp.subscriptions.set(destination, listeners);
+    }
     publish(command: { destination: string; body?: string }) {
-      if (command.body === JSON.stringify({ action: "SYNC" })) emit({ type: "READY" });
+      if (command.body === JSON.stringify({ action: "SYNC" })) this.subscriptions.get(workspaceQueue)?.({ body: JSON.stringify({ type: "READY" }) });
       else if (command.destination.endsWith("/sync")) {
         const conversationId = command.destination.split("/").at(-2);
-        stomp.subscriptions.get(`/user/queue/chat/rooms/${conversationId}`)?.({
+        this.subscriptions.get(`/user/queue/chat/rooms/${conversationId}`)?.({
           body: JSON.stringify({ type: "READY", conversationId }),
         });
       } else stomp.publish(command);
@@ -41,14 +56,20 @@ vi.mock("@stomp/stompjs", () => ({
   },
 }));
 const workspaceQueue = "/user/queue/chat/workspace";
-function emit(value: object) {
-  stomp.subscriptions.get(workspaceQueue)?.({ body: JSON.stringify(value) });
+function emit(value: object, destination = workspaceQueue) {
+  for (const receive of stomp.subscriptions.get(destination) ?? []) receive({ body: JSON.stringify(value) });
 }
 beforeEach(() => {
   stomp.publish.mockReset();
   stomp.connect.mockClear();
   stomp.subscriptions.clear();
+  stomp.errors.clear();
   sessionStorage.clear();
+  const storage = new Map<string, string>();
+  vi.stubGlobal("localStorage", {
+    getItem: (key: string) => storage.get(key) ?? null,
+    setItem: (key: string, value: string) => storage.set(key, value),
+  });
 });
 
 const userId = "550e8400-e29b-41d4-a716-446655440003";
@@ -92,9 +113,8 @@ it("binds a reading to the requested room, restores it after reload and sends it
     }
     if (destination.endsWith("/send")) {
       expect(payload).toEqual({ clientMessageId: messageId, text });
-      stomp.subscriptions.get(`/user/queue/chat/rooms/${conversationId}`)?.({ body: JSON.stringify({
-        type: "ACK", conversationId, clientMessageId: messageId, messageId: requestId, sequence: "1", createdAt: room.createdAt,
-      }) });
+      emit({ type: "ACK", conversationId, clientMessageId: messageId, messageId: requestId, sequence: "1", createdAt: room.createdAt },
+        `/user/queue/chat/rooms/${conversationId}`);
     }
   });
   const view = render(<ConsultationPage />);
@@ -107,7 +127,7 @@ it("binds a reading to the requested room, restores it after reload and sends it
   expect(readReadingHandoff(userId)?.conversationId).toBe(conversationId);
   expect(readReadingHandoff(consultantId)).toBeUndefined();
   view.unmount();
-  render(<ConsultationPage />);
+  render(<ChatNotificationsProvider><ConsultationPage /></ChatNotificationsProvider>);
   await screen.findByText(/Lá số sẽ sẵn sàng/);
   fireEvent.click(await screen.findByRole("button", { name: /550e8400/ , pressed: false }));
   expect(screen.queryByText(/Lá số sẽ sẵn sàng/)).toBeNull();
@@ -115,8 +135,9 @@ it("binds a reading to the requested room, restores it after reload and sends it
   fireEvent.click(await screen.findByRole("button", { name: /550e8400/, pressed: false }));
   await screen.findByText(/Lá số sẽ sẵn sàng/);
   current = { ...current, status: "ACTIVE", startedAt: "2026-11-09T03:01:00Z" };
+  await waitFor(() => expect(stomp.subscriptions.get(workspaceQueue)?.size).toBe(2));
   act(() => emit({ type: "ROOM_CHANGED", conversationId, status: "ACTIVE" }));
-  expect(screen.getByText("Tư vấn viên đã chấp nhận yêu cầu. Phòng chat đã mở.")).toBeTruthy();
+  expect(screen.getByRole("link", { name: /tư vấn viên đã chấp nhận yêu cầu/ }).getAttribute("href")).toBe("/tu-van");
   const sendReading = await screen.findByRole<HTMLButtonElement>("button", { name: "Gửi lá số" });
   await waitFor(() => expect(sendReading.disabled).toBe(false));
   expect(stomp.publish.mock.calls.some(([frame]) => frame.destination.endsWith("/send"))).toBe(false);
@@ -173,17 +194,19 @@ it("pushes new assigned rooms to a consultant and clears their data on session r
     throw new Error(`Unexpected request ${path}`);
   });
   vi.stubGlobal("fetch", fetch);
-  render(<ConsultantWorkspacePage />);
+  render(<ChatNotificationsProvider><ConsultantWorkspacePage /></ChatNotificationsProvider>);
   await screen.findByText("Chưa có cuộc trò chuyện.");
-  await waitFor(() => expect(stomp.subscriptions.has(workspaceQueue)).toBe(true));
+  await waitFor(() => expect(stomp.subscriptions.get(workspaceQueue)?.size).toBe(2));
   assigned = true;
   act(() => emit({ type: "ROOM_CREATED", conversationId, status: "PENDING" }));
-  expect(screen.getByText("Bạn có yêu cầu tư vấn mới.")).toBeTruthy();
-  fireEvent.click(screen.getByRole("button", { name: "Xem yêu cầu" }));
+  expect(screen.getByRole("link", { name: "Bạn có yêu cầu tư vấn mới." }).getAttribute("href")).toBe("/tu-van-vien");
+  const unread = await screen.findByRole("button", { name: /Có tin nhắn chưa đọc/ });
+  fireEvent.click(unread);
   expect(screen.queryByText("Bạn có yêu cầu tư vấn mới.")).toBeNull();
+  expect(screen.queryByLabelText("Có tin nhắn chưa đọc")).toBeNull();
   const panel = within(screen.getByRole("region", { name: "Khung trò chuyện" }));
   await panel.findByText("Chờ tư vấn viên");
-  act(() => stomp.error({ headers: { message: "INVALID_SESSION" } }));
+  act(() => { for (const error of [...stomp.errors]) error({ headers: { message: "INVALID_SESSION" } }); });
   expect(await screen.findByRole("link", { name: "Đăng nhập để tiếp tục" })).toBeTruthy();
   expect(screen.queryByRole("button", { name: /^Hội thoại ·/ })).toBeNull();
   expect(fetch.mock.calls.some(([path]) => path.includes("/chat/consultants"))).toBe(false);

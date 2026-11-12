@@ -149,7 +149,7 @@ function Workspace({ initial, lines, auth, reload }: {
         <fieldset className={styles.interpretationGroup}>
           <legend>Bài thơ diễn nghĩa</legend>
           {poem ? <>
-            <p className="field-hint">Cần nhập tiêu đề, nội dung và tác giả hoặc đơn vị biên soạn. Thơ chỉ thay đổi trên trang người dùng sau khi bản mới được công bố.</p>
+            <p className="field-hint">Cần nhập tiêu đề, nội dung và tác giả hoặc đơn vị biên soạn. Thơ được cập nhật trên trang người dùng khi lưu thành công với nguồn đã xác minh.</p>
             <FormField id="interpretation-poem-title" label="Tiêu đề bài thơ">
               <input id="interpretation-poem-title" maxLength={120} required value={poem.title}
                 onChange={event => changePoem({ ...poem, title: event.target.value })} />
@@ -166,7 +166,7 @@ function Workspace({ initial, lines, auth, reload }: {
               <input id="interpretation-poem-source" maxLength={500} value={poem.source ?? ""}
                 onChange={event => changePoem({ ...poem, source: event.target.value })} />
             </FormField>
-            <button type="button" className="secondary-button" onClick={() => changePoem(null)}>Xóa bài thơ khỏi bản nháp</button>
+            <button type="button" className="secondary-button" onClick={() => changePoem(null)}>Xóa bài thơ</button>
           </> : <>
             <p>Chưa có bài thơ.</p>
             <button type="button" className="secondary-button"

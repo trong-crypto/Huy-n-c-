@@ -32,7 +32,7 @@ it("connects a guide validation error to its field and retains the unsaved title
   const title = await screen.findByLabelText("Tiêu đề") as HTMLInputElement;
   fireEvent.change(title, { target: { value: "Bản nhập chưa lưu" } });
   fireEvent.change(screen.getByLabelText("Nội dung"), { target: { value: "Nội dung kiểm thử" } });
-  fireEvent.click(screen.getByRole("button", { name: "Lưu bản nháp" }));
+  fireEvent.click(screen.getByRole("button", { name: "Lưu và cập nhật" }));
   expect((await screen.findByRole("alert")).textContent).toBe("Kiểm tra tiêu đề bài hướng dẫn.");
   expect(title.getAttribute("aria-describedby")).toBe("guide-title-error");
   expect(title.value).toBe("Bản nhập chưa lưu");
@@ -54,7 +54,7 @@ it("shows the gloss source error inline, then keeps unsaved content on a conflic
   render(<HexagramGlossWorkspace code={code} refreshPublic={vi.fn()} />);
   const content = await screen.findByLabelText("Nghĩa tên đề xuất") as HTMLInputElement;
   fireEvent.change(content, { target: { value: "<b>Nội dung giữ lại</b>" } });
-  const save = screen.getByRole("button", { name: "Lưu bản nháp" }) as HTMLButtonElement;
+  const save = screen.getByRole("button", { name: "Lưu và cập nhật" }) as HTMLButtonElement;
   fireEvent.click(save);
   expect((await screen.findByRole("alert")).textContent).toBe("Chọn trang nguồn có đủ thông tin đối chiếu.");
   expect(screen.getByLabelText("Trang nguồn đối chiếu").getAttribute("aria-describedby")).toBe("hexagram-gloss-source-error");

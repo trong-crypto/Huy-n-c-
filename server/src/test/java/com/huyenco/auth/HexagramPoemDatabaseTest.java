@@ -51,9 +51,8 @@ class HexagramPoemDatabaseTest {
     @Autowired AccountAuthService accounts;
 
     @Test
-    void preservesOldInterpretationAndPublishesOnlyReviewedPoemRevisions() throws Exception {
+    void publishesPoemEditsDirectlyAndPreservesPriorRevisions() throws Exception {
         var editor = signIn("ADMIN");
-        var reviewer = signIn("ADMIN");
         assertEquals(64, db.queryForObject("SELECT count(*) FROM hexagrams", Integer.class));
         assertEquals(384, db.queryForObject("SELECT count(*) FROM hexagram_lines", Integer.class));
         var catalogBefore = catalogFingerprint();
@@ -63,9 +62,6 @@ class HexagramPoemDatabaseTest {
                 """, SOURCE, CODE);
 
         var initial = adminState(editor);
-        if (initial.path("status").asText().equals("PENDING_REVIEW")) {
-            initial = workflow(reviewer, initial.path("version").asInt(), "RETURN");
-        }
         var oldPublication = publicReading().path("publication");
         var oldContent = initial.at("/latest/content");
         ObjectNode document = oldContent.isObject() ? (ObjectNode) oldContent.deepCopy() : sampleContent();
@@ -91,36 +87,47 @@ class HexagramPoemDatabaseTest {
             mvc.perform(editor.send(put(ADMIN), saveBody(expected, bad))).andExpect(status().isBadRequest());
         }
 
-        var draft = save(editor, expected, withPoem);
-        assertEquals(withPoem, draft.at("/latest/content"));
+        db.update("UPDATE cms_hexagram_interpretation_sources SET review_status='SOURCE_LOCATED' WHERE id=?", SOURCE);
+        mvc.perform(editor.send(put(ADMIN), saveBody(expected, withPoem)))
+                .andExpect(status().isBadRequest()).andExpect(jsonPath("$.error.code").value("INVALID_SOURCE"));
         assertEquals(oldPublication, publicReading().path("publication"));
-        var legacySave = save(editor, draft.path("version").asInt(), document);
-        assertEquals(withPoem, legacySave.at("/latest/content"));
-        var pending = workflow(editor, legacySave.path("version").asInt(), "SUBMIT");
-        mvc.perform(editor.send(post(ADMIN + "/workflow"), action(pending.path("version").asInt(), "PUBLISH")))
-                .andExpect(status().isForbidden());
-        assertEquals(oldPublication, publicReading().path("publication"));
-        var published = workflow(reviewer, pending.path("version").asInt(), "PUBLISH");
+        assertEquals(expected, adminState(editor).path("version").asInt());
+        db.update("UPDATE cms_hexagram_interpretation_sources SET review_status='VERIFIED' WHERE id=?", SOURCE);
+
+        var published = save(editor, expected, withPoem);
+        assertEquals("PUBLISHED", published.path("status").asText());
+        assertEquals(withPoem, published.at("/latest/content"));
         int firstVersion = published.path("publishedVersion").asInt();
+        assertEquals(firstVersion, published.at("/latest/version").asInt());
         assertEquals(withPoem, publicReading().at("/publication/content"));
+        mvc.perform(editor.send(post(ADMIN + "/workflow"), action(published.path("version").asInt(), "SUBMIT")))
+                .andExpect(status().isConflict()).andExpect(jsonPath("$.error.code").value("INVALID_TRANSITION"));
+
+        // Reproduce a draft left by the old workflow without a publication event.
+        var previousDraft = document.deepCopy();
+        previousDraft.set("poem", poem.deepCopy().put("title", "TEST: Bản nháp cũ"));
+        db.update("""
+                INSERT INTO cms_hexagram_interpretation_revisions(hexagram_code,version,content,source_snapshot,created_by)
+                SELECT hexagram_code,version+1,?::jsonb,source_snapshot,created_by
+                FROM cms_hexagram_interpretation_revisions WHERE hexagram_code=? AND version=?
+                """, previousDraft.toString(), CODE, firstVersion);
+        var oldDraft = adminState(editor);
+        assertEquals("DRAFT", oldDraft.path("status").asText());
+        assertEquals(withPoem, publicReading().at("/publication/content"));
+        var legacySave = save(editor, oldDraft.path("version").asInt(), document);
+        assertEquals(previousDraft, legacySave.at("/latest/content"));
+        assertEquals(previousDraft, publicReading().at("/publication/content"));
 
         var amended = withPoem.deepCopy();
         var revisedPoem = poem.deepCopy().put("body", "Thơ đã sửa\nDòng hai");
         revisedPoem.remove("source");
         amended.set("poem", revisedPoem);
-        var edited = save(editor, published.path("version").asInt(), amended);
-        assertEquals(withPoem, publicReading().at("/publication/content"));
-        var editPending = workflow(editor, edited.path("version").asInt(), "SUBMIT");
-        var returned = workflow(reviewer, editPending.path("version").asInt(), "RETURN");
-        var resubmitted = workflow(editor, returned.path("version").asInt(), "SUBMIT");
-        var second = workflow(reviewer, resubmitted.path("version").asInt(), "PUBLISH");
+        var edited = save(editor, legacySave.path("version").asInt(), amended);
         assertEquals(amended, publicReading().at("/publication/content"));
 
-        var removal = save(editor, second.path("version").asInt(), document.deepCopy().putNull("poem"));
+        var removal = save(editor, edited.path("version").asInt(), document.deepCopy().putNull("poem"));
+        assertEquals("PUBLISHED", removal.path("status").asText());
         assertEquals(document, removal.at("/latest/content"));
-        assertEquals(amended, publicReading().at("/publication/content"));
-        var removalPending = workflow(editor, removal.path("version").asInt(), "SUBMIT");
-        workflow(reviewer, removalPending.path("version").asInt(), "PUBLISH");
         var finalContent = publicReading().at("/publication/content");
         assertFalse(finalContent.has("poem"));
         assertEquals(document, finalContent);
@@ -128,7 +135,7 @@ class HexagramPoemDatabaseTest {
         assertEquals(editor.id(), db.queryForObject("""
                 SELECT created_by FROM cms_hexagram_interpretation_revisions WHERE hexagram_code=? AND version=?
                 """, UUID.class, CODE, firstVersion));
-        assertEquals(reviewer.id(), db.queryForObject("""
+        assertEquals(editor.id(), db.queryForObject("""
                 SELECT actor_id FROM cms_hexagram_interpretation_events WHERE hexagram_code=? AND revision=? AND action='PUBLISH'
                 """, UUID.class, CODE, firstVersion));
         assertEquals(catalogBefore, catalogFingerprint());
@@ -168,16 +175,11 @@ class HexagramPoemDatabaseTest {
 
     private ObjectNode action(int version, String action) {
         var body = json.createObjectNode().put("expectedVersion", version).put("action", action);
-        if (!action.equals("SUBMIT")) body.put("reviewNote", "Kiểm thử workflow");
         return body;
     }
 
     private JsonNode save(Session session, int version, ObjectNode content) throws Exception {
         return data(session.send(put(ADMIN), saveBody(version, content)));
-    }
-
-    private JsonNode workflow(Session session, int version, String action) throws Exception {
-        return data(session.send(post(ADMIN + "/workflow"), action(version, action)));
     }
 
     private JsonNode data(MockHttpServletRequestBuilder request) throws Exception {
