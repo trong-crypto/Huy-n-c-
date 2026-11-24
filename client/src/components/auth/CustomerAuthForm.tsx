@@ -90,8 +90,8 @@ export function CustomerAuthForm({ registering }: { registering: boolean }) {
           ...(phoneNumber && { phoneNumber }) }, request.signal);
         window.location.assign(customerAuthRoutes.login);
       } else {
-        await loginCustomer(credentials, request.signal);
-        window.location.assign("/history");
+        const session = await loginCustomer(credentials, request.signal);
+        window.location.assign(session.account.role === "CONSULTANT" ? "/tu-van-vien" : "/history");
       }
     } catch (failure) {
       if (request.signal.aborted) return;

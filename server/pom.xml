@@ -40,6 +40,9 @@
   <profiles>
     <profile>
       <id>database</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <dependencies>
         <dependency>
           <groupId>org.springframework.security</groupId>

@@ -2,7 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
-import { readChatCsrf, readChatSession } from "@/services/rest/chat";
+import { listConversations, readRoomMessages, readChatCsrf, readChatSession } from "@/services/rest/chat";
 import { RestError } from "@/services/rest/transport";
 import { useAuthenticatedSocket } from "@/services/websocket/useAuthenticatedSocket";
 import type { ChatSession } from "@/types/chatContract";
@@ -28,6 +28,7 @@ export function ChatNotificationsProvider({ children }: { children: ReactNode })
   const active = useRef<string | null>(null);
   const toastId = useRef(0);
   const accountKey = session ? `huyenco.chat.unread.${session.accountId}` : null;
+  const readTimes = useRef<Record<string, number>>({});
 
   useEffect(() => {
     const controller = new AbortController();
@@ -60,6 +61,47 @@ export function ChatNotificationsProvider({ children }: { children: ReactNode })
     } catch { setUnreadConversations(new Set()); }
   }, [accountKey]);
 
+  useEffect(() => {
+    if (!session || !accountKey) return;
+    const controller = new AbortController();
+    try { readTimes.current = JSON.parse(localStorage.getItem(`${accountKey}.read`) ?? "{}"); }
+    catch { readTimes.current = {}; }
+    async function restoreUnread() {
+      let page = 0;
+      let totalPages = 1;
+      const unread = new Set<string>();
+      while (page < totalPages && !controller.signal.aborted) {
+        const rooms = await listConversations(session!, page++, controller.signal);
+        totalPages = rooms.totalPages;
+        for (const room of rooms.items) {
+          if (room.status === "PENDING") {
+            if (session!.role === "CONSULTANT") unread.add(room.conversationId);
+            continue;
+          }
+          let cursor = "0";
+          let hasMore = true;
+          while (hasMore && !controller.signal.aborted) {
+            const messages = await readRoomMessages(room, cursor, controller.signal);
+            if (messages.items.some(message => message.senderAccountId !== session!.accountId
+                && Date.parse(message.createdAt) > (readTimes.current[room.conversationId] ?? 0))) {
+              unread.add(room.conversationId);
+              break;
+            }
+            cursor = messages.nextAfterSequence;
+            hasMore = messages.hasMore;
+          }
+        }
+      }
+      if (controller.signal.aborted) return;
+      unread.delete(active.current ?? "");
+      setUnreadConversations(previous => new Set([...previous, ...unread]));
+      if (unread.size) setToast({ id: ++toastId.current,
+        text: `Bạn có ${unread.size} cuộc trò chuyện có yêu cầu hoặc tin nhắn chưa đọc.`, conversationId: [...unread][0] });
+    }
+    void restoreUnread().catch(() => { /* Live notifications remain available on a failed history sync. */ });
+    return () => controller.abort();
+  }, [session, accountKey]);
+
   const onAccessError = useCallback((code: string) => {
     if (["INVALID_SESSION", "LOGIN_REQUIRED", "FORBIDDEN"].includes(code)) setSession(null);
   }, []);
@@ -87,11 +129,15 @@ export function ChatNotificationsProvider({ children }: { children: ReactNode })
       message = "Bạn có thông báo mới: tư vấn viên đã chấp nhận yêu cầu.";
     } else if (event.type === "MESSAGE_RECEIVED") {
       message = "Bạn có tin nhắn mới.";
+      if (active.current === event.conversationId && accountKey) {
+        readTimes.current[event.conversationId] = Date.now();
+        try { localStorage.setItem(`${accountKey}.read`, JSON.stringify(readTimes.current)); } catch { /* Optional. */ }
+      }
     }
     if (!message) return;
     markUnread(event.conversationId, event.type !== "MESSAGE_RECEIVED");
     setToast({ id: ++toastId.current, text: message, conversationId: event.conversationId });
-  }, [session, markUnread]);
+  }, [session, markUnread, accountKey]);
   useAuthenticatedSocket({ endpoint: "chat", destination: "/user/queue/chat/workspace", credentials: session ? credentials : null,
     onMessage, onAccessError, onConnected: socket => {
       socket.publish({ destination: "/app/chat/workspace", body: JSON.stringify({ action: "SYNC" }) });
@@ -106,6 +152,10 @@ export function ChatNotificationsProvider({ children }: { children: ReactNode })
   const activeConversation = useCallback((id: string | null) => {
     active.current = id;
     if (!id) return;
+    readTimes.current[id] = Date.now();
+    if (accountKey) {
+      try { localStorage.setItem(`${accountKey}.read`, JSON.stringify(readTimes.current)); } catch { /* Optional. */ }
+    }
     setUnreadConversations(previous => {
       if (!previous.has(id)) return previous;
       const next = new Set(previous);
@@ -116,7 +166,7 @@ export function ChatNotificationsProvider({ children }: { children: ReactNode })
       return next;
     });
     setToast(current => current?.conversationId === id ? null : current);
-  }, [session]);
+  }, [session, accountKey]);
 
   const value = useMemo(() => ({ unreadConversations, activeConversation, markUnread }), [unreadConversations, activeConversation, markUnread]);
   return <ChatNotificationContext.Provider value={value}>
