@@ -19,6 +19,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
@@ -66,9 +68,22 @@ final class AccountDirectoryController {
     ResponseEntity<Envelope> detail(HttpServletRequest request, @PathVariable String id) {
         return respond(LOG, 200, () -> {
             actor(access, request, false);
-            query(request, Set.of());
-            return service.detail(uuid(id));
+            query(request, Set.of("from", "to"));
+            LocalDate from = date(request.getParameter("from"));
+            LocalDate to = date(request.getParameter("to"));
+            if (from != null && to != null && from.isAfter(to)) throw invalid();
+            return service.detail(uuid(id), from, to);
         });
+    }
+
+    private static LocalDate date(String value) {
+        if (value == null) return null;
+        if (!value.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}")) throw invalid();
+        try {
+            LocalDate parsed = LocalDate.parse(value);
+            if (parsed.getYear() < 1900 || parsed.getYear() > 9998) throw invalid();
+            return parsed;
+        } catch (DateTimeParseException error) { throw invalid(); }
     }
 
     @PutMapping("/{id}/status")

@@ -34,7 +34,7 @@ class AccountPasswordChangeTest {
     void setup() {
         mvc = MockMvcBuilders.standaloneSetup(new AccountAuthController(auth,
                 new AuthAttemptLimits(Clock.systemUTC(), 5, 1, 5), json, new AccountRequestGuards(ORIGIN),
-                mock(ChatSessionAccess.class), false)).build();
+                mock(ChatSessionAccess.class), false, mock(com.huyenco.websocket.AdminReviewNotifications.class))).build();
     }
 
     @ParameterizedTest

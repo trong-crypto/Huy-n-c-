@@ -11,7 +11,7 @@ public class AdminReviewNotifications {
     private static final Logger LOG = LoggerFactory.getLogger(AdminReviewNotifications.class);
     private final SimpMessagingTemplate broker;
 
-    public enum Area { WEBSITE, METHOD_GUIDE, SOURCE, NAME_GLOSS, INTERPRETATION }
+    public enum Area { WEBSITE, METHOD_GUIDE, SOURCE, NAME_GLOSS, INTERPRETATION, PASSWORD_CHANGE }
 
     public AdminReviewNotifications(SimpMessagingTemplate broker) {
         this.broker = broker;

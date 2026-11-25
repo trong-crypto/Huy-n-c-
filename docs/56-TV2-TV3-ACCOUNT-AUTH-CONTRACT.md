@@ -1,5 +1,15 @@
 # Hợp đồng xác thực tài khoản Huyền Cơ
 
+## Thống kê hoạt động tư vấn tài khoản (25/11/2026)
+
+`GET /api/v1/admin/accounts` bổ sung `consultationRequests` (tổng yêu cầu gửi với vai trò người dùng) và `consultationsAccepted` (tổng cuộc đã chấp nhận với vai trò tư vấn viên) trên mỗi tài khoản. Đây là số toàn bộ thời gian; không đếm tin nhắn, lần tải lại hoặc lần gửi lại cùng một yêu cầu.
+
+`GET /api/v1/admin/accounts/{id}?from=2026-11-01&to=2026-11-25` bổ sung `consultationStats: { user, consultant }`. Mỗi nhóm có các số nguyên không âm: `total`, `pending`, `accepted`, `active`, `completed`, `declined`, `cancelled`. `accepted = active + completed`; `total = pending + accepted + declined + cancelled`. Phân nhóm theo người tham gia trong bản ghi cuộc hội thoại, giữ lịch sử khi đổi vai trò tài khoản.
+
+Hai tham số ngày độc lập, không bắt buộc, định dạng `yyyy-MM-dd`, năm 1900–9998, tính theo ngày **tạo yêu cầu** ở múi giờ `Asia/Ho_Chi_Minh`. Từ đầu ngày `from` đến trước đầu ngày sau `to`; bỏ cả hai để lấy toàn bộ thời gian. Khoảng ngày đảo ngược hoặc ngày không hợp lệ trả `400 INVALID_INPUT`. Các trạng thái là trạng thái hiện tại của những yêu cầu tạo trong khoảng đã chọn. Các phản hồi cập nhật vai trò/trạng thái giữ thống kê toàn bộ thời gian.
+
+Giữ nguyên envelope hiện có và yêu cầu phiên Admin hợp lệ; không công khai số liệu qua API người dùng. Thống kê đọc trực tiếp từ `chat_conversations`, không cần migration hay thay đổi dữ liệu hiện có.
+
 Hợp đồng 1.0 cho AUTH-01–07 và DATA-01–05. Backend đã triển khai và kiểm thử qua HTTP trên PostgreSQL TEST V13. Phần nối biểu mẫu Next.js và nghiệm thu trình duyệt chờ TV1.
 
 ## API và quyền truy cập

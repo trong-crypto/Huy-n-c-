@@ -63,6 +63,14 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
         .map(item => ({ id: item.messageId, roomId, text: item.text, createdAt: item.createdAt, author: item.senderAccountId === session.accountId
           ? "Bạn" : session.role === "USER" ? "Tư vấn viên" : "Người dùng" }));
       update({ messages });
+      notifyRead();
+    }
+
+    function notifyRead() {
+      const latest = [...stored.values()].reduce((max, item) => BigInt(item.sequence) > BigInt(max) ? item.sequence : max, "0");
+      if (!document.hidden) window.dispatchEvent(new CustomEvent("huyenco-chat-read", {
+        detail: { conversationId: roomId, sequence: latest },
+      }));
     }
 
     function failAccess(error: unknown) {
@@ -232,10 +240,14 @@ export function useRoomChat(session: ChatSession, room: Conversation | undefined
       },
     };
     update({});
+    window.addEventListener("focus", notifyRead);
+    document.addEventListener("visibilitychange", notifyRead);
     void synchronize();
     void connect();
     return () => {
       controller.abort();
+      window.removeEventListener("focus", notifyRead);
+      document.removeEventListener("visibilitychange", notifyRead);
       clearTimeout(reconnectTimer);
       clearTimeout(ackTimer);
       clearTimeout(readyTimer);

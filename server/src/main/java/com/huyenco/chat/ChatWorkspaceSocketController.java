@@ -24,7 +24,8 @@ import org.springframework.transaction.TransactionException;
 @Profile("db")
 @ConditionalOnProperty(name = "huyenco.auth.enabled", havingValue = "true")
 class ChatWorkspaceSocketController {
-    private enum Action { SYNC, CREATE, ACCEPT, DECLINE, CANCEL, END, PRESENCE, TYPING }
+    private enum Action { SYNC, READ, CREATE, ACCEPT, DECLINE, CANCEL, END, PRESENCE, TYPING }
+    private final ChatReadPositions readPositions;
     private final ChatConversations conversations;
     private final ChatConversationLifecycle lifecycle;
     private final ChatWorkspaceEvents events;
@@ -34,7 +35,9 @@ class ChatWorkspaceSocketController {
     private final Semaphore signals = new Semaphore(4);
 
     ChatWorkspaceSocketController(ChatConversations conversations, ChatConversationLifecycle lifecycle,
-                                  ChatWorkspaceEvents events, ChatSocketSecurity socketSecurity, ObjectMapper mapper) {
+                                  ChatWorkspaceEvents events, ChatSocketSecurity socketSecurity, ObjectMapper mapper,
+                                  ChatReadPositions readPositions) {
+        this.readPositions = readPositions;
         this.conversations = conversations;
         this.lifecycle = lifecycle;
         this.events = events;
@@ -58,6 +61,19 @@ class ChatWorkspaceSocketController {
             if (action == Action.SYNC) {
                 if (body.size() != 1) throw invalid();
                 events.reply(session, new Ready("READY"));
+                events.reply(session, new Unread("UNREAD", readPositions.unread(actor)));
+                return;
+            }
+            if (action == Action.READ) {
+                if (body.size() != 3 || !body.path("sequence").isTextual()
+                        || !body.path("sequence").asText().matches("[0-9]{1,18}")) throw invalid();
+                if (!writes.tryAcquire()) throw new ContractException("SERVER_BUSY", "Máy chủ đang bận.");
+                try {
+                    readPositions.markRead(actor, id(body, "conversationId"), Long.parseLong(body.path("sequence").asText()));
+                    events.notifyAccount(actor.accountId(), new Unread("UNREAD", readPositions.unread(actor)));
+                } finally {
+                    writes.release();
+                }
                 return;
             }
             signal = action == Action.PRESENCE || action == Action.TYPING;
@@ -109,4 +125,5 @@ class ChatWorkspaceSocketController {
     record Ack(String type, UUID requestId, ChatConversationController.ConversationView conversation) {}
     record Error(String type, UUID requestId, String code) {}
     record Ready(String type) {}
+    record Unread(String type, java.util.List<UUID> conversationIds) {}
 }

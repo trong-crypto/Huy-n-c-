@@ -5,7 +5,7 @@ import { PageContainer } from "@/components/ui/Page";
 import { ChatComposer, ChatIcon } from "./ChatComposer";
 import { ChatRoomPanel } from "./ChatRoomPanel";
 import { ConsultationNavigation } from "./ConsultationNavigation";
-import { chatRoutes, roomStatusLabels, type ChatAccess, type ChatAudience, type ChatMessaging, type SubscribeToRoom } from "./chatState";
+import { chatRoutes, roomStatusLabels, roomStatusHints, type ChatAccess, type ChatAudience, type ChatMessaging, type SubscribeToRoom } from "./chatState";
 import styles from "./chat.module.css";
 
 const accessMessages = {
@@ -68,9 +68,11 @@ export function ConsultationWorkspace({ audience, access = { status: "blocked" }
                   disabled={controls.transitioning || controls.sending}
                   onClick={() => controls.openRoom(item.id)}>
                   <span className={styles.avatar}><ChatIcon /></span>
-                  <span className={styles.choiceText}><strong>{item.title}</strong><span>{roomStatusLabels[status]}</span></span>
+                  <span className={styles.choiceText}><strong>{item.title}</strong><span className={styles.badge} data-status={status}
+                    title={roomStatusHints[status]}>{roomStatusLabels[status]}</span></span>
                   {controls.unreadConversations.has(item.id) && <span className={styles.unreadDot} aria-label="Có tin nhắn chưa đọc" title="Có tin nhắn chưa đọc" />}
-                </button> : <><strong>{item.title}</strong><p>{roomStatusLabels[status]}</p></>}
+                </button> : <><strong>{item.title}</strong><p className={styles.badge} data-status={status}
+                  title={roomStatusHints[status]}>{roomStatusLabels[status]}</p></>}
               </li>;
             })}
           </ul> : (authorized?.conversations || !controls) && <p className={styles.sidebarEmpty}>

@@ -811,3 +811,27 @@
   .loginIntro { gap: 28px; }
   .loginIntro h2 { font-size: 38px; }
 }
+
+.onlineLegend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 18px 0; }
+.onlineLegend span { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 16px; border: 1px solid var(--border); border-left: 3px solid #e5c772; border-radius: 10px; }
+.onlineLegend span:nth-child(2) { border-left-color: #a4b9ff; }
+.onlineLegend strong { font-size: 28px; }
+.onlineLineChart { display: block; width: 100%; height: auto; margin-block: 12px; color: var(--muted); }
+.onlineLineChart text { fill: currentColor; font-family: inherit; font-size: 12px; }
+@media (max-width: 480px) { .onlineLegend { grid-template-columns: 1fr; } }
+
+.onlineTwoColumns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin: 24px auto; max-width: 400px; }
+.onlineColumn { display: grid; justify-items: center; gap: 12px; }
+.onlineColumn strong { font-size: 32px; color: var(--gold); }
+.onlineBarTrack { display: flex; align-items: flex-end; height: 180px; width: 80px; max-width: 100%; border-radius: 10px; background: rgb(255 255 255 / 5%); overflow: hidden; }
+.onlineBar { width: 100%; background: #e5c772; border-radius: 8px 8px 0 0; transition: height 300ms ease; }
+.onlineBar[data-role="consultants"] { background: #a4b9ff; }
+@media (prefers-reduced-motion: reduce) { .onlineBar { transition: none; } }
+.consultationDateFilters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 20px; }
+.consultationDateFilters > div:last-of-type, .consultationDateFilters > p { grid-column: 1 / -1; }
+.consultationDateFilters input { width: 100%; min-width: 0; }
+.consultationStats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 12px 0; }
+.consultationStats > div { min-width: 0; padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-secondary); }
+.consultationStats dt { color: var(--secondary); font-size: 13px; }
+.consultationStats dd { margin: 5px 0 0; font-size: 25px; font-weight: 650; color: var(--primary-hover); }
+@media (max-width: 420px) { .consultationDateFilters { grid-template-columns: minmax(0, 1fr); } }

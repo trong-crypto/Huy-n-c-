@@ -134,7 +134,9 @@ public class ChatConversations {
         long total = db.queryForObject("SELECT COUNT(*)" + filter, Long.class, actor.accountId());
         long offset = (long) page * size;
         List<Conversation> items = offset >= total ? List.of() : db.query(
-                "SELECT " + COLUMNS + filter + " ORDER BY created_at DESC, id DESC LIMIT ? OFFSET ?",
+                "SELECT " + COLUMNS + filter + " ORDER BY GREATEST(created_at, started_at, ended_at,"
+                        + " (SELECT MAX(m.created_at) FROM chat_messages m WHERE m.conversation_id = chat_conversations.id))"
+                        + " DESC, id DESC LIMIT ? OFFSET ?",
                 CONVERSATION, actor.accountId(), size, offset);
         long totalPages = total / size + (total % size == 0 ? 0 : 1);
         return new Page(items, page, size, total, totalPages);

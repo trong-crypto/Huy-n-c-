@@ -35,7 +35,7 @@ class AccountAuthRegistrationPolicyTest {
         var limits = new AuthAttemptLimits(Clock.systemUTC(), 50, 50, 50);
         mvc = MockMvcBuilders.standaloneSetup(
                 new AccountAuthController(auth, limits, json, new AccountRequestGuards(ORIGIN),
-                        mock(ChatSessionAccess.class), false))
+                        mock(ChatSessionAccess.class), false, mock(com.huyenco.websocket.AdminReviewNotifications.class)))
                 .build();
     }
 

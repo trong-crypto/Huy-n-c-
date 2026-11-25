@@ -1,5 +1,5 @@
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import AdminLoginPage from "@/app/admin/login/page";
 import AdminWorkspaceLayout from "@/app/admin/(workspace)/layout";
 import AdminDashboardPage from "@/app/admin/(workspace)/page";
@@ -7,9 +7,43 @@ import { AdminSessionGate } from "./AdminSessionGate";
 import { AccountDirectoryLive } from "./AccountDirectoryLive";
 
 const adminSocket = vi.hoisted(() => vi.fn());
+beforeEach(() => { adminSocket.mockReturnValue({ connected: false }); });
 vi.mock("@/services/websocket/useAuthenticatedSocket", () => ({
   useAuthenticatedSocket: adminSocket,
 }));
+
+it("shows consultation totals and filters account statistics by request creation dates", async () => {
+  const id = "550e8400-e29b-41d4-a716-446655440001";
+  const account = { id, identifier: "consultant", displayName: "Tư vấn viên mẫu", role: "CONSULTANT", status: "ACTIVE",
+    version: 1, createdAt: "2026-11-09T03:00:00Z", canChangeStatus: true, consultationRequests: 0, consultationsAccepted: 3 };
+  const zero = { total: 0, pending: 0, accepted: 0, active: 0, completed: 0, declined: 0, cancelled: 0 };
+  const fetch = vi.fn(async (path: string) => {
+    const filtered = path.includes("from=2026-11-01&to=2026-11-25");
+    const counts = filtered ? { ...zero, total: 1, accepted: 1, completed: 1 }
+      : { total: 6, pending: 1, accepted: 3, active: 1, completed: 2, declined: 1, cancelled: 1 };
+    const data = path.endsWith("/auth/admin/session")
+      ? { account: { id, displayName: "Admin", role: "ADMIN" }, expiresAt: new Date(Date.now() + 60_000).toISOString(), csrfToken: "a".repeat(43) }
+      : path.includes("/accounts?") ? { items: [account], page: 0, size: 20, totalElements: 1, totalPages: 1 }
+      : { account, lastStatusChange: null, consultationStats: { user: zero, consultant: counts } };
+    return Response.json({ requestId: id, status: "COMPLETED", error: null, data });
+  });
+  vi.stubGlobal("fetch", fetch);
+  render(<AdminSessionGate><AccountDirectoryLive /></AdminSessionGate>);
+  const name = await screen.findByRole("button", { name: "Tư vấn viên mẫu" });
+  expect(within(name.closest("tr")!).getByText("3")).toBeTruthy();
+  fireEvent.click(name);
+  const stats = await screen.findByRole("region", { name: "Thống kê tư vấn viên" });
+  expect(within(stats).getByText("6")).toBeTruthy();
+  expect(within(stats).getByText("3")).toBeTruthy();
+  fireEvent.change(screen.getByLabelText("Từ ngày"), { target: { value: "2026-11-01" } });
+  fireEvent.change(screen.getByLabelText("Đến ngày"), { target: { value: "2026-11-25" } });
+  fireEvent.click(screen.getByRole("button", { name: "Lọc thống kê tư vấn" }));
+  const filteredStats = await screen.findByRole("region", { name: "Thống kê tư vấn viên" });
+  expect(within(filteredStats).queryByText("6")).toBeNull();
+  expect(fetch.mock.calls.some(([path]) => path.includes("from=2026-11-01&to=2026-11-25"))).toBe(true);
+  fireEvent.click(screen.getByRole("button", { name: "Toàn bộ thời gian" }));
+  expect(await within(await screen.findByRole("region", { name: "Thống kê tư vấn viên" })).findByText("6")).toBeTruthy();
+});
 
 it("shows account details in a side panel and toggles the consultant action in the same row", async () => {
   const adminId = "905b2f9f-c230-4887-9369-7b5500964f59";
@@ -67,9 +101,8 @@ it("filters and approves pending password requests in the account drawer", async
   vi.stubGlobal("fetch", fetch);
   render(<AdminSessionGate><AccountDirectoryLive /></AdminSessionGate>);
   fireEvent.click(await screen.findByRole("button", { name: "Yêu cầu đổi mật khẩu đang chờ" }));
-  fireEvent.click(await screen.findByRole("button", { name: "Người dùng mẫu" }));
   fireEvent.click(await screen.findByRole("button", { name: "Duyệt đổi mật khẩu" }));
-  fireEvent.click(screen.getByRole("button", { name: "Xác nhận duyệt yêu cầu" }));
+  fireEvent.click(await screen.findByRole("button", { name: "Xác nhận duyệt yêu cầu" }));
   expect(await screen.findByText(/Đã duyệt yêu cầu/)).toBeTruthy();
   expect(fetch.mock.calls.some(([path]) => path.includes("passwordRequest=pending"))).toBe(true);
 });
@@ -88,6 +121,9 @@ it("shows a review notification to an authenticated admin and clears the workspa
   act(() => socket.onMessage(JSON.stringify({ type: "REVIEW_PENDING", area: "SOURCE" })));
   const notices = screen.getByRole("complementary", { name: "Thông báo chờ duyệt" });
   expect(within(notices).getByRole("link", { name: "Dữ liệu nguồn" }).getAttribute("href")).toBe("/admin/sources");
+  act(() => socket.onMessage(JSON.stringify({ type: "REVIEW_PENDING", area: "PASSWORD_CHANGE" })));
+  expect(screen.getByText("Có yêu cầu đổi mật khẩu đang chờ duyệt.")).toBeTruthy();
+  expect(screen.getByRole("link", { name: "Yêu cầu đổi mật khẩu" }).getAttribute("href")).toBe("/admin/users?passwordRequest=pending");
   act(() => socket.onAccessError("INVALID_SESSION"));
   expect(screen.getByRole("heading", { name: "Cần đăng nhập quản trị" })).toBeTruthy();
   expect(screen.queryByText("Nội dung quản trị thử")).toBeNull();
@@ -138,7 +174,7 @@ describe("Admin foundation while authentication is unavailable", () => {
     const overview = within(sidebar).getByRole("link", { name: "Tổng quan" });
     expect(overview.getAttribute("href")).toBe("/admin");
     expect(overview.getAttribute("aria-current")).toBe("page");
-    expect(within(sidebar).getAllByRole("link")).toHaveLength(6);
+    expect(within(sidebar).getAllByRole("link")).toHaveLength(5);
     expect(screen.queryByRole("link", { name: /Quản lý nội dung website|Quản lý tư vấn viên/ })).toBeNull();
     expect(within(sidebar).getByRole("link", { name: "Quản lý người dùng" }).getAttribute("href")).toBe("/admin/users");
     expect(within(sidebar).getByRole("link", { name: "Nhật ký quản trị" }).getAttribute("href")).toBe("/admin/audit");
@@ -146,4 +182,21 @@ describe("Admin foundation while authentication is unavailable", () => {
     expect((screen.getByRole("button", { name: "Đăng xuất" }) as HTMLButtonElement).disabled).toBe(true);
     expect(screen.getByRole("region", { name: "Phiên quản trị" }).textContent).toContain("Đang chờ Backend");
   });
+});
+
+
+it("shows password review actions instead of account controls in the pending list", async () => {
+  const id = "550e8400-e29b-41d4-a716-446655440001";
+  const account = { id, identifier: "pending-user", displayName: "Người đang chờ", role: "USER", status: "ACTIVE",
+    version: 1, createdAt: "2026-11-09T03:00:00Z", canChangeStatus: true };
+  vi.stubGlobal("fetch", vi.fn(async (path: string) => Response.json({ requestId: id, status: "COMPLETED", error: null,
+    data: path.endsWith("/auth/admin/session")
+      ? { account: { id, displayName: "Admin", role: "ADMIN" }, expiresAt: new Date(Date.now() + 60000).toISOString(), csrfToken: "a".repeat(43) }
+      : { items: [account], page: 0, size: 20, totalElements: 1, totalPages: 1 } })));
+  render(<AdminSessionGate><AccountDirectoryLive /></AdminSessionGate>);
+  fireEvent.click(await screen.findByRole("button", { name: "Yêu cầu đổi mật khẩu đang chờ" }));
+  expect(await screen.findByRole("button", { name: "Duyệt đổi mật khẩu" })).toBeTruthy();
+  expect(screen.getByRole("button", { name: "Từ chối yêu cầu" })).toBeTruthy();
+  expect(screen.queryByRole("button", { name: "Khóa tài khoản" })).toBeNull();
+  expect(screen.queryByRole("button", { name: "Cấp lên thành tư vấn viên" })).toBeNull();
 });

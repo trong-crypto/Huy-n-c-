@@ -156,7 +156,7 @@ export default function MaiHoaPage() {
             aria-describedby={calculation.connection !== "connected" ? "maihoa-connection" : undefined}>{waiting ? "Đang chờ phản hồi…" : "Gửi yêu cầu"}</PrimaryButton>
         </form>)}
           {calculation.connection === "disconnected" && <SessionNotice />}
-          {calculation.requestState !== "idle" && <a className="secondary-button calculation-shortcut" href="#ket-qua">Đến tiến trình và kết quả ↓</a>}
+          {calculation.requestState !== "idle" && <a className="secondary-button calculation-shortcut" href="#ket-qua">Xem kết quả ↓</a>}
         </SectionCard>
         <aside className="input-guide" aria-label="Hướng dẫn lập quẻ">
           <div className="guide-art"><CelestialArt compact /></div>

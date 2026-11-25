@@ -13,6 +13,7 @@ import { useConsultationSocket, type ConsultationNotice } from "./useConsultatio
 import { useChatNotifications } from "./ChatNotifications";
 import { clearReadingHandoff, readReadingHandoff, storeReadingHandoff, type ReadingHandoff } from "./readingHandoff";
 import styles from "./chat.module.css";
+import { isUuid } from "@/types/historyValidation";
 
 type Loader<T> = (signal: AbortSignal) => Promise<T>;
 type AccessFailure = "expired" | "forbidden";
@@ -99,6 +100,15 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
   const [selectedConsultant, setSelectedConsultant] = useState(reading?.request?.consultantId ?? "");
   const [roomId, setRoomId] = useState<string | null>(reading?.conversationId ?? null);
   useEffect(() => {
+    const openFromNotification = () => {
+      const id = new URLSearchParams(window.location.search).get("conversation");
+      if (isUuid(id)) setRoomId(id);
+    };
+    openFromNotification();
+    window.addEventListener("popstate", openFromNotification);
+    return () => window.removeEventListener("popstate", openFromNotification);
+  }, []);
+  useEffect(() => {
     chatNotifications.activeConversation(roomId);
     return () => chatNotifications.activeConversation(null);
   }, [chatNotifications.activeConversation, roomId]);
@@ -157,10 +167,13 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
       if (roomId && (!changedRoom || roomId === changedRoom)) detail.reload();
     }, onAuthError, (notice: ConsultationNotice) => {
       chatNotifications.markUnread(notice.conversationId, notice.kind !== "message");
+      setConversationPage(0);
+      conversations.reload();
     });
   const consultants = directory.data?.items;
   const consultantId = consultants?.find(item => item.consultantId === selectedConsultant)?.consultantId ?? "";
-  const roomReading = reading?.conversationId && reading.conversationId === roomId ? reading : undefined;
+  const roomReading = reading && (reading.conversationId === roomId
+    || !reading.conversationId && detail.data?.conversationId === roomId && detail.data.status === "ACTIVE") ? reading : undefined;
   const unattached = reading && !reading.conversationId ? reading : undefined;
 
   function updateReading(draft: ReadingHandoff) {
@@ -278,7 +291,7 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
       detail.reload();
     },
     directoryStatus: <>
-      {unattached && <p role="status">Chọn tư vấn viên để gửi yêu cầu kèm lá số khi phòng được chấp nhận.</p>}
+      {unattached && <p role="status">Mở hội thoại đang tư vấn rồi chọn “Gửi lá số”, hoặc chọn tư vấn viên để tạo yêu cầu mới.</p>}
       {unattached && <button type="button" className="secondary-button" disabled={sending} onClick={discardReading}>Bỏ lá số</button>}
       <PageStatus resource={directory} label="danh bạ tư vấn viên" changePage={setDirectoryPage} />
       {sendNotice && <p role="alert">{sendNotice}</p>}
@@ -294,7 +307,11 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
           <button type="button" className="secondary-button"
             disabled={chat.connection !== "connected" || !chat.messaging || chat.messaging.delivery === "waiting"
               || chat.messaging.delivery === "unknown" && chat.messaging.pendingId !== roomReading.messageId}
-            onClick={() => chat.messaging?.send(roomReading.text, roomReading.messageId)}>Gửi lá số</button>
+            onClick={() => {
+              if (!roomId || detail.data?.conversationId !== roomId || detail.data.status !== "ACTIVE" || !chat.messaging) return;
+              updateReading({ ...roomReading, conversationId: roomId, request: undefined });
+              chat.messaging.send(roomReading.text, roomReading.messageId);
+            }}>Gửi lá số</button>
           <button type="button" className="secondary-button" disabled={chat.messaging?.pendingId === roomReading.messageId}
             onClick={discardReading}>Bỏ lá số</button>
           {roomId && !detail.busy && <button type="button" className="secondary-button" disabled={transitioning}

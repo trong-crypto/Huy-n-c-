@@ -1,5 +1,6 @@
 import { AdminDataState, type AdminData } from "./AdminDataState";
 import styles from "./admin.module.css";
+import { AdminOnlineChart } from "./AdminOnlineChart";
 
 type Metrics = {
   users: number;
@@ -38,13 +39,7 @@ export function AdminMetrics({ state = { status: "blocked" } }: { state?: AdminD
           <tbody>{data.methods.map(method => <tr key={method.id}><td>{method.name}</td><td>{formatCount.format(method.count)}</td></tr>)}</tbody>
         </table> : <p className="field-hint">{data?.calculations == null ? "Chưa có số liệu lượt tính." : "Chưa có lượt tính theo phương pháp."}</p>}
       </section>
-      <section className={styles.contentPanel} aria-labelledby="service-status-title">
-        <h3 id="service-status-title">Trạng thái dịch vụ</h3>
-        {data?.services?.length ? <table className={styles.adminTable}>
-          <thead><tr><th scope="col">Dịch vụ</th><th scope="col">Trạng thái</th></tr></thead>
-          <tbody>{data.services.map(service => <tr key={service.id}><td>{service.name}</td><td>{service.status}</td></tr>)}</tbody>
-        </table> : <p className="field-hint">Chưa có trạng thái dịch vụ từ API quản trị.</p>}
-      </section>
+      <section className={styles.contentPanel} aria-labelledby="service-status-title"><AdminOnlineChart /></section>
     </div>
   </section>;
 }

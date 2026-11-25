@@ -1,6 +1,6 @@
 # Huyền Cơ
 
-**Chạy Huyền Cơ:** [Hướng dẫn Client và Admin trên một máy hoặc qua LAN](docs/82-HUYENCO-LAN-DEMO.md).
+**Chạy Huyền Cơ:** [Hướng dẫn duy nhất qua Cloudflare HTTPS cho Client và Admin](docs/82-HUYENCO-LAN-DEMO.md).
 
 **Bàn giao dữ liệu cho TV3 viết báo cáo:** [mở hướng dẫn trong handoff/tv3-report](handoff/tv3-report/README.md). Gói gom raw benchmark, log nghiệm thu chức năng, Maven reports, CSV/biểu đồ, tài liệu và bản báo cáo; có manifest SHA-256 và script kiểm sau khi kéo GitHub. Bản gốc được giữ nguyên; thư mục bàn giao đã cho phép Git nhận các log đã rà soát.
 

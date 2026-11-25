@@ -177,9 +177,17 @@
   font-size: 11px;
   font-weight: 650;
 }
-.badge[data-status="pending"] { background: #403342; color: #f4d79d; }
-.badge[data-status="active"] { background: #302757; color: #e1d5ff; }
-.badge[data-status="ended"] { background: #2a2436; color: var(--secondary); }
+.badge[data-status] { display: inline-flex; align-items: center; justify-self: start; gap: 6px; border: 1px solid; font-size: 12px; line-height: 1.5; padding: 3px 9px; }
+.badge[data-status]::before { font-size: 11px; line-height: 1; }
+.badge[data-status="pending"] { background: #3d301d; color: #ffe0a3; border-color: #806331; }
+.badge[data-status="pending"]::before { content: "◷"; }
+.badge[data-status="active"] { background: #173e33; color: #a4f2cb; border-color: #397c61; }
+.badge[data-status="active"]::before { content: "●"; }
+.badge[data-status="ended"] { background: #303344; color: #d5d9e6; border-color: #62697d; }
+.badge[data-status="ended"]::before { content: "✓"; }
+.roomStateHint { width: 100%; padding: 8px 10px; border-radius: 7px; border-left: 3px solid #806331; background: #302637; color: #ffe0a3; }
+.roomStateHint[data-status="active"] { border-color: #6bc99b; background: #17332c; color: #a4f2cb; }
+.roomStateHint[data-status="ended"] { border-color: #929cb5; background: #292c3b; color: #d5d9e6; }
 .roomStatus {
   display: flex;
   flex: none;

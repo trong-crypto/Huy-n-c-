@@ -4,6 +4,8 @@ import com.huyenco.common.exception.ContractException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Clock;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -21,15 +23,19 @@ final class AccountDirectoryService {
     enum Role { USER, ADMIN, CONSULTANT }
     enum Status { ACTIVE, LOCKED }
     record Account(UUID id, String identifier, String displayName, Role role, Status status, int version,
-                   String createdAt, boolean canChangeStatus) {}
+                   String createdAt, boolean canChangeStatus, long consultationRequests, long consultationsAccepted) {}
+    record ConsultationCounts(long total, long pending, long accepted, long active, long completed, long declined, long cancelled) {}
+    record ConsultationStats(ConsultationCounts user, ConsultationCounts consultant) {}
     record StatusChange(UUID actorId, Status previousStatus, Status status, int revokedSessions, String occurredAt) {}
     record RoleChange(UUID actorId, Role previousRole, Role role, int revokedSessions, String occurredAt) {}
     record Detail(Account account, StatusChange lastStatusChange, RoleChange lastRoleChange, List<Role> allowedRoleChanges,
-                  String phoneNumber, PasswordRequest passwordRequest) {}
+                  String phoneNumber, PasswordRequest passwordRequest, ConsultationStats consultationStats) {}
     record PasswordRequest(UUID id, String requestedAt) {}
     record Page(List<Account> items, int page, int size, long totalElements, long totalPages) {}
 
-    private static final String COLUMNS = "id,identifier_normalized,display_name,role,status,status_version,created_at";
+    private static final String COLUMNS = "id,identifier_normalized,display_name,role,status,status_version,created_at,"
+            + " (SELECT count(*) FROM chat_conversations c WHERE c.user_account_id=accounts.id) AS consultation_requests,"
+            + " (SELECT count(*) FROM chat_conversations c WHERE c.consultant_account_id=accounts.id AND c.started_at IS NOT NULL) AS consultations_accepted";
     private final JdbcTemplate db;
     private final Clock clock;
     private final TransactionTemplate reads;
@@ -67,6 +73,10 @@ final class AccountDirectoryService {
 
     Detail detail(UUID id) {
         return reads.execute(tx -> detail(load(id, false)));
+    }
+
+    Detail detail(UUID id, LocalDate from, LocalDate to) {
+        return reads.execute(tx -> detail(load(id, false), from, to));
     }
 
     Detail change(UUID id, int expectedVersion, Status requested, UUID actor) {
@@ -144,6 +154,10 @@ final class AccountDirectoryService {
     }
 
     private Detail detail(Account account) {
+        return detail(account, null, null);
+    }
+
+    private Detail detail(Account account, LocalDate from, LocalDate to) {
         var statusChange = db.query("""
                 SELECT actor_id,previous_status,status,revoked_sessions,occurred_at
                 FROM admin_account_status_events WHERE account_id=? ORDER BY version DESC LIMIT 1
@@ -163,7 +177,30 @@ final class AccountDirectoryService {
                 SELECT id, requested_at FROM password_change_requests WHERE account_id=? AND status='PENDING'
                 """, (row, index) -> new PasswordRequest(row.getObject("id", UUID.class), instant(row, "requested_at")), account.id())
                 .stream().findFirst().orElse(null);
-        return new Detail(account, statusChange, roleChange, allowedRoleChanges(account), phoneNumber, passwordRequest);
+        return new Detail(account, statusChange, roleChange, allowedRoleChanges(account), phoneNumber, passwordRequest,
+                new ConsultationStats(counts(account.id(), "user_account_id", from, to),
+                        counts(account.id(), "consultant_account_id", from, to)));
+    }
+
+    ConsultationCounts counts(UUID id, String participantColumn, LocalDate from, LocalDate to) {
+        String filter = " WHERE " + participantColumn + "=?";
+        var parameters = new java.util.ArrayList<Object>();
+        parameters.add(id);
+        ZoneId vietnam = ZoneId.of("Asia/Ho_Chi_Minh");
+        if (from != null) { filter += " AND created_at>=?"; parameters.add(from.atStartOfDay(vietnam).toOffsetDateTime()); }
+        if (to != null) { filter += " AND created_at<?"; parameters.add(to.plusDays(1).atStartOfDay(vietnam).toOffsetDateTime()); }
+        return db.queryForObject("""
+                SELECT count(*) AS total,
+                  count(*) FILTER (WHERE status='PENDING') AS pending,
+                  count(*) FILTER (WHERE started_at IS NOT NULL) AS accepted,
+                  count(*) FILTER (WHERE status='ACTIVE') AS active,
+                  count(*) FILTER (WHERE end_reason='COMPLETED') AS completed,
+                  count(*) FILTER (WHERE end_reason='DECLINED') AS declined,
+                  count(*) FILTER (WHERE end_reason='CANCELLED') AS cancelled
+                FROM chat_conversations
+                """ + filter, (row, index) -> new ConsultationCounts(row.getLong("total"), row.getLong("pending"),
+                row.getLong("accepted"), row.getLong("active"), row.getLong("completed"), row.getLong("declined"),
+                row.getLong("cancelled")), parameters.toArray());
     }
 
     private List<Role> allowedRoleChanges(Account account) {
@@ -181,7 +218,8 @@ final class AccountDirectoryService {
     private static Account account(ResultSet row, int index) throws SQLException {
         Role role = Role.valueOf(row.getString("role"));
         return new Account(row.getObject("id", UUID.class), row.getString("identifier_normalized"), row.getString("display_name"),
-                role, Status.valueOf(row.getString("status")), row.getInt("status_version"), instant(row, "created_at"), role != Role.ADMIN);
+                role, Status.valueOf(row.getString("status")), row.getInt("status_version"), instant(row, "created_at"), role != Role.ADMIN,
+                row.getLong("consultation_requests"), row.getLong("consultations_accepted"));
     }
 
     private static String instant(ResultSet row, String field) throws SQLException {

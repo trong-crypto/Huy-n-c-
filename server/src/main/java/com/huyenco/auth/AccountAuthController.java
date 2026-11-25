@@ -56,10 +56,13 @@ final class AccountAuthController {
     private final AccountRequestGuards guards;
     private final ChatSessionAccess chatSessions;
     private final boolean secureCookie;
+    private final com.huyenco.websocket.AdminReviewNotifications notifications;
 
     AccountAuthController(AccountAuthService service, AuthAttemptLimits limits, ObjectMapper mapper,
                           AccountRequestGuards guards, ChatSessionAccess chatSessions,
-                          @Value("${huyenco.auth.secure-cookie}") boolean secureCookie) {
+                          @Value("${huyenco.auth.secure-cookie}") boolean secureCookie,
+                          com.huyenco.websocket.AdminReviewNotifications notifications) {
+        this.notifications = notifications;
         this.service = service;
         this.limits = limits;
         this.reader = mapper.copy().enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION)
@@ -156,6 +159,7 @@ final class AccountAuthController {
             limits.passwordChange(request.getRemoteAddr(), accountId);
             if (reviewRequired) {
                 service.requestPasswordChange(token, accountId, current, replacement);
+                notifications.submitted(com.huyenco.websocket.AdminReviewNotifications.Area.PASSWORD_CHANGE);
                 return success(202, java.util.Map.of("status", "PENDING"), null);
             }
             service.changePassword(realm, token, accountId, current, replacement);

@@ -8,6 +8,7 @@ import { CLIENT_CONFIG } from "@/config/client";
 
 export default async function AdminModulePage({ params }: { params: Promise<{ module: string }> }) {
   const { module } = await params;
+  if (module === "sources") notFound();
   if (module === "consultants") redirect("/admin/users?tab=consultants");
   const section = adminModules.find(item => item.id === module);
   if (!section) notFound();

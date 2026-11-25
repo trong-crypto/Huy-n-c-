@@ -27,7 +27,6 @@ export default function AdminDashboardPage() {
         {workspaceModules.map(module => <li key={module.id} className={styles.card}>
           <span className={styles.badge}>{(CLIENT_CONFIG.methodGuides && module.id === "methods")
             || ((CLIENT_CONFIG.adminHexagramGlosses || CLIENT_CONFIG.hexagramInterpretations) && module.id === "readings")
-            || (CLIENT_CONFIG.adminSourceCatalog && module.id === "sources")
             || (CLIENT_CONFIG.adminAccounts && (module.id === "users" || module.id === "audit"))
             ? "Đã kết nối" : "Giao diện · chờ Backend"}</span>
           <h3>{module.title}</h3>

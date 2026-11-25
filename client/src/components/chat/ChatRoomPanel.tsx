@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ChatComposer, ChatIcon } from "./ChatComposer";
 import { useChatScroll } from "./useChatScroll";
-import { draftLimit, isChatMessage, roomStatusLabels, validateChatDraft,
+import { draftLimit, isChatMessage, roomStatusLabels, roomStatusHints, validateChatDraft,
   type ChatAccess, type ChatMessage, type ChatMessaging, type SubscribeToRoom } from "./chatState";
 import styles from "./chat.module.css";
 
@@ -98,6 +98,7 @@ export function ChatRoomPanel({ state, subscribe, retry, messaging, lifecycleCon
     </header>
     <div className={styles.roomStatus}>
       {roomStatus}
+      {room && <p className={styles.roomStateHint} data-status={room.status}>{roomStatusHints[room.status]}</p>}
       {room?.ending && <p>{room.ending}</p>}
       {room?.peerTyping && <p role="status">Người bên kia đang nhập tin nhắn…</p>}
       {(room || messagingAvailable) && (!messaging || room?.status === "active") &&

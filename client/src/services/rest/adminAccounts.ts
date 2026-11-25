@@ -9,12 +9,15 @@ export type Role = keyof typeof accountRoles;
 export type Status = keyof typeof accountStatuses;
 export type CustomerRole = Exclude<Role, "ADMIN">;
 export type Account = { id: string; identifier: string; displayName: string; role: Role; status: Status;
-  version: number; createdAt: string; canChangeStatus: boolean };
+  version: number; createdAt: string; canChangeStatus: boolean; consultationRequests?: number; consultationsAccepted?: number };
+export type ConsultationCounts = { total: number; pending: number; accepted: number; active: number;
+  completed: number; declined: number; cancelled: number };
 type Change = { actorId: string; previousStatus: Status; status: Status; revokedSessions: number; occurredAt: string };
 type RoleChange = { actorId: string; previousRole: CustomerRole; role: CustomerRole; revokedSessions: number; occurredAt: string };
 export type AccountDetail = { account: Account; lastStatusChange: Change | null; lastRoleChange?: RoleChange | null;
   allowedRoleChanges?: CustomerRole[]; phoneNumber?: string | null;
-  passwordRequest?: { id: string; requestedAt: string } | null };
+  passwordRequest?: { id: string; requestedAt: string } | null;
+  consultationStats?: { user: ConsultationCounts; consultant: ConsultationCounts } };
 export type AccountQuery = { q: string; role: string; status: string; page: number; passwordPending?: boolean };
 type Page = { items: Account[]; page: number; size: number; totalElements: number; totalPages: number };
 
@@ -23,12 +26,20 @@ const timestamp = (value: unknown): value is string => typeof value === "string"
 const integer = (value: unknown): value is number => Number.isSafeInteger(value) && (value as number) >= 0;
 const status = (value: unknown): value is Status => typeof value === "string" && Object.hasOwn(accountStatuses, value);
 const customerRole = (value: unknown): value is CustomerRole => value === "USER" || value === "CONSULTANT";
+const isCounts = (value: unknown): value is ConsultationCounts => isRecord(value)
+  && [value.total, value.pending, value.accepted, value.active, value.completed, value.declined, value.cancelled].every(integer)
+  && value.accepted === (value.active as number) + (value.completed as number)
+  && value.total === (value.pending as number) + (value.accepted as number) + (value.declined as number) + (value.cancelled as number);
 const isAccount = (value: unknown): value is Account => isRecord(value) && isUuid(value.id)
   && typeof value.identifier === "string" && typeof value.displayName === "string"
   && typeof value.role === "string" && Object.hasOwn(accountRoles, value.role) && status(value.status)
   && integer(value.version) && value.version > 0 && timestamp(value.createdAt)
-  && value.canChangeStatus === (value.role !== "ADMIN");
+  && value.canChangeStatus === (value.role !== "ADMIN")
+  && (value.consultationRequests === undefined || integer(value.consultationRequests))
+  && (value.consultationsAccepted === undefined || integer(value.consultationsAccepted));
 const isDetail = (value: unknown): value is AccountDetail => isRecord(value) && isAccount(value.account)
+  && (value.consultationStats === undefined || isRecord(value.consultationStats)
+    && isCounts(value.consultationStats.user) && isCounts(value.consultationStats.consultant))
   && (value.phoneNumber == null || typeof value.phoneNumber === "string" && /^[+]?[0-9]{7,15}$/.test(value.phoneNumber))
   && (value.passwordRequest == null || isRecord(value.passwordRequest) && isUuid(value.passwordRequest.id)
     && timestamp(value.passwordRequest.requestedAt))
@@ -54,8 +65,11 @@ export async function listAccounts(query: AccountQuery, signal: AbortSignal) {
   return data;
 }
 
-export async function readAccount(id: string, signal: AbortSignal) {
-  const result = await requestJson(`${path}/${id}`, isDetail, signal, undefined, adminOptions());
+export async function readAccount(id: string, signal: AbortSignal, range?: { from: string; to: string }) {
+  const params = new URLSearchParams();
+  if (range?.from) params.set("from", range.from);
+  if (range?.to) params.set("to", range.to);
+  const result = await requestJson(`${path}/${id}${params.size ? `?${params}` : ""}`, isDetail, signal, undefined, adminOptions());
   if (result.account.id !== id) throw new RestError("INVALID_RESPONSE");
   return result;
 }

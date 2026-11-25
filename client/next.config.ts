@@ -43,7 +43,7 @@ const nextConfig: NextConfig = {
       ...(process.env.NEXT_PUBLIC_ADMIN_ACCOUNTS === "1" ? [
         { source: "/api/v1/admin/accounts/:path*", destination: `${server}/api/v1/admin/accounts/:path*` },
         { source: "/api/v1/admin/consultants/:path*", destination: `${server}/api/v1/admin/consultants/:path*` },
-        { source: "/api/v1/admin/metrics", destination: `${server}/api/v1/admin/metrics` },
+        { source: "/api/v1/admin/metrics/:path*", destination: `${server}/api/v1/admin/metrics/:path*` },
         { source: "/api/v1/admin/audit", destination: `${server}/api/v1/admin/audit` },
       ] : []),
       { source: "/api/v1/hexagrams/:path*", destination: `${server}/api/v1/hexagrams/:path*` },

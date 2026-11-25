@@ -124,6 +124,43 @@ it("binds a reading to the requested room, restores it after reload and sends it
   expect(screen.queryByRole("button", { name: "Gửi lá số" })).toBeNull();
 });
 
+it("offers an unattached reading in an existing active room and binds it only when explicitly sent", async () => {
+  const text = "Lá số Mai Hoa mới";
+  const messageId = "550e8400-e29b-41d4-a716-446655440011";
+  const otherRoomId = "550e8400-e29b-41d4-a716-446655440099";
+  const active = { ...room, status: "ACTIVE", startedAt: room.createdAt };
+  const other = { ...active, conversationId: otherRoomId };
+  storeReadingHandoff({ accountId: userId, text, messageId });
+  vi.stubGlobal("fetch", vi.fn(async (path: string) => {
+    if (path.endsWith("/auth/chat/session")) return success({ accountId: userId, role: "USER", expiresAt: expiresAt() });
+    if (path.endsWith("/auth/session")) return success({ account: { id: userId, role: "USER", displayName: "Khách" }, expiresAt: expiresAt(), csrfToken });
+    if (path.includes("/chat/consultants?")) return success(page([consultant]));
+    if (path.includes("/chat/conversations?")) return success(page([active, other]));
+    if (path.endsWith(conversationId)) return success(active);
+    if (path.endsWith(otherRoomId)) return success(other);
+    if (path.includes("/messages?")) return success({ items: [], nextAfterSequence: "0", hasMore: false });
+    throw new Error(`Unexpected request ${path}`);
+  }));
+  render(<ConsultationPage />);
+  expect(screen.queryByRole("button", { name: "Gửi lá số" })).toBeNull();
+  fireEvent.click((await screen.findAllByRole("button", { name: /550e8400/, pressed: false }))[0]);
+  await screen.findByRole("button", { name: "Gửi lá số" });
+  expect(readReadingHandoff(userId)?.conversationId).toBeUndefined();
+  // Choosing another room before sending keeps the reading available there.
+  fireEvent.click(screen.getByRole("button", { name: /550e8400/, pressed: false }));
+  await waitFor(() => expect(screen.getByRole<HTMLButtonElement>("button", { name: "Gửi lá số" }).disabled).toBe(false));
+  expect(stomp.publish.mock.calls.some(([frame]) => frame.destination.endsWith("/send"))).toBe(false);
+  fireEvent.click(screen.getByRole("button", { name: "Gửi lá số" }));
+  expect(readReadingHandoff(userId)?.conversationId).toBe(otherRoomId);
+  const sends = stomp.publish.mock.calls.filter(([frame]) => frame.destination.endsWith("/send"));
+  expect(sends).toHaveLength(1);
+  expect(sends[0][0]).toMatchObject({ destination: `/app/chat/rooms/${otherRoomId}/send`,
+    body: JSON.stringify({ clientMessageId: messageId, text }) });
+  fireEvent.click(screen.getByRole("button", { name: /550e8400/, pressed: false }));
+  await waitFor(() => expect(screen.queryByRole("button", { name: "Gửi lá số" })).toBeNull());
+  expect(readReadingHandoff(userId)?.conversationId).toBe(otherRoomId);
+});
+
 it("loads the user directory, retries C3 with one UUID, and opens the saved room through C5", async () => {
   const writes: { consultantId: string; requestId: string }[] = [];
   stomp.publish.mockImplementation(({ destination, body }) => {

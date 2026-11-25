@@ -161,6 +161,11 @@ public class ChatSocketSecurity implements HandshakeInterceptor {
                 && identity.accountId().equals(accountId));
     }
 
+    public long onlineAccounts(com.huyenco.auth.ChatSessionAccess.Role role) {
+        return connected.values().stream().filter(identity -> identity.scope() != Scope.ADMIN && identity.role() == role)
+                .map(SocketIdentity::accountId).distinct().count();
+    }
+
     public ExecutorChannelInterceptor outboundGuard(Supplier<MessageChannel> outbound) {
         return new ExecutorChannelInterceptor() {
             @Override

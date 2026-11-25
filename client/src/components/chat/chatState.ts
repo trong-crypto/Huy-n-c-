@@ -40,6 +40,12 @@ export const roomStatusLabels = {
   ended: "Đã kết thúc",
 };
 
+export const roomStatusHints = {
+  pending: "Đang chờ tư vấn viên chấp nhận yêu cầu.",
+  active: "Phiên tư vấn đang mở, bạn có thể tiếp tục trao đổi.",
+  ended: "Phiên tư vấn đã đóng. Bạn chỉ có thể xem lại tin nhắn.",
+};
+
 export function isChatMessage(value: unknown): value is ChatMessage {
   if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
   const record = value as Record<string, unknown>;

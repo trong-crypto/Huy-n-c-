@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { FormField } from "@/components/ui/Controls";
 import { accountError, accountRoles, accountStatuses, listAccounts, readAccount, setAccountRole, setAccountStatus,
-  type Account, type AccountDetail, type AccountQuery, type CustomerRole, type Status } from "@/services/rest/adminAccounts";
+  type Account, type AccountDetail, type AccountQuery, type ConsultationCounts, type CustomerRole, type Status } from "@/services/rest/adminAccounts";
 import { RestError } from "@/services/rest/transport";
 import { decidePasswordChange, type PasswordDecision } from "@/services/rest/passwordChange";
 import { useLookup } from "@/services/rest/useLookup";
@@ -11,7 +11,7 @@ import { useAdminSession } from "./AdminSessionGate";
 import styles from "./admin.module.css";
 
 const firstPage: AccountQuery = { q: "", role: "", status: "", page: 0 };
-type AccountAction = Status | CustomerRole;
+type AccountAction = Status | CustomerRole | PasswordDecision;
 const roleAction = (account: Account): CustomerRole => account.role === "CONSULTANT" ? "USER" : "CONSULTANT";
 const roleLabel = (role: CustomerRole) => role === "CONSULTANT" ? "Cấp lên thành tư vấn viên" : "Thu hồi quyền tư vấn viên";
 const accountDate = new Intl.DateTimeFormat("vi-VN", { dateStyle: "short", timeStyle: "short", timeZone: "Asia/Ho_Chi_Minh" });
@@ -25,6 +25,11 @@ export function AccountDirectoryLive() {
   const handleError = auth?.handleError;
   const [filters, setFilters] = useState(firstPage);
   const [query, setQuery] = useState(firstPage);
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("passwordRequest") === "pending") {
+      setQuery({ ...firstPage, passwordPending: true });
+    }
+  }, []);
   const [selected, setSelected] = useState<{ id: string; action: AccountAction | null } | null>(null);
   const opener = useRef<HTMLElement | null>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
@@ -35,6 +40,10 @@ export function AccountDirectoryLive() {
   useEffect(() => { if (selected) closeButton.current?.focus(); }, [selected]);
   const [refresh, setRefresh] = useState(0);
   const reloadList = useCallback(() => setRefresh(value => value + 1), []);
+  useEffect(() => {
+    window.addEventListener("huyenco-password-request", reloadList);
+    return () => window.removeEventListener("huyenco-password-request", reloadList);
+  }, [reloadList]);
   const load = useCallback(async (signal: AbortSignal) => {
     try { return await listAccounts(query, signal); }
     catch (failure) { if (!signal.aborted) handleError?.(failure); throw failure; }
@@ -92,13 +101,18 @@ export function AccountDirectoryLive() {
       {list.data && <>
         <p role="status">{list.data.totalElements} tài khoản phù hợp</p>
         <div className={styles.accountTableWrap}><table className={styles.accountTable} aria-label="Tài khoản người dùng">
-          <thead><tr><th scope="col">Tên hiển thị</th><th scope="col">Vai trò</th><th scope="col">Trạng thái</th><th scope="col">Hành động</th></tr></thead>
-          <tbody>{list.data.items.length === 0 && <tr><td colSpan={4}>Không có tài khoản phù hợp.</td></tr>}
+          <thead><tr><th scope="col">Tên hiển thị</th><th scope="col">Vai trò</th><th scope="col">Trạng thái</th><th scope="col">Hoạt động tư vấn</th><th scope="col">Hành động</th></tr></thead>
+          <tbody>{list.data.items.length === 0 && <tr><td colSpan={5}>Không có tài khoản phù hợp.</td></tr>}
           {list.data.items.map(account => <tr key={account.id} data-selected={selected?.id === account.id || undefined}>
             <th scope="row"><button type="button" className={styles.accountName} aria-controls={selected?.id === account.id ? "account-details" : undefined}
               onClick={event => select(account.id, null, event.currentTarget)}>{account.displayName}</button><small>{account.identifier}</small></th>
             <td>{accountRoles[account.role]}</td><td>{accountStatuses[account.status]}</td>
-            <td>{account.canChangeStatus ? <div className={styles.contentActions}>
+            <td>{account.role === "USER" ? <><strong>{account.consultationRequests ?? "—"}</strong><small>Yêu cầu đã gửi</small></>
+              : account.role === "CONSULTANT" ? <><strong>{account.consultationsAccepted ?? "—"}</strong><small>Đã tiếp nhận</small></> : "—"}</td>
+            <td>{query.passwordPending ? <div className={styles.contentActions}>
+              <button type="button" className="secondary-button" onClick={event => select(account.id, "APPROVE", event.currentTarget)}>Duyệt đổi mật khẩu</button>
+              <button type="button" className="secondary-button" onClick={event => select(account.id, "REJECT", event.currentTarget)}>Từ chối yêu cầu</button>
+            </div> : account.canChangeStatus ? <div className={styles.contentActions}>
               <button type="button" className="secondary-button" onClick={event => select(account.id,
                 account.status === "ACTIVE" ? "LOCKED" : "ACTIVE", event.currentTarget)}>
                 {account.status === "ACTIVE" ? "Khóa tài khoản" : "Mở khóa tài khoản"}</button>
@@ -130,23 +144,47 @@ export function AccountDirectoryLive() {
 function AccountDetails({ id, action, csrf, handleError, onChanged }: {
   id: string; action: AccountAction | null; csrf: string; handleError: (error: unknown) => void; onChanged: () => void;
 }) {
+  const [dates, setDates] = useState({ from: "", to: "" });
+  const [range, setRange] = useState({ from: "", to: "" });
   const load = useCallback(async (signal: AbortSignal) => {
-    try { return await readAccount(id, signal); }
+    try { return await readAccount(id, signal, range); }
     catch (failure) { if (!signal.aborted) handleError(failure); throw failure; }
-  }, [id, handleError]);
-  const detail = useLookup(id, load);
-  if (detail.status === "loading") return <p role="status">Đang tải tài khoản…</p>;
-  if (detail.status === "failed") return <><p role="alert">{accountError(detail.error)}</p>
-    <button type="button" className="secondary-button" onClick={detail.retry}>Tải lại chi tiết</button></>;
-  return <AccountStatusEditor initial={detail.data} action={action} csrf={csrf} handleError={handleError} onChanged={onChanged} reload={detail.retry} />;
+  }, [id, handleError, range]);
+  const detail = useLookup(JSON.stringify([id, range]), load);
+  return <>
+    <form className={styles.consultationDateFilters} onSubmit={event => { event.preventDefault(); setRange({ ...dates }); }}>
+      <FormField id="consultations-from" label="Từ ngày"><input id="consultations-from" type="date" min="1900-01-01"
+        max={dates.to || "9998-12-31"} value={dates.from} onChange={event => setDates({ ...dates, from: event.target.value })} /></FormField>
+      <FormField id="consultations-to" label="Đến ngày"><input id="consultations-to" type="date" min={dates.from || "1900-01-01"}
+        max="9998-12-31" value={dates.to} onChange={event => setDates({ ...dates, to: event.target.value })} /></FormField>
+      <div className={styles.contentActions}><button type="submit" className="secondary-button">Lọc thống kê tư vấn</button>
+        <button type="button" className="secondary-button" onClick={() => { setDates({ from: "", to: "" }); setRange({ from: "", to: "" }); }}>Toàn bộ thời gian</button></div>
+      <p className="field-hint">{range.from || range.to ? `Yêu cầu tạo từ ${range.from || "trước đến nay"} đến ${range.to || "hiện tại"}` : "Thống kê toàn bộ thời gian"} · Theo giờ Việt Nam.</p>
+    </form>
+    {detail.status === "loading" ? <p role="status">Đang tải tài khoản…</p>
+      : detail.status === "failed" ? <><p role="alert">{accountError(detail.error)}</p>
+        <button type="button" className="secondary-button" onClick={detail.retry}>Tải lại chi tiết</button></>
+      : <AccountStatusEditor initial={detail.data} action={action} csrf={csrf} handleError={handleError} onChanged={onChanged} reload={detail.retry} />}
+  </>;
+}
+
+function ConsultationSummary({ counts, consultant }: { counts: ConsultationCounts; consultant: boolean }) {
+  const entries = [[consultant ? "Yêu cầu nhận được" : "Yêu cầu đã gửi", counts.total], ["Đang chờ", counts.pending],
+    [consultant ? "Đã tiếp nhận" : "Được chấp nhận", counts.accepted], ["Đang tư vấn", counts.active],
+    ["Đã hoàn thành", counts.completed], ["Bị từ chối", counts.declined], ["Người dùng đã hủy", counts.cancelled]] as const;
+  return <section className={styles.accountDetailsSection} aria-label={consultant ? "Thống kê tư vấn viên" : "Thống kê người dùng"}>
+    <h4>{consultant ? "Hoạt động với vai trò tư vấn viên" : "Hoạt động với vai trò người dùng"}</h4>
+    <dl className={styles.consultationStats}>{entries.map(([label, count]) => <div key={label}><dt>{label}</dt><dd>{count}</dd></div>)}</dl>
+    <p className="field-hint">Đã tiếp nhận gồm các cuộc đang tư vấn và đã hoàn thành. Mỗi yêu cầu chỉ tính một lần.</p>
+  </section>;
 }
 
 function AccountStatusEditor({ initial, action, csrf, handleError, onChanged, reload }: {
   initial: AccountDetail; action: AccountAction | null; csrf: string; handleError: (error: unknown) => void; onChanged: () => void; reload: () => void;
 }) {
   const [detail, setDetail] = useState(initial);
-  const [confirming, setConfirming] = useState(action);
-  const [passwordDecision, setPasswordDecision] = useState<PasswordDecision | null>(null);
+  const [confirming, setConfirming] = useState<Status | CustomerRole | null>(action === "APPROVE" || action === "REJECT" ? null : action);
+  const [passwordDecision, setPasswordDecision] = useState<PasswordDecision | null>(action === "APPROVE" || action === "REJECT" ? action : null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<unknown>(null);
   const [notice, setNotice] = useState("");
@@ -178,7 +216,7 @@ function AccountStatusEditor({ initial, action, csrf, handleError, onChanged, re
         ? await setAccountStatus(account, confirming, csrf, controller.signal)
         : await setAccountRole(account, confirming, csrf, controller.signal);
       if (controller.signal.aborted) return;
-      setDetail(updated);
+      setDetail({ ...updated, consultationStats: detail.consultationStats });
       setNotice(statusChange ? (locking ? "Đã khóa tài khoản." : "Đã mở khóa tài khoản.")
         : `Đã đổi vai trò thành ${accountRoles[confirming]}.`);
       onChanged();
@@ -228,6 +266,10 @@ function AccountStatusEditor({ initial, action, csrf, handleError, onChanged, re
         <div><dt>Mã tài khoản</dt><dd><code>{account.id}</code></dd></div>
       </dl>
     </section>
+    {detail.consultationStats && <>
+      {(account.role === "USER" || detail.consultationStats.user.total > 0) && <ConsultationSummary counts={detail.consultationStats.user} consultant={false} />}
+      {(account.role === "CONSULTANT" || detail.consultationStats.consultant.total > 0) && <ConsultationSummary counts={detail.consultationStats.consultant} consultant />}
+    </>}
     {notice && <p role="status">{notice}</p>}
     {error !== null && <p role="alert">{accountError(error)}</p>}
     {conflict && <button type="button" className="secondary-button" onClick={reload}>Tải lại chi tiết</button>}
