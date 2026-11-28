@@ -1,0 +1,22 @@
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { expect,it,vi } from "vitest";
+import { ModerationInbox } from "./ModerationInbox";
+vi.mock("@/services/rest/customerAuth",()=>({customerOptions:()=>({credentials:"same-origin"}),readCustomerSession:async()=>({csrfToken:"csrf"})}));
+it("shows persistent admin results and marks only the chosen notification as read",async()=>{
+ HTMLDialogElement.prototype.showModal=function(){this.setAttribute("open","");};HTMLDialogElement.prototype.close=function(){this.removeAttribute("open");};
+ const id="550e8400-e29b-41d4-a716-446655440001";let read=false;
+ const fetch=vi.fn(async(_path:string,o?:RequestInit)=>{if(o?.method==="PUT")read=true;return Response.json({requestId:id,status:"COMPLETED",error:null,data:o?.method==="PUT"?{saved:true}:{unread:read?0:1,items:[{id,title:"Kết quả báo cáo tư vấn",body:"Admin đã xem xét báo cáo của bạn.",created_at:"2026-11-28T00:00:00Z",read_at:read?"2026-11-28T00:00:01Z":null}]}});});
+ vi.stubGlobal("fetch",fetch);render(<ModerationInbox/>);
+ await screen.findByText("Có 1 thông báo từ admin chưa đọc");
+ const trigger=screen.getByRole("button",{name:"Thông báo admin (1)"});
+ vi.spyOn(trigger,"getBoundingClientRect").mockReturnValue({left:850,right:1000,top:40,bottom:84,width:150,height:44,x:850,y:40,toJSON:()=>({})});
+ fireEvent.click(trigger);
+ const panel=screen.getByRole("dialog",{name:"Thông báo từ admin"});
+ expect(panel.style.left).toBe("580px");expect(panel.style.top).toBe("92px");expect(trigger.getAttribute("aria-expanded")).toBe("true");
+ expect(screen.getByText("Admin đã xem xét báo cáo của bạn.")).toBeTruthy();fireEvent.click(screen.getByRole("button",{name:"Đánh dấu đã đọc"}));
+ await waitFor(()=>expect(screen.queryByText("Có 1 thông báo từ admin chưa đọc")).toBeNull());
+ expect(fetch.mock.calls.find(([,o])=>o?.method==="PUT")?.[0]).toContain(`/${id}/read`);
+ vi.stubGlobal("innerWidth",375);fireEvent(window,new Event("resize"));
+ expect(panel.style.width).toBe("351px");expect(panel.style.left).toBe("12px");
+ fireEvent.keyDown(document,{key:"Escape"});expect(screen.queryByRole("dialog")).toBeNull();expect(document.activeElement).toBe(trigger);
+});

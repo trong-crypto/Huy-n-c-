@@ -105,7 +105,8 @@ export function CustomerAuthForm({ registering }: { registering: boolean }) {
         FORBIDDEN: "Tài khoản này không có quyền đăng nhập tại đây.",
         CSRF_REJECTED: "Máy chủ từ chối yêu cầu. Hãy mở đúng địa chỉ website đã cấu hình trên máy chủ rồi thử lại.",
       };
-      setApiError(failure instanceof RestError && Object.hasOwn(messages, failure.code)
+      setApiError(failure instanceof RestError && failure.code === "ACCOUNT_SUSPENDED" ? failure.apiError?.message ?? "Tài khoản đã bị khóa. Liên hệ ddaotrondz2005@gmail.com."
+        : failure instanceof RestError && Object.hasOwn(messages, failure.code)
         ? messages[failure.code] : "Không thể xác nhận yêu cầu. Vui lòng thử lại.");
     } finally {
       if (!request.signal.aborted) {

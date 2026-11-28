@@ -10,6 +10,7 @@ import { RestError } from "@/services/rest/transport";
 import { useLookup } from "@/services/rest/useLookup";
 import { useSession } from "@/services/session/SessionProvider";
 import { useAuthenticatedSocket } from "@/services/websocket/useAuthenticatedSocket";
+import { ModerationInbox } from "@/components/chat/ModerationInbox";
 
 function GuestLinks({ pathname }: { pathname: string }) {
   return <>
@@ -131,6 +132,7 @@ function CustomerAccount({ pathname }: { pathname: string }) {
       <button type="button" disabled={signingOut} onClick={() => void signOut()}>
         {signingOut ? "Đang đăng xuất…" : "Đăng xuất"}
       </button>
+      <ModerationInbox />
     </>}
     {logoutFailed && <p className="navigation-session-status" role="alert">Chưa xác nhận được đăng xuất.</p>}
   </>;

@@ -1,0 +1,31 @@
+.dialog { position:fixed; inset:0; margin:auto; box-sizing:border-box; width: min(520px, calc(100vw - 32px)); height:fit-content; max-height: calc(100dvh - 48px); overflow: auto; padding: 24px; border: 1px solid #786444; border-radius: 18px; background: #1b1230; color: #f4ecff; box-shadow: 0 20px 80px #0009; }
+.dialog::backdrop { background: #05020cbb; }
+.dialog header,.dialog footer { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.dialog header h2 { margin:0; font-size:24px; color:#efcf83; }
+.dialog form,.dialog label { display:grid; gap:10px; }
+.dialog form { margin-top:18px; gap:18px; }
+.dialog select,.dialog textarea { width:100%; min-width:0; }
+.dialog p { overflow-wrap:anywhere; line-height:1.6; }
+.stars { display:flex; gap:10px; border:0; padding:0; }
+.stars legend { font-size:14px; margin-bottom:10px; }
+.stars label { position:relative; cursor:pointer; }
+.stars input { position:absolute; opacity:0; width:100%; height:100%; margin:0; }
+.stars span[data-selected] { font-size:36px; color:#81738f; }
+.stars span[data-selected="true"] { color:#f4d176; }
+.stars label:focus-within { outline:2px solid #f4d176; border-radius:4px; }
+.inboxButton { display:inline-flex; align-items:center; flex:none; }
+.inboxPanel { position:fixed; z-index:200; box-sizing:border-box; overflow:auto; overscroll-behavior:contain; padding:18px; border:1px solid #786444; border-radius:14px; background:#1b1230; color:#f4ecff; box-shadow:0 16px 48px #0009; }
+.inboxPanel header,.inboxPanel footer { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.inboxPanel header { padding-bottom:12px; border-bottom:1px solid #625271; }
+.inboxPanel h2 { margin:0; font-size:20px; color:#efcf83; }
+.inboxPanel p { overflow-wrap:anywhere; line-height:1.6; }
+.inboxPanel footer { flex-wrap:wrap; margin:14px 0 10px; }
+.inboxPanel :global(.secondary-button) { min-height:36px; padding:6px 10px; font-size:13px; }
+.inboxItem { padding:12px; margin:12px 0; border:1px solid #625271; border-radius:10px; }
+.inboxItem[data-unread="true"] { border-left:3px solid #f4d176; }
+.inboxItem h3 { margin:0 0 6px; }
+.inboxItem time { font-size:12px; color:#bfb1d2; }
+.inboxPagination { display:flex; align-items:center; gap:12px; }
+.inboxPagination > span { font-size:13px; color:#d8cce5; }
+.inboxPanel .inboxIconButton { display:grid; place-items:center; flex:none; width:36px; height:36px; min-height:36px; padding:0; }
+.inboxIconButton:disabled { opacity:.4; cursor:default; }

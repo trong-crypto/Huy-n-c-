@@ -55,10 +55,10 @@ class ChatConsultantControllerTest {
         mvc.perform(get(DIRECTORY + "/" + PROFILE_ID))
                 .andExpect(status().isOk()).andExpect(header().string("Cache-Control", "no-store"))
                 .andExpect(content().json("{\"data\":" + expectedProfile + "}"))
-                .andExpect(jsonPath("$.data.length()").value(3));
+                .andExpect(jsonPath("$.data.length()").value(5));
         mvc.perform(get(DIRECTORY)).andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.totalElements").value(1))
-                .andExpect(jsonPath("$.data.items[0].length()").value(3));
+                .andExpect(jsonPath("$.data.items[0].length()").value(5));
     }
 
     @Test

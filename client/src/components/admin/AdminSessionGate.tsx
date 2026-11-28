@@ -44,6 +44,7 @@ export function AdminSessionGate({ children }: { children: ReactNode }) {
 
 const reviewAreas = {
   PASSWORD_CHANGE: { title: "Yêu cầu đổi mật khẩu", href: "/admin/users?passwordRequest=pending" },
+  REPORT: { title: "Báo cáo tư vấn mới", href: "/admin/reports" },
   METHOD_GUIDE: { title: "Hướng dẫn phương pháp", href: "/admin/methods" },
   SOURCE: { title: "Dữ liệu nguồn", href: "/admin/sources" },
   NAME_GLOSS: { title: "Nghĩa tên quẻ", href: "/admin/readings" },
@@ -74,7 +75,7 @@ function AdminReviewNotices({ session, handleError }: { session: AdminSession; h
   });
   if (areas.length === 0) return null;
   return <aside className={styles.reviewToast} aria-label="Thông báo chờ duyệt">
-    <p role="status">{areas.includes("PASSWORD_CHANGE") ? "Có yêu cầu đổi mật khẩu đang chờ duyệt." : "Có nội dung mới được gửi duyệt."}</p>
+    <p role="status">{areas.includes("REPORT") ? "Có báo cáo tư vấn mới cần xử lý." : areas.includes("PASSWORD_CHANGE") ? "Có yêu cầu đổi mật khẩu đang chờ duyệt." : "Có nội dung mới được gửi duyệt."}</p>
     <ul>{areas.map(area => <li key={area}><a className={styles.textLink} href={reviewAreas[area].href}>{reviewAreas[area].title}</a></li>)}</ul>
     <button className="secondary-button" type="button" onClick={() => setAreas([])}>Đóng thông báo</button>
   </aside>;

@@ -23,7 +23,8 @@ final class AccountDirectoryService {
     enum Role { USER, ADMIN, CONSULTANT }
     enum Status { ACTIVE, LOCKED }
     record Account(UUID id, String identifier, String displayName, Role role, Status status, int version,
-                   String createdAt, boolean canChangeStatus, long consultationRequests, long consultationsAccepted) {}
+                   String createdAt, boolean canChangeStatus, long consultationRequests, long consultationsAccepted,
+                   Double averageRating, long ratingCount, String lockReason) {}
     record ConsultationCounts(long total, long pending, long accepted, long active, long completed, long declined, long cancelled) {}
     record ConsultationStats(ConsultationCounts user, ConsultationCounts consultant) {}
     record StatusChange(UUID actorId, Status previousStatus, Status status, int revokedSessions, String occurredAt) {}
@@ -35,7 +36,9 @@ final class AccountDirectoryService {
 
     private static final String COLUMNS = "id,identifier_normalized,display_name,role,status,status_version,created_at,"
             + " (SELECT count(*) FROM chat_conversations c WHERE c.user_account_id=accounts.id) AS consultation_requests,"
-            + " (SELECT count(*) FROM chat_conversations c WHERE c.consultant_account_id=accounts.id AND c.started_at IS NOT NULL) AS consultations_accepted";
+            + " (SELECT count(*) FROM chat_conversations c WHERE c.consultant_account_id=accounts.id AND c.started_at IS NOT NULL) AS consultations_accepted,"
+            + " (SELECT avg(stars) FROM consultation_ratings r WHERE r.consultant_id=accounts.id) AS average_rating,"
+            + " (SELECT count(*) FROM consultation_ratings r WHERE r.consultant_id=accounts.id) AS rating_count,lock_reason";
     private final JdbcTemplate db;
     private final Clock clock;
     private final TransactionTemplate reads;
@@ -80,6 +83,12 @@ final class AccountDirectoryService {
     }
 
     Detail change(UUID id, int expectedVersion, Status requested, UUID actor) {
+        return change(id, expectedVersion, requested, actor, "Vi phạm quy định sử dụng hệ thống");
+    }
+
+    Detail change(UUID id, int expectedVersion, Status requested, UUID actor, String reason) {
+        if (requested == Status.LOCKED && (reason == null || reason.isBlank() || reason.length() > 2000))
+            throw new ContractException("INVALID_INPUT", "Cần nhập lý do khóa tài khoản.");
         return writes.execute(tx -> {
             // Login also locks this account row before issuing a session.
             Account current = load(id, true);
@@ -89,12 +98,13 @@ final class AccountDirectoryService {
 
             OffsetDateTime now = clock.instant().atOffset(ZoneOffset.UTC);
             int version = Math.incrementExact(current.version());
-            db.update("UPDATE accounts SET status=?, status_version=? WHERE id=?", requested.name(), version, id);
+            db.update("UPDATE accounts SET status=?, status_version=?,lock_reason=?,lock_until=NULL,lock_decision_id=NULL WHERE id=?", requested.name(), version,
+                    requested == Status.LOCKED ? reason.strip() : null, id);
             int revoked = requested == Status.LOCKED ? revokeSessions(id, now) : 0;
             db.update("""
-                    INSERT INTO admin_account_status_events(account_id,version,actor_id,previous_status,status,revoked_sessions,occurred_at)
-                    VALUES (?,?,?,?,?,?,?)
-                    """, id, version, actor, current.status().name(), requested.name(), revoked, now);
+                    INSERT INTO admin_account_status_events(account_id,version,actor_id,previous_status,status,revoked_sessions,occurred_at,reason)
+                    VALUES (?,?,?,?,?,?,?,?)
+                    """, id, version, actor, current.status().name(), requested.name(), revoked, now, requested == Status.LOCKED ? reason.strip() : null);
             return detail(load(id, false));
         });
     }
@@ -164,7 +174,7 @@ final class AccountDirectoryService {
                 """, (row, index) -> new StatusChange(row.getObject("actor_id", UUID.class),
                 Status.valueOf(row.getString("previous_status")), Status.valueOf(row.getString("status")),
                 row.getInt("revoked_sessions"), instant(row, "occurred_at")), account.id())
-                .stream().findFirst().orElse(null);
+                .stream().findFirst().filter(change -> change.status()==account.status()).orElse(null);
         var roleChange = db.query("""
                 SELECT actor_id,previous_role,role,revoked_sessions,occurred_at
                 FROM admin_account_role_events WHERE account_id=? ORDER BY version DESC LIMIT 1
@@ -219,7 +229,8 @@ final class AccountDirectoryService {
         Role role = Role.valueOf(row.getString("role"));
         return new Account(row.getObject("id", UUID.class), row.getString("identifier_normalized"), row.getString("display_name"),
                 role, Status.valueOf(row.getString("status")), row.getInt("status_version"), instant(row, "created_at"), role != Role.ADMIN,
-                row.getLong("consultation_requests"), row.getLong("consultations_accepted"));
+                row.getLong("consultation_requests"), row.getLong("consultations_accepted"),
+                row.getObject("average_rating") == null ? null : row.getDouble("average_rating"), row.getLong("rating_count"), row.getString("lock_reason"));
     }
 
     private static String instant(ResultSet row, String field) throws SQLException {

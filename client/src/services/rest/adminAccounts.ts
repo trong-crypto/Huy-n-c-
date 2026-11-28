@@ -9,7 +9,8 @@ export type Role = keyof typeof accountRoles;
 export type Status = keyof typeof accountStatuses;
 export type CustomerRole = Exclude<Role, "ADMIN">;
 export type Account = { id: string; identifier: string; displayName: string; role: Role; status: Status;
-  version: number; createdAt: string; canChangeStatus: boolean; consultationRequests?: number; consultationsAccepted?: number };
+  version: number; createdAt: string; canChangeStatus: boolean; consultationRequests?: number; consultationsAccepted?: number;
+  averageRating?: number | null; ratingCount?: number; lockReason?: string | null };
 export type ConsultationCounts = { total: number; pending: number; accepted: number; active: number;
   completed: number; declined: number; cancelled: number };
 type Change = { actorId: string; previousStatus: Status; status: Status; revokedSessions: number; occurredAt: string };
@@ -36,7 +37,10 @@ const isAccount = (value: unknown): value is Account => isRecord(value) && isUui
   && integer(value.version) && value.version > 0 && timestamp(value.createdAt)
   && value.canChangeStatus === (value.role !== "ADMIN")
   && (value.consultationRequests === undefined || integer(value.consultationRequests))
-  && (value.consultationsAccepted === undefined || integer(value.consultationsAccepted));
+  && (value.consultationsAccepted === undefined || integer(value.consultationsAccepted))
+  && (value.averageRating == null || typeof value.averageRating === "number" && value.averageRating >= 1 && value.averageRating <= 5)
+  && (value.ratingCount === undefined || integer(value.ratingCount))
+  && (value.lockReason == null || typeof value.lockReason === "string");
 const isDetail = (value: unknown): value is AccountDetail => isRecord(value) && isAccount(value.account)
   && (value.consultationStats === undefined || isRecord(value.consultationStats)
     && isCounts(value.consultationStats.user) && isCounts(value.consultationStats.consultant))
@@ -74,9 +78,9 @@ export async function readAccount(id: string, signal: AbortSignal, range?: { fro
   return result;
 }
 
-export async function setAccountStatus(account: Account, status: Status, csrf: string, signal: AbortSignal) {
+export async function setAccountStatus(account: Account, status: Status, csrf: string, signal: AbortSignal, reason?: string) {
   const result = await requestJson(`${path}/${account.id}/status`, isDetail, signal,
-    { expectedVersion: account.version, status }, { ...adminOptions(csrf), method: "PUT" });
+    { expectedVersion: account.version, status, ...(status === "LOCKED" && { reason }) }, { ...adminOptions(csrf), method: "PUT" });
   if (result.account.id !== account.id || result.account.status !== status
       || result.account.version !== account.version + 1) throw new RestError("INVALID_RESPONSE");
   return result;

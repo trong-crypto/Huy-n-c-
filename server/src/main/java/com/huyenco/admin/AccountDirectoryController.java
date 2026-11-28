@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/v1/admin/accounts", produces = MediaType.APPLICATION_JSON_VALUE)
 final class AccountDirectoryController {
     private static final Logger LOG = LoggerFactory.getLogger(AccountDirectoryController.class);
-    private static final int MAX_BODY = 2048;
+    private static final int MAX_BODY = 12000;
     private final AccountDirectoryService service;
     private final Optional<AdminRequestAccess> access;
     private final ObjectReader reader;
@@ -93,8 +93,10 @@ final class AccountDirectoryController {
             query(request, Set.of());
             JsonNode body = body(request, reader, MAX_BODY);
             JsonNode status = body.path("status");
-            if (body.size() != 2 || !status.isTextual()) throw invalid();
-            return service.change(uuid(id), expectedVersion(body), option(AccountDirectoryService.Status.class, status.textValue()), actor);
+            if (!status.isTextual() || body.size() != (body.has("reason") ? 3 : 2)
+                    || body.has("reason") && !body.path("reason").isTextual()) throw invalid();
+            return service.change(uuid(id), expectedVersion(body), option(AccountDirectoryService.Status.class, status.textValue()), actor,
+                    body.has("reason") ? body.path("reason").asText() : null);
         });
     }
 

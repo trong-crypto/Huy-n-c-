@@ -98,6 +98,7 @@ export function ConsultationWorkspace({ audience, access = { status: "blocked" }
                     aria-label={person.name}
                     onChange={() => controls.selectConsultant(person.id)} disabled={controls.sending} />
                   <span className={styles.choiceText}><strong>{person.name}</strong>
+                    <span>{person.averageRating != null ? `★ ${person.averageRating.toFixed(1)}/5 · ${person.ratingCount ?? 0} đánh giá` : "Chưa có đánh giá"}</span>
                     {person.online !== undefined && <span className={styles.onlineLabel} data-online={person.online}>
                       <i aria-hidden="true" />{person.online ? "Đang online" : "Ngoại tuyến"}</span>}
                     {person.profile && <span>{person.profile}</span>}

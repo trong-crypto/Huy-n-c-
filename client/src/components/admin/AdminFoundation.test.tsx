@@ -174,7 +174,8 @@ describe("Admin foundation while authentication is unavailable", () => {
     const overview = within(sidebar).getByRole("link", { name: "Tổng quan" });
     expect(overview.getAttribute("href")).toBe("/admin");
     expect(overview.getAttribute("aria-current")).toBe("page");
-    expect(within(sidebar).getAllByRole("link")).toHaveLength(5);
+    expect(within(sidebar).getAllByRole("link")).toHaveLength(6);
+    expect(within(sidebar).getByRole("link", {name:"Báo cáo tư vấn"}).getAttribute("href")).toBe("/admin/reports");
     expect(screen.queryByRole("link", { name: /Quản lý nội dung website|Quản lý tư vấn viên/ })).toBeNull();
     expect(within(sidebar).getByRole("link", { name: "Quản lý người dùng" }).getAttribute("href")).toBe("/admin/users");
     expect(within(sidebar).getByRole("link", { name: "Nhật ký quản trị" }).getAttribute("href")).toBe("/admin/audit");

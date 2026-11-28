@@ -19,7 +19,9 @@ const pageSize = 20;
 const isSession = (value: unknown): value is ChatSession => isRecord(value) && isUuid(value.accountId)
   && (value.role === "USER" || value.role === "CONSULTANT") && time(value.expiresAt);
 const isConsultant = (value: unknown): value is Consultant => isRecord(value) && isUuid(value.consultantId)
-  && typeof value.displayName === "string" && (value.summary === null || typeof value.summary === "string");
+  && typeof value.displayName === "string" && (value.summary === null || typeof value.summary === "string")
+  && (value.averageRating == null || typeof value.averageRating === "number" && value.averageRating >= 1 && value.averageRating <= 5)
+  && (value.ratingCount === undefined || Number.isSafeInteger(value.ratingCount) && (value.ratingCount as number) >= 0);
 const isConversation = (value: unknown): value is Conversation => isRecord(value) && isUuid(value.conversationId)
   && isUuid(value.userId) && isUuid(value.consultantId) && time(value.createdAt)
   && (value.startedAt === null || time(value.startedAt)) && (value.endedAt === null || time(value.endedAt))

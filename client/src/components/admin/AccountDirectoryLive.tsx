@@ -9,6 +9,8 @@ import { decidePasswordChange, type PasswordDecision } from "@/services/rest/pas
 import { useLookup } from "@/services/rest/useLookup";
 import { useAdminSession } from "./AdminSessionGate";
 import styles from "./admin.module.css";
+import { lockReasons } from "@/components/chat/FeedbackDialog";
+import { ModerationHistory } from "./ModerationActions";
 
 const firstPage: AccountQuery = { q: "", role: "", status: "", page: 0 };
 type AccountAction = Status | CustomerRole | PasswordDecision;
@@ -31,6 +33,7 @@ export function AccountDirectoryLive() {
     }
   }, []);
   const [selected, setSelected] = useState<{ id: string; action: AccountAction | null } | null>(null);
+  useEffect(()=>{const id=new URLSearchParams(window.location.search).get("account");if(id&&/^[a-f0-9-]{36}$/i.test(id))setSelected({id,action:null});},[]);
   const opener = useRef<HTMLElement | null>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
   const closeDetails = useCallback(() => {
@@ -108,7 +111,7 @@ export function AccountDirectoryLive() {
               onClick={event => select(account.id, null, event.currentTarget)}>{account.displayName}</button><small>{account.identifier}</small></th>
             <td>{accountRoles[account.role]}</td><td>{accountStatuses[account.status]}</td>
             <td>{account.role === "USER" ? <><strong>{account.consultationRequests ?? "—"}</strong><small>Yêu cầu đã gửi</small></>
-              : account.role === "CONSULTANT" ? <><strong>{account.consultationsAccepted ?? "—"}</strong><small>Đã tiếp nhận</small></> : "—"}</td>
+              : account.role === "CONSULTANT" ? <><strong>{account.consultationsAccepted ?? "—"}</strong><small>Đã tiếp nhận</small><small>{account.averageRating != null ? `★ ${account.averageRating.toFixed(1)}/5 · ${account.ratingCount ?? 0} đánh giá` : "Chưa có đánh giá"}</small></> : "—"}</td>
             <td>{query.passwordPending ? <div className={styles.contentActions}>
               <button type="button" className="secondary-button" onClick={event => select(account.id, "APPROVE", event.currentTarget)}>Duyệt đổi mật khẩu</button>
               <button type="button" className="secondary-button" onClick={event => select(account.id, "REJECT", event.currentTarget)}>Từ chối yêu cầu</button>
@@ -183,6 +186,8 @@ function AccountStatusEditor({ initial, action, csrf, handleError, onChanged, re
   initial: AccountDetail; action: AccountAction | null; csrf: string; handleError: (error: unknown) => void; onChanged: () => void; reload: () => void;
 }) {
   const [detail, setDetail] = useState(initial);
+  const [lockReason,setLockReason] = useState(lockReasons[0]);
+  const [lockDescription,setLockDescription] = useState("");
   const [confirming, setConfirming] = useState<Status | CustomerRole | null>(action === "APPROVE" || action === "REJECT" ? null : action);
   const [passwordDecision, setPasswordDecision] = useState<PasswordDecision | null>(action === "APPROVE" || action === "REJECT" ? action : null);
   const [busy, setBusy] = useState(false);
@@ -205,7 +210,7 @@ function AccountStatusEditor({ initial, action, csrf, handleError, onChanged, re
     "CONSULTANT_APPROVAL_REQUIRED", "NETWORK_ERROR", "REQUEST_TIMEOUT", "INVALID_RESPONSE"].includes(error.code);
 
   async function change() {
-    if (!confirming || pending.current || !account.canChangeStatus || alreadyApplied || requiresUnlock) return;
+    if (!confirming || pending.current || !account.canChangeStatus || alreadyApplied || requiresUnlock || locking && lockReason === "Khác" && !lockDescription.trim()) return;
     const controller = new AbortController();
     pending.current = controller;
     setBusy(true);
@@ -213,7 +218,7 @@ function AccountStatusEditor({ initial, action, csrf, handleError, onChanged, re
     setNotice("");
     try {
       const updated = statusChange
-        ? await setAccountStatus(account, confirming, csrf, controller.signal)
+        ? await setAccountStatus(account, confirming, csrf, controller.signal, lockReason === "Khác" ? lockDescription.trim() : `${lockReason}${lockDescription.trim() ? `: ${lockDescription.trim()}` : ""}`)
         : await setAccountRole(account, confirming, csrf, controller.signal);
       if (controller.signal.aborted) return;
       setDetail({ ...updated, consultationStats: detail.consultationStats });
@@ -258,6 +263,7 @@ function AccountStatusEditor({ initial, action, csrf, handleError, onChanged, re
       </div>
     </div>
     <section className={styles.accountDetailsSection} aria-labelledby="account-information">
+      {account.status === "LOCKED" && <p>Lý do khóa: {account.lockReason ?? "Chưa ghi nhận"}</p>}
       <h4 id="account-information">Thông tin tài khoản</h4>
       <dl className={styles.accountDetailsList}>
         <div><dt>Định danh đăng nhập</dt><dd>{account.identifier}</dd></div>
@@ -267,6 +273,7 @@ function AccountStatusEditor({ initial, action, csrf, handleError, onChanged, re
       </dl>
     </section>
     {detail.consultationStats && <>
+      <ModerationHistory accountId={account.id}/>
       {(account.role === "USER" || detail.consultationStats.user.total > 0) && <ConsultationSummary counts={detail.consultationStats.user} consultant={false} />}
       {(account.role === "CONSULTANT" || detail.consultationStats.consultant.total > 0) && <ConsultationSummary counts={detail.consultationStats.consultant} consultant />}
     </>}
@@ -291,12 +298,17 @@ function AccountStatusEditor({ initial, action, csrf, handleError, onChanged, re
     </section>}
     {!account.canChangeStatus && <p>Trạng thái tài khoản Admin chỉ được quản lý qua quy trình cấp quyền riêng.</p>}
     {account.canChangeStatus && !conflict && confirming && <div className={`${styles.contentActions} ${styles.accountConfirmation}`}>
+      {locking && <div style={{width:"100%",display:"grid",gap:12}}>
+        <label>Lý do khóa tài khoản<select value={lockReason} disabled={busy} onChange={e=>setLockReason(e.target.value)}>{lockReasons.map(r=><option key={r}>{r}</option>)}</select></label>
+        <label>Mô tả {lockReason === "Khác" ? "(bắt buộc)" : "(tùy chọn)"}<textarea maxLength={1500} value={lockDescription} disabled={busy} onChange={e=>setLockDescription(e.target.value)} /></label>
+        <p>Lý do này sẽ được hiển thị cho tài khoản bị khóa, kèm email admin.</p>
+      </div>}
       <p>{alreadyApplied ? "Tài khoản đã ở trạng thái hoặc vai trò này." : requiresUnlock ? "Hãy mở khóa tài khoản trước khi đổi vai trò." : statusChange
         ? (locking ? "Khóa tài khoản sẽ thu hồi tất cả phiên đang hoạt động." : "Người dùng sẽ có thể đăng nhập lại sau khi mở khóa.")
         : confirming === "CONSULTANT"
           ? "Cấp quyền sẽ duyệt hồ sơ tư vấn viên và thu hồi các phiên đang hoạt động."
           : "Thu hồi quyền tư vấn viên sẽ đưa tài khoản về vai trò người dùng và ngắt các phiên đang hoạt động."}</p>
-      <button type="button" className="primary-button" disabled={busy || alreadyApplied || requiresUnlock} onClick={() => void change()}>
+      <button type="button" className="primary-button" disabled={busy || alreadyApplied || requiresUnlock || locking && lockReason === "Khác" && !lockDescription.trim()} onClick={() => void change()}>
         {statusChange ? (locking ? "Xác nhận khóa" : "Xác nhận mở khóa") : "Xác nhận đổi vai trò"}</button>
       <button type="button" className="secondary-button" disabled={busy} onClick={() => setConfirming(null)}>Hủy</button>
     </div>}

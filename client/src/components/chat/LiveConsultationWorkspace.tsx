@@ -13,6 +13,7 @@ import { useConsultationSocket, type ConsultationNotice } from "./useConsultatio
 import { useChatNotifications } from "./ChatNotifications";
 import { clearReadingHandoff, readReadingHandoff, storeReadingHandoff, type ReadingHandoff } from "./readingHandoff";
 import styles from "./chat.module.css";
+import { RoomFeedback } from "./FeedbackDialog";
 import { isUuid } from "@/types/historyValidation";
 
 type Loader<T> = (signal: AbortSignal) => Promise<T>;
@@ -116,6 +117,7 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
   const [sendNotice, setSendNotice] = useState("");
   const [transitioning, setTransitioning] = useState(false);
   const [roomNotice, setRoomNotice] = useState("");
+  const [ratingRoomId, setRatingRoomId] = useState<string | null>(null);
   const requestIds = useRef(new Map<string, string>());
   const pending = useRef<AbortController | null>(null);
   useEffect(() => () => pending.current?.abort(), []);
@@ -245,6 +247,7 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     setRoomNotice("");
     try {
       await workspace.command({ action, conversationId: detail.data.conversationId, requestId: chatRequestId() }, controller.signal);
+      if (action === "END" && audience === "user") setRatingRoomId(detail.data.conversationId);
     } catch (error) {
       if (controller.signal.aborted) return;
       const code = errorCode(error);
@@ -278,6 +281,7 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
   return <ConsultationWorkspace audience={audience} access={{ status: "authorized", accessKey: session.accountId,
     connection: chat.connection, room, conversations: conversations.data?.items.map(roomSummary),
     consultants: consultants?.map(item => ({ id: item.consultantId, name: item.displayName, profile: item.summary ?? undefined,
+      averageRating: item.averageRating, ratingCount: item.ratingCount,
       online: onlineConsultants?.has(item.consultantId) })),
     onlineConsultantCount: onlineConsultants?.size,
   }} messaging={chat.messaging && { ...chat.messaging, notifyTyping: workspace.notifyTyping }} retry={chat.retry} controls={{
@@ -298,6 +302,10 @@ function SessionWorkspace({ session, audience, onAuthError }: { session: ChatSes
     </>,
     listStatus: <PageStatus resource={conversations} label="danh sách hội thoại" changePage={setConversationPage} />,
     roomStatus: <>
+      {detail.data && <RoomFeedback key={detail.data.conversationId} session={session} room={detail.data}
+        onRated={directory.reload}
+        promptRating={ratingRoomId === detail.data.conversationId && detail.data.endReason === "COMPLETED"}
+        closePrompt={() => setRatingRoomId(null)} />}
       {roomReading && room?.status === "pending" && <p role="status">Lá số sẽ sẵn sàng để gửi khi tư vấn viên chấp nhận.</p>}
       {roomReading && (room?.status === "ended" || detail.error === "NOT_FOUND") && <button type="button" className="secondary-button"
         onClick={() => updateReading({ ...roomReading, conversationId: undefined, request: undefined })}>Dùng lá số cho yêu cầu mới</button>}

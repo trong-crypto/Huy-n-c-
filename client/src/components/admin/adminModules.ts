@@ -6,6 +6,7 @@ export const adminModules = [
   { id: "website", href: "/admin/website", kind: "content", title: "Quản lý nội dung website", description: "Soạn và xem trước phần giới thiệu, hướng dẫn và mô tả phương pháp." },
   { id: "consultants", href: "/admin/consultants", kind: "directory", title: "Quản lý tư vấn viên", description: "Theo dõi tài khoản, hồ sơ và trạng thái duyệt của tư vấn viên." },
   { id: "audit", href: "/admin/audit", kind: "audit", title: "Nhật ký quản trị", description: "Đối chiếu thao tác quản trị khi Backend cung cấp nhật ký." },
+  { id: "reports", href: "/admin/reports", kind: "reports", title: "Báo cáo tư vấn", description: "Tiếp nhận và xử lý báo cáo từ người dùng và tư vấn viên." },
 ] as const;
 
 export type ContentModule = Extract<typeof adminModules[number], { kind: "content" }>;

@@ -96,12 +96,14 @@ final class AccountAuthService {
         Credentials credentials = credentials("identifier_normalized", identifier, false).orElse(null);
         String hash = credentials == null ? dummyHash : credentials.hash();
         boolean matches = passwordWork(() -> passwords.matches(password, hash));
-        if (!matches || credentials == null || !credentials.active()) throw invalidCredentials();
+        if (!matches || credentials == null) throw invalidCredentials();
+        if (!credentials.active()) throw locked(credentials.account().id());
 
         return transactions.execute(transaction -> {
             Credentials current = credentials("identifier_normalized", identifier, true)
                     .orElseThrow(AccountAuthService::invalidCredentials);
-            if (!current.active() || !current.account().id().equals(credentials.account().id())
+            if (!current.active()) throw locked(current.account().id());
+            if (!current.account().id().equals(credentials.account().id())
                     || !current.hash().equals(hash)) {
                 throw invalidCredentials();
             }
@@ -135,6 +137,10 @@ final class AccountAuthService {
     }
 
     private StoredSession requireStoredSession(Realm realm, String column, Object value) {
+        var lockedIds = db.query("SELECT a.id FROM account_sessions s JOIN accounts a ON a.id=s.account_id WHERE "
+                + column + "=? AND s.realm=? AND s.expires_at>? AND a.status='LOCKED'",
+                (row,index)->row.getObject("id",UUID.class),value,realm.name(),now());
+        if (!lockedIds.isEmpty()) throw locked(lockedIds.get(0));
         StoredSession stored = db.query("""
                 SELECT a.id, a.display_name, a.role, s.expires_at, s.id AS session_id
                 FROM account_sessions s JOIN accounts a ON a.id = s.account_id
@@ -149,6 +155,15 @@ final class AccountAuthService {
                 .stream().findFirst().orElseThrow(AuthFailure::session);
         if (!realm.allows(stored.account().role())) throw AuthFailure.session();
         return stored;
+    }
+
+    private AuthFailure locked(UUID id) {
+        String reason=db.queryForObject("SELECT lock_reason FROM accounts WHERE id=?",String.class,id);
+        OffsetDateTime until=db.queryForObject("SELECT lock_until FROM accounts WHERE id=?",OffsetDateTime.class,id);
+        String duration=until==null?"":" Tạm khóa đến "+until.atZoneSameInstant(java.time.ZoneId.of("Asia/Ho_Chi_Minh"))
+                .format(java.time.format.DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"))+" (giờ Việt Nam).";
+        return new AuthFailure(403,"ACCOUNT_SUSPENDED","Tài khoản của bạn đã bị khóa. Lý do: "
+                +(reason==null?"Vi phạm quy định sử dụng hệ thống":reason)+"."+duration+" Liên hệ admin: ddaotrondz2005@gmail.com");
     }
 
     void logout(Realm realm, String token, String csrf) {

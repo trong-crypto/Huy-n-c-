@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Profile("db")
 @ConditionalOnProperty(name = "huyenco.auth.enabled", havingValue = "true")
 public class ChatConsultantProfiles {
-    private static final String PUBLIC_COLUMNS = "SELECT p.account_id, a.display_name, p.summary";
+    private static final String PUBLIC_COLUMNS = "SELECT p.account_id, a.display_name, p.summary,"
+            + " (SELECT avg(stars) FROM consultation_ratings r WHERE r.consultant_id=p.account_id) AS average_rating,"
+            + " (SELECT count(*) FROM consultation_ratings r WHERE r.consultant_id=p.account_id) AS rating_count";
     private static final String ELIGIBLE_PROFILES = """
             FROM consultant_profiles p
             JOIN accounts a ON a.id = p.account_id
@@ -23,9 +25,11 @@ public class ChatConsultantProfiles {
             """;
     private static final RowMapper<PublicProfile> PUBLIC_PROFILE = (row, index) ->
             new PublicProfile(row.getObject("account_id", UUID.class),
-                    row.getString("display_name"), row.getString("summary"));
+                    row.getString("display_name"), row.getString("summary"),row.getObject("average_rating")==null?null:row.getDouble("average_rating"),row.getLong("rating_count"));
 
-    public record PublicProfile(UUID consultantId, String displayName, String summary) {}
+    public record PublicProfile(UUID consultantId, String displayName, String summary, Double averageRating, long ratingCount) {
+        public PublicProfile(UUID id,String name,String summary) { this(id,name,summary,null,0); }
+    }
     record Page(List<PublicProfile> items, int page, int size, long totalElements, long totalPages) {}
 
     private final JdbcTemplate db;

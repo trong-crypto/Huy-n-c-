@@ -78,8 +78,9 @@ class AccountConsultationStatsTest {
                 assertEquals(expected, service.counts(consultant, "consultant_account_id", date, date));
                 assertEquals(7, service.counts(id, "user_account_id", null, null).total());
                 assertEquals(0, service.counts(UUID.randomUUID(), "user_account_id", null, null).total());
-                db.execute("CREATE TEMP TABLE accounts (id uuid, identifier_normalized text, display_name text, role text, status text, status_version int, created_at timestamptz) ON COMMIT DROP");
-                db.update("INSERT INTO pg_temp.accounts VALUES (?,'user','User','USER','ACTIVE',1,now()),(?,'consultant','Consultant','CONSULTANT','ACTIVE',1,now())", id, consultant);
+                db.execute("CREATE TEMP TABLE consultation_ratings (consultant_id uuid, stars int) ON COMMIT DROP");
+                db.execute("CREATE TEMP TABLE accounts (id uuid, identifier_normalized text, display_name text, role text, status text, status_version int, created_at timestamptz,lock_reason text DEFAULT NULL) ON COMMIT DROP");
+                db.update("INSERT INTO pg_temp.accounts VALUES (?,'user','User','USER','ACTIVE',1,now(),null),(?,'consultant','Consultant','CONSULTANT','ACTIVE',1,now(),null)", id, consultant);
                 var accounts = service.list("", null, null, false, 0, 20);
                 assertEquals(2, accounts.totalElements());
                 assertEquals(7, accounts.items().stream().filter(a -> a.id().equals(id)).findFirst().orElseThrow().consultationRequests());

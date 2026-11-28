@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
         { source: "/api/v1/ws/account", destination: `${server}/api/v1/ws/account` },
         { source: "/api/v1/chat/consultants/:path*", destination: `${server}/api/v1/chat/consultants/:path*` },
         { source: "/api/v1/chat/conversations/:path*", destination: `${server}/api/v1/chat/conversations/:path*` },
+        { source: "/api/v1/chat/moderation-notifications/:path*", destination: `${server}/api/v1/chat/moderation-notifications/:path*` },
         { source: "/api/v1/ai/:path*", destination: `${server}/api/v1/ai/:path*` },
       ] : []),
       ...(process.env.NEXT_PUBLIC_ACCOUNT_HISTORY === "1" || process.env.NEXT_PUBLIC_METHOD_GUIDES === "1"
@@ -41,6 +42,7 @@ const nextConfig: NextConfig = {
         { source: "/api/v1/methods", destination: `${server}/api/v1/methods` },
       ] : []),
       ...(process.env.NEXT_PUBLIC_ADMIN_ACCOUNTS === "1" ? [
+        { source: "/api/v1/admin/reports/:path*", destination: `${server}/api/v1/admin/reports/:path*` },
         { source: "/api/v1/admin/accounts/:path*", destination: `${server}/api/v1/admin/accounts/:path*` },
         { source: "/api/v1/admin/consultants/:path*", destination: `${server}/api/v1/admin/consultants/:path*` },
         { source: "/api/v1/admin/metrics/:path*", destination: `${server}/api/v1/admin/metrics/:path*` },

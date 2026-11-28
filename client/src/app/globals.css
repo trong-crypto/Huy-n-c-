@@ -59,7 +59,7 @@ input[aria-invalid="true"], select[aria-invalid="true"] { border-color: var(--da
 textarea { resize: vertical; }
 select:disabled, input:disabled, fieldset:disabled { cursor: not-allowed; }
 .site-header { background: rgb(12 7 25 / 85%); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-.site-navigation { max-width: 1248px; margin: auto; padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.site-navigation { max-width: 1480px; margin: auto; padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 .brand { display: flex; align-items: center; gap: 12px; color: var(--primary-hover); font-family: var(--font-heading); font-size: 25px; letter-spacing: .1em; font-weight: 400; text-decoration: none; }
 .brand-mark { display: grid; place-items: center; width: 46px; height: 46px; flex-shrink: 0; color: var(--primary); }
 .brand-mark svg { width: 100%; height: 100%; }

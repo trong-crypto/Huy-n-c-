@@ -1,4 +1,5 @@
 import { notFound, redirect } from "next/navigation";
+import { AdminReports } from "@/components/admin/AdminReports";
 import { adminModules } from "@/components/admin/adminModules";
 import { AdminContentWorkspace } from "@/components/admin/AdminContentWorkspace";
 import { AdminUsersWorkspace } from "@/components/admin/AdminUsersWorkspace";
@@ -12,6 +13,7 @@ export default async function AdminModulePage({ params }: { params: Promise<{ mo
   if (module === "consultants") redirect("/admin/users?tab=consultants");
   const section = adminModules.find(item => item.id === module);
   if (!section) notFound();
+  if (section.kind === "reports") return <AdminReports />;
   if (section.kind === "directory") return <AdminUsersWorkspace />;
   if (section.kind === "audit") return CLIENT_CONFIG.adminAccounts ? <AdminAuditLive /> : <AdminAuditLog />;
   return <AdminContentWorkspace module={section} />;

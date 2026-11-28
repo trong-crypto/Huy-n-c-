@@ -98,9 +98,9 @@ final class AdminDirectoryHttp {
         } catch (ContractException failure) {
             int status = switch (failure.code()) {
                 case "INVALID_SESSION" -> 401;
-                case "CSRF_REJECTED", "FORBIDDEN" -> 403;
+                case "CSRF_REJECTED", "FORBIDDEN", "ACCOUNT_SUSPENDED" -> 403;
                 case "NOT_FOUND" -> 404;
-                case "VERSION_CONFLICT", "INVALID_TRANSITION", "ACCOUNT_LOCKED", "CONSULTANT_APPROVAL_REQUIRED",
+                case "VERSION_CONFLICT", "REQUEST_ID_CONFLICT", "INVALID_TRANSITION", "ACCOUNT_LOCKED", "CONSULTANT_APPROVAL_REQUIRED",
                         "PROFILE_EXISTS", "GLOSS_DRAFT_EXISTS", "SOURCE_PROPOSAL_EXISTS",
                         "SOURCE_CHANGED", "SOURCE_ALREADY_APPLIED", "METHOD_EXISTS", "METHOD_PROTECTED",
                         "METHOD_IN_USE", "METHOD_UNAVAILABLE" -> 409;

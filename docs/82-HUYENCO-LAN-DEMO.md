@@ -4,7 +4,7 @@ Cập nhật ngày 24/11/2026. Thực hiện các bước theo đúng thứ tự
 
 | Thành phần | Cấu hình cố định |
 | --- | --- |
-| Database | `huyenco`, Flyway V40 |
+| Database | `huyenco`, Flyway V43 |
 | PostgreSQL | `127.0.0.1:5432` |
 | Backend | `127.0.0.1:18117` |
 | Client | `127.0.0.1:18100` |
@@ -20,7 +20,7 @@ Mở `services.msc`, tìm `postgresql-x64-18`, chọn **Start** nếu dịch v�
 & 'C:\Program Files\PostgreSQL\18\bin\pg_isready.exe' -h 127.0.0.1 -p 5432
 ```
 
-Chỉ tiếp tục khi có `accepting connections`. Database `huyenco` đã được nâng lên V40 trong phiên triển khai. Các thao tác trên website ghi trực tiếp vào database này. pgAdmin là ứng dụng quản lý, có thể đóng sau khi kiểm tra database.
+Chỉ tiếp tục khi có `accepting connections`. Database `huyenco` đã được nâng lên V43 trong phiên triển khai. Các thao tác trên website ghi trực tiếp vào database này. pgAdmin là ứng dụng quản lý, có thể đóng sau khi kiểm tra database.
 
 ## 2. PowerShell A — mở Cloudflare và lấy URL
 
@@ -173,16 +173,16 @@ Kết quả mong đợi là health `UP`, readiness `READY`, hai trang trả `200
 | Đăng nhập/đăng ký trả `403 CSRF_REJECTED` hoặc WSS bị từ chối | Đối chiếu URL hiện tại với ALLOWED_ORIGINS, cập nhật đúng HTTPS rồi khởi động lại Backend. |
 | API phiên trả `401 INVALID_SESSION` khi chưa đăng nhập | Đăng nhập trên URL mới. |
 | Backend báo thiếu datasource URL hoặc profile mặc định | Kiểm SPRING_PROFILES_ACTIVE=db và ba biến DB_URL, DB_USERNAME, DB_PASSWORD. |
-| Thiếu bảng `chat_read_positions` | Database chưa áp dụng V40. Dừng Backend, sao lưu và nâng migration. |
+| Thiếu bảng `chat_read_positions` | Database chưa áp dụng V43. Dừng Backend, sao lưu và nâng migration. |
 | Backend/Client báo cổng đã được dùng | Dừng tiến trình cũ đang dùng đúng cổng trước khi khởi chạy lại. |
 | Build vẫn nhắc cập nhật Next.js | Xem ghi chú cuối bước 4. Kiểm phiên bản trong thư mục đang chạy, tránh nhầm với bản nâng cấp ở worktree khác. |
 | Giao diện chưa cập nhật | Kiểm build thành công, dừng/start lại Client và Ctrl+Shift+R. |
 | Cloudflare còn dòng lỗi đỏ cũ | Xem thời gian dòng lỗi. Tải lại URL và kiểm tra có phát sinh lỗi mới sau khi Client Ready hay không. |
 | URL hết hiệu lực | Dùng URL mới được cấp khi chạy lại tunnel, cập nhật Origin và khởi động lại Backend. |
 
-## 8. Nâng database khi bản code yêu cầu V40
+## 8. Nâng database khi bản code yêu cầu V43
 
-Chỉ thực hiện mục này nếu database đang thấp hơn V40. Dừng Backend. Trong PowerShell tại thư mục dự án, chạy sao lưu rồi migration:
+Chỉ thực hiện mục này nếu database đang thấp hơn V43. Dừng Backend. Trong PowerShell tại thư mục dự án, chạy sao lưu rồi migration:
 
 ```powershell
 cd 'C:\Users\abc\OneDrive\Documents\ChatGPT\BTL_LTM'
@@ -198,7 +198,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Sao luu that bai' }
     Push-Location server
     try {
-        .\mvnw.cmd -Pdatabase '-Dflyway.target=40' flyway:migrate
+        .\mvnw.cmd -Pdatabase '-Dflyway.target=43' flyway:migrate
         if ($LASTEXITCODE -ne 0) { throw 'Migration that bai' }
     } finally { Pop-Location }
     & "$pgBin\psql.exe" -h 127.0.0.1 -U postgres -d huyenco -XAtw -v ON_ERROR_STOP=1 -c 'SELECT max(version::int) FROM flyway_schema_history WHERE success'

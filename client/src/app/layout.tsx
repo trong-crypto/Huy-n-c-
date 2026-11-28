@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PublicSiteShell } from "@/components/PublicSiteShell";
 import "./globals.css";
+import { LockedAccountNotice } from "@/components/chat/FeedbackDialog";
 
 export const metadata: Metadata = {
   title: "Huyền Cơ",
@@ -12,6 +13,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="vi">
       <body>
         <PublicSiteShell>{children}</PublicSiteShell>
+        <LockedAccountNotice />
       </body>
     </html>
   );

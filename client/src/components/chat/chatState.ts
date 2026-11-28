@@ -28,7 +28,7 @@ export type ChatAccess =
   | { status: "blocked" | "loading" | "expired" | "forbidden" | "error" }
   | { status: "authorized"; accessKey: string; connection: ChatConnection; room: ChatRoom | null;
       failure?: "sendFailed" | "deliveryUnknown";
-      consultants?: readonly { id: string; name: string; profile?: string; availability?: string; online?: boolean }[];
+      consultants?: readonly { id: string; name: string; profile?: string; availability?: string; online?: boolean; averageRating?: number | null; ratingCount?: number }[];
       onlineConsultantCount?: number;
       conversations?: readonly { id: string; title: string; status: ChatRoom["status"] }[] };
 

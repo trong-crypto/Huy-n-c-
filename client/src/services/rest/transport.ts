@@ -42,6 +42,8 @@ export async function requestJson<T>(path: string, guard: (value: unknown) => va
         DATABASE_UNAVAILABLE: 503, KNOWLEDGE_DATA_INCOMPLETE: 503, INTERNAL_ERROR: 500,
         AI_UNAVAILABLE: 503, AI_TIMEOUT: 504 };
       if (response.ok || (Object.hasOwn(statuses, value.error.code) && response.status !== statuses[value.error.code])) throw new RestError("INVALID_RESPONSE");
+      if(value.error.code === "ACCOUNT_SUSPENDED" && typeof window !== "undefined")
+        window.dispatchEvent(new CustomEvent("huyenco-account-locked", { detail: value.error.message }));
       throw new RestError(value.error.code, value.error);
     }
     const expected = options.successStatus ?? 200;
